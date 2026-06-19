@@ -4,619 +4,642 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Crédit Jkl.oin : crédits auto, conso, perso, rachat et simulation de prêt</title>
-  <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit. Découvrez nos solutions de prêts à la consommation : personnel, voiture et rachat de crédits."/>
+  <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#333;background:#fff;line-height:1.5}
+body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#222;background:#fff;line-height:1.5;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 img{max-width:100%;height:auto;display:block}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 
-/* ── Variables ── */
 :root{
   --orange:#e35718;
-  --orange-d:#c4481a;
   --navy:#00334D;
-  --navy-d:#002437;
-  --sky:#3ab0e2;
-  --sky-l:#7dcbee;
-  --text:#444;
-  --gray:#f6f7f9;
-  --border:#e0e0e0;
-  --r:10px;
-  --shadow:0 2px 14px rgba(0,0,0,.10);
+  --navy-d:#001f38;
+  --teal:#06c2b0;        /* bouton "Simuler un projet" */
+  --teal-d:#049f90;
+  --sky:#3ab5e5;
+  --sky-l:#62c9ef;
+  --text:#333;
+  --gray:#f5f5f5;
+  --hh:64px;
   --w:1200px;
-  --hh:76px;
 }
 
-/* ── Utils ── */
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-.wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.btn{display:inline-block;border-radius:2rem;padding:.65rem 1.7rem;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
-.btn-orange{background:var(--orange);color:#fff}
-.btn-orange:hover{background:var(--orange-d);color:#fff}
-.btn-white{background:#fff;color:var(--orange)}
-.btn-white:hover{background:#f0ede9;color:var(--orange)}
-.btn-outline-white{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
-.btn-outline-white:hover{background:rgba(255,255,255,.15);border-color:#fff}
-.btn-sky{background:var(--sky);color:#fff}
-.btn-sky:hover{background:#2a9fd0;color:#fff}
-
-/* ════════════════════
+/* ═══════════════════════════
    HEADER
-════════════════════ */
+═══════════════════════════ */
 .header{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   background:#fff;
-  box-shadow:0 1px 6px rgba(0,0,0,.12);
+  box-shadow:0 1px 8px rgba(0,0,0,.12);
   height:var(--hh);
 }
-.header-inner{
-  max-width:var(--w);margin:0 auto;padding:0 1.5rem;
-  height:100%;display:flex;align-items:center;gap:1.5rem;
+.hd-inner{
+  max-width:var(--w);margin:0 auto;
+  height:100%;display:flex;align-items:center;
+  padding:0 1rem;justify-content:space-between;
 }
-/* logo */
-.logo{font-size:1.6rem;font-weight:800;color:var(--orange);letter-spacing:-1px;flex-shrink:0}
-/* nav */
-.nav{flex:1;height:100%}
-.nav ul{display:flex;height:100%;align-items:center}
-.nav li{height:100%;position:relative}
-.nav li a{
-  display:flex;align-items:center;height:100%;
-  padding:0 .95rem;font-size:.9rem;font-weight:600;color:var(--text);
-  border-bottom:3px solid transparent;white-space:nowrap;
-  transition:color .15s,border-color .15s;
+/* hamburger */
+.hd-menu-btn{
+  display:flex;flex-direction:column;gap:5px;padding:.5rem;
+  cursor:pointer;
 }
-.nav li a:hover,.nav li.open>a{color:var(--orange);border-bottom-color:var(--orange)}
-/* dropdown arrow */
-.nav li.has-sub>a::after{
-  content:'';display:inline-block;width:6px;height:6px;margin-left:.35rem;margin-top:-2px;
-  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
-  transform:rotate(45deg);transition:transform .2s;
+.hd-menu-btn span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
+.hd-menu-label{font-size:.7rem;font-weight:700;color:var(--navy);margin-top:1px;text-align:center;letter-spacing:.03em}
+/* logo centré */
+.hd-logo{
+  position:absolute;left:50%;transform:translateX(-50%);
+  font-size:1.55rem;font-weight:800;color:var(--navy);letter-spacing:-1px;
 }
-.nav li.has-sub.open>a::after{transform:rotate(-135deg);margin-top:3px}
-/* sub-menu */
-.sub-menu{
-  display:none;position:absolute;top:100%;left:0;
-  background:#fff;min-width:220px;
-  box-shadow:0 8px 28px rgba(0,0,0,.13);
-  border-top:3px solid var(--orange);
-  border-radius:0 0 var(--r) var(--r);z-index:100;
+/* droite */
+.hd-right{display:flex;align-items:center;gap:.5rem}
+.hd-connect{
+  display:flex;align-items:center;gap:.35rem;
+  font-size:.8rem;font-weight:700;color:var(--navy);
 }
-.nav li.open .sub-menu{display:block}
-.sub-menu li{height:auto}
-.sub-menu li a{
-  height:auto;padding:.7rem 1.2rem;
-  border-bottom:none;font-size:.87rem;
+/* nav desktop */
+.desktop-nav{display:none}
+@media(min-width:960px){
+  .hd-menu-btn,.hd-menu-label-wrap{display:none}
+  .hd-logo{position:static;transform:none;font-size:1.5rem}
+  .desktop-nav{
+    display:flex;flex:1;height:100%;align-items:center;margin-left:1.5rem;
+  }
+  .desktop-nav ul{display:flex;height:100%;align-items:center}
+  .desktop-nav li{height:100%;position:relative}
+  .desktop-nav li>a{
+    display:flex;align-items:center;height:100%;
+    padding:0 .85rem;font-size:.88rem;font-weight:600;color:var(--text);
+    border-bottom:3px solid transparent;white-space:nowrap;
+    transition:color .15s,border-color .15s;
+  }
+  .desktop-nav li>a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+  .desktop-nav li.has-sub>a::after{
+    content:'';display:inline-block;width:5px;height:5px;margin-left:.3rem;margin-top:-2px;
+    border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+    transform:rotate(45deg);
+  }
+  .desktop-nav li.open>a{color:var(--orange);border-bottom-color:var(--orange)}
+  .sub-menu{
+    display:none;position:absolute;top:100%;left:0;
+    background:#fff;min-width:210px;
+    box-shadow:0 8px 24px rgba(0,0,0,.13);
+    border-top:3px solid var(--orange);
+    border-radius:0 0 8px 8px;z-index:200;
+  }
+  .desktop-nav li.open .sub-menu{display:block}
+  .sub-menu li{height:auto}
+  .sub-menu li a{height:auto;padding:.65rem 1.1rem;border-bottom:none;font-size:.85rem}
+  .sub-menu li a:hover{background:var(--gray)}
+  .hd-right .hd-connect-btn{
+    background:var(--orange);color:#fff;
+    border-radius:2rem;padding:.42rem 1.1rem;
+    font-size:.82rem;font-weight:700;
+    display:flex;align-items:center;gap:.35rem;
+  }
+  .hd-right .hd-connect-btn:hover{background:#c4481a}
+  .hd-right .hd-dossier{
+    display:flex;align-items:center;gap:.35rem;
+    border:1.5px solid #ddd;border-radius:2rem;padding:.4rem .9rem;
+    font-size:.8rem;font-weight:600;color:var(--text);margin-right:.3rem;
+    transition:border-color .15s,color .15s;
+  }
+  .hd-right .hd-dossier:hover{border-color:var(--orange);color:var(--orange)}
+  .hd-connect{display:none}
 }
-.sub-menu li a:hover{background:var(--gray);border-bottom:none}
-/* account */
-.hd-account{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
-.hd-btn{
+
+/* ═══════════════════════════
+   PAGE WRAPPER
+═══════════════════════════ */
+.page{padding-top:var(--hh)}
+
+/* ═══════════════════════════
+   HERO SECTION 1 — Photo bleu ciel
+═══════════════════════════ */
+.hero-photo-section{
+  background:linear-gradient(160deg,#5ec6ed 0%,#3ab5e5 50%,#1e9fd4 100%);
+  position:relative;
+  min-height:340px;
+  overflow:hidden;
+  display:flex;align-items:flex-end;
+  padding:2rem 1.5rem 0;
+}
+.hero-photo-bg{
+  position:absolute;right:0;top:0;bottom:0;
+  width:60%;
+  background:url('https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Hero/App-Sofinco-visuel-mobile.webp') right center/cover no-repeat;
+}
+.hero-photo-content{
+  position:relative;z-index:1;
+  color:#fff;
+  max-width:55%;
+  padding-bottom:2rem;
+}
+.hero-photo-content h1{
+  font-size:1.5rem;font-weight:800;line-height:1.25;
+}
+.hero-photo-content h1 sup{font-size:.75rem}
+
+/* ═══════════════════════════
+   HERO SECTION 2 — Carte dark
+═══════════════════════════ */
+.hero-card-section{
+  background:var(--navy-d);
+  color:#fff;
+  padding:1.5rem;
+}
+.hero-card-inner{
+  max-width:var(--w);margin:0 auto;
+  display:flex;align-items:center;gap:1.5rem;
+}
+.hero-card-text{flex:1}
+.hero-card-label{
+  font-size:.85rem;font-weight:700;margin-bottom:.35rem;
   display:flex;align-items:center;gap:.4rem;
-  padding:.42rem .9rem;border:1.5px solid var(--border);border-radius:2rem;
-  font-size:.8rem;font-weight:600;color:var(--text);white-space:nowrap;
-  transition:border-color .15s,color .15s;
 }
-.hd-btn:hover{border-color:var(--orange);color:var(--orange)}
-.hd-btn-login{
-  background:var(--orange);color:#fff;border-color:var(--orange);
-  padding:.45rem 1rem;
-}
-.hd-btn-login:hover{background:var(--orange-d);border-color:var(--orange-d);color:#fff}
-.hd-btn svg,.hd-btn-login svg{flex-shrink:0}
-
-/* ════════════════════
-   HERO  (layout fidèle à Sofinco)
-════════════════════ */
-.hero{
-  margin-top:var(--hh);
-  background:linear-gradient(160deg,#5ec4ec 0%,#3ab0e2 40%,#2196c4 100%);
-  min-height:480px;
-  display:flex;align-items:stretch;
-  position:relative;overflow:hidden;
-}
-
-/* Left dark promo card */
-.hero-left{
-  background:linear-gradient(170deg,#001f3a 0%,#00334D 100%);
-  width:310px;flex-shrink:0;
-  padding:2rem 1.8rem;
-  display:flex;flex-direction:column;justify-content:space-between;
-  color:#fff;
-  position:relative;z-index:1;
-}
-.hero-left-tag{
-  display:inline-block;background:rgba(255,255,255,.18);color:#fff;
-  border-radius:1rem;padding:.2rem .75rem;font-size:.75rem;font-weight:700;
-  margin-bottom:.8rem;
-}
-.hero-left h2{font-size:1.2rem;font-weight:700;line-height:1.35;margin-bottom:1rem}
-.hero-left-card{
-  background:linear-gradient(135deg,#1a4a6e,#0a2d45);
-  border-radius:.8rem;padding:1.1rem;margin-bottom:1.2rem;
-  border:1px solid rgba(255,255,255,.12);
-}
-.hero-left-card .card-label{font-size:.72rem;opacity:.7;margin-bottom:.3rem}
-.hero-left-card .rate{font-size:2.8rem;font-weight:800;line-height:1}
-.hero-left-card .rate sup{font-size:1.2rem;vertical-align:top;margin-top:.3rem}
-.hero-left-card .rate-sub{font-size:.75rem;opacity:.7;margin-top:.25rem}
-.hero-left-card .rate-mention{font-size:.68rem;opacity:.6;margin-top:.4rem;line-height:1.45}
-.hero-left .btn{width:100%;text-align:center;margin-top:auto}
-
-/* Right main content */
-.hero-right{
-  flex:1;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:2.5rem 2.5rem 2.5rem 3rem;
-  position:relative;z-index:1;
-  color:#fff;
-}
-.hero-right h1{
-  font-size:2rem;font-weight:800;line-height:1.25;
-  margin-bottom:.9rem;max-width:480px;
-}
-.hero-right .hero-sub{
-  font-size:.98rem;opacity:.9;margin-bottom:1.6rem;max-width:420px;line-height:1.6;
-}
-.hero-right .hero-sub strong{font-weight:700}
-/* tabs */
-.hero-tabs{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.5rem}
-.hero-tab{
-  background:rgba(255,255,255,.18);color:#fff;
-  border:1.5px solid rgba(255,255,255,.4);border-radius:2rem;
-  padding:.38rem 1rem;font-size:.82rem;font-weight:500;
-  cursor:pointer;transition:all .2s;font-family:inherit;
-}
-.hero-tab:hover,.hero-tab.active{
-  background:rgba(255,255,255,.35);border-color:#fff;font-weight:700;
-}
-/* cta row */
-.hero-cta{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center}
-/* decorative photo */
-.hero-photo{
-  position:absolute;right:0;bottom:0;top:0;
-  width:340px;
-  background:url('https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Hero/App-Sofinco-visuel-desktop.webp') right bottom/contain no-repeat;
-  opacity:.95;
-}
-
-/* ════════════════════
-   PRODUITS
-════════════════════ */
-.products{padding:3.5rem 0;background:#fff}
-.products h2{
-  font-size:1.6rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:.4rem;
-}
-.products .sub{
-  font-size:.95rem;color:#888;text-align:center;margin-bottom:2.2rem;
-}
-.products-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;
-}
-.prod-card{
-  border-radius:var(--r);overflow:hidden;
-  box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s;
-  display:flex;flex-direction:column;
-}
-.prod-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.14)}
-.prod-card-top{
-  background:var(--sky);
-  padding:1.4rem;
-  display:flex;align-items:center;justify-content:center;
-  min-height:90px;
-}
-.prod-card-top a{
-  display:block;width:100%;text-align:center;
-  background:#fff;color:var(--sky);
-  border-radius:2rem;padding:.65rem 1rem;
+.hero-card-label sup{font-size:.6rem}
+.hero-card-desc{font-size:.85rem;opacity:.8;line-height:1.5}
+.hero-card-cta{
+  margin-top:1rem;
+  display:inline-block;
+  background:#fff;color:var(--navy-d);
+  border-radius:2rem;padding:.6rem 1.6rem;
   font-size:.9rem;font-weight:700;
+  width:100%;text-align:center;
   transition:background .2s;
 }
-.prod-card-top a:hover{background:#e8f7fd}
-.prod-card-img{height:175px;overflow:hidden}
-.prod-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.prod-card:hover .prod-card-img img{transform:scale(1.05)}
+.hero-card-cta:hover{background:#e8f0f5}
+.hero-card-img-wrap{
+  width:140px;flex-shrink:0;
+}
+.hero-card-img-wrap img{width:100%;border-radius:.6rem}
 
-/* ════════════════════
+/* ═══════════════════════════
+   HERO SECTION 3 — Simulateur blanc
+═══════════════════════════ */
+.hero-sim-section{
+  background:#fff;
+  padding:1.8rem 1.5rem;
+  border-bottom:1px solid #eee;
+}
+.hero-sim-inner{max-width:var(--w);margin:0 auto}
+.hero-sim-section h2{
+  font-size:1.3rem;font-weight:800;color:var(--navy);
+  margin-bottom:.5rem;line-height:1.3;
+}
+.hero-sim-section .sim-sub{
+  font-size:.9rem;color:var(--text);margin-bottom:1.3rem;
+}
+.hero-sim-section .sim-sub strong{font-weight:700}
+.sim-tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem}
+.sim-tab{
+  background:#f0f0f0;color:var(--navy);
+  border:1.5px solid #ddd;border-radius:2rem;
+  padding:.35rem .9rem;font-size:.82rem;font-weight:500;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.sim-tab:hover,.sim-tab.active{
+  background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700;
+}
+.btn-teal{
+  display:block;width:100%;text-align:center;
+  background:var(--teal);color:#fff;
+  border-radius:2rem;padding:.75rem 1.5rem;
+  font-size:1rem;font-weight:700;
+  transition:background .2s;
+}
+.btn-teal:hover{background:var(--teal-d);color:#fff}
+
+/* ═══════════════════════════
+   DESKTOP HERO (côte à côte)
+═══════════════════════════ */
+@media(min-width:960px){
+  .hero-photo-section{min-height:420px;padding:3rem 2rem 0}
+  .hero-photo-bg{width:45%}
+  .hero-photo-content{max-width:50%}
+  .hero-photo-content h1{font-size:2.1rem}
+  .hero-card-section{padding:2rem}
+  .hero-sim-section{padding:2rem}
+  .hero-sim-section h2{font-size:1.5rem}
+  /* On large screens, show hero sections side by side in a grid */
+  .hero-desktop-grid{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:0;
+  }
+}
+
+/* ═══════════════════════════
+   PRODUITS
+═══════════════════════════ */
+.products{
+  padding:2.5rem 0;
+  background:#fff;
+}
+.products .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.products h2{
+  font-size:1.5rem;font-weight:800;color:var(--navy);
+  text-align:center;margin-bottom:.4rem;
+}
+.products .prod-sub{
+  font-size:.92rem;color:#888;font-weight:600;
+  text-align:center;margin-bottom:1.8rem;
+}
+.prod-list{display:flex;flex-direction:column;gap:1.2rem}
+.prod-item{
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.10);
+  position:relative;
+}
+.prod-item img{
+  width:100%;height:220px;object-fit:cover;display:block;
+}
+.prod-btn{
+  display:block;
+  background:var(--navy);color:#fff;
+  text-align:center;
+  padding:.85rem 1.5rem;
+  font-size:.95rem;font-weight:700;
+  transition:background .2s;
+}
+.prod-btn:hover{background:#005580;color:#fff}
+@media(min-width:700px){
+  .prod-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+  .prod-item img{height:175px}
+}
+
+/* ═══════════════════════════
    AVIS
-════════════════════ */
-.reviews{padding:3.5rem 0;background:var(--gray)}
+═══════════════════════════ */
+.reviews{padding:2.5rem 0;background:var(--gray)}
+.reviews .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
 .reviews h2{
-  font-size:1.55rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:1.3rem;
+  font-size:1.4rem;font-weight:800;color:var(--navy);
+  text-align:center;margin-bottom:1.2rem;line-height:1.3;
 }
 .reviews h2 span{color:var(--orange)}
-.reviews-badge{
-  display:flex;justify-content:center;margin-bottom:2.2rem;
-}
+.reviews-badge{display:flex;justify-content:center;margin-bottom:1.8rem}
 .reviews-badge a{
   display:flex;align-items:center;gap:.6rem;
-  background:#fff;border-radius:2rem;padding:.5rem 1.3rem;
-  box-shadow:var(--shadow);font-size:.88rem;color:var(--text);
+  background:#fff;border-radius:2rem;padding:.5rem 1.2rem;
+  box-shadow:0 2px 10px rgba(0,0,0,.09);font-size:.85rem;color:var(--text);
 }
-.stars-gold{color:#f5a623;font-size:1rem;letter-spacing:1px}
-.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-bottom:1.8rem}
-.review-card{
-  background:#fff;border-radius:var(--r);padding:1.3rem;
+.stars{color:#f5a623;font-size:.95rem;letter-spacing:1px}
+.rv-grid{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.6rem}
+.rv-card{
+  background:#fff;border-radius:10px;padding:1.2rem;
   box-shadow:0 1px 6px rgba(0,0,0,.07);
 }
-.review-card .rv-text{font-size:.97rem;font-weight:700;color:var(--navy);margin-bottom:.25rem}
-.review-card .rv-name{font-size:.82rem;color:#999;margin-bottom:.2rem}
-.review-card .rv-date{font-size:.72rem;color:#bbb;margin-bottom:.6rem}
-.reviews-more{text-align:center}
-
-/* ════════════════════
-   AVANTAGES
-════════════════════ */
-.avantages{padding:3.5rem 0;background:#fff}
-.avantages h2{
-  font-size:1.55rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:2.2rem;
+.rv-title{font-size:.97rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.rv-name{font-size:.8rem;color:#aaa;margin-bottom:.15rem}
+.rv-date{font-size:.7rem;color:#ccc;margin-bottom:.5rem}
+@media(min-width:700px){
+  .rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 }
-.av-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.reviews-more{text-align:center}
+.btn-orange{
+  display:inline-block;background:var(--orange);color:#fff;
+  border-radius:2rem;padding:.65rem 1.8rem;
+  font-size:.92rem;font-weight:700;transition:background .2s;
+}
+.btn-orange:hover{background:#c4481a;color:#fff}
+
+/* ═══════════════════════════
+   AVANTAGES
+═══════════════════════════ */
+.avantages{padding:2.5rem 0;background:#fff}
+.avantages .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.avantages h2{
+  font-size:1.4rem;font-weight:800;color:var(--navy);
+  text-align:center;margin-bottom:1.8rem;
+}
+.av-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
 .av-item{display:flex;flex-direction:column;align-items:center;text-align:center}
 .av-icon{
-  width:68px;height:68px;
-  background:linear-gradient(135deg,#e8f7fd,#b8e8f7);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:1rem;
+  width:64px;height:64px;background:linear-gradient(135deg,#e2f4fb,#b8e6f7);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  margin-bottom:.9rem;
 }
-.av-icon img{width:36px;height:36px}
-.av-item h3{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.45rem;line-height:1.3}
-.av-item p{font-size:.83rem;color:#777;line-height:1.55}
-.av-item a{color:var(--orange)}
+.av-icon img{width:34px;height:34px}
+.av-item h3{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;line-height:1.3}
+.av-item p{font-size:.8rem;color:#777;line-height:1.55}
+@media(min-width:700px){
+  .av-grid{grid-template-columns:repeat(4,1fr)}
+}
 
-/* ════════════════════
+/* ═══════════════════════════
    RÉCOMPENSE
-════════════════════ */
-.award{padding:3rem 0;background:var(--gray)}
-.award-inner{
-  display:flex;align-items:center;gap:3rem;
+═══════════════════════════ */
+.award{padding:2.5rem 0;background:var(--gray)}
+.award .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.award-inner{display:flex;flex-direction:column;gap:1.5rem;align-items:center;text-align:center}
+.award-inner h2{font-size:1.25rem;font-weight:800;color:var(--navy);line-height:1.35}
+.award-inner p{font-size:.88rem;color:#666;line-height:1.6}
+.award-inner img{width:130px;border-radius:8px}
+@media(min-width:700px){
+  .award-inner{flex-direction:row;text-align:left}
+  .award-inner img{width:160px;flex-shrink:0}
 }
-.award-text{flex:1}
-.award-text h2{font-size:1.35rem;font-weight:800;color:var(--navy);margin-bottom:.8rem;line-height:1.35}
-.award-text p{font-size:.92rem;color:#666;line-height:1.6;margin-bottom:.5rem}
-.award-img img{width:160px;border-radius:var(--r)}
 
-/* ════════════════════
+/* ═══════════════════════════
    FOOTER
-════════════════════ */
-.footer{background:var(--navy-d);color:rgba(255,255,255,.8);padding:3rem 0 1.5rem}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
-.footer-logo{font-size:1.5rem;font-weight:800;color:#fff;display:block;margin-bottom:.8rem}
-.footer-desc{font-size:.8rem;opacity:.6;line-height:1.6}
-.footer-col h4{
-  font-size:.8rem;font-weight:700;color:#fff;
-  text-transform:uppercase;letter-spacing:.06em;margin-bottom:.9rem;
+═══════════════════════════ */
+.footer{background:var(--navy-d);color:rgba(255,255,255,.8);padding:2.5rem 0 1.2rem}
+.footer .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.footer-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
+  margin-bottom:1.8rem;
 }
-.footer-col li{margin-bottom:.45rem}
-.footer-col li a{font-size:.82rem;color:rgba(255,255,255,.6);transition:color .15s}
+@media(min-width:700px){
+  .footer-grid{grid-template-columns:2fr 1fr 1fr 1fr}
+}
+.footer-logo{font-size:1.4rem;font-weight:800;color:#fff;display:block;margin-bottom:.7rem}
+.footer-desc{font-size:.75rem;opacity:.55;line-height:1.6}
+.footer-col h4{
+  font-size:.75rem;font-weight:700;color:#fff;
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:.8rem;
+}
+.footer-col li{margin-bottom:.4rem}
+.footer-col li a{font-size:.8rem;color:rgba(255,255,255,.55);transition:color .15s}
 .footer-col li a:hover{color:var(--orange)}
-.footer-sep{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.5rem 0}
-.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-copy{font-size:.75rem;opacity:.45}
-.footer-socials{display:flex;gap:.6rem}
+.footer-sep{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.2rem 0}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.footer-copy{font-size:.72rem;opacity:.4}
+.footer-socials{display:flex;gap:.5rem}
 .footer-socials a{
-  width:32px;height:32px;border-radius:50%;
+  width:30px;height:30px;border-radius:50%;
   background:rgba(255,255,255,.1);
   display:flex;align-items:center;justify-content:center;
-  font-size:.78rem;color:rgba(255,255,255,.6);
-  transition:background .2s,color .2s;
+  font-size:.75rem;color:rgba(255,255,255,.6);transition:background .2s;
 }
 .footer-socials a:hover{background:var(--orange);color:#fff}
 .footer-legal{
-  margin-top:1.3rem;padding-top:1.2rem;
+  margin-top:1.2rem;padding-top:1rem;
   border-top:1px solid rgba(255,255,255,.07);
-  font-size:.7rem;color:rgba(255,255,255,.38);line-height:1.65;
-}
-.footer-legal a{color:rgba(255,255,255,.4)}
-
-/* ════════════════════
-   RESPONSIVE
-════════════════════ */
-@media(max-width:960px){
-  .hero{flex-direction:column}
-  .hero-left{width:100%;padding:1.5rem}
-  .hero-right{padding:1.5rem}
-  .hero-photo{display:none}
-  .products-grid{grid-template-columns:1fr}
-  .reviews-grid{grid-template-columns:1fr}
-  .av-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:1fr 1fr}
-  .nav{display:none}
-}
-@media(max-width:580px){
-  .hero-right h1{font-size:1.5rem}
-  .av-grid{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr}
-  .award-inner{flex-direction:column}
-  .hd-dossier{display:none}
+  font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.6;
 }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════
+<!-- ══════════════════════════════
      HEADER
-══════════════════════════════════ -->
+══════════════════════════════ -->
 <header class="header">
-  <div class="header-inner">
-    <a href="/" class="logo">Jkl.oin</a>
+  <div class="hd-inner">
 
-    <nav class="nav">
+    <!-- Hamburger (mobile) -->
+    <div class="hd-menu-btn" id="menu-btn" aria-label="Menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+      <div class="hd-menu-label">Menu</div>
+    </div>
+
+    <!-- Logo centré -->
+    <a href="/" class="hd-logo">Jkl.oin</a>
+
+    <!-- Nav desktop -->
+    <nav class="desktop-nav">
       <ul>
-        <li class="has-sub">
-          <a href="/credit-pret.htm">Prêts personnels</a>
+        <li class="has-sub"><a href="/credit-pret.htm">Prêts personnels</a>
           <ul class="sub-menu">
             <li><a href="/credit-pret/pret-personnel.htm">Prêt personnel</a></li>
             <li><a href="/credit-pret/credit-auto.htm">Prêt personnel auto</a></li>
             <li><a href="/credit-pret/credit-moto.htm">Prêt personnel moto</a></li>
             <li><a href="/credit-pret/credit-travaux.htm">Prêt personnel travaux</a></li>
             <li><a href="/credit-pret/pret-transition-energetique">Prêts transition énergétique</a></li>
-            <li><a href="/credit-pret.htm">Autres prêts</a></li>
           </ul>
         </li>
-        <li class="has-sub">
-          <a href="/credit-pret/credit-renouvelable.htm">Crédit responsable</a>
+        <li class="has-sub"><a href="/credit-pret/credit-renouvelable.htm">Crédit responsable</a>
           <ul class="sub-menu">
             <li><a href="/credit-pret/carte-credit-renouvelable.htm">Cartes Jkl.oin</a></li>
             <li><a href="/credit-pret/credit-renouvelable.htm">Crédit renouvelable</a></li>
           </ul>
         </li>
         <li><a href="/rachat-credit.htm">Rachat de crédits</a></li>
-        <li class="has-sub">
-          <a href="/assurances.htm">Partenaires</a>
-          <ul class="sub-menu">
-            <li><a href="/assurances.htm">Nos assurances</a></li>
-          </ul>
+        <li class="has-sub"><a href="/assurances.htm">Partenaires</a>
+          <ul class="sub-menu"><li><a href="/assurances.htm">Nos assurances</a></li></ul>
         </li>
-        <li class="has-sub">
-          <a href="/nous-decouvrir.htm">Nous découvrir</a>
+        <li class="has-sub"><a href="/nous-decouvrir.htm">Nous découvrir</a>
           <ul class="sub-menu">
             <li><a href="/nous-decouvrir.htm">À propos de Jkl.oin</a></li>
             <li><a href="/nous-decouvrir/sofinco-s-engage.htm">Jkl.oin s'engage</a></li>
             <li><a href="/eco-transition">Éco-transition</a></li>
           </ul>
         </li>
-        <li class="has-sub">
-          <a href="#">Devenez partenaire</a>
-          <ul class="sub-menu">
-            <li><a href="#">Espace partenaires</a></li>
-          </ul>
+        <li class="has-sub"><a href="#">Devenez partenaire</a>
+          <ul class="sub-menu"><li><a href="#">Espace partenaires</a></li></ul>
         </li>
-        <li>
-          <a href="/recherche">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
-          </a>
-        </li>
+        <li><a href="/recherche">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </a></li>
       </ul>
     </nav>
 
-    <div class="hd-account">
-      <a href="/suivi-de-dossier.htm" class="hd-btn hd-dossier">
-        <svg width="13" height="17" viewBox="0 0 15 20" fill="none">
-          <path d="M1.556 1.477C1.556 1.407 1.613 1.35 1.683 1.35H9.238c.034 0 .067.014.09.038l4.99 5.07c.024.024.037.056.037.09V19.023c0 .07-.057.127-.127.127H1.683c-.07 0-.127-.057-.127-.127V1.477z" stroke="#444" stroke-width="1.2"/>
+    <!-- Right -->
+    <div class="hd-right">
+      <a href="/suivi-de-dossier.htm" class="hd-dossier">
+        <svg width="12" height="16" viewBox="0 0 15 20" fill="none">
+          <path d="M1.556 1.477c0-.07.057-.127.127-.127H9.238c.034 0 .067.014.09.038l4.99 5.07c.024.024.037.056.037.09V19.023c0 .07-.057.127-.127.127H1.683c-.07 0-.127-.057-.127-.127V1.477z" stroke="#444" stroke-width="1.2"/>
           <line x1="5.556" y1="11.652" x2="10.356" y2="11.652" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
           <line x1="5.556" y1="14.65" x2="10.356" y2="14.65" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
         Suivi de dossier
       </a>
-      <a href="#" class="hd-btn hd-btn-login">
+      <a href="#" class="hd-connect-btn">
         <svg width="13" height="16" viewBox="0 0 16 20" fill="none">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M11.642 4.587C11.642 6.593 9.954 8.22 7.871 8.22c-2.083 0-3.772-1.627-3.772-3.633C4.1 2.581 5.789.955 7.871.955c2.083 0 3.771 1.626 3.771 3.632z" stroke="#fff" stroke-width="1.5"/>
           <path d="M1.646 17.594V13.877H.146V17.594h1.5zM2.054 19.501h11.685V18.001H2.054V19.501zM14.146 17.594V13.878h-1.5V17.594h1.5z" fill="#fff"/>
         </svg>
         Se connecter
       </a>
+      <!-- icône mobile -->
+      <a href="#" class="hd-connect" style="color:var(--navy)">
+        <svg width="22" height="22" viewBox="0 0 16 20" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.642 4.587C11.642 6.593 9.954 8.22 7.871 8.22c-2.083 0-3.772-1.627-3.772-3.633C4.1 2.581 5.789.955 7.871.955c2.083 0 3.771 1.626 3.771 3.632z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M1.646 17.594V13.877H.146V17.594h1.5zM2.054 19.501h11.685V18.001H2.054V19.501zM14.146 17.594V13.878h-1.5V17.594h1.5z" fill="currentColor"/>
+        </svg>
+        <span style="font-size:.7rem;font-weight:700;display:block;text-align:center;color:var(--navy)">Se connecter</span>
+      </a>
     </div>
+
   </div>
 </header>
 
-<!-- ══════════════════════════════════
-     HERO
-══════════════════════════════════ -->
-<section class="hero">
+<!-- ══════════════════════════════
+     PAGE
+══════════════════════════════ -->
+<div class="page">
 
-  <!-- Gauche : carte promo sombre -->
-  <div class="hero-left">
-    <div>
-      <span class="hero-left-tag">La carte<sup style="font-size:.6rem">¹</sup></span>
-      <h2>Avec la carte Jkl.oin<sup style="font-size:.7rem">¹</sup>,<br>j'ai le pouvoir de payer<br>en 1x, 3x, 10x</h2>
-      <p style="font-size:.8rem;opacity:.7;margin-bottom:1.2rem;">Paiement comptant ou en plusieurs fois — Plus besoin de choisir&nbsp;!</p>
+  <!-- ── Héro 1 : Photo bleu ciel ── -->
+  <section class="hero-photo-section">
+    <div class="hero-photo-bg"></div>
+    <div class="hero-photo-content">
+      <h1>Avec la carte Jkl.oin<sup>¹</sup>,<br>j'ai le pouvoir de payer<br>en 1x, 3x, 10x</h1>
     </div>
+  </section>
 
-    <div class="hero-left-card">
-      <div class="card-label"><strong>Prêt Perso</strong> <span style="font-size:.65rem;background:rgba(255,255,255,.15);border-radius:1rem;padding:.1rem .5rem;">jusqu'au 24 juin</span></div>
-      <div class="rate">4<sup>,90%</sup></div>
-      <div class="rate-sub">TAEG fixe · Pour 15&nbsp;000€ à 20&nbsp;000€</div>
-      <div class="rate-mention">Pour 15&nbsp;000€ sur 48 mois, mensualité de 344,03€ et montant total dû de 16&nbsp;513,44€.</div>
-    </div>
-
-    <a href="/parcours-simulateur" class="btn btn-orange" style="text-align:center;">Je profite de cette offre</a>
-  </div>
-
-  <!-- Droite : simulateur + photo -->
-  <div class="hero-right">
-    <h1>Financez vos projets avec le crédit conso Jkl.oin&nbsp;!</h1>
-    <p class="hero-sub">Simulez, faites votre demande en <strong>5 minutes et obtenez une réponse immédiate</strong>&nbsp;!</p>
-
-    <div class="hero-tabs">
-      <button class="hero-tab active">Famille &amp; Loisirs</button>
-      <button class="hero-tab">Auto</button>
-      <button class="hero-tab">Travaux</button>
-      <button class="hero-tab">Autre</button>
-      <button class="hero-tab">Regroupement de crédits</button>
-    </div>
-
-    <div class="hero-cta">
-      <a href="/parcours-simulateur" class="btn btn-white">Simuler un projet</a>
-      <a href="/credit-pret/carte-credit-renouvelable.htm" class="btn btn-outline-white">Je demande ma carte</a>
-    </div>
-
-    <!-- Photo décorative -->
-    <div class="hero-photo"></div>
-  </div>
-
-</section>
-
-<!-- ══════════════════════════════════
-     PRODUITS
-══════════════════════════════════ -->
-<section class="products">
-  <div class="wrap">
-    <h2>Un crédit pour tous vos projets</h2>
-    <p class="sub">Simulez votre projet en quelques clics</p>
-    <ul class="products-grid">
-      <li>
-        <div class="prod-card">
-          <div class="prod-card-top">
-            <a href="/credit-pret/pret-personnel.htm">Simulez votre prêt personnel</a>
-          </div>
-          <div class="prod-card-img">
-            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-pret-personnel.webp" alt="Prêt personnel"/>
-          </div>
+  <!-- ── Héro 2 : Carte dark avec image VISA ── -->
+  <section class="hero-card-section">
+    <div class="hero-card-inner">
+      <div class="hero-card-text">
+        <div class="hero-card-label">
+          La carte<sup>¹</sup>
         </div>
-      </li>
-      <li>
-        <div class="prod-card">
-          <div class="prod-card-top">
-            <a href="/credit-pret/credit-renouvelable.htm">Simulez votre crédit renouvelable</a>
-          </div>
-          <div class="prod-card-img">
-            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-credit-renouvelable.webp" alt="Crédit renouvelable"/>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="prod-card">
-          <div class="prod-card-top">
-            <a href="/rachat-credit.htm">Simulez votre rachat de crédits</a>
-          </div>
-          <div class="prod-card-img">
-            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-rachat-credit.webp" alt="Rachat de crédits"/>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     AVIS
-══════════════════════════════════ -->
-<section class="reviews">
-  <div class="wrap">
-    <h2>Plus de 6 millions <span>de clients nous font confiance</span></h2>
-    <div class="reviews-badge">
-      <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" target="_blank" rel="noopener">
-        <span style="font-weight:700">5&nbsp;847 avis</span>
-        <span style="color:var(--orange);font-weight:700">&bull; 4,6</span>
-        <span class="stars-gold">★★★★★</span>
-        <span style="font-size:.72rem;color:#aaa;">sur 5</span>
-      </a>
-    </div>
-    <ul class="reviews-grid">
-      <li class="review-card">
-        <p class="rv-text">Très efficace</p>
-        <p class="rv-name">Nuno A</p>
-        <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-        <span class="stars-gold">★★★★★</span>
-      </li>
-      <li class="review-card">
-        <p class="rv-text">Simple et rapide via l'application</p>
-        <p class="rv-name">Patrick L</p>
-        <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-        <span class="stars-gold">★★★★★</span>
-      </li>
-      <li class="review-card">
-        <p class="rv-text">Très rapide et adapté à mes besoins</p>
-        <p class="rv-name">Monique C</p>
-        <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-        <span class="stars-gold">★★★★★</span>
-      </li>
-    </ul>
-    <div class="reviews-more">
-      <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" class="btn btn-orange" target="_blank" rel="noopener">Lire tous les avis</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     AVANTAGES
-══════════════════════════════════ -->
-<section class="avantages">
-  <div class="wrap">
-    <h2>Jkl.oin accompagne vos projets</h2>
-    <ul class="av-grid">
-      <li class="av-item">
-        <div class="av-icon">
-          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-5-min.svg" alt="" width="36" height="36"/>
-        </div>
-        <h3>Une réponse de principe immédiate<sup style="font-size:.6rem">²</sup></h3>
-        <p>N'attendez plus pour concrétiser vos projets, obtenez une réponse de principe en 5 minutes</p>
-      </li>
-      <li class="av-item">
-        <div class="av-icon">
-          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-seul-accompagne.svg" alt="" width="36" height="36"/>
-        </div>
-        <h3>Seul(e) ou accompagné(e)</h3>
-        <p>Bénéficiez d'un accompagnement personnalisé, souscrivez votre crédit en ligne<sup style="font-size:.6rem">³</sup> ou avec l'aide de nos conseillers</p>
-      </li>
-      <li class="av-item">
-        <div class="av-icon">
-          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-gestion-simplifiee.svg" alt="" width="36" height="36"/>
-        </div>
-        <h3>Une gestion simplifiée</h3>
-        <p>Gérez votre prêt et vos remboursements facilement depuis votre espace client</p>
-      </li>
-      <li class="av-item">
-        <div class="av-icon">
-          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-100-flexible.svg" alt="" width="36" height="36"/>
-        </div>
-        <h3>100% flexible<sup style="font-size:.6rem">⁴</sup></h3>
-        <p>Mettez en pause vos mensualités ou adaptez leurs montants pour faire face aux imprévus</p>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     RÉCOMPENSE
-══════════════════════════════════ -->
-<section class="award">
-  <div class="wrap">
-    <div class="award-inner">
-      <div class="award-text">
-        <h2>Jkl.oin récompensé par l'Association Française de la Relation Client&nbsp;!</h2>
-        <p>Jkl.oin réinvente l'expérience du crédit en proposant un parcours de souscription innovant : 100&nbsp;% digital, instantané, intelligent et pédagogique.</p>
-        <p><strong>Un prix décerné par l'Association Française de la Relation Client</strong></p>
+        <p class="hero-card-desc">Paiement comptant ou en plusieurs fois.<sup>¹</sup> Plus besoin de choisir&nbsp;!</p>
+        <a href="/credit-pret/carte-credit-renouvelable.htm" class="hero-card-cta">Je demande ma carte</a>
       </div>
-      <div class="award-img">
-        <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/IMG/img-palme.jpg" alt="Palme d'argent — Association Française de la Relation Client"/>
+      <div class="hero-card-img-wrap">
+        <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Hero/sofinco-carte.png" alt="Carte Jkl.oin VISA"/>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════
+  <!-- ── Héro 3 : Simulateur blanc ── -->
+  <section class="hero-sim-section">
+    <div class="hero-sim-inner">
+      <h2>Financez vos projets avec le crédit conso Jkl.oin&nbsp;!</h2>
+      <p class="sim-sub">Simulez, faites votre demande en <strong>5 minutes</strong> et obtenez une réponse immédiate&nbsp;!</p>
+      <div class="sim-tabs">
+        <button class="sim-tab active">Famille &amp; Loisirs</button>
+        <button class="sim-tab">Auto</button>
+        <button class="sim-tab">Travaux</button>
+        <button class="sim-tab">Autre</button>
+        <button class="sim-tab">Regroupement de crédits</button>
+      </div>
+      <a href="/parcours-simulateur" class="btn-teal">Simuler un projet</a>
+    </div>
+  </section>
+
+  <!-- ── Produits ── -->
+  <section class="products">
+    <div class="wrap">
+      <h2>Un crédit pour tous vos projets</h2>
+      <p class="prod-sub">Simulez votre projet en quelques clics</p>
+      <ul class="prod-list">
+        <li class="prod-item">
+          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-pret-personnel.webp" alt="Couple avec valises — Prêt personnel"/>
+          <a href="/credit-pret/pret-personnel.htm" class="prod-btn">Simulez votre prêt personnel</a>
+        </li>
+        <li class="prod-item">
+          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-credit-renouvelable.webp" alt="Femme souriante — Crédit renouvelable"/>
+          <a href="/credit-pret/credit-renouvelable.htm" class="prod-btn">Simulez votre crédit renouvelable</a>
+        </li>
+        <li class="prod-item">
+          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-rachat-credit.webp" alt="Rachat de crédits"/>
+          <a href="/rachat-credit.htm" class="prod-btn">Simulez votre rachat de crédits</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Avis ── -->
+  <section class="reviews">
+    <div class="wrap">
+      <h2>Plus de 6 millions <span>de clients nous font confiance</span></h2>
+      <div class="reviews-badge">
+        <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" target="_blank" rel="noopener">
+          <span style="font-weight:700;">5&nbsp;847 avis</span>
+          <span style="color:var(--orange);font-weight:700;">&bull; 4,6</span>
+          <span class="stars">★★★★★</span>
+          <span style="font-size:.72rem;color:#aaa;">sur 5</span>
+        </a>
+      </div>
+      <ul class="rv-grid">
+        <li class="rv-card">
+          <p class="rv-title">Très efficace</p>
+          <p class="rv-name">Nuno A</p>
+          <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
+          <span class="stars">★★★★★</span>
+        </li>
+        <li class="rv-card">
+          <p class="rv-title">Simple et rapide via l'application</p>
+          <p class="rv-name">Patrick L</p>
+          <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
+          <span class="stars">★★★★★</span>
+        </li>
+        <li class="rv-card">
+          <p class="rv-title">Très rapide et adapté à mes besoins</p>
+          <p class="rv-name">Monique C</p>
+          <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
+          <span class="stars">★★★★★</span>
+        </li>
+      </ul>
+      <div class="reviews-more">
+        <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" class="btn-orange" target="_blank" rel="noopener">Lire tous les avis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Avantages ── -->
+  <section class="avantages">
+    <div class="wrap">
+      <h2>Jkl.oin accompagne vos projets</h2>
+      <ul class="av-grid">
+        <li class="av-item">
+          <div class="av-icon">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-5-min.svg" alt="" width="34" height="34"/>
+          </div>
+          <h3>Une réponse de principe immédiate<sup style="font-size:.6rem">²</sup></h3>
+          <p>Obtenez une réponse de principe en 5 minutes</p>
+        </li>
+        <li class="av-item">
+          <div class="av-icon">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-seul-accompagne.svg" alt="" width="34" height="34"/>
+          </div>
+          <h3>Seul(e) ou accompagné(e)</h3>
+          <p>Souscrivez en ligne<sup style="font-size:.6rem">³</sup> ou avec nos conseillers</p>
+        </li>
+        <li class="av-item">
+          <div class="av-icon">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-gestion-simplifiee.svg" alt="" width="34" height="34"/>
+          </div>
+          <h3>Une gestion simplifiée</h3>
+          <p>Gérez votre prêt depuis votre espace client</p>
+        </li>
+        <li class="av-item">
+          <div class="av-icon">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-100-flexible.svg" alt="" width="34" height="34"/>
+          </div>
+          <h3>100% flexible<sup style="font-size:.6rem">⁴</sup></h3>
+          <p>Mettez en pause ou adaptez vos mensualités</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Récompense ── -->
+  <section class="award">
+    <div class="wrap">
+      <div class="award-inner">
+        <div>
+          <h2>Jkl.oin récompensé par l'Association Française de la Relation Client&nbsp;!</h2>
+          <p style="margin-top:.7rem">Jkl.oin réinvente l'expérience du crédit : 100&nbsp;% digital, instantané, intelligent et pédagogique.</p>
+          <p><strong>Un prix décerné par l'Association Française de la Relation Client</strong></p>
+        </div>
+        <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/IMG/img-palme.jpg" alt="Palme d'argent"/>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page -->
+
+<!-- ══════════════════════════════
      FOOTER
-══════════════════════════════════ -->
+══════════════════════════════ -->
 <footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
       <div>
         <span class="footer-logo">Jkl.oin</span>
-        <p class="footer-desc">Jkl.oin est une marque de CA Consumer Finance, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€ — 1 rue Victor Basch, CS&nbsp;70001 — 91068 MASSY Cedex — 542&nbsp;097&nbsp;522 RCS Evry.</p>
+        <p class="footer-desc">Jkl.oin est une marque de CA Consumer Finance, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€ — 1 rue Victor Basch, CS&nbsp;70001, 91068 MASSY Cedex — 542&nbsp;097&nbsp;522 RCS Evry.</p>
       </div>
       <div class="footer-col">
         <h4>Nos crédits</h4>
@@ -633,7 +656,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <ul>
           <li><a href="#">Se connecter</a></li>
           <li><a href="/suivi-de-dossier.htm">Suivi de dossier</a></li>
-          <li><a href="/assurances.htm">Mes assurances</a></li>
           <li><a href="/aide-contact">Aide &amp; Contact</a></li>
         </ul>
       </div>
@@ -647,9 +669,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         </ul>
       </div>
     </div>
-
     <hr class="footer-sep"/>
-
     <div class="footer-bottom">
       <p class="footer-copy">© CA Consumer Finance 2026 — Jkl.oin</p>
       <div class="footer-socials">
@@ -658,40 +678,39 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <a href="#" aria-label="YouTube">▶</a>
       </div>
     </div>
-
     <div class="footer-legal">
       <p>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
-      <p>Offres sous réserve d'acceptation définitive après étude des pièces justificatives demandées par CA Consumer Finance, prêteur, dont Jkl.oin est une marque. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (<a href="https://www.orias.fr" target="_blank" rel="noopener">www.orias.fr</a>). Vous disposez d'un droit légal de rétractation lors de la souscription de votre crédit.</p>
+      <p>Offres sous réserve d'acceptation définitive après étude des pièces justificatives demandées par CA Consumer Finance, prêteur, dont Jkl.oin est une marque. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (<a href="https://www.orias.fr" target="_blank" rel="noopener">www.orias.fr</a>). Vous disposez d'un droit légal de rétractation.</p>
     </div>
   </div>
 </footer>
 
 <script>
-  // Dropdowns nav
-  document.querySelectorAll('.nav li.has-sub > a').forEach(function(a) {
+  // Desktop nav dropdowns
+  document.querySelectorAll('.desktop-nav li.has-sub > a').forEach(function(a) {
     a.addEventListener('click', function(e) {
       e.preventDefault();
       var li = this.parentElement;
-      var open = li.classList.contains('open');
-      document.querySelectorAll('.nav li.has-sub').forEach(function(el){ el.classList.remove('open'); });
-      if (!open) li.classList.add('open');
+      var wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.desktop-nav li.has-sub').forEach(function(el){ el.classList.remove('open'); });
+      if (!wasOpen) li.classList.add('open');
     });
   });
   document.addEventListener('click', function(e) {
-    if (!e.target.closest('.nav li.has-sub'))
-      document.querySelectorAll('.nav li.has-sub.open').forEach(function(el){ el.classList.remove('open'); });
+    if (!e.target.closest('.desktop-nav li.has-sub'))
+      document.querySelectorAll('.desktop-nav li.has-sub.open').forEach(function(el){ el.classList.remove('open'); });
   });
-  // Hero tabs
-  document.querySelectorAll('.hero-tab').forEach(function(btn) {
+  // Sim tabs
+  document.querySelectorAll('.sim-tab').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.hero-tab').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.sim-tab').forEach(function(b){ b.classList.remove('active'); });
       this.classList.add('active');
     });
   });
-  // Header scroll shadow
+  // Scroll shadow
   window.addEventListener('scroll', function() {
     document.querySelector('.header').style.boxShadow =
-      window.scrollY > 8 ? '0 4px 18px rgba(0,0,0,.15)' : '0 1px 6px rgba(0,0,0,.12)';
+      window.scrollY > 8 ? '0 4px 18px rgba(0,0,0,.15)' : '0 1px 8px rgba(0,0,0,.12)';
   });
 </script>
 </body>
