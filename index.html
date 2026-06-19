@@ -135,9 +135,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .hero-photo-bg{
   position:absolute;right:0;top:0;bottom:0;
-  width:60%;
-  background:linear-gradient(135deg,#62c9ef 0%,#3ab5e5 60%,#1e9fd4 100%);
-  opacity:.7;
+  width:62%;
+  background:url('https://picsum.photos/seed/jklhero/480/500') center top/cover no-repeat;
 }
 .hero-photo-content{
   position:relative;z-index:1;
@@ -183,18 +182,36 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   width:140px;flex-shrink:0;
 }
 .css-card{
-  width:130px;background:linear-gradient(135deg,#0a4a6e 0%,#06c2b0 100%);
-  border-radius:10px;padding:12px 10px 10px;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.4);
+  width:145px;
+  background:linear-gradient(145deg,#0d3d5c 0%,#0a5a7a 40%,#06c2b0 100%);
+  border-radius:14px;padding:14px 12px 12px;color:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.3);
+  position:relative;overflow:hidden;
 }
-.css-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.css-card-name{font-size:.7rem;font-weight:800;letter-spacing:.03em}
-.css-card-visa{font-size:.8rem;font-weight:900;font-style:italic}
+.css-card::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:100px;height:100px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+}
+.css-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.css-card-name{font-size:.72rem;font-weight:800;letter-spacing:.04em;opacity:.9}
+.css-card-visa{
+  font-size:.95rem;font-weight:900;font-style:italic;
+  background:linear-gradient(135deg,#fff 0%,#e8d87a 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
 .css-card-chip{
-  width:28px;height:20px;background:#d4a030;border-radius:3px;
-  margin-bottom:12px;
-  background:linear-gradient(135deg,#d4a030 0%,#f0c860 50%,#d4a030 100%);
+  width:30px;height:22px;border-radius:4px;margin-bottom:14px;
+  background:linear-gradient(135deg,#c8922a 0%,#f5d878 40%,#c8922a 70%,#e8c060 100%);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.3);
+  position:relative;
 }
-.css-card-num{font-size:.58rem;letter-spacing:.1em;opacity:.85}
+.css-card-chip::after{
+  content:'';position:absolute;top:50%;left:0;right:0;height:1px;
+  background:rgba(0,0,0,.2);transform:translateY(-50%);
+}
+.css-card-num{font-size:.6rem;letter-spacing:.12em;opacity:.75;font-family:monospace}
 
 /* ═══════════════════════════
    HERO SECTION 3 — Simulateur blanc
@@ -276,9 +293,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-item img{
   width:100%;height:220px;object-fit:cover;display:block;
 }
-.prod-img-placeholder{
-  width:100%;height:220px;display:flex;align-items:center;justify-content:center;
-}
 .prod-btn{
   display:block;
   background:var(--navy);color:#fff;
@@ -290,7 +304,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-btn:hover{background:#005580;color:#fff}
 @media(min-width:700px){
   .prod-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-  .prod-item img,.prod-img-placeholder{height:175px}
+  .prod-item img{height:175px}
 }
 
 /* ═══════════════════════════
@@ -551,21 +565,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <p class="prod-sub">Simulez votre projet en quelques clics</p>
       <ul class="prod-list">
         <li class="prod-item">
-          <div class="prod-img-placeholder" style="background:linear-gradient(135deg,#3ab5e5,#1e9fd4)">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="8" fill="rgba(255,255,255,.7)"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="rgba(255,255,255,.7)"/></svg>
-          </div>
+          <img src="https://picsum.photos/seed/pret-perso/600/320" alt="Prêt personnel"/>
           <a href="/credit-pret/pret-personnel.htm" class="prod-btn">Simulez votre prêt personnel</a>
         </li>
         <li class="prod-item">
-          <div class="prod-img-placeholder" style="background:linear-gradient(135deg,#06c2b0,#049f90)">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="8" fill="rgba(255,255,255,.7)"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="rgba(255,255,255,.7)"/></svg>
-          </div>
+          <img src="https://picsum.photos/seed/credit-carte/600/320" alt="Crédit renouvelable"/>
           <a href="/credit-pret/credit-renouvelable.htm" class="prod-btn">Simulez votre crédit renouvelable</a>
         </li>
         <li class="prod-item">
-          <div class="prod-img-placeholder" style="background:linear-gradient(135deg,#e35718,#c4481a)">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="8" fill="rgba(255,255,255,.7)"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="rgba(255,255,255,.7)"/></svg>
-          </div>
+          <img src="https://picsum.photos/seed/rachat-cred/600/320" alt="Rachat de crédits"/>
           <a href="/rachat-credit.htm" class="prod-btn">Simulez votre rachat de crédits</a>
         </li>
       </ul>
