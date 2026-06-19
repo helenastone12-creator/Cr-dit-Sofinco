@@ -476,39 +476,88 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══════════════════════════
    FOOTER
 ═══════════════════════════ */
-.footer{background:var(--navy-d);color:rgba(255,255,255,.8);padding:2.5rem 0 1.2rem}
-.footer .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.footer-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
-  margin-bottom:1.8rem;
+.footer{background:var(--navy-d);color:rgba(255,255,255,.8)}
+
+/* Mobile footer : accordéons (même style que menu) */
+.footer-acc-section{border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-acc-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.3rem;background:none;border:none;cursor:pointer;font-family:inherit;
+  font-size:.82rem;font-weight:800;color:#fff;letter-spacing:.06em;text-align:left;
 }
-@media(min-width:700px){
-  .footer-grid{grid-template-columns:2fr 1fr 1fr 1fr}
+.footer-acc-chev{font-size:.9rem;transition:transform .25s;display:inline-block;color:rgba(255,255,255,.7)}
+.footer-acc-section.open .footer-acc-chev{transform:rotate(180deg)}
+.footer-acc-body{display:none;background:rgba(0,0,0,.15);padding:.3rem 0}
+.footer-acc-section.open .footer-acc-body{display:block}
+.footer-acc-body a{
+  display:block;padding:.7rem 1.7rem;
+  font-size:.88rem;font-weight:500;color:rgba(255,255,255,.85);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
-.footer-logo{font-size:1.4rem;font-weight:800;color:#fff;display:block;margin-bottom:.7rem}
-.footer-desc{font-size:.75rem;opacity:.55;line-height:1.6}
-.footer-col h4{
-  font-size:.75rem;font-weight:700;color:#fff;
-  text-transform:uppercase;letter-spacing:.07em;margin-bottom:.8rem;
+.footer-acc-body a:hover{color:#fff;background:rgba(255,255,255,.07)}
+
+/* Réseaux sociaux footer */
+.footer-social{padding:1.5rem 1.5rem 1rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
+.footer-social-title{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:.9rem}
+.footer-social-icons{display:flex;justify-content:center;gap:.8rem}
+.footer-social-ico{
+  width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  transition:background .15s;
 }
-.footer-col li{margin-bottom:.4rem}
-.footer-col li a{font-size:.8rem;color:rgba(255,255,255,.55);transition:color .15s}
-.footer-col li a:hover{color:var(--orange)}
-.footer-sep{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.2rem 0}
-.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
-.footer-copy{font-size:.72rem;opacity:.4}
-.footer-socials{display:flex;gap:.5rem}
-.footer-socials a{
-  width:30px;height:30px;border-radius:50%;
-  background:rgba(255,255,255,.1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;color:rgba(255,255,255,.6);transition:background .2s;
+.footer-social-ico:hover{background:rgba(255,255,255,.28)}
+
+/* Liens légaux footer */
+.footer-legal-links{padding:.8rem 1.2rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
+.footer-legal-links a{
+  display:inline;font-size:.72rem;color:rgba(255,255,255,.65);font-weight:500;
 }
-.footer-socials a:hover{background:var(--orange);color:#fff}
-.footer-legal{
-  margin-top:1.2rem;padding-top:1rem;
+.footer-legal-links a::after{content:' • ';color:rgba(255,255,255,.35)}
+.footer-legal-links a:last-child::after{content:''}
+.footer-legal-links a:hover{color:#fff}
+
+/* Texte légal footer */
+.footer-legal-text{
+  padding:.8rem 1.5rem 1.5rem;
+  font-size:.68rem;color:rgba(255,255,255,.5);line-height:1.6;text-align:center;
   border-top:1px solid rgba(255,255,255,.07);
-  font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.6;
+}
+
+/* Desktop footer : grille classique */
+.footer-desktop{display:none}
+.footer-desktop .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+@media(min-width:960px){
+  .footer-mobile-acc{display:none}
+  .footer-desktop{display:block;padding:2.5rem 0 1.2rem}
+  .footer-grid{
+    display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:1.5rem;margin-bottom:1.8rem;
+  }
+  .footer-logo{font-size:1.4rem;font-weight:800;color:#fff;display:block;margin-bottom:.7rem}
+  .footer-desc{font-size:.75rem;opacity:.55;line-height:1.6}
+  .footer-col h4{
+    font-size:.75rem;font-weight:700;color:#fff;
+    text-transform:uppercase;letter-spacing:.07em;margin-bottom:.8rem;
+  }
+  .footer-col li{margin-bottom:.4rem}
+  .footer-col li a{font-size:.8rem;color:rgba(255,255,255,.55);transition:color .15s}
+  .footer-col li a:hover{color:var(--orange)}
+  .footer-sep{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.2rem 0}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+  .footer-copy{font-size:.72rem;opacity:.4}
+  .footer-socials{display:flex;gap:.5rem}
+  .footer-socials a{
+    width:30px;height:30px;border-radius:50%;
+    background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.75rem;color:rgba(255,255,255,.6);transition:background .2s;
+  }
+  .footer-socials a:hover{background:var(--orange);color:#fff}
+  .footer-legal-desktop{
+    margin-top:1.2rem;padding-top:1rem;
+    border-top:1px solid rgba(255,255,255,.07);
+    font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.6;
+  }
 }
 
 /* ═══════════════════════════
@@ -1264,54 +1313,166 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      FOOTER
 ══════════════════════════════ -->
 <footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <span class="footer-logo">Jkl.oin</span>
-        <p class="footer-desc">Jkl.oin est une marque de CA Consumer Finance, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€ — 1 rue Victor Basch, CS&nbsp;70001, 91068 MASSY Cedex — 542&nbsp;097&nbsp;522 RCS Evry.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Nos crédits</h4>
-        <ul>
-          <li><a href="#">Prêt personnel</a></li>
-          <li><a href="#">Crédit auto</a></li>
-          <li><a href="#">Crédit travaux</a></li>
-          <li><a href="#">Crédit renouvelable</a></li>
-          <li><a href="#">Rachat de crédits</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Espace client</h4>
-        <ul>
-          <li><a href="#">Se connecter</a></li>
-          <li><a href="#">Suivi de dossier</a></li>
-          <li><a href="#">Aide &amp; Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>À propos</h4>
-        <ul>
-          <li><a href="#">Qui sommes-nous&nbsp;?</a></li>
-          <li><a href="#">Jkl.oin s'engage</a></li>
-          <li><a href="#">Éco-transition</a></li>
-          <li><a href="#">Accessibilité</a></li>
-        </ul>
+
+  <!-- ── MOBILE : accordéons (visible < 960px) ── -->
+  <div class="footer-mobile-acc">
+
+    <div class="footer-acc-section">
+      <button class="footer-acc-btn">CRÉDIT CONSOMMATION <span class="footer-acc-chev">▾</span></button>
+      <div class="footer-acc-body">
+        <a href="#">Prêt personnel</a>
+        <a href="#">Crédit auto</a>
+        <a href="#">Crédit travaux</a>
+        <a href="#">Crédit renouvelable</a>
+        <a href="#">Crédit moto</a>
       </div>
     </div>
-    <hr class="footer-sep"/>
-    <div class="footer-bottom">
-      <p class="footer-copy">© CA Consumer Finance 2026 — Jkl.oin</p>
-      <div class="footer-socials">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="YouTube">▶</a>
+
+    <div class="footer-acc-section">
+      <button class="footer-acc-btn">CRÉDIT RENOUVELABLE <span class="footer-acc-chev">▾</span></button>
+      <div class="footer-acc-body">
+        <a href="#">Cartes Jkl.oin</a>
+        <a href="#">Crédit renouvelable en ligne</a>
+        <a href="#">Payer en 3x ou 10x</a>
       </div>
     </div>
-    <div class="footer-legal">
-      <p>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
-      <p>Offres sous réserve d'acceptation définitive après étude des pièces justificatives demandées par CA Consumer Finance, prêteur, dont Jkl.oin est une marque. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (<a href="https://www.orias.fr" target="_blank" rel="noopener">www.orias.fr</a>). Vous disposez d'un droit légal de rétractation.</p>
+
+    <div class="footer-acc-section">
+      <button class="footer-acc-btn">REGROUPEMENT DE CRÉDITS <span class="footer-acc-chev">▾</span></button>
+      <div class="footer-acc-body">
+        <a href="#">Rachat de crédits</a>
+        <a href="#">Simulation rachat de crédit</a>
+        <a href="#">Avantages du regroupement</a>
+      </div>
     </div>
-  </div>
+
+    <div class="footer-acc-section">
+      <button class="footer-acc-btn">PRÊT VÉHICULE <span class="footer-acc-chev">▾</span></button>
+      <div class="footer-acc-body">
+        <a href="#">Crédit auto</a>
+        <a href="#">Crédit moto</a>
+        <a href="#">Véhicule électrique</a>
+      </div>
+    </div>
+
+    <div class="footer-acc-section">
+      <button class="footer-acc-btn">CRÉDIT TRAVAUX <span class="footer-acc-chev">▾</span></button>
+      <div class="footer-acc-body">
+        <a href="#">Prêt travaux</a>
+        <a href="#">Transition énergétique</a>
+        <a href="#">Éco-prêt à taux zéro</a>
+      </div>
+    </div>
+
+    <div class="footer-acc-section">
+      <button class="footer-acc-btn">A PROPOS <span class="footer-acc-chev">▾</span></button>
+      <div class="footer-acc-body">
+        <a href="#">Qui sommes-nous ?</a>
+        <a href="#">Jkl.oin s'engage</a>
+        <a href="#">Éco-transition</a>
+        <a href="#">Accessibilité</a>
+      </div>
+    </div>
+
+    <div class="footer-acc-section">
+      <button class="footer-acc-btn">PARTENAIRES <span class="footer-acc-chev">▾</span></button>
+      <div class="footer-acc-body">
+        <a href="#">Devenez partenaire</a>
+        <a href="#">Espace partenaire</a>
+      </div>
+    </div>
+
+    <!-- Réseaux sociaux -->
+    <div class="footer-social">
+      <p class="footer-social-title">Retrouvez-nous :</p>
+      <div class="footer-social-icons">
+        <a href="#" class="footer-social-ico" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" class="footer-social-ico" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer-social-ico" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#001f38"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Liens légaux -->
+    <div class="footer-legal-links">
+      <a href="#">Nous contacter</a>
+      <a href="#">Informations légales</a>
+      <a href="#">Politique des données personnelles</a>
+      <a href="#">Questions-Réponses</a>
+      <a href="#">Tarifs</a>
+      <a href="#">Découvrir notre groupe</a>
+      <a href="#">Charte éthique groupe</a>
+      <a href="#">Plan du site Jkl.oin</a>
+      <a href="#">Sécurité</a>
+      <a href="#">Charte des réclamations</a>
+      <a href="#">Accessibilité : partiellement conforme</a>
+      <a href="#">Gérer mes cookies</a>
+    </div>
+
+    <!-- Texte légal -->
+    <div class="footer-legal-text">
+      Jkl.oin est une marque de CA Consumer Finance, prêteur, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€, 1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex, 542&nbsp;097&nbsp;522 RCS Evry. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (www.orias.fr). Jkl.oin vous propose des offres de crédits, crédit consommation, rachat de crédit et crédit renouvelable. Simulation de rachat crédit et crédit en ligne. © CA Consumer Finance 2026
+    </div>
+
+  </div><!-- /footer-mobile-acc -->
+
+  <!-- ── DESKTOP : grille classique (visible ≥ 960px) ── -->
+  <div class="footer-desktop">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <span class="footer-logo">Jkl.oin</span>
+          <p class="footer-desc">Jkl.oin est une marque de CA Consumer Finance, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€ — 1 rue Victor Basch, CS&nbsp;70001, 91068 MASSY Cedex — 542&nbsp;097&nbsp;522 RCS Evry.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Nos crédits</h4>
+          <ul>
+            <li><a href="#">Prêt personnel</a></li>
+            <li><a href="#">Crédit auto</a></li>
+            <li><a href="#">Crédit travaux</a></li>
+            <li><a href="#">Crédit renouvelable</a></li>
+            <li><a href="#">Rachat de crédits</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Espace client</h4>
+          <ul>
+            <li><a href="#">Se connecter</a></li>
+            <li><a href="#">Suivi de dossier</a></li>
+            <li><a href="#">Aide &amp; Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="#">Qui sommes-nous&nbsp;?</a></li>
+            <li><a href="#">Jkl.oin s'engage</a></li>
+            <li><a href="#">Éco-transition</a></li>
+            <li><a href="#">Accessibilité</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-sep"/>
+      <div class="footer-bottom">
+        <p class="footer-copy">© CA Consumer Finance 2026 — Jkl.oin</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="footer-legal-desktop">
+        <p>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+        <p>Offres sous réserve d'acceptation par CA Consumer Finance. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (www.orias.fr).</p>
+      </div>
+    </div>
+  </div><!-- /footer-desktop -->
+
 </footer>
 
 <!-- ══════════════════════════════
