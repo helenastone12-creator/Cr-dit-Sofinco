@@ -88,7 +88,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
     transform:rotate(45deg);
   }
-  .desktop-nav li.open>a{color:var(--orange);border-bottom-color:var(--orange)}
+  .desktop-nav li:hover>a{color:var(--orange);border-bottom-color:var(--orange)}
   .sub-menu{
     display:none;position:absolute;top:100%;left:0;
     background:#fff;min-width:210px;
@@ -96,7 +96,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     border-top:3px solid var(--orange);
     border-radius:0 0 8px 8px;z-index:200;
   }
-  .desktop-nav li.open .sub-menu{display:block}
+  .desktop-nav li:hover>.sub-menu{display:block}
   .sub-menu li{height:auto}
   .sub-menu li a{height:auto;padding:.65rem 1.1rem;border-bottom:none;font-size:.85rem}
   .sub-menu li a:hover{background:var(--gray)}
@@ -116,6 +116,39 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .hd-right .hd-dossier:hover{border-color:var(--orange);color:var(--orange)}
   .hd-connect{display:none}
 }
+
+/* ═══════════════════════════
+   MENU MOBILE SLIDE-OUT
+═══════════════════════════ */
+.mobile-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;
+}
+.mobile-overlay.open{display:block}
+.mobile-menu{
+  position:fixed;top:0;left:-100%;width:82%;max-width:320px;height:100%;
+  background:#fff;z-index:950;
+  transition:left .3s ease;
+  overflow-y:auto;
+  box-shadow:4px 0 20px rgba(0,0,0,.2);
+}
+.mobile-menu.open{left:0}
+.mobile-menu-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.2rem;border-bottom:1px solid #eee;
+}
+.mobile-menu-logo{font-size:1.3rem;font-weight:800;color:var(--navy)}
+.mobile-menu-close{
+  font-size:1.5rem;color:var(--navy);cursor:pointer;
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+}
+.mobile-nav{padding:.5rem 0}
+.mobile-nav a{
+  display:block;padding:.85rem 1.4rem;
+  font-size:.95rem;font-weight:600;color:var(--navy);
+  border-bottom:1px solid #f2f2f2;
+}
+.mobile-nav a:hover{background:var(--gray);color:var(--orange)}
+.mobile-nav .mob-sub{padding-left:2rem;font-size:.88rem;font-weight:400;color:#555}
 
 /* ═══════════════════════════
    PAGE WRAPPER
@@ -404,6 +437,31 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </style>
 </head>
 <body>
+
+<!-- Overlay + Menu mobile -->
+<div class="mobile-overlay" id="mob-overlay"></div>
+<div class="mobile-menu" id="mob-menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">Jkl.oin</span>
+    <span class="mobile-menu-close" id="mob-close">✕</span>
+  </div>
+  <nav class="mobile-nav">
+    <a href="/credit-pret.htm">Prêts personnels</a>
+    <a href="/credit-pret/pret-personnel.htm" class="mob-sub">Prêt personnel</a>
+    <a href="/credit-pret/credit-auto.htm" class="mob-sub">Prêt personnel auto</a>
+    <a href="/credit-pret/credit-travaux.htm" class="mob-sub">Prêt personnel travaux</a>
+    <a href="/credit-pret/pret-transition-energetique" class="mob-sub">Transition énergétique</a>
+    <a href="/credit-pret/credit-renouvelable.htm">Crédit responsable</a>
+    <a href="/credit-pret/carte-credit-renouvelable.htm" class="mob-sub">Cartes Jkl.oin</a>
+    <a href="/credit-pret/credit-renouvelable.htm" class="mob-sub">Crédit renouvelable</a>
+    <a href="/rachat-credit.htm">Rachat de crédits</a>
+    <a href="/assurances.htm">Partenaires</a>
+    <a href="/nous-decouvrir.htm">Nous découvrir</a>
+    <a href="#">Devenez partenaire</a>
+    <a href="/suivi-de-dossier.htm">Suivi de dossier</a>
+    <a href="#">Se connecter</a>
+  </nav>
+</div>
 
 <!-- ══════════════════════════════
      HEADER
@@ -720,27 +778,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 </footer>
 
 <script>
-  // Desktop nav dropdowns
-  document.querySelectorAll('.desktop-nav li.has-sub > a').forEach(function(a) {
-    a.addEventListener('click', function(e) {
-      e.preventDefault();
-      var li = this.parentElement;
-      var wasOpen = li.classList.contains('open');
-      document.querySelectorAll('.desktop-nav li.has-sub').forEach(function(el){ el.classList.remove('open'); });
-      if (!wasOpen) li.classList.add('open');
-    });
-  });
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.desktop-nav li.has-sub'))
-      document.querySelectorAll('.desktop-nav li.has-sub.open').forEach(function(el){ el.classList.remove('open'); });
-  });
-  // Sim tabs
-  document.querySelectorAll('.sim-tab').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.sim-tab').forEach(function(b){ b.classList.remove('active'); });
-      this.classList.add('active');
-    });
-  });
+  // Menu mobile
+  var btn = document.getElementById('menu-btn');
+  var menu = document.getElementById('mob-menu');
+  var overlay = document.getElementById('mob-overlay');
+  var close = document.getElementById('mob-close');
+  function openMenu(){ menu.classList.add('open'); overlay.classList.add('open'); }
+  function closeMenu(){ menu.classList.remove('open'); overlay.classList.remove('open'); }
+  if(btn) btn.addEventListener('click', openMenu);
+  if(close) close.addEventListener('click', closeMenu);
+  if(overlay) overlay.addEventListener('click', closeMenu);
+
   // Scroll shadow
   window.addEventListener('scroll', function() {
     document.querySelector('.header').style.boxShadow =
