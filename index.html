@@ -126,7 +126,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
    HERO SECTION 1 — Photo bleu ciel
 ═══════════════════════════ */
 .hero-photo-section{
-  background:linear-gradient(160deg,#5ec6ed 0%,#3ab5e5 50%,#1e9fd4 100%);
   position:relative;
   min-height:340px;
   overflow:hidden;
@@ -134,9 +133,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   padding:2rem 1.5rem 0;
 }
 .hero-photo-bg{
-  position:absolute;right:0;top:0;bottom:0;
-  width:62%;
-  background:url('https://picsum.photos/seed/jklhero/480/500') center top/cover no-repeat;
+  position:absolute;inset:0;
+  background:url('https://picsum.photos/seed/jklhero/800/500') center/cover no-repeat;
+}
+.hero-photo-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,51,77,.65) 0%,rgba(0,51,77,.2) 60%,transparent 100%);
 }
 .hero-photo-content{
   position:relative;z-index:1;
