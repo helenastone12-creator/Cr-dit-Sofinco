@@ -618,9 +618,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-proj-ico{width:52px;height:52px;border-radius:50%;background:var(--navy-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sim-proj-ico svg{color:#fff}
 /* Step 2 : montant field */
-.sim-field{width:100%;border:1.5px solid #999;border-radius:6px;padding:1rem 1rem;font-size:1rem;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s;margin-bottom:.3rem}
-.sim-field:focus{border-color:var(--teal)}
-.sim-field.f-err{border-color:#d33;background:#fff5f5}
+.sim-amount-fld{width:100%;border:1.5px solid #999;border-radius:6px;padding:1rem 1rem;font-size:1rem;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s;margin-bottom:.3rem}
+.sim-amount-fld:focus{border-color:var(--teal)}
+.sim-amount-fld.f-err{border-color:#d33;background:#fff5f5}
 .sim-field-err{font-size:.8rem;color:#d33;margin-bottom:1.2rem;display:none}
 .sim-field-err.show{display:block}
 /* Step 3 : radio + dropdown */
@@ -1409,7 +1409,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <h1 class="sim-title">Passons au montant du financement</h1>
       <p class="sim-sub">Indiquez la somme nécessaire à la réalisation de votre projet&nbsp;:</p>
       <p class="sim-req">Tous les champs sont obligatoires</p>
-      <input type="number" id="sim-amount-input" class="sim-field"
+      <input type="number" id="sim-amount-input" class="sim-amount-fld"
         placeholder="Montant (de 150 à 75 000 €)" min="150" max="75000"
         aria-label="Montant du financement"/>
       <p class="sim-field-err" id="sim-amount-err">Veuillez saisir un montant entre 150 et 75&nbsp;000&nbsp;€</p>
