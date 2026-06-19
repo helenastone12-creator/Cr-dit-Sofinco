@@ -534,6 +534,63 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .voir-conditions:hover{color:var(--orange)}
 
+
+/* ═══════════════════════════
+   SIMULATEUR MULTI-ÉTAPES (MODAL)
+═══════════════════════════ */
+.sim-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:2000;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto}
+.sim-overlay.open{display:flex}
+.sim-modal{background:#fff;width:100%;max-width:560px;border-radius:20px;padding:1.5rem 1.5rem 2rem;margin:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.sim-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem}
+.sim-modal-logo{font-weight:800;font-size:1.1rem;color:var(--navy)}
+.sim-close-btn{font-size:1.5rem;color:#999;cursor:pointer;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .15s;background:none;border:none;font-family:inherit}
+.sim-close-btn:hover{background:#f0f0f0;color:#333}
+.sim-bar{display:flex;align-items:center;margin-bottom:1.8rem}
+.sim-dot{width:30px;height:30px;border-radius:50%;background:#eee;color:#ccc;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.sim-dot.s-done{background:var(--teal);color:#fff}
+.sim-dot.s-active{background:var(--orange);color:#fff}
+.sim-line{flex:1;height:2px;background:#eee;transition:background .3s}
+.sim-line.s-done{background:var(--teal)}
+.sim-pane{display:none}
+.sim-pane.s-show{display:block}
+.sim-pane-title{font-size:1.12rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem;line-height:1.35}
+/* Step 1 : projets */
+.sim-proj-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-bottom:.5rem}
+@media(min-width:420px){.sim-proj-wrap{grid-template-columns:repeat(3,1fr)}}
+.sim-proj-card{border:2px solid #e0e0e0;border-radius:12px;padding:.9rem .5rem;display:flex;flex-direction:column;align-items:center;gap:.4rem;cursor:pointer;font-size:.8rem;font-weight:700;color:var(--navy);background:#fff;transition:border-color .15s,background .15s;font-family:inherit;text-align:center;line-height:1.3}
+.sim-proj-card:hover{border-color:var(--orange)}
+.sim-proj-card.sp-sel{border-color:var(--orange);background:#fff8f5;color:var(--orange)}
+/* Step 2 : montant */
+.sim-amt-val{font-size:2.8rem;font-weight:800;color:var(--navy);text-align:center;margin-bottom:1rem}
+.sim-range{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;outline:none;cursor:pointer;margin-bottom:.4rem;background:#e0e0e0}
+.sim-range::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--orange);cursor:pointer;box-shadow:0 2px 10px rgba(227,87,24,.4)}
+.sim-range::-moz-range-thumb{width:26px;height:26px;border-radius:50%;border:none;background:var(--orange);cursor:pointer}
+.sim-range-lims{display:flex;justify-content:space-between;font-size:.78rem;color:#aaa;margin-bottom:1.3rem}
+.sim-btn-next{width:100%;background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:.8rem;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
+.sim-btn-next:hover{background:var(--teal-d)}
+/* Step 3 : durée */
+.sim-dur-wrap{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
+.sim-dur-pill{padding:.55rem 1.1rem;border:2px solid #ddd;border-radius:2rem;font-size:.9rem;font-weight:600;color:var(--navy);background:#fff;cursor:pointer;font-family:inherit;transition:all .15s}
+.sim-dur-pill:hover{border-color:var(--orange);color:var(--orange)}
+.sim-dur-pill.sp-sel{background:var(--orange);border-color:var(--orange);color:#fff}
+/* Step 4 : résultats */
+.sim-res-box{background:linear-gradient(135deg,#f0faff 0%,#e4f4fb 100%);border:1px solid #c0e5f7;border-radius:14px;padding:1.4rem 1.2rem;text-align:center;margin-bottom:1.2rem}
+.sim-res-lbl{font-size:.82rem;color:#778;margin-bottom:.2rem}
+.sim-res-amt{font-size:3rem;font-weight:800;color:var(--navy);line-height:1.1}
+.sim-res-per{font-size:.85rem;color:#667;margin-bottom:1rem}
+.sim-res-table{background:#fff;border-radius:8px;padding:.7rem 1rem;text-align:left}
+.sim-res-row{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;color:#555;padding:.3rem 0;border-bottom:1px solid #f2f2f2}
+.sim-res-row:last-child{border-bottom:none}
+.sim-res-row b{color:var(--navy);font-weight:700}
+.sim-res-notice{font-size:.68rem;color:#bbb;margin-top:.7rem;line-height:1.5;text-align:center}
+.sim-res-cta{display:block;width:100%;background:var(--orange);color:#fff;border-radius:2rem;padding:.82rem;font-size:.95rem;font-weight:700;text-align:center;margin-bottom:.65rem;transition:background .2s}
+.sim-res-cta:hover{background:#c4481a;color:#fff}
+.sim-restart{width:100%;background:none;border:2px solid #ddd;border-radius:2rem;padding:.65rem;font-size:.88rem;font-weight:600;color:#888;cursor:pointer;font-family:inherit;transition:all .15s}
+.sim-restart:hover{border-color:var(--navy);color:var(--navy)}
+.sim-back-btn{display:none;background:none;border:none;color:#aaa;font-size:.85rem;cursor:pointer;font-family:inherit;margin-top:.9rem;padding:.3rem 0;width:100%;text-align:left}
+.sim-back-btn:hover{color:var(--navy)}
+.sim-back-btn.sb-vis{display:block}
+
   </style>
 </head>
 <body>
@@ -716,15 +773,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <ul class="prod-list">
         <li class="prod-item">
           <img src="https://picsum.photos/seed/pret-perso/600/320" alt="Prêt personnel"/>
-          <a href="/credit-pret/pret-personnel.htm" class="prod-btn">Simulez votre prêt personnel</a>
+          <a href="#" class="prod-btn" data-sim="autre">Simulez votre prêt personnel</a>
         </li>
         <li class="prod-item">
           <img src="https://picsum.photos/seed/credit-carte/600/320" alt="Crédit renouvelable"/>
-          <a href="/credit-pret/credit-renouvelable.htm" class="prod-btn">Simulez votre crédit renouvelable</a>
+          <a href="#" class="prod-btn" data-sim="famille-loisirs">Simulez votre crédit renouvelable</a>
         </li>
         <li class="prod-item">
           <img src="https://picsum.photos/seed/rachat-cred/600/320" alt="Rachat de crédits"/>
-          <a href="/rachat-credit.htm" class="prod-btn">Simulez votre rachat de crédits</a>
+          <a href="#" class="prod-btn" data-sim="regroupement">Simulez votre rachat de crédits</a>
         </li>
       </ul>
     </div>
@@ -873,7 +930,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <p>Depuis plus de <strong>70 ans</strong>, Jkl.oin accompagne les Français dans leurs projets de vie grâce au crédit à la consommation. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, Jkl.oin s'appuie sur l'expertise et la solidité d'un grand groupe bancaire pour vous proposer des solutions de financement adaptées à vos besoins.</p>
       <p>Que vous souhaitiez financer un <strong>projet auto</strong>, des <strong>travaux</strong>, un voyage ou tout autre projet personnel, Jkl.oin met à votre disposition des offres de crédit conso compétitives et flexibles. Notre démarche&nbsp;: vous proposer un parcours 100&nbsp;% digital, simple et rapide, avec une réponse de principe en quelques minutes.</p>
       <p>Avec plus de <strong>6 millions de clients</strong> et un réseau de plus de <strong>13&nbsp;000 partenaires</strong> (concessionnaires auto, grandes surfaces, enseignes spécialisées…), Jkl.oin est l'un des leaders du crédit à la consommation en France. Notre engagement&nbsp;: vous accompagner à chaque étape, du simulateur à la signature électronique, en toute transparence.</p>
-      <a href="/parcours-simulateur" class="btn-teal" style="display:inline-block;width:auto;padding:.7rem 1.8rem">Simuler un projet</a>
+      <a href="#" class="btn-teal" data-sim="autre" style="display:inline-block;width:auto;padding:.7rem 1.8rem">Simuler un projet</a>
     </div>
   </section>
 
@@ -939,28 +996,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="wrap">
       <div class="besoin-inner">
         <h2>Besoin d'un crédit&nbsp;?</h2>
-        <a href="/credit-pret.htm" class="besoin-main-link">Je fais un crédit conso →</a>
+        <a href="#" class="besoin-main-link" data-sim="autre">Je fais un crédit conso →</a>
         <div class="besoin-cols">
           <div class="besoin-col">
             <h3>Simulez vos crédits</h3>
             <ul>
-              <li><a href="/parcours-simulateur">Simulation crédit</a></li>
-              <li><a href="/parcours-simulateur?projet=auto">Simulation crédit auto</a></li>
-              <li><a href="/parcours-simulateur?projet=travaux">Simulation crédit travaux</a></li>
-              <li><a href="/parcours-simulateur?projet=pret-personnel">Simulation prêt personnel</a></li>
-              <li><a href="/parcours-simulateur?projet=renouvelable">Simulation crédit renouvelable</a></li>
-              <li><a href="/parcours-simulateur?projet=rachat">Simulation rachat de crédits</a></li>
+              <li><a href="#" data-sim="autre">Simulation crédit</a></li>
+              <li><a href="#" data-sim="auto">Simulation crédit auto</a></li>
+              <li><a href="#" data-sim="travaux">Simulation crédit travaux</a></li>
+              <li><a href="#" data-sim="autre">Simulation prêt personnel</a></li>
+              <li><a href="#" data-sim="famille-loisirs">Simulation crédit renouvelable</a></li>
+              <li><a href="#" data-sim="regroupement">Simulation rachat de crédits</a></li>
             </ul>
           </div>
           <div class="besoin-col">
             <h3>Nos offres de crédits</h3>
             <ul>
-              <li><a href="/credit-4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="/credit-5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="/credit-10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="/credit-20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="/credit-30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="/credit-50000">Crédit 50&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="autre" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="autre" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="autre" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="autre" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="autre" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="autre" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
             </ul>
           </div>
         </div>
@@ -1025,6 +1082,109 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </div>
 </footer>
 
+<!-- ══════════════════════════════
+     SIMULATEUR MULTI-ÉTAPES MODAL
+══════════════════════════════ -->
+<div class="sim-overlay" id="sim-overlay" role="dialog" aria-modal="true" aria-label="Simulateur de crédit Jkl.oin">
+  <div class="sim-modal">
+
+    <!-- En-tête -->
+    <div class="sim-modal-head">
+      <span class="sim-modal-logo">Jkl.oin — Simulateur</span>
+      <button class="sim-close-btn" id="sim-close-btn" aria-label="Fermer">✕</button>
+    </div>
+
+    <!-- Barre d'étapes -->
+    <div class="sim-bar">
+      <div class="sim-dot s-active" id="sd1">1</div>
+      <div class="sim-line" id="sl1"></div>
+      <div class="sim-dot" id="sd2">2</div>
+      <div class="sim-line" id="sl2"></div>
+      <div class="sim-dot" id="sd3">3</div>
+      <div class="sim-line" id="sl3"></div>
+      <div class="sim-dot" id="sd4">4</div>
+    </div>
+
+    <!-- Étape 1 : Projet -->
+    <div class="sim-pane s-show" id="sp1">
+      <p class="sim-pane-title">Quel est votre projet ?</p>
+      <div class="sim-proj-wrap">
+        <button class="sim-proj-card" data-val="auto">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><rect x="2" y="12" width="28" height="13" rx="4" stroke="currentColor" stroke-width="2"/><path d="M7 12l4-7h10l4 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="24" r="2.5" fill="currentColor"/><circle cx="23" cy="24" r="2.5" fill="currentColor"/></svg>
+          Auto / Moto
+        </button>
+        <button class="sim-proj-card" data-val="travaux">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M5 29V14l11-11 11 11v15H19v-8h-6v8H5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Travaux
+        </button>
+        <button class="sim-proj-card" data-val="famille-loisirs">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><circle cx="12" cy="10" r="4" stroke="currentColor" stroke-width="2"/><circle cx="22" cy="10" r="3" stroke="currentColor" stroke-width="2"/><path d="M4 28c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 21c2.2.7 4 2.8 4 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Famille &amp; Loisirs
+        </button>
+        <button class="sim-proj-card" data-val="numerique">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="24" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M11 28h10M16 22v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Numérique
+        </button>
+        <button class="sim-proj-card" data-val="regroupement">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M6 9h20M6 16h20M6 23h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="23" r="4.5" stroke="currentColor" stroke-width="2"/><path d="M22 23h4M24 21v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Regroupement
+        </button>
+        <button class="sim-proj-card" data-val="autre">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/><path d="M16 10v6l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Autre projet
+        </button>
+      </div>
+    </div>
+
+    <!-- Étape 2 : Montant -->
+    <div class="sim-pane" id="sp2">
+      <p class="sim-pane-title">Quel montant souhaitez-vous emprunter ?</p>
+      <div class="sim-amt-val" id="sim-amt-display">5 000 €</div>
+      <input type="range" class="sim-range" id="sim-range-input" min="500" max="75000" step="100" value="5000" aria-label="Montant"/>
+      <div class="sim-range-lims"><span>500 €</span><span>75 000 €</span></div>
+      <button class="sim-btn-next" id="sim-montant-next">Continuer →</button>
+    </div>
+
+    <!-- Étape 3 : Durée -->
+    <div class="sim-pane" id="sp3">
+      <p class="sim-pane-title">Sur quelle durée souhaitez-vous rembourser ?</p>
+      <div class="sim-dur-wrap">
+        <button class="sim-dur-pill" data-m="12">12 mois</button>
+        <button class="sim-dur-pill" data-m="24">24 mois</button>
+        <button class="sim-dur-pill" data-m="36">36 mois</button>
+        <button class="sim-dur-pill" data-m="48">48 mois</button>
+        <button class="sim-dur-pill" data-m="60">60 mois</button>
+        <button class="sim-dur-pill" data-m="72">72 mois</button>
+        <button class="sim-dur-pill" data-m="84">84 mois</button>
+      </div>
+    </div>
+
+    <!-- Étape 4 : Résultats -->
+    <div class="sim-pane" id="sp4">
+      <p class="sim-pane-title">Votre simulation</p>
+      <div class="sim-res-box">
+        <p class="sim-res-lbl">Soit environ</p>
+        <div class="sim-res-amt" id="sim-monthly-val">— €</div>
+        <p class="sim-res-per">par mois</p>
+        <div class="sim-res-table">
+          <div class="sim-res-row"><span>Montant emprunté</span><b id="sim-r-montant">—</b></div>
+          <div class="sim-res-row"><span>Durée du crédit</span><b id="sim-r-duree">—</b></div>
+          <div class="sim-res-row"><span>TAEG fixe</span><b id="sim-r-taeg">—</b></div>
+          <div class="sim-res-row"><span>Coût total du crédit</span><b id="sim-r-cout">—</b></div>
+          <div class="sim-res-row"><span>Montant total dû</span><b id="sim-r-total">—</b></div>
+        </div>
+        <p class="sim-res-notice">Simulation à titre indicatif — Offre soumise à acceptation après étude du dossier. TAEG fixe indicatif. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+      </div>
+      <a href="#" class="sim-res-cta">Je fais ma demande →</a>
+      <button class="sim-restart">← Nouvelle simulation</button>
+    </div>
+
+    <!-- Bouton Retour -->
+    <button class="sim-back-btn" id="sim-back-btn">← Retour</button>
+
+  </div>
+</div>
+
 <script>
   // Menu mobile
   var btn = document.getElementById('menu-btn');
@@ -1044,6 +1204,146 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       var isOpen=item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open');el.querySelector('.faq-question').setAttribute('aria-expanded','false');});
       if(!isOpen){item.classList.add('open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+
+  // ── Simulateur multi-étapes ──────────────────────────────
+  var simData = {step:1, projet:null, montant:5000, duree:null};
+  var simRates = {auto:5.5, travaux:5.9, 'famille-loisirs':6.4, numerique:6.9, regroupement:4.9, autre:5.9};
+
+  function fmtEur(n){
+    return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  }
+  function fmtAmt(n){
+    return parseInt(n).toLocaleString('fr-FR')+' €';
+  }
+  function calcPMT(P,rAnnual,n){
+    var r=rAnnual/12/100;
+    if(r===0) return P/n;
+    return P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  }
+
+  function updateSimBar(){
+    var s=simData.step;
+    for(var i=1;i<=4;i++){
+      var d=document.getElementById('sd'+i);
+      d.classList.remove('s-active','s-done');
+      if(i<s) d.classList.add('s-done');
+      else if(i===s) d.classList.add('s-active');
+    }
+    for(var j=1;j<=3;j++){
+      document.getElementById('sl'+j).classList.toggle('s-done',j<s);
+    }
+    var backBtn=document.getElementById('sim-back-btn');
+    if(s>1) backBtn.classList.add('sb-vis'); else backBtn.classList.remove('sb-vis');
+  }
+
+  function showPane(n){
+    document.querySelectorAll('.sim-pane').forEach(function(p){p.classList.remove('s-show');});
+    document.getElementById('sp'+n).classList.add('s-show');
+  }
+
+  function updateRangeDisplay(val){
+    document.getElementById('sim-amt-display').textContent=fmtAmt(val);
+    simData.montant=parseInt(val);
+  }
+
+  function renderResult(){
+    var P=simData.montant, n=simData.duree;
+    var rate=simRates[simData.projet]||5.9;
+    var pmt=calcPMT(P,rate,n);
+    var total=pmt*n;
+    var cout=total-P;
+    document.getElementById('sim-monthly-val').textContent=fmtEur(pmt);
+    document.getElementById('sim-r-montant').textContent=fmtAmt(P);
+    document.getElementById('sim-r-duree').textContent=n+' mois';
+    document.getElementById('sim-r-taeg').textContent=rate.toString().replace('.',',')+' %';
+    document.getElementById('sim-r-cout').textContent=fmtEur(cout);
+    document.getElementById('sim-r-total').textContent=fmtEur(total);
+  }
+
+  function openSim(projet,montant){
+    simData={step:1,projet:projet||null,montant:montant||5000,duree:null};
+    // reset selections
+    document.querySelectorAll('.sim-proj-card').forEach(function(b){
+      b.classList.toggle('sp-sel',b.dataset.val===projet);
+    });
+    document.querySelectorAll('.sim-dur-pill').forEach(function(b){b.classList.remove('sp-sel');});
+    // if project already known skip to step 2
+    if(projet){ simData.step=2; }
+    updateRangeDisplay(simData.montant);
+    document.getElementById('sim-range-input').value=simData.montant;
+    updateSimBar();
+    showPane(simData.step);
+    document.getElementById('sim-overlay').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+
+  function closeSim(){
+    document.getElementById('sim-overlay').classList.remove('open');
+    document.body.style.overflow='';
+  }
+
+  // Close
+  document.getElementById('sim-close-btn').addEventListener('click',closeSim);
+  document.getElementById('sim-overlay').addEventListener('click',function(e){if(e.target===this)closeSim();});
+
+  // Step 1 — projet
+  document.querySelectorAll('.sim-proj-card').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      simData.projet=this.dataset.val;
+      document.querySelectorAll('.sim-proj-card').forEach(function(b){b.classList.remove('sp-sel');});
+      this.classList.add('sp-sel');
+      simData.step=2; updateSimBar(); showPane(2);
+    });
+  });
+
+  // Step 2 — montant slider
+  document.getElementById('sim-range-input').addEventListener('input',function(){
+    updateRangeDisplay(this.value);
+  });
+  document.getElementById('sim-montant-next').addEventListener('click',function(){
+    simData.step=3; updateSimBar(); showPane(3);
+  });
+
+  // Step 3 — durée
+  document.querySelectorAll('.sim-dur-pill').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      simData.duree=parseInt(this.dataset.m);
+      document.querySelectorAll('.sim-dur-pill').forEach(function(b){b.classList.remove('sp-sel');});
+      this.classList.add('sp-sel');
+      simData.step=4; updateSimBar(); renderResult(); showPane(4);
+    });
+  });
+
+  // Step 4 — restart
+  document.querySelector('.sim-restart').addEventListener('click',function(){
+    openSim(null,5000);
+  });
+
+  // Back
+  document.getElementById('sim-back-btn').addEventListener('click',function(){
+    if(simData.step>1){ simData.step--; updateSimBar(); showPane(simData.step); }
+  });
+
+  // Intercept hero form → ouvre le simulateur
+  var heroForm=document.querySelector('.sim-form');
+  if(heroForm){
+    heroForm.addEventListener('submit',function(e){
+      e.preventDefault();
+      var p=this.querySelector('[name=projet]').value||null;
+      var m=parseInt(this.querySelector('[name=montant]').value)||5000;
+      openSim(p,m);
+    });
+  }
+
+  // Tous les éléments data-sim
+  document.querySelectorAll('[data-sim]').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.preventDefault();
+      var proj=this.dataset.sim||null;
+      var amt=this.dataset.simAmt?parseInt(this.dataset.simAmt):5000;
+      openSim(proj,amt);
     });
   });
 
