@@ -136,7 +136,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hero-photo-bg{
   position:absolute;right:0;top:0;bottom:0;
   width:60%;
-  background:url('https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Hero/App-Sofinco-visuel-mobile.webp') right center/cover no-repeat;
+  background:linear-gradient(135deg,#62c9ef 0%,#3ab5e5 60%,#1e9fd4 100%);
+  opacity:.7;
 }
 .hero-photo-content{
   position:relative;z-index:1;
@@ -181,7 +182,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hero-card-img-wrap{
   width:140px;flex-shrink:0;
 }
-.hero-card-img-wrap img{width:100%;border-radius:.6rem}
+.css-card{
+  width:130px;background:linear-gradient(135deg,#0a4a6e 0%,#06c2b0 100%);
+  border-radius:10px;padding:12px 10px 10px;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.css-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.css-card-name{font-size:.7rem;font-weight:800;letter-spacing:.03em}
+.css-card-visa{font-size:.8rem;font-weight:900;font-style:italic}
+.css-card-chip{
+  width:28px;height:20px;background:#d4a030;border-radius:3px;
+  margin-bottom:12px;
+  background:linear-gradient(135deg,#d4a030 0%,#f0c860 50%,#d4a030 100%);
+}
+.css-card-num{font-size:.58rem;letter-spacing:.1em;opacity:.85}
 
 /* ═══════════════════════════
    HERO SECTION 3 — Simulateur blanc
@@ -263,6 +276,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-item img{
   width:100%;height:220px;object-fit:cover;display:block;
 }
+.prod-img-placeholder{
+  width:100%;height:220px;display:flex;align-items:center;justify-content:center;
+}
 .prod-btn{
   display:block;
   background:var(--navy);color:#fff;
@@ -274,7 +290,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-btn:hover{background:#005580;color:#fff}
 @media(min-width:700px){
   .prod-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-  .prod-item img{height:175px}
+  .prod-item img,.prod-img-placeholder{height:175px}
 }
 
 /* ═══════════════════════════
@@ -500,7 +516,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <a href="/credit-pret/carte-credit-renouvelable.htm" class="hero-card-cta">Je demande ma carte</a>
       </div>
       <div class="hero-card-img-wrap">
-        <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Hero/sofinco-carte.png" alt="Carte Jkl.oin VISA"/>
+        <div class="css-card">
+          <div class="css-card-top">
+            <span class="css-card-name">Jkl.oin</span>
+            <span class="css-card-visa">VISA</span>
+          </div>
+          <div class="css-card-chip"></div>
+          <div class="css-card-num">•••• •••• •••• 1234</div>
+        </div>
       </div>
     </div>
   </section>
@@ -528,15 +551,21 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <p class="prod-sub">Simulez votre projet en quelques clics</p>
       <ul class="prod-list">
         <li class="prod-item">
-          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-pret-personnel.webp" alt="Couple avec valises — Prêt personnel"/>
+          <div class="prod-img-placeholder" style="background:linear-gradient(135deg,#3ab5e5,#1e9fd4)">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="8" fill="rgba(255,255,255,.7)"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="rgba(255,255,255,.7)"/></svg>
+          </div>
           <a href="/credit-pret/pret-personnel.htm" class="prod-btn">Simulez votre prêt personnel</a>
         </li>
         <li class="prod-item">
-          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-credit-renouvelable.webp" alt="Femme souriante — Crédit renouvelable"/>
+          <div class="prod-img-placeholder" style="background:linear-gradient(135deg,#06c2b0,#049f90)">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="8" fill="rgba(255,255,255,.7)"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="rgba(255,255,255,.7)"/></svg>
+          </div>
           <a href="/credit-pret/credit-renouvelable.htm" class="prod-btn">Simulez votre crédit renouvelable</a>
         </li>
         <li class="prod-item">
-          <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/img-push-rachat-credit.webp" alt="Rachat de crédits"/>
+          <div class="prod-img-placeholder" style="background:linear-gradient(135deg,#e35718,#c4481a)">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="8" fill="rgba(255,255,255,.7)"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="rgba(255,255,255,.7)"/></svg>
+          </div>
           <a href="/rachat-credit.htm" class="prod-btn">Simulez votre rachat de crédits</a>
         </li>
       </ul>
@@ -588,28 +617,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <ul class="av-grid">
         <li class="av-item">
           <div class="av-icon">
-            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-5-min.svg" alt="" width="34" height="34"/>
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" stroke="var(--teal)" stroke-width="2"/><text x="17" y="22" text-anchor="middle" fill="var(--teal)" font-size="12" font-weight="800" font-family="sans-serif">5'</text></svg>
           </div>
           <h3>Une réponse de principe immédiate<sup style="font-size:.6rem">²</sup></h3>
           <p>Obtenez une réponse de principe en 5 minutes</p>
         </li>
         <li class="av-item">
           <div class="av-icon">
-            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-seul-accompagne.svg" alt="" width="34" height="34"/>
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="13" cy="11" r="5" stroke="var(--teal)" stroke-width="2"/><path d="M3 29c0-5.523 4.477-10 10-10" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="11" r="5" stroke="var(--navy)" stroke-width="2"/><path d="M18 29c0-5.523 2.686-10 6-10" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"/></svg>
           </div>
           <h3>Seul(e) ou accompagné(e)</h3>
           <p>Souscrivez en ligne<sup style="font-size:.6rem">³</sup> ou avec nos conseillers</p>
         </li>
         <li class="av-item">
           <div class="av-icon">
-            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-gestion-simplifiee.svg" alt="" width="34" height="34"/>
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="4" y="8" width="26" height="18" rx="3" stroke="var(--teal)" stroke-width="2"/><line x1="4" y1="14" x2="30" y2="14" stroke="var(--teal)" stroke-width="2"/><rect x="8" y="18" width="6" height="4" rx="1" fill="var(--teal)"/></svg>
           </div>
           <h3>Une gestion simplifiée</h3>
           <p>Gérez votre prêt depuis votre espace client</p>
         </li>
         <li class="av-item">
           <div class="av-icon">
-            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-100-flexible.svg" alt="" width="34" height="34"/>
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M17 4l3.5 7 7.5 1.1-5.5 5.3 1.3 7.6L17 21.5l-6.8 3.5 1.3-7.6L6 12.1l7.5-1.1z" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/></svg>
           </div>
           <h3>100% flexible<sup style="font-size:.6rem">⁴</sup></h3>
           <p>Mettez en pause ou adaptez vos mensualités</p>
@@ -627,7 +656,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <p style="margin-top:.7rem">Jkl.oin réinvente l'expérience du crédit : 100&nbsp;% digital, instantané, intelligent et pédagogique.</p>
           <p><strong>Un prix décerné par l'Association Française de la Relation Client</strong></p>
         </div>
-        <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/IMG/img-palme.jpg" alt="Palme d'argent"/>
+        <div style="width:90px;height:90px;flex-shrink:0;background:linear-gradient(135deg,#c0c0c0,#e8e8e8);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><path d="M22 4l4 9 9 1.3-6.5 6.3 1.5 9L22 25l-8 4.6 1.5-9L9 14.3 18 13z" fill="#bbb" stroke="#999" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
       </div>
     </div>
   </section>
