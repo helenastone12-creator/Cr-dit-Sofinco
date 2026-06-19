@@ -78,36 +78,36 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .desktop-nav{display:none}
 @media(min-width:960px){
   .hd-menu-btn,.hd-menu-label-wrap{display:none}
-  .hd-logo{position:static;transform:none;font-size:1.5rem}
+  .hd-logo{position:static;transform:none;font-size:1.5rem;flex-shrink:0}
   .desktop-nav{
     display:flex;flex:1;height:100%;align-items:center;margin-left:1.5rem;
   }
-  .desktop-nav ul{display:flex;height:100%;align-items:center}
+  .desktop-nav > ul{display:flex;height:100%;align-items:center;list-style:none;padding:0;margin:0}
   .desktop-nav li{height:100%;position:relative}
-  .desktop-nav li>a{
+  .desktop-nav > ul > li > a{
     display:flex;align-items:center;height:100%;
     padding:0 .85rem;font-size:.88rem;font-weight:600;color:var(--text);
     border-bottom:3px solid transparent;white-space:nowrap;
     transition:color .15s,border-color .15s;
   }
-  .desktop-nav li>a:hover{color:var(--orange);border-bottom-color:var(--orange)}
-  .desktop-nav li.has-sub>a::after{
+  .desktop-nav > ul > li > a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+  .desktop-nav li.has-sub > a::after{
     content:'';display:inline-block;width:5px;height:5px;margin-left:.3rem;margin-top:-2px;
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
     transform:rotate(45deg);
   }
-  .desktop-nav li:hover>a{color:var(--orange);border-bottom-color:var(--orange)}
+  .desktop-nav > ul > li:hover > a{color:var(--orange);border-bottom-color:var(--orange)}
   .sub-menu{
     display:none;position:absolute;top:100%;left:0;
-    background:#fff;min-width:210px;
+    background:#fff;min-width:210px;list-style:none;padding:0;margin:0;
     box-shadow:0 8px 24px rgba(0,0,0,.13);
     border-top:3px solid var(--orange);
     border-radius:0 0 8px 8px;z-index:200;
   }
-  .desktop-nav li:hover>.sub-menu{display:block}
+  .desktop-nav li:hover > .sub-menu{display:block}
   .sub-menu li{height:auto}
-  .sub-menu li a{height:auto;padding:.65rem 1.1rem;border-bottom:none;font-size:.85rem}
-  .sub-menu li a:hover{background:var(--gray)}
+  .sub-menu li a{display:block;height:auto;padding:.65rem 1.1rem;border-bottom:none;font-size:.85rem;white-space:nowrap}
+  .sub-menu li a:hover{background:var(--gray);color:var(--orange)}
   .hd-right .hd-connect-btn{
     background:var(--orange);color:#fff;
     border-radius:2rem;padding:.42rem 1.1rem;
