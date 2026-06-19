@@ -1787,6 +1787,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   if(btn) btn.addEventListener('click', function(){ if(menu.classList.contains('open')){ closeMenu(); } else { openMenu(); } });
   if(closeBtn) closeBtn.addEventListener('click', closeMenu);
 
+  // Footer accordion
+  document.querySelectorAll('.footer-acc-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var section=this.closest('.footer-acc-section');
+      section.classList.toggle('open');
+    });
+  });
+
   // FAQ accordion
   document.querySelectorAll('.faq-question').forEach(function(btn){
     btn.addEventListener('click',function(){
