@@ -745,72 +745,132 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-confirm-title{font-size:1.3rem;font-weight:800;color:var(--teal);margin-bottom:.7rem}
 .sim-confirm-msg{font-size:.9rem;color:#555;line-height:1.6}
 
-/* ── Routeur SPA : pages internes ── */
+/* ── Routeur SPA ── */
 .pg-section{display:none}
 .pg-section.pg-active{display:block}
 
-/* ── Page interne générique ── */
-.inner-page{padding:2.5rem 0 4rem}
-.inner-page .wrap{max-width:900px;margin:0 auto;padding:0 1.5rem}
-.inner-page h1{font-size:1.8rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem;line-height:1.2}
-.inner-page h2{font-size:1.25rem;font-weight:700;color:var(--navy);margin:1.8rem 0 .8rem}
-.inner-page p{font-size:.92rem;color:#444;line-height:1.7;margin-bottom:.9rem}
-.inner-page ul{padding-left:1.2rem;margin-bottom:.9rem}
-.inner-page ul li{font-size:.9rem;color:#444;line-height:1.7;margin-bottom:.3rem}
-.inner-page a{color:var(--teal);text-decoration:underline}
+/* ════════════════════════
+   PAGES INTERNES — BASE
+════════════════════════ */
+.inner-page{padding:4rem 0 6rem;background:#fff}
+.inner-page .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
+.inner-page h1{font-size:2.4rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem;line-height:1.15;border-left:5px solid var(--teal);padding-left:1.2rem}
+.inner-page h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin:2.5rem 0 1rem;display:flex;align-items:center;gap:.6rem}
+.inner-page h2::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.inner-page p{font-size:1.02rem;color:#3d3d3d;line-height:1.85;margin-bottom:1.1rem}
+.inner-page ul{padding-left:0;margin-bottom:1.2rem;list-style:none}
+.inner-page ul li{font-size:1rem;color:#3d3d3d;line-height:1.8;margin-bottom:.5rem;padding-left:1.5rem;position:relative}
+.inner-page ul li::before{content:'›';position:absolute;left:0;color:var(--teal);font-weight:700;font-size:1.1rem}
+.inner-page a{color:var(--teal);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(6,194,176,.3)}
+.inner-page a:hover{border-bottom-color:var(--teal)}
+.inner-page .legal-box{background:#f5f9fc;border-left:3px solid var(--sky);padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin:1.5rem 0;font-size:.92rem;color:#555;line-height:1.7}
+@media(min-width:960px){.inner-page h1{font-size:3rem}.inner-page p{font-size:1.05rem}}
 
-/* ── Hero produit ── */
-.prod-hero{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 100%);padding:3rem 1.5rem 2.5rem;color:#fff}
-.prod-hero .wrap{max-width:var(--w);margin:0 auto}
-.prod-hero h1{font-size:2rem;font-weight:800;line-height:1.2;margin-bottom:.7rem}
-.prod-hero p{font-size:1rem;opacity:.85;margin-bottom:1.5rem;line-height:1.5}
-.prod-hero .btn-sim{display:inline-block;background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:.85rem 2rem;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
-.prod-hero .btn-sim:hover{background:var(--teal-d)}
-@media(min-width:960px){.prod-hero h1{font-size:2.5rem}}
+/* ════════════════════════
+   HERO PRODUIT
+════════════════════════ */
+.prod-hero{background:linear-gradient(140deg,#001f38 0%,#00334D 50%,#004d73 100%);padding:4.5rem 1.5rem 3.5rem;color:#fff;position:relative;overflow:hidden}
+.prod-hero::after{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(6,194,176,.12) 0%,transparent 70%);pointer-events:none}
+.prod-hero::before{content:'';position:absolute;left:-60px;bottom:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(58,181,229,.08) 0%,transparent 70%);pointer-events:none}
+.prod-hero .wrap{max-width:var(--w);margin:0 auto;position:relative;z-index:1}
+.prod-hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(6,194,176,.15);border:1.5px solid rgba(6,194,176,.35);color:var(--teal);border-radius:2rem;padding:.35rem 1rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.2rem}
+.prod-hero h1{font-size:2.4rem;font-weight:800;line-height:1.12;margin-bottom:1rem;color:#fff}
+.prod-hero h1 span{color:var(--teal)}
+.prod-hero-desc{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:2rem;line-height:1.65;max-width:580px}
+.prod-hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.2rem;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 20px rgba(6,194,176,.4)}
+.prod-hero .btn-prim:hover{background:var(--teal-d);transform:translateY(-1px)}
+.prod-hero .btn-sec{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4);border-radius:2rem;padding:.95rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.prod-hero .btn-sec:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.prod-hero-note{font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.8rem}
+@media(min-width:960px){.prod-hero h1{font-size:3.2rem}.prod-hero{padding:6rem 1.5rem 5rem}}
 
-/* ── Chiffres clés ── */
-.prod-chiffres{padding:2rem 0;background:#fff;border-bottom:1px solid #eee}
-.prod-chiffres .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.prod-chiffres-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+/* ════════════════════════
+   BANDEAU CHIFFRES
+════════════════════════ */
+.prod-chiffres{background:#fff;border-bottom:1px solid #e8edf2}
+.prod-chiffres .wrap{max-width:var(--w);margin:0 auto;padding:0}
+.prod-chiffres-grid{display:grid;grid-template-columns:repeat(2,1fr)}
 @media(min-width:700px){.prod-chiffres-grid{grid-template-columns:repeat(4,1fr)}}
-.prod-chiffre-item{text-align:center;padding:1rem}
-.prod-chiffre-val{font-size:1.6rem;font-weight:800;color:var(--navy);display:block}
-.prod-chiffre-lbl{font-size:.8rem;color:#666;margin-top:.3rem;line-height:1.3}
+.prod-chiffre-item{padding:2.2rem 1rem;text-align:center;border-right:1px solid #e8edf2;border-bottom:1px solid #e8edf2;position:relative;transition:background .2s}
+.prod-chiffre-item:hover{background:#f9fafb}
+@media(min-width:700px){.prod-chiffre-item:nth-child(3),.prod-chiffre-item:nth-child(4){border-bottom:none}.prod-chiffre-item:nth-child(4){border-right:none}}
+@media(max-width:699px){.prod-chiffre-item:nth-child(even){border-right:none}.prod-chiffre-item:nth-last-child(-n+2){border-bottom:none}}
+.prod-chiffre-val{font-size:2.6rem;font-weight:800;color:var(--navy);display:block;line-height:1}
+.prod-chiffre-label{font-size:1rem;font-weight:700;color:var(--navy)}
+.prod-chiffre-desc{font-size:.82rem;color:#888;margin-top:.4rem;line-height:1.4}
 
-/* ── Avantages produit ── */
-.prod-avantages{padding:2.5rem 0;background:var(--gray)}
-.prod-avantages .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.prod-avantages h2{font-size:1.4rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem;text-align:center}
-.prod-avantages-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+/* ════════════════════════
+   AVANTAGES
+════════════════════════ */
+.prod-avantages{padding:5rem 0;background:#f4f7f9}
+.prod-avantages .wrap{max-width:1160px;margin:0 auto;padding:0 1.5rem}
+.prod-section-hd{text-align:center;margin-bottom:3.5rem}
+.prod-section-hd h2{font-size:2rem;font-weight:800;color:var(--navy);margin-bottom:.7rem;line-height:1.2}
+.prod-section-hd p{font-size:1.05rem;color:#666;max-width:600px;margin:0 auto;line-height:1.6}
+.prod-avantages-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
 @media(min-width:700px){.prod-avantages-grid{grid-template-columns:repeat(3,1fr)}}
-.prod-avantage-card{background:#fff;border-radius:12px;padding:1.3rem 1rem;text-align:center}
-.prod-avantage-ico{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sky));display:flex;align-items:center;justify-content:center;margin:0 auto .8rem}
-.prod-avantage-ico svg{color:#fff}
-.prod-avantage-card h3{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.4rem}
-.prod-avantage-card p{font-size:.8rem;color:#666;line-height:1.5;margin:0}
+.prod-av-card{background:#fff;border-radius:20px;padding:2rem 1.6rem;border:1px solid #e4eaf0;transition:all .25s;display:flex;flex-direction:column;gap:.9rem}
+.prod-av-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,51,77,.1);border-color:rgba(6,194,176,.3)}
+.prod-av-ico{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#e8faf8 0%,#d4f3ef 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prod-av-ico svg{color:var(--teal-d)}
+.prod-av-card h3{font-size:1.05rem;font-weight:700;color:var(--navy);line-height:1.3}
+.prod-av-card p{font-size:.93rem;color:#666;line-height:1.65;margin:0}
 
-/* ── Étapes ── */
-.prod-etapes{padding:2.5rem 0;background:#fff}
-.prod-etapes .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
-.prod-etapes h2{font-size:1.4rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem;text-align:center}
-.prod-etapes-list{display:flex;flex-direction:column;gap:1.2rem}
-@media(min-width:700px){.prod-etapes-list{flex-direction:row;gap:1.5rem}}
-.prod-etape{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem}
-.prod-etape-num{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.prod-etape h3{font-size:.95rem;font-weight:700;color:var(--navy)}
-.prod-etape p{font-size:.82rem;color:#666;line-height:1.5;margin:0}
+/* ════════════════════════
+   ÉTAPES
+════════════════════════ */
+.prod-etapes{padding:5rem 0;background:#fff}
+.prod-etapes .wrap{max-width:1000px;margin:0 auto;padding:0 1.5rem}
+.prod-etapes-grid{display:grid;grid-template-columns:1fr;gap:2.5rem;position:relative}
+@media(min-width:700px){.prod-etapes-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
+.prod-step{position:relative;text-align:center;padding:2rem 1.5rem;background:#f9fafb;border-radius:20px;border:1px solid #e8edf2}
+@media(min-width:700px){.prod-step:not(:last-child)::after{content:'→';position:absolute;right:-1.2rem;top:50%;transform:translateY(-50%);font-size:1.5rem;color:var(--teal);z-index:1}}
+.prod-step-num{width:62px;height:62px;border-radius:50%;background:var(--navy);color:#fff;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1.3rem;box-shadow:0 6px 20px rgba(0,51,77,.3)}
+.prod-step h3{font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.6rem}
+.prod-step p{font-size:.95rem;color:#666;line-height:1.65;margin:0}
 
-/* ── CTA bande ── */
-.prod-cta-band{background:var(--navy);padding:2rem 1.5rem;text-align:center}
-.prod-cta-band h2{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:.8rem}
-.prod-cta-band p{font-size:.88rem;color:rgba(255,255,255,.7);margin-bottom:1.2rem}
-.prod-cta-band .btn-sim{display:inline-block;background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:.85rem 2.5rem;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit}
-.prod-cta-band .btn-sim:hover{background:var(--teal-d)}
+/* ════════════════════════
+   EXEMPLE REPRÉSENTATIF
+════════════════════════ */
+.prod-exemple-wrap{background:#fff;padding:3rem 0}
+.prod-exemple-wrap .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
+.prod-exemple-box{background:linear-gradient(135deg,#f0f8ff,#e8f7f5);border:1.5px solid #b8dff5;border-radius:16px;padding:1.8rem 2rem}
+.prod-exemple-box h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.05em;font-size:.82rem}
+.prod-exemple-box p{font-size:.92rem;color:#444;line-height:1.85;margin:0}
+.prod-exemple-box strong{color:var(--navy)}
 
-/* ── FAQ produit ── */
-.prod-faq{padding:2.5rem 0;background:var(--gray)}
-.prod-faq .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
-.prod-faq h2{font-size:1.4rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem}
+/* ════════════════════════
+   CTA BAND
+════════════════════════ */
+.prod-cta{background:linear-gradient(135deg,#001f38 0%,#00334D 100%);padding:5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.prod-cta::before{content:'';position:absolute;left:50%;top:-200px;transform:translateX(-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(6,194,176,.06) 0%,transparent 65%);pointer-events:none}
+.prod-cta h2{font-size:2.2rem;font-weight:800;color:#fff;margin-bottom:.8rem;position:relative}
+.prod-cta p{font-size:1.05rem;color:rgba(255,255,255,.7);margin-bottom:2.5rem;line-height:1.6;position:relative}
+.prod-cta .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1.2rem 3rem;font-size:1.1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;position:relative;box-shadow:0 6px 24px rgba(6,194,176,.35)}
+.prod-cta .btn-prim:hover{background:var(--teal-d);transform:translateY(-2px)}
+.prod-cta-note{font-size:.78rem;color:rgba(255,255,255,.35);margin-top:1.2rem;position:relative}
+@media(min-width:960px){.prod-cta h2{font-size:2.6rem}}
+
+/* ════════════════════════
+   TRUST STRIP
+════════════════════════ */
+.prod-trust{background:var(--navy-d);padding:3rem 0}
+.prod-trust .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.prod-trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+@media(min-width:700px){.prod-trust-grid{grid-template-columns:repeat(4,1fr)}}
+.prod-trust-item{text-align:center}
+.prod-trust-val{font-size:2rem;font-weight:800;color:var(--teal);display:block}
+.prod-trust-lbl{font-size:.85rem;color:rgba(255,255,255,.55);margin-top:.3rem;line-height:1.4}
+
+/* ════════════════════════
+   FAQ PRODUIT
+════════════════════════ */
+.prod-faq{padding:5rem 0;background:#f4f7f9}
+.prod-faq .wrap{max-width:800px;margin:0 auto;padding:0 1.5rem}
+.prod-faq-hd{margin-bottom:2.5rem}
+.prod-faq-hd h2{font-size:2rem;font-weight:800;color:var(--navy)}
+.prod-faq-hd p{font-size:1rem;color:#666;margin-top:.5rem}
   </style>
 </head>
 <body>
@@ -1325,692 +1385,1242 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      PAGES INTERNES (SPA)
 ══════════════════════════════ -->
 
-<!-- ── PRÊT PERSONNEL ── -->
+<!-- ════════════ PRÊT PERSONNEL ════════════ -->
 <div class="page pg-section" id="pg-pret-personnel">
+
   <div class="prod-hero">
     <div class="wrap">
-      <h1>Prêt personnel Jkl.oin</h1>
-      <p>Financez tous vos projets : voyages, mariage, équipement, études...<br>Jusqu'à 75 000 € remboursables jusqu'à 84 mois.</p>
-      <button class="btn-sim" data-sim="famille-loisirs">Simuler mon prêt</button>
+      <div class="prod-hero-tag">Crédit consommation</div>
+      <h1>Prêt personnel <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Concrétisez tous vos projets — voyages, mariage, équipement électroménager, études supérieures — sans justificatif d'utilisation. Jusqu'à <strong>75 000 €</strong> remboursables sur <strong>84 mois</strong>, avec un taux fixe garanti dès la signature.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" data-sim="famille-loisirs">Simuler mon prêt</button>
+        <button class="btn-sec" onclick="window.location.hash='nous-contacter'">Parler à un conseiller</button>
+      </div>
+      <p class="prod-hero-note">Simulation gratuite · Sans engagement · Réponse en 2 minutes</p>
     </div>
   </div>
+
   <div class="prod-chiffres">
     <div class="wrap">
       <div class="prod-chiffres-grid">
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1 000 €</span><div class="prod-chiffre-lbl">Montant minimum</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">75 000 €</span><div class="prod-chiffre-lbl">Montant maximum</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">6</span><div class="prod-chiffre-lbl">Mois minimum</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">84 mois</span><div class="prod-chiffre-lbl">Durée maximum</div></div>
+        <div class="prod-chiffre-item">
+          <span class="prod-chiffre-val">1 000<span class="prod-chiffre-label"> €</span></span>
+          <div class="prod-chiffre-desc">Montant minimum disponible</div>
+        </div>
+        <div class="prod-chiffre-item">
+          <span class="prod-chiffre-val">75 000<span class="prod-chiffre-label"> €</span></span>
+          <div class="prod-chiffre-desc">Montant maximum empruntable</div>
+        </div>
+        <div class="prod-chiffre-item">
+          <span class="prod-chiffre-val">6<span class="prod-chiffre-label"> mois</span></span>
+          <div class="prod-chiffre-desc">Durée minimale de remboursement</div>
+        </div>
+        <div class="prod-chiffre-item">
+          <span class="prod-chiffre-val">84<span class="prod-chiffre-label"> mois</span></span>
+          <div class="prod-chiffre-desc">Durée maximale de remboursement</div>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="prod-avantages">
     <div class="wrap">
-      <h2>Les avantages du prêt personnel Jkl.oin</h2>
+      <div class="prod-section-hd">
+        <h2>Pourquoi choisir le prêt personnel Jkl.oin ?</h2>
+        <p>Un financement simple, transparent et 100% en ligne pour tous vos projets de vie.</p>
+      </div>
       <div class="prod-avantages-grid">
-        <div class="prod-avantage-card">
-          <div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <h3>Taux fixe garanti</h3><p>Votre mensualité ne change jamais pendant toute la durée du crédit.</p>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Taux fixe garanti dès la signature</h3>
+          <p>Votre mensualité ne change jamais pendant toute la durée du crédit. Pas de mauvaise surprise, votre budget reste maîtrisé.</p>
         </div>
-        <div class="prod-avantage-card">
-          <div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3>Sans justificatif d'utilisation</h3><p>Utilisez votre prêt librement, sans avoir à justifier votre projet.</p>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <h3>Sans justificatif d'utilisation</h3>
+          <p>Vous n'avez pas à expliquer comment vous allez utiliser votre argent. Vacances, mariage, déménagement : c'est votre projet.</p>
         </div>
-        <div class="prod-avantage-card">
-          <div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <h3>Réponse immédiate</h3><p>Obtenez une réponse de principe en moins de 2 minutes en ligne.</p>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h3>Réponse de principe en 2 min</h3>
+          <p>Renseignez votre simulation et obtenez une réponse immédiate. Votre dossier est étudié rapidement par nos équipes.</p>
         </div>
-        <div class="prod-avantage-card">
-          <div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <h3>100% en ligne</h3><p>Simulez, souscrivez et signez votre contrat entièrement en ligne.</p>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>Souscription 100% en ligne</h3>
+          <p>Déposez vos justificatifs, signez votre contrat électroniquement depuis votre téléphone ou ordinateur, sans vous déplacer.</p>
         </div>
-        <div class="prod-avantage-card">
-          <div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-          <h3>Aucun frais de dossier</h3><p>Votre prêt est accordé sans frais de dossier ni frais cachés.</p>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <h3>Aucun frais de dossier</h3>
+          <p>Contrairement à certains établissements, Jkl.oin ne facture aucun frais de dossier. Le coût total du crédit se limite aux intérêts.</p>
         </div>
-        <div class="prod-avantage-card">
-          <div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-          <h3>Partenaire de confiance</h3><p>Jkl.oin, marque de CA Consumer Finance, leader du crédit à la consommation.</p>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Filiale du Crédit Agricole</h3>
+          <p>Jkl.oin est la marque de CA Consumer Finance, acteur de référence du crédit à la consommation depuis 1983, filiale du groupe Crédit Agricole.</p>
         </div>
       </div>
     </div>
   </div>
+
   <div class="prod-etapes">
     <div class="wrap">
-      <h2>Comment obtenir votre prêt personnel ?</h2>
-      <div class="prod-etapes-list">
-        <div class="prod-etape"><div class="prod-etape-num">1</div><h3>Simulez en ligne</h3><p>Choisissez votre montant et votre durée. Obtenez votre mensualité en temps réel.</p></div>
-        <div class="prod-etape"><div class="prod-etape-num">2</div><h3>Déposez votre dossier</h3><p>Remplissez votre demande en quelques minutes et envoyez vos documents en ligne.</p></div>
-        <div class="prod-etape"><div class="prod-etape-num">3</div><h3>Recevez les fonds</h3><p>Après acceptation et signature électronique, les fonds sont versés sous 24h.</p></div>
+      <div class="prod-section-hd">
+        <h2>Comment obtenir votre prêt en 3 étapes ?</h2>
+        <p>Un parcours 100% digital, pensé pour être simple et rapide.</p>
+      </div>
+      <div class="prod-etapes-grid">
+        <div class="prod-step">
+          <div class="prod-step-num">1</div>
+          <h3>Simulez en ligne</h3>
+          <p>Renseignez le montant souhaité et la durée de remboursement. Obtenez instantanément votre mensualité et le coût total du crédit.</p>
+        </div>
+        <div class="prod-step">
+          <div class="prod-step-num">2</div>
+          <h3>Complétez votre dossier</h3>
+          <p>Remplissez le formulaire de demande et téléchargez vos justificatifs (pièce d'identité, justificatif de revenus, RIB). Tout se fait en ligne.</p>
+        </div>
+        <div class="prod-step">
+          <div class="prod-step-num">3</div>
+          <h3>Recevez vos fonds</h3>
+          <p>Après acceptation définitive et signature électronique, les fonds sont virés sur votre compte bancaire sous 24 à 48 heures.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="prod-cta-band">
-    <h2>Prêt à financer votre projet ?</h2>
-    <p>Simulez gratuitement et sans engagement en 2 minutes.</p>
-    <button class="btn-sim" data-sim="famille-loisirs">Simuler mon prêt</button>
+
+  <div class="prod-exemple-wrap">
+    <div class="wrap">
+      <div class="prod-exemple-box">
+        <h3>Exemple représentatif</h3>
+        <p>Pour un prêt personnel de <strong>10 000 €</strong> sur <strong>48 mois</strong> au TAEG fixe de <strong>5,90 %</strong> : montant total dû <strong>11 193,60 €</strong>, soit <strong>233,20 €/mois</strong>. Hors assurance facultative. Offre sous réserve d'acceptation de votre dossier par CA Consumer Finance. Vous disposez d'un délai de rétractation de 14 jours.</p>
+      </div>
+    </div>
   </div>
+
+  <div class="prod-trust">
+    <div class="wrap">
+      <div class="prod-trust-grid">
+        <div class="prod-trust-item"><span class="prod-trust-val">3 M+</span><div class="prod-trust-lbl">Clients font confiance à Jkl.oin</div></div>
+        <div class="prod-trust-item"><span class="prod-trust-val">4,5/5</span><div class="prod-trust-lbl">Note moyenne · Avis vérifiés</div></div>
+        <div class="prod-trust-item"><span class="prod-trust-val">40+</span><div class="prod-trust-lbl">Ans d'expertise en crédit</div></div>
+        <div class="prod-trust-item"><span class="prod-trust-val">2 min</span><div class="prod-trust-lbl">Pour une réponse de principe</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prod-cta">
+    <h2>Prêt à concrétiser votre projet ?</h2>
+    <p>Simulation gratuite, sans engagement, réponse immédiate.</p>
+    <button class="btn-prim" data-sim="famille-loisirs">Simuler mon prêt maintenant</button>
+    <p class="prod-cta-note">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+  </div>
+
   <div class="prod-faq">
     <div class="wrap">
-      <h2>Questions fréquentes</h2>
+      <div class="prod-faq-hd">
+        <h2>Questions fréquentes sur le prêt personnel</h2>
+        <p>Tout ce que vous devez savoir avant de faire votre demande.</p>
+      </div>
       <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Quel est le taux d'un prêt personnel Jkl.oin ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Le taux d'un prêt personnel Jkl.oin varie selon le montant emprunté et la durée. Il est fixe pour toute la durée du contrat. Simulez en ligne pour connaître votre taux personnalisé.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Puis-je rembourser mon prêt par anticipation ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Oui, vous pouvez rembourser votre prêt personnel en totalité ou en partie à tout moment. Des indemnités de remboursement anticipé peuvent s'appliquer selon les conditions de votre contrat.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Quels documents sont nécessaires ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Pour votre demande, vous aurez besoin de : une pièce d'identité valide, un justificatif de domicile, vos 3 derniers bulletins de salaire (ou avis d'imposition) et un RIB.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Combien de temps pour recevoir les fonds ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Après signature électronique du contrat et respect du délai légal de rétractation (14 jours), les fonds sont versés sur votre compte dans les 24 à 48 heures.</p></div>
-    </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Quel est le taux d'intérêt d'un prêt personnel Jkl.oin ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Le TAEG (Taux Annuel Effectif Global) d'un prêt personnel Jkl.oin dépend du montant emprunté, de la durée et de votre profil. Il est fixe pour toute la durée du contrat. Utilisez notre simulateur pour connaître votre taux personnalisé immédiatement.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Puis-je rembourser mon prêt par anticipation ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui, vous pouvez rembourser votre prêt en totalité ou en partie à tout moment. Les indemnités de remboursement anticipé sont plafonnées par la loi à 1 % du capital restant dû (si la durée restante est supérieure à un an) ou 0,5 % (si inférieure à un an).</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Quels justificatifs dois-je fournir ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Vous aurez besoin de : une pièce d'identité valide (CNI ou passeport), un justificatif de domicile de moins de 3 mois, vos 3 derniers bulletins de salaire ou vos 2 derniers avis d'imposition, et un RIB au nom du demandeur.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Combien de temps faut-il pour recevoir les fonds ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Après la signature électronique du contrat et à l'expiration du délai légal de rétractation de 14 jours calendaires, les fonds sont virés sur votre compte dans les 24 à 48 heures ouvrées.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Le prêt personnel Jkl.oin est-il disponible sans assurance ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>L'assurance emprunteur est facultative pour le prêt personnel. Cependant, elle est fortement recommandée car elle vous protège (et protège vos proches) en cas d'accident de la vie.</p></div>
+        </div>
       </div>
     </div>
   </div>
+
 </div><!-- /pg-pret-personnel -->
 
-<!-- ── CRÉDIT AUTO ── -->
+<!-- ════════════ CRÉDIT AUTO ════════════ -->
 <div class="page pg-section" id="pg-credit-auto">
+
   <div class="prod-hero">
     <div class="wrap">
-      <h1>Crédit auto Jkl.oin</h1>
-      <p>Financez votre voiture neuve ou d'occasion avec un crédit auto adapté.<br>Jusqu'à 75 000 € sur 84 mois.</p>
-      <button class="btn-sim" data-sim="auto">Simuler mon crédit auto</button>
+      <div class="prod-hero-tag">Prêt véhicule</div>
+      <h1>Crédit auto <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Financez votre voiture neuve, d'occasion ou votre véhicule électrique avec notre crédit auto adapté. Obtenez une réponse de principe en 2 minutes et prenez le volant dès que possible.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" data-sim="auto">Simuler mon crédit auto</button>
+        <button class="btn-sec" onclick="window.location.hash='nous-contacter'">Être rappelé</button>
+      </div>
+      <p class="prod-hero-note">Voiture neuve · Occasion · Véhicule électrique · Entre particuliers</p>
     </div>
   </div>
+
   <div class="prod-chiffres">
     <div class="wrap">
       <div class="prod-chiffres-grid">
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1 000 €</span><div class="prod-chiffre-lbl">Dès</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">75 000 €</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">6</span><div class="prod-chiffre-lbl">Mois minimum</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">84 mois</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant minimum</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">75 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant maximum</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">6<span class="prod-chiffre-label"> mois</span></span><div class="prod-chiffre-desc">Durée minimale</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">84<span class="prod-chiffre-label"> mois</span></span><div class="prod-chiffre-desc">Durée maximale</div></div>
       </div>
     </div>
   </div>
+
   <div class="prod-avantages">
     <div class="wrap">
-      <h2>Pourquoi choisir le crédit auto Jkl.oin ?</h2>
+      <div class="prod-section-hd">
+        <h2>Les avantages du crédit auto Jkl.oin</h2>
+        <p>Un financement rapide pour ne jamais rater le véhicule de vos rêves.</p>
+      </div>
       <div class="prod-avantages-grid">
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Voiture neuve ou occasion</h3><p>Finançons votre achat chez un concessionnaire ou entre particuliers.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Réponse rapide</h3><p>Réponse de principe en 2 minutes pour ne pas rater votre véhicule.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>Taux compétitif</h3><p>Profitez d'un taux fixe compétitif avec mensualité stable.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><h3>Financement véhicule électrique</h3><p>Crédit dédié aux véhicules électriques et hybrides rechargeables.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>100% en ligne</h3><p>Souscription et signature du contrat entièrement dématérialisés.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Sans frais de dossier</h3><p>Aucun frais supplémentaire à prévoir, tout est transparent.</p></div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8l4 4v4h-4"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <h3>Neuf, occasion ou électrique</h3>
+          <p>Notre crédit auto finance tous types de véhicules : voiture neuve chez un concessionnaire, voiture d'occasion, véhicule électrique ou hybride rechargeable.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3>Achat entre particuliers accepté</h3>
+          <p>Vous achetez votre véhicule à un particulier ? Nous finançons également ce type d'achat sur présentation du certificat de cession.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h3>Réponse en 2 minutes</h3>
+          <p>Simulez en ligne et obtenez une réponse de principe immédiate. Ne laissez pas le bon véhicule vous passer sous le nez.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Taux fixe compétitif</h3>
+          <p>Bénéficiez d'un TAEG fixe pour toute la durée de votre crédit. Votre mensualité est connue à l'avance et ne varie jamais.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Offre véhicule électrique</h3>
+          <p>Des conditions avantageuses pour accompagner votre transition vers l'électrique. Finançons aussi les bornes de recharge.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <h3>Aucun frais de dossier</h3>
+          <p>Votre crédit auto vous est accordé sans aucun frais de dossier caché. La transparence est notre engagement.</p>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="prod-etapes">
     <div class="wrap">
-      <h2>Comment ça marche ?</h2>
-      <div class="prod-etapes-list">
-        <div class="prod-etape"><div class="prod-etape-num">1</div><h3>Simulez en ligne</h3><p>Indiquez le montant de votre véhicule et choisissez la durée.</p></div>
-        <div class="prod-etape"><div class="prod-etape-num">2</div><h3>Déposez votre dossier</h3><p>Ajoutez vos justificatifs en ligne en quelques clics.</p></div>
-        <div class="prod-etape"><div class="prod-etape-num">3</div><h3>Roulez !</h3><p>Fonds disponibles sous 24h après signature électronique.</p></div>
+      <div class="prod-section-hd">
+        <h2>3 étapes pour financer votre véhicule</h2>
+      </div>
+      <div class="prod-etapes-grid">
+        <div class="prod-step"><div class="prod-step-num">1</div><h3>Simulez en ligne</h3><p>Indiquez le prix du véhicule, le montant de votre apport éventuel et la durée de remboursement souhaitée.</p></div>
+        <div class="prod-step"><div class="prod-step-num">2</div><h3>Déposez votre dossier</h3><p>Complétez votre demande en ligne et joignez vos justificatifs (carte grise ou bon de commande, pièce d'identité, RIB, justificatifs de revenus).</p></div>
+        <div class="prod-step"><div class="prod-step-num">3</div><h3>Roulez !</h3><p>Dès l'acceptation définitive et votre signature électronique, les fonds sont versés directement chez le vendeur ou sur votre compte.</p></div>
       </div>
     </div>
   </div>
-  <div class="prod-cta-band"><h2>Trouvez votre financement auto</h2><p>Simulation gratuite et sans engagement.</p><button class="btn-sim" data-sim="auto">Simuler maintenant</button></div>
-  <div class="prod-faq"><div class="wrap"><h2>Questions fréquentes</h2><div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Puis-je financer un véhicule électrique ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Oui, Jkl.oin propose un crédit dédié aux véhicules électriques et hybrides rechargeables, à des conditions avantageuses.</p></div>
+
+  <div class="prod-exemple-wrap">
+    <div class="wrap">
+      <div class="prod-exemple-box">
+        <h3>Exemple représentatif</h3>
+        <p>Pour un crédit auto de <strong>15 000 €</strong> sur <strong>60 mois</strong> au TAEG fixe de <strong>5,50 %</strong> : montant total dû <strong>17 148 €</strong>, soit <strong>285,80 €/mois</strong>. Hors assurance facultative. Offre sous réserve d'acceptation de votre dossier par CA Consumer Finance.</p>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Le crédit auto fonctionne-t-il pour un achat entre particuliers ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Oui, vous pouvez financer l'achat d'un véhicule entre particuliers. Il suffit de fournir le certificat de cession.</p></div>
-    </div></div></div></div>
+  </div>
+
+  <div class="prod-cta">
+    <h2>Trouvez votre financement auto</h2>
+    <p>Simulation gratuite, réponse immédiate, sans engagement.</p>
+    <button class="btn-prim" data-sim="auto">Simuler mon crédit auto</button>
+    <p class="prod-cta-note">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+  </div>
+
+  <div class="prod-faq">
+    <div class="wrap">
+      <div class="prod-faq-hd"><h2>Questions fréquentes</h2></div>
+      <div class="faq-list">
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Puis-je financer un véhicule électrique ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui, Jkl.oin propose des offres dédiées aux véhicules électriques et hybrides rechargeables. Vous pouvez cumuler notre financement avec les aides de l'État (bonus écologique, prime à la conversion) pour réduire le coût de votre véhicule.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Peut-on financer un achat entre particuliers ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui. Il vous suffit de fournir le certificat de cession (carte grise), une copie de la carte d'identité du vendeur et la déclaration de cession du véhicule.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Faut-il un apport pour obtenir un crédit auto ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Non, aucun apport n'est obligatoire. Vous pouvez financer 100 % du prix du véhicule. Un apport permet toutefois de réduire le montant emprunté et donc les mensualités ou la durée du crédit.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- /pg-credit-auto -->
 
-<!-- ── CRÉDIT TRAVAUX ── -->
+<!-- ════════════ CRÉDIT TRAVAUX ════════════ -->
 <div class="page pg-section" id="pg-credit-travaux">
+
   <div class="prod-hero">
     <div class="wrap">
-      <h1>Crédit travaux Jkl.oin</h1>
-      <p>Rénovez, aménagez ou améliorez votre logement grâce au crédit travaux.<br>Jusqu'à 75 000 € sans justificatif de travaux.</p>
-      <button class="btn-sim" data-sim="travaux">Simuler mon crédit travaux</button>
+      <div class="prod-hero-tag">Crédit travaux</div>
+      <h1>Crédit travaux <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Rénovez, agrandissez ou améliorez votre logement dès aujourd'hui. Cuisine, salle de bain, toiture, isolation thermique, panneaux solaires... Jusqu'à <strong>75 000 €</strong> sans justificatif de travaux.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" data-sim="travaux">Simuler mon crédit travaux</button>
+        <button class="btn-sec" onclick="window.location.hash='nous-contacter'">Demander un rappel</button>
+      </div>
+      <p class="prod-hero-note">Tous travaux · Sans devis · Transition énergétique</p>
     </div>
   </div>
+
   <div class="prod-chiffres">
     <div class="wrap">
       <div class="prod-chiffres-grid">
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1 000 €</span><div class="prod-chiffre-lbl">Dès</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">75 000 €</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">12</span><div class="prod-chiffre-lbl">Mois minimum</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">84 mois</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant minimum</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">75 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant maximum</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">12<span class="prod-chiffre-label"> mois</span></span><div class="prod-chiffre-desc">Durée minimale</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">84<span class="prod-chiffre-label"> mois</span></span><div class="prod-chiffre-desc">Durée maximale</div></div>
       </div>
     </div>
   </div>
+
   <div class="prod-avantages">
     <div class="wrap">
-      <h2>Les avantages du crédit travaux Jkl.oin</h2>
+      <div class="prod-section-hd">
+        <h2>Les avantages du crédit travaux Jkl.oin</h2>
+        <p>Financez vos travaux rapidement, sans contraintes administratives.</p>
+      </div>
       <div class="prod-avantages-grid">
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Sans justificatif de travaux</h3><p>Pas besoin de devis ni de facture pour obtenir votre crédit travaux.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><h3>Tous types de travaux</h3><p>Cuisine, salle de bain, toiture, isolation, agrandissement...</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3>Transition énergétique</h3><p>Financement dédié pour isolation, pompe à chaleur, panneaux solaires.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Taux fixe</h3><p>Mensualité constante, sans mauvaise surprise.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>100% en ligne</h3><p>Demandez votre crédit sans vous déplacer.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>Sans frais de dossier</h3><p>Aucun frais supplémentaire.</p></div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Aucun justificatif de travaux requis</h3>
+          <p>Pas besoin de devis d'artisan ni de facture. Vous utilisez les fonds librement pour vos projets de rénovation ou d'amélioration.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <h3>Tous types de travaux éligibles</h3>
+          <p>Cuisine, salle de bain, toiture, isolation, peinture, agrandissement, piscine, terrasse... Tous vos projets de rénovation sont finançables.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Spécial transition énergétique</h3>
+          <p>Financement dédié pour isolation thermique, pompe à chaleur, panneaux solaires photovoltaïques et bornes de recharge. Cumulable avec MaPrimeRénov'.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Taux fixe garanti</h3>
+          <p>Votre mensualité est définie à la signature et reste identique pendant toute la durée du crédit. Aucune variation, aucune surprise.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>100% en ligne</h3>
+          <p>Faites votre demande depuis chez vous. Téléchargez vos justificatifs et signez électroniquement votre contrat en quelques minutes.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <h3>Sans frais de dossier</h3>
+          <p>Aucun frais d'ouverture de dossier. Le coût de votre crédit se limite au TAEG affiché.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="prod-etapes"><div class="wrap"><h2>Comment ça marche ?</h2><div class="prod-etapes-list"><div class="prod-etape"><div class="prod-etape-num">1</div><h3>Simulez</h3><p>Indiquez le montant de vos travaux et la durée souhaitée.</p></div><div class="prod-etape"><div class="prod-etape-num">2</div><h3>Déposez votre dossier</h3><p>Pièce d'identité, justificatif de revenus, RIB.</p></div><div class="prod-etape"><div class="prod-etape-num">3</div><h3>Commencez vos travaux</h3><p>Fonds disponibles rapidement après signature électronique.</p></div></div></div></div>
-  <div class="prod-cta-band"><h2>Financez vos travaux dès maintenant</h2><p>Réponse immédiate, sans engagement.</p><button class="btn-sim" data-sim="travaux">Simuler mon crédit</button></div>
-  <div class="prod-faq"><div class="wrap"><h2>Questions fréquentes</h2><div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Dois-je fournir des devis de travaux ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Non, le crédit travaux Jkl.oin ne nécessite pas de justificatif de travaux. Vous pouvez utiliser les fonds librement pour financer votre projet de rénovation.</p></div>
+
+  <div class="prod-etapes">
+    <div class="wrap">
+      <div class="prod-section-hd"><h2>Comment financer vos travaux ?</h2></div>
+      <div class="prod-etapes-grid">
+        <div class="prod-step"><div class="prod-step-num">1</div><h3>Estimez votre budget travaux</h3><p>Calculez le montant total de vos travaux et simulez vos mensualités en choisissant la durée qui vous convient.</p></div>
+        <div class="prod-step"><div class="prod-step-num">2</div><h3>Déposez votre dossier</h3><p>Complétez votre demande en ligne avec vos justificatifs (identité, revenus, domicile, RIB). Aucun devis d'artisan n'est nécessaire.</p></div>
+        <div class="prod-step"><div class="prod-step-num">3</div><h3>Commencez vos travaux</h3><p>À réception des fonds sur votre compte (sous 24-48h après acceptation), vous pouvez confier les clés à votre artisan.</p></div>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Est-ce que le crédit travaux couvre la transition énergétique ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Oui, Jkl.oin propose un financement spécifique pour les projets de transition énergétique : isolation thermique, pompe à chaleur, panneaux solaires photovoltaïques, etc.</p></div>
-    </div></div></div></div>
+  </div>
+
+  <div class="prod-exemple-wrap">
+    <div class="wrap">
+      <div class="prod-exemple-box">
+        <h3>Exemple représentatif</h3>
+        <p>Pour un crédit travaux de <strong>20 000 €</strong> sur <strong>60 mois</strong> au TAEG fixe de <strong>5,90 %</strong> : montant total dû <strong>22 759,20 €</strong>, soit <strong>379,32 €/mois</strong>. Hors assurance facultative. Offre sous réserve d'acceptation de votre dossier par CA Consumer Finance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prod-cta">
+    <h2>Financez vos travaux dès maintenant</h2>
+    <p>Réponse immédiate, fonds disponibles en 24h.</p>
+    <button class="btn-prim" data-sim="travaux">Simuler mon crédit travaux</button>
+    <p class="prod-cta-note">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+  </div>
+
+  <div class="prod-faq">
+    <div class="wrap">
+      <div class="prod-faq-hd"><h2>Questions fréquentes</h2></div>
+      <div class="faq-list">
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Dois-je obligatoirement fournir des devis d'artisans ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Non. Le crédit travaux Jkl.oin ne nécessite aucun justificatif de travaux. Vous n'avez pas besoin de fournir de devis ni de factures pour obtenir votre financement.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Est-ce que je peux cumuler le crédit travaux avec MaPrimeRénov' ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui, absolument. Notre crédit travaux est parfaitement cumulable avec les aides de l'État (MaPrimeRénov', TVA à taux réduit, CEE). Nous finançons le montant restant après déduction des aides.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Peut-on financer une piscine ou un abri de jardin ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui, tous types de travaux d'amélioration du logement sont finançables, y compris la piscine, l'abri de jardin, la véranda ou l'aménagement extérieur.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- /pg-credit-travaux -->
 
-<!-- ── CRÉDIT RENOUVELABLE ── -->
+<!-- ════════════ CRÉDIT RENOUVELABLE ════════════ -->
 <div class="page pg-section" id="pg-credit-renouvelable">
+
   <div class="prod-hero">
     <div class="wrap">
-      <h1>Crédit renouvelable Jkl.oin</h1>
-      <p>Une réserve d'argent disponible à tout moment, que vous utilisez selon vos besoins.<br>Remboursez seulement ce que vous utilisez.</p>
-      <button class="btn-sim" data-sim="">Découvrir l'offre</button>
+      <div class="prod-hero-tag">Crédit renouvelable</div>
+      <h1>Crédit renouvelable <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Une réserve d'argent disponible à tout moment, que vous utilisez selon vos besoins. Vous ne remboursez que ce que vous utilisez, et votre réserve se reconstitue automatiquement.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" data-sim="">Demander ma réserve</button>
+        <button class="btn-sec" onclick="window.location.hash='cartes'">Découvrir la carte Jkl.oin</button>
+      </div>
+      <p class="prod-hero-note">Réserve rechargeable · Disponible 24h/24 · Sans frais si non utilisée</p>
     </div>
   </div>
+
   <div class="prod-chiffres">
     <div class="wrap">
       <div class="prod-chiffres-grid">
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">500 €</span><div class="prod-chiffre-lbl">Dès</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">6 000 €</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">Flexible</span><div class="prod-chiffre-lbl">Utilisation</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">Rechargeable</span><div class="prod-chiffre-lbl">Réserve</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">500<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant minimum</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">6 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Réserve maximale</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">Flexible</span><div class="prod-chiffre-desc">Utilisation selon vos besoins</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">0 €</span><div class="prod-chiffre-desc">Frais si réserve non utilisée</div></div>
       </div>
     </div>
   </div>
+
   <div class="prod-avantages">
     <div class="wrap">
-      <h2>Les avantages du crédit renouvelable</h2>
+      <div class="prod-section-hd">
+        <h2>Le crédit renouvelable, comment ça marche ?</h2>
+        <p>Une flexibilité totale pour faire face aux imprévus ou financer vos petits projets.</p>
+      </div>
       <div class="prod-avantages-grid">
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><h3>Réserve rechargeable</h3><p>Votre crédit se reconstitue au fur et à mesure de vos remboursements.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Avec ou sans carte</h3><p>Disponible avec la carte Jkl.oin ou directement sur votre compte.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>Payez en 3x ou 10x</h3><p>Étalez vos achats sans frais supplémentaires chez nos partenaires.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Intérêts uniquement sur ce que vous utilisez</h3><p>Vous ne payez des intérêts que sur les sommes effectivement utilisées.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Gestion en ligne</h3><p>Consultez votre solde disponible et vos remboursements à tout moment.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Marque de confiance</h3><p>Jkl.oin, filiale de Crédit Agricole Consumer Finance.</p></div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+          <h3>Réserve automatiquement rechargeable</h3>
+          <p>Chaque remboursement reconstitue votre réserve disponible. Vous pouvez l'utiliser à nouveau, jusqu'à épuisement du plafond accordé.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+          <h3>Avec ou sans carte Visa</h3>
+          <p>Accédez à votre réserve via la carte Jkl.oin (Visa) pour payer en magasin et en ligne, ou directement par virement sur votre compte bancaire.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+          <h3>Intérêts sur les sommes utilisées</h3>
+          <p>Vous ne payez des intérêts que sur les montants effectivement prélevés. Si vous n'utilisez pas votre réserve, vous ne payez rien.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>Gestion 100% en ligne</h3>
+          <p>Consultez votre réserve disponible, demandez un virement ou remboursez par anticipation depuis votre espace client, à toute heure.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Paiement en 3x ou 10x</h3>
+          <p>Étalez facilement vos achats chez nos nombreux commerçants partenaires en 3 ou 10 mensualités, avec votre carte Jkl.oin.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Confiance et transparence</h3>
+          <p>Le TAEG et les conditions de votre crédit renouvelable vous sont communiqués clairement avant toute souscription.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="prod-cta-band"><h2>Demandez votre crédit renouvelable</h2><p>Simulation gratuite, réponse immédiate.</p><button class="btn-sim" data-sim="">Simuler maintenant</button></div>
-  <div class="prod-faq"><div class="wrap"><h2>Questions fréquentes</h2><div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Comment fonctionne le crédit renouvelable ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Le crédit renouvelable est une réserve d'argent mise à votre disposition. Vous l'utilisez selon vos besoins, et votre réserve se reconstitue au fil de vos remboursements.</p></div>
+
+  <div class="prod-cta">
+    <h2>Ouvrez votre réserve d'argent Jkl.oin</h2>
+    <p>Demande simple, réponse rapide, disponibilité immédiate.</p>
+    <button class="btn-prim" data-sim="">Demander ma réserve</button>
+    <p class="prod-cta-note">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+  </div>
+
+  <div class="prod-faq">
+    <div class="wrap">
+      <div class="prod-faq-hd"><h2>Questions fréquentes</h2></div>
+      <div class="faq-list">
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Quelle est la différence entre le crédit renouvelable et le prêt personnel ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Le prêt personnel est une somme fixe remboursée sur une durée définie à l'avance. Le crédit renouvelable est une réserve flexible que vous pouvez utiliser, rembourser et réutiliser autant de fois que vous le souhaitez, dans la limite de votre plafond.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Est-ce que mon crédit renouvelable expire ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>La loi oblige à une vérification annuelle de votre solvabilité. Si vous n'utilisez pas votre réserve pendant 12 mois consécutifs, votre contrat peut être résilié de plein droit.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment résilier mon crédit renouvelable Jkl.oin ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Vous pouvez résilier votre crédit renouvelable à tout moment par courrier recommandé avec accusé de réception. Vous devez au préalable rembourser l'intégralité du solde restant dû.</p></div>
+        </div>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Quelle est la différence avec un prêt personnel ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Contrairement au prêt personnel dont le montant est fixe, le crédit renouvelable est une réserve flexible que vous pouvez utiliser plusieurs fois.</p></div>
-    </div></div></div></div>
+  </div>
+
 </div><!-- /pg-credit-renouvelable -->
 
-<!-- ── RACHAT DE CRÉDITS ── -->
+<!-- ════════════ RACHAT DE CRÉDITS ════════════ -->
 <div class="page pg-section" id="pg-rachat-de-credits">
+
   <div class="prod-hero">
     <div class="wrap">
-      <h1>Rachat de crédits Jkl.oin</h1>
-      <p>Regroupez tous vos crédits en un seul et réduisez vos mensualités.<br>Une solution pour simplifier la gestion de votre budget.</p>
-      <button class="btn-sim" data-sim="regroupement">Simuler mon rachat</button>
+      <div class="prod-hero-tag">Regroupement de crédits</div>
+      <h1>Rachat de crédits <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Regroupez tous vos crédits en cours en une seule mensualité allégée. Simplifiez votre gestion budgétaire, retrouvez du pouvoir d'achat et reprenez le contrôle de vos finances.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" data-sim="regroupement">Simuler mon rachat</button>
+        <button class="btn-sec" onclick="window.location.hash='nous-contacter'">Parler à un expert</button>
+      </div>
+      <p class="prod-hero-note">Crédits conso · Crédit immobilier · Découverts · Dettes</p>
     </div>
   </div>
+
   <div class="prod-chiffres">
     <div class="wrap">
       <div class="prod-chiffres-grid">
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1</span><div class="prod-chiffre-lbl">Seule mensualité</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">-40%</span><div class="prod-chiffre-lbl">De mensualités en moins</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">200 000 €</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">Rapide</span><div class="prod-chiffre-lbl">Réponse</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1</span><div class="prod-chiffre-desc">Seule mensualité à gérer</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">-40<span class="prod-chiffre-label"> %</span></span><div class="prod-chiffre-desc">De réduction sur vos mensualités</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">200 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant maximum regroupable</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">Rapide</span><div class="prod-chiffre-desc">Étude et réponse de principe</div></div>
       </div>
     </div>
   </div>
+
   <div class="prod-avantages">
     <div class="wrap">
-      <h2>Les avantages du rachat de crédits</h2>
+      <div class="prod-section-hd">
+        <h2>Pourquoi regrouper vos crédits ?</h2>
+        <p>Une solution concrète pour alléger votre budget mensuel et simplifier votre vie financière.</p>
+      </div>
       <div class="prod-avantages-grid">
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Une seule mensualité</h3><p>Simplifiez votre gestion budgétaire avec une mensualité unique et réduite.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>Réduction des mensualités</h3><p>Jusqu'à 40% de réduction sur vos mensualités actuelles.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Tous types de crédits</h3><p>Crédits à la consommation, crédit immobilier, dettes, découverts...</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Réponse rapide</h3><p>Étude de votre dossier et réponse de principe rapidement.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>En ligne ou en agence</h3><p>Déposez votre dossier en ligne ou contactez un conseiller.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Accompagnement personnalisé</h3><p>Un conseiller dédié vous accompagne tout au long de votre démarche.</p></div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Une seule mensualité réduite</h3>
+          <p>Vous remplacez toutes vos échéances par une unique mensualité, souvent réduite jusqu'à 40 %, adaptée à votre capacité de remboursement.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <h3>Retrouvez du pouvoir d'achat</h3>
+          <p>En réduisant vos mensualités, vous libérez de l'argent chaque mois pour faire face à vos dépenses courantes ou épargner.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <h3>Tous crédits regroupables</h3>
+          <p>Prêt personnel, crédit auto, crédit renouvelable, crédit immobilier, découverts bancaires, dettes fiscales... Nous étudions chaque situation.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3>Accompagnement personnalisé</h3>
+          <p>Un conseiller dédié analyse votre situation et vous propose la solution de regroupement la plus adaptée à votre profil.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Stabilité financière</h3>
+          <p>Un taux fixe, une durée connue à l'avance. Plus de jonglage entre les échéances : vous savez exactement ce que vous payez chaque mois.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h3>Étude rapide du dossier</h3>
+          <p>Notre équipe étudie votre demande rapidement et vous communique une réponse de principe dans les meilleurs délais.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="prod-cta-band"><h2>Regroupez vos crédits maintenant</h2><p>Simulation gratuite et sans engagement.</p><button class="btn-sim" data-sim="regroupement">Simuler mon rachat</button></div>
-  <div class="prod-faq"><div class="wrap"><h2>Questions fréquentes</h2><div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Quels crédits puis-je regrouper ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Vous pouvez regrouper tous vos crédits à la consommation (prêt personnel, crédit auto, crédit renouvelable), mais aussi votre crédit immobilier et vos découverts bancaires.</p></div>
+
+  <div class="prod-etapes">
+    <div class="wrap">
+      <div class="prod-section-hd"><h2>Comment fonctionne le rachat de crédits ?</h2></div>
+      <div class="prod-etapes-grid">
+        <div class="prod-step"><div class="prod-step-num">1</div><h3>Simulez votre regroupement</h3><p>Listez vos crédits en cours (montants, mensualités, durées restantes) et simulez votre nouvelle mensualité unique.</p></div>
+        <div class="prod-step"><div class="prod-step-num">2</div><h3>Constituez votre dossier</h3><p>Envoyez vos relevés de crédits en cours, vos justificatifs de revenus et vos pièces d'identité. Notre conseiller vous accompagne.</p></div>
+        <div class="prod-step"><div class="prod-step-num">3</div><h3>Simplifiez votre budget</h3><p>Jkl.oin rembourse vos anciens créanciers et vous gérez désormais une seule mensualité allégée, chaque mois.</p></div>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Le rachat de crédits est-il intéressant pour moi ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Le rachat de crédits est particulièrement intéressant si vous avez plusieurs crédits en cours avec des mensualités élevées qui pèsent sur votre budget mensuel.</p></div>
-    </div></div></div></div>
+  </div>
+
+  <div class="prod-cta">
+    <h2>Allégez vos mensualités dès aujourd'hui</h2>
+    <p>Simulation gratuite, sans engagement, réponse rapide.</p>
+    <button class="btn-prim" data-sim="regroupement">Simuler mon rachat de crédits</button>
+    <p class="prod-cta-note">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+  </div>
+
+  <div class="prod-faq">
+    <div class="wrap">
+      <div class="prod-faq-hd"><h2>Questions fréquentes</h2></div>
+      <div class="faq-list">
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Quels types de crédits peut-on regrouper ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Le rachat de crédits Jkl.oin peut inclure tous vos crédits à la consommation (prêt personnel, auto, renouvelable), votre crédit immobilier, vos découverts bancaires et vos dettes fiscales ou personnelles.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Le rachat de crédits va-t-il allonger la durée de mes remboursements ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui, en général. La réduction des mensualités s'obtient en étalant le remboursement sur une plus longue période. Cela peut augmenter le coût total du crédit, mais libère du cash chaque mois. Notre conseiller vous aide à trouver le bon équilibre.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Peut-on inclure un crédit immobilier dans un rachat ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui, sous conditions. Si la part immobilière est supérieure à 60 % du capital regroupé, le rachat est soumis à la réglementation du crédit immobilier. Notre équipe étudie votre situation au cas par cas.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- /pg-rachat-de-credits -->
 
-<!-- ── ASSURANCES ── -->
+<!-- ════════════ ASSURANCES ════════════ -->
 <div class="page pg-section" id="pg-assurances">
   <div class="prod-hero">
     <div class="wrap">
-      <h1>Assurances Jkl.oin</h1>
-      <p>Protégez votre crédit et votre famille avec nos garanties d'assurance adaptées.</p>
+      <div class="prod-hero-tag">Assurances</div>
+      <h1>Assurances <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Protégez votre crédit et votre famille face aux accidents de la vie. Nos garanties d'assurance emprunteur vous accompagnent en cas de décès, d'incapacité de travail ou de perte d'emploi.</p>
+      <div class="prod-hero-ctas"><button class="btn-prim" data-sim="">Simuler mon crédit avec assurance</button></div>
     </div>
   </div>
   <div class="prod-avantages">
     <div class="wrap">
-      <h2>Nos garanties d'assurance</h2>
+      <div class="prod-section-hd"><h2>Nos garanties d'assurance emprunteur</h2><p>Des protections adaptées à chaque étape de votre vie.</p></div>
       <div class="prod-avantages-grid">
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Assurance emprunteur</h3><p>Protégez votre prêt en cas de décès, incapacité ou invalidité.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><h3>Perte d'emploi</h3><p>Couverture en cas de perte d'emploi involontaire.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Garantie décès</h3><p>Remboursement du capital restant dû en cas de décès.</p></div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Garantie Décès (DC)</h3>
+          <p>En cas de décès de l'assuré, le capital restant dû est remboursé à Jkl.oin. Vos proches sont protégés et ne supportent pas la dette.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3>Garantie PTIA</h3>
+          <p>La Perte Totale et Irréversible d'Autonomie entraîne le remboursement du capital restant dû. Vous êtes couvert face aux situations les plus graves.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <h3>Garantie Incapacité (ITT)</h3>
+          <p>En cas d'arrêt de travail pour maladie ou accident, nos garanties prennent en charge vos mensualités pendant la durée de l'incapacité.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+          <h3>Garantie Perte d'emploi</h3>
+          <p>En cas de licenciement économique, votre assurance peut prendre en charge tout ou partie de vos mensualités pendant une période définie.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Assurance facultative</h3>
+          <p>L'assurance emprunteur est optionnelle mais fortement recommandée. Elle ne conditionne pas l'obtention du crédit.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <h3>Souscription simple</h3>
+          <p>L'assurance est proposée lors de votre demande de crédit en ligne. Un questionnaire médical simplifié pour une souscription rapide.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="prod-cta-band"><h2>Protégez votre crédit</h2><p>Nos conseillers vous accompagnent dans le choix de votre assurance.</p><button class="btn-sim" data-sim="">Simuler mon crédit</button></div>
+  <div class="prod-cta">
+    <h2>Protégez votre crédit et votre famille</h2>
+    <p>Une assurance adaptée à votre profil, proposée à chaque étape de votre demande.</p>
+    <button class="btn-prim" data-sim="">Simuler mon crédit</button>
+  </div>
 </div><!-- /pg-assurances -->
 
-<!-- ── CARTES JKL.OIN ── -->
+<!-- ════════════ CARTES JKL.OIN ════════════ -->
 <div class="page pg-section" id="pg-cartes">
   <div class="prod-hero">
     <div class="wrap">
-      <h1>Cartes Jkl.oin</h1>
-      <p>Avec la carte Jkl.oin, j'ai le pouvoir de payer en 1x, 3x ou 10x.<br>Une carte Visa avec ou sans crédit renouvelable.</p>
-      <button class="btn-sim" data-sim="">Demander ma carte</button>
+      <div class="prod-hero-tag">Carte Visa</div>
+      <h1>Cartes <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Avec la carte Jkl.oin Visa, j'ai le pouvoir de payer en 1 fois, 3 fois ou 10 fois. Une carte de paiement polyvalente, acceptée partout dans le monde, avec ou sans crédit renouvelable attaché.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" data-sim="">Demander ma carte</button>
+        <button class="btn-sec" onclick="window.location.hash='credit-renouvelable'">En savoir plus sur le crédit renouvelable</button>
+      </div>
+      <p class="prod-hero-note">Visa · Paiement en magasin · En ligne · À l'étranger</p>
     </div>
   </div>
   <div class="prod-chiffres">
     <div class="wrap">
       <div class="prod-chiffres-grid">
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1x</span><div class="prod-chiffre-lbl">Paiement comptant</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">3x</span><div class="prod-chiffre-lbl">Sans frais</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">10x</span><div class="prod-chiffre-lbl">En plusieurs fois</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">Visa</span><div class="prod-chiffre-lbl">Acceptée partout</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1x</span><div class="prod-chiffre-desc">Paiement comptant</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">3x</span><div class="prod-chiffre-desc">Sans frais chez nos partenaires</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">10x</span><div class="prod-chiffre-desc">En mensualités adaptées</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">Visa</span><div class="prod-chiffre-desc">Acceptée partout dans le monde</div></div>
       </div>
     </div>
   </div>
   <div class="prod-avantages">
     <div class="wrap">
-      <h2>Les avantages de la carte Jkl.oin</h2>
+      <div class="prod-section-hd"><h2>Tout ce que la carte Jkl.oin vous offre</h2></div>
       <div class="prod-avantages-grid">
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Carte Visa acceptée partout</h3><p>Utilisez votre carte en magasin, en ligne et à l'étranger.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>Payer en plusieurs fois</h3><p>Choisissez de payer en 1x, 3x ou 10x selon vos besoins.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Sécurisée</h3><p>Paiement en ligne sécurisé avec 3D Secure.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><h3>Réserve rechargeable</h3><p>Votre réserve se reconstitue à chaque remboursement.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>Gestion en ligne</h3><p>Gérez votre carte depuis votre espace client Jkl.oin.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Sans engagement</h3><p>Résiliez votre carte à tout moment sans frais.</p></div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+          <h3>Visa accepté partout</h3>
+          <p>Payez en magasin, en ligne et à l'étranger dans tous les commerces qui acceptent Visa, soit plus de 80 millions de points de vente dans le monde.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+          <h3>Payer en 3x ou 10x</h3>
+          <p>Étalez vos achats en 3 mensualités sans frais ou en 10 mensualités chez des milliers de commerçants partenaires Jkl.oin.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+          <h3>Réserve rechargeable</h3>
+          <p>Votre crédit renouvelable se reconstitue automatiquement au fur et à mesure de vos remboursements. Toujours disponible quand vous en avez besoin.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+          <h3>Sécurité 3D Secure</h3>
+          <p>Vos paiements en ligne sont sécurisés par le protocole 3D Secure. Une authentification forte pour vos achats sur internet.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>Espace client en ligne</h3>
+          <p>Gérez votre carte, consultez votre solde disponible et vos mouvements depuis votre espace client Jkl.oin, 24h/24.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Sans engagement de durée</h3>
+          <p>Résiliez votre carte à tout moment, sans frais de clôture. La liberté totale.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="prod-cta-band"><h2>Demandez votre carte Jkl.oin</h2><p>Réponse immédiate, livraison rapide.</p><button class="btn-sim" data-sim="">Je demande ma carte</button></div>
-  <div class="prod-faq"><div class="wrap"><h2>Questions fréquentes</h2><div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">La carte Jkl.oin est-elle payante ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>La carte Jkl.oin est gratuite la première année. Consultez nos conditions tarifaires pour les années suivantes.</p></div>
+  <div class="prod-cta">
+    <h2>Demandez votre carte Jkl.oin</h2>
+    <p>Livraison rapide après acceptation de votre demande.</p>
+    <button class="btn-prim" data-sim="">Je demande ma carte</button>
+  </div>
+  <div class="prod-faq">
+    <div class="wrap">
+      <div class="prod-faq-hd"><h2>Questions fréquentes sur la carte Jkl.oin</h2></div>
+      <div class="faq-list">
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">La carte Jkl.oin est-elle payante ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>La cotisation annuelle de la carte Jkl.oin est indiquée dans les conditions tarifaires. Consultez la brochure tarifaire pour connaître le montant exact.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment obtenir la carte Jkl.oin ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Faites votre demande en ligne en quelques minutes. Après étude et acceptation de votre dossier, votre carte vous est envoyée à votre adresse sous 5 à 7 jours ouvrés.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Puis-je utiliser la carte Jkl.oin sans crédit renouvelable ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui. La carte Jkl.oin peut fonctionner comme une simple carte de paiement comptant, sans activer la ligne de crédit renouvelable associée.</p></div>
+        </div>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Comment obtenir la carte Jkl.oin ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Faites votre demande en ligne en quelques minutes. Après acceptation, votre carte vous est envoyée à domicile sous 5 à 7 jours ouvrés.</p></div>
-    </div></div></div></div>
+  </div>
 </div><!-- /pg-cartes -->
 
-<!-- ── MENTIONS LÉGALES ── -->
+<!-- ════════════ CRÉDIT MOTO ════════════ -->
+<div class="page pg-section" id="pg-credit-moto">
+  <div class="prod-hero">
+    <div class="wrap">
+      <div class="prod-hero-tag">Prêt deux-roues</div>
+      <h1>Crédit moto <span>Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Finançons votre moto, scooter, quad ou trois-roues, neuf ou d'occasion. Un crédit rapide et simple pour prendre la route dès que possible.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" data-sim="auto">Simuler mon crédit moto</button>
+      </div>
+      <p class="prod-hero-note">Moto · Scooter · Quad · Neuf · Occasion</p>
+    </div>
+  </div>
+  <div class="prod-chiffres">
+    <div class="wrap">
+      <div class="prod-chiffres-grid">
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant minimum</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">75 000<span class="prod-chiffre-label"> €</span></span><div class="prod-chiffre-desc">Montant maximum</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">6<span class="prod-chiffre-label"> mois</span></span><div class="prod-chiffre-desc">Durée minimale</div></div>
+        <div class="prod-chiffre-item"><span class="prod-chiffre-val">84<span class="prod-chiffre-label"> mois</span></span><div class="prod-chiffre-desc">Durée maximale</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="prod-avantages">
+    <div class="wrap">
+      <div class="prod-section-hd"><h2>Pourquoi financer votre deux-roues avec Jkl.oin ?</h2></div>
+      <div class="prod-avantages-grid">
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Neuf ou occasion</h3>
+          <p>Concessionnaire, particulier, enchères... Nous finançons tous les modes d'acquisition de votre deux-roues.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h3>Réponse en 2 minutes</h3>
+          <p>Simulez et obtenez une réponse de principe immédiate pour ne pas rater la bonne affaire.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <h3>Taux fixe garanti</h3>
+          <p>Mensualité connue à l'avance, identique pendant toute la durée du crédit.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>100% en ligne</h3>
+          <p>Déposez vos justificatifs et signez électroniquement depuis votre smartphone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="prod-cta">
+    <h2>Prenez la route dès maintenant</h2>
+    <p>Simulation gratuite, sans engagement.</p>
+    <button class="btn-prim" data-sim="auto">Simuler mon crédit moto</button>
+    <p class="prod-cta-note">Un crédit vous engage et doit être remboursé.</p>
+  </div>
+</div><!-- /pg-credit-moto -->
+
+<!-- ════════════ NOUS DÉCOUVRIR ════════════ -->
+<div class="page pg-section" id="pg-nous-decouvrir">
+  <div class="prod-hero">
+    <div class="wrap">
+      <div class="prod-hero-tag">À propos</div>
+      <h1>Jkl.oin, <span>une marque engagée</span></h1>
+      <p class="prod-hero-desc">Filiale du groupe Crédit Agricole, Jkl.oin accompagne des millions de clients dans leurs projets de vie depuis plus de 40 ans. Nous croyons en un crédit responsable, transparent et accessible à tous.</p>
+    </div>
+  </div>
+  <div class="prod-trust">
+    <div class="wrap">
+      <div class="prod-trust-grid">
+        <div class="prod-trust-item"><span class="prod-trust-val">3 M+</span><div class="prod-trust-lbl">Clients en France</div></div>
+        <div class="prod-trust-item"><span class="prod-trust-val">40+</span><div class="prod-trust-lbl">Ans d'expertise</div></div>
+        <div class="prod-trust-item"><span class="prod-trust-val">2 000+</span><div class="prod-trust-lbl">Collaborateurs</div></div>
+        <div class="prod-trust-item"><span class="prod-trust-val">4,5/5</span><div class="prod-trust-lbl">Note clients</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="prod-avantages">
+    <div class="wrap">
+      <div class="prod-section-hd"><h2>Nos engagements</h2><p>La transparence et la responsabilité au cœur de notre démarche.</p></div>
+      <div class="prod-avantages-grid">
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Transparence totale</h3>
+          <p>Nos offres sont claires : taux, coût total, mensualités — tout est affiché avant votre engagement, sans frais cachés.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Crédit responsable</h3>
+          <p>Nous vérifions systématiquement votre capacité de remboursement pour vous proposer un crédit adapté à votre situation réelle.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Transition énergétique</h3>
+          <p>Nous finançons en priorité les projets verts : véhicules électriques, isolation, énergies renouvelables, mobilité douce.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3>Accessibilité pour tous</h3>
+          <p>Nos services sont conçus pour être accessibles à tous, y compris aux personnes en situation de handicap. Niveau AA WCAG.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <h3>Groupe Crédit Agricole</h3>
+          <p>Jkl.oin est la marque de CA Consumer Finance, filiale d'un groupe bancaire coopératif français engagé dans l'économie réelle.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>Innovation digitale</h3>
+          <p>100% de nos services en ligne : simulation, souscription, signature électronique, espace client. La banque de demain, aujourd'hui.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /pg-nous-decouvrir -->
+
+<!-- ════════════ DEVENIR PARTENAIRE ════════════ -->
+<div class="page pg-section" id="pg-devenir-partenaire">
+  <div class="prod-hero">
+    <div class="wrap">
+      <div class="prod-hero-tag">Partenariats</div>
+      <h1>Devenez <span>partenaire Jkl.oin</span></h1>
+      <p class="prod-hero-desc">Commerçant, concessionnaire, artisan, e-commerçant ? Proposez à vos clients les solutions de financement Jkl.oin directement sur votre point de vente ou votre site internet. Augmentez vos ventes et fidélisez votre clientèle.</p>
+      <div class="prod-hero-ctas">
+        <button class="btn-prim" onclick="window.location.hash='nous-contacter'">Nous contacter</button>
+      </div>
+    </div>
+  </div>
+  <div class="prod-avantages">
+    <div class="wrap">
+      <div class="prod-section-hd"><h2>Les avantages du partenariat Jkl.oin</h2></div>
+      <div class="prod-avantages-grid">
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <h3>Augmentez votre CA</h3>
+          <p>Le paiement en plusieurs fois augmente le panier moyen de vos clients et lève les freins à l'achat.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3>Fidélisez vos clients</h3>
+          <p>Offrir une solution de financement simple et rapide renforce la satisfaction et la fidélité de votre clientèle.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>Outils digitaux intégrés</h3>
+          <p>Accédez à notre plateforme partenaire en ligne pour gérer vos demandes de financement en temps réel.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Paiement garanti</h3>
+          <p>Jkl.oin prend en charge le risque de crédit. Vous êtes payé immédiatement, sans attendre le remboursement du client.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h3>Processus rapide</h3>
+          <p>Vos clients obtiennent une réponse en quelques minutes. Un parcours fluide pour ne perdre aucune vente.</p>
+        </div>
+                <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Accompagnement dédié</h3>
+          <p>Une équipe partenaires vous accompagne à chaque étape : intégration, formation, support technique.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="prod-cta">
+    <h2>Rejoignez le réseau de partenaires Jkl.oin</h2>
+    <p>Plus de 5 000 partenaires nous font déjà confiance. Contactez notre équipe commerciale.</p>
+    <button class="btn-prim" onclick="window.location.hash='nous-contacter'">Contacter l'équipe partenaires</button>
+  </div>
+</div><!-- /pg-devenir-partenaire -->
+
+<!-- ════════════ MENTIONS LÉGALES ════════════ -->
 <div class="page pg-section" id="pg-mentions-legales">
   <div class="inner-page">
     <div class="wrap">
       <h1>Mentions légales</h1>
-      <p>Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique, dite L.C.E.N., nous portons à la connaissance des utilisateurs et visiteurs du site les informations suivantes.</p>
+      <p>Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique (L.C.E.N.), nous vous informons des éléments suivants.</p>
       <h2>Éditeur du site</h2>
-      <p><strong>CA Consumer Finance</strong><br>
-      Société Anonyme au capital de 629&nbsp;480&nbsp;046 €<br>
+      <p><strong>CA Consumer Finance</strong>, Société Anonyme au capital de 629&nbsp;480&nbsp;046 €<br>
       Siège social : 1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex<br>
       RCS Evry : 542&nbsp;097&nbsp;522<br>
       N° TVA intracommunautaire : FR&nbsp;21542097522<br>
-      Jkl.oin est une marque commerciale de CA Consumer Finance.</p>
+      <strong>Jkl.oin</strong> est une marque commerciale de CA Consumer Finance, établissement de crédit agréé par l'Autorité de Contrôle Prudentiel et de Résolution (ACPR).</p>
       <h2>Directeur de la publication</h2>
       <p>Le Directeur Général de CA Consumer Finance.</p>
       <h2>Hébergement</h2>
-      <p>Le site est hébergé par Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre.</p>
-      <h2>Activité de l'éditeur</h2>
-      <p>CA Consumer Finance, dont la marque est Jkl.oin, est un établissement de crédit agréé par l'Autorité de Contrôle Prudentiel et de Résolution (ACPR) – 4, Place de Budapest – CS 92459 – 75436 Paris Cedex 09.</p>
-      <p>Intermédiaire en assurances, inscrit à l'ORIAS (Organisme pour le Registre des Intermédiaires en Assurance) sous le numéro 07&nbsp;008&nbsp;079, consultable sur <a href="http://www.orias.fr" target="_blank">www.orias.fr</a>.</p>
+      <p>Ce site est hébergé par <strong>Hostinger International Ltd</strong>, 61 Lordou Vironos Street, 6023 Larnaca, Chypre.</p>
+      <h2>Activité réglementée</h2>
+      <p>CA Consumer Finance est un établissement de crédit agréé par l'ACPR – 4, Place de Budapest – CS 92459 – 75436 Paris Cedex 09, et inscrit comme intermédiaire en assurances à l'<strong>ORIAS</strong> (Organisme pour le Registre des Intermédiaires en Assurance) sous le numéro <strong>07&nbsp;008&nbsp;079</strong>, consultable sur <a href="http://www.orias.fr" target="_blank">www.orias.fr</a>.</p>
       <h2>Propriété intellectuelle</h2>
-      <p>L'ensemble du contenu de ce site (textes, images, logos, icônes, etc.) est la propriété exclusive de CA Consumer Finance ou de ses partenaires. Toute reproduction, représentation, modification ou adaptation de tout ou partie des éléments du site est strictement interdite sans l'autorisation écrite préalable de CA Consumer Finance.</p>
+      <p>L'ensemble du contenu de ce site (textes, images, logos, icônes, graphismes, etc.) est la propriété exclusive de CA Consumer Finance ou de ses partenaires. Toute reproduction, représentation, modification ou adaptation, même partielle, est strictement interdite sans l'autorisation écrite préalable de CA Consumer Finance.</p>
+      <h2>Liens hypertextes</h2>
+      <p>La création de liens hypertextes pointant vers ce site est soumise à l'accord préalable de CA Consumer Finance. Jkl.oin ne peut être tenu responsable du contenu des sites tiers vers lesquels des liens seraient proposés.</p>
       <h2>Limitation de responsabilité</h2>
-      <p>Les informations contenues sur ce site sont données à titre indicatif. CA Consumer Finance s'efforce de maintenir ces informations à jour, mais ne peut garantir leur exactitude, complétude ou actualité.</p>
-      <h2>Contact</h2>
-      <p>Pour toute question relative au site, vous pouvez nous contacter à l'adresse suivante : <a href="#nous-contacter" class="pg-link">Formulaire de contact</a>.</p>
+      <p>Les informations contenues sur ce site sont données à titre indicatif. CA Consumer Finance s'efforce de maintenir ces informations à jour mais ne peut garantir l'exactitude, l'exhaustivité ou l'actualité des informations publiées. Les offres présentées sont sous réserve d'acceptation définitive du dossier de crédit.</p>
+      <h2>Médiation</h2>
+      <p>En cas de litige non résolu, vous pouvez saisir le Médiateur de la consommation :<br>
+      <strong>CNPM – Médiation de la Consommation</strong><br>27 avenue de la Libération – 42400 Saint-Chamond<br>
+      <a href="http://www.cnpm-mediation-consommation.eu" target="_blank">www.cnpm-mediation-consommation.eu</a></p>
+      <div class="legal-box">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Toute offre de crédit est soumise à l'acceptation définitive de CA Consumer Finance après étude du dossier.</div>
     </div>
   </div>
 </div><!-- /pg-mentions-legales -->
 
-<!-- ── POLITIQUE DES DONNÉES ── -->
+<!-- ════════════ POLITIQUE DES DONNÉES ════════════ -->
 <div class="page pg-section" id="pg-politique-donnees">
   <div class="inner-page">
     <div class="wrap">
-      <h1>Politique de protection des données personnelles</h1>
-      <p>CA Consumer Finance, marque Jkl.oin, accorde une importance particulière à la protection de vos données personnelles et s'engage à les traiter conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés.</p>
+      <h1>Protection des données personnelles</h1>
+      <p>CA Consumer Finance (marque Jkl.oin) s'engage à protéger vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD – UE 2016/679) et à la loi Informatique et Libertés modifiée.</p>
       <h2>Responsable du traitement</h2>
-      <p><strong>CA Consumer Finance</strong><br>1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex<br>542&nbsp;097&nbsp;522 RCS Evry</p>
-      <h2>Données collectées</h2>
-      <p>Dans le cadre de nos services, nous collectons les données suivantes :</p>
+      <p><strong>CA Consumer Finance</strong><br>1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex — RCS Evry 542&nbsp;097&nbsp;522<br>Délégué à la Protection des Données (DPO) : dpo@jkloin.fr</p>
+      <h2>Données collectées et finalités</h2>
+      <p>Nous collectons et traitons vos données personnelles pour les finalités suivantes :</p>
       <ul>
-        <li>Données d'identification : nom, prénom, date de naissance, adresse</li>
-        <li>Coordonnées : adresse email, numéro de téléphone</li>
-        <li>Données financières : revenus, charges, situation professionnelle</li>
-        <li>Données de navigation : cookies, adresse IP, pages consultées</li>
+        <li><strong>Gestion de votre demande de crédit</strong> : étude de solvabilité, décision d'octroi, contractualisation</li>
+        <li><strong>Exécution du contrat</strong> : gestion de vos remboursements, espace client, SAV</li>
+        <li><strong>Obligations légales</strong> : lutte contre le blanchiment et le financement du terrorisme (LCB-FT), obligations fiscales</li>
+        <li><strong>Prévention de la fraude</strong> : vérification d'identité, détection des comportements frauduleux</li>
+        <li><strong>Amélioration de nos services</strong> : analyse de navigation, mesure d'audience (avec votre consentement)</li>
+        <li><strong>Communication commerciale</strong> : envoi d'offres et informations sur nos produits (avec votre consentement)</li>
       </ul>
-      <h2>Finalités des traitements</h2>
-      <p>Vos données personnelles sont utilisées pour :</p>
+      <h2>Base légale des traitements</h2>
       <ul>
-        <li>L'étude et la gestion de votre demande de crédit</li>
-        <li>La gestion de votre contrat et de votre espace client</li>
-        <li>La prévention de la fraude et la lutte contre le blanchiment</li>
-        <li>L'amélioration de nos services et l'expérience utilisateur</li>
-        <li>L'envoi de communications commerciales (avec votre consentement)</li>
+        <li>Exécution d'un contrat ou mesures précontractuelles</li>
+        <li>Respect d'une obligation légale</li>
+        <li>Intérêt légitime de CA Consumer Finance</li>
+        <li>Votre consentement (pour les finalités qui le requièrent)</li>
       </ul>
       <h2>Durée de conservation</h2>
-      <p>Vos données sont conservées pour la durée nécessaire à l'exécution de votre contrat, augmentée des délais légaux de prescription (en général 5 ans après la fin du contrat).</p>
-      <h2>Vos droits</h2>
-      <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+      <p>Vos données sont conservées pendant la durée nécessaire à l'exécution du contrat augmentée des délais légaux (en général 5 ans après la fin du contrat pour les données contractuelles). Les données de prospection commerciale sont conservées 3 ans à compter du dernier contact.</p>
+      <h2>Vos droits RGPD</h2>
       <ul>
-        <li><strong>Droit d'accès</strong> : obtenir une copie de vos données</li>
-        <li><strong>Droit de rectification</strong> : corriger des données inexactes</li>
-        <li><strong>Droit à l'effacement</strong> : demander la suppression de vos données</li>
-        <li><strong>Droit à la portabilité</strong> : recevoir vos données dans un format structuré</li>
-        <li><strong>Droit d'opposition</strong> : s'opposer à certains traitements</li>
-        <li><strong>Droit à la limitation</strong> : limiter le traitement de vos données</li>
+        <li><strong>Droit d'accès</strong> : obtenir une copie de vos données personnelles</li>
+        <li><strong>Droit de rectification</strong> : corriger des données inexactes ou incomplètes</li>
+        <li><strong>Droit à l'effacement</strong> : demander la suppression de vos données (dans les limites légales)</li>
+        <li><strong>Droit à la portabilité</strong> : recevoir vos données dans un format structuré et lisible par machine</li>
+        <li><strong>Droit d'opposition</strong> : vous opposer au traitement pour raison légitime ou à des fins de prospection</li>
+        <li><strong>Droit à la limitation</strong> : demander la suspension temporaire d'un traitement</li>
+        <li><strong>Retrait du consentement</strong> : à tout moment, pour les traitements fondés sur le consentement</li>
       </ul>
-      <h2>Exercice de vos droits</h2>
-      <p>Pour exercer vos droits, contactez notre Délégué à la Protection des Données (DPO) :<br>
-      Par courrier : CA Consumer Finance – DPO – 1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex<br>
-      Par email : dpo@jkloin.fr</p>
-      <p>En cas de réclamation non résolue, vous pouvez saisir la CNIL : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a> – 3 Place de Fontenoy – TSA 80715 – 75334 Paris Cedex 07.</p>
-      <h2>Cookies</h2>
-      <p>Notre site utilise des cookies pour améliorer votre expérience de navigation. Vous pouvez gérer vos préférences de cookies à tout moment via le lien "Gérer mes cookies" en bas de page.</p>
+      <h2>Exercer vos droits</h2>
+      <p>Adressez votre demande par courrier à : <strong>CA Consumer Finance – DPO – 1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex</strong><br>
+      Ou par email à : <a href="mailto:dpo@jkloin.fr">dpo@jkloin.fr</a><br>
+      En cas de réponse insatisfaisante, vous pouvez saisir la <strong>CNIL</strong> : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a> – 3 Place de Fontenoy – TSA 80715 – 75334 Paris Cedex 07.</p>
+      <h2>Cookies et traceurs</h2>
+      <p>Notre site utilise des cookies fonctionnels (nécessaires au fonctionnement), analytiques (mesure d'audience) et publicitaires (personnalisation). Vous pouvez gérer vos préférences à tout moment via notre gestionnaire de cookies.</p>
+      <div class="legal-box">Pour toute question relative à la protection de vos données personnelles, contactez notre DPO à l'adresse dpo@jkloin.fr. Vous disposez du droit de saisir la CNIL en cas de réclamation non résolue.</div>
     </div>
   </div>
 </div><!-- /pg-politique-donnees -->
 
-<!-- ── NOUS CONTACTER ── -->
+<!-- ════════════ NOUS CONTACTER ════════════ -->
 <div class="page pg-section" id="pg-nous-contacter">
-  <div class="inner-page">
+  <div class="prod-hero">
     <div class="wrap">
-      <h1>Nous contacter</h1>
-      <p>Notre équipe est disponible pour répondre à toutes vos questions concernant vos crédits, votre dossier ou nos services.</p>
-      <h2>Par téléphone</h2>
-      <p><strong style="font-size:1.3rem;color:var(--navy)">09 69 39 10 00</strong><br>
-      Du lundi au vendredi : 8h30 – 19h30<br>
-      Le samedi : 8h30 – 17h00<br>
-      <small style="color:#888">Numéro non surtaxé</small></p>
-      <h2>Espace client en ligne</h2>
-      <p>Accédez à votre espace client pour :</p>
-      <ul>
-        <li>Suivre l'avancement de votre dossier</li>
-        <li>Consulter vos contrats et documents</li>
-        <li>Effectuer vos remboursements</li>
-        <li>Envoyer un message à votre conseiller</li>
-      </ul>
-      <p><button class="btn-sim" style="display:inline-block;margin-top:.5rem">Accéder à mon espace</button></p>
-      <h2>Par courrier</h2>
-      <p>CA Consumer Finance – Jkl.oin<br>
-      Service Clients<br>
-      BP 87017<br>
-      92563 Rueil-Malmaison Cedex</p>
-      <h2>Questions fréquentes</h2>
-      <p>Avant de nous contacter, consultez notre <a href="#questions-reponses" class="pg-link">FAQ</a> : vous y trouverez peut-être rapidement la réponse à votre question.</p>
+      <div class="prod-hero-tag">Service client</div>
+      <h1>Nous <span>contacter</span></h1>
+      <p class="prod-hero-desc">Notre équipe de conseillers est disponible pour répondre à toutes vos questions et vous accompagner dans vos démarches. Plusieurs façons de nous joindre selon vos préférences.</p>
+    </div>
+  </div>
+  <div class="prod-avantages">
+    <div class="wrap">
+      <div class="prod-section-hd"><h2>Comment nous contacter ?</h2></div>
+      <div class="prod-avantages-grid">
+        <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.11.82h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.1a16 16 0 006 6l.72-.72a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 15.92z"/></svg></div>
+          <h3>Par téléphone</h3>
+          <p style="font-size:1.3rem;font-weight:800;color:var(--navy);margin:.3rem 0">09 69 39 10 00</p>
+          <p>Lundi – vendredi : 8h30 – 19h30<br>Samedi : 8h30 – 17h00<br><small style="color:#aaa">Numéro non surtaxé</small></p>
+        </div>
+        <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>Espace client en ligne</h3>
+          <p>Connectez-vous à votre espace client pour consulter vos dossiers, envoyer des messages sécurisés à votre conseiller et gérer vos remboursements.</p>
+          <button class="btn-prim" style="margin-top:.8rem;width:100%;padding:.75rem">Accéder à mon espace</button>
+        </div>
+        <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <h3>Par courrier</h3>
+          <p><strong>CA Consumer Finance – Jkl.oin</strong><br>Service Clients<br>BP 87017<br>92563 Rueil-Malmaison Cedex</p>
+        </div>
+        <div class="prod-av-card">
+          <div class="prod-av-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>
+          <h3>Questions fréquentes</h3>
+          <p>Avant de nous appeler, consultez notre FAQ. Vous y trouverez rapidement une réponse aux questions les plus courantes sur nos produits et services.</p>
+          <button class="btn-sec" style="margin-top:.8rem;width:100%;padding:.75rem;color:var(--navy);border:2px solid var(--navy);border-radius:2rem;background:none;font-weight:700;cursor:pointer;font-family:inherit" onclick="window.location.hash='questions-reponses'">Voir la FAQ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="prod-faq">
+    <div class="wrap">
+      <div class="prod-faq-hd"><h2>Questions pratiques</h2></div>
+      <div class="faq-list">
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment suivre l'avancement de mon dossier de crédit ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Connectez-vous à votre espace client Jkl.oin pour suivre en temps réel l'état de votre dossier. Vous recevez également des notifications par email à chaque étape clé de votre demande.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment modifier mes coordonnées bancaires ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Pour modifier votre RIB, connectez-vous à votre espace client et rendez-vous dans la rubrique 'Mes informations'. Vous pouvez également contacter notre service client par téléphone.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment effectuer un remboursement anticipé ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Connectez-vous à votre espace client, rubrique 'Mon crédit', et sélectionnez 'Remboursement anticipé'. Vous pouvez aussi contacter le service client pour être accompagné dans cette démarche.</p></div>
+        </div>
+      </div>
     </div>
   </div>
 </div><!-- /pg-nous-contacter -->
 
-<!-- ── QUESTIONS-RÉPONSES ── -->
+<!-- ════════════ QUESTIONS-RÉPONSES ════════════ -->
 <div class="page pg-section" id="pg-questions-reponses">
   <div class="inner-page">
     <div class="wrap">
       <h1>Questions – Réponses</h1>
-      <p>Retrouvez les réponses aux questions les plus fréquentes sur nos produits et services.</p>
-      <h2>Prêt personnel</h2>
+      <p>Retrouvez les réponses aux questions les plus fréquentes sur nos produits, services et démarches en ligne.</p>
+      <h2>Demande de crédit</h2>
       <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Comment obtenir un prêt personnel Jkl.oin ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Simulez votre prêt en ligne, remplissez votre demande, envoyez vos documents et signez électroniquement. Les fonds sont disponibles sous 24h après acceptation.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Quel est le délai de rétractation ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Vous disposez d'un délai légal de 14 jours calendaires à compter de la date d'acceptation du contrat pour vous rétracter, sans avoir à vous justifier.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Puis-je changer mes mensualités ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Oui, vous pouvez demander une modulation de vos mensualités via votre espace client, sous réserve d'acceptation par Jkl.oin.</p></div>
-    </div>
-      </div>
-      <h2>Crédit renouvelable &amp; Cartes</h2>
-      <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Comment résilier mon crédit renouvelable ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Pour résilier votre crédit renouvelable, contactez notre service client par téléphone ou courrier. Vous devrez rembourser le solde restant dû.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Ma carte Jkl.oin est-elle acceptée à l'étranger ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Oui, la carte Jkl.oin (Visa) est acceptée dans tous les pays qui acceptent les paiements Visa. Des frais de change peuvent s'appliquer.</p></div>
-    </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment faire une demande de crédit Jkl.oin ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Utilisez notre simulateur en ligne pour calculer vos mensualités. Remplissez ensuite le formulaire de demande, téléchargez vos justificatifs (identité, revenus, domicile, RIB) et signez électroniquement votre contrat.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Quels documents sont nécessaires pour une demande de crédit ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Vous aurez besoin de : une pièce d'identité valide (CNI ou passeport), un justificatif de domicile de moins de 3 mois, vos 3 derniers bulletins de salaire ou vos 2 derniers avis d'imposition, et un RIB.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Quel est le délai de rétractation ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Vous disposez d'un délai légal de 14 jours calendaires à compter de l'acceptation du contrat pour vous rétracter, sans justification ni pénalité.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Combien de temps pour recevoir l'argent ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Après signature électronique et expiration du délai de rétractation de 14 jours, les fonds sont virés sous 24 à 48 heures ouvrées.</p></div>
+        </div>
       </div>
       <h2>Mon espace client</h2>
       <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">J'ai oublié mon mot de passe, que faire ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Cliquez sur "Mot de passe oublié" sur la page de connexion. Vous recevrez un email avec un lien pour réinitialiser votre mot de passe.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">Comment signaler un changement de situation ?
-        <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer"><p>Connectez-vous à votre espace client ou contactez notre service client au 09 69 39 10 00 pour déclarer tout changement de situation (adresse, revenus, etc.).</p></div>
-    </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment créer mon espace client Jkl.oin ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Votre espace client est créé automatiquement lors de la souscription de votre premier produit Jkl.oin. Vous recevez un email avec vos identifiants de connexion.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">J'ai oublié mon mot de passe, que faire ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Cliquez sur 'Mot de passe oublié' sur la page de connexion. Entrez votre adresse email et vous recevrez un lien de réinitialisation dans les minutes suivantes.</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Comment modifier mes informations personnelles ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Connectez-vous à votre espace client, rubrique 'Mon profil'. Vous pouvez modifier votre adresse, email, numéro de téléphone et coordonnées bancaires.</p></div>
+        </div>
+      </div>
+      <h2>Remboursement</h2>
+      <div class="faq-list">
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Puis-je rembourser par anticipation ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Oui, à tout moment. Les indemnités de remboursement anticipé sont plafonnées légalement à 1 % du capital restant dû (si durée restante > 1 an) ou 0,5 % (si < 1 an).</p></div>
+        </div>
+                <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Que faire en cas de difficultés financières ?
+            <svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Contactez notre service client dès que possible au 09 69 39 10 00. Nos conseillers étudieront avec vous les solutions adaptées à votre situation : report d'échéances, réaménagement du crédit, médiation.</p></div>
+        </div>
       </div>
     </div>
   </div>
 </div><!-- /pg-questions-reponses -->
 
-<!-- ── INFORMATIONS LÉGALES ── -->
+<!-- ════════════ INFORMATIONS LÉGALES ════════════ -->
 <div class="page pg-section" id="pg-informations-legales">
   <div class="inner-page">
     <div class="wrap">
       <h1>Informations légales</h1>
-      <h2>Avertissement légal</h2>
-      <p><strong>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</strong></p>
-      <p>Toute souscription d'un crédit est soumise à l'acceptation définitive de CA Consumer Finance après étude de votre dossier. Offres réservées aux particuliers, résidents en France métropolitaine.</p>
-      <h2>Taux d'intérêt</h2>
-      <p>Les taux indiqués sur ce site sont des taux annuels effectifs globaux (TAEG) qui incluent tous les frais obligatoires liés au crédit. Les offres sont présentées sous réserve des conditions d'éligibilité.</p>
-      <h2>Assurance facultative</h2>
-      <p>L'assurance emprunteur proposée est facultative. Elle est souscrite auprès de CNP Assurances.</p>
-      <h2>Médiation</h2>
-      <p>En cas de litige non résolu avec notre service client, vous pouvez saisir le Médiateur de la consommation :<br>
-      <strong>CNPM – Médiation de la Consommation</strong><br>
-      27 avenue de la Libération – 42400 Saint-Chamond<br>
-      <a href="http://www.cnpm-mediation-consommation.eu" target="_blank">www.cnpm-mediation-consommation.eu</a></p>
+      <div class="legal-box"><strong>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</strong></div>
+      <h2>Avertissement général</h2>
+      <p>Les offres de crédit présentées sur ce site sont soumises à l'acceptation définitive de CA Consumer Finance après étude complète de votre dossier. Offres réservées aux particuliers majeurs, résidant en France métropolitaine, sous réserve d'éligibilité.</p>
+      <h2>Taux Annuel Effectif Global (TAEG)</h2>
+      <p>Tous les taux indiqués sont des TAEG (Taux Annuels Effectifs Globaux) fixes, exprimés en pourcentage annuel. Ils incluent tous les frais obligatoires liés au crédit. Les taux présentés sont donnés à titre indicatif et peuvent varier selon votre profil et les conditions du marché.</p>
+      <h2>Assurance emprunteur</h2>
+      <p>L'assurance emprunteur proposée avec nos crédits est <strong>facultative</strong>. Elle est distribuée par CA Consumer Finance en tant qu'intermédiaire en assurances (ORIAS n° 07&nbsp;008&nbsp;079) et souscrite auprès de <strong>CNP Assurances</strong>, SA au capital de 686&nbsp;618&nbsp;477 €, 4 place Raoul Dautry, 75015 Paris.</p>
+      <h2>Droit de rétractation</h2>
+      <p>Conformément aux articles L.312-19 et suivants du Code de la consommation, vous disposez d'un délai de <strong>14 jours calendaires</strong> à compter de la signature du contrat pour exercer votre droit de rétractation, sans frais ni pénalité.</p>
+      <h2>Médiation de la consommation</h2>
+      <p>En cas de litige non résolu avec notre service client, vous pouvez saisir gratuitement le Médiateur de la consommation :<br>
+      <strong>CNPM – Médiation de la Consommation</strong><br>27 avenue de la Libération – 42400 Saint-Chamond<br>
+      Site : <a href="http://www.cnpm-mediation-consommation.eu" target="_blank">www.cnpm-mediation-consommation.eu</a></p>
+      <h2>Fichier des incidents de remboursement</h2>
+      <p>Conformément à la loi, CA Consumer Finance est tenu de déclarer tout incident de remboursement au Fichier national des Incidents de remboursement des Crédits aux Particuliers (FICP) géré par la Banque de France.</p>
     </div>
   </div>
 </div><!-- /pg-informations-legales -->
 
-<!-- ── TARIFS ── -->
+<!-- ════════════ TARIFS ════════════ -->
 <div class="page pg-section" id="pg-tarifs">
   <div class="inner-page">
     <div class="wrap">
       <h1>Tarifs</h1>
-      <p>Retrouvez ci-dessous nos conditions tarifaires en vigueur pour nos produits et services.</p>
-      <h2>Prêt personnel</h2>
+      <p>Retrouvez ci-dessous les conditions tarifaires en vigueur pour les principaux produits et services Jkl.oin. Ces informations sont données à titre indicatif ; les conditions définitives vous sont communiquées lors de la souscription.</p>
+      <h2>Prêt personnel &amp; crédits affectés</h2>
       <ul>
-        <li>Frais de dossier : <strong>0 €</strong></li>
-        <li>Taux : variable selon montant et durée (voir simulation)</li>
-        <li>Indemnités de remboursement anticipé : jusqu'à 1% du capital remboursé</li>
+        <li><strong>Frais de dossier :</strong> 0 €</li>
+        <li><strong>TAEG :</strong> variable selon montant, durée et profil emprunteur (simulateur en ligne)</li>
+        <li><strong>Indemnités de remboursement anticipé :</strong> ≤ 1 % du capital restant dû si durée résiduelle &gt; 12 mois ; ≤ 0,5 % si durée résiduelle ≤ 12 mois (art. L.312-34 C. conso.)</li>
+        <li><strong>Assurance facultative :</strong> voir conditions tarifaires de l'assureur</li>
       </ul>
-      <h2>Crédit renouvelable</h2>
+      <h2>Crédit renouvelable &amp; Carte Jkl.oin</h2>
       <ul>
-        <li>Frais d'adhésion à la carte : voir conditions en vigueur</li>
-        <li>Cotisation annuelle carte Visa : consultez votre contrat</li>
-        <li>Taux annuel effectif global (TAEG) : selon les conditions du contrat</li>
+        <li><strong>Cotisation annuelle carte :</strong> voir brochure tarifaire en vigueur</li>
+        <li><strong>TAEG :</strong> variable selon conditions contractuelles</li>
+        <li><strong>Frais de retrait :</strong> selon conditions du contrat</li>
+        <li><strong>Frais à l'étranger :</strong> voir conditions tarifaires détaillées</li>
       </ul>
-      <h2>Carte Jkl.oin</h2>
+      <h2>Assurance emprunteur</h2>
       <ul>
-        <li>Cotisation annuelle : voir brochure tarifaire</li>
-        <li>Retrait d'espèces : selon conditions de votre contrat</li>
-        <li>Paiements à l'étranger : selon conditions de votre contrat</li>
+        <li><strong>Garantie DC-PTIA :</strong> incluse dans le taux d'assurance (voir contrat)</li>
+        <li><strong>Garantie ITT :</strong> en option selon le contrat souscrit</li>
+        <li><strong>Cotisation :</strong> calculée sur le capital emprunté initial (taux mensuel × capital)</li>
       </ul>
-      <p>Pour toute information complémentaire, contactez notre service client au <strong>09 69 39 10 00</strong>.</p>
+      <p>Pour toute information tarifaire complémentaire, contactez notre service client au <strong>09 69 39 10 00</strong> ou consultez votre contrat.</p>
+      <div class="legal-box">Les tarifs mentionnés sont susceptibles d'évoluer. Seules les conditions contractuelles signées font foi.</div>
     </div>
   </div>
 </div><!-- /pg-tarifs -->
 
-
-<!-- ── CRÉDIT MOTO ── -->
-<div class="page pg-section" id="pg-credit-moto">
-  <div class="prod-hero">
-    <div class="wrap">
-      <h1>Crédit moto Jkl.oin</h1>
-      <p>Financez votre moto, scooter ou quad avec notre crédit dédié.<br>Jusqu'à 75 000 € sur 84 mois.</p>
-      <button class="btn-sim" data-sim="auto">Simuler mon crédit moto</button>
-    </div>
-  </div>
-  <div class="prod-chiffres">
-    <div class="wrap">
-      <div class="prod-chiffres-grid">
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">1 000 €</span><div class="prod-chiffre-lbl">Dès</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">75 000 €</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">6</span><div class="prod-chiffre-lbl">Mois minimum</div></div>
-        <div class="prod-chiffre-item"><span class="prod-chiffre-val">84 mois</span><div class="prod-chiffre-lbl">Jusqu'à</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="prod-avantages">
-    <div class="wrap">
-      <h2>Pourquoi choisir le crédit moto Jkl.oin ?</h2>
-      <div class="prod-avantages-grid">
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Moto neuve ou occasion</h3><p>Finançons votre moto, scooter ou quad, neuf ou d'occasion.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Réponse rapide</h3><p>Réponse de principe en 2 minutes en ligne.</p></div>
-        <div class="prod-avantage-card"><div class="prod-avantage-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>Taux fixe</h3><p>Mensualité stable, sans mauvaise surprise.</p></div>
-      </div>
-    </div>
-  </div>
-  <div class="prod-cta-band"><h2>Financez votre deux-roues</h2><p>Simulation gratuite et sans engagement.</p><button class="btn-sim" data-sim="auto">Simuler maintenant</button></div>
-</div><!-- /pg-credit-moto -->
-
-<!-- ── NOUS DÉCOUVRIR ── -->
-<div class="page pg-section" id="pg-nous-decouvrir">
-  <div class="inner-page">
-    <div class="wrap">
-      <h1>Nous découvrir</h1>
-      <h2>Qui sommes-nous ?</h2>
-      <p><strong>Jkl.oin</strong> est une marque de <strong>CA Consumer Finance</strong>, filiale du groupe Crédit Agricole, spécialisée dans le crédit à la consommation depuis plus de 40 ans.</p>
-      <p>Nous accompagnons des millions de clients dans leurs projets de vie : achat d'un véhicule, travaux, voyages, études, équipements... avec des solutions de financement simples, rapides et transparentes.</p>
-      <h2>Nos engagements</h2>
-      <ul>
-        <li><strong>Transparence</strong> : des offres claires, sans frais cachés</li>
-        <li><strong>Responsabilité</strong> : un crédit adapté à votre situation réelle</li>
-        <li><strong>Digitalisation</strong> : 100% de nos démarches disponibles en ligne</li>
-        <li><strong>Éco-transition</strong> : financement de projets verts et durables</li>
-        <li><strong>Accessibilité</strong> : services accessibles à tous, y compris aux personnes en situation de handicap</li>
-      </ul>
-      <h2>Jkl.oin s'engage</h2>
-      <p>Dans le cadre de notre politique RSE (Responsabilité Sociétale des Entreprises), Jkl.oin s'engage à :</p>
-      <ul>
-        <li>Proposer des crédits verts pour financer la transition énergétique</li>
-        <li>Accompagner nos clients en difficultés financières</li>
-        <li>Réduire notre empreinte carbone</li>
-        <li>Promouvoir la diversité et l'inclusion en interne</li>
-      </ul>
-      <h2>Chiffres clés</h2>
-      <ul>
-        <li>Plus de 3 millions de clients en France</li>
-        <li>Plus de 40 ans d'expertise dans le crédit</li>
-        <li>Filiale du groupe Crédit Agricole</li>
-        <li>Plus de 2 000 collaborateurs</li>
-      </ul>
-    </div>
-  </div>
-</div><!-- /pg-nous-decouvrir -->
-
-<!-- ── DEVENIR PARTENAIRE ── -->
-<div class="page pg-section" id="pg-devenir-partenaire">
-  <div class="inner-page">
-    <div class="wrap">
-      <h1>Devenez partenaire Jkl.oin</h1>
-      <p>Vous êtes commerçant, concessionnaire automobile, artisan ou professionnel du bâtiment ? Proposez à vos clients les solutions de financement Jkl.oin.</p>
-      <h2>Pourquoi devenir partenaire ?</h2>
-      <ul>
-        <li><strong>Augmentez votre chiffre d'affaires</strong> en facilitant l'achat de vos clients</li>
-        <li><strong>Fidélisez votre clientèle</strong> avec des offres de paiement adaptées</li>
-        <li><strong>Simplifiez les démarches</strong> grâce à nos outils digitaux</li>
-        <li><strong>Bénéficiez d'un accompagnement dédié</strong> par nos équipes</li>
-      </ul>
-      <h2>Nos solutions partenaires</h2>
-      <ul>
-        <li>Crédit à la consommation sur le lieu de vente</li>
-        <li>Paiement en plusieurs fois (3x, 10x)</li>
-        <li>Financement automobile et moto</li>
-        <li>Crédit travaux pour les artisans</li>
-      </ul>
-      <h2>Contact partenaires</h2>
-      <p>Contactez notre équipe partenaires pour en savoir plus :<br>
-      <strong>Téléphone : 01 41 83 XX XX</strong><br>
-      Du lundi au vendredi : 9h – 18h</p>
-      <p><button class="btn-sim" style="display:inline-block;margin-top:.5rem">Nous contacter</button></p>
-    </div>
-  </div>
-</div><!-- /pg-devenir-partenaire -->
 
 <!-- ══════════════════════════════
      FOOTER
