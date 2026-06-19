@@ -161,11 +161,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   border-radius:14px;padding:1.2rem 1.4rem;
   box-shadow:0 6px 24px rgba(0,0,0,.22);
 }
+.hcard-dark-top{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem}
+.hcard-dark-top>div:first-child{flex:1}
 .hcard-dark-label{
-  font-size:.78rem;font-weight:700;margin-bottom:.6rem;opacity:.85;
+  font-size:.78rem;font-weight:700;margin-bottom:.5rem;opacity:.85;
 }
 .hcard-dark-label sup{font-size:.55rem}
-.hcard-dark p{font-size:.82rem;opacity:.75;line-height:1.5;margin-bottom:1rem}
+.hcard-dark p{font-size:.82rem;opacity:.75;line-height:1.5;margin-bottom:0}
+/* Mini carte VISA */
+.mini-card{
+  width:80px;flex-shrink:0;
+  background:linear-gradient(145deg,#0d3d5c 0%,#0a5a7a 40%,#06c2b0 100%);
+  border-radius:8px;padding:8px 7px 7px;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
+  color:#fff;
+}
+.mini-card-top{display:flex;justify-content:flex-end;margin-bottom:10px}
+.mini-visa{font-size:.65rem;font-weight:900;font-style:italic;opacity:.9}
+.mini-chip{
+  width:18px;height:13px;border-radius:2px;margin-bottom:8px;
+  background:linear-gradient(135deg,#c8922a,#f5d878,#c8922a);
+}
+.mini-num{font-size:.45rem;letter-spacing:.08em;opacity:.7;font-family:monospace}
 .hcard-dark-cta{
   display:block;width:100%;text-align:center;
   background:#fff;color:var(--navy-d);
@@ -484,8 +501,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
       <!-- Carte sombre : La carte -->
       <div class="hcard-dark">
-        <div class="hcard-dark-label">La carte<sup>¹</sup></div>
-        <p>Paiement comptant ou en plusieurs fois.<sup>¹</sup> Plus besoin de choisir&nbsp;!</p>
+        <div class="hcard-dark-top">
+          <div>
+            <div class="hcard-dark-label">La carte<sup>¹</sup></div>
+            <p>Paiement comptant ou en plusieurs fois.<sup>¹</sup> Plus besoin de choisir&nbsp;!</p>
+          </div>
+          <!-- Mini carte VISA CSS -->
+          <div class="mini-card">
+            <div class="mini-card-top">
+              <span class="mini-visa">VISA</span>
+            </div>
+            <div class="mini-chip"></div>
+            <div class="mini-num">•••• 1234</div>
+          </div>
+        </div>
         <a href="/credit-pret/carte-credit-renouvelable.htm" class="hcard-dark-cta">Je demande ma carte</a>
       </div>
 
