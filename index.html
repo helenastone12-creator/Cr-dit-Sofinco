@@ -205,6 +205,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
    PAGE WRAPPER
 ═══════════════════════════ */
 .page{padding-top:var(--hh)}
+@media(max-width:959px){
+  .page{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+}
 
 /* ═══════════════════════════
    HERO BANNER — fond bleu ciel
@@ -693,9 +696,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <!-- En-tête -->
   <div class="mob-mhd">
-    <div class="mob-mhd-left" id="mob-close">
-      <span></span><span></span>
-      <span class="mob-menu-lbl">Menu</span>
+    <div class="mob-mhd-left" id="mob-close" aria-label="Fermer le menu">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="3" x2="19" y2="19"/><line x1="19" y1="3" x2="3" y2="19"/></svg>
+      <span class="mob-menu-lbl">Fermer</span>
     </div>
     <span class="mob-mhd-logo">Jkl.oin</span>
     <a href="#" class="mob-mhd-connect">
@@ -840,41 +843,41 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </div>
 
     <!-- Logo centré -->
-    <a href="/" class="hd-logo">Jkl.oin</a>
+    <a href="#" class="hd-logo">Jkl.oin</a>
 
     <!-- Nav desktop -->
     <nav class="desktop-nav">
       <ul>
-        <li class="has-sub"><a href="/credit-pret.htm">Prêts personnels</a>
+        <li class="has-sub"><a href="#">Prêts personnels</a>
           <ul class="sub-menu">
-            <li><a href="/credit-pret/pret-personnel.htm">Prêt personnel</a></li>
-            <li><a href="/credit-pret/credit-auto.htm">Prêt personnel auto</a></li>
-            <li><a href="/credit-pret/credit-moto.htm">Prêt personnel moto</a></li>
-            <li><a href="/credit-pret/credit-travaux.htm">Prêt personnel travaux</a></li>
-            <li><a href="/credit-pret/pret-transition-energetique">Prêts transition énergétique</a></li>
+            <li><a href="#">Prêt personnel</a></li>
+            <li><a href="#">Prêt personnel auto</a></li>
+            <li><a href="#">Prêt personnel moto</a></li>
+            <li><a href="#">Prêt personnel travaux</a></li>
+            <li><a href="#">Prêts transition énergétique</a></li>
           </ul>
         </li>
-        <li class="has-sub"><a href="/credit-pret/credit-renouvelable.htm">Crédit responsable</a>
+        <li class="has-sub"><a href="#">Crédit responsable</a>
           <ul class="sub-menu">
-            <li><a href="/credit-pret/carte-credit-renouvelable.htm">Cartes Jkl.oin</a></li>
-            <li><a href="/credit-pret/credit-renouvelable.htm">Crédit renouvelable</a></li>
+            <li><a href="#">Cartes Jkl.oin</a></li>
+            <li><a href="#">Crédit renouvelable</a></li>
           </ul>
         </li>
-        <li><a href="/rachat-credit.htm">Rachat de crédits</a></li>
-        <li class="has-sub"><a href="/assurances.htm">Partenaires</a>
-          <ul class="sub-menu"><li><a href="/assurances.htm">Nos assurances</a></li></ul>
+        <li><a href="#">Rachat de crédits</a></li>
+        <li class="has-sub"><a href="#">Partenaires</a>
+          <ul class="sub-menu"><li><a href="#">Nos assurances</a></li></ul>
         </li>
-        <li class="has-sub"><a href="/nous-decouvrir.htm">Nous découvrir</a>
+        <li class="has-sub"><a href="#">Nous découvrir</a>
           <ul class="sub-menu">
-            <li><a href="/nous-decouvrir.htm">À propos de Jkl.oin</a></li>
-            <li><a href="/nous-decouvrir/sofinco-s-engage.htm">Jkl.oin s'engage</a></li>
-            <li><a href="/eco-transition">Éco-transition</a></li>
+            <li><a href="#">À propos de Jkl.oin</a></li>
+            <li><a href="#">Jkl.oin s'engage</a></li>
+            <li><a href="#">Éco-transition</a></li>
           </ul>
         </li>
         <li class="has-sub"><a href="#">Devenez partenaire</a>
           <ul class="sub-menu"><li><a href="#">Espace partenaires</a></li></ul>
         </li>
-        <li><a href="/recherche">
+        <li><a href="#">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
@@ -884,7 +887,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
     <!-- Right -->
     <div class="hd-right">
-      <a href="/suivi-de-dossier.htm" class="hd-dossier">
+      <a href="#" class="hd-dossier">
         <svg width="12" height="16" viewBox="0 0 15 20" fill="none">
           <path d="M1.556 1.477c0-.07.057-.127.127-.127H9.238c.034 0 .067.014.09.038l4.99 5.07c.024.024.037.056.037.09V19.023c0 .07-.057.127-.127.127H1.683c-.07 0-.127-.057-.127-.127V1.477z" stroke="#444" stroke-width="1.2"/>
           <line x1="5.556" y1="11.652" x2="10.356" y2="11.652" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
@@ -944,7 +947,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <div class="mini-num">•••• 1234</div>
           </div>
         </div>
-        <a href="/credit-pret/carte-credit-renouvelable.htm" class="hcard-dark-cta">Je demande ma carte</a>
+        <a href="#" class="hcard-dark-cta">Je demande ma carte</a>
       </div>
 
       <!-- Carte blanche : Simulateur -->
@@ -1193,7 +1196,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         </li>
       </ul>
       <div class="faq-more">
-        <a href="/aide-contact" class="btn-orange">Consulter la FAQ</a>
+        <a href="#" class="btn-orange">Consulter la FAQ</a>
       </div>
     </div>
   </section>
@@ -1228,7 +1231,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             </ul>
           </div>
         </div>
-        <a href="/credit-pret.htm" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
+        <a href="#" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
       </div>
     </div>
   </section>
@@ -1248,28 +1251,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="footer-col">
         <h4>Nos crédits</h4>
         <ul>
-          <li><a href="/credit-pret/pret-personnel.htm">Prêt personnel</a></li>
-          <li><a href="/credit-pret/credit-auto.htm">Crédit auto</a></li>
-          <li><a href="/credit-pret/credit-travaux.htm">Crédit travaux</a></li>
-          <li><a href="/credit-pret/credit-renouvelable.htm">Crédit renouvelable</a></li>
-          <li><a href="/rachat-credit.htm">Rachat de crédits</a></li>
+          <li><a href="#">Prêt personnel</a></li>
+          <li><a href="#">Crédit auto</a></li>
+          <li><a href="#">Crédit travaux</a></li>
+          <li><a href="#">Crédit renouvelable</a></li>
+          <li><a href="#">Rachat de crédits</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Espace client</h4>
         <ul>
           <li><a href="#">Se connecter</a></li>
-          <li><a href="/suivi-de-dossier.htm">Suivi de dossier</a></li>
-          <li><a href="/aide-contact">Aide &amp; Contact</a></li>
+          <li><a href="#">Suivi de dossier</a></li>
+          <li><a href="#">Aide &amp; Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>À propos</h4>
         <ul>
-          <li><a href="/nous-decouvrir.htm">Qui sommes-nous&nbsp;?</a></li>
-          <li><a href="/nous-decouvrir/sofinco-s-engage.htm">Jkl.oin s'engage</a></li>
-          <li><a href="/eco-transition">Éco-transition</a></li>
-          <li><a href="/a-propos/accessibilite">Accessibilité</a></li>
+          <li><a href="#">Qui sommes-nous&nbsp;?</a></li>
+          <li><a href="#">Jkl.oin s'engage</a></li>
+          <li><a href="#">Éco-transition</a></li>
+          <li><a href="#">Accessibilité</a></li>
         </ul>
       </div>
     </div>
