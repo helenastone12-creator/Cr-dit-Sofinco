@@ -28,14 +28,22 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   --text:#333;
   --gray:#f5f5f5;
   --hh:64px;
+  --tb:38px;
   --w:1200px;
 }
 
 /* ═══════════════════════════
    HEADER
 ═══════════════════════════ */
+.top-legal-bar{
+  position:fixed;top:0;left:0;right:0;z-index:1001;
+  background:#f5f5f5;
+  padding:.5rem 1rem;
+  font-size:.7rem;color:#444;text-align:center;line-height:1.35;
+  border-bottom:1px solid #e0e0e0;
+}
 .header{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
+  position:fixed;top:var(--tb);left:0;right:0;z-index:1000;
   background:#fff;
   box-shadow:0 1px 8px rgba(0,0,0,.12);
   height:var(--hh);
@@ -122,7 +130,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ═══════════════════════════ */
 .mobile-overlay{display:none}
 .mobile-menu{
-  display:none;position:fixed;inset:0;background:#fff;z-index:1100;
+  display:none;position:fixed;top:var(--tb);left:0;right:0;bottom:0;background:#fff;z-index:1100;
   overflow-y:auto;flex-direction:column;
 }
 .mobile-menu.open{display:flex}
@@ -202,7 +210,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══════════════════════════
    PAGE WRAPPER
 ═══════════════════════════ */
-.page{padding-top:var(--hh)}
+.page{padding-top:calc(var(--hh) + var(--tb))}
 @media(max-width:959px){
   .page{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 }
@@ -734,6 +742,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 </head>
 <body>
 
+<!-- Bandeau légal fixe en haut de page -->
+<div class="top-legal-bar">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
+
+
 <!-- Overlay + Menu mobile -->
 <!-- Overlay (now unused but kept for JS compat) -->
 <div class="mobile-overlay" id="mob-overlay"></div>
@@ -756,10 +768,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </div>
 
   <!-- Bandeau légal -->
-  <div class="mob-legal-banner">
-    Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
-  </div>
-
   <!-- Navigation -->
   <nav class="mob-nav-list">
     <div class="mob-nav-item">
