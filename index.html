@@ -7,39 +7,722 @@
   <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit. Découvrez nos solutions de prêts à la consommation : personnel, voiture et rachat de crédits."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <!-- Sofinco design CSS (exact visual match) -->
-  <link rel="stylesheet" href="https://www.sofinco.fr/generated-resources/cfae433987ed28d33d358cf2b999abad.min.css" media="screen"/>
-  <link rel="preload" href="https://www.sofinco.fr/modules/portal-templates-sofinco/css/fonts/Sarabun/subset-Sarabun-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-  <link rel="preload" href="https://www.sofinco.fr/modules/portal-templates-sofinco/css/fonts/Sarabun/subset-Sarabun-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet"/>
   <style>
-    /* Overrides: brand name only */
-    body { font-family: 'Sarabun', sans-serif; }
-    .hero-static { background: linear-gradient(135deg, #00334D 0%, #005580 50%, #0077a8 100%); color:#fff; padding: 4rem 2rem 3rem; text-align:center; min-height: 520px; display:flex; align-items:center; justify-content:center; flex-direction:column; }
-    .hero-static h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 1.5rem; line-height:1.3; max-width:700px; }
-    .hero-static p { font-size: 1.15rem; margin-bottom:2rem; opacity:.9; max-width:560px; }
-    .hero-static .hero-offer { background:rgba(255,255,255,.12); border-radius:1rem; padding:1.5rem 2rem; margin-bottom:2rem; display:inline-block; }
-    .hero-static .hero-offer .rate { font-size:3rem; font-weight:800; }
-    .hero-static .hero-offer small { font-size:.9rem; opacity:.8; display:block; }
-    .hero-static .cta-group { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-    .btn-orange { background:#e35718; color:#fff; border:none; border-radius:2rem; padding:.85rem 2rem; font-size:1rem; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; transition:background .2s; }
-    .btn-orange:hover { background:#c4481a; color:#fff; }
-    .btn-outline { background:transparent; color:#fff; border:2px solid #fff; border-radius:2rem; padding:.8rem 2rem; font-size:1rem; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; }
-    .hero-tabs { display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center; margin-bottom:2rem; }
-    .hero-tab { background:rgba(255,255,255,.18); color:#fff; border:none; border-radius:2rem; padding:.5rem 1.2rem; font-size:.9rem; cursor:pointer; font-family:inherit; transition:background .2s; }
-    .hero-tab.active, .hero-tab:hover { background:rgba(255,255,255,.38); }
+/* ───────────────────────────────────────────────
+   RESET & BASE
+─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Sarabun', Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  background: #fff;
+  line-height: 1.5;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ───────────────────────────────────────────────
+   VARIABLES
+─────────────────────────────────────────────── */
+:root {
+  --orange: #e35718;
+  --orange-dark: #c4481a;
+  --navy: #00334D;
+  --navy-dark: #002437;
+  --navy-light: #005580;
+  --text: #444444;
+  --text-light: #666;
+  --bg-light: #f6f7f9;
+  --border: #e0e0e0;
+  --radius: 8px;
+  --shadow: 0 2px 12px rgba(0,0,0,.10);
+  --container: 1200px;
+  --header-h: 76px;
+}
+
+/* ───────────────────────────────────────────────
+   UTILITIES
+─────────────────────────────────────────────── */
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+.section-container { max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
+.button, .btn {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff !important;
+  border: none;
+  border-radius: 2rem;
+  padding: .7rem 1.8rem;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  text-align: center;
+}
+.button:hover, .btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  color: var(--orange) !important;
+  border: 2px solid var(--orange);
+  border-radius: 2rem;
+  padding: .65rem 1.6rem;
+  font-size: .95rem;
+  font-weight: 600;
+  display: inline-block;
+  transition: all .2s;
+}
+.btn-outline:hover { background: var(--orange); color: #fff !important; }
+.btn-white {
+  background: #fff;
+  color: var(--orange) !important;
+  border-radius: 2rem;
+  padding: .7rem 1.8rem;
+  font-size: .95rem;
+  font-weight: 700;
+  display: inline-block;
+  transition: all .2s;
+}
+.btn-white:hover { background: #f0f0f0; }
+
+/* ───────────────────────────────────────────────
+   HEADER
+─────────────────────────────────────────────── */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.10);
+  height: var(--header-h);
+}
+.header-container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.header-menu-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Logo */
+.header-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 2rem;
+  text-decoration: none;
+}
+.logo-text {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--orange);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+/* Nav */
+.header-nav {
+  flex: 1;
+  height: 100%;
+}
+.header-nav__menu {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 0;
+}
+.header-nav__item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.header-nav__link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 1.1rem;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.header-nav__link:hover,
+.header-nav__item.open .header-nav__link {
+  color: var(--orange);
+  border-bottom-color: var(--orange);
+}
+/* Dropdown arrow */
+.header-nav__item--parent > .header-nav__link::after {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-left: .4rem;
+  margin-top: -3px;
+  transition: transform .2s;
+}
+.header-nav__item--parent.open > .header-nav__link::after {
+  transform: rotate(-135deg);
+  margin-top: 3px;
+}
+/* Dropdown menu */
+.header-nav__sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 220px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  border-radius: 0 0 var(--radius) var(--radius);
+  border-top: 3px solid var(--orange);
+  z-index: 200;
+}
+.header-nav__item.open .header-nav__sub-menu { display: block; }
+.header-nav__sub-menu li a {
+  display: block;
+  padding: .75rem 1.25rem;
+  font-size: .9rem;
+  color: var(--text);
+  transition: background .15s, color .15s;
+}
+.header-nav__sub-menu li a:hover {
+  background: var(--bg-light);
+  color: var(--orange);
+}
+
+/* Account buttons */
+.header-account {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.header-account__button-border {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem .9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 2rem;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  transition: border-color .15s, color .15s;
+}
+.header-account__button-border:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+.header-account__profil {
+  background: var(--orange);
+  color: #fff !important;
+  border-color: var(--orange);
+  padding: .5rem 1.1rem;
+}
+.header-account__profil:hover {
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  color: #fff !important;
+}
+
+/* ───────────────────────────────────────────────
+   PAGE OFFSET
+─────────────────────────────────────────────── */
+.page-content { padding-top: var(--header-h); }
+
+/* ───────────────────────────────────────────────
+   HERO
+─────────────────────────────────────────────── */
+.hero-section {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #0099cc 100%);
+  color: #fff;
+  padding: 3.5rem 1.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+}
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -100px;
+  width: 500px; height: 500px;
+  background: rgba(255,255,255,.05);
+  border-radius: 50%;
+}
+.hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-content { max-width: 560px; }
+.hero-content h1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.hero-content .hero-sub {
+  font-size: 1.05rem;
+  opacity: .9;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.hero-content .hero-sub strong { font-weight: 700; }
+
+.hero-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.8rem;
+}
+.hero-tab {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,.35);
+  border-radius: 2rem;
+  padding: .45rem 1.1rem;
+  font-size: .85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+.hero-tab:hover, .hero-tab.active {
+  background: rgba(255,255,255,.32);
+  border-color: rgba(255,255,255,.8);
+  font-weight: 700;
+}
+
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+/* Offer card (right side) */
+.hero-offer-card {
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  text-align: center;
+}
+.hero-offer-label {
+  font-size: .9rem;
+  font-weight: 600;
+  opacity: .8;
+  margin-bottom: .5rem;
+}
+.hero-offer-label span {
+  background: rgba(255,255,255,.2);
+  padding: .15rem .6rem;
+  border-radius: 1rem;
+  font-size: .78rem;
+  margin-left: .4rem;
+}
+.hero-rate {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  margin: .5rem 0;
+}
+.hero-rate sup { font-size: 1.8rem; vertical-align: top; margin-top: .4rem; }
+.hero-rate-label { font-size: .85rem; opacity: .8; margin-bottom: 1rem; }
+.hero-rate-mention {
+  font-size: .78rem;
+  opacity: .7;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+.hero-card-img {
+  margin: 1.5rem auto 1rem;
+  max-width: 200px;
+}
+.hero-card-tag {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 1rem;
+  padding: .25rem .8rem;
+  font-size: .78rem;
+  font-weight: 700;
+  margin-bottom: .8rem;
+}
+
+/* ───────────────────────────────────────────────
+   LIST BENEFITS (3 produits)
+─────────────────────────────────────────────── */
+.list-benefits {
+  padding: 4rem 0;
+  background: #fff;
+}
+.list-benefits__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: .5rem;
+}
+.list-benefits__subtitle {
+  font-size: 1rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.list-benefits__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.list-benefits__card {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+  display: flex;
+  flex-direction: column;
+}
+.list-benefits__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,.14);
+}
+.list-benefits__card-desc {
+  padding: 1.5rem 1.5rem 1rem;
+  background: #fff;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.list-benefits__card-desc .button {
+  display: block;
+  width: 100%;
+  padding: .9rem 1.2rem;
+  text-align: center;
+}
+.list-benefits__card-desc h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.list-benefits__card-visu {
+  height: 190px;
+  overflow: hidden;
+}
+.list-benefits__card-visu img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s;
+}
+.list-benefits__card:hover .list-benefits__card-visu img { transform: scale(1.04); }
+
+/* ───────────────────────────────────────────────
+   VERIFIED REVIEWS
+─────────────────────────────────────────────── */
+.verified-reviews {
+  background: var(--bg-light);
+  padding: 4rem 0;
+}
+.verified-reviews__title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.verified-reviews__title span { color: var(--orange); }
+.verified-reviews__withoutwidget {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.verified-reviews__withoutwidget-link {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  background: #fff;
+  border-radius: 2rem;
+  padding: .6rem 1.4rem;
+  box-shadow: var(--shadow);
+  font-size: .9rem;
+  color: var(--text);
+}
+.verified-reviews__withoutwidget-number { font-weight: 700; }
+.verified-reviews__withoutwidget-note { color: var(--orange); font-weight: 700; }
+.stars { display: flex; gap: 2px; }
+.star { width: 18px; height: 18px; fill: #f5a623; }
+.star-empty { fill: #ddd; }
+
+.verified-reviews__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.verified-reviews__item {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+.verified-reviews__item-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: .3rem;
+}
+.verified-reviews__item-name {
+  font-size: .85rem;
+  color: var(--text-light);
+  margin-bottom: .25rem;
+}
+.verified-reviews__item-legend {
+  font-size: .75rem;
+  color: #aaa;
+  margin-bottom: .75rem;
+}
+.verified-reviews__item-bottom { display: flex; gap: 2px; }
+.verified-reviews__link {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* ───────────────────────────────────────────────
+   LIST ITEMS (Avantages)
+─────────────────────────────────────────────── */
+.list-items {
+  padding: 4rem 0;
+  background: #fff;
+}
+.list-items__title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.list-items__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.list-items__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.list-items__item-image {
+  width: 72px; height: 72px;
+  background: var(--bg-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+.list-items__item-image img { width: 38px; height: 38px; }
+.list-items__item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: .5rem;
+  line-height: 1.3;
+}
+.list-items__item-text {
+  font-size: .88rem;
+  color: var(--text-light);
+  line-height: 1.55;
+}
+.list-items__item-text a { color: var(--orange); }
+
+/* ───────────────────────────────────────────────
+   AWARD SECTION
+─────────────────────────────────────────────── */
+.award-section {
+  background: var(--bg-light);
+  padding: 3.5rem 0;
+}
+.award-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.award-text { flex: 1; }
+.award-text h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 1rem;
+  line-height: 1.35;
+}
+.award-text p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: .75rem;
+}
+.award-img img {
+  width: 180px;
+  border-radius: var(--radius);
+}
+
+/* ───────────────────────────────────────────────
+   FOOTER
+─────────────────────────────────────────────── */
+.footer {
+  background: var(--navy-dark);
+  color: rgba(255,255,255,.85);
+  padding: 3rem 0 1.5rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.footer-brand .logo-text { color: #fff; margin-bottom: 1rem; }
+.footer-brand p { font-size: .85rem; opacity: .7; line-height: 1.6; }
+.footer-col h4 {
+  font-size: .9rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.footer-col ul li { margin-bottom: .5rem; }
+.footer-col ul li a {
+  font-size: .85rem;
+  color: rgba(255,255,255,.65);
+  transition: color .15s;
+}
+.footer-col ul li a:hover { color: var(--orange); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-bottom p { font-size: .78rem; opacity: .5; }
+.footer-socials { display: flex; gap: .75rem; }
+.footer-socials a {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.7);
+  font-size: .8rem;
+  transition: background .2s;
+}
+.footer-socials a:hover { background: var(--orange); color: #fff; }
+.footer-legal {
+  border-top: 1px solid rgba(255,255,255,.07);
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  font-size: .73rem;
+  color: rgba(255,255,255,.4);
+  line-height: 1.65;
+}
+
+/* ───────────────────────────────────────────────
+   ASSESSMENT STARS
+─────────────────────────────────────────────── */
+.assessment__bloc { display: inline-block; width: 18px; height: 18px; }
+.assessment__star {
+  display: inline-block;
+  width: 18px; height: 18px;
+  position: relative;
+}
+.assessment__star::before {
+  content: '★';
+  font-size: 16px;
+  color: #ddd;
+}
+.assessment__star-bloc {
+  position: absolute;
+  top: 0; left: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.assessment__star-bloc::before {
+  content: '★';
+  font-size: 16px;
+  color: #f5a623;
+}
+.assessment__star-inner { display: none; }
+
+/* ───────────────────────────────────────────────
+   RESPONSIVE
+─────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-offer-card { display: none; }
+  .list-benefits__list { grid-template-columns: 1fr; }
+  .list-items__container { grid-template-columns: repeat(2, 1fr); }
+  .verified-reviews__list { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .header-nav { display: none; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .list-items__container { grid-template-columns: 1fr; }
+  .hero-content h1 { font-size: 1.5rem; }
+  .header-account__suividossier { display: none; }
+}
   </style>
 </head>
 <body>
 
-<!-- ═══════════════ HEADER ═══════════════ -->
-<header class="header fixed" id="header-sofinco" role="banner">
+<!-- ═══════════════════════════════════════
+     HEADER
+════════════════════════════════════════ -->
+<header class="header" id="header-sofinco" role="banner">
   <div class="header-container">
-    <div class="header-menu-links">
-      <a href="/" title="Accueil - Crédit Jkl.oin" class="header-menu-links-center">
-        <span style="font-size:1.6rem;font-weight:800;color:#e35718;letter-spacing:-1px;font-family:'Sarabun',sans-serif;">Jkl.oin</span>
+    <div class="header-menu-links" style="display:flex;align-items:center;width:100%;height:100%;gap:0;">
+
+      <!-- Logo -->
+      <a href="/" class="header-logo-link" title="Accueil - Crédit Jkl.oin">
+        <span class="logo-text">Jkl.oin</span>
       </a>
 
+      <!-- Navigation -->
       <nav class="header-nav" aria-label="Navigation principale">
         <ul class="header-nav__menu">
           <li class="header-nav__item header-nav__item--parent">
@@ -74,71 +757,106 @@
               <li><a href="/eco-transition">Jkl.oin éco-transition</a></li>
             </ul>
           </li>
+          <li class="header-nav__item">
+            <a href="/recherche" class="header-nav__link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+            </a>
+          </li>
         </ul>
       </nav>
 
+      <!-- Account -->
       <ul class="header-account">
         <li>
           <a href="/suivi-de-dossier.htm" class="header-account__button-border header-account__suividossier">
-            <svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.55605 1.47696C1.55605 1.40684 1.6129 1.35 1.68301 1.35H9.2384C9.27242 1.35 9.30502 1.36365 9.32888 1.3879L9.75651 0.967028L9.32888 1.3879L14.3196 6.45868C14.343 6.48243 14.3561 6.51441 14.3561 6.54773V19.023C14.3561 19.0932 14.2992 19.15 14.2291 19.15H1.68301C1.6129 19.15 1.55605 19.0932 1.55605 19.023V1.47696Z" stroke="#444444" stroke-width="1.2"/>
+            <svg width="14" height="18" viewBox="0 0 15 20" fill="none">
+              <path d="M1.556 1.477C1.556 1.407 1.613 1.35 1.683 1.35H9.238c.034 0 .067.014.09.038l4.99 5.07c.024.024.037.056.037.09V19.023c0 .07-.057.127-.127.127H1.683c-.07 0-.127-.057-.127-.127V1.477z" stroke="#444" stroke-width="1.2"/>
+              <path d="M13.956 6.15H9.956V7.35h4v-1.2zM9.556 5.75V1.75H8.356V5.75h1.2zM9.956 6.15c-.22 0-.4-.18-.4-.4H8.356c0 .884.716 1.6 1.6 1.6V6.15z" fill="#444"/>
+              <line x1="5.556" y1="8.65" x2="7.356" y2="8.65" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="5.556" y1="11.652" x2="10.356" y2="11.652" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="5.556" y1="14.65" x2="10.356" y2="14.65" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
             <span>Suivi de dossier</span>
           </a>
         </li>
         <li>
           <a class="header-account__button-border header-account__profil" href="#">
-            <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6423 4.58692C11.6423 6.5932 9.95367 8.21916 7.87096 8.21916C5.78826 8.21916 4.09961 6.5932 4.09961 4.58692C4.09961 2.58104 5.78826 0.955078 7.87096 0.955078C9.95367 0.955078 11.6423 2.58104 11.6423 4.58692Z" stroke="#ffffff" stroke-width="1.5"/>
-              <path d="M7.86931 11.2559L7.86786 10.5059L7.86931 11.2559ZM1.64648 17.594V13.8772H0.146484V17.594H1.64648ZM1.86661 13.534C2.5008 13.2771 3.51479 12.8925 4.62458 12.5726C5.7452 12.2496 6.91312 12.0077 7.87075 12.0059L7.86786 10.5059C6.70166 10.5081 5.37564 10.7951 4.20916 11.1313C3.03186 11.4706 1.96559 11.8755 1.30331 12.1438L1.86661 13.534ZM7.87075 12.0059C8.83651 12.004 10.0151 12.2455 11.1457 12.5694C12.2654 12.8901 13.2881 13.2769 13.9263 13.5348L14.4883 12.144C13.8219 11.8747 12.7465 11.4676 11.5588 11.1274C10.3821 10.7903 9.04396 10.5036 7.86786 10.5059L7.87075 12.0059ZM14.1465 13.878V17.594H15.6465V13.878H14.1465ZM2.05363 19.5012H13.7393V18.0012H2.05363V19.5012ZM14.1465 13.878C14.1465 13.7148 14.2398 13.586 14.3666 13.5348L13.8046 12.144C13.087 12.434 12.6465 13.13 12.6465 13.878H14.1465ZM1.64648 13.8772C1.64648 13.7148 1.73976 13.5854 1.86661 13.534L1.30331 12.1438C0.586726 12.4342 0.146484 13.1297 0.146484 13.8772H1.64648ZM0.146484 17.594C0.146484 18.6473 1.00034 19.5012 2.05363 19.5012V18.0012C1.82877 18.0012 1.64648 17.8189 1.64648 17.594H0.146484ZM14.1465 17.594C14.1465 17.8189 13.9642 18.0012 13.7393 18.0012V19.5012C14.7926 19.5012 15.6465 18.6473 15.6465 17.594H14.1465Z" fill="#ffffff"/>
+            <svg width="15" height="18" viewBox="0 0 16 20" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.642 4.587C11.642 6.593 9.954 8.22 7.871 8.22c-2.083 0-3.772-1.627-3.772-3.633C4.1 2.581 5.789.955 7.871.955c2.083 0 3.771 1.626 3.771 3.632z" stroke="#fff" stroke-width="1.5"/>
+              <path d="M7.87 11.256c-1.168.002-2.494.289-3.661.625C3.032 12.22 1.966 12.624 1.303 12.893L1.866 14.283c.634-.257 1.648-.642 2.758-.962 1.12-.323 2.289-.565 3.247-.563.966-.002 2.145.24 3.275.563 1.12.32 2.143.706 2.787.963l.562-1.39c-.666-.258-1.74-.663-2.918-1.002-1.17-.336-2.507-.623-3.706-.636z" fill="#fff"/>
+              <path d="M1.646 17.594V13.877H.146V17.594h1.5zM2.054 19.501h11.685V18.001H2.054V19.501zM14.146 17.594V13.878h-1.5V17.594h1.5zM.146 17.594c0 1.053.854 1.907 1.908 1.907V18c-.276 0-.5-.224-.5-.5H.146h-.001zm14 0c0 .276-.224.5-.5.5v1.5c1.054 0 1.908-.854 1.908-1.907h-1.408z" fill="#fff"/>
             </svg>
-            <span class="header-account__profil__label">Se connecter</span>
+            <span>Se connecter</span>
           </a>
         </li>
       </ul>
+
     </div>
   </div>
 </header>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<main role="main" id="content" class="page-content homepage">
-<section class="hero-static">
-  <h1>Financez vos projets avec le crédit conso Jkl.oin !</h1>
-  <p>Simulez, faites votre demande en <strong>5 minutes et obtenez une réponse immédiate</strong> !</p>
+<!-- ═══════════════════════════════════════
+     MAIN
+════════════════════════════════════════ -->
+<main role="main" class="page-content homepage">
 
-  <div class="hero-tabs">
-    <button class="hero-tab active">Famille &amp; Loisirs</button>
-    <button class="hero-tab">Auto</button>
-    <button class="hero-tab">Travaux</button>
-    <button class="hero-tab">Autre</button>
-    <button class="hero-tab">Regroupement de crédits</button>
-  </div>
+  <!-- ── HERO ── -->
+  <section class="hero-section">
+    <div class="hero-inner">
+      <!-- Left: content -->
+      <div class="hero-content">
+        <h1>Financez vos projets avec le crédit conso Jkl.oin&nbsp;!</h1>
+        <p class="hero-sub">Simulez, faites votre demande en <strong>5 minutes et obtenez une réponse immédiate</strong>&nbsp;!</p>
 
-  <div class="hero-offer">
-    <div class="rate">4<sup>,90%</sup></div>
-    <strong>Prêt Perso</strong> <span style="font-size:.85rem;opacity:.8;"> jusqu'au 24 juin</span>
-    <small>TAEG fixe · Pour 15 000€ à 20 000€</small>
-    <small style="font-size:.78rem;opacity:.7;margin-top:.3rem;">Pour 15 000€ sur 48 mois → mensualité 344,03€ · total dû 16 513,44€</small>
-  </div>
+        <div class="hero-tabs">
+          <button class="hero-tab active">Famille &amp; Loisirs</button>
+          <button class="hero-tab">Auto</button>
+          <button class="hero-tab">Travaux</button>
+          <button class="hero-tab">Autre</button>
+          <button class="hero-tab">Regroupement de crédits</button>
+        </div>
 
-  <div class="cta-group">
-    <a href="/parcours-simulateur" class="btn-orange">Simuler un projet</a>
-    <a href="/credit-pret/carte-credit-renouvelable.htm" class="btn-outline">Je demande ma carte</a>
-  </div>
-</section>
+        <div class="hero-cta">
+          <a href="/parcours-simulateur" class="button">Simuler un projet</a>
+          <a href="/credit-pret/carte-credit-renouvelable.htm" class="btn-white">Je demande ma carte</a>
+        </div>
+      </div>
 
-<!-- ═══════════════ PRODUITS ═══════════════ -->
-<section class="list-benefits" data-more="Voir plus de crédits" data-less="Voir moins de crédits">
-  <div class="section-container">
-    <h2 class="list-benefits__title"><span>Un crédit pour tous vos projets</span></h2>
-    <p class="list-benefits__subtitle">Simulez votre projet en quelques clics</p>
-    <div class="list-benefits__content">
+      <!-- Right: offer card -->
+      <div class="hero-offer-card">
+        <div class="hero-card-tag">La carte</div>
+        <img class="hero-card-img"
+             src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Hero/sofinco-carte.png"
+             alt="Carte Jkl.oin"/>
+        <p style="font-size:.85rem;opacity:.8;margin-bottom:1.5rem;">Paiement comptant ou en plusieurs fois &mdash; Plus besoin de choisir&nbsp;!</p>
+
+        <div style="border-top:1px solid rgba(255,255,255,.2);padding-top:1.2rem;margin-top:.5rem;">
+          <div class="hero-offer-label">
+            <strong>Prêt Perso</strong>
+            <span>jusqu'au 24 juin</span>
+          </div>
+          <div class="hero-rate">4<sup>,90%</sup></div>
+          <div class="hero-rate-label">TAEG fixe</div>
+          <div class="hero-rate-mention">Pour 15&nbsp;000€ sur 48 mois, mensualité de 344,03€ et montant total dû de 16&nbsp;513,44€.</div>
+          <a href="/parcours-simulateur" class="button" style="width:100%;">Je profite de cette offre</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUITS ── -->
+  <section class="list-benefits">
+    <div class="section-container">
+      <h2 class="list-benefits__title"><span>Un crédit pour tous vos projets</span></h2>
+      <p class="list-benefits__subtitle">Simulez votre projet en quelques clics</p>
       <ul class="list-benefits__list">
         <li class="list-benefits__item">
-          <div class="list-benefits__card card-big">
+          <div class="list-benefits__card">
             <div class="list-benefits__card-desc">
-              <a href="/credit-pret/pret-personnel.htm" class="productsheet__link button">
-                <h3 class="font-15" style="text-align:center;">Simulez votre prêt personnel</h3>
+              <a href="/credit-pret/pret-personnel.htm" class="button">
+                <h3>Simulez votre prêt personnel</h3>
               </a>
             </div>
             <div class="list-benefits__card-visu">
@@ -147,10 +865,10 @@
           </div>
         </li>
         <li class="list-benefits__item">
-          <div class="list-benefits__card card-big">
+          <div class="list-benefits__card">
             <div class="list-benefits__card-desc">
-              <a href="/credit-pret/credit-renouvelable.htm" class="productsheet__link button">
-                <h3 class="font-15" style="text-align:center;">Simulez votre crédit renouvelable</h3>
+              <a href="/credit-pret/credit-renouvelable.htm" class="button">
+                <h3>Simulez votre crédit renouvelable</h3>
               </a>
             </div>
             <div class="list-benefits__card-visu">
@@ -159,10 +877,10 @@
           </div>
         </li>
         <li class="list-benefits__item">
-          <div class="list-benefits__card card-big">
+          <div class="list-benefits__card">
             <div class="list-benefits__card-desc">
-              <a href="/rachat-credit.htm" class="productsheet__link button">
-                <h3 class="font-15" style="text-align:center;">Simulez votre rachat de crédits</h3>
+              <a href="/rachat-credit.htm" class="button">
+                <h3>Simulez votre rachat de crédits</h3>
               </a>
             </div>
             <div class="list-benefits__card-visu">
@@ -172,761 +890,181 @@
         </li>
       </ul>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══════════════ AVIS ═══════════════ -->
-<section class="verified-reviews" >
-
-    <h2  class="verified-reviews__title  ">Plus de 6 millions <span>de clients nous font confiance</span> </h2><div class="verified-reviews__withoutwidget " >
-        <a class="verified-reviews__withoutwidget-link"
-           href="https://www.avis-verifies.com/avis-clients/sofinco.fr"
-           target="_blank"
-           aria-label="5 847 avis 4,6 sur 5">
-    <span class="verified-reviews__withoutwidget-logo">
-                <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/avis-verifies.svg"/></span>
-    <span class="verified-reviews__withoutwidget-number"> 5 847 avis</span>
-            <span class="verified-reviews__withoutwidget-note">&bull; 4,6</span>
-            <span class="assessment__bloc">
-                    <span class="assessment__star">
-                        <span class="assessment__star-bloc" >
-                            <span class="assessment__star-inner"></span>
-                        </span>
-                    </span>
-                </span>
-            <span class="assessment__bloc">
-                    <span class="assessment__star">
-                        <span class="assessment__star-bloc" >
-                            <span class="assessment__star-inner"></span>
-                        </span>
-                    </span>
-                </span>
-            <span class="assessment__bloc">
-                    <span class="assessment__star">
-                        <span class="assessment__star-bloc" >
-                            <span class="assessment__star-inner"></span>
-                        </span>
-                    </span>
-                </span>
-            <span class="assessment__bloc">
-                    <span class="assessment__star">
-                        <span class="assessment__star-bloc" >
-                            <span class="assessment__star-inner"></span>
-                        </span>
-                    </span>
-                </span>
-            <span class="assessment__bloc">
-                    <span class="assessment__star">
-                        <span class="assessment__star-bloc" style="width:59%">
-                            <span class="assessment__star-inner"></span>
-                        </span>
-                    </span>
-                </span>
-            </a>
+  <!-- ── AVIS CLIENTS ── -->
+  <section class="verified-reviews">
+    <div class="section-container">
+      <h2 class="verified-reviews__title">Plus de 6 millions <span>de clients nous font confiance</span></h2>
+      <div class="verified-reviews__withoutwidget">
+        <a class="verified-reviews__withoutwidget-link" href="https://www.avis-verifies.com/avis-clients/sofinco.fr" target="_blank" rel="noopener">
+          <span class="verified-reviews__withoutwidget-number">5&nbsp;847 avis</span>
+          <span class="verified-reviews__withoutwidget-note">• 4,6</span>
+          <svg width="90" height="18" viewBox="0 0 90 18">
+            <text y="16" font-size="16" fill="#f5a623">★★★★</text>
+            <text x="64" y="16" font-size="16" fill="#f5a623">★</text>
+          </svg>
+          <span style="font-size:.75rem;opacity:.6;">sur 5</span>
+        </a>
+      </div>
+      <ul class="verified-reviews__list">
+        <li class="verified-reviews__item">
+          <p class="verified-reviews__item-text">Très efficace</p>
+          <p class="verified-reviews__item-name">Nuno A</p>
+          <p class="verified-reviews__item-legend">Réalisée le 13.06.2026</p>
+          <div class="verified-reviews__item-bottom">
+            <span style="color:#f5a623;font-size:1rem;">★★★★★</span>
+          </div>
+        </li>
+        <li class="verified-reviews__item">
+          <p class="verified-reviews__item-text">Simple et rapide via l'application</p>
+          <p class="verified-reviews__item-name">Patrick L</p>
+          <p class="verified-reviews__item-legend">Réalisée le 13.06.2026</p>
+          <div class="verified-reviews__item-bottom">
+            <span style="color:#f5a623;font-size:1rem;">★★★★★</span>
+          </div>
+        </li>
+        <li class="verified-reviews__item">
+          <p class="verified-reviews__item-text">Très rapide et adapté à mes besoins</p>
+          <p class="verified-reviews__item-name">Monique C</p>
+          <p class="verified-reviews__item-legend">Réalisée le 13.06.2026</p>
+          <div class="verified-reviews__item-bottom">
+            <span style="color:#f5a623;font-size:1rem;">★★★★★</span>
+          </div>
+        </li>
+      </ul>
+      <div style="text-align:center;">
+        <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" class="button" target="_blank" rel="noopener">Lire tous les avis</a>
+      </div>
     </div>
-<ul class="verified-reviews__list">
-    <li class="verified-reviews__item">
-                <figure>
-                    <blockquote class="verified-reviews__item-quote">
-                        <p class="verified-reviews__item-text">
-                            <span>Très efficace</span>
-                            </p>
-                        <p class="verified-reviews__item-name">Nuno A</p>
-                    </blockquote>
-                    <figcaption class="verified-reviews__item-legend">
-                        Réalisée le 13.06.2026 et publié le 14.06.2026</figcaption>
-                </figure>
-                <div class="verified-reviews__item-bottom">
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="sr-only">
-                         note avis certifiés :  5 sur 5</span>
-                </div>
-            </li>
-        <li class="verified-reviews__item">
-                <figure>
-                    <blockquote class="verified-reviews__item-quote">
-                        <p class="verified-reviews__item-text">
-                            <span>Simple et rapide via l’application</span>
-                            </p>
-                        <p class="verified-reviews__item-name">Patrick L</p>
-                    </blockquote>
-                    <figcaption class="verified-reviews__item-legend">
-                        Réalisée le 13.06.2026 et publié le 14.06.2026</figcaption>
-                </figure>
-                <div class="verified-reviews__item-bottom">
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="sr-only">
-                         note avis certifiés :  5 sur 5</span>
-                </div>
-            </li>
-        <li class="verified-reviews__item">
-                <figure>
-                    <blockquote class="verified-reviews__item-quote">
-                        <p class="verified-reviews__item-text">
-                            <span>Ras bons coseils</span>
-                            </p>
-                        <p class="verified-reviews__item-name">Laurent L</p>
-                    </blockquote>
-                    <figcaption class="verified-reviews__item-legend">
-                        Réalisée le 13.06.2026 et publié le 14.06.2026</figcaption>
-                </figure>
-                <div class="verified-reviews__item-bottom">
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="sr-only">
-                         note avis certifiés :  5 sur 5</span>
-                </div>
-            </li>
-        <li class="verified-reviews__item">
-                <figure>
-                    <blockquote class="verified-reviews__item-quote">
-                        <p class="verified-reviews__item-text">
-                            <span>Très rapide et adapté à mes besoins</span>
-                            </p>
-                        <p class="verified-reviews__item-name">Monique C</p>
-                    </blockquote>
-                    <figcaption class="verified-reviews__item-legend">
-                        Réalisée le 13.06.2026 et publié le 14.06.2026</figcaption>
-                </figure>
-                <div class="verified-reviews__item-bottom">
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="assessment__bloc">
-                        <span class="assessment__star">
-                            <span class="assessment__star-bloc">
-                                <span class="assessment__star-inner"></span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="sr-only">
-                         note avis certifiés :  5 sur 5</span>
-                </div>
-            </li>
-        </ul>
+  </section>
 
-
-    <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" class="button verified-reviews__link"
-       aria-label="Lire tous les avis sur la site Avis vérifiés - nouvelle fenêtre"
-       target="_blank">Lire tous les avis</a>
-       </section>
-
-<!-- ═══════════════ AVANTAGES ═══════════════ -->
-<section class="list-items padding-bottom-small   ">
-	<div class="section-container">
-		<h2  class="list-items__title  ">Jkl.oin accompagne vos projets</h2><ul class="list-items__container">
-			<li class="list-items__item">
-	<div class="list-items__item-image">
-	<img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-5-min.svg"></div>
-	<div class="list-items__item-content">
-		<h3  class="list-items__item-title   "><span>Une réponse de principe <a href="#footerU00282U0029" data-footer="footerU00282U0029" class="footer-link">immédiate<sup>(2)</sup><span class="sr-only">(Note de bas de page)</span></a></span></h3><div class="list-items__item-text"><p>N&#39;attendez plus pour concr&eacute;tiser vos projets, obtenez une r&eacute;ponse de principe en 5 minutes</p>
-</div>
-		</div>
-</li><li class="list-items__item">
-	<div class="list-items__item-image">
-	<img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-seul-accompagne.svg"></div>
-	<div class="list-items__item-content">
-		<h3  class="list-items__item-title   "><span>Seul(e) ou accompagné(e)</span></h3><div class="list-items__item-text"><p>B&eacute;n&eacute;ficiez d&#39;un accompagnement personnalis&eacute;, <a href="#footerU00283U0029" data-footer="footerU00283U0029" class="footer-link">souscrivez votre cr&eacute;dit en ligne<sup>(3)</sup><span class="sr-only">(Note de bas de page)</span></a> ou avec l&#39;aide de nos conseillers</p>
-</div>
-		</div>
-</li><li class="list-items__item">
-	<div class="list-items__item-image">
-	<img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-gestion-simplifiee.svg"></div>
-	<div class="list-items__item-content">
-		<h3  class="list-items__item-title   "><span>Une gestion simplifiée</span></h3><div class="list-items__item-text"><p>G&eacute;rez votre pr&ecirc;t et vos remboursements facilement depuis votre espace client</p>
-</div>
-		</div>
-</li><li class="list-items__item">
-	<div class="list-items__item-image">
-	<img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-100-flexible.svg"></div>
-	<div class="list-items__item-content">
-		<h3  class="list-items__item-title   "><span>100% <a href="#footerU00284U0029" data-footer="footerU00284U0029" class="footer-link">flexible<sup>(4)</sup><span class="sr-only">(Note de bas de page)</span></a></span></h3><div class="list-items__item-text"><p>Mettez en pause vos mensualit&eacute;s ou adaptez leurs montants pour faire face aux impr&eacute;vus</p>
-</div>
-		</div>
-</li></ul>
-		</div>
-</section>
-
-<!-- ═══════════════ RÉCOMPENSE ═══════════════ -->
-<section class="text-block ">
-    <div class="section-container ">
-
-        <div class="text-block__content list-wrapper  full-width">
-            <div class="container"><!-- Ligne 1 -->
-<div class="top-section">
-<div class="text-sec" style="text-align: left;">
-<h2 class="title" style="font-size: 30px;font-weight: 700;padding: 10px;line-height: 1.3;">Jkl.oin r&eacute;compens&eacute;&nbsp;par l&rsquo;Association <span class="break"> Fran&ccedil;aise de la Relation Client !</span></h2>
-<!-- Bloc image mobile -->
-
-<div class="logo-block mobile-only"><img alt="Palme d'argent" src="https://www.sofinco.fr/files/live/sites/sofinco/files/IMG/img-palme.jpg" /></div>
-
-<p style="margin: 0;font-size: 18px;font-weight: 400;padding: 10px 10px 0px 10px;line-height: 1.6;">Jkl.oin r&eacute;invente l&#39;exp&eacute;rience du cr&eacute;dit en proposant un parcours de souscription <span class="break"> de cr&eacute;dit innovant : 100 % digital, instantan&eacute;, intelligent et p&eacute;dagogique.</span></p>
-
-<p style="margin: 0;font-size: 18px;font-weight: 400;padding: 0px 10px 0px 10px;line-height: 1.6;"><strong>Un prix d&eacute;cern&eacute; par l&rsquo;Association Fran&ccedil;aise de la Relation Client</strong></p>
-</div>
-
-<div class="logo-block desktop-only"><img alt="Palme d'argent" src="https://www.sofinco.fr/files/live/sites/sofinco/files/IMG/img-palme.jpg" /></div>
-</div>
-</div>
-<style type="text/css">.container {
-  max-width: auto;
-  margin: 0 auto;
-}
-
-.top-section {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.top-section .text-sec {
-  flex: 1 1 50%;
-}
-
-.top-section .logo-block img {
-  max-width: 300px;
-  height: auto;
-  padding: 20px;
-}
-
-/* Cache ou affiche les bons blocs selon la taille d’écran */
-.desktop-only {
-  display: block;
-  text-align: center;
-}
-
-.mobile-only {
-  display: none;
-}
-
-/* Responsive */
-@media (max-width: 700px) {
-  .top-section {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .desktop-only {
-    display: none;
-  }
-
-  .mobile-only {
-    display: block;
-    text-align: center; /* centre le contenu du bloc */
-  }
-
-  .mobile-only img {
-    margin: 0 auto; /* centre l’image dans le bloc */
-    display: block; /* pour que margin auto fonctionne */
-  }
-}
-</style>
-</div>
+  <!-- ── AVANTAGES ── -->
+  <section class="list-items">
+    <div class="section-container">
+      <h2 class="list-items__title">Jkl.oin accompagne vos projets</h2>
+      <ul class="list-items__container">
+        <li class="list-items__item">
+          <div class="list-items__item-image">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-5-min.svg" alt="" width="38" height="38"/>
+          </div>
+          <div class="list-items__item-content">
+            <h3 class="list-items__item-title">Une réponse de principe immédiate</h3>
+            <div class="list-items__item-text"><p>N'attendez plus pour concrétiser vos projets, obtenez une réponse de principe en 5 minutes</p></div>
+          </div>
+        </li>
+        <li class="list-items__item">
+          <div class="list-items__item-image">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-seul-accompagne.svg" alt="" width="38" height="38"/>
+          </div>
+          <div class="list-items__item-content">
+            <h3 class="list-items__item-title">Seul(e) ou accompagné(e)</h3>
+            <div class="list-items__item-text"><p>Bénéficiez d'un accompagnement personnalisé, souscrivez votre crédit en ligne ou avec nos conseillers</p></div>
+          </div>
+        </li>
+        <li class="list-items__item">
+          <div class="list-items__item-image">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-gestion-simplifiee.svg" alt="" width="38" height="38"/>
+          </div>
+          <div class="list-items__item-content">
+            <h3 class="list-items__item-title">Une gestion simplifiée</h3>
+            <div class="list-items__item-text"><p>Gérez votre prêt et vos remboursements facilement depuis votre espace client</p></div>
+          </div>
+        </li>
+        <li class="list-items__item">
+          <div class="list-items__item-image">
+            <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/icone-100-flexible.svg" alt="" width="38" height="38"/>
+          </div>
+          <div class="list-items__item-content">
+            <h3 class="list-items__item-title">100% flexible</h3>
+            <div class="list-items__item-text"><p>Mettez en pause vos mensualités ou adaptez leurs montants pour faire face aux imprévus</p></div>
+          </div>
+        </li>
+      </ul>
     </div>
-</section>
+  </section>
+
+  <!-- ── RÉCOMPENSE ── -->
+  <section class="award-section">
+    <div class="award-inner">
+      <div class="award-text">
+        <h2>Jkl.oin récompensé par l'Association Française de la Relation Client !</h2>
+        <p>Jkl.oin réinvente l'expérience du crédit en proposant un parcours de souscription de crédit innovant : 100 % digital, instantané, intelligent et pédagogique.</p>
+        <p><strong>Un prix décerné par l'Association Française de la Relation Client</strong></p>
+      </div>
+      <div class="award-img">
+        <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/IMG/img-palme.jpg" alt="Palme d'argent"/>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
-<footer id="footer" class="footer" role="contentinfo">
-    
-
-<div class="footer-legal-notice-collapsed">
-	<div class="section-container">
-		<div class="footer-legal-notice-collapsed-content">
-			<button id="id-hp1" class="footer-legal-notice-collapsed-button" aria-controls="id-hp1_desc" aria-expanded="false" type="button">
-				Voir les conditions de l'offre<span aria-hidden="true"><img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/arrow-grey.svg"  alt="" /></span>
-			</button>
-			<div id="id-hp1_desc" class="footer-legal-notice-collapsed-desc" aria-labelledby="id-hp1" aria-hidden="true">
-				<p>&copy; CA Consumer Finance 2026</p>
-
-<p>Image g&eacute;n&eacute;r&eacute;e par IA.</p>
-
-<p>Le pr&ecirc;t personnel est un pr&ecirc;t amortissable pour un montant de 3 001 &euro; &agrave; 75 000 &euro;.</p>
-
-<p>Le Cr&eacute;dit Renouvelable est un cr&eacute;dit dont le contrat est reconductible annuellement.</p>
-
-<p>Le Rachat de cr&eacute;dits est un pr&ecirc;t amortissable, destin&eacute; &agrave; racheter les cr&eacute;dits &agrave; la consommation dont vous &ecirc;tes d&eacute;tenteurs, hors pr&ecirc;ts immobiliers.</p>
-
-<p>Offres sous r&eacute;serve d&#39;acceptation d&eacute;finitive apr&egrave;s &eacute;tude des pi&egrave;ces justificatives demand&eacute;es par CA Consumer Finance, pr&ecirc;teur, dont Jkl.oin est une marque, SA au capital de 629&nbsp;480&nbsp;046&nbsp;&euro;, 1 rue Victor Basch &ndash; CS 70001 91068 MASSY Cedex, 542 097 522 RCS Evry. Interm&eacute;diaire d&#39;assurances inscrit &agrave; l&#39;ORIAS sous le n&deg; 07 008 079 (<a href="https://www.orias.fr" rel="nofollow" target="_blank">www.orias.fr</a>).</p>
-
-<p>Vous disposez d&#39;un droit l&eacute;gal de r&eacute;tractation lors de la souscription de votre cr&eacute;dit.</p>
-
-<p id="footerU00281U0029"><sup>(1)</sup>A partir d&rsquo;un montant de cr&eacute;dit de 1 000 &euro;, votre Cr&eacute;dit Renouvelable peut &ecirc;tre assorti d&#39;une carte de cr&eacute;dit VISA Jkl.oin facultative, sous r&eacute;serve d&rsquo;acceptation par le pr&ecirc;teur. La carte VISA Jkl.oin est une carte de cr&eacute;dit utilisable au comptant ou &agrave; cr&eacute;dit sur choix expr&egrave;s de votre part, en magasin ou lors d&rsquo;un retrait en DAB en France, et au comptant par d&eacute;faut sur Internet, &agrave; l&rsquo;&eacute;tranger et pour les paiements sans contact. En mode sans contact, le montant maximum de paiement est de 50 &euro;; le montant cumul&eacute; des r&egrave;glements successifs est limit&eacute; &agrave; 150&euro; et born&eacute; &agrave; 70&euro; par jour. Au-del&agrave; de ce montant, une op&eacute;ration de paiement avec saisie du code confidentiel doit &ecirc;tre effectu&eacute;e par le titulaire de la carte. Carte gratuite la premi&egrave;re ann&eacute;e et &agrave; partir de la deuxi&egrave;me ann&eacute;e sous condition d&#39;utilisation de la carte au comptant ou &agrave; cr&eacute;dit. A d&eacute;faut, les cotisations annuelles sont les suivantes : carte VISA Jkl.oin 19&euro;, carte VISA Premier Jkl.oin 49&euro;. Vous disposez d&#39;un droit l&eacute;gal de r&eacute;tractation. En fin de mois, le client peut r&eacute;partir &agrave; cr&eacute;dit tout ou partie de ses d&eacute;penses cartes pr&eacute;vues initialement au comptant : Paiement en 3x, au taux du contrat, pour un montant de 45 &agrave; 999&euro; Paiement en 10x, au TAEG fixe de 7,90%, pour un montant de 150 &agrave; 6 000&euro;.En plusieurs mensualit&eacute;s, au taux du contrat sur la dur&eacute;e maximale contractuelle. En plusieurs mensualit&eacute;s, au taux du contrat sur la dur&eacute;e maximale contractuelle.<a class="footer-back-link" data-footer="footerU00281U0029" href="#" aria-label="Retour à la référence">↩</a></p>
-
-<p id="footerU00282U0029"><sup>(2)</sup> Offre&nbsp;sous r&eacute;serve d&#39;acceptation d&eacute;finitive apr&egrave;s &eacute;tude des pi&egrave;ces justificatives demand&eacute;es par CA Consumer Finance, pr&ecirc;teur, dont Jkl.oin est une marque, SA au capital de 629&nbsp;480&nbsp;046 &euro;, 1 rue Victor Basch &ndash; CS 70001 91068 MASSY Cedex, 542 097 522 RCS Evry. Interm&eacute;diaire d&#39;assurances inscrit &agrave; l&#39;ORIAS sous le n&deg; 07 008 079 (<a href="https://www.orias.fr" rel="nofollow" target="_blank">www.orias.fr</a>).<a class="footer-back-link" data-footer="footerU00282U0029" href="#" aria-label="Retour à la référence">↩</a></p>
-
-<p id="footerU00283U0029"><sup>(3)</sup> La signature &eacute;lectronique est accessible sous r&eacute;serve de renseigner un num&eacute;ro de portable lors de votre demande en ligne, ce num&eacute;ro &eacute;tant indispensable pour signer &eacute;lectroniquement.<a class="footer-back-link" data-footer="footerU00283U0029" href="#" aria-label="Retour à la référence">↩</a></p>
-
-<p id="footerU00284U0029"><sup>(4)</sup><u> Pause mensualit&eacute; pour un pr&ecirc;t personnel :</u> La pause mensualit&eacute; est possible d&egrave;s lors que votre dossier a plus de 6 mois, sous r&eacute;serve du bon fonctionnement de votre cr&eacute;dit et de l&rsquo;acceptation du pr&ecirc;teur. La mensualit&eacute; suspendue est report&eacute;e en fin de cr&eacute;dit. Les mensualit&eacute;s apr&egrave;s la pause seront recalcul&eacute;es afin d&rsquo;int&eacute;grer les int&eacute;r&ecirc;ts et l&rsquo;assurance &eacute;ventuelle du mois non pr&eacute;lev&eacute;. La pause allonge la dur&eacute;e de remboursement et augmente le co&ucirc;t du cr&eacute;dit.<a class="footer-back-link" data-footer="footerU00284U0029" href="#" aria-label="Retour à la référence">↩</a></p>
-
-<p><u>Pause mensualit&eacute; pour un cr&eacute;dit renouvelable </u>: La pause mensualit&eacute; est possible d&egrave;s lors que votre dossier a plus de 3 mois, sous r&eacute;serve du bon fonctionnement de votre cr&eacute;dit et de l&rsquo;acceptation du pr&ecirc;teur. La mensualit&eacute; suspendue est report&eacute;e en fin de cr&eacute;dit. Les mensualit&eacute;s apr&egrave;s la pause seront recalcul&eacute;es afin d&rsquo;int&eacute;grer les int&eacute;r&ecirc;ts et l&rsquo;assurance &eacute;ventuelle du mois non pr&eacute;lev&eacute;. La pause allonge la dur&eacute;e de remboursement et augmente le co&ucirc;t du cr&eacute;dit.</p>
-
-<p><u>Flexibilit&eacute; des mensualit&eacute;s</u> : Diminution d&rsquo;une mensualit&eacute; de 1 &agrave; 3 mois cons&eacute;cutifs maximum. La nouvelle mensualit&eacute; doit repr&eacute;senter au minimum 60% de la mensualit&eacute; initiale, la diminution allongera la dur&eacute;e moyenne et augmentera le co&ucirc;t total du cr&eacute;dit. Sous r&eacute;serve du bon fonctionnement de votre cr&eacute;dit. Demande &agrave; faire 15 jours avant &eacute;ch&eacute;ance.</p>
-</div>
-		</div>
-	</div>
-	</div><div class="footer-reassurance section-container">
-  <ul class="footer-reassurance-list">
-    <li class="footer-reassurance-item">
-  <div class="footer-reassurance-picto">
-    <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/people.svg"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/people.svg" alt="">
-</noscript></div>
-  <p class="footer-reassurance-desc"><span>Depuis plus de 70 ans à vos côtés</span></p>
-</li><li class="footer-reassurance-item">
-  <div class="footer-reassurance-picto">
-    <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/security.svg"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/security.svg" alt="">
-</noscript></div>
-  <p class="footer-reassurance-desc"><span>Parcours 100% sécurisé</span></p>
-</li><li class="footer-reassurance-item">
-  <div class="footer-reassurance-picto">
-    <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/simulation.svg"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/simulation.svg" alt="">
-</noscript></div>
-  <p class="footer-reassurance-desc"><span>Simulation sans engagement</span></p>
-</li><li class="footer-reassurance-item">
-  <div class="footer-reassurance-picto">
-    <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/save.svg"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/img-refonte/home-page/save.svg" alt="">
-</noscript></div>
-  <p class="footer-reassurance-desc"><span>Signature électronique</span></p>
-</li></ul>
-</div><div class="footer-container">
-    <div class="section-container">
-        <div class="footer-wrapper">
-            <div class="footer-left">
-                <a href="/" class="footer-logo footer-logo-sofinco" title="Accueil du site sofinco.fr">
-                    <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Footer/Logo-Sofinco-cyan.svg"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Footer/Logo-Sofinco-cyan.svg" alt="">
-</noscript></a>
-                <a href="https://www.credit-agricole.com" aria-label = "Groupe Crédit Agricole - credit-agricole.com - Nouvelle fen&ecirc;tre" class="footer-logo"  onclick="disclaimer('https://www.credit-agricole.com');return false;" target="_blank" >
-	<img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" width="151" height="58" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Footer/logo-casa.svg"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Footer/logo-casa.svg" alt="">
-</noscript></a><a href="https://www.greatplacetowork.fr/best-workplaces-2025/95968180420" aria-label = "Great Place To Work Sofinco - greatplacetowork.fr - Nouvelle fen&ecirc;tre" class="footer-logo"  onclick="disclaimer('https://www.greatplacetowork.fr/best-workplaces-2025/95968180420');return false;" target="_blank" >
-	<img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" width="100" height="100" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Footer/Best_Workplaces_2025.webp"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/images/Accueil/Footer/Best_Workplaces_2025.webp" alt="">
-</noscript></a><a href="https://www.sofinco.fr/actualite-credit/sofinco/label-lucie-26000"  class="footer-logo"  target="_self" >
-	<img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="Sofinco labellisée LUCIE 26000" width="100" height="100" class="lazy " data-src="https://www.sofinco.fr/files/live/sites/sofinco/files/Logo-Labellise%cc%81-LUCIE-26000.png"><noscript>
- <img src="https://www.sofinco.fr/files/live/sites/sofinco/files/Logo-Labellise%cc%81-LUCIE-26000.png" alt="Sofinco labellisée LUCIE 26000">
-</noscript></a><div class="footer-social-network">
-	<p class="footer-social-network__title">Retrouvez-nous :</p>
-	<ul>
-		<li class="footer-social-network__item"><a href="https://www.facebook.com/SofincoCredit" rel="noopener noreferrer" target="_blank" aria-label="Sofinco sur Facebook - https://www.facebook.com/SofincoCredit - Nouvelle fen&ecirc;tre" >
-			 <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/facebook-icon.svg"><noscript>
- <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/facebook-icon.svg" alt="">
-</noscript></a></li>
-		<li class="footer-social-network__item"><a href="https://fr.linkedin.com/showcase/sofinco/" rel="noopener noreferrer" target="_blank" aria-label="Sofinco sur LinkedIn - https://fr.linkedin.com/showcase/sofinco/ - Nouvelle fen&ecirc;tre" >
-			 <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/linkedin-icon.svg"><noscript>
- <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/linkedin-icon.svg" alt="">
-</noscript></a></li>
-		<li class="footer-social-network__item"><a href="https://www.youtube.com/channel/UC_B9rpSDs0u2aeFfAmWoYRw" rel="noopener noreferrer" target="_blank" aria-label="Sofinco sur Youtube - https://www.youtube.com/channel/UC_B9rpSDs0u2aeFfAmWoYRw - Nouvelle fen&ecirc;tre" >
-			 <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" class="lazy " data-src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/youtube-icon.svg"><noscript>
- <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/youtube-icon.svg" alt="">
-</noscript></a></li>
-		</ul>
-</div>
-
-<!-- SCHEMA.ORG -->
-</div>
-            <div class="footer-right">
-                <div class="footer-list ">
-	<button class="footer-list__title" aria-expanded="false">Crédit consommation</button>
-	<ul>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/pret-personnel.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Prêt personnel" data-elabel="clic"  target="_self" > Prêt personnel</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-5000-euros.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit 5 000 €" data-elabel="clic"  target="_self" > Crédit 5 000 €</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-10000-euros.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit 10 000€" data-elabel="clic"  target="_self" > Crédit 10 000€</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-20000-euros.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit 20 000 €" data-elabel="clic"  target="_self" > Crédit 20 000 €</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-50000-euros.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit 50 000 €" data-elabel="clic"  target="_self" > Crédit 50 000 €</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/simulation-credit.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Simulation crédit conso" data-elabel="clic"  target="_self" > Simulation crédit conso</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/taux-credit-conso"  class="gaTagClick" data-ecat="footer" data-eaction="Taux des crédits consommation" data-elabel="clic"  target="_self" > Taux des crédits consommation</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/pret-perso/guide.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Nos guides du prêt personnel" data-elabel="clic"  target="_self" > Nos guides du prêt personnel</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/pret-transition-energetique/guide.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Nos guides en transition énergétique" data-elabel="clic"  target="_self" > Nos guides en transition énergétique</a></li>
-		</ul>
-</div><div class="footer-list ">
-	<button class="footer-list__title" aria-expanded="false">Crédit renouvelable</button>
-	<ul>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-renouvelable.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit renouvelable" data-elabel="clic" title="actualité Sofinco" target="_self" > Crédit renouvelable</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/carte-credit-renouvelable.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Cartes Sofinco" data-elabel="clic"  target="_self" > Cartes Jkl.oin</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/paiement-plusieurs-fois"  class="gaTagClick" data-ecat="footer" data-eaction="Paiement en plusieurs fois" data-elabel="clic"  target="_self" > Paiement en plusieurs fois</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/simulation-credit/credit-renouvelable.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Simulation crédit renouvelable" data-elabel="clic"  target="_self" > Simulation crédit renouvelable</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-renouvelable/guide.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Nos guides du crédit renouvelable" data-elabel="clic"  target="_self" > Nos guides du crédit renouvelable</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/paiement-plusieurs-fois/guide"  class="gaTagClick" data-ecat="footer" data-eaction="Nos guides du paiement en plusieurs fois" data-elabel="clic"  target="_self" > Nos guides du paiement en plusieurs fois</a></li>
-		</ul>
-</div><div class="footer-list ">
-	<button class="footer-list__title" aria-expanded="false">Regroupement de crédits</button>
-	<ul>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/rachat-credit.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Rachat de crédits" data-elabel="clic"  target="_self" > Rachat de crédits</a></li>
-		<li class="footer-list__item">
-				<a href="#"  class="gaTagClick" data-ecat="footer" data-eaction="Rachat de crédits conso" data-elabel="clic"  target="_self" > Rachat de crédits conso</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/rachat-credit/rachat-credit-auto.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Rachat de crédits auto" data-elabel="clic"  target="_self" > Rachat de crédits auto</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/rachat-credit/rachat-pret-personnel.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Rachat de prêt personnel" data-elabel="clic"  target="_self" > Rachat de prêt personnel</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/rachat-credit/rachat-credit-travaux.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Rachat de crédits travaux" data-elabel="clic"  target="_self" > Rachat de crédits travaux</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/simulation-credit/rachat-credit.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Simulation rachat de crédits" data-elabel="clic"  target="_self" > Simulation rachat de crédits</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/rachat-credit/guide.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Nos guides du rachat de crédits" data-elabel="clic"  target="_self" > Nos guides du rachat de crédits</a></li>
-		</ul>
-</div><div class="footer-list ">
-	<button class="footer-list__title" aria-expanded="false">Prêt véhicule</button>
-	<ul>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-auto.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit auto" data-elabel="clic"  target="_self" > Crédit auto</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-moto.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit moto" data-elabel="clic"  target="_self" > Crédit moto</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-scooter.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit scooter" data-elabel="clic"  target="_self" > Crédit scooter</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit/pret-auto-d-occasion.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit voiture d'occasion" data-elabel="clic"  target="_self" > Crédit voiture d'occasion</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit/credit-voiture-electrique.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit voiture électrique" data-elabel="clic"  target="_self" > Crédit voiture électrique</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/projet-credit/pret-velo-electrique.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit vélo électrique" data-elabel="clic"  target="_self" > Crédit vélo électrique</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-auto/guide"  class="gaTagClick" data-ecat="footer" data-eaction="Nos guides du prêt auto" data-elabel="clic"  target="_self" > Nos guides du prêt auto</a></li>
-		</ul>
-</div><div class="footer-list ">
-	<button class="footer-list__title" aria-expanded="false">Crédit travaux</button>
-	<ul>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-travaux.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Prêt travaux" data-elabel="clic"  target="_self" > Prêt travaux</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/projet-credit/pret-travaux-sur-10-ans.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Prêt travaux sur 10 ans" data-elabel="clic"  target="_self" > Prêt travaux sur 10 ans</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/projet-credit/pret-cuisine.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit cuisine" data-elabel="clic"  target="_self" > Crédit cuisine</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/projet-credit/pret-travaux-piscine.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit piscine" data-elabel="clic"  target="_self" > Crédit piscine</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/projet-credit/pret-travaux-renovation.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Crédit rénovation" data-elabel="clic"  target="_self" > Crédit rénovation</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/projet-credit/pret-travaux-economie-energie.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Prêt travaux économie d'énergie" data-elabel="clic"  target="_self" > Prêt travaux économie d'énergie</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/pret-transition-energetique/pret-travaux-renovation"  class="gaTagClick" data-ecat="footer" data-eaction="Prêt travaux verts" data-elabel="clic"  target="_self" > Prêt travaux verts</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-pret/credit-travaux/guide"  class="gaTagClick" data-ecat="footer" data-eaction="Nos guides du prêt travaux" data-elabel="clic"  target="_self" > Nos guides du prêt travaux</a></li>
-		</ul>
-</div><div class="footer-list ">
-	<button class="footer-list__title" aria-expanded="false">A propos</button>
-	<ul>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/a-propos"  class="gaTagClick" data-ecat="footer" data-eaction="Qui sommes-nous" data-elabel="clic"  target="_self" > Qui sommes-nous</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/nous-decouvrir/sofinco-s-engage.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Sofinco s'engage" data-elabel="clic"  target="_self" > Jkl.oin s'engage</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/assurances.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Nos assurances" data-elabel="clic"  target="_self" > Nos assurances</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/agences-sofinco.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Agences Sofinco" data-elabel="clic"  target="_self" > Agences Jkl.oin</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/a-propos/mon-appli-sofinco"  class="gaTagClick" data-ecat="footer" data-eaction="Application Sofinco" data-elabel="clic"  target="_self" > Application Jkl.oin</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" aria-label = "Avis clients - Nouvelle fen&ecirc;tre" class="gaTagClick" data-ecat="footer" data-eaction="Avis clients" data-elabel="clic"  target="_blank"  onclick="disclaimer('https://www.avis-verifies.com/avis-clients/sofinco.fr');return false;"> Avis clients</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/a-propos/apple-pay.htm"  class="gaTagClick" data-ecat="footer" data-eaction="Apple Pay" data-elabel="clic"  target="_self" > Apple Pay</a></li>
-		</ul>
-</div><div class="footer-list ">
-	<button class="footer-list__title" aria-expanded="false">Partenaires</button>
-	<ul>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/a-propos/nos-partenaires"  class="gaTagClick" data-ecat="footer" data-eaction="Nos partenaires" data-elabel="clic"  target="_self" > Nos partenaires</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.sofinco.fr/credit-sofinco/cartes"  class="gaTagClick" data-ecat="footer" data-eaction="Cartes partenaires" data-elabel="clic"  target="_self" > Cartes partenaires</a></li>
-		<li class="footer-list__item">
-				<a href="https://www.pro.sofinco.fr/" aria-label = "Sofinco Pro - Nouvelle fen&ecirc;tre" class="gaTagClick" data-ecat="footer" data-eaction="Sofinco Pro" data-elabel="clic"  target="_blank"  onclick="disclaimer('https://www.pro.sofinco.fr/');return false;"> Jkl.oin Pro</a></li>
-		</ul>
-</div></div>
-            </div>
-        <div class="footer-links">
-            <ul>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/contact"  data-ecat="footer" data-eaction="Nous contacter" data-elabel="clic" class = 'gaTagClick' target="_self" > Nous contacter</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/a-propos/sofinco-informations-legales"  data-ecat="footer" data-eaction="Informations légales" data-elabel="clic" class = 'gaTagClick' target="_self" > Informations légales</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/a-propos/sofinco-informations-legales#politique-donnees-personnelles"  data-ecat="footer" data-eaction="Politique des données personnelles" data-elabel="clic" class = 'gaTagClick' target="_blank" > Politique des données personnelles</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/faq-questions-reponses"  data-ecat="footer" data-eaction="Questions-Réponses" data-elabel="clic" class = 'gaTagClick' target="_self" > Questions-Réponses</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/guide-tarifs"  data-ecat="footer" data-eaction="Tarifs" data-elabel="clic" title="Tarifs consulter"class = 'gaTagClick' target="_self" > Tarifs</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.ca-personalfinancemobility.com/"  data-ecat="footer" data-eaction="Découvrir notre groupe" data-elabel="clic" title="CA Personal Finance & Mobility - Site externe - Nouvelle fen&ecirc;tre"class = 'gaTagClick' target="_blank"  onclick="disclaimer('https://www.ca-personalfinancemobility.com/');return false;"> Découvrir notre groupe</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.ca-consumerfinance.com/qui-sommes-nous/valeurs-et-engagements/charte-ethique-groupe.html"  data-ecat="footer" data-eaction="Charte éthique groupe" data-elabel="clic" title="Charte éthique groupe - Site externe - Nouvelle fen&ecirc;tre"class = 'gaTagClick' target="_blank"  onclick="disclaimer('https://www.ca-consumerfinance.com/qui-sommes-nous/valeurs-et-engagements/charte-ethique-groupe.html');return false;"> Charte éthique groupe</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/plan-du-site-credit-sofinco.htm"  data-ecat="footer" data-eaction="Plan du site Sofinco" data-elabel="clic" class = 'gaTagClick' target="_self" > Plan du site Jkl.oin</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/a-propos/sofinco-guide-securite-internet"  data-ecat="footer" data-eaction="Sécurité" data-elabel="clic" class = 'gaTagClick' target="_self" > Sécurité</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/a-propos/charte-reclamation"  data-ecat="footer" data-eaction="Charte des réclamations" data-elabel="clic" class = 'gaTagClick' target="_self" > Charte des réclamations</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/a-propos/declaration-accessibilite"  data-ecat="footer" data-eaction="Accessibilité : partiellement conforme" data-elabel="clic" class = 'gaTagClick' target="_self" > Accessibilité : partiellement conforme</a></li>
-                <li class="footer-links__item">
-                        <a href="https://www.sofinco.fr/a-propos/gerer-consentement-utiq"  data-ecat="footer" data-eaction="Gérer Utiq" data-elabel="clic" class = 'gaTagClick' target="_self" > Gérer Utiq</a></li>
-                <li class="footer-links__item">
-                	<button type="button" data-ecat="footer" data-eaction="Gérer mes cookies" data-elabel="clic" class="gaTagClick">Gérer mes cookies</button>
-                </li>
-            </ul>
-        </div>
+<!-- ═══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="section-container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text" style="font-size:1.6rem;display:block;margin-bottom:.8rem;">Jkl.oin</span>
+        <p>Jkl.oin est une marque de CA Consumer Finance, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€, 1 rue Victor Basch – CS 70001 91068 MASSY Cedex, 542 097 522 RCS Evry.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Nos crédits</h4>
+        <ul>
+          <li><a href="/credit-pret/pret-personnel.htm">Prêt personnel</a></li>
+          <li><a href="/credit-pret/credit-auto.htm">Crédit auto</a></li>
+          <li><a href="/credit-pret/credit-travaux.htm">Crédit travaux</a></li>
+          <li><a href="/credit-pret/credit-renouvelable.htm">Crédit renouvelable</a></li>
+          <li><a href="/rachat-credit.htm">Rachat de crédits</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Espace client</h4>
+        <ul>
+          <li><a href="#">Se connecter</a></li>
+          <li><a href="/suivi-de-dossier.htm">Suivi de dossier</a></li>
+          <li><a href="/assurances.htm">Mes assurances</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>À propos</h4>
+        <ul>
+          <li><a href="/nous-decouvrir.htm">Qui sommes-nous ?</a></li>
+          <li><a href="/nous-decouvrir/sofinco-s-engage.htm">Jkl.oin s'engage</a></li>
+          <li><a href="/eco-transition">Éco-transition</a></li>
+          <li><a href="/aide-contact">Aide &amp; Contact</a></li>
+          <li><a href="/a-propos/accessibilite">Accessibilité</a></li>
+        </ul>
+      </div>
     </div>
-</div><div class="interruptibility-wrapper">
-        <div class="iframe-wrapper">
-            <iframe src="https://souscription.sofinco.fr/essentiel/reprise-panier-iframe?q6=web_sofinco"
-                    title="reprise panier"></iframe>
-        </div>
-    </div>
-<!-- HELP BUTTON -->
-    <div id="contact" class="help">
-     <div class="help__overlay"></div><header class="help__header">
-        <h3 class="help__header-title">Besoin d'aide ?</h3>
-        <button class="help__close" aria-label="Fermer les moyens de contact" >
-          <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/close_white.svg" alt="">
-        </button>
-      </header>
-        <div class="help__content">
-        	<p class="help__title">
-	          Un probl&egrave;me ? Contactez-nous
-	        </p>
-	        <p class="help__subtitle">
-	          Nos conseillers sont &agrave; votre &eacute;coute du <strong>lundi au vendredi de 9h &agrave; 18h30</strong>, et le <strong>samedi de 9h &agrave; 13h.</strong>
-	        </p>
-        	<ul id="buttons-container" class="help__items">
-        		<!-- Wannaspeak Button Starts -->
-			         <li class="help__action"> 
-	                	<a class="voxReflex help__item" href="javascript:void(0)">
-		                    <img aria-hidden="true" alt="" id="voxreflexbutton_29592_d323c543570e65bc3e84f6fafcad10f0"/>
-		                    <div class="help__item-container" id="web-callback-button" data-ecat="contact" data-elabel="Web call back">
-		                        <div class="help__image-wrapper">
-															<svg class="help__image" aria-hidden="true" focusable="false" width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-																<path d="M31 26.4677C31 27.0077 30.8798 27.5627 30.6244 28.1027C30.3691 28.6427 30.0386 29.1527 29.6029 29.6327C28.8668 30.4427 28.0556 31.0277 27.1392 31.4027C26.2379 31.7777 25.2614 31.9727 24.2098 31.9727C22.6775 31.9727 21.0401 31.6127 19.3125 30.8777C17.5849 30.1427 15.8573 29.1527 14.1447 27.9077C12.4171 26.6477 10.7797 25.2527 9.21733 23.7077C7.67 22.1477 6.27291 20.5127 5.02604 18.8027C3.79419 17.0927 2.8027 15.3827 2.08162 13.6877C1.36054 11.9777 1 10.3427 1 8.78266C1 7.76266 1.18027 6.78766 1.54081 5.88766C1.90135 4.97266 2.47221 4.13266 3.2684 3.38266C4.22984 2.43766 5.28142 1.97266 6.39309 1.97266C6.81372 1.97266 7.23435 2.06266 7.60992 2.24266C8.0005 2.42266 8.34602 2.69266 8.61642 3.08266L12.1017 7.98766C12.3721 8.36266 12.5674 8.70766 12.7026 9.03766C12.8378 9.35266 12.9129 9.66766 12.9129 9.95266C12.9129 10.3127 12.8077 10.6727 12.5974 11.0177C12.4021 11.3627 12.1167 11.7227 11.7561 12.0827L10.6144 13.2677C10.4492 13.4327 10.3741 13.6277 10.3741 13.8677C10.3741 13.9877 10.3891 14.0927 10.4191 14.2127C10.4642 14.3327 10.5093 14.4227 10.5393 14.5127C10.8097 15.0077 11.2754 15.6527 11.9364 16.4327C12.6124 17.2127 13.3335 18.0077 14.1147 18.8027C14.9259 19.5977 15.7071 20.3327 16.5033 21.0077C17.2844 21.6677 17.9304 22.1177 18.4412 22.3877C18.5163 22.4177 18.6064 22.4627 18.7116 22.5077C18.8317 22.5527 18.9519 22.5677 19.0871 22.5677C19.3425 22.5677 19.5378 22.4777 19.7031 22.3127L20.8448 21.1877C21.2203 20.8127 21.5809 20.5277 21.9264 20.3477C22.2719 20.1377 22.6174 20.0327 22.993 20.0327C23.2784 20.0327 23.5789 20.0927 23.9094 20.2277C24.2399 20.3627 24.5854 20.5577 24.9609 20.8127L29.9334 24.3377C30.324 24.6077 30.5944 24.9227 30.7596 25.2977C30.9099 25.6727 31 26.0477 31 26.4677Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10"/>
-																<path d="M20.6745 5.74068L20.6745 10.9686L25.9024 10.9686" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-																<path d="M27.9952 3.64697L20.7477 10.8945" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-															</svg>
-		                        </div>
-		                        <span class="help__item-label">Être rappelé(e)</span>
-		                        <img class="help__item-picto" src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/arrow-dark-blue.svg" alt="">
-		                    </div>
-	                	</a>
-	                </li>
-            	
-<!-- START IADVIZE HTML CHAT CALLBACK -->
-	                <li class="idz_btn_fix help__action">
-	                	<div id="idzfonline" style="display: none">
-	                		<a class="help__item" href="javascript:void(0)">
-	                			<div class="help__item-container" id="chat-button" data-ecat="contact" data-elabel="Chat">
-	                				<div class="help__image-wrapper">
-	                					<img class="lazy help__image" aria-hidden="true" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" data-src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/messages.svg"><noscript>
- <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/messages.svg" alt="">
-</noscript></div>
-					                  <span class="help__item-label">Chatter</span>
-	                				 <img class="help__item-picto" src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/arrow-dark-blue.svg" alt="">
-	                			</div>
-	                		</a>
-	                	</div>
-	                </li>
-	            <li class="help__action">
-	            		<button class="help__item help__item--collapse" id="call-container" aria-expanded="false" aria-controls="collapse-contact-number__content" data-ecat="contact" data-elabel="Appel">
-			              <span class="help__item-container">
-			                <span class="help__image-wrapper">
-			                	<img class="lazy help__image" aria-hidden="true" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="" data-src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/call-outgoing.svg"><noscript>
- <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/call-outgoing.svg" alt="">
-</noscript></span>
-			                <span class="help__item-label">Nous appeler</span>
-			                <img class="help__item-picto" src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/arrow-dark-blue.svg" alt="">
-			              </span>
-			            </button>
-	            		 <div aria-hidden="true" aria-labelledby="call-container" id="collapse-contact-number__content" class="help__call">
-			              <h4 class="help__call-title">Vous souhaitez  nous contacter pour un projet ?</h4>
-			              <p class="help__call-text"><p>Nos conseillers sont &agrave; votre &eacute;coute du <strong>lundi au vendredi de 9h &agrave; 18h30</strong>, et le <strong>samedi de 9h &agrave; 13h</strong>.</p>
-</p>
-			              <a href="tel:3266" id="call-button" class="help__call-link">
-			                <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" alt="Numéro de téléphone 3266 service 0,25 euro par minute + prix d'appel" class="lazy " data-src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/3266.svg"><noscript>
- <img src="https://www.sofinco.fr/modules/portal-templates-sofinco/images/3266.svg" alt="Numéro de téléphone 3266 service 0,25 euro par minute + prix d'appel">
-</noscript></a>
-			            </div>
-	            	</li>
-	            </ul>
-            <!-- END IADVIZE HTML CHAT CALLBACK -->
-        </div>
-    </div>
-<script type="text/javascript">
 
-window.stPushJsUrl="https://assets.app.smart-tribune.com/sofinco/PUSH/push.main.js";
-
-window.addEventListener('STPUSHLoaded', function (e) {
-    window.stPush = e.detail;
-    stPush.init({
-    	"analyticsUA": "G-SMES2LW0JN",
-      "searchFiltered": true,
-      "kbId": 198,
-      "locale": "fr",
-      "cookieOptin": true,
-      "customResponses": ['sofinco-2057'],"buildName": "sofinco",
-      "filters": {
-          "thematics":[],
-          "tags":["sofinco-2057"]
-      }
-    });
-    window.dispatchEvent(new CustomEvent("STPUSHCanBeOpened"));
-});
-</script><div class="footer-legal-notice">
-        <div class="section-container"><p style="margin-bottom:3.75rem;">SOFINCO est une marque de CA Consumer Finance, pr&ecirc;teur, SA au capital de 629&nbsp;480&nbsp;046 &euro;, 1 rue Victor Basch &ndash; CS 70001 &ndash; 91068 MASSY Cedex, 542 097 522 RCS Evry. Interm&eacute;diaire d&#39;assurances inscrit &agrave; l&#39;ORIAS sous le n&deg; 07 008 079 (www.orias.fr). Jkl.oin vous propose des offres de cr&eacute;dits, cr&eacute;dit consommation, rachat cr&eacute;dit et cr&eacute;dit renouvelable. Simulation de rachat cr&eacute;dit et cr&eacute;dit en ligne. &copy; CA Consumer Finance 2026</p></div>
+    <div class="footer-bottom">
+      <p>© CA Consumer Finance 2026 — Jkl.oin</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
     </div>
+
+    <div class="footer-legal">
+      <p>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+      <p>Offres sous réserve d'acceptation définitive après étude des pièces justificatives demandées par CA Consumer Finance, prêteur, dont Jkl.oin est une marque. Intermédiaire d'assurances inscrit à l'ORIAS sous le n° 07 008 079 (<a href="https://www.orias.fr" target="_blank" rel="noopener" style="color:rgba(255,255,255,.5)">www.orias.fr</a>). Vous disposez d'un droit légal de rétractation lors de la souscription de votre crédit.</p>
+    </div>
+  </div>
 </footer>
 
 <script>
-  // Minimal JS: nav dropdowns only, no redirects
+  // Navigation dropdowns
   document.querySelectorAll('.header-nav__item--parent > .header-nav__link').forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       var parent = this.parentElement;
-      parent.classList.toggle('open');
+      var isOpen = parent.classList.contains('open');
+      document.querySelectorAll('.header-nav__item--parent').forEach(function(el) { el.classList.remove('open'); });
+      if (!isOpen) parent.classList.add('open');
     });
   });
   document.addEventListener('click', function(e) {
@@ -934,13 +1072,19 @@ window.addEventListener('STPUSHLoaded', function (e) {
       document.querySelectorAll('.header-nav__item--parent.open').forEach(function(el) { el.classList.remove('open'); });
     }
   });
-  // Active hero tab
+  // Hero tabs
   document.querySelectorAll('.hero-tab').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.hero-tab').forEach(function(b) { b.classList.remove('active'); });
       this.classList.add('active');
     });
   });
+  // Header shadow on scroll
+  window.addEventListener('scroll', function() {
+    document.querySelector('.header').style.boxShadow = window.scrollY > 10
+      ? '0 4px 16px rgba(0,0,0,.15)' : '0 2px 8px rgba(0,0,0,.10)';
+  });
 </script>
+
 </body>
 </html>
