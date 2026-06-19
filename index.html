@@ -123,164 +123,109 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .page{padding-top:var(--hh)}
 
 /* ═══════════════════════════
-   HERO SECTION 1 — Photo bleu ciel
+   HERO BANNER — fond bleu ciel
 ═══════════════════════════ */
-.hero-photo-section{
-  position:relative;
-  min-height:340px;
-  overflow:hidden;
-  display:flex;align-items:flex-end;
-  padding:2rem 1.5rem 0;
-}
-.hero-photo-bg{
-  position:absolute;inset:0;
-  background:url('https://picsum.photos/seed/jklhero/800/500') center/cover no-repeat;
-}
-.hero-photo-bg::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(0,51,77,.65) 0%,rgba(0,51,77,.2) 60%,transparent 100%);
-}
-.hero-photo-content{
-  position:relative;z-index:1;
-  color:#fff;
-  max-width:55%;
-  padding-bottom:2rem;
-}
-.hero-photo-content h1{
-  font-size:1.5rem;font-weight:800;line-height:1.25;
-}
-.hero-photo-content h1 sup{font-size:.75rem}
-
-/* ═══════════════════════════
-   HERO SECTION 2 — Carte dark
-═══════════════════════════ */
-.hero-card-section{
-  background:var(--navy-d);
-  color:#fff;
-  padding:1.5rem;
-}
-.hero-card-inner{
-  max-width:var(--w);margin:0 auto;
-  display:flex;align-items:center;gap:1.5rem;
-}
-.hero-card-text{flex:1}
-.hero-card-label{
-  font-size:.85rem;font-weight:700;margin-bottom:.35rem;
-  display:flex;align-items:center;gap:.4rem;
-}
-.hero-card-label sup{font-size:.6rem}
-.hero-card-desc{font-size:.85rem;opacity:.8;line-height:1.5}
-.hero-card-cta{
-  margin-top:1rem;
-  display:inline-block;
-  background:#fff;color:var(--navy-d);
-  border-radius:2rem;padding:.6rem 1.6rem;
-  font-size:.9rem;font-weight:700;
-  width:100%;text-align:center;
-  transition:background .2s;
-}
-.hero-card-cta:hover{background:#e8f0f5}
-.hero-card-img-wrap{
-  width:140px;flex-shrink:0;
-}
-.css-card{
-  width:145px;
-  background:linear-gradient(145deg,#0d3d5c 0%,#0a5a7a 40%,#06c2b0 100%);
-  border-radius:14px;padding:14px 12px 12px;color:#fff;
-  box-shadow:0 8px 24px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.3);
+.hero-banner{
+  background:linear-gradient(160deg,#5ec6ed 0%,#3ab5e5 55%,#1e9fd4 100%);
   position:relative;overflow:hidden;
+  min-height:260px;
+  padding:2.5rem 1.5rem 5rem;
+  display:flex;align-items:center;
 }
-.css-card::before{
-  content:'';position:absolute;top:-30px;right:-30px;
-  width:100px;height:100px;border-radius:50%;
-  background:rgba(255,255,255,.07);
+.hero-banner-inner{
+  max-width:var(--w);margin:0 auto;width:100%;
+  position:relative;z-index:1;
 }
-.css-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
-.css-card-name{font-size:.72rem;font-weight:800;letter-spacing:.04em;opacity:.9}
-.css-card-visa{
-  font-size:.95rem;font-weight:900;font-style:italic;
-  background:linear-gradient(135deg,#fff 0%,#e8d87a 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+.hero-banner h1{
+  color:#fff;font-size:1.55rem;font-weight:800;
+  line-height:1.25;max-width:280px;
 }
-.css-card-chip{
-  width:30px;height:22px;border-radius:4px;margin-bottom:14px;
-  background:linear-gradient(135deg,#c8922a 0%,#f5d878 40%,#c8922a 70%,#e8c060 100%);
-  box-shadow:inset 0 1px 2px rgba(255,255,255,.3);
-  position:relative;
-}
-.css-card-chip::after{
-  content:'';position:absolute;top:50%;left:0;right:0;height:1px;
-  background:rgba(0,0,0,.2);transform:translateY(-50%);
-}
-.css-card-num{font-size:.6rem;letter-spacing:.12em;opacity:.75;font-family:monospace}
+.hero-banner h1 sup{font-size:.65rem}
 
 /* ═══════════════════════════
-   HERO SECTION 3 — Simulateur blanc
+   DEUX CARTES CHEVAUCHANTES
 ═══════════════════════════ */
-.hero-sim-section{
+.hero-cards-wrap{
+  margin-top:-3.5rem;
+  position:relative;z-index:10;
+  padding:0 1rem 0;
+}
+.hero-cards-inner{
+  max-width:860px;margin:0 auto;
+  display:flex;flex-direction:column;gap:1rem;
+}
+
+/* Carte sombre — "La carte" */
+.hcard-dark{
+  background:var(--navy-d);color:#fff;
+  border-radius:14px;padding:1.2rem 1.4rem;
+  box-shadow:0 6px 24px rgba(0,0,0,.22);
+}
+.hcard-dark-label{
+  font-size:.78rem;font-weight:700;margin-bottom:.6rem;opacity:.85;
+}
+.hcard-dark-label sup{font-size:.55rem}
+.hcard-dark p{font-size:.82rem;opacity:.75;line-height:1.5;margin-bottom:1rem}
+.hcard-dark-cta{
+  display:block;width:100%;text-align:center;
+  background:#fff;color:var(--navy-d);
+  border-radius:2rem;padding:.55rem 1.2rem;
+  font-size:.88rem;font-weight:700;
+  transition:background .15s;
+}
+.hcard-dark-cta:hover{background:#e8f4fa}
+
+/* Carte blanche — Simulateur */
+.hcard-white{
   background:#fff;
-  padding:1.8rem 1.5rem 2rem;
-  border-bottom:1px solid #eee;
+  border-radius:14px;padding:1.2rem 1.4rem;
+  box-shadow:0 6px 24px rgba(0,0,0,.10);
 }
-.hero-sim-inner{max-width:var(--w);margin:0 auto}
-.hero-sim-section h2{
-  font-size:1.3rem;font-weight:800;color:var(--navy);
-  margin-bottom:.5rem;line-height:1.3;
+.hcard-white h2{
+  font-size:1.05rem;font-weight:800;color:var(--navy);
+  margin-bottom:.3rem;line-height:1.3;
 }
-.hero-sim-section .sim-sub{
-  font-size:.9rem;color:var(--text);margin-bottom:1.3rem;
+.hcard-white .sim-sub{
+  font-size:.82rem;color:#666;margin-bottom:1rem;line-height:1.4;
 }
-.hero-sim-section .sim-sub strong{font-weight:700}
+.hcard-white .sim-sub strong{font-weight:700}
+
 /* Formulaire simulateur */
-.sim-form{
-  display:flex;flex-direction:column;gap:.75rem;
-}
+.sim-form{display:flex;flex-direction:column;gap:.6rem}
 .sim-field{flex:1}
 .sim-select,.sim-input{
-  width:100%;height:48px;
+  width:100%;height:44px;
   border:1.5px solid #ccc;border-radius:2rem;
-  padding:0 1.1rem;font-size:.95rem;font-family:inherit;
+  padding:0 1rem;font-size:.9rem;font-family:inherit;
   color:var(--text);background:#fff;
   appearance:none;-webkit-appearance:none;
   outline:none;transition:border-color .2s;
 }
 .sim-select{
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 1rem center / 12px, #fff;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 1rem center / 11px, #fff;
   cursor:pointer;
 }
 .sim-select:focus,.sim-input:focus{border-color:var(--teal)}
 .btn-teal{
   display:block;width:100%;text-align:center;
   background:var(--teal);color:#fff;
-  border-radius:2rem;padding:.85rem 1.5rem;
-  font-size:1rem;font-weight:700;border:none;
+  border-radius:2rem;padding:.75rem 1.4rem;
+  font-size:.95rem;font-weight:700;border:none;
   font-family:inherit;cursor:pointer;
+  white-space:nowrap;
   transition:background .2s;
 }
 .btn-teal:hover{background:var(--teal-d)}
-@media(min-width:600px){
-  .sim-form{flex-direction:row;align-items:center}
-  .sim-btn{width:auto;white-space:nowrap;flex-shrink:0}
-}
 
-/* ═══════════════════════════
-   DESKTOP HERO (côte à côte)
-═══════════════════════════ */
-@media(min-width:960px){
-  .hero-photo-section{min-height:420px;padding:3rem 2rem 0}
-  .hero-photo-bg{width:45%}
-  .hero-photo-content{max-width:50%}
-  .hero-photo-content h1{font-size:2.1rem}
-  .hero-card-section{padding:2rem}
-  .hero-sim-section{padding:2rem}
-  .hero-sim-section h2{font-size:1.5rem}
-  /* On large screens, show hero sections side by side in a grid */
-  .hero-desktop-grid{
-    display:grid;
-    grid-template-columns:300px 1fr;
-    gap:0;
-  }
+/* Desktop : cartes côte à côte */
+@media(min-width:700px){
+  .hero-banner{min-height:320px;padding:3rem 2rem 6rem}
+  .hero-banner h1{font-size:2rem;max-width:380px}
+  .hero-cards-inner{flex-direction:row;align-items:stretch}
+  .hcard-dark{flex:0 0 260px}
+  .hcard-white{flex:1}
+  .sim-form{flex-direction:row;align-items:center}
+  .btn-teal{width:auto}
 }
 
 /* ═══════════════════════════
@@ -526,37 +471,48 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page">
 
-  <!-- ── Héro 1 : Photo bleu ciel ── -->
-  <section class="hero-photo-section">
-    <div class="hero-photo-bg"></div>
-    <div class="hero-photo-content">
-      <h1>Avec la carte Jkl.oin<sup>¹</sup>,<br>j'ai le pouvoir de payer<br>en 1x, 3x, 10x</h1>
+  <!-- ── Héro : fond bleu ciel ── -->
+  <section class="hero-banner">
+    <div class="hero-banner-inner">
+      <h1>Avec la carte Jkl.oin<sup>¹</sup>, j'ai le pouvoir de payer en 1x, 3x, 10x</h1>
     </div>
   </section>
 
-  <!-- ── Simulateur ── -->
-  <section class="hero-sim-section">
-    <div class="hero-sim-inner">
-      <h2>Financez vos projets avec le crédit conso Jkl.oin&nbsp;!</h2>
-      <p class="sim-sub">Simulez, faites votre demande en <strong>5 minutes</strong> et obtenez une réponse immédiate&nbsp;!</p>
-      <form class="sim-form" action="/parcours-simulateur" method="get">
-        <div class="sim-field">
-          <select class="sim-select" name="projet" aria-label="Votre projet">
-            <option value="" disabled selected>Votre projet</option>
-            <option value="famille-loisirs">Famille &amp; Loisirs</option>
-            <option value="auto">Auto</option>
-            <option value="travaux">Travaux</option>
-            <option value="autre">Autre</option>
-            <option value="regroupement">Regroupement de crédits</option>
-          </select>
-        </div>
-        <div class="sim-field">
-          <input class="sim-input" type="number" name="montant" placeholder="Votre montant" min="500" max="75000" aria-label="Votre montant"/>
-        </div>
-        <button type="submit" class="btn-teal sim-btn">Simuler un projet</button>
-      </form>
+  <!-- ── Deux cartes chevauchantes ── -->
+  <div class="hero-cards-wrap">
+    <div class="hero-cards-inner">
+
+      <!-- Carte sombre : La carte -->
+      <div class="hcard-dark">
+        <div class="hcard-dark-label">La carte<sup>¹</sup></div>
+        <p>Paiement comptant ou en plusieurs fois.<sup>¹</sup> Plus besoin de choisir&nbsp;!</p>
+        <a href="/credit-pret/carte-credit-renouvelable.htm" class="hcard-dark-cta">Je demande ma carte</a>
+      </div>
+
+      <!-- Carte blanche : Simulateur -->
+      <div class="hcard-white">
+        <h2>Financez vos projets avec le crédit conso Jkl.oin&nbsp;!</h2>
+        <p class="sim-sub">Simulez, faites votre demande en <strong>5 minutes</strong> et obtenez une réponse immédiate&nbsp;!</p>
+        <form class="sim-form" action="/parcours-simulateur" method="get">
+          <div class="sim-field">
+            <select class="sim-select" name="projet" aria-label="Votre projet">
+              <option value="" disabled selected>Votre projet</option>
+              <option value="famille-loisirs">Famille &amp; Loisirs</option>
+              <option value="auto">Auto</option>
+              <option value="travaux">Travaux</option>
+              <option value="autre">Autre</option>
+              <option value="regroupement">Regroupement de crédits</option>
+            </select>
+          </div>
+          <div class="sim-field">
+            <input class="sim-input" type="number" name="montant" placeholder="Votre montant" min="500" max="75000" aria-label="Votre montant"/>
+          </div>
+          <button type="submit" class="btn-teal">Simuler un projet</button>
+        </form>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <!-- ── Produits ── -->
   <section class="products">
