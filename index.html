@@ -118,37 +118,88 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 
 /* ═══════════════════════════
-   MENU MOBILE SLIDE-OUT
+   MENU MOBILE PLEIN ÉCRAN
 ═══════════════════════════ */
-.mobile-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;
-}
-.mobile-overlay.open{display:block}
+.mobile-overlay{display:none}
 .mobile-menu{
-  position:fixed;top:0;left:-100%;width:82%;max-width:320px;height:100%;
-  background:#fff;z-index:950;
-  transition:left .3s ease;
-  overflow-y:auto;
-  box-shadow:4px 0 20px rgba(0,0,0,.2);
+  display:none;position:fixed;inset:0;background:var(--navy-d);z-index:950;
+  overflow-y:auto;flex-direction:column;
 }
-.mobile-menu.open{left:0}
-.mobile-menu-header{
+.mobile-menu.open{display:flex}
+/* En-tête du menu */
+.mob-mhd{
   display:flex;align-items:center;justify-content:space-between;
-  padding:1rem 1.2rem;border-bottom:1px solid #eee;
+  padding:.85rem 1.2rem;background:var(--navy-d);
+  border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0;
 }
-.mobile-menu-logo{font-size:1.3rem;font-weight:800;color:var(--navy)}
-.mobile-menu-close{
-  font-size:1.5rem;color:var(--navy);cursor:pointer;
-  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+.mob-mhd-left{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:48px}
+.mob-mhd-left span{display:block;width:22px;height:2px;background:#fff;border-radius:2px}
+.mob-mhd-left .mob-menu-lbl{font-size:.65rem;font-weight:700;color:#fff;letter-spacing:.04em;margin-top:1px}
+.mob-mhd-logo{font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.5px}
+.mob-mhd-connect{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;font-size:.65rem;font-weight:700;min-width:48px}
+.mob-mhd-connect svg{margin-bottom:1px}
+/* Brand section */
+.mob-brand{text-align:center;padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.mob-brand-logo{font-size:2.2rem;font-weight:800;color:var(--teal);letter-spacing:-1px;margin-bottom:1rem}
+.mob-brand-ca{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:.5rem .9rem;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.08em}
+/* Accordéon */
+.mob-acc{flex:1}
+.mob-acc-item{border-bottom:1px solid rgba(255,255,255,.1)}
+.mob-acc-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.3rem;background:none;border:none;cursor:pointer;font-family:inherit;
+  font-size:.82rem;font-weight:800;color:#fff;letter-spacing:.06em;text-align:left;
 }
-.mobile-nav{padding:.5rem 0}
-.mobile-nav a{
-  display:block;padding:.85rem 1.4rem;
-  font-size:.95rem;font-weight:600;color:var(--navy);
-  border-bottom:1px solid #f2f2f2;
+.mob-acc-chev{font-size:.9rem;transition:transform .25s;display:inline-block;color:rgba(255,255,255,.7)}
+.mob-acc-item.open .mob-acc-chev{transform:rotate(180deg)}
+.mob-acc-body{display:none;background:rgba(0,0,0,.15);padding:.3rem 0}
+.mob-acc-item.open .mob-acc-body{display:block}
+.mob-acc-body a{
+  display:block;padding:.7rem 1.7rem;
+  font-size:.88rem;font-weight:500;color:rgba(255,255,255,.85);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
-.mobile-nav a:hover{background:var(--gray);color:var(--orange)}
-.mobile-nav .mob-sub{padding-left:2rem;font-size:.88rem;font-weight:400;color:#555}
+.mob-acc-body a:hover{color:#fff;background:rgba(255,255,255,.07)}
+/* Réseaux sociaux */
+.mob-social{padding:1.5rem 1.5rem 1rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
+.mob-social-title{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:.9rem}
+.mob-social-icons{display:flex;justify-content:center;gap:.8rem}
+.mob-social-ico{
+  width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  transition:background .15s;
+}
+.mob-social-ico:hover{background:rgba(255,255,255,.28)}
+/* Liens légaux mobile */
+.mob-legal-links{padding:.8rem 1.2rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
+.mob-legal-links a{
+  display:inline;font-size:.72rem;color:rgba(255,255,255,.65);font-weight:500;
+}
+.mob-legal-links a::after{content:' • ';color:rgba(255,255,255,.35)}
+.mob-legal-links a:last-child::after{content:''}
+.mob-legal-links a:hover{color:#fff}
+/* Texte légal bas de menu */
+.mob-legal-text{padding:.8rem 1.5rem 6rem;font-size:.68rem;color:rgba(255,255,255,.5);line-height:1.6;text-align:center}
+/* Bouton fixe "Simuler un projet" mobile */
+.mob-sim-bar{
+  display:block;position:fixed;bottom:0;left:0;right:0;
+  padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  z-index:800;
+  box-shadow:0 -2px 16px rgba(0,0,0,.12);
+}
+.mob-sim-btn{
+  display:block;width:100%;background:var(--teal);color:#fff;
+  border:none;border-radius:2rem;padding:.85rem 1.5rem;
+  font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;
+  text-align:center;transition:background .15s;
+  box-shadow:0 4px 16px rgba(6,194,176,.35);
+}
+.mob-sim-btn:hover{background:var(--teal-d)}
+@media(min-width:960px){
+  .mob-sim-bar{display:none}
+  .mobile-menu{display:none!important}
+}
 
 /* ═══════════════════════════
    PAGE WRAPPER
@@ -634,28 +685,146 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <body>
 
 <!-- Overlay + Menu mobile -->
+<!-- Overlay (now unused but kept for JS compat) -->
 <div class="mobile-overlay" id="mob-overlay"></div>
+
+<!-- ── Menu mobile plein écran ── -->
 <div class="mobile-menu" id="mob-menu">
-  <div class="mobile-menu-header">
-    <span class="mobile-menu-logo">Jkl.oin</span>
-    <span class="mobile-menu-close" id="mob-close">✕</span>
+
+  <!-- En-tête -->
+  <div class="mob-mhd">
+    <div class="mob-mhd-left" id="mob-close">
+      <span></span><span></span>
+      <span class="mob-menu-lbl">Menu</span>
+    </div>
+    <span class="mob-mhd-logo">Jkl.oin</span>
+    <a href="#" class="mob-mhd-connect">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      Se connecter
+    </a>
   </div>
-  <nav class="mobile-nav">
-    <a href="/credit-pret.htm">Prêts personnels</a>
-    <a href="/credit-pret/pret-personnel.htm" class="mob-sub">Prêt personnel</a>
-    <a href="/credit-pret/credit-auto.htm" class="mob-sub">Prêt personnel auto</a>
-    <a href="/credit-pret/credit-travaux.htm" class="mob-sub">Prêt personnel travaux</a>
-    <a href="/credit-pret/pret-transition-energetique" class="mob-sub">Transition énergétique</a>
-    <a href="/credit-pret/credit-renouvelable.htm">Crédit responsable</a>
-    <a href="/credit-pret/carte-credit-renouvelable.htm" class="mob-sub">Cartes Jkl.oin</a>
-    <a href="/credit-pret/credit-renouvelable.htm" class="mob-sub">Crédit renouvelable</a>
-    <a href="/rachat-credit.htm">Rachat de crédits</a>
-    <a href="/assurances.htm">Partenaires</a>
-    <a href="/nous-decouvrir.htm">Nous découvrir</a>
-    <a href="#">Devenez partenaire</a>
-    <a href="/suivi-de-dossier.htm">Suivi de dossier</a>
-    <a href="#">Se connecter</a>
-  </nav>
+
+  <!-- Brand -->
+  <div class="mob-brand">
+    <div class="mob-brand-logo">Jkl.oin</div>
+    <div class="mob-brand-ca">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" fill="currentColor" opacity=".8"/><rect x="13" y="3" width="8" height="8" rx="1" fill="currentColor" opacity=".6"/><rect x="3" y="13" width="8" height="8" rx="1" fill="currentColor" opacity=".6"/><rect x="13" y="13" width="8" height="8" rx="1" fill="currentColor" opacity=".8"/></svg>
+      GROUPE CRÉDIT AGRICOLE
+    </div>
+  </div>
+
+  <!-- Accordéon -->
+  <div class="mob-acc">
+
+    <div class="mob-acc-item">
+      <button class="mob-acc-btn">CRÉDIT CONSOMMATION <span class="mob-acc-chev">▾</span></button>
+      <div class="mob-acc-body">
+        <a href="#">Prêt personnel</a>
+        <a href="#">Crédit auto</a>
+        <a href="#">Crédit travaux</a>
+        <a href="#">Crédit renouvelable</a>
+        <a href="#">Crédit moto</a>
+      </div>
+    </div>
+
+    <div class="mob-acc-item">
+      <button class="mob-acc-btn">CRÉDIT RENOUVELABLE <span class="mob-acc-chev">▾</span></button>
+      <div class="mob-acc-body">
+        <a href="#">Cartes Jkl.oin</a>
+        <a href="#">Crédit renouvelable en ligne</a>
+        <a href="#">Payer en 3x ou 10x</a>
+      </div>
+    </div>
+
+    <div class="mob-acc-item">
+      <button class="mob-acc-btn">REGROUPEMENT DE CRÉDITS <span class="mob-acc-chev">▾</span></button>
+      <div class="mob-acc-body">
+        <a href="#">Rachat de crédits</a>
+        <a href="#">Simulation rachat de crédit</a>
+        <a href="#">Avantages du regroupement</a>
+      </div>
+    </div>
+
+    <div class="mob-acc-item">
+      <button class="mob-acc-btn">PRÊT VÉHICULE <span class="mob-acc-chev">▾</span></button>
+      <div class="mob-acc-body">
+        <a href="#">Crédit auto</a>
+        <a href="#">Crédit moto</a>
+        <a href="#">Véhicule électrique</a>
+      </div>
+    </div>
+
+    <div class="mob-acc-item">
+      <button class="mob-acc-btn">CRÉDIT TRAVAUX <span class="mob-acc-chev">▾</span></button>
+      <div class="mob-acc-body">
+        <a href="#">Prêt travaux</a>
+        <a href="#">Transition énergétique</a>
+        <a href="#">Éco-prêt à taux zéro</a>
+      </div>
+    </div>
+
+    <div class="mob-acc-item">
+      <button class="mob-acc-btn">A PROPOS <span class="mob-acc-chev">▾</span></button>
+      <div class="mob-acc-body">
+        <a href="#">Qui sommes-nous ?</a>
+        <a href="#">Jkl.oin s'engage</a>
+        <a href="#">Éco-transition</a>
+        <a href="#">Accessibilité</a>
+      </div>
+    </div>
+
+    <div class="mob-acc-item">
+      <button class="mob-acc-btn">PARTENAIRES <span class="mob-acc-chev">▾</span></button>
+      <div class="mob-acc-body">
+        <a href="#">Devenez partenaire</a>
+        <a href="#">Espace partenaire</a>
+      </div>
+    </div>
+
+  </div><!-- /mob-acc -->
+
+  <!-- Réseaux sociaux -->
+  <div class="mob-social">
+    <p class="mob-social-title">Retrouvez-nous :</p>
+    <div class="mob-social-icons">
+      <a href="#" class="mob-social-ico" aria-label="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#" class="mob-social-ico" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="#" class="mob-social-ico" aria-label="YouTube">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#001f38"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Liens légaux -->
+  <div class="mob-legal-links">
+    <a href="#">Nous contacter</a>
+    <a href="#">Informations légales</a>
+    <a href="#">Politique des données personnelles</a>
+    <a href="#">Questions-Réponses</a>
+    <a href="#">Tarifs</a>
+    <a href="#">Découvrir notre groupe</a>
+    <a href="#">Charte éthique groupe</a>
+    <a href="#">Plan du site Jkl.oin</a>
+    <a href="#">Sécurité</a>
+    <a href="#">Charte des réclamations</a>
+    <a href="#">Accessibilité : partiellement conforme</a>
+    <a href="#">Gérer mes cookies</a>
+  </div>
+
+  <!-- Texte légal -->
+  <div class="mob-legal-text">
+    Jkl.oin est une marque de CA Consumer Finance, prêteur, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€, 1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex, 542&nbsp;097&nbsp;522 RCS Evry. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (www.orias.fr). Jkl.oin vous propose des offres de crédits, crédit consommation, rachat de crédit et crédit renouvelable. © CA Consumer Finance 2026
+  </div>
+
+</div>
+
+<!-- ── Bouton fixe mobile "Simuler un projet" ── -->
+<div class="mob-sim-bar" id="mob-sim-bar">
+  <button class="mob-sim-btn" data-sim="">Simuler un projet</button>
 </div>
 
 <!-- ══════════════════════════════
@@ -1425,13 +1594,22 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   // Menu mobile
   var btn = document.getElementById('menu-btn');
   var menu = document.getElementById('mob-menu');
-  var overlay = document.getElementById('mob-overlay');
   var close = document.getElementById('mob-close');
-  function openMenu(){ menu.classList.add('open'); overlay.classList.add('open'); }
-  function closeMenu(){ menu.classList.remove('open'); overlay.classList.remove('open'); }
+  var simBar = document.getElementById('mob-sim-bar');
+  function openMenu(){ menu.classList.add('open'); if(simBar) simBar.style.display='none'; }
+  function closeMenu(){ menu.classList.remove('open'); if(simBar) simBar.style.display=''; }
   if(btn) btn.addEventListener('click', openMenu);
   if(close) close.addEventListener('click', closeMenu);
-  if(overlay) overlay.addEventListener('click', closeMenu);
+
+  // Accordion mobile
+  document.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var item=this.closest('.mob-acc-item');
+      var isOpen=item.classList.contains('open');
+      document.querySelectorAll('.mob-acc-item').forEach(function(i){i.classList.remove('open');});
+      if(!isOpen) item.classList.add('open');
+    });
+  });
 
   // FAQ accordion
   document.querySelectorAll('.faq-question').forEach(function(btn){
@@ -1533,12 +1711,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     if(projet && montant){ startStep=3; }
     document.getElementById('sim-page').classList.add('open');
     document.body.style.overflow='hidden';
+    if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='none';
     showStep(startStep);
   }
 
   function closeSim(){
     document.getElementById('sim-page').classList.remove('open');
     document.body.style.overflow='';
+    if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
   }
 
   document.getElementById('sim-ph-quit').addEventListener('click',closeSim);
