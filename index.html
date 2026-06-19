@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crédit Jkl.oin : crédits auto, conso, perso, rachat et simulation de prêt</title>
-  <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-/* ── Reset ── */
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Jkl.oin – Crédit à la consommation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#222;background:#fff;line-height:1.5;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-ul{list-style:none}
-img{max-width:100%;height:auto;display:block}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-
 :root{
   --orange:#e35718;
   --navy:#00334D;
   --navy-d:#001f38;
-  --teal:#06c2b0;        /* bouton "Simuler un projet" */
+  --teal:#06c2b0;
   --teal-d:#049f90;
   --sky:#3ab5e5;
   --sky-l:#62c9ef;
@@ -30,1788 +22,1502 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   --hh:64px;
   --w:1200px;
 }
+body{font-family:'Sarabun',sans-serif;color:var(--text);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,select{font-family:inherit}
+img{display:block;max-width:100%}
+ul{list-style:none}
 
-/* ═══════════════════════════
-   HEADER
-═══════════════════════════ */
+/* ── HEADER ── */
 .header{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  background:#fff;
-  box-shadow:0 1px 8px rgba(0,0,0,.12);
-  height:var(--hh);
+  position:fixed;top:0;left:0;right:0;
+  height:var(--hh);background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  z-index:1000;
 }
-.hd-inner{
+.header-inner{
   max-width:var(--w);margin:0 auto;
   height:100%;display:flex;align-items:center;
-  padding:0 1rem;justify-content:space-between;
+  padding:0 1.2rem;gap:1rem;
 }
-/* hamburger */
-.hd-menu-btn{
-  display:flex;flex-direction:column;gap:5px;padding:.5rem;
-  cursor:pointer;
-}
-.hd-menu-btn span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
-.hd-menu-label{font-size:.7rem;font-weight:700;color:var(--navy);margin-top:1px;text-align:center;letter-spacing:.03em}
-/* logo centré */
 .hd-logo{
-  position:absolute;left:50%;transform:translateX(-50%);
-  font-size:1.55rem;font-weight:800;color:var(--navy);letter-spacing:-1px;
+  font-size:1.55rem;font-weight:800;
+  color:var(--teal);letter-spacing:-.5px;
+  flex-shrink:0;
 }
-/* droite */
-.hd-right{display:flex;align-items:center;gap:.5rem}
-/* mobile : cacher les éléments desktop */
-.hd-dossier{display:none}
-.hd-connect-btn{display:none}
-.hd-connect{
-  display:flex;align-items:center;gap:.35rem;
-  font-size:.8rem;font-weight:700;color:var(--navy);
-}
-/* nav desktop */
-.desktop-nav{display:none}
+.hd-logo span{color:var(--navy)}
+
+/* Desktop nav */
+.hd-nav{display:none}
 @media(min-width:960px){
-  .hd-menu-btn,.hd-menu-label-wrap{display:none}
-  .hd-logo{position:static;transform:none;font-size:1.5rem}
-  .desktop-nav{
-    display:flex;flex:1;height:100%;align-items:center;margin-left:1.5rem;
+  .hd-nav{
+    display:flex;align-items:center;gap:.15rem;
+    flex:1;margin-left:1.5rem;
   }
-  .desktop-nav ul{display:flex;height:100%;align-items:center}
-  .desktop-nav li{height:100%;position:relative}
-  .desktop-nav li>a{
-    display:flex;align-items:center;height:100%;
-    padding:0 .85rem;font-size:.88rem;font-weight:600;color:var(--text);
-    border-bottom:3px solid transparent;white-space:nowrap;
-    transition:color .15s,border-color .15s;
+  .hd-nav>li{position:relative}
+  .hd-nav>li>a{
+    display:flex;align-items:center;gap:.3rem;
+    padding:.45rem .7rem;font-size:.88rem;font-weight:600;
+    color:var(--navy);border-radius:4px;white-space:nowrap;
+    transition:color .18s;
   }
-  .desktop-nav li>a:hover{color:var(--orange);border-bottom-color:var(--orange)}
-  .desktop-nav li.has-sub>a::after{
-    content:'';display:inline-block;width:5px;height:5px;margin-left:.3rem;margin-top:-2px;
-    border-right:2px solid currentColor;border-bottom:2px solid currentColor;
-    transform:rotate(45deg);
+  .hd-nav>li>a:hover{color:var(--teal)}
+  .hd-nav>li>a .arr{
+    border:solid currentColor;border-width:0 1.5px 1.5px 0;
+    display:inline-block;padding:2.5px;
+    transform:rotate(45deg);margin-top:-2px;
   }
-  .desktop-nav li:hover>a{color:var(--orange);border-bottom-color:var(--orange)}
-  .sub-menu{
-    display:none;position:absolute;top:100%;left:0;
-    background:#fff;min-width:210px;
-    box-shadow:0 8px 24px rgba(0,0,0,.13);
-    border-top:3px solid var(--orange);
-    border-radius:0 0 8px 8px;z-index:200;
+  .hd-drop{
+    display:none;position:absolute;top:calc(100% + 4px);left:0;
+    background:#fff;border-radius:8px;min-width:200px;
+    box-shadow:0 8px 32px rgba(0,0,0,.13);padding:.4rem 0;
+    z-index:200;
   }
-  .desktop-nav li:hover>.sub-menu{display:block}
-  .sub-menu li{height:auto}
-  .sub-menu li a{height:auto;padding:.65rem 1.1rem;border-bottom:none;font-size:.85rem}
-  .sub-menu li a:hover{background:var(--gray)}
-  .hd-right .hd-connect-btn{
-    background:var(--orange);color:#fff;
-    border-radius:2rem;padding:.42rem 1.1rem;
-    font-size:.82rem;font-weight:700;
-    display:flex;align-items:center;gap:.35rem;
+  .hd-nav>li:hover .hd-drop{display:block}
+  .hd-drop li a{
+    display:block;padding:.55rem 1.1rem;font-size:.86rem;
+    color:var(--navy);transition:background .15s;
   }
-  .hd-right .hd-connect-btn:hover{background:#c4481a}
-  .hd-right .hd-dossier{
-    display:flex;align-items:center;gap:.35rem;
-    border:1.5px solid #ddd;border-radius:2rem;padding:.4rem .9rem;
-    font-size:.8rem;font-weight:600;color:var(--text);margin-right:.3rem;
-    transition:border-color .15s,color .15s;
-  }
-  .hd-right .hd-dossier:hover{border-color:var(--orange);color:var(--orange)}
-  .hd-connect{display:none}
+  .hd-drop li a:hover{background:#f0f8ff;color:var(--teal)}
 }
 
-/* ═══════════════════════════
-   MENU MOBILE PLEIN ÉCRAN
-═══════════════════════════ */
-.mobile-overlay{display:none}
-.mobile-menu{
-  display:none;position:fixed;inset:0;background:var(--navy-d);z-index:950;
-  overflow-y:auto;flex-direction:column;
+.hd-actions{display:flex;align-items:center;gap:.6rem;margin-left:auto;flex-shrink:0}
+.hd-login{
+  display:none;padding:.4rem 1rem;border-radius:2rem;
+  border:1.5px solid var(--navy);font-size:.85rem;font-weight:600;
+  color:var(--navy);transition:all .18s;cursor:pointer;background:transparent;
 }
-.mobile-menu.open{display:flex}
-/* En-tête du menu */
+.hd-login:hover{background:var(--navy);color:#fff}
+@media(min-width:960px){.hd-login{display:block}}
+
+.hd-sim-btn{
+  display:none;padding:.45rem 1.1rem;border-radius:2rem;
+  background:var(--orange);color:#fff;font-size:.85rem;font-weight:700;
+  border:none;cursor:pointer;transition:background .18s;
+}
+.hd-sim-btn:hover{background:#c44a12}
+@media(min-width:960px){.hd-sim-btn{display:block}}
+
+.hd-burger{
+  display:flex;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:.3rem;
+  margin-right:.2rem;
+}
+.hd-burger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
+@media(min-width:960px){.hd-burger{display:none}}
+
+.hd-connect-mob{
+  display:flex;align-items:center;gap:.3rem;
+  font-size:.8rem;font-weight:600;color:var(--navy);
+}
+.hd-connect-mob svg{width:18px;height:18px}
+@media(min-width:960px){.hd-connect-mob{display:none}}
+
+/* ── MOBILE MENU ── */
+.mob-menu{
+  display:none;position:fixed;inset:0;
+  background:var(--navy-d);z-index:950;
+  flex-direction:column;overflow-y:auto;
+}
+.mob-menu.open{display:flex}
+@media(min-width:960px){.mob-menu{display:none!important}}
+
 .mob-mhd{
   display:flex;align-items:center;justify-content:space-between;
-  padding:.85rem 1.2rem;background:var(--navy-d);
+  padding:.9rem 1.2rem;background:var(--navy-d);
   border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0;
 }
-.mob-mhd-left{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:48px}
-.mob-mhd-left span{display:block;width:22px;height:2px;background:#fff;border-radius:2px}
-.mob-mhd-left .mob-menu-lbl{font-size:.65rem;font-weight:700;color:#fff;letter-spacing:.04em;margin-top:1px}
-.mob-mhd-logo{font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.5px}
-.mob-mhd-connect{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;font-size:.65rem;font-weight:700;min-width:48px}
-.mob-mhd-connect svg{margin-bottom:1px}
-/* Brand section */
-.mob-brand{text-align:center;padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,.1)}
-.mob-brand-logo{font-size:2.2rem;font-weight:800;color:var(--teal);letter-spacing:-1px;margin-bottom:1rem}
-.mob-brand-ca{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:.5rem .9rem;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.08em}
-/* Accordéon */
-.mob-acc{flex:1}
-.mob-acc-item{border-bottom:1px solid rgba(255,255,255,.1)}
-.mob-acc-btn{
-  width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:1rem 1.3rem;background:none;border:none;cursor:pointer;font-family:inherit;
-  font-size:.82rem;font-weight:800;color:#fff;letter-spacing:.06em;text-align:left;
+.mob-mhd-logo{font-size:1.4rem;font-weight:800;color:var(--teal)}
+.mob-mhd-logo span{color:#fff}
+.mob-close{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:none;border:none;cursor:pointer;color:#fff;
 }
-.mob-acc-chev{font-size:.9rem;transition:transform .25s;display:inline-block;color:rgba(255,255,255,.7)}
-.mob-acc-item.open .mob-acc-chev{transform:rotate(180deg)}
-.mob-acc-body{display:none;background:rgba(0,0,0,.15);padding:.3rem 0}
+.mob-close svg{width:20px;height:20px}
+.mob-close span{font-size:.65rem;color:rgba(255,255,255,.7)}
+
+.mob-badge{
+  margin:.8rem 1.2rem;padding:.6rem .9rem;
+  background:rgba(255,255,255,.06);border-radius:8px;
+  display:flex;align-items:center;gap:.7rem;flex-shrink:0;
+}
+.mob-badge-icon{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--teal);display:flex;align-items:center;justify-content:center;
+  font-weight:800;color:#fff;font-size:.85rem;flex-shrink:0;
+}
+.mob-badge-txt{font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.3}
+.mob-badge-txt strong{display:block;color:#fff;font-size:.88rem}
+
+.mob-nav{padding:0 0 1rem;flex:1}
+.mob-acc-item{}
+.mob-acc-btn{
+  width:100%;background:none;border:none;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 1.2rem;color:#fff;font-size:.93rem;font-weight:600;
+  cursor:pointer;border-bottom:1px solid rgba(255,255,255,.07);
+  text-align:left;
+}
+.mob-acc-btn .acc-arr{
+  width:18px;height:18px;flex-shrink:0;
+  transition:transform .2s;opacity:.6;
+}
+.mob-acc-item.open .mob-acc-btn .acc-arr{transform:rotate(180deg)}
+.mob-acc-body{
+  display:none;padding:.4rem 0;
+  background:rgba(0,0,0,.18);
+}
 .mob-acc-item.open .mob-acc-body{display:block}
 .mob-acc-body a{
-  display:block;padding:.7rem 1.7rem;
-  font-size:.88rem;font-weight:500;color:rgba(255,255,255,.85);
-  border-bottom:1px solid rgba(255,255,255,.06);
+  display:block;padding:.6rem 1.6rem;font-size:.88rem;
+  color:rgba(255,255,255,.75);
 }
-.mob-acc-body a:hover{color:#fff;background:rgba(255,255,255,.07)}
-/* Réseaux sociaux */
-.mob-social{padding:1.5rem 1.5rem 1rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
-.mob-social-title{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:.9rem}
-.mob-social-icons{display:flex;justify-content:center;gap:.8rem}
-.mob-social-ico{
-  width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,.15);
-  display:flex;align-items:center;justify-content:center;color:#fff;
-  transition:background .15s;
+.mob-acc-body a:hover{color:#fff}
+
+.mob-link{
+  display:block;padding:.9rem 1.2rem;
+  color:#fff;font-size:.93rem;font-weight:600;
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
-.mob-social-ico:hover{background:rgba(255,255,255,.28)}
-/* Liens légaux mobile */
-.mob-legal-links{padding:.8rem 1.2rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
-.mob-legal-links a{
-  display:inline;font-size:.72rem;color:rgba(255,255,255,.65);font-weight:500;
+
+.mob-social{
+  display:flex;gap:.8rem;padding:.9rem 1.2rem;
+  border-top:1px solid rgba(255,255,255,.1);
+  flex-shrink:0;
 }
-.mob-legal-links a::after{content:' • ';color:rgba(255,255,255,.35)}
-.mob-legal-links a:last-child::after{content:''}
-.mob-legal-links a:hover{color:#fff}
-/* Texte légal bas de menu */
-.mob-legal-text{padding:.8rem 1.5rem 6rem;font-size:.68rem;color:rgba(255,255,255,.5);line-height:1.6;text-align:center}
-/* Bouton fixe "Simuler un projet" mobile */
+.mob-social a{
+  width:34px;height:34px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.8rem;font-weight:700;
+  transition:border-color .18s;
+}
+.mob-social a:hover{border-color:#fff}
+
+.mob-legal{
+  display:flex;flex-wrap:wrap;gap:.3rem .8rem;
+  padding:.6rem 1.2rem 1rem;flex-shrink:0;
+}
+.mob-legal a{font-size:.72rem;color:rgba(255,255,255,.45)}
+
 .mob-sim-bar{
   display:block;position:fixed;bottom:0;left:0;right:0;
   padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
-  z-index:800;
-  box-shadow:0 -2px 16px rgba(0,0,0,.12);
+  background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+  box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:800;
 }
 .mob-sim-btn{
   display:block;width:100%;background:var(--teal);color:#fff;
   border:none;border-radius:2rem;padding:.85rem 1.5rem;
-  font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;
-  text-align:center;transition:background .15s;
-  box-shadow:0 4px 16px rgba(6,194,176,.35);
+  font-size:1rem;font-weight:700;cursor:pointer;
 }
-.mob-sim-btn:hover{background:var(--teal-d)}
-@media(min-width:960px){
-  .mob-sim-bar{display:none}
-  .mobile-menu{display:none!important}
-}
+@media(min-width:960px){.mob-sim-bar{display:none}}
 
-/* ═══════════════════════════
-   PAGE WRAPPER
-═══════════════════════════ */
+/* ── PAGE ── */
 .page{padding-top:var(--hh)}
 @media(max-width:959px){
   .page{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 }
 
-/* ═══════════════════════════
-   HERO BANNER — fond bleu ciel
-═══════════════════════════ */
-.hero-banner{
-  background:linear-gradient(160deg,#5ec6ed 0%,#3ab5e5 55%,#1e9fd4 100%);
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,#0097cc 0%,#3ab5e5 40%,#62c9ef 70%,#a8dcf0 100%);
+  padding:3rem 1rem 4rem;
   position:relative;overflow:hidden;
-  min-height:220px;
-  padding:2rem 1.5rem 2rem;
-  display:flex;align-items:center;
 }
-.hero-banner-inner{
-  max-width:var(--w);margin:0 auto;width:100%;
-  position:relative;z-index:1;
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Ccircle cx='650' cy='150' r='250' fill='rgba(255,255,255,.07)'/%3E%3Ccircle cx='100' cy='350' r='180' fill='rgba(255,255,255,.05)'/%3E%3C/svg%3E") no-repeat center/cover;
+  pointer-events:none;
 }
-.hero-banner h1{
-  color:#fff;font-size:1.45rem;font-weight:800;
-  line-height:1.25;
-}
-.hero-banner h1 sup{font-size:.65rem}
-
-/* ═══════════════════════════
-   DEUX CARTES
-═══════════════════════════ */
-.hero-cards-wrap{
-  padding:0;
-  position:relative;z-index:10;
-}
-.hero-cards-inner{
-  max-width:860px;margin:0 auto;
-  display:flex;flex-direction:column;gap:0;
-}
-
-/* Carte sombre — "La carte" */
-.hcard-dark{
-  background:var(--navy-d);color:#fff;
-  border-radius:0;padding:1.4rem 1.5rem;
-}
-.hcard-dark-top{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem}
-.hcard-dark-top>div:first-child{flex:1}
-.hcard-dark-label{
-  font-size:.78rem;font-weight:700;margin-bottom:.5rem;opacity:.85;
-}
-.hcard-dark-label sup{font-size:.55rem}
-.hcard-dark p{font-size:.82rem;opacity:.75;line-height:1.5;margin-bottom:0}
-/* Mini carte VISA */
-.mini-card{
-  width:80px;flex-shrink:0;
-  background:linear-gradient(145deg,#0d3d5c 0%,#0a5a7a 40%,#06c2b0 100%);
-  border-radius:8px;padding:8px 7px 7px;
-  box-shadow:0 4px 12px rgba(0,0,0,.4);
-  color:#fff;
-}
-.mini-card-top{display:flex;justify-content:flex-end;margin-bottom:10px}
-.mini-visa{font-size:.65rem;font-weight:900;font-style:italic;opacity:.9}
-.mini-chip{
-  width:18px;height:13px;border-radius:2px;margin-bottom:8px;
-  background:linear-gradient(135deg,#c8922a,#f5d878,#c8922a);
-}
-.mini-num{font-size:.45rem;letter-spacing:.08em;opacity:.7;font-family:monospace}
-.hcard-dark-cta{
-  display:block;width:100%;text-align:center;
-  background:#fff;color:var(--navy-d);
-  border-radius:2rem;padding:.55rem 1.2rem;
-  font-size:.88rem;font-weight:700;
-  transition:background .15s;
-}
-.hcard-dark-cta:hover{background:#e8f4fa}
-
-/* Carte blanche — Simulateur */
-.hcard-white{
-  background:#fff;
-  border-radius:0;padding:1.4rem 1.5rem;
-  border-top:1px solid #eee;
-}
-.hcard-white h2{
-  font-size:1.05rem;font-weight:800;color:var(--navy);
-  margin-bottom:.3rem;line-height:1.3;
-}
-.hcard-white .sim-sub{
-  font-size:.82rem;color:#666;margin-bottom:1rem;line-height:1.4;
-}
-.hcard-white .sim-sub strong{font-weight:700}
-
-/* Formulaire simulateur */
-.sim-form{display:flex;flex-direction:column;gap:.6rem}
-.sim-field{flex:1}
-.sim-select,.sim-input{
-  width:100%;height:44px;
-  border:1.5px solid #ccc;border-radius:2rem;
-  padding:0 1rem;font-size:.9rem;font-family:inherit;
-  color:var(--text);background:#fff;
-  appearance:none;-webkit-appearance:none;
-  outline:none;transition:border-color .2s;
-}
-.sim-select{
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 1rem center / 11px, #fff;
-  cursor:pointer;
-}
-.sim-select:focus,.sim-input:focus{border-color:var(--teal)}
-.btn-teal{
-  display:block;width:100%;text-align:center;
-  background:var(--teal);color:#fff;
-  border-radius:2rem;padding:.75rem 1.4rem;
-  font-size:.95rem;font-weight:700;border:none;
-  font-family:inherit;cursor:pointer;
-  white-space:nowrap;
-  transition:background .2s;
-}
-.btn-teal:hover{background:var(--teal-d)}
-
-/* Desktop : cartes côte à côte avec chevauchement */
-@media(min-width:700px){
-  .hero-banner{min-height:320px;padding:3rem 2rem 6rem}
-  .hero-banner h1{font-size:2rem;max-width:380px}
-  .hero-cards-wrap{margin-top:-3.5rem;padding:0 1.5rem}
-  .hero-cards-inner{
-    flex-direction:row;align-items:stretch;gap:1rem;
-  }
-  .hcard-dark{
-    flex:0 0 260px;border-radius:14px;
-    box-shadow:0 6px 24px rgba(0,0,0,.22);
-  }
-  .hcard-white{
-    flex:1;border-radius:14px;border-top:none;
-    box-shadow:0 6px 24px rgba(0,0,0,.10);
-  }
-  .sim-form{flex-direction:row;align-items:center}
-  .btn-teal{width:auto}
-}
-
-/* ═══════════════════════════
-   PRODUITS
-═══════════════════════════ */
-.products{
-  padding:2.5rem 0;
-  background:#fff;
-}
-.products .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.products h2{
-  font-size:1.5rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:.4rem;
-}
-.products .prod-sub{
-  font-size:.92rem;color:#888;font-weight:600;
-  text-align:center;margin-bottom:1.8rem;
-}
-.prod-list{display:flex;flex-direction:column;gap:1.2rem}
-.prod-item{
-  border-radius:12px;overflow:hidden;
-  box-shadow:0 2px 12px rgba(0,0,0,.10);
+.hero-inner{
+  max-width:var(--w);margin:0 auto;
+  display:flex;align-items:center;gap:2rem;
   position:relative;
 }
-.prod-item img{
-  width:100%;height:220px;object-fit:cover;display:block;
+.hero-left{flex:1;color:#fff}
+.hero-tag{
+  display:inline-block;background:rgba(255,255,255,.2);
+  border-radius:2rem;padding:.3rem .9rem;
+  font-size:.8rem;font-weight:600;margin-bottom:1rem;
 }
-.prod-btn{
-  display:block;
-  background:var(--navy);color:#fff;
-  text-align:center;
-  padding:.85rem 1.5rem;
-  font-size:.95rem;font-weight:700;
-  transition:background .2s;
+.hero-h1{font-size:2.2rem;font-weight:800;line-height:1.2;margin-bottom:.8rem}
+@media(max-width:959px){.hero-h1{font-size:1.65rem}}
+.hero-sub{font-size:1rem;opacity:.9;max-width:480px;margin-bottom:1.5rem}
+.hero-stats{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero-stat{
+  background:rgba(255,255,255,.18);backdrop-filter:blur(6px);
+  border-radius:10px;padding:.7rem 1.1rem;min-width:120px;
 }
-.prod-btn:hover{background:#005580;color:#fff}
-@media(min-width:700px){
-  .prod-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-  .prod-item img{height:175px}
+.hero-stat strong{display:block;font-size:1.4rem;font-weight:800}
+.hero-stat span{font-size:.78rem;opacity:.85}
+
+.hero-form-card{
+  background:#fff;border-radius:16px;
+  padding:1.6rem 1.4rem;width:340px;flex-shrink:0;
+  box-shadow:0 8px 40px rgba(0,0,0,.18);
+}
+@media(max-width:959px){
+  .hero-inner{flex-direction:column}
+  .hero-form-card{width:100%;max-width:420px}
+}
+.hfc-title{
+  font-size:1.05rem;font-weight:700;color:var(--navy);
+  margin-bottom:1.1rem;text-align:center;
+}
+.hfc-row{margin-bottom:.8rem}
+.hfc-sel{
+  width:100%;border:1.5px solid #d0d8e0;border-radius:8px;
+  padding:.75rem 1rem;font-size:.93rem;color:var(--text);
+  appearance:none;background:#fff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300334D' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:calc(100% - .8rem) center;
+  cursor:pointer;
+}
+.hfc-inp{
+  width:100%;border:1.5px solid #d0d8e0;border-radius:8px;
+  padding:.75rem 1rem;font-size:.93rem;color:var(--text);
+}
+.hfc-sel:focus,.hfc-inp:focus{outline:none;border-color:var(--teal)}
+.hfc-btn{
+  width:100%;background:var(--orange);color:#fff;
+  border:none;border-radius:2rem;padding:.85rem 1rem;
+  font-size:1rem;font-weight:700;cursor:pointer;
+  transition:background .18s;margin-top:.4rem;
+}
+.hfc-btn:hover{background:#c44a12}
+.hfc-note{text-align:center;font-size:.72rem;color:#888;margin-top:.6rem}
+
+.hero-offer{
+  background:var(--navy-d);border-radius:12px;
+  padding:1.2rem 1.4rem;margin-bottom:1.2rem;color:#fff;
+}
+.ho-label{
+  font-size:.72rem;font-weight:600;letter-spacing:.5px;
+  color:var(--sky);text-transform:uppercase;margin-bottom:.4rem;
+}
+.ho-title{font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
+.ho-sub{font-size:.82rem;opacity:.7;margin-bottom:.9rem}
+.ho-cta{
+  display:inline-block;background:var(--teal);color:#fff;
+  border-radius:2rem;padding:.45rem 1.1rem;font-size:.85rem;font-weight:700;
+  cursor:pointer;border:none;
 }
 
-/* ═══════════════════════════
-   AVIS
-═══════════════════════════ */
-.reviews{padding:2.5rem 0;background:var(--gray)}
-.reviews .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.reviews h2{
-  font-size:1.4rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:1.2rem;line-height:1.3;
+/* ── SECTION COMMON ── */
+.section{padding:3.5rem 1rem}
+.section-inner{max-width:var(--w);margin:0 auto}
+.section-title{
+  font-size:1.65rem;font-weight:800;color:var(--navy);
+  margin-bottom:.5rem;
 }
-.reviews h2 span{color:var(--orange)}
-.reviews-badge{display:flex;justify-content:center;margin-bottom:1.8rem}
-.reviews-badge a{
-  display:flex;align-items:center;gap:.6rem;
-  background:#fff;border-radius:2rem;padding:.5rem 1.2rem;
-  box-shadow:0 2px 10px rgba(0,0,0,.09);font-size:.85rem;color:var(--text);
-}
-.stars{color:#f5a623;font-size:.95rem;letter-spacing:1px}
-.rv-grid{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.6rem}
-.rv-card{
-  background:#fff;border-radius:10px;padding:1.2rem;
-  box-shadow:0 1px 6px rgba(0,0,0,.07);
-}
-.rv-title{font-size:.97rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
-.rv-name{font-size:.8rem;color:#aaa;margin-bottom:.15rem}
-.rv-date{font-size:.7rem;color:#ccc;margin-bottom:.5rem}
-@media(min-width:700px){
-  .rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-}
-.reviews-more{text-align:center}
-.btn-orange{
-  display:inline-block;background:var(--orange);color:#fff;
-  border-radius:2rem;padding:.65rem 1.8rem;
-  font-size:.92rem;font-weight:700;transition:background .2s;
-}
-.btn-orange:hover{background:#c4481a;color:#fff}
+.section-sub{color:#666;font-size:.95rem;margin-bottom:2rem}
 
-/* ═══════════════════════════
-   AVANTAGES
-═══════════════════════════ */
-.avantages{padding:2.5rem 0;background:#fff}
-.avantages .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.avantages h2{
-  font-size:1.4rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:1.8rem;
+/* ── PRODUCTS ── */
+.products{background:#fff}
+.prod-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1.2rem;
 }
-.av-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-.av-item{display:flex;flex-direction:column;align-items:center;text-align:center}
-.av-icon{
-  width:64px;height:64px;background:linear-gradient(135deg,#e2f4fb,#b8e6f7);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  margin-bottom:.9rem;
+.prod-card{
+  border:1.5px solid #e5edf2;border-radius:14px;
+  padding:1.4rem;cursor:pointer;
+  transition:box-shadow .2s,border-color .2s;
+  display:flex;flex-direction:column;gap:.6rem;
 }
-.av-icon img{width:34px;height:34px}
-.av-item h3{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;line-height:1.3}
-.av-item p{font-size:.8rem;color:#777;line-height:1.55}
-@media(min-width:700px){
-  .av-grid{grid-template-columns:repeat(4,1fr)}
+.prod-card:hover{
+  box-shadow:0 6px 24px rgba(6,194,176,.15);
+  border-color:var(--teal);
 }
-
-/* ═══════════════════════════
-   RÉCOMPENSE
-═══════════════════════════ */
-.award{padding:2.5rem 0;background:var(--gray)}
-.award .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.award-inner{display:flex;flex-direction:column;gap:1.5rem;align-items:center;text-align:center}
-.award-inner h2{font-size:1.25rem;font-weight:800;color:var(--navy);line-height:1.35}
-.award-inner p{font-size:.88rem;color:#666;line-height:1.6}
-.award-inner img{width:130px;border-radius:8px}
-@media(min-width:700px){
-  .award-inner{flex-direction:row;text-align:left}
-  .award-inner img{width:160px;flex-shrink:0}
-}
-
-/* ═══════════════════════════
-   FOOTER
-═══════════════════════════ */
-.footer{background:var(--navy-d);color:rgba(255,255,255,.8);padding:2.5rem 0 1.2rem}
-.footer .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.footer-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
-  margin-bottom:1.8rem;
-}
-@media(min-width:700px){
-  .footer-grid{grid-template-columns:2fr 1fr 1fr 1fr}
-}
-.footer-logo{font-size:1.4rem;font-weight:800;color:#fff;display:block;margin-bottom:.7rem}
-.footer-desc{font-size:.75rem;opacity:.55;line-height:1.6}
-.footer-col h4{
-  font-size:.75rem;font-weight:700;color:#fff;
-  text-transform:uppercase;letter-spacing:.07em;margin-bottom:.8rem;
-}
-.footer-col li{margin-bottom:.4rem}
-.footer-col li a{font-size:.8rem;color:rgba(255,255,255,.55);transition:color .15s}
-.footer-col li a:hover{color:var(--orange)}
-.footer-sep{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.2rem 0}
-.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
-.footer-copy{font-size:.72rem;opacity:.4}
-.footer-socials{display:flex;gap:.5rem}
-.footer-socials a{
-  width:30px;height:30px;border-radius:50%;
-  background:rgba(255,255,255,.1);
+.prod-icon{
+  width:46px;height:46px;border-radius:10px;
+  background:linear-gradient(135deg,var(--sky),var(--teal));
   display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;color:rgba(255,255,255,.6);transition:background .2s;
 }
-.footer-socials a:hover{background:var(--orange);color:#fff}
-.footer-legal{
-  margin-top:1.2rem;padding-top:1rem;
-  border-top:1px solid rgba(255,255,255,.07);
-  font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.6;
+.prod-icon svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.prod-name{font-size:.97rem;font-weight:700;color:var(--navy)}
+.prod-desc{font-size:.82rem;color:#666;line-height:1.45}
+.prod-link{
+  font-size:.82rem;font-weight:700;color:var(--teal);
+  display:flex;align-items:center;gap:.3rem;margin-top:auto;
 }
+.prod-link::after{content:' →'}
 
-/* ═══════════════════════════
-   TRUST ICONS (4 pictos)
-═══════════════════════════ */
-.trust-icons{padding:2rem 0;background:#fff;border-top:1px solid #eee}
-.trust-icons .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
-@media(min-width:700px){.trust-grid{grid-template-columns:repeat(4,1fr);gap:1rem}}
-.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem}
-.trust-icon{
-  width:60px;height:60px;border-radius:50%;
-  background:linear-gradient(135deg,#e2f4fb,#b8e6f7);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+/* ── BESOIN D'UN CREDIT ── */
+.besoin{background:#f0f7fb}
+.besoin-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:1.5rem;
 }
-.trust-item p{font-size:.83rem;font-weight:700;color:var(--navy);line-height:1.3}
+@media(max-width:759px){.besoin-grid{grid-template-columns:1fr}}
 
-/* ═══════════════════════════
-   EDITORIAL
-═══════════════════════════ */
-.editorial{padding:2.5rem 0;background:var(--gray)}
-.editorial .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
-.editorial h2{
-  font-size:1.35rem;font-weight:800;color:var(--navy);
-  margin-bottom:1rem;line-height:1.3;
-}
-.editorial p{font-size:.9rem;color:#555;line-height:1.7;margin-bottom:.9rem}
-.editorial p:last-of-type{margin-bottom:1.4rem}
-.editorial strong{color:var(--navy)}
-.editorial .btn-teal{display:inline-block;width:auto}
-
-/* ═══════════════════════════
-   FAQ ACCORDION
-═══════════════════════════ */
-.faq{padding:2.5rem 0;background:#fff}
-.faq .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
-.faq>div>h2{
-  font-size:1.35rem;font-weight:800;color:var(--navy);
-  margin-bottom:1.5rem;line-height:1.3;
-}
-.faq-list{border-top:1px solid #e0e0e0;margin-bottom:1.5rem}
-.faq-item{border-bottom:1px solid #e0e0e0}
-.faq-question{
-  width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:1.1rem 0;font-size:.97rem;font-weight:700;color:var(--navy);
-  background:none;border:none;cursor:pointer;text-align:left;font-family:inherit;
-  gap:1rem;
-}
-.faq-question:hover{color:var(--orange)}
-.faq-icon{
-  flex-shrink:0;width:24px;height:24px;border-radius:50%;
-  border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;
-  font-size:1rem;font-weight:700;line-height:1;transition:transform .25s,background .2s,border-color .2s;
-}
-.faq-item.open .faq-icon{background:var(--orange);border-color:var(--orange);color:#fff;transform:rotate(45deg)}
-.faq-answer{
-  display:none;padding-bottom:1.1rem;
-  font-size:.9rem;color:#555;line-height:1.7;
-}
-.faq-item.open .faq-answer{display:block}
-.faq-more{text-align:center;margin-top:.5rem}
-
-/* ═══════════════════════════
-   BESOIN D'UN CRÉDIT ?
-═══════════════════════════ */
-.besoin-credit{padding:2.5rem 0;background:var(--gray)}
-.besoin-credit .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.besoin-inner{
-  background:#fff;border-radius:14px;
-  padding:1.8rem 1.8rem 1.4rem;
-  box-shadow:0 2px 14px rgba(0,0,0,.08);
-}
-.besoin-inner>h2{
-  font-size:1.25rem;font-weight:800;color:var(--navy);
-  margin-bottom:.8rem;
-}
-.besoin-main-link{
-  display:inline-block;font-size:1rem;font-weight:700;
-  color:var(--orange);margin-bottom:1.4rem;
-  transition:color .15s;
-}
-.besoin-main-link:hover{color:#c4481a}
-.besoin-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.2rem}
-@media(max-width:500px){.besoin-cols{grid-template-columns:1fr}}
 .besoin-col h3{
-  font-size:.82rem;font-weight:700;color:#999;text-transform:uppercase;
-  letter-spacing:.06em;margin-bottom:.7rem;
+  font-size:1.05rem;font-weight:700;color:var(--navy);
+  margin-bottom:1rem;
 }
-.besoin-col li{margin-bottom:.35rem}
-.besoin-col li a{
-  font-size:.88rem;color:var(--navy);font-weight:500;
+.besoin-list{display:flex;flex-direction:column;gap:.5rem}
+.besoin-list a{
+  font-size:.9rem;color:var(--navy);
+  display:flex;align-items:center;gap:.4rem;
+}
+.besoin-list a::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--teal);flex-shrink:0;
+}
+.besoin-list a:hover{color:var(--teal)}
+
+.besoin-sim-card{
+  background:#fff;border-radius:14px;padding:1.4rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.07);
+}
+.bsc-top{
+  background:linear-gradient(135deg,var(--navy),var(--navy-d));
+  border-radius:10px;padding:1.2rem;margin-bottom:1rem;color:#fff;
+}
+.bsc-top h4{font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.bsc-top p{font-size:.82rem;opacity:.75}
+.bsc-btn{
+  width:100%;background:var(--teal);color:#fff;
+  border:none;border-radius:2rem;padding:.75rem;
+  font-size:.93rem;font-weight:700;cursor:pointer;
+  transition:background .18s;
+}
+.bsc-btn:hover{background:var(--teal-d)}
+
+/* ── AVANTAGES ── */
+.avantages{background:#fff}
+.avantages-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;
+}
+.avt-card{
+  display:flex;flex-direction:column;align-items:flex-start;
+  gap:.6rem;padding:1.4rem;border-radius:14px;
+  background:var(--gray);
+}
+.avt-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(135deg,var(--teal),var(--sky));
+  display:flex;align-items:center;justify-content:center;
+}
+.avt-icon svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.avt-title{font-size:.97rem;font-weight:700;color:var(--navy)}
+.avt-desc{font-size:.83rem;color:#555;line-height:1.45}
+
+/* ── FAQ ── */
+.faq{background:#f0f7fb}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:.6rem}
+.faq-item{background:#fff;border-radius:10px;overflow:hidden}
+.faq-q{
+  width:100%;background:none;border:none;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.2rem;font-size:.95rem;font-weight:600;
+  color:var(--navy);cursor:pointer;text-align:left;gap:.8rem;
+}
+.faq-arr{
+  flex-shrink:0;width:18px;height:18px;
+  transition:transform .2s;
+}
+.faq-arr::before,.faq-arr::after{
+  content:'';display:block;
+  border:solid var(--teal);border-width:0 2px 2px 0;
+  width:8px;height:8px;
+  transform:rotate(45deg);
+  margin:3px auto 0;
+  transition:transform .2s;
+}
+.faq-arr::after{display:none}
+.faq-item.open .faq-arr::before{transform:rotate(-135deg);margin-top:6px}
+.faq-a{
+  display:none;padding:.2rem 1.2rem 1rem;
+  font-size:.88rem;color:#555;line-height:1.6;
+}
+.faq-item.open .faq-a{display:block}
+
+/* ── REASSURANCE ── */
+.reassurance{background:#fff;padding:2.5rem 1rem}
+.rea-inner{
+  max-width:var(--w);margin:0 auto;
+  display:flex;align-items:center;flex-wrap:wrap;gap:2rem;
+  justify-content:center;
+}
+.rea-item{
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  text-align:center;
+}
+.rea-num{font-size:2rem;font-weight:800;color:var(--teal)}
+.rea-label{font-size:.82rem;color:#666;max-width:120px;line-height:1.3}
+
+/* ── FOOTER ── */
+.footer{background:var(--navy-d);color:#fff;padding:3rem 1rem 0}
+.footer-inner{max-width:var(--w);margin:0 auto}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr repeat(3,1fr);
+  gap:2rem;padding-bottom:2.5rem;
+}
+@media(max-width:759px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:499px){.footer-grid{grid-template-columns:1fr}}
+
+.footer-brand .f-logo{font-size:1.5rem;font-weight:800;color:var(--teal);margin-bottom:.5rem}
+.footer-brand .f-logo span{color:#fff}
+.footer-brand p{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:1rem}
+.footer-brand .f-social{display:flex;gap:.6rem}
+.footer-brand .f-social a{
+  width:32px;height:32px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.7);font-size:.75rem;font-weight:700;
+  transition:all .18s;
+}
+.footer-brand .f-social a:hover{border-color:#fff;color:#fff}
+
+.footer-col h4{
+  font-size:.9rem;font-weight:700;color:rgba(255,255,255,.9);
+  margin-bottom:.9rem;text-transform:uppercase;letter-spacing:.4px;
+}
+.footer-col ul{display:flex;flex-direction:column;gap:.45rem}
+.footer-col ul li a{
+  font-size:.82rem;color:rgba(255,255,255,.55);
   transition:color .15s;
 }
-.besoin-col li a:hover{color:var(--orange)}
-.voir-conditions{
-  display:block;font-size:.82rem;color:#888;
-  border-top:1px solid #eee;padding-top:.9rem;
-  transition:color .15s;
+.footer-col ul li a:hover{color:#fff}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:1.2rem 0;display:flex;flex-wrap:wrap;
+  gap:.6rem .8rem;align-items:center;justify-content:space-between;
+  font-size:.75rem;color:rgba(255,255,255,.4);
 }
-.voir-conditions:hover{color:var(--orange)}
+.footer-bottom a{color:rgba(255,255,255,.4)}
+.footer-bottom a:hover{color:rgba(255,255,255,.7)}
+.fb-links{display:flex;flex-wrap:wrap;gap:.3rem 1rem}
 
-
-/* ═══════════════════════════
-   SIMULATEUR PLEINE PAGE
-═══════════════════════════ */
-.sim-page{display:none;position:fixed;inset:0;background:#fff;z-index:3000;overflow-y:auto}
+/* ── SIMULATOR ── */
+.sim-page{
+  display:none;position:fixed;inset:0;
+  background:#fff;z-index:3000;overflow-y:auto;
+}
 .sim-page.open{display:block}
-/* Header sticky */
-.sim-ph{position:sticky;top:0;background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
-.sim-ph-logo{font-size:1.25rem;font-weight:800;color:var(--navy);letter-spacing:-.5px}
-.sim-ph-quit{position:absolute;right:1rem;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline;padding:.3rem}
-.sim-ph-quit:hover{color:var(--orange)}
-/* Legal top banner */
-.sim-legal-top{background:#f6f6f6;border-bottom:1px solid #eaeaea;font-size:.7rem;color:#555;text-align:center;padding:.5rem 1rem;line-height:1.5}
-/* Body */
-.sim-body{max-width:500px;margin:0 auto;padding:2rem 1.2rem 8rem}
-/* Panes */
-.sim-pane{display:none}
-.sim-pane.s-show{display:block}
-.sim-title{font-size:1.25rem;font-weight:800;color:var(--navy);margin-bottom:.5rem;line-height:1.3}
-.sim-sub{font-size:.88rem;color:#555;line-height:1.55;margin-bottom:.5rem}
-.sim-req{font-size:.8rem;color:#888;margin-bottom:1.5rem}
-/* Step 1 : projet cards */
-.sim-proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-bottom:2.5rem}
-.sim-proj-card{border:1.5px solid #ddd;border-radius:12px;padding:1.2rem .8rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--navy);background:#fff;transition:border-color .15s,background .15s;font-family:inherit;text-align:center;line-height:1.3}
-.sim-proj-card:hover{border-color:var(--teal)}
-.sim-proj-card.sp-sel{border-color:var(--teal);background:#edfaf9}
-.sim-proj-card.sp-full{grid-column:1/-1;max-width:calc(50% - .4rem);justify-self:center;width:100%}
-.sim-proj-ico{width:52px;height:52px;border-radius:50%;background:var(--navy-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sim-proj-ico svg{color:#fff}
-/* Step 2 : montant field */
-.sim-amount-fld{width:100%;border:1.5px solid #999;border-radius:6px;padding:1rem 1rem;font-size:1rem;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s;margin-bottom:.3rem}
-.sim-amount-fld:focus{border-color:var(--teal)}
-.sim-amount-fld.f-err{border-color:#d33;background:#fff5f5}
-.sim-field-err{font-size:.8rem;color:#d33;margin-bottom:1.2rem;display:none}
-.sim-field-err.show{display:block}
-/* Step 3 : radio + dropdown */
-.sim-choice-lbl{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.8rem}
-.sim-radios{display:flex;gap:1.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
-.sim-radio{display:flex;align-items:center;gap:.4rem;font-size:.92rem;font-weight:600;color:var(--navy);cursor:pointer}
-.sim-radio input[type=radio]{width:18px;height:18px;accent-color:var(--orange);cursor:pointer}
-.sim-sel{width:100%;border:1.5px solid #999;border-radius:6px;padding:.95rem 2.5rem .95rem 1rem;font-size:1rem;font-family:inherit;color:var(--navy);outline:none;appearance:none;-webkit-appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 1rem center/11px,#fff;cursor:pointer;transition:border-color .2s;margin-bottom:1.5rem}
-.sim-sel:focus{border-color:var(--teal)}
-/* Step 4 : résultats */
-.sim-res-card{background:linear-gradient(135deg,#f0faff,#e4f4fb);border:1px solid #c0e5f7;border-radius:14px;padding:1.4rem 1.2rem;text-align:center;margin-bottom:1.3rem}
-.sim-res-lbl{font-size:.82rem;color:#778;margin-bottom:.2rem}
-.sim-res-val{font-size:3rem;font-weight:800;color:var(--navy);line-height:1.1}
-.sim-res-unit{font-size:.85rem;color:#667;margin-bottom:.9rem}
-.sim-res-tbl{background:#fff;border-radius:8px;padding:.6rem 1rem;text-align:left}
-.sim-res-row{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;color:#555;padding:.28rem 0;border-bottom:1px solid #f0f0f0}
-.sim-res-row:last-child{border-bottom:none}
-.sim-res-row b{color:var(--navy);font-weight:700}
-.sim-res-notice{font-size:.68rem;color:#bbb;margin-top:.7rem;line-height:1.5;text-align:center}
-.sim-cta-big{display:block;width:100%;background:var(--orange);color:#fff;border-radius:2rem;padding:.85rem;font-size:.95rem;font-weight:700;text-align:center;margin-bottom:.7rem;transition:background .2s;border:none;cursor:pointer;font-family:inherit}
-.sim-cta-big:hover{background:#c4481a}
-.sim-restart{width:100%;background:none;border:2px solid #ddd;border-radius:2rem;padding:.65rem;font-size:.88rem;font-weight:600;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
-.sim-restart:hover{border-color:var(--navy);color:var(--navy)}
-/* Common : Avis + trust + legal */
-.sim-avis-badge{display:flex;align-items:center;gap:.65rem;padding:.75rem 1rem;background:#f9f9f9;border-radius:10px;margin-bottom:.85rem}
-.sim-avis-logo{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sky));display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:900;color:#fff;text-align:center;line-height:1.1;flex-shrink:0}
-.sim-avis-info b{display:block;font-size:.82rem;color:var(--navy);font-weight:700}
-.sim-avis-info span{font-size:.78rem;color:#666}
-.sim-avis-stars{color:#f5a623;font-size:.8rem;letter-spacing:.5px}
-.sim-tagline{font-size:.84rem;color:var(--teal-d);font-weight:600;text-align:center;margin-bottom:1.5rem;padding:.7rem 1rem;background:linear-gradient(to right,#edfaf9,#eaf7ff);border-radius:8px;line-height:1.4}
-.sim-trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;margin-bottom:1.8rem}
-.sim-trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.4rem}
-.sim-trust-ico{width:50px;height:50px;border-radius:50%;background:var(--navy-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sim-trust-ico svg{color:#fff}
-.sim-trust-lbl{font-size:.76rem;font-weight:600;color:var(--navy);line-height:1.3}
-.sim-foot-links{border-top:1px solid #eee;padding-top:.4rem}
-.sim-foot-links a{display:block;font-size:.82rem;font-weight:600;color:#333;padding:.5rem 0;border-bottom:1px solid #f4f4f4;text-align:center;text-decoration:none}
-.sim-foot-links a:hover{color:var(--orange)}
-/* Bottom bar fixe */
-.sim-bottombar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;align-items:center;padding:.9rem 1.2rem;z-index:60;gap:.5rem}
-.sim-bb-back{font-size:.88rem;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;padding:.5rem .2rem;min-width:55px;text-align:left}
-.sim-bb-back:disabled{color:#ccc;cursor:default}
-.sim-bb-prog{font-size:.8rem;color:#888;font-weight:600;flex:1;text-align:center;white-space:nowrap}
-.sim-bb-next{background:var(--navy-d);color:#fff;border:none;border-radius:2rem;padding:.62rem 1.2rem;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;min-width:80px;white-space:nowrap}
-.sim-bb-next:hover{background:var(--navy)}
-.sim-bb-next.bb-teal{background:var(--teal)}
-.sim-bb-next.bb-teal:hover{background:var(--teal-d)}
 
-/* Step 5 : Formulaire de demande */
-.sim-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.sim-form-group{margin-bottom:.85rem}
-.sim-form-lbl{display:block;font-size:.83rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
-.sim-form-input{width:100%;border:1.5px solid #999;border-radius:6px;padding:.85rem 1rem;font-size:.95rem;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s}
-.sim-form-input:focus{border-color:var(--teal)}
-.sim-civility{display:flex;gap:1.5rem;margin-bottom:.3rem}
-.sim-civility label{display:flex;align-items:center;gap:.4rem;font-size:.92rem;font-weight:600;color:var(--navy);cursor:pointer}
-.sim-civility input[type=radio]{width:18px;height:18px;accent-color:var(--orange)}
-.sim-form-note{font-size:.73rem;color:#999;line-height:1.5;margin-top:1.2rem;padding-top:1rem;border-top:1px solid #eee}
-.sim-confirm{text-align:center;padding:2rem 1rem}
-.sim-confirm-ico{font-size:3.5rem;margin-bottom:1rem}
-.sim-confirm-title{font-size:1.3rem;font-weight:800;color:var(--teal);margin-bottom:.7rem}
-.sim-confirm-msg{font-size:.9rem;color:#555;line-height:1.6}
-  </style>
+.sim-hd{
+  position:sticky;top:0;background:#fff;z-index:10;
+  border-bottom:1px solid #e5edf2;
+  display:flex;align-items:center;padding:.9rem 1.2rem;gap:1rem;
+}
+.sim-hd-logo{font-size:1.2rem;font-weight:800;color:var(--teal)}
+.sim-hd-logo span{color:var(--navy)}
+.sim-hd-close{
+  margin-left:auto;background:none;border:1.5px solid #ccc;
+  border-radius:2rem;padding:.35rem .9rem;font-size:.82rem;
+  cursor:pointer;display:flex;align-items:center;gap:.4rem;color:#555;
+}
+
+.sim-progress{height:4px;background:#e5edf2}
+.sim-progress-fill{
+  height:100%;background:var(--teal);
+  transition:width .35s ease;width:0%;
+}
+
+.sim-body{max-width:680px;margin:0 auto;padding:2rem 1.2rem 7rem}
+.sim-step-title{
+  font-size:1.5rem;font-weight:800;color:var(--navy);
+  margin-bottom:.4rem;
+}
+.sim-step-sub{font-size:.92rem;color:#666;margin-bottom:1.8rem}
+
+/* Step 1 */
+.proj-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+  max-width:500px;
+}
+.proj-card{
+  border:2px solid #e5edf2;border-radius:14px;
+  padding:1.2rem 1rem;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;
+  gap:.6rem;text-align:center;transition:all .2s;
+}
+.proj-card:hover,.proj-card.sel{border-color:var(--teal);background:#f0faf9}
+.proj-card.sel{background:#e6f7f5}
+.pc-icon{width:48px;height:48px;font-size:1.5rem;display:flex;align-items:center;justify-content:center}
+.pc-name{font-size:.92rem;font-weight:700;color:var(--navy)}
+.proj-last{grid-column:1/-1;max-width:calc(50% - .5rem);margin:0 auto}
+
+/* Step 2 */
+.amount-wrap{max-width:400px}
+.amount-label{display:block;font-size:.9rem;font-weight:600;color:var(--navy);margin-bottom:.5rem}
+.amount-inp{
+  width:100%;border:2px solid #d0d8e0;border-radius:10px;
+  padding:1rem 1.2rem;font-size:1.2rem;font-weight:700;
+  color:var(--navy);transition:border-color .18s;
+}
+.amount-inp:focus{outline:none;border-color:var(--teal)}
+.amount-hint{font-size:.8rem;color:#888;margin-top:.4rem}
+.amount-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.amount-chip{
+  border:1.5px solid #d0d8e0;border-radius:2rem;
+  padding:.3rem .8rem;font-size:.82rem;font-weight:600;
+  color:var(--navy);cursor:pointer;transition:all .18s;background:#fff;
+}
+.amount-chip:hover,.amount-chip.sel{border-color:var(--teal);background:var(--teal);color:#fff}
+
+/* Step 3 */
+.choice-radios{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.choice-radio{
+  flex:1;min-width:160px;border:2px solid #e5edf2;border-radius:12px;
+  padding:1rem;cursor:pointer;transition:all .2s;
+}
+.choice-radio input{display:none}
+.choice-radio.sel{border-color:var(--teal);background:#f0faf9}
+.cr-title{font-size:.95rem;font-weight:700;color:var(--navy)}
+.cr-desc{font-size:.78rem;color:#888;margin-top:.2rem}
+
+.choice-sel-wrap{margin-bottom:1.2rem}
+.choice-sel-label{display:block;font-size:.88rem;font-weight:600;color:var(--navy);margin-bottom:.4rem}
+.choice-sel{
+  width:100%;max-width:340px;border:1.5px solid #d0d8e0;
+  border-radius:8px;padding:.65rem 1rem;font-size:.93rem;
+  color:var(--text);appearance:none;cursor:pointer;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300334D' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat calc(100% - .8rem) center;
+}
+.choice-sel:focus{outline:none;border-color:var(--teal)}
+
+/* Step 4 */
+.result-card{
+  background:linear-gradient(135deg,var(--navy),var(--navy-d));
+  border-radius:16px;padding:1.8rem;color:#fff;margin-bottom:1.2rem;
+}
+.rc-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:.8rem}
+.rc-main .rc-label{font-size:.83rem;opacity:.7;margin-bottom:.2rem}
+.rc-main .rc-value{font-size:2.5rem;font-weight:800;line-height:1}
+.rc-main .rc-unit{font-size:1rem;font-weight:600;opacity:.8}
+.rc-details{display:flex;flex-direction:column;gap:.4rem;text-align:right}
+.rc-details .rd-item{font-size:.8rem;opacity:.7}
+.rc-details .rd-item strong{display:block;font-size:.9rem;font-weight:700;opacity:1}
+.result-legal{font-size:.75rem;color:#888;line-height:1.5;margin-bottom:1.4rem}
+.result-cta{
+  width:100%;background:var(--orange);color:#fff;
+  border:none;border-radius:2rem;padding:1rem;
+  font-size:1rem;font-weight:700;cursor:pointer;
+  transition:background .18s;margin-bottom:.8rem;
+}
+.result-cta:hover{background:#c44a12}
+.result-restart{
+  width:100%;background:none;border:1.5px solid #d0d8e0;
+  border-radius:2rem;padding:.7rem;font-size:.88rem;
+  font-weight:600;color:#666;cursor:pointer;transition:all .18s;
+}
+.result-restart:hover{border-color:var(--navy);color:var(--navy)}
+
+/* Step 5 */
+.sform-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:480px){.sform-grid{grid-template-columns:1fr}}
+.sform-row{display:flex;flex-direction:column;gap:.3rem}
+.sform-row.full{grid-column:1/-1}
+.sform-row label{font-size:.85rem;font-weight:600;color:var(--navy)}
+.sform-inp{
+  border:1.5px solid #d0d8e0;border-radius:8px;
+  padding:.7rem .9rem;font-size:.93rem;color:var(--text);
+}
+.sform-sel{
+  border:1.5px solid #d0d8e0;border-radius:8px;
+  padding:.7rem .9rem;font-size:.93rem;color:var(--text);
+  appearance:none;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300334D' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat calc(100% - .8rem) center;
+}
+.sform-inp:focus,.sform-sel:focus{outline:none;border-color:var(--teal)}
+.sform-submit{
+  grid-column:1/-1;width:100%;background:var(--orange);color:#fff;
+  border:none;border-radius:2rem;padding:1rem;
+  font-size:1rem;font-weight:700;cursor:pointer;
+  transition:background .18s;margin-top:.6rem;
+}
+.sform-submit:hover{background:#c44a12}
+.sform-legal{grid-column:1/-1;font-size:.75rem;color:#888;margin-top:.5rem;line-height:1.5}
+
+/* Sim bottom bar */
+.sim-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#fff;border-top:1px solid #e5edf2;
+  padding:.9rem 1.2rem calc(.9rem + env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  z-index:3001;
+}
+.sim-back{
+  background:none;border:1.5px solid #d0d8e0;border-radius:2rem;
+  padding:.6rem 1.2rem;font-size:.88rem;font-weight:600;
+  color:#666;cursor:pointer;transition:all .18s;
+}
+.sim-back:hover{border-color:var(--navy);color:var(--navy)}
+.sim-back:disabled{opacity:.35;pointer-events:none}
+.sim-next{
+  background:var(--teal);color:#fff;border:none;
+  border-radius:2rem;padding:.7rem 1.8rem;
+  font-size:.93rem;font-weight:700;cursor:pointer;
+  transition:background .18s;min-width:140px;
+}
+.sim-next:hover{background:var(--teal-d)}
+.sim-step-info{font-size:.8rem;color:#999}
+</style>
 </head>
 <body>
 
-<!-- Overlay + Menu mobile -->
-<!-- Overlay (now unused but kept for JS compat) -->
-<div class="mobile-overlay" id="mob-overlay"></div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <button class="hd-burger" id="menu-btn" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#" class="hd-logo">Jkl<span>.oin</span></a>
+    <nav>
+      <ul class="hd-nav">
+        <li>
+          <a href="#">Credits <i class="arr"></i></a>
+          <ul class="hd-drop">
+            <li><a href="#" data-sim="auto">Credit auto</a></li>
+            <li><a href="#" data-sim="travaux">Credit travaux</a></li>
+            <li><a href="#" data-sim="famille-loisirs">Famille &amp; loisirs</a></li>
+            <li><a href="#" data-sim="regroupement">Regroupement de credits</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Epargne <i class="arr"></i></a>
+          <ul class="hd-drop">
+            <li><a href="#">Livret epargne</a></li>
+            <li><a href="#">Plan epargne</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Assurances <i class="arr"></i></a>
+          <ul class="hd-drop">
+            <li><a href="#">Assurance auto</a></li>
+            <li><a href="#">Assurance habitation</a></li>
+            <li><a href="#">Assurance vie</a></li>
+          </ul>
+        </li>
+        <li><a href="#">La carte</a></li>
+        <li><a href="#">Aide &amp; contact</a></li>
+      </ul>
+    </nav>
+    <div class="hd-actions">
+      <a href="#" class="hd-connect-mob">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Se connecter
+      </a>
+      <button class="hd-login">Se connecter</button>
+      <button class="hd-sim-btn" data-sim="">Simuler un projet</button>
+    </div>
+  </div>
+</header>
 
-<!-- ── Menu mobile plein écran ── -->
-<div class="mobile-menu" id="mob-menu">
-
-  <!-- En-tête -->
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob-menu">
   <div class="mob-mhd">
-    <div class="mob-mhd-left" id="mob-close" aria-label="Fermer le menu">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="3" x2="19" y2="19"/><line x1="19" y1="3" x2="3" y2="19"/></svg>
-      <span class="mob-menu-lbl">Fermer</span>
-    </div>
-    <span class="mob-mhd-logo">Jkl.oin</span>
-    <a href="#" class="mob-mhd-connect">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      Se connecter
-    </a>
+    <span class="mob-mhd-logo">Jkl<span>.oin</span></span>
+    <button class="mob-close" id="mob-close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+      <span>Fermer</span>
+    </button>
   </div>
-
-  <!-- Brand -->
-  <div class="mob-brand">
-    <div class="mob-brand-logo">Jkl.oin</div>
-    <div class="mob-brand-ca">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" fill="currentColor" opacity=".8"/><rect x="13" y="3" width="8" height="8" rx="1" fill="currentColor" opacity=".6"/><rect x="3" y="13" width="8" height="8" rx="1" fill="currentColor" opacity=".6"/><rect x="13" y="13" width="8" height="8" rx="1" fill="currentColor" opacity=".8"/></svg>
-      GROUPE CRÉDIT AGRICOLE
-    </div>
+  <div class="mob-badge">
+    <div class="mob-badge-icon">CA</div>
+    <div class="mob-badge-txt"><strong>Jkl.oin</strong>Filiale du Credit Agricole</div>
   </div>
-
-  <!-- Accordéon -->
-  <div class="mob-acc">
-
+  <nav class="mob-nav">
     <div class="mob-acc-item">
-      <button class="mob-acc-btn">CRÉDIT CONSOMMATION <span class="mob-acc-chev">▾</span></button>
+      <button class="mob-acc-btn">Credits
+        <svg class="acc-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
       <div class="mob-acc-body">
-        <a href="#">Prêt personnel</a>
-        <a href="#">Crédit auto</a>
-        <a href="#">Crédit travaux</a>
-        <a href="#">Crédit renouvelable</a>
-        <a href="#">Crédit moto</a>
+        <a href="#" data-sim="auto">Credit auto</a>
+        <a href="#" data-sim="travaux">Credit travaux</a>
+        <a href="#" data-sim="famille-loisirs">Famille &amp; loisirs</a>
+        <a href="#" data-sim="regroupement">Regroupement de credits</a>
+        <a href="#" data-sim="">Credit renouvelable</a>
       </div>
     </div>
-
     <div class="mob-acc-item">
-      <button class="mob-acc-btn">CRÉDIT RENOUVELABLE <span class="mob-acc-chev">▾</span></button>
+      <button class="mob-acc-btn">Epargne
+        <svg class="acc-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
       <div class="mob-acc-body">
-        <a href="#">Cartes Jkl.oin</a>
-        <a href="#">Crédit renouvelable en ligne</a>
-        <a href="#">Payer en 3x ou 10x</a>
+        <a href="#">Livret epargne</a>
+        <a href="#">Plan epargne</a>
+        <a href="#">Epargne logement</a>
       </div>
     </div>
-
     <div class="mob-acc-item">
-      <button class="mob-acc-btn">REGROUPEMENT DE CRÉDITS <span class="mob-acc-chev">▾</span></button>
+      <button class="mob-acc-btn">Assurances
+        <svg class="acc-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
       <div class="mob-acc-body">
-        <a href="#">Rachat de crédits</a>
-        <a href="#">Simulation rachat de crédit</a>
-        <a href="#">Avantages du regroupement</a>
+        <a href="#">Assurance auto</a>
+        <a href="#">Assurance habitation</a>
+        <a href="#">Assurance vie</a>
+        <a href="#">Assurance emprunteur</a>
       </div>
     </div>
-
     <div class="mob-acc-item">
-      <button class="mob-acc-btn">PRÊT VÉHICULE <span class="mob-acc-chev">▾</span></button>
+      <button class="mob-acc-btn">La carte
+        <svg class="acc-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
       <div class="mob-acc-body">
-        <a href="#">Crédit auto</a>
-        <a href="#">Crédit moto</a>
-        <a href="#">Véhicule électrique</a>
+        <a href="#">Carte Pass</a>
+        <a href="#">Avantages</a>
+        <a href="#">Gerer ma carte</a>
       </div>
     </div>
-
     <div class="mob-acc-item">
-      <button class="mob-acc-btn">CRÉDIT TRAVAUX <span class="mob-acc-chev">▾</span></button>
+      <button class="mob-acc-btn">Besoin d'aide
+        <svg class="acc-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
       <div class="mob-acc-body">
-        <a href="#">Prêt travaux</a>
-        <a href="#">Transition énergétique</a>
-        <a href="#">Éco-prêt à taux zéro</a>
+        <a href="#">Questions frequentes</a>
+        <a href="#">Nous contacter</a>
+        <a href="#">Trouver une agence</a>
+        <a href="#">Reclamations</a>
       </div>
     </div>
-
-    <div class="mob-acc-item">
-      <button class="mob-acc-btn">A PROPOS <span class="mob-acc-chev">▾</span></button>
-      <div class="mob-acc-body">
-        <a href="#">Qui sommes-nous ?</a>
-        <a href="#">Jkl.oin s'engage</a>
-        <a href="#">Éco-transition</a>
-        <a href="#">Accessibilité</a>
-      </div>
-    </div>
-
-    <div class="mob-acc-item">
-      <button class="mob-acc-btn">PARTENAIRES <span class="mob-acc-chev">▾</span></button>
-      <div class="mob-acc-body">
-        <a href="#">Devenez partenaire</a>
-        <a href="#">Espace partenaire</a>
-      </div>
-    </div>
-
-  </div><!-- /mob-acc -->
-
-  <!-- Réseaux sociaux -->
+    <a href="#" class="mob-link">Espace client</a>
+    <a href="#" class="mob-link">Recrutement</a>
+  </nav>
   <div class="mob-social">
-    <p class="mob-social-title">Retrouvez-nous :</p>
-    <div class="mob-social-icons">
-      <a href="#" class="mob-social-ico" aria-label="Facebook">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-      </a>
-      <a href="#" class="mob-social-ico" aria-label="LinkedIn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <a href="#" class="mob-social-ico" aria-label="YouTube">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#001f38"/></svg>
-      </a>
-    </div>
+    <a href="#" aria-label="Facebook">f</a>
+    <a href="#" aria-label="Twitter">X</a>
+    <a href="#" aria-label="Instagram">in</a>
+    <a href="#" aria-label="LinkedIn">Li</a>
+    <a href="#" aria-label="YouTube">&#9654;</a>
   </div>
-
-  <!-- Liens légaux -->
-  <div class="mob-legal-links">
-    <a href="#">Nous contacter</a>
-    <a href="#">Informations légales</a>
-    <a href="#">Politique des données personnelles</a>
-    <a href="#">Questions-Réponses</a>
-    <a href="#">Tarifs</a>
-    <a href="#">Découvrir notre groupe</a>
-    <a href="#">Charte éthique groupe</a>
-    <a href="#">Plan du site Jkl.oin</a>
-    <a href="#">Sécurité</a>
-    <a href="#">Charte des réclamations</a>
-    <a href="#">Accessibilité : partiellement conforme</a>
-    <a href="#">Gérer mes cookies</a>
+  <div class="mob-legal">
+    <a href="#">Mentions legales</a>
+    <a href="#">Confidentialite</a>
+    <a href="#">Cookies</a>
+    <a href="#">Accessibilite</a>
   </div>
-
-  <!-- Texte légal -->
-  <div class="mob-legal-text">
-    Jkl.oin est une marque de CA Consumer Finance, prêteur, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€, 1 rue Victor Basch – CS&nbsp;70001 – 91068 MASSY Cedex, 542&nbsp;097&nbsp;522 RCS Evry. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (www.orias.fr). Jkl.oin vous propose des offres de crédits, crédit consommation, rachat de crédit et crédit renouvelable. © CA Consumer Finance 2026
-  </div>
-
 </div>
 
-<!-- ── Bouton fixe mobile "Simuler un projet" ── -->
+<!-- MOBILE SIM BAR -->
 <div class="mob-sim-bar" id="mob-sim-bar">
   <button class="mob-sim-btn" data-sim="">Simuler un projet</button>
 </div>
 
-<!-- ══════════════════════════════
-     HEADER
-══════════════════════════════ -->
-<header class="header">
-  <div class="hd-inner">
-
-    <!-- Hamburger (mobile) -->
-    <div class="hd-menu-btn" id="menu-btn" aria-label="Menu" role="button" tabindex="0">
-      <span></span><span></span><span></span>
-      <div class="hd-menu-label">Menu</div>
-    </div>
-
-    <!-- Logo centré -->
-    <a href="#" class="hd-logo">Jkl.oin</a>
-
-    <!-- Nav desktop -->
-    <nav class="desktop-nav">
-      <ul>
-        <li class="has-sub"><a href="#">Prêts personnels</a>
-          <ul class="sub-menu">
-            <li><a href="#">Prêt personnel</a></li>
-            <li><a href="#">Prêt personnel auto</a></li>
-            <li><a href="#">Prêt personnel moto</a></li>
-            <li><a href="#">Prêt personnel travaux</a></li>
-            <li><a href="#">Prêts transition énergétique</a></li>
-          </ul>
-        </li>
-        <li class="has-sub"><a href="#">Crédit responsable</a>
-          <ul class="sub-menu">
-            <li><a href="#">Cartes Jkl.oin</a></li>
-            <li><a href="#">Crédit renouvelable</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Rachat de crédits</a></li>
-        <li class="has-sub"><a href="#">Partenaires</a>
-          <ul class="sub-menu"><li><a href="#">Nos assurances</a></li></ul>
-        </li>
-        <li class="has-sub"><a href="#">Nous découvrir</a>
-          <ul class="sub-menu">
-            <li><a href="#">À propos de Jkl.oin</a></li>
-            <li><a href="#">Jkl.oin s'engage</a></li>
-            <li><a href="#">Éco-transition</a></li>
-          </ul>
-        </li>
-        <li class="has-sub"><a href="#">Devenez partenaire</a>
-          <ul class="sub-menu"><li><a href="#">Espace partenaires</a></li></ul>
-        </li>
-        <li><a href="#">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
-        </a></li>
-      </ul>
-    </nav>
-
-    <!-- Right -->
-    <div class="hd-right">
-      <a href="#" class="hd-dossier">
-        <svg width="12" height="16" viewBox="0 0 15 20" fill="none">
-          <path d="M1.556 1.477c0-.07.057-.127.127-.127H9.238c.034 0 .067.014.09.038l4.99 5.07c.024.024.037.056.037.09V19.023c0 .07-.057.127-.127.127H1.683c-.07 0-.127-.057-.127-.127V1.477z" stroke="#444" stroke-width="1.2"/>
-          <line x1="5.556" y1="11.652" x2="10.356" y2="11.652" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="5.556" y1="14.65" x2="10.356" y2="14.65" stroke="#444" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-        Suivi de dossier
-      </a>
-      <a href="#" class="hd-connect-btn">
-        <svg width="13" height="16" viewBox="0 0 16 20" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.642 4.587C11.642 6.593 9.954 8.22 7.871 8.22c-2.083 0-3.772-1.627-3.772-3.633C4.1 2.581 5.789.955 7.871.955c2.083 0 3.771 1.626 3.771 3.632z" stroke="#fff" stroke-width="1.5"/>
-          <path d="M1.646 17.594V13.877H.146V17.594h1.5zM2.054 19.501h11.685V18.001H2.054V19.501zM14.146 17.594V13.878h-1.5V17.594h1.5z" fill="#fff"/>
-        </svg>
-        Se connecter
-      </a>
-      <!-- icône mobile -->
-      <a href="#" class="hd-connect" style="color:var(--navy)">
-        <svg width="22" height="22" viewBox="0 0 16 20" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.642 4.587C11.642 6.593 9.954 8.22 7.871 8.22c-2.083 0-3.772-1.627-3.772-3.633C4.1 2.581 5.789.955 7.871.955c2.083 0 3.771 1.626 3.771 3.632z" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M1.646 17.594V13.877H.146V17.594h1.5zM2.054 19.501h11.685V18.001H2.054V19.501zM14.146 17.594V13.878h-1.5V17.594h1.5z" fill="currentColor"/>
-        </svg>
-        <span style="font-size:.7rem;font-weight:700;display:block;text-align:center;color:var(--navy)">Se connecter</span>
-      </a>
-    </div>
-
-  </div>
-</header>
-
-<!-- ══════════════════════════════
-     PAGE
-══════════════════════════════ -->
+<!-- PAGE -->
 <div class="page">
 
-  <!-- ── Héro : fond bleu ciel ── -->
-  <section class="hero-banner">
-    <div class="hero-banner-inner">
-      <h1>Avec la carte Jkl.oin<sup>¹</sup>, j'ai le pouvoir de payer en 1x, 3x, 10x</h1>
-    </div>
-  </section>
-
-  <!-- ── Deux cartes chevauchantes ── -->
-  <div class="hero-cards-wrap">
-    <div class="hero-cards-inner">
-
-      <!-- Carte sombre : La carte -->
-      <div class="hcard-dark">
-        <div class="hcard-dark-top">
-          <div>
-            <div class="hcard-dark-label">La carte<sup>¹</sup></div>
-            <p>Paiement comptant ou en plusieurs fois.<sup>¹</sup> Plus besoin de choisir&nbsp;!</p>
-          </div>
-          <!-- Mini carte VISA CSS -->
-          <div class="mini-card">
-            <div class="mini-card-top">
-              <span class="mini-visa">VISA</span>
-            </div>
-            <div class="mini-chip"></div>
-            <div class="mini-num">•••• 1234</div>
-          </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <span class="hero-tag">Credit a la consommation</span>
+        <h1 class="hero-h1">Financez vos projets<br/>avec Jkl.oin</h1>
+        <p class="hero-sub">Un credit simple, rapide et adapte a votre situation. Simulez votre offre en quelques minutes.</p>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>3 min</strong><span>pour simuler</span></div>
+          <div class="hero-stat"><strong>24h</strong><span>reponse de principe</span></div>
+          <div class="hero-stat"><strong>75 000 &#8364;</strong><span>jusqu'a</span></div>
         </div>
-        <a href="#" class="hcard-dark-cta">Je demande ma carte</a>
       </div>
-
-      <!-- Carte blanche : Simulateur -->
-      <div class="hcard-white">
-        <h2>Financez vos projets avec le crédit conso Jkl.oin&nbsp;!</h2>
-        <p class="sim-sub">Simulez, faites votre demande en <strong>5 minutes</strong> et obtenez une réponse immédiate&nbsp;!</p>
-        <form class="sim-form" action="/parcours-simulateur" method="get">
-          <div class="sim-field">
-            <select class="sim-select" name="projet" aria-label="Votre projet">
+      <div class="hero-form-card">
+        <div class="hero-offer">
+          <div class="ho-label">Offre du moment</div>
+          <div class="ho-title">La carte Jkl.oin</div>
+          <div class="ho-sub">Credit renouvelable avec avantages exclusifs</div>
+          <button class="ho-cta">En savoir plus</button>
+        </div>
+        <div class="hfc-title">Simulez votre credit</div>
+        <form id="hero-form">
+          <div class="hfc-row">
+            <select id="hero-projet" class="hfc-sel">
               <option value="" disabled selected>Votre projet</option>
               <option value="famille-loisirs">Famille &amp; Loisirs</option>
               <option value="auto">Auto</option>
               <option value="travaux">Travaux</option>
-              <option value="autre">Autre</option>
-              <option value="regroupement">Regroupement de crédits</option>
+              <option value="regroupement">Regroupement de credits</option>
+              <option value="autre">Autre projet</option>
             </select>
           </div>
-          <div class="sim-field">
-            <input class="sim-input" type="number" name="montant" placeholder="Votre montant" min="150" max="75000" aria-label="Votre montant"/>
+          <div class="hfc-row">
+            <input type="number" id="hero-montant" class="hfc-inp" placeholder="Montant souhaite (&#8364;)" min="150" max="75000"/>
           </div>
-          <button type="submit" class="btn-teal">Simuler un projet</button>
+          <button type="submit" class="hfc-btn">Simuler mon projet</button>
         </form>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ── Produits ── -->
-  <section class="products">
-    <div class="wrap">
-      <h2>Un crédit pour tous vos projets</h2>
-      <p class="prod-sub">Simulez votre projet en quelques clics</p>
-      <ul class="prod-list">
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/pret-perso/600/320" alt="Prêt personnel"/>
-          <a href="#" class="prod-btn" data-sim="autre">Simulez votre prêt personnel</a>
-        </li>
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/credit-carte/600/320" alt="Crédit renouvelable"/>
-          <a href="#" class="prod-btn" data-sim="famille-loisirs">Simulez votre crédit renouvelable</a>
-        </li>
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/rachat-cred/600/320" alt="Rachat de crédits"/>
-          <a href="#" class="prod-btn" data-sim="regroupement">Simulez votre rachat de crédits</a>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ── Avis ── -->
-  <section class="reviews">
-    <div class="wrap">
-      <h2>Plus de 6 millions <span>de clients nous font confiance</span></h2>
-      <div class="reviews-badge">
-        <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" target="_blank" rel="noopener">
-          <span style="font-weight:700;">5&nbsp;847 avis</span>
-          <span style="color:var(--orange);font-weight:700;">&bull; 4,6</span>
-          <span class="stars">★★★★★</span>
-          <span style="font-size:.72rem;color:#aaa;">sur 5</span>
-        </a>
-      </div>
-      <ul class="rv-grid">
-        <li class="rv-card">
-          <p class="rv-title">Très efficace</p>
-          <p class="rv-name">Nuno A</p>
-          <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-          <span class="stars">★★★★★</span>
-        </li>
-        <li class="rv-card">
-          <p class="rv-title">Simple et rapide via l'application</p>
-          <p class="rv-name">Patrick L</p>
-          <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-          <span class="stars">★★★★★</span>
-        </li>
-        <li class="rv-card">
-          <p class="rv-title">Très rapide et adapté à mes besoins</p>
-          <p class="rv-name">Monique C</p>
-          <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-          <span class="stars">★★★★★</span>
-        </li>
-      </ul>
-      <div class="reviews-more">
-        <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" class="btn-orange" target="_blank" rel="noopener">Lire tous les avis</a>
+        <p class="hfc-note">Simulation gratuite et sans engagement</p>
       </div>
     </div>
   </section>
 
-  <!-- ── Avantages ── -->
-  <section class="avantages">
-    <div class="wrap">
-      <h2>Jkl.oin accompagne vos projets</h2>
-      <ul class="av-grid">
-        <li class="av-item">
-          <div class="av-icon">
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" stroke="var(--teal)" stroke-width="2"/><text x="17" y="22" text-anchor="middle" fill="var(--teal)" font-size="12" font-weight="800" font-family="sans-serif">5'</text></svg>
+  <!-- PRODUITS -->
+  <section class="section products">
+    <div class="section-inner">
+      <h2 class="section-title">Nos solutions de credit</h2>
+      <p class="section-sub">Choisissez le credit adapte a votre projet</p>
+      <div class="prod-grid">
+        <div class="prod-card" data-sim="auto">
+          <div class="prod-icon">
+            <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h11l5 5v3a2 2 0 0 1-2 2h-1"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
           </div>
-          <h3>Une réponse de principe immédiate<sup style="font-size:.6rem">²</sup></h3>
-          <p>Obtenez une réponse de principe en 5 minutes</p>
-        </li>
-        <li class="av-item">
-          <div class="av-icon">
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="13" cy="11" r="5" stroke="var(--teal)" stroke-width="2"/><path d="M3 29c0-5.523 4.477-10 10-10" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="11" r="5" stroke="var(--navy)" stroke-width="2"/><path d="M18 29c0-5.523 2.686-10 6-10" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Seul(e) ou accompagné(e)</h3>
-          <p>Souscrivez en ligne<sup style="font-size:.6rem">³</sup> ou avec nos conseillers</p>
-        </li>
-        <li class="av-item">
-          <div class="av-icon">
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="4" y="8" width="26" height="18" rx="3" stroke="var(--teal)" stroke-width="2"/><line x1="4" y1="14" x2="30" y2="14" stroke="var(--teal)" stroke-width="2"/><rect x="8" y="18" width="6" height="4" rx="1" fill="var(--teal)"/></svg>
-          </div>
-          <h3>Une gestion simplifiée</h3>
-          <p>Gérez votre prêt depuis votre espace client</p>
-        </li>
-        <li class="av-item">
-          <div class="av-icon">
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M17 4l3.5 7 7.5 1.1-5.5 5.3 1.3 7.6L17 21.5l-6.8 3.5 1.3-7.6L6 12.1l7.5-1.1z" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>100% flexible<sup style="font-size:.6rem">⁴</sup></h3>
-          <p>Mettez en pause ou adaptez vos mensualités</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ── Récompense ── -->
-  <section class="award">
-    <div class="wrap">
-      <div class="award-inner">
-        <div>
-          <h2>Jkl.oin récompensé par l'Association Française de la Relation Client&nbsp;!</h2>
-          <p style="margin-top:.7rem">Jkl.oin réinvente l'expérience du crédit : 100&nbsp;% digital, instantané, intelligent et pédagogique.</p>
-          <p><strong>Un prix décerné par l'Association Française de la Relation Client</strong></p>
+          <div class="prod-name">Credit auto</div>
+          <div class="prod-desc">Financez votre vehicule neuf ou d'occasion au meilleur taux.</div>
+          <div class="prod-link">Simuler</div>
         </div>
-        <div style="width:90px;height:90px;flex-shrink:0;background:linear-gradient(135deg,#c0c0c0,#e8e8e8);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-          <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><path d="M22 4l4 9 9 1.3-6.5 6.3 1.5 9L22 25l-8 4.6 1.5-9L9 14.3 18 13z" fill="#bbb" stroke="#999" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="prod-card" data-sim="travaux">
+          <div class="prod-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="prod-name">Credit travaux</div>
+          <div class="prod-desc">Ameliorez votre habitat, renovez ou agrandissez votre logement.</div>
+          <div class="prod-link">Simuler</div>
+        </div>
+        <div class="prod-card" data-sim="famille-loisirs">
+          <div class="prod-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="prod-name">Famille &amp; loisirs</div>
+          <div class="prod-desc">Voyages, etudes, equipements : financez tous vos projets de vie.</div>
+          <div class="prod-link">Simuler</div>
+        </div>
+        <div class="prod-card" data-sim="regroupement">
+          <div class="prod-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          </div>
+          <div class="prod-name">Regroupement de credits</div>
+          <div class="prod-desc">Simplifiez votre budget en regroupant tous vos credits en un seul.</div>
+          <div class="prod-link">Simuler</div>
+        </div>
+        <div class="prod-card" data-sim="">
+          <div class="prod-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </div>
+          <div class="prod-name">Credit renouvelable</div>
+          <div class="prod-desc">Une reserve d'argent disponible a tout moment selon vos besoins.</div>
+          <div class="prod-link">Simuler</div>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- ── 4 pictos de confiance ── -->
-  <section class="trust-icons">
-    <div class="wrap">
-      <ul class="trust-grid">
-        <li class="trust-item">
-          <div class="trust-icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="12" stroke="var(--teal)" stroke-width="2"/>
-              <text x="16" y="21" text-anchor="middle" fill="var(--teal)" font-size="9" font-weight="800" font-family="sans-serif">70</text>
-            </svg>
-          </div>
-          <p>Depuis plus de 70 ans à vos côtés</p>
-        </li>
-        <li class="trust-item">
-          <div class="trust-icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <path d="M16 4L6 8v8c0 5.52 4.26 10.68 10 12 5.74-1.32 10-6.48 10-12V8z" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M11 16l3.5 3.5L21 12" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <p>Parcours 100% sécurisé</p>
-        </li>
-        <li class="trust-item">
-          <div class="trust-icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <rect x="5" y="10" width="22" height="16" rx="2" stroke="var(--teal)" stroke-width="2"/>
-              <path d="M5 15h22M10 10V7a6 6 0 0112 0v3" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <p>Simulation sans engagement</p>
-        </li>
-        <li class="trust-item">
-          <div class="trust-icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <rect x="5" y="8" width="22" height="16" rx="3" stroke="var(--teal)" stroke-width="2"/>
-              <path d="M9 20c3-6 6-2 9-4s4-6 5-6" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <p>Signature électronique</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ── Éditorial ── -->
-  <section class="editorial">
-    <div class="wrap">
-      <h2>Jkl.oin, partenaire de confiance pour votre crédit conso</h2>
-      <p>Depuis plus de <strong>70 ans</strong>, Jkl.oin accompagne les Français dans leurs projets de vie grâce au crédit à la consommation. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, Jkl.oin s'appuie sur l'expertise et la solidité d'un grand groupe bancaire pour vous proposer des solutions de financement adaptées à vos besoins.</p>
-      <p>Que vous souhaitiez financer un <strong>projet auto</strong>, des <strong>travaux</strong>, un voyage ou tout autre projet personnel, Jkl.oin met à votre disposition des offres de crédit conso compétitives et flexibles. Notre démarche&nbsp;: vous proposer un parcours 100&nbsp;% digital, simple et rapide, avec une réponse de principe en quelques minutes.</p>
-      <p>Avec plus de <strong>6 millions de clients</strong> et un réseau de plus de <strong>13&nbsp;000 partenaires</strong> (concessionnaires auto, grandes surfaces, enseignes spécialisées…), Jkl.oin est l'un des leaders du crédit à la consommation en France. Notre engagement&nbsp;: vous accompagner à chaque étape, du simulateur à la signature électronique, en toute transparence.</p>
-      <a href="#" class="btn-teal" data-sim="" style="display:inline-block;width:auto;padding:.7rem 1.8rem">Simuler un projet</a>
-    </div>
-  </section>
-
-  <!-- ── FAQ ── -->
-  <section class="faq">
-    <div class="wrap">
-      <h2>Vos questions sur le crédit conso</h2>
-      <ul class="faq-list">
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels types de prêts propose Jkl.oin&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Jkl.oin propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quel délai entre l'acceptation de l'offre de prêt et le déblocage des fonds&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Après signature électronique de votre contrat, un délai légal de rétractation de 14 jours calendaires s'applique. Une fois ce délai écoulé, les fonds sont généralement versés dans un délai de 1 à 3 jours ouvrés.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Comment effectuer ma demande de crédit conso&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Rendez-vous sur notre simulateur en ligne, choisissez votre projet et votre montant, puis complétez le formulaire de demande. Vous obtiendrez une réponse de principe immédiate et pourrez finaliser votre dossier entièrement en ligne.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels documents dois-je fournir lors de ma demande de crédit&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>En général, il vous sera demandé&nbsp;: une pièce d'identité en cours de validité, un justificatif de domicile récent, vos derniers bulletins de salaire ou justificatifs de revenus, et un relevé d'identité bancaire (RIB).</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Jusqu'à quel âge peut-on emprunter&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Jkl.oin étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.</p>
-          </div>
-        </li>
-      </ul>
-      <div class="faq-more">
-        <a href="#" class="btn-orange">Consulter la FAQ</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Besoin d'un crédit ? ── -->
-  <section class="besoin-credit">
-    <div class="wrap">
-      <div class="besoin-inner">
-        <h2>Besoin d'un crédit&nbsp;?</h2>
-        <a href="#" class="besoin-main-link" data-sim="autre">Je fais un crédit conso →</a>
-        <div class="besoin-cols">
-          <div class="besoin-col">
-            <h3>Simulez vos crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="autre">Simulation crédit</a></li>
-              <li><a href="#" data-sim="auto">Simulation crédit auto</a></li>
-              <li><a href="#" data-sim="travaux">Simulation crédit travaux</a></li>
-              <li><a href="#" data-sim="autre">Simulation prêt personnel</a></li>
-              <li><a href="#" data-sim="famille-loisirs">Simulation crédit renouvelable</a></li>
-              <li><a href="#" data-sim="regroupement">Simulation rachat de crédits</a></li>
-            </ul>
-          </div>
-          <div class="besoin-col">
-            <h3>Nos offres de crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
-            </ul>
+  <!-- BESOIN D'UN CREDIT -->
+  <section class="section besoin">
+    <div class="section-inner">
+      <h2 class="section-title">Besoin d'un credit ?</h2>
+      <p class="section-sub">Trouvez l'offre qui correspond a votre budget</p>
+      <div class="besoin-grid">
+        <div class="besoin-col">
+          <h3>Simulez votre credit</h3>
+          <ul class="besoin-list">
+            <li><a href="#" data-sim="auto">Credit auto</a></li>
+            <li><a href="#" data-sim="travaux">Credit travaux</a></li>
+            <li><a href="#" data-sim="famille-loisirs">Credit famille &amp; loisirs</a></li>
+            <li><a href="#" data-sim="regroupement">Regroupement de credits</a></li>
+            <li><a href="#" data-sim="autre">Autre projet</a></li>
+          </ul>
+        </div>
+        <div class="besoin-col">
+          <div class="besoin-sim-card">
+            <div class="bsc-top">
+              <h4>Simulateur en ligne</h4>
+              <p>Obtenez votre mensualite en 3 minutes</p>
+            </div>
+            <button class="bsc-btn" data-sim="">Lancer la simulation</button>
           </div>
         </div>
-        <a href="#" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
+        <div class="besoin-col">
+          <h3>Nos offres</h3>
+          <ul class="besoin-list">
+            <li><a href="#" data-sim="" data-sim-amt="4000">Credit 4 000 &#8364;</a></li>
+            <li><a href="#" data-sim="" data-sim-amt="5000">Credit 5 000 &#8364;</a></li>
+            <li><a href="#" data-sim="" data-sim-amt="10000">Credit 10 000 &#8364;</a></li>
+            <li><a href="#" data-sim="" data-sim-amt="20000">Credit 20 000 &#8364;</a></li>
+            <li><a href="#" data-sim="" data-sim-amt="30000">Credit 30 000 &#8364;</a></li>
+            <li><a href="#" data-sim="" data-sim-amt="50000">Credit 50 000 &#8364;</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-</div><!-- /page -->
+  <!-- AVANTAGES -->
+  <section class="section avantages">
+    <div class="section-inner">
+      <h2 class="section-title">Pourquoi choisir Jkl.oin ?</h2>
+      <p class="section-sub">Des avantages concrets pour votre quotidien</p>
+      <div class="avantages-grid">
+        <div class="avt-card">
+          <div class="avt-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="avt-title">Reponse en 24h</div>
+          <div class="avt-desc">Obtenez une reponse de principe sous 24 heures ouvrees apres depot de votre dossier.</div>
+        </div>
+        <div class="avt-card">
+          <div class="avt-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="avt-title">100% securise</div>
+          <div class="avt-desc">Vos donnees personnelles et financieres sont protegees par un chiffrement de niveau bancaire.</div>
+        </div>
+        <div class="avt-card">
+          <div class="avt-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="avt-title">Sans frais caches</div>
+          <div class="avt-desc">Le TAEG est clairement affiche. Aucun frais de dossier, aucune mauvaise surprise.</div>
+        </div>
+        <div class="avt-card">
+          <div class="avt-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="avt-title">Conseillers disponibles</div>
+          <div class="avt-desc">Une equipe dediee pour vous accompagner a chaque etape de votre projet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- ══════════════════════════════
-     FOOTER
-══════════════════════════════ -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <span class="footer-logo">Jkl.oin</span>
-        <p class="footer-desc">Jkl.oin est une marque de CA Consumer Finance, SA au capital de 629&nbsp;480&nbsp;046&nbsp;€ — 1 rue Victor Basch, CS&nbsp;70001, 91068 MASSY Cedex — 542&nbsp;097&nbsp;522 RCS Evry.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Nos crédits</h4>
-        <ul>
-          <li><a href="#">Prêt personnel</a></li>
-          <li><a href="#">Crédit auto</a></li>
-          <li><a href="#">Crédit travaux</a></li>
-          <li><a href="#">Crédit renouvelable</a></li>
-          <li><a href="#">Rachat de crédits</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Espace client</h4>
-        <ul>
-          <li><a href="#">Se connecter</a></li>
-          <li><a href="#">Suivi de dossier</a></li>
-          <li><a href="#">Aide &amp; Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>À propos</h4>
-        <ul>
-          <li><a href="#">Qui sommes-nous&nbsp;?</a></li>
-          <li><a href="#">Jkl.oin s'engage</a></li>
-          <li><a href="#">Éco-transition</a></li>
-          <li><a href="#">Accessibilité</a></li>
-        </ul>
+  <!-- CHIFFRES -->
+  <section class="reassurance">
+    <div class="rea-inner">
+      <div class="rea-item"><div class="rea-num">4,5M</div><div class="rea-label">clients font confiance a Jkl.oin</div></div>
+      <div class="rea-item"><div class="rea-num">40+</div><div class="rea-label">ans d'experience dans le credit</div></div>
+      <div class="rea-item"><div class="rea-num">98%</div><div class="rea-label">de clients satisfaits</div></div>
+      <div class="rea-item"><div class="rea-num">75 000 &#8364;</div><div class="rea-label">montant maximum financable</div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq">
+    <div class="section-inner">
+      <h2 class="section-title" style="text-align:center">Questions frequentes</h2>
+      <p class="section-sub" style="text-align:center">Tout ce que vous devez savoir sur le credit a la consommation</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q">Qu'est-ce que le credit a la consommation ? <span class="faq-arr"></span></button>
+          <div class="faq-a">Le credit a la consommation est un pret destine a financer des achats de biens ou de services (hors immobilier). Il peut prendre la forme d'un credit affecte, d'un pret personnel ou d'un credit renouvelable.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Comment fonctionne la simulation en ligne ? <span class="faq-arr"></span></button>
+          <div class="faq-a">Notre simulateur vous permet de calculer instantanement vos mensualites ou la duree de votre credit. Choisissez votre projet, indiquez le montant souhaite et obtenez une estimation sans engagement en quelques secondes.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Quels documents sont necessaires pour une demande ? <span class="faq-arr"></span></button>
+          <div class="faq-a">Pour constituer votre dossier, vous aurez besoin de : une piece d'identite en cours de validite, un justificatif de domicile de moins de 3 mois, vos 3 derniers bulletins de salaire, et un RIB.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Puis-je rembourser mon credit par anticipation ? <span class="faq-arr"></span></button>
+          <div class="faq-a">Oui, vous pouvez rembourser votre credit par anticipation, en totalite ou en partie, a tout moment. Des indemnites peuvent s'appliquer selon les conditions de votre contrat, dans les limites fixees par la loi.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Quel est le delai de retractation apres signature ? <span class="faq-arr"></span></button>
+          <div class="faq-a">Conformement a la loi, vous disposez d'un delai de retractation de 14 jours calendaires a compter de l'acceptation de l'offre de credit, sans avoir a justifier votre decision ni a payer de penalites.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Comment suivre ma demande de credit en ligne ? <span class="faq-arr"></span></button>
+          <div class="faq-a">Apres soumission de votre dossier, vous recevez un numero de suivi par e-mail. Connectez-vous a votre espace client pour consulter l'etat d'avancement de votre demande en temps reel.</div>
+        </div>
       </div>
     </div>
-    <hr class="footer-sep"/>
-    <div class="footer-bottom">
-      <p class="footer-copy">© CA Consumer Finance 2026 — Jkl.oin</p>
-      <div class="footer-socials">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="YouTube">▶</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="f-logo">Jkl<span>.oin</span></div>
+          <p>Jkl.oin, filiale du groupe Credit Agricole, specialisee dans le credit a la consommation depuis plus de 40 ans.</p>
+          <div class="f-social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">X</a>
+            <a href="#" aria-label="Instagram">ig</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="YouTube">&#9654;</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Credits</h4>
+          <ul>
+            <li><a href="#">Credit auto</a></li>
+            <li><a href="#">Credit travaux</a></li>
+            <li><a href="#">Famille &amp; loisirs</a></li>
+            <li><a href="#">Regroupement de credits</a></li>
+            <li><a href="#">Credit renouvelable</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">La carte Jkl.oin</a></li>
+            <li><a href="#">Epargne</a></li>
+            <li><a href="#">Assurances</a></li>
+            <li><a href="#">Espace client</a></li>
+            <li><a href="#" data-sim="">Simulateur</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Informations</h4>
+          <ul>
+            <li><a href="#">Aide &amp; contact</a></li>
+            <li><a href="#">Trouver une agence</a></li>
+            <li><a href="#">Recrutement</a></li>
+            <li><a href="#">Presse</a></li>
+            <li><a href="#">Qui sommes-nous ?</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&#169; 2024 Jkl.oin &#8212; Societe anonyme au capital de 62 846 558 &#8364;. RCS Paris 542 097 522.</span>
+        <div class="fb-links">
+          <a href="#">Mentions legales</a>
+          <a href="#">Confidentialite</a>
+          <a href="#">Cookies</a>
+          <a href="#">Accessibilite</a>
+          <a href="#">Reclamations</a>
+        </div>
       </div>
     </div>
-    <div class="footer-legal">
-      <p>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
-      <p>Offres sous réserve d'acceptation définitive après étude des pièces justificatives demandées par CA Consumer Finance, prêteur, dont Jkl.oin est une marque. Intermédiaire d'assurances inscrit à l'ORIAS sous le n°&nbsp;07&nbsp;008&nbsp;079 (<a href="https://www.orias.fr" target="_blank" rel="noopener">www.orias.fr</a>). Vous disposez d'un droit légal de rétractation.</p>
-    </div>
+  </footer>
+
+</div><!-- /.page -->
+
+<!-- SIMULATEUR -->
+<div class="sim-page" id="sim-page">
+  <div class="sim-hd">
+    <span class="sim-hd-logo">Jkl<span>.oin</span></span>
+    <button class="sim-hd-close" id="sim-close-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Fermer
+    </button>
   </div>
-</footer>
-
-<!-- ══════════════════════════════
-     SIMULATEUR PLEINE PAGE
-══════════════════════════════ -->
-<div class="sim-page" id="sim-page" role="dialog" aria-modal="true" aria-label="Simulateur Jkl.oin">
-
-  <!-- En-tête sticky -->
-  <div class="sim-ph">
-    <span class="sim-ph-logo">Jkl.oin</span>
-    <button class="sim-ph-quit" id="sim-ph-quit">Quitter</button>
-  </div>
-
-  <!-- Mention légale -->
-  <div class="sim-legal-top">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
+  <div class="sim-progress"><div class="sim-progress-fill" id="sim-prog-fill"></div></div>
 
   <div class="sim-body">
 
-    <!-- ── Étape 1 : Projet ── -->
-    <div class="sim-pane s-show" id="sp1">
-      <h1 class="sim-title">Quel est votre projet ?</h1>
-      <p class="sim-req">Tous les champs sont obligatoires</p>
-      <div class="sim-proj-grid">
-
-        <button class="sim-proj-card" data-val="famille-loisirs">
-          <div class="sim-proj-ico">
-            <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-              <circle cx="9" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
-              <circle cx="20" cy="8" r="3" stroke="currentColor" stroke-width="2"/>
-              <path d="M1 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M19 18c2.5.8 4.5 3.2 4.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          Famille &amp; loisirs
-        </button>
-
-        <button class="sim-proj-card" data-val="auto">
-          <div class="sim-proj-ico">
-            <svg width="26" height="22" viewBox="0 0 28 22" fill="none">
-              <rect x="1" y="7" width="26" height="11" rx="3.5" stroke="currentColor" stroke-width="2"/>
-              <path d="M6 7l4-6h8l4 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="8" cy="18" r="2.5" fill="currentColor"/>
-              <circle cx="20" cy="18" r="2.5" fill="currentColor"/>
-            </svg>
-          </div>
-          Auto
-        </button>
-
-        <button class="sim-proj-card" data-val="travaux">
-          <div class="sim-proj-ico">
-            <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-              <path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          Travaux
-        </button>
-
-        <button class="sim-proj-card" data-val="autre">
-          <div class="sim-proj-ico">
-            <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-              <path d="M14 3c5 0 9 3.6 9 8 0 2.8-1.7 5.3-4.3 6.6L17 19h-6l-1.4-1.7C7.2 16 5 13.3 5 11c0-4.4 4-8 9-8z" stroke="currentColor" stroke-width="2"/>
-              <path d="M11 19v2a3 3 0 006 0v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          Autre
-        </button>
-
-        <button class="sim-proj-card sp-full" data-val="regroupement">
-          <div class="sim-proj-ico">
-            <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-              <path d="M4 8h20M4 14h20M4 20h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="22" cy="20" r="4" stroke="currentColor" stroke-width="2"/>
-              <path d="M20.5 20h3M22 18.5v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          Regroupement de crédits
-        </button>
-
-      </div>
-      <!-- Common -->
-      <div class="sim-avis-badge">
-        <div class="sim-avis-logo">AV</div>
-        <div class="sim-avis-info">
-          <b>+5&nbsp;823 avis <span class="sim-avis-stars">★★★★★</span> 4,6</b>
-          <span>sur 5</span>
-        </div>
-      </div>
-      <p class="sim-tagline">Simulez votre projet en quelques clics, c'est simple et sans engagement&nbsp;!</p>
-      <div class="sim-trust-grid">
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Depuis plus de 70 ans à vos côtés</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Parcours 100% sécurisé</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 8h20M4 13h20M4 18h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-          <span class="sim-trust-lbl">Simulation sans engagement</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="22" height="14" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7 17c3-6 5-2 8-3s3-5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Signature électronique</span>
-        </div>
-      </div>
-      <div class="sim-foot-links">
-        <a href="#">Mentions légales</a>
-        <a href="#">Utilisation des données</a>
-        <a href="#">Accessibilité : Partiellement conforme</a>
-        <a href="#">Gérer mes cookies</a>
+    <!-- STEP 1 -->
+    <div id="sp1" style="display:none">
+      <div class="sim-step-title">Quel est votre projet ?</div>
+      <div class="sim-step-sub">Selectionnez le type de credit qui correspond a votre besoin.</div>
+      <div class="proj-grid">
+        <div class="proj-card" data-p="auto"><div class="pc-icon">&#x1F697;</div><div class="pc-name">Auto</div></div>
+        <div class="proj-card" data-p="travaux"><div class="pc-icon">&#x1F3E0;</div><div class="pc-name">Travaux</div></div>
+        <div class="proj-card" data-p="famille-loisirs"><div class="pc-icon">&#x2708;&#xFE0F;</div><div class="pc-name">Famille &amp; Loisirs</div></div>
+        <div class="proj-card" data-p="regroupement"><div class="pc-icon">&#x1F4B3;</div><div class="pc-name">Regroupement</div></div>
+        <div class="proj-card proj-last" data-p="autre"><div class="pc-icon">&#x1F4CB;</div><div class="pc-name">Autre projet</div></div>
       </div>
     </div>
 
-    <!-- ── Étape 2 : Montant ── -->
-    <div class="sim-pane" id="sp2">
-      <h1 class="sim-title">Passons au montant du financement</h1>
-      <p class="sim-sub">Indiquez la somme nécessaire à la réalisation de votre projet&nbsp;:</p>
-      <p class="sim-req">Tous les champs sont obligatoires</p>
-      <input type="number" id="sim-amount-input" class="sim-amount-fld"
-        placeholder="Montant (de 150 à 75 000 €)" min="150" max="75000"
-        aria-label="Montant du financement"/>
-      <p class="sim-field-err" id="sim-amount-err">Veuillez saisir un montant entre 150 et 75&nbsp;000&nbsp;€</p>
-      <!-- Common -->
-      <div class="sim-avis-badge">
-        <div class="sim-avis-logo">AV</div>
-        <div class="sim-avis-info">
-          <b>+5&nbsp;823 avis <span class="sim-avis-stars">★★★★★</span> 4,6</b>
-          <span>sur 5</span>
+    <!-- STEP 2 -->
+    <div id="sp2" style="display:none">
+      <div class="sim-step-title">Quel montant souhaitez-vous emprunter ?</div>
+      <div class="sim-step-sub">Indiquez le montant dont vous avez besoin pour votre projet.</div>
+      <div class="amount-wrap">
+        <label class="amount-label" for="sim-amt-inp">Montant du credit</label>
+        <input class="amount-inp" id="sim-amt-inp" type="number" min="150" max="75000" placeholder="Ex : 10 000"/>
+        <div class="amount-hint">Entre 150 &#8364; et 75 000 &#8364;</div>
+        <div class="amount-chips">
+          <button class="amount-chip" data-amt="3000">3 000 &#8364;</button>
+          <button class="amount-chip" data-amt="5000">5 000 &#8364;</button>
+          <button class="amount-chip" data-amt="10000">10 000 &#8364;</button>
+          <button class="amount-chip" data-amt="15000">15 000 &#8364;</button>
+          <button class="amount-chip" data-amt="20000">20 000 &#8364;</button>
+          <button class="amount-chip" data-amt="30000">30 000 &#8364;</button>
         </div>
-      </div>
-      <p class="sim-tagline">Simulez votre projet en quelques clics, c'est simple et sans engagement&nbsp;!</p>
-      <div class="sim-trust-grid">
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Depuis plus de 70 ans à vos côtés</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Parcours 100% sécurisé</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 8h20M4 13h20M4 18h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-          <span class="sim-trust-lbl">Simulation sans engagement</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="22" height="14" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7 17c3-6 5-2 8-3s3-5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Signature électronique</span>
-        </div>
-      </div>
-      <div class="sim-foot-links">
-        <a href="#">Mentions légales</a>
-        <a href="#">Utilisation des données</a>
-        <a href="#">Accessibilité : Partiellement conforme</a>
-        <a href="#">Gérer mes cookies</a>
       </div>
     </div>
 
-    <!-- ── Étape 3 : Mensualité ou durée ── -->
-    <div class="sim-pane" id="sp3">
-      <h1 class="sim-title">Choisissez votre mensualité ou votre durée de remboursement</h1>
-      <p class="sim-sub" id="sim-step3-sub">Indiquez vos préférences pour rembourser votre emprunt.</p>
-      <p class="sim-choice-lbl">Je souhaite définir :</p>
-      <div class="sim-radios">
-        <label class="sim-radio">
-          <input type="radio" name="sim-choix" value="mensualite" id="sim-r-mens" checked/>
-          La mensualité
+    <!-- STEP 3 -->
+    <div id="sp3" style="display:none">
+      <div class="sim-step-title">Comment souhaitez-vous simuler ?</div>
+      <div class="sim-step-sub">Choisissez de definir vos mensualites ou la duree de remboursement.</div>
+      <div class="choice-radios">
+        <label class="choice-radio sel" id="cr-mens">
+          <input type="radio" name="sim-choix" value="mensualite" checked/>
+          <div class="cr-title">Par mensualite</div>
+          <div class="cr-desc">Je choisis mes mensualites, on calcule la duree</div>
         </label>
-        <label class="sim-radio">
-          <input type="radio" name="sim-choix" value="duree" id="sim-r-dur"/>
-          Le nombre de mensualités
+        <label class="choice-radio" id="cr-duree">
+          <input type="radio" name="sim-choix" value="duree"/>
+          <div class="cr-title">Par duree</div>
+          <div class="cr-desc">Je choisis la duree, on calcule les mensualites</div>
         </label>
       </div>
-      <select class="sim-sel" id="sim-options-sel" aria-label="Choisissez une option"></select>
-      <!-- Common -->
-      <div class="sim-avis-badge">
-        <div class="sim-avis-logo">AV</div>
-        <div class="sim-avis-info">
-          <b>+5&nbsp;823 avis <span class="sim-avis-stars">★★★★★</span> 4,6</b>
-          <span>sur 5</span>
-        </div>
-      </div>
-      <p class="sim-tagline">Simulez votre projet en quelques clics, c'est simple et sans engagement&nbsp;!</p>
-      <div class="sim-trust-grid">
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Depuis plus de 70 ans à vos côtés</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Parcours 100% sécurisé</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 8h20M4 13h20M4 18h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-          <span class="sim-trust-lbl">Simulation sans engagement</span>
-        </div>
-        <div class="sim-trust-item">
-          <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="22" height="14" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7 17c3-6 5-2 8-3s3-5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Signature électronique</span>
-        </div>
-      </div>
-      <div class="sim-foot-links">
-        <a href="#">Mentions légales</a>
-        <a href="#">Utilisation des données</a>
-        <a href="#">Accessibilité : Partiellement conforme</a>
-        <a href="#">Gérer mes cookies</a>
-      </div>
-    </div>
-
-    <!-- ── Étape 4 : Résultats ── -->
-    <div class="sim-pane" id="sp4">
-      <h1 class="sim-title">Votre simulation</h1>
-      <div class="sim-res-card">
-        <p class="sim-res-lbl">Soit environ</p>
-        <div class="sim-res-val" id="sim-r-monthly">— €</div>
-        <p class="sim-res-unit">par mois</p>
-        <div class="sim-res-tbl">
-          <div class="sim-res-row"><span>Montant emprunté</span><b id="sim-r-montant">—</b></div>
-          <div class="sim-res-row"><span>Durée du crédit</span><b id="sim-r-duree">—</b></div>
-          <div class="sim-res-row"><span>TAEG fixe indicatif</span><b id="sim-r-taeg">—</b></div>
-          <div class="sim-res-row"><span>Coût total du crédit</span><b id="sim-r-cout">—</b></div>
-          <div class="sim-res-row"><span>Montant total dû</span><b id="sim-r-total">—</b></div>
-        </div>
-        <p class="sim-res-notice">Simulation à titre indicatif. Offre soumise à acceptation. TAEG fixe indicatif. Un crédit vous engage et doit être remboursé.</p>
-      </div>
-      <button class="sim-cta-big">Je fais ma demande →</button>
-      <button class="sim-restart" id="sim-restart">← Nouvelle simulation</button>
-    </div>
-
-
-    <!-- ── Étape 5 : Formulaire de demande ── -->
-    <div class="sim-pane" id="sp5">
-      <h1 class="sim-title">Votre demande de crédit</h1>
-      <p class="sim-sub">Renseignez vos informations pour finaliser votre demande.</p>
-      <p class="sim-req">Tous les champs sont obligatoires</p>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl">Civilité</label>
-        <div class="sim-civility">
-          <label><input type="radio" name="civilite" value="M" checked/> M.</label>
-          <label><input type="radio" name="civilite" value="Mme"/> Mme</label>
-        </div>
-      </div>
-
-      <div class="sim-form-row">
-        <div class="sim-form-group">
-          <label class="sim-form-lbl" for="f-prenom">Prénom</label>
-          <input type="text" id="f-prenom" class="sim-form-input" placeholder="Votre prénom" autocomplete="given-name"/>
-        </div>
-        <div class="sim-form-group">
-          <label class="sim-form-lbl" for="f-nom">Nom</label>
-          <input type="text" id="f-nom" class="sim-form-input" placeholder="Votre nom" autocomplete="family-name"/>
-        </div>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-ddn">Date de naissance</label>
-        <input type="date" id="f-ddn" class="sim-form-input"/>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-email">Email</label>
-        <input type="email" id="f-email" class="sim-form-input" placeholder="votre@email.fr" autocomplete="email"/>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-tel">Téléphone mobile</label>
-        <input type="tel" id="f-tel" class="sim-form-input" placeholder="06 XX XX XX XX" autocomplete="tel"/>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-sitpro">Situation professionnelle</label>
-        <select id="f-sitpro" class="sim-sel">
-          <option value="" disabled selected>Choisissez...</option>
-          <option value="cdi">Salarié(e) CDI</option>
-          <option value="cdd">Salarié(e) CDD</option>
-          <option value="independant">Travailleur indépendant</option>
-          <option value="fonctionnaire">Fonctionnaire / Titulaire</option>
-          <option value="retraite">Retraité(e)</option>
-          <option value="sans">Sans emploi</option>
-          <option value="autre">Autre</option>
+      <div class="choice-sel-wrap" id="mens-wrap">
+        <label class="choice-sel-label" for="sim-mens-sel">Mensualite souhaitee</label>
+        <select class="choice-sel" id="sim-mens-sel">
+          <option value="50">50 &#8364; / mois</option>
+          <option value="100">100 &#8364; / mois</option>
+          <option value="150">150 &#8364; / mois</option>
+          <option value="200" selected>200 &#8364; / mois</option>
+          <option value="250">250 &#8364; / mois</option>
+          <option value="300">300 &#8364; / mois</option>
+          <option value="400">400 &#8364; / mois</option>
+          <option value="500">500 &#8364; / mois</option>
         </select>
       </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-revenus">Revenus mensuels nets (€)</label>
-        <input type="number" id="f-revenus" class="sim-form-input" placeholder="Ex : 2 000" min="0"/>
+      <div class="choice-sel-wrap" id="duree-wrap" style="display:none">
+        <label class="choice-sel-label" for="sim-duree-sel">Duree de remboursement</label>
+        <select class="choice-sel" id="sim-duree-sel">
+          <option value="12">12 mois (1 an)</option>
+          <option value="24">24 mois (2 ans)</option>
+          <option value="36">36 mois (3 ans)</option>
+          <option value="48">48 mois (4 ans)</option>
+          <option value="60" selected>60 mois (5 ans)</option>
+          <option value="72">72 mois (6 ans)</option>
+          <option value="84">84 mois (7 ans)</option>
+        </select>
       </div>
-
-      <p class="sim-form-note">En soumettant ce formulaire, vous acceptez que vos données soient traitées par Jkl.oin dans le cadre de votre demande de crédit. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données conformément à la réglementation en vigueur.</p>
     </div>
 
-  </div><!-- /sim-body -->
+    <!-- STEP 4 -->
+    <div id="sp4" style="display:none">
+      <div class="sim-step-title">Votre simulation</div>
+      <div class="sim-step-sub">Resultat base sur un TAEG de <span id="res-taeg">5,90</span> %</div>
+      <div class="result-card">
+        <div class="rc-row">
+          <div class="rc-main">
+            <div class="rc-label" id="res-main-label">Mensualite estimee</div>
+            <div><span class="rc-value" id="res-main-val">&#8212;</span> <span class="rc-unit" id="res-main-unit">&#8364;/mois</span></div>
+          </div>
+          <div class="rc-details">
+            <div class="rd-item">Montant emprunte<strong id="res-montant">&#8212;</strong></div>
+            <div class="rd-item">Duree<strong id="res-duree">&#8212;</strong></div>
+            <div class="rd-item">Cout total<strong id="res-total">&#8212;</strong></div>
+          </div>
+        </div>
+      </div>
+      <p class="result-legal">Simulation donnee a titre indicatif. Un credit vous engage et doit etre rembourse. Verifiez vos capacites de remboursement avant de vous engager. TAEG fixe de 5,90 % pour un montant emprunte de 10 000 &#8364; sur 60 mois. Sous reserve d'acceptation par Jkl.oin.</p>
+      <button class="result-cta" id="btn-demande">Je fais ma demande</button>
+      <button class="result-restart" id="btn-restart">Nouvelle simulation</button>
+    </div>
 
-  <!-- Barre du bas fixe -->
-  <div class="sim-bottombar">
-    <button class="sim-bb-back" id="sim-bb-back" disabled>Retour</button>
-    <span class="sim-bb-prog" id="sim-bb-prog">Progression&nbsp;: 10%</span>
-    <button class="sim-bb-next" id="sim-bb-next">Suivant</button>
+    <!-- STEP 5 -->
+    <div id="sp5" style="display:none">
+      <div class="sim-step-title">Votre demande de credit</div>
+      <div class="sim-step-sub">Completez vos informations pour finaliser votre demande.</div>
+      <div class="sform-grid">
+        <div class="sform-row">
+          <label>Civilite</label>
+          <select class="sform-sel">
+            <option value="" disabled selected>Selectionner</option>
+            <option>Monsieur</option>
+            <option>Madame</option>
+          </select>
+        </div>
+        <div class="sform-row">
+          <label>Situation professionnelle</label>
+          <select class="sform-sel">
+            <option value="" disabled selected>Selectionner</option>
+            <option>Salarie CDI</option>
+            <option>Salarie CDD</option>
+            <option>Fonctionnaire</option>
+            <option>Independant</option>
+            <option>Retraite</option>
+            <option>Sans emploi</option>
+          </select>
+        </div>
+        <div class="sform-row">
+          <label>Prenom</label>
+          <input type="text" class="sform-inp" placeholder="Votre prenom"/>
+        </div>
+        <div class="sform-row">
+          <label>Nom</label>
+          <input type="text" class="sform-inp" placeholder="Votre nom"/>
+        </div>
+        <div class="sform-row">
+          <label>Date de naissance</label>
+          <input type="date" class="sform-inp"/>
+        </div>
+        <div class="sform-row">
+          <label>Telephone</label>
+          <input type="tel" class="sform-inp" placeholder="06 00 00 00 00"/>
+        </div>
+        <div class="sform-row full">
+          <label>Adresse e-mail</label>
+          <input type="email" class="sform-inp" placeholder="votre@email.fr"/>
+        </div>
+        <div class="sform-row full">
+          <label>Revenus mensuels nets (&#8364;)</label>
+          <input type="number" class="sform-inp" placeholder="Ex : 2 500" min="0"/>
+        </div>
+        <p class="sform-legal">En soumettant ce formulaire, vous acceptez que Jkl.oin traite vos donnees personnelles pour l'etude de votre demande. Conformement au RGPD, vous disposez d'un droit d'acces, de rectification et de suppression de vos donnees.</p>
+        <button class="sform-submit" id="sform-submit-btn">Envoyer ma demande</button>
+      </div>
+    </div>
+
+  </div><!-- /.sim-body -->
+
+  <div class="sim-bar" id="sim-bar">
+    <button class="sim-back" id="sim-btn-back">&#8592; Retour</button>
+    <span class="sim-step-info" id="sim-step-info">Etape 1 / 5</span>
+    <button class="sim-next" id="sim-btn-next">Suivant &#8594;</button>
   </div>
-
-</div>
+</div><!-- /#sim-page -->
 
 <script>
-  // Menu mobile
-  var btn = document.getElementById('menu-btn');
-  var menu = document.getElementById('mob-menu');
-  var close = document.getElementById('mob-close');
-  var simBar = document.getElementById('mob-sim-bar');
-  function openMenu(){ menu.classList.add('open'); if(simBar) simBar.style.display='none'; }
-  function closeMenu(){ menu.classList.remove('open'); if(simBar) simBar.style.display=''; }
-  if(btn) btn.addEventListener('click', openMenu);
-  if(close) close.addEventListener('click', closeMenu);
+(function(){
+  var sd = { step:1, projet:null, montant:null, choix:'mensualite', duree:null, mensualite:null };
+  var RATE = 5.9/100/12;
+  var mobBar = document.getElementById('mob-sim-bar');
 
-  // Accordion mobile
-  document.querySelectorAll('.mob-acc-btn').forEach(function(b){
-    b.addEventListener('click',function(){
-      var item=this.closest('.mob-acc-item');
-      var isOpen=item.classList.contains('open');
-      document.querySelectorAll('.mob-acc-item').forEach(function(i){i.classList.remove('open');});
+  // ── MOBILE MENU ──
+  var menuBtn = document.getElementById('menu-btn');
+  var mobMenu = document.getElementById('mob-menu');
+  var mobClose = document.getElementById('mob-close');
+
+  function openMenu(){
+    mobMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if(mobBar) mobBar.style.display = 'none';
+  }
+  function closeMenu(){
+    mobMenu.classList.remove('open');
+    document.body.style.overflow = '';
+    if(mobBar) mobBar.style.display = '';
+  }
+  if(menuBtn) menuBtn.addEventListener('click', openMenu);
+  if(mobClose) mobClose.addEventListener('click', closeMenu);
+
+  // Mobile accordions
+  document.querySelectorAll('.mob-acc-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = this.closest('.mob-acc-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.mob-acc-item').forEach(function(i){ i.classList.remove('open'); });
       if(!isOpen) item.classList.add('open');
     });
   });
 
-  // FAQ accordion
-  document.querySelectorAll('.faq-question').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var item=this.closest('.faq-item');
-      var isOpen=item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open');el.querySelector('.faq-question').setAttribute('aria-expanded','false');});
-      if(!isOpen){item.classList.add('open');this.setAttribute('aria-expanded','true');}
+  // ── FAQ ──
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click', function(){
+      var item = this.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!isOpen) item.classList.add('open');
     });
   });
 
-  // ── Simulateur pleine page ──────────────────────────
-  var simData = {step:1, projet:null, montant:null, choix:'mensualite', duree:null};
-  var RATE = 5.9/100/12;
-  var RATE_REG = 4.9/100/12;
-  var PROG = {1:'10%', 2:'35%', 3:'60%', 4:'80%', 5:'100%'};
-
-  function fmtEur(n){ return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
-  function fmtAmt(n){ return parseInt(n).toLocaleString('fr-FR')+' €'; }
-
-  function calcPMT(P,n,isReg){
-    var r=isReg?RATE_REG:RATE;
-    if(r===0) return P/n;
-    return P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  }
-
-  function showStep(n){
-    simData.step=n;
-    document.querySelectorAll('.sim-pane').forEach(function(p){p.classList.remove('s-show');});
-    document.getElementById('sp'+n).classList.add('s-show');
-    document.getElementById('sim-page').scrollTop=0;
-    document.getElementById('sim-bb-prog').textContent='Progression : '+(PROG[n]||'90%');
-    var nxt=document.getElementById('sim-bb-next');
-    if(n===3){ nxt.textContent='Découvrir les offres'; nxt.classList.add('bb-teal'); }
-    else if(n===5){ nxt.textContent='Valider ma demande'; nxt.classList.add('bb-teal'); }
-    else{ nxt.textContent='Suivant'; nxt.classList.remove('bb-teal'); }
-    document.getElementById('sim-bb-back').disabled=(n<=1);
-    if(n===3){
-      var P=parseInt(simData.montant)||5000;
-      document.getElementById('sim-step3-sub').innerHTML=
-        'Indiquez vos préférences pour rembourser votre emprunt de <strong>'+fmtAmt(P)+'</strong>.';
-      document.getElementById('sim-r-mens').checked=true;
-      simData.choix='mensualite';
-      refreshDropdown();
-    }
-    if(n===4) renderResults();
-  }
-
-  function refreshDropdown(){
-    var sel=document.getElementById('sim-options-sel');
-    sel.innerHTML='';
-    var P=parseInt(simData.montant)||5000;
-    var isReg=(simData.projet==='regroupement');
-    if(simData.choix==='mensualite'){
-      [84,72,60,48,36,24].forEach(function(m){
-        var pmt=calcPMT(P,m,isReg);
-        var o=document.createElement('option');
-        o.value=m;
-        o.textContent=Math.round(pmt)+' € / mois';
-        sel.appendChild(o);
-      });
-    } else {
-      [12,24,36,48,60,72,84].forEach(function(m){
-        var o=document.createElement('option');
-        o.value=m;
-        o.textContent=m+' mensualités';
-        sel.appendChild(o);
-      });
-    }
-    simData.duree=parseInt(sel.value);
-  }
-
-  function renderResults(){
-    var P=parseInt(simData.montant)||5000;
-    var n=simData.duree||36;
-    var isReg=(simData.projet==='regroupement');
-    var rate=isReg?4.9:5.9;
-    var pmt=calcPMT(P,n,isReg);
-    var total=pmt*n;
-    var cout=total-P;
-    document.getElementById('sim-r-monthly').textContent=fmtEur(pmt);
-    document.getElementById('sim-r-montant').textContent=fmtAmt(P);
-    document.getElementById('sim-r-duree').textContent=n+' mois';
-    document.getElementById('sim-r-taeg').textContent=rate.toString().replace('.',',')+' %';
-    document.getElementById('sim-r-cout').textContent=fmtEur(cout);
-    document.getElementById('sim-r-total').textContent=fmtEur(total);
-  }
-
+  // ── SIMULATOR ──
   function openSim(projet, montant){
-    simData={step:1,projet:projet||null,montant:montant||null,choix:'mensualite',duree:null};
-    document.querySelectorAll('.sim-proj-card').forEach(function(b){
-      b.classList.toggle('sp-sel', !!projet && b.dataset.val===projet);
-    });
-    if(montant){ document.getElementById('sim-amount-input').value=montant; }
-    else { document.getElementById('sim-amount-input').value=''; }
-    document.getElementById('sim-amount-err').classList.remove('show');
-    document.getElementById('sim-amount-input').classList.remove('f-err');
-    var startStep = (projet && !montant) ? 2 : 1;
-    if(projet && montant){ startStep=3; }
+    sd = { step:1, projet:projet||null, montant:montant||null, choix:'mensualite', duree:null, mensualite:null };
+    var startStep = 1;
+    if(projet && !montant){ startStep = 2; }
+    if(projet && montant){ startStep = 3; }
+
     document.getElementById('sim-page').classList.add('open');
-    document.body.style.overflow='hidden';
-    if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='none';
+    document.body.style.overflow = 'hidden';
+    if(mobBar) mobBar.style.display = 'none';
     showStep(startStep);
   }
 
   function closeSim(){
     document.getElementById('sim-page').classList.remove('open');
-    document.body.style.overflow='';
-    if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
+    document.body.style.overflow = '';
+    if(mobBar) mobBar.style.display = '';
   }
+  window.closeSim = closeSim;
+  window.openSim = openSim;
 
-  document.getElementById('sim-ph-quit').addEventListener('click',closeSim);
+  var simCloseBtn = document.getElementById('sim-close-btn');
+  if(simCloseBtn) simCloseBtn.addEventListener('click', closeSim);
 
-  document.querySelectorAll('.sim-proj-card').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      simData.projet=this.dataset.val;
-      document.querySelectorAll('.sim-proj-card').forEach(function(b){b.classList.remove('sp-sel');});
-      this.classList.add('sp-sel');
+  function showStep(n){
+    sd.step = n;
+    [1,2,3,4,5].forEach(function(i){
+      var el = document.getElementById('sp'+i);
+      if(el) el.style.display = 'none';
     });
-  });
+    var el = document.getElementById('sp'+n);
+    if(el) el.style.display = 'block';
 
-  document.getElementById('sim-bb-next').addEventListener('click',function(){
-    var s=simData.step;
-    if(s===1){
-      if(!simData.projet) return;
-      showStep(2);
-    } else if(s===2){
-      var val=parseInt(document.getElementById('sim-amount-input').value);
-      var err=document.getElementById('sim-amount-err');
-      var inp=document.getElementById('sim-amount-input');
-      if(!val||val<150||val>75000){
-        err.classList.add('show'); inp.classList.add('f-err'); return;
-      }
-      err.classList.remove('show'); inp.classList.remove('f-err');
-      simData.montant=val;
-      showStep(3);
-    } else if(s===3){
-      simData.duree=parseInt(document.getElementById('sim-options-sel').value);
-      showStep(4);
-    } else if(s===4){
-      showStep(5);
-    } else if(s===5){
-      document.querySelectorAll('.sim-pane').forEach(function(p){p.classList.remove('s-show');});
-      document.getElementById('sim-bb-next').style.display='none';
-      document.getElementById('sim-bb-back').style.display='none';
-      document.getElementById('sim-bb-prog').textContent='Demande envoyée !';
-      var confirm=document.createElement('div');confirm.className='sim-pane s-show sim-confirm';
-      confirm.innerHTML='<div class="sim-confirm-ico">✅</div><p class="sim-confirm-title">Demande enregistrée !</p><p class="sim-confirm-msg">Un conseiller Jkl.oin vous contactera dans les plus brefs délais pour finaliser votre dossier.</p>';
-      document.querySelector('.sim-body').appendChild(confirm);
+    var pct = {1:'20%',2:'40%',3:'60%',4:'80%',5:'100%'};
+    var fill = document.getElementById('sim-prog-fill');
+    if(fill) fill.style.width = pct[n]||'0%';
+
+    var info = document.getElementById('sim-step-info');
+    if(info) info.textContent = 'Etape ' + n + ' / 5';
+
+    var back = document.getElementById('sim-btn-back');
+    if(back) back.disabled = (n === 1);
+
+    var next = document.getElementById('sim-btn-next');
+    if(next){
+      if(n === 4){ next.style.display = 'none'; }
+      else { next.style.display = ''; next.textContent = (n===5) ? 'Envoyer' : 'Suivant →'; }
     }
+
+    // Pre-fill amount
+    if(n === 2 && sd.montant){
+      var inp = document.getElementById('sim-amt-inp');
+      if(inp){ inp.value = sd.montant; highlightChip(sd.montant); }
+    }
+
+    // Pre-select project
+    if(n === 1 && sd.projet){
+      document.querySelectorAll('.proj-card').forEach(function(c){
+        c.classList.toggle('sel', c.getAttribute('data-p') === sd.projet);
+      });
+    }
+
+    if(n === 4) computeResult();
+
+    var sp = document.getElementById('sim-page');
+    if(sp) sp.scrollTop = 0;
+  }
+
+  function simNext(){
+    var n = sd.step;
+    if(n === 1){
+      var sel = document.querySelector('.proj-card.sel');
+      if(!sel){ alert('Veuillez selectionner un projet.'); return; }
+      sd.projet = sel.getAttribute('data-p');
+      showStep(2);
+    } else if(n === 2){
+      var v = parseFloat(document.getElementById('sim-amt-inp').value);
+      if(!v || v < 150 || v > 75000){ alert('Veuillez entrer un montant entre 150 et 75 000.'); return; }
+      sd.montant = v;
+      showStep(3);
+    } else if(n === 3){
+      var r = document.querySelector('input[name="sim-choix"]:checked');
+      sd.choix = r ? r.value : 'mensualite';
+      if(sd.choix === 'mensualite'){
+        sd.mensualite = parseFloat(document.getElementById('sim-mens-sel').value);
+        sd.duree = null;
+      } else {
+        sd.duree = parseInt(document.getElementById('sim-duree-sel').value);
+        sd.mensualite = null;
+      }
+      showStep(4);
+    } else if(n === 5){
+      alert('Merci ! Votre demande a bien ete envoyee. Nous vous contacterons sous 24h.');
+      closeSim();
+    }
+  }
+
+  var nextBtn = document.getElementById('sim-btn-next');
+  if(nextBtn) nextBtn.addEventListener('click', simNext);
+
+  var backBtn = document.getElementById('sim-btn-back');
+  if(backBtn) backBtn.addEventListener('click', function(){
+    if(sd.step > 1) showStep(sd.step - 1);
   });
 
-  document.getElementById('sim-bb-back').addEventListener('click',function(){
-    if(simData.step>1) showStep(simData.step-1);
+  var btnDemande = document.getElementById('btn-demande');
+  if(btnDemande) btnDemande.addEventListener('click', function(){ showStep(5); });
+
+  var btnRestart = document.getElementById('btn-restart');
+  if(btnRestart) btnRestart.addEventListener('click', function(){ openSim(null,null); });
+
+  var sfSubmit = document.getElementById('sform-submit-btn');
+  if(sfSubmit) sfSubmit.addEventListener('click', function(){
+    alert('Merci ! Votre demande a bien ete envoyee. Nous vous contacterons sous 24h.');
+    closeSim();
   });
 
-  document.querySelectorAll('input[name="sim-choix"]').forEach(function(r){
-    r.addEventListener('change',function(){
-      simData.choix=this.value;
-      refreshDropdown();
+  function computeResult(){
+    var montant = sd.montant || 10000;
+    var r = RATE;
+    function fmt(n){ return n.toLocaleString('fr-FR'); }
+
+    if(sd.choix === 'duree' && sd.duree){
+      var n = sd.duree;
+      var pmt = montant * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1);
+      document.getElementById('res-main-label').textContent = 'Mensualite estimee';
+      document.getElementById('res-main-val').textContent = pmt.toFixed(2).replace('.',',');
+      document.getElementById('res-main-unit').textContent = '€/mois';
+      document.getElementById('res-duree').textContent = n + ' mois';
+      document.getElementById('res-montant').textContent = fmt(montant) + ' €';
+      document.getElementById('res-total').textContent = fmt(Math.round(pmt*n)) + ' €';
+    } else {
+      var mens = sd.mensualite || 200;
+      var ratio = montant * r / mens;
+      if(ratio >= 1){
+        document.getElementById('res-main-val').textContent = '?';
+        document.getElementById('res-duree').textContent = 'Mensualite trop faible';
+        return;
+      }
+      var n = Math.ceil(-Math.log(1-ratio)/Math.log(1+r));
+      document.getElementById('res-main-label').textContent = 'Duree estimee';
+      document.getElementById('res-main-val').textContent = n;
+      document.getElementById('res-main-unit').textContent = 'mois';
+      document.getElementById('res-duree').textContent = n + ' mois';
+      document.getElementById('res-montant').textContent = fmt(montant) + ' €';
+      document.getElementById('res-total').textContent = fmt(Math.round(mens*n)) + ' €';
+    }
+  }
+
+  // Project cards
+  document.querySelectorAll('.proj-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      document.querySelectorAll('.proj-card').forEach(function(c){ c.classList.remove('sel'); });
+      this.classList.add('sel');
     });
   });
 
-  document.getElementById('sim-options-sel').addEventListener('change',function(){
-    simData.duree=parseInt(this.value);
+  // Amount chips
+  document.querySelectorAll('.amount-chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var amt = parseFloat(this.getAttribute('data-amt'));
+      var inp = document.getElementById('sim-amt-inp');
+      if(inp) inp.value = amt;
+      highlightChip(amt);
+    });
   });
-
-  document.getElementById('sim-restart').addEventListener('click',function(){
-    openSim(null,null);
-  });
-
-  document.querySelector('.sim-cta-big').addEventListener('click',function(){
-    showStep(5);
-  });
-
-  var heroForm=document.querySelector('.sim-form');
-  if(heroForm){
-    heroForm.addEventListener('submit',function(e){
-      e.preventDefault();
-      var p=this.querySelector('[name=projet]').value||null;
-      var m=parseInt(this.querySelector('[name=montant]').value)||null;
-      openSim(p,m);
+  function highlightChip(amt){
+    document.querySelectorAll('.amount-chip').forEach(function(c){
+      c.classList.toggle('sel', parseFloat(c.getAttribute('data-amt')) === parseFloat(amt));
     });
   }
 
-  document.querySelectorAll('[data-sim]').forEach(function(el){
-    el.addEventListener('click',function(e){
-      e.preventDefault();
-      var proj=this.dataset.sim||null;
-      var amt=this.dataset.simAmt?parseInt(this.dataset.simAmt):null;
-      openSim(proj,amt);
+  // Choice radio
+  document.querySelectorAll('input[name="sim-choix"]').forEach(function(r){
+    r.addEventListener('change', function(){
+      var v = this.value;
+      document.getElementById('cr-mens').classList.toggle('sel', v==='mensualite');
+      document.getElementById('cr-duree').classList.toggle('sel', v==='duree');
+      document.getElementById('mens-wrap').style.display = (v==='mensualite') ? '' : 'none';
+      document.getElementById('duree-wrap').style.display = (v==='duree') ? '' : 'none';
     });
   });
 
-  // Scroll shadow
-  window.addEventListener('scroll', function() {
-    document.querySelector('.header').style.boxShadow =
-      window.scrollY > 8 ? '0 4px 18px rgba(0,0,0,.15)' : '0 1px 8px rgba(0,0,0,.12)';
+  // Product card clicks (non-data-sim click on card)
+  document.querySelectorAll('.prod-card').forEach(function(card){
+    card.addEventListener('click', function(e){
+      if(e.target.closest('[data-sim]') && e.target !== this) return;
+      var p = this.getAttribute('data-sim');
+      openSim(p || null, null);
+    });
   });
+
+  // Global data-sim trigger
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-sim]');
+    if(!el) return;
+    if(el.closest('.prod-card')) return; // handled above
+    var inMenu = el.closest('#mob-menu');
+    var projet = el.getAttribute('data-sim') || null;
+    if(projet === '') projet = null;
+    var amtAttr = el.getAttribute('data-sim-amt');
+    var montant = amtAttr ? parseFloat(amtAttr) : null;
+    if(inMenu) closeMenu();
+    e.preventDefault();
+    openSim(projet, montant);
+  });
+
+  // Hero form
+  var heroForm = document.getElementById('hero-form');
+  if(heroForm){
+    heroForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var p = document.getElementById('hero-projet').value || null;
+      var m = parseFloat(document.getElementById('hero-montant').value) || null;
+      openSim(p, m);
+    });
+  }
+
+})();
 </script>
 </body>
 </html>
