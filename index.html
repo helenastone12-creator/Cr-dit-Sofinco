@@ -434,6 +434,106 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   border-top:1px solid rgba(255,255,255,.07);
   font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.6;
 }
+
+/* ═══════════════════════════
+   TRUST ICONS (4 pictos)
+═══════════════════════════ */
+.trust-icons{padding:2rem 0;background:#fff;border-top:1px solid #eee}
+.trust-icons .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
+@media(min-width:700px){.trust-grid{grid-template-columns:repeat(4,1fr);gap:1rem}}
+.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem}
+.trust-icon{
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#e2f4fb,#b8e6f7);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.trust-item p{font-size:.83rem;font-weight:700;color:var(--navy);line-height:1.3}
+
+/* ═══════════════════════════
+   EDITORIAL
+═══════════════════════════ */
+.editorial{padding:2.5rem 0;background:var(--gray)}
+.editorial .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
+.editorial h2{
+  font-size:1.35rem;font-weight:800;color:var(--navy);
+  margin-bottom:1rem;line-height:1.3;
+}
+.editorial p{font-size:.9rem;color:#555;line-height:1.7;margin-bottom:.9rem}
+.editorial p:last-of-type{margin-bottom:1.4rem}
+.editorial strong{color:var(--navy)}
+.editorial .btn-teal{display:inline-block;width:auto}
+
+/* ═══════════════════════════
+   FAQ ACCORDION
+═══════════════════════════ */
+.faq{padding:2.5rem 0;background:#fff}
+.faq .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
+.faq>div>h2{
+  font-size:1.35rem;font-weight:800;color:var(--navy);
+  margin-bottom:1.5rem;line-height:1.3;
+}
+.faq-list{border-top:1px solid #e0e0e0;margin-bottom:1.5rem}
+.faq-item{border-bottom:1px solid #e0e0e0}
+.faq-question{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 0;font-size:.97rem;font-weight:700;color:var(--navy);
+  background:none;border:none;cursor:pointer;text-align:left;font-family:inherit;
+  gap:1rem;
+}
+.faq-question:hover{color:var(--orange)}
+.faq-icon{
+  flex-shrink:0;width:24px;height:24px;border-radius:50%;
+  border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:700;line-height:1;transition:transform .25s,background .2s,border-color .2s;
+}
+.faq-item.open .faq-icon{background:var(--orange);border-color:var(--orange);color:#fff;transform:rotate(45deg)}
+.faq-answer{
+  display:none;padding-bottom:1.1rem;
+  font-size:.9rem;color:#555;line-height:1.7;
+}
+.faq-item.open .faq-answer{display:block}
+.faq-more{text-align:center;margin-top:.5rem}
+
+/* ═══════════════════════════
+   BESOIN D'UN CRÉDIT ?
+═══════════════════════════ */
+.besoin-credit{padding:2.5rem 0;background:var(--gray)}
+.besoin-credit .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.besoin-inner{
+  background:#fff;border-radius:14px;
+  padding:1.8rem 1.8rem 1.4rem;
+  box-shadow:0 2px 14px rgba(0,0,0,.08);
+}
+.besoin-inner>h2{
+  font-size:1.25rem;font-weight:800;color:var(--navy);
+  margin-bottom:.8rem;
+}
+.besoin-main-link{
+  display:inline-block;font-size:1rem;font-weight:700;
+  color:var(--orange);margin-bottom:1.4rem;
+  transition:color .15s;
+}
+.besoin-main-link:hover{color:#c4481a}
+.besoin-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.2rem}
+@media(max-width:500px){.besoin-cols{grid-template-columns:1fr}}
+.besoin-col h3{
+  font-size:.82rem;font-weight:700;color:#999;text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:.7rem;
+}
+.besoin-col li{margin-bottom:.35rem}
+.besoin-col li a{
+  font-size:.88rem;color:var(--navy);font-weight:500;
+  transition:color .15s;
+}
+.besoin-col li a:hover{color:var(--orange)}
+.voir-conditions{
+  display:block;font-size:.82rem;color:#888;
+  border-top:1px solid #eee;padding-top:.9rem;
+  transition:color .15s;
+}
+.voir-conditions:hover{color:var(--orange)}
+
   </style>
 </head>
 <body>
@@ -721,6 +821,154 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </div>
   </section>
 
+
+  <!-- ── 4 pictos de confiance ── -->
+  <section class="trust-icons">
+    <div class="wrap">
+      <ul class="trust-grid">
+        <li class="trust-item">
+          <div class="trust-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="12" stroke="var(--teal)" stroke-width="2"/>
+              <text x="16" y="21" text-anchor="middle" fill="var(--teal)" font-size="9" font-weight="800" font-family="sans-serif">70</text>
+            </svg>
+          </div>
+          <p>Depuis plus de 70 ans à vos côtés</p>
+        </li>
+        <li class="trust-item">
+          <div class="trust-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 4L6 8v8c0 5.52 4.26 10.68 10 12 5.74-1.32 10-6.48 10-12V8z" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M11 16l3.5 3.5L21 12" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>Parcours 100% sécurisé</p>
+        </li>
+        <li class="trust-item">
+          <div class="trust-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="5" y="10" width="22" height="16" rx="2" stroke="var(--teal)" stroke-width="2"/>
+              <path d="M5 15h22M10 10V7a6 6 0 0112 0v3" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p>Simulation sans engagement</p>
+        </li>
+        <li class="trust-item">
+          <div class="trust-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="5" y="8" width="22" height="16" rx="3" stroke="var(--teal)" stroke-width="2"/>
+              <path d="M9 20c3-6 6-2 9-4s4-6 5-6" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>Signature électronique</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Éditorial ── -->
+  <section class="editorial">
+    <div class="wrap">
+      <h2>Jkl.oin, partenaire de confiance pour votre crédit conso</h2>
+      <p>Depuis plus de <strong>70 ans</strong>, Jkl.oin accompagne les Français dans leurs projets de vie grâce au crédit à la consommation. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, Jkl.oin s'appuie sur l'expertise et la solidité d'un grand groupe bancaire pour vous proposer des solutions de financement adaptées à vos besoins.</p>
+      <p>Que vous souhaitiez financer un <strong>projet auto</strong>, des <strong>travaux</strong>, un voyage ou tout autre projet personnel, Jkl.oin met à votre disposition des offres de crédit conso compétitives et flexibles. Notre démarche&nbsp;: vous proposer un parcours 100&nbsp;% digital, simple et rapide, avec une réponse de principe en quelques minutes.</p>
+      <p>Avec plus de <strong>6 millions de clients</strong> et un réseau de plus de <strong>13&nbsp;000 partenaires</strong> (concessionnaires auto, grandes surfaces, enseignes spécialisées…), Jkl.oin est l'un des leaders du crédit à la consommation en France. Notre engagement&nbsp;: vous accompagner à chaque étape, du simulateur à la signature électronique, en toute transparence.</p>
+      <a href="/parcours-simulateur" class="btn-teal" style="display:inline-block;width:auto;padding:.7rem 1.8rem">Simuler un projet</a>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="faq">
+    <div class="wrap">
+      <h2>Vos questions sur le crédit conso</h2>
+      <ul class="faq-list">
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Quels types de prêts propose Jkl.oin&nbsp;?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Jkl.oin propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.</p>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Quel délai entre l'acceptation de l'offre de prêt et le déblocage des fonds&nbsp;?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Après signature électronique de votre contrat, un délai légal de rétractation de 14 jours calendaires s'applique. Une fois ce délai écoulé, les fonds sont généralement versés dans un délai de 1 à 3 jours ouvrés.</p>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Comment effectuer ma demande de crédit conso&nbsp;?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Rendez-vous sur notre simulateur en ligne, choisissez votre projet et votre montant, puis complétez le formulaire de demande. Vous obtiendrez une réponse de principe immédiate et pourrez finaliser votre dossier entièrement en ligne.</p>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Quels documents dois-je fournir lors de ma demande de crédit&nbsp;?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>En général, il vous sera demandé&nbsp;: une pièce d'identité en cours de validité, un justificatif de domicile récent, vos derniers bulletins de salaire ou justificatifs de revenus, et un relevé d'identité bancaire (RIB).</p>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Jusqu'à quel âge peut-on emprunter&nbsp;?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Jkl.oin étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.</p>
+          </div>
+        </li>
+      </ul>
+      <div class="faq-more">
+        <a href="/aide-contact" class="btn-orange">Consulter la FAQ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Besoin d'un crédit ? ── -->
+  <section class="besoin-credit">
+    <div class="wrap">
+      <div class="besoin-inner">
+        <h2>Besoin d'un crédit&nbsp;?</h2>
+        <a href="/credit-pret.htm" class="besoin-main-link">Je fais un crédit conso →</a>
+        <div class="besoin-cols">
+          <div class="besoin-col">
+            <h3>Simulez vos crédits</h3>
+            <ul>
+              <li><a href="/parcours-simulateur">Simulation crédit</a></li>
+              <li><a href="/parcours-simulateur?projet=auto">Simulation crédit auto</a></li>
+              <li><a href="/parcours-simulateur?projet=travaux">Simulation crédit travaux</a></li>
+              <li><a href="/parcours-simulateur?projet=pret-personnel">Simulation prêt personnel</a></li>
+              <li><a href="/parcours-simulateur?projet=renouvelable">Simulation crédit renouvelable</a></li>
+              <li><a href="/parcours-simulateur?projet=rachat">Simulation rachat de crédits</a></li>
+            </ul>
+          </div>
+          <div class="besoin-col">
+            <h3>Nos offres de crédits</h3>
+            <ul>
+              <li><a href="/credit-4000">Crédit 4&nbsp;000&nbsp;€</a></li>
+              <li><a href="/credit-5000">Crédit 5&nbsp;000&nbsp;€</a></li>
+              <li><a href="/credit-10000">Crédit 10&nbsp;000&nbsp;€</a></li>
+              <li><a href="/credit-20000">Crédit 20&nbsp;000&nbsp;€</a></li>
+              <li><a href="/credit-30000">Crédit 30&nbsp;000&nbsp;€</a></li>
+              <li><a href="/credit-50000">Crédit 50&nbsp;000&nbsp;€</a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="/credit-pret.htm" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
+      </div>
+    </div>
+  </section>
+
 </div><!-- /page -->
 
 <!-- ══════════════════════════════
@@ -788,6 +1036,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   if(btn) btn.addEventListener('click', openMenu);
   if(close) close.addEventListener('click', closeMenu);
   if(overlay) overlay.addEventListener('click', closeMenu);
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.closest('.faq-item');
+      var isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open');el.querySelector('.faq-question').setAttribute('aria-expanded','false');});
+      if(!isOpen){item.classList.add('open');this.setAttribute('aria-expanded','true');}
+    });
+  });
 
   // Scroll shadow
   window.addEventListener('scroll', function() {
