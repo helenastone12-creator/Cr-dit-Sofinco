@@ -615,6 +615,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-bb-next.bb-teal{background:var(--teal)}
 .sim-bb-next.bb-teal:hover{background:var(--teal-d)}
 
+/* Step 5 : Formulaire de demande */
+.sim-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.sim-form-group{margin-bottom:.85rem}
+.sim-form-lbl{display:block;font-size:.83rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.sim-form-input{width:100%;border:1.5px solid #999;border-radius:6px;padding:.85rem 1rem;font-size:.95rem;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s}
+.sim-form-input:focus{border-color:var(--teal)}
+.sim-civility{display:flex;gap:1.5rem;margin-bottom:.3rem}
+.sim-civility label{display:flex;align-items:center;gap:.4rem;font-size:.92rem;font-weight:600;color:var(--navy);cursor:pointer}
+.sim-civility input[type=radio]{width:18px;height:18px;accent-color:var(--orange)}
+.sim-form-note{font-size:.73rem;color:#999;line-height:1.5;margin-top:1.2rem;padding-top:1rem;border-top:1px solid #eee}
+.sim-confirm{text-align:center;padding:2rem 1rem}
+.sim-confirm-ico{font-size:3.5rem;margin-bottom:1rem}
+.sim-confirm-title{font-size:1.3rem;font-weight:800;color:var(--teal);margin-bottom:.7rem}
+.sim-confirm-msg{font-size:.9rem;color:#555;line-height:1.6}
   </style>
 </head>
 <body>
@@ -780,7 +794,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             </select>
           </div>
           <div class="sim-field">
-            <input class="sim-input" type="number" name="montant" placeholder="Votre montant" min="500" max="75000" aria-label="Votre montant"/>
+            <input class="sim-input" type="number" name="montant" placeholder="Votre montant" min="150" max="75000" aria-label="Votre montant"/>
           </div>
           <button type="submit" class="btn-teal">Simuler un projet</button>
         </form>
@@ -1036,12 +1050,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <div class="besoin-col">
             <h3>Nos offres de crédits</h3>
             <ul>
-              <li><a href="#" data-sim="autre" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="autre" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="autre" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="autre" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="autre" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="autre" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
+              <li><a href="#" data-sim="" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
             </ul>
           </div>
         </div>
@@ -1333,6 +1347,69 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <button class="sim-restart" id="sim-restart">← Nouvelle simulation</button>
     </div>
 
+
+    <!-- ── Étape 5 : Formulaire de demande ── -->
+    <div class="sim-pane" id="sp5">
+      <h1 class="sim-title">Votre demande de crédit</h1>
+      <p class="sim-sub">Renseignez vos informations pour finaliser votre demande.</p>
+      <p class="sim-req">Tous les champs sont obligatoires</p>
+
+      <div class="sim-form-group">
+        <label class="sim-form-lbl">Civilité</label>
+        <div class="sim-civility">
+          <label><input type="radio" name="civilite" value="M" checked/> M.</label>
+          <label><input type="radio" name="civilite" value="Mme"/> Mme</label>
+        </div>
+      </div>
+
+      <div class="sim-form-row">
+        <div class="sim-form-group">
+          <label class="sim-form-lbl" for="f-prenom">Prénom</label>
+          <input type="text" id="f-prenom" class="sim-form-input" placeholder="Votre prénom" autocomplete="given-name"/>
+        </div>
+        <div class="sim-form-group">
+          <label class="sim-form-lbl" for="f-nom">Nom</label>
+          <input type="text" id="f-nom" class="sim-form-input" placeholder="Votre nom" autocomplete="family-name"/>
+        </div>
+      </div>
+
+      <div class="sim-form-group">
+        <label class="sim-form-lbl" for="f-ddn">Date de naissance</label>
+        <input type="date" id="f-ddn" class="sim-form-input"/>
+      </div>
+
+      <div class="sim-form-group">
+        <label class="sim-form-lbl" for="f-email">Email</label>
+        <input type="email" id="f-email" class="sim-form-input" placeholder="votre@email.fr" autocomplete="email"/>
+      </div>
+
+      <div class="sim-form-group">
+        <label class="sim-form-lbl" for="f-tel">Téléphone mobile</label>
+        <input type="tel" id="f-tel" class="sim-form-input" placeholder="06 XX XX XX XX" autocomplete="tel"/>
+      </div>
+
+      <div class="sim-form-group">
+        <label class="sim-form-lbl" for="f-sitpro">Situation professionnelle</label>
+        <select id="f-sitpro" class="sim-sel">
+          <option value="" disabled selected>Choisissez...</option>
+          <option value="cdi">Salarié(e) CDI</option>
+          <option value="cdd">Salarié(e) CDD</option>
+          <option value="independant">Travailleur indépendant</option>
+          <option value="fonctionnaire">Fonctionnaire / Titulaire</option>
+          <option value="retraite">Retraité(e)</option>
+          <option value="sans">Sans emploi</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+
+      <div class="sim-form-group">
+        <label class="sim-form-lbl" for="f-revenus">Revenus mensuels nets (€)</label>
+        <input type="number" id="f-revenus" class="sim-form-input" placeholder="Ex : 2 000" min="0"/>
+      </div>
+
+      <p class="sim-form-note">En soumettant ce formulaire, vous acceptez que vos données soient traitées par Jkl.oin dans le cadre de votre demande de crédit. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données conformément à la réglementation en vigueur.</p>
+    </div>
+
   </div><!-- /sim-body -->
 
   <!-- Barre du bas fixe -->
@@ -1370,7 +1447,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   var simData = {step:1, projet:null, montant:null, choix:'mensualite', duree:null};
   var RATE = 5.9/100/12;
   var RATE_REG = 4.9/100/12;
-  var PROG = {1:'10%', 2:'50%', 3:'70%', 4:'100%'};
+  var PROG = {1:'10%', 2:'35%', 3:'60%', 4:'80%', 5:'100%'};
 
   function fmtEur(n){ return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
   function fmtAmt(n){ return parseInt(n).toLocaleString('fr-FR')+' €'; }
@@ -1389,7 +1466,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     document.getElementById('sim-bb-prog').textContent='Progression : '+(PROG[n]||'90%');
     var nxt=document.getElementById('sim-bb-next');
     if(n===3){ nxt.textContent='Découvrir les offres'; nxt.classList.add('bb-teal'); }
-    else if(n===4){ nxt.textContent='Terminer'; nxt.classList.add('bb-teal'); }
+    else if(n===5){ nxt.textContent='Valider ma demande'; nxt.classList.add('bb-teal'); }
     else{ nxt.textContent='Suivant'; nxt.classList.remove('bb-teal'); }
     document.getElementById('sim-bb-back').disabled=(n<=1);
     if(n===3){
@@ -1493,7 +1570,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       simData.duree=parseInt(document.getElementById('sim-options-sel').value);
       showStep(4);
     } else if(s===4){
-      closeSim();
+      showStep(5);
+    } else if(s===5){
+      document.querySelectorAll('.sim-pane').forEach(function(p){p.classList.remove('s-show');});
+      document.getElementById('sim-bb-next').style.display='none';
+      document.getElementById('sim-bb-back').style.display='none';
+      document.getElementById('sim-bb-prog').textContent='Demande envoyée !';
+      var confirm=document.createElement('div');confirm.className='sim-pane s-show sim-confirm';
+      confirm.innerHTML='<div class="sim-confirm-ico">✅</div><p class="sim-confirm-title">Demande enregistrée !</p><p class="sim-confirm-msg">Un conseiller Jkl.oin vous contactera dans les plus brefs délais pour finaliser votre dossier.</p>';
+      document.querySelector('.sim-body').appendChild(confirm);
     }
   });
 
@@ -1514,6 +1599,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   document.getElementById('sim-restart').addEventListener('click',function(){
     openSim(null,null);
+  });
+
+  document.querySelector('.sim-cta-big').addEventListener('click',function(){
+    showStep(5);
   });
 
   var heroForm=document.querySelector('.sim-form');
