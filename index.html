@@ -11,8 +11,9 @@
   <style>
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{overflow-x:hidden;max-width:100%}
-body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#222;background:#fff;line-height:1.5;overflow-x:hidden;max-width:100%}
+html{overflow-x:hidden;max-width:100%;-webkit-text-size-adjust:100%}
+body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#222;background:#fff;line-height:1.5;overflow-x:hidden;max-width:100%;width:100%}
+*{box-sizing:border-box}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 img{max-width:100%;height:auto;display:block}
@@ -323,7 +324,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-select,.sim-input{
   width:100%;height:44px;
   border:1.5px solid #ccc;border-radius:2rem;
-  padding:0 1rem;font-size:.9rem;font-family:inherit;
+  padding:0 1rem;font-size:1rem;font-family:inherit;
   color:var(--text);background:#fff;
   appearance:none;-webkit-appearance:none;
   outline:none;transition:border-color .2s;
@@ -770,7 +771,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
 .sim-form-group{margin-bottom:.85rem}
 .sim-form-lbl{display:block;font-size:.83rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
-.sim-form-input{width:100%;border:1.5px solid #999;border-radius:6px;padding:.85rem 1rem;font-size:.95rem;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s}
+.sim-form-input{width:100%;border:1.5px solid #999;border-radius:6px;padding:.85rem 1rem;font-size:1rem;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s}
 .sim-form-input:focus{border-color:var(--teal)}
 .sim-civility{display:flex;gap:1.5rem;margin-bottom:.3rem}
 .sim-civility label{display:flex;align-items:center;gap:.4rem;font-size:.92rem;font-weight:600;color:var(--navy);cursor:pointer}
