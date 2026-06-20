@@ -463,21 +463,27 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .avantages .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
 .avantages h2{
   font-size:1.4rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:1.8rem;
+  margin-bottom:1.5rem;
 }
-.av-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-.av-item{display:flex;flex-direction:column;align-items:center;text-align:center}
+.av-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;list-style:none;padding:0;margin:0}
+.av-item{
+  background:#f2f4f7;border-radius:16px;
+  padding:1.4rem 1rem;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:.75rem;
+}
+.av-num{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--navy);color:#fff;
+  font-size:1.1rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
 .av-icon{
-  width:64px;height:64px;background:linear-gradient(135deg,#e2f4fb,#b8e6f7);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  margin-bottom:.9rem;
+  width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
 }
-.av-icon img{width:34px;height:34px}
-.av-item h3{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;line-height:1.3}
-.av-item p{font-size:.8rem;color:#777;line-height:1.55}
-@media(min-width:700px){
-  .av-grid{grid-template-columns:repeat(4,1fr)}
-}
+.av-item h3{font-size:.88rem;font-weight:700;color:var(--navy);line-height:1.3;margin:0}
+.av-item p{font-size:.8rem;color:#666;line-height:1.5;margin:0}
 
 /* ═══════════════════════════
    RÉCOMPENSE
@@ -1290,31 +1296,35 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <h2>Jkl.oin accompagne vos projets</h2>
           <ul class="av-grid">
             <li class="av-item">
+              <div class="av-num">1</div>
               <div class="av-icon">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" stroke="var(--teal)" stroke-width="2"/><text x="17" y="22" text-anchor="middle" fill="var(--teal)" font-size="12" font-weight="800" font-family="sans-serif">5'</text></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="14" rx="2" stroke="var(--navy)" stroke-width="1.8"/><line x1="3" y1="8" x2="21" y2="8" stroke="var(--navy)" stroke-width="1.8"/><circle cx="7" cy="17" r="2.5" stroke="var(--navy)" stroke-width="1.8"/><path d="M10 17h7" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round"/></svg>
               </div>
-              <h3>Une réponse de principe immédiate<sup style="font-size:.6rem">²</sup></h3>
+              <h3>Une réponse de principe immédiate</h3>
               <p>Obtenez une réponse de principe en 5 minutes</p>
             </li>
             <li class="av-item">
+              <div class="av-num">2</div>
               <div class="av-icon">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="13" cy="11" r="5" stroke="var(--teal)" stroke-width="2"/><path d="M3 29c0-5.523 4.477-10 10-10" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="11" r="5" stroke="var(--navy)" stroke-width="2"/><path d="M18 29c0-5.523 2.686-10 6-10" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"/></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.5" stroke="var(--navy)" stroke-width="1.8"/><path d="M2 20c0-3.866 3.134-7 7-7" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="8" r="3" stroke="var(--navy)" stroke-width="1.8"/><path d="M14 20c0-3.314 1.343-6 3-6" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round"/></svg>
               </div>
               <h3>Seul(e) ou accompagné(e)</h3>
-              <p>Souscrivez en ligne<sup style="font-size:.6rem">³</sup> ou avec nos conseillers</p>
+              <p>Souscrivez en ligne ou avec nos conseillers</p>
             </li>
             <li class="av-item">
+              <div class="av-num">3</div>
               <div class="av-icon">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="4" y="8" width="26" height="18" rx="3" stroke="var(--teal)" stroke-width="2"/><line x1="4" y1="14" x2="30" y2="14" stroke="var(--teal)" stroke-width="2"/><rect x="8" y="18" width="6" height="4" rx="1" fill="var(--teal)"/></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="var(--navy)" stroke-width="1.8"/><path d="M2 10h20" stroke="var(--navy)" stroke-width="1.8"/><rect x="5" y="14" width="5" height="3" rx=".8" fill="var(--navy)"/></svg>
               </div>
               <h3>Une gestion simplifiée</h3>
               <p>Gérez votre prêt depuis votre espace client</p>
             </li>
             <li class="av-item">
+              <div class="av-num">4</div>
               <div class="av-icon">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M17 4l3.5 7 7.5 1.1-5.5 5.3 1.3 7.6L17 21.5l-6.8 3.5 1.3-7.6L6 12.1l7.5-1.1z" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.8l-4.9 2.6.9-5.5-4-3.9 5.5-.8z" stroke="var(--navy)" stroke-width="1.8" stroke-linejoin="round"/></svg>
               </div>
-              <h3>100% flexible<sup style="font-size:.6rem">⁴</sup></h3>
+              <h3>100% flexible</h3>
               <p>Mettez en pause ou adaptez vos mensualités</p>
             </li>
           </ul>
