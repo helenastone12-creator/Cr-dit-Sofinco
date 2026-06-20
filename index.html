@@ -338,10 +338,43 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .btn-teal:hover{background:var(--teal-d)}
 
-/* Desktop : simulateur centré avec max-width */
+/* Colonne promo — cachée sur mobile */
+.hero-promo{display:none}
+
+/* Desktop : 2 colonnes */
 @media(min-width:700px){
   .hero-banner{padding:2rem 2rem 2.5rem}
-  .hero-sim-wrap{max-width:560px;margin:0 auto}
+  .hero-banner-layout{
+    max-width:1100px;margin:0 auto;width:100%;
+    display:flex;align-items:center;gap:3rem;
+  }
+  .hero-sim-wrap{flex:0 0 460px;max-width:460px}
+  .hero-promo{
+    display:flex;flex:1;flex-direction:column;align-items:center;
+    text-align:center;color:#fff;gap:.6rem;
+  }
+  .hero-promo-label{
+    font-size:.78rem;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;opacity:.85;margin-bottom:.2rem;
+  }
+  .hero-promo-rate{
+    font-size:5rem;font-weight:900;line-height:1;color:#fff;
+    text-shadow:0 2px 12px rgba(0,0,0,.18);
+  }
+  .hero-promo-rate span{font-size:2.5rem;vertical-align:top;margin-top:.7rem;display:inline-block}
+  .hero-promo-sub{font-size:.95rem;opacity:.9;line-height:1.5;margin:-.2rem 0 .2rem}
+  .hero-promo-tag{
+    background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);
+    border-radius:50px;padding:.35rem 1.1rem;font-size:.82rem;font-weight:700;
+    display:inline-block;
+  }
+  .hero-promo-badges{display:flex;gap:1rem;margin-top:.5rem}
+  .hero-promo-badge{
+    background:rgba(255,255,255,.15);border-radius:12px;
+    padding:.7rem 1rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;
+    font-size:.75rem;opacity:.9;min-width:80px;
+  }
+  .hero-promo-num{font-size:1.4rem;font-weight:900;line-height:1}
   .sim-form{flex-direction:row;align-items:center}
   .btn-teal{width:auto}
 }
@@ -1218,6 +1251,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <!-- ── Héro simulateur style Cofidis ── -->
   <section class="hero-banner">
+    <div class="hero-banner-layout">
     <div class="hero-sim-wrap">
       <div class="hcard-white">
         <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
@@ -1274,6 +1308,30 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
       </div>
     </div>
+
+    <!-- Colonne droite desktop : offre mise en avant -->
+    <div class="hero-promo">
+      <p class="hero-promo-label">OFFRE SPÉCIALE</p>
+      <div class="hero-promo-rate">3,5<span>%</span></div>
+      <p class="hero-promo-sub">TAEG fixe — Prêt personnel<br>de 1 000 € à 75 000 €</p>
+      <p class="hero-promo-tag">Réponse immédiate en ligne</p>
+      <div class="hero-promo-badges">
+        <div class="hero-promo-badge">
+          <span class="hero-promo-num">0&nbsp;€</span>
+          <span>frais de dossier</span>
+        </div>
+        <div class="hero-promo-badge">
+          <span class="hero-promo-num">5&nbsp;min</span>
+          <span>pour simuler</span>
+        </div>
+        <div class="hero-promo-badge">
+          <span class="hero-promo-num">24h</span>
+          <span>réponse</span>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /hero-banner-layout -->
   </section>
 
   <!-- ── Produits ── -->
