@@ -378,11 +378,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-item-overlay{
   position:absolute;inset:0;
   background:linear-gradient(to bottom,rgba(0,0,0,0) 45%,rgba(0,0,0,.65) 100%);
+  pointer-events:none;
 }
 .prod-item-body{
   position:absolute;bottom:0;left:0;right:0;
   padding:1.2rem 1.4rem 1.8rem;
   display:flex;flex-direction:column;align-items:flex-start;gap:1.2rem;
+  z-index:2;
 }
 .prod-item-title{
   color:#fff;font-size:1.45rem;font-weight:800;
