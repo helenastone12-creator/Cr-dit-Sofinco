@@ -341,24 +341,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .btn-teal:hover{background:var(--teal-d)}
 
-/* Colonne image droite — cachée sur mobile */
-.hero-img-col{display:none}
-
-/* Desktop : 2 colonnes */
 @media(min-width:700px){
   .hero-banner{padding:2.5rem 2rem 2.5rem}
   .hero-sim-wrap{max-width:580px;margin:0 auto}
   .hcard-white{border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.18);padding:1.6rem 1.8rem 1.8rem}
-  .hero-img-col{
-    display:flex;flex:1;align-items:center;justify-content:center;
-  }
-  .hero-img-col img{
-    width:100%;max-width:480px;border-radius:16px;
-    object-fit:cover;max-height:420px;
-    box-shadow:0 8px 32px rgba(0,0,0,.2);
-  }
-  .sim-form{flex-direction:row;align-items:center}
-  .btn-teal{width:auto}
 }
 
 /* ═══════════════════════════
