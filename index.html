@@ -222,9 +222,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ═══════════════════════════ */
 .hero-banner{
   background:linear-gradient(160deg,#5ec6ed 0%,#3ab5e5 55%,#1e9fd4 100%);
-  position:relative;overflow:hidden;
+  position:relative;
   padding:1.4rem 0 0;
-  display:flex;align-items:stretch;
 }
 .hero-banner-inner{
   max-width:var(--w);margin:0 auto;width:100%;
@@ -285,7 +284,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hcard-dark-cta:hover{background:#e8f4fa}
 
 /* Enveloppe de la carte dans le hero */
-.hero-sim-wrap{width:100%}
+.hero-sim-wrap{width:100%;display:block}
 
 /* Carte blanche — Simulateur Cofidis style */
 .hcard-white{
@@ -347,12 +346,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 /* Desktop : 2 colonnes */
 @media(min-width:700px){
-  .hero-banner{padding:2.5rem 2rem;align-items:center}
-  .hero-banner-layout{
-    max-width:1100px;margin:0 auto;width:100%;
-    display:flex;align-items:center;gap:3rem;
-  }
-  .hero-sim-wrap{flex:0 0 460px;max-width:460px}
+  .hero-banner{padding:2.5rem 2rem 2.5rem}
+  .hero-sim-wrap{max-width:580px;margin:0 auto}
   .hcard-white{border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.18);padding:1.6rem 1.8rem 1.8rem}
   .hero-img-col{
     display:flex;flex:1;align-items:center;justify-content:center;
@@ -1238,7 +1233,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <!-- ── Héro simulateur style Cofidis ── -->
   <section class="hero-banner">
-    <div class="hero-banner-layout">
     <div class="hero-sim-wrap">
       <div class="hcard-white">
         <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
@@ -1284,13 +1278,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
       </div>
     </div>
-
-    <!-- Colonne droite desktop : image -->
-    <div class="hero-img-col">
-      <img id="hero-right-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Crédit Jkl.oin"/>
-    </div>
-
-    </div><!-- /hero-banner-layout -->
   </section>
 
   <!-- ── Produits ── -->
