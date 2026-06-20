@@ -222,7 +222,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ═══════════════════════════ */
 .hero-banner{
   background:linear-gradient(160deg,#5ec6ed 0%,#3ab5e5 55%,#1e9fd4 100%);
-  position:relative;overflow:hidden;
+  position:relative;overflow:hidden;padding:1.5rem 1rem 2rem;
   min-height:220px;
   padding:2rem 1.5rem 2rem;
   display:flex;align-items:center;
@@ -285,11 +285,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .hcard-dark-cta:hover{background:#e8f4fa}
 
+/* Enveloppe de la carte dans le hero */
+.hero-sim-wrap{max-width:520px;margin:0 auto}
+
 /* Carte blanche — Simulateur Cofidis style */
 .hcard-white{
   background:#fff;
-  border-radius:0;padding:1.4rem 1.5rem;
-  border-top:1px solid #eee;
+  border-radius:16px;padding:1.4rem 1.5rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.12);
 }
 .cof-sim-title{font-size:1.1rem;font-weight:800;color:var(--teal);text-align:center;margin-bottom:1.2rem;line-height:1.3}
 .cof-step{margin-bottom:1rem}
@@ -1225,37 +1228,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section pg-active" id="pg-home">
 
-  <!-- ── Héro : fond bleu ciel ── -->
+  <!-- ── Héro simulateur style Cofidis ── -->
   <section class="hero-banner">
-    <div class="hero-banner-inner">
-      <h1>Avec la carte Jkl.oin<sup>¹</sup>, j'ai le pouvoir de payer en 1x, 3x, 10x</h1>
-    </div>
-  </section>
-
-  <!-- ── Deux cartes chevauchantes ── -->
-  <div class="hero-cards-wrap">
-    <div class="hero-cards-inner">
-
-      <!-- Carte sombre : La carte -->
-      <div class="hcard-dark">
-        <div class="hcard-dark-top">
-          <div>
-            <div class="hcard-dark-label">La carte<sup>¹</sup></div>
-            <p>Paiement comptant ou en plusieurs fois.<sup>¹</sup> Plus besoin de choisir&nbsp;!</p>
-          </div>
-          <!-- Mini carte VISA CSS -->
-          <div class="mini-card">
-            <div class="mini-card-top">
-              <span class="mini-visa">VISA</span>
-            </div>
-            <div class="mini-chip"></div>
-            <div class="mini-num">•••• 1234</div>
-          </div>
-        </div>
-        <a href="#" class="hcard-dark-cta">Je demande ma carte</a>
-      </div>
-
-      <!-- Carte blanche : Simulateur Cofidis style -->
+    <div class="hero-sim-wrap">
       <div class="hcard-white">
         <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
 
@@ -1310,9 +1285,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
         <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
       </div>
-
     </div>
-  </div>
+  </section>
 
   <!-- ── Produits ── -->
   <section class="products">
