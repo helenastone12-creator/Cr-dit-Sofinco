@@ -859,9 +859,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 @media(min-width:960px){.prod-av-grid,.prod-avantages-grid{grid-template-columns:repeat(3,1fr)}}
 /* Icône avantage */
 .prod-av-icon{font-size:2rem;line-height:1;display:block;margin-bottom:.5rem}
-/* Sections internes des pages produit */
+/* Sections internes des pages produit — aucun fond sur les wrappers */
 .editorial{padding-top:2.5rem;padding-bottom:2.5rem}
-.editorial.inner{background:transparent}
+.editorial.inner,.prod-caract-wrap.inner,.prod-exemple-wrap.inner,
+.prod-audience.inner,.prod-eligibilite-wrap.inner,.prod-documents-wrap.inner,
+.prod-etapes.inner,.prod-avantages.inner,.prod-faq.inner,
+.prod-chiffres.inner,.prod-mention-reg.inner{background:transparent}
 .prod-avantages{padding-top:3rem;padding-bottom:3rem}
 .prod-cta{background:linear-gradient(135deg,#001f38 0%,#00334D 100%);padding:3.5rem 1.5rem;text-align:center}
 .prod-cta h2{font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:.8rem}
