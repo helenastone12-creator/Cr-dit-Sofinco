@@ -4046,11 +4046,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       y > 8 ? '0 4px 18px rgba(0,0,0,.15)' : '0 1px 8px rgba(0,0,0,.12)';
     var simBar = document.getElementById('mob-sim-bar');
     if(simBar){
-      var heroH = (document.querySelector('.hero-banner')||{offsetHeight:300}).offsetHeight;
       var scrollingUp = y < _lastScrollY;
-      if(scrollingUp && y > heroH){
+      if(scrollingUp && y > 150){
         simBar.classList.add('visible');
-      } else {
+      } else if(!scrollingUp || y <= 150){
         simBar.classList.remove('visible');
       }
     }
