@@ -582,17 +582,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══════════════════════════
    TRUST ICONS (4 pictos)
 ═══════════════════════════ */
-.trust-icons{padding:2rem 0;background:#fff;border-top:1px solid #eee}
+.trust-icons{padding:2.5rem 0;background:#fff;border-top:1px solid #eee}
 .trust-icons .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
-@media(min-width:700px){.trust-grid{grid-template-columns:repeat(4,1fr);gap:1rem}}
-.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem}
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.8rem}
+@media(min-width:700px){.trust-grid{grid-template-columns:repeat(4,1fr);gap:1.5rem}}
+.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.8rem}
 .trust-icon{
-  width:60px;height:60px;border-radius:50%;
-  background:linear-gradient(135deg,#e2f4fb,#b8e6f7);
+  width:80px;height:80px;border-radius:50%;
+  background:var(--navy);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.trust-item p{font-size:.83rem;font-weight:700;color:var(--navy);line-height:1.3}
+.trust-icon svg path,.trust-icon svg rect{stroke:#fff}
+.trust-icon svg circle{stroke:#fff}
+.trust-icon svg text{fill:#fff}
+.trust-item p{font-size:.88rem;font-weight:700;color:var(--navy);line-height:1.3}
 
 /* ═══════════════════════════
    EDITORIAL
