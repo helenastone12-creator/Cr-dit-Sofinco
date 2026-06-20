@@ -792,7 +792,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .chip{background:#e8f7f6;color:#047a6e;padding:.32rem .8rem;border-radius:50px;font-size:.86rem;font-weight:600;border:1px solid rgba(6,194,176,.22)}
 .use-list{list-style:none;padding:0;margin:0}
 .use-list li{padding:.42rem 0 .42rem 1.4rem;position:relative;color:#3d3d3d;font-size:.95rem;border-bottom:1px solid #f0f4f7}
-.use-list li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:800}
+.use-list li::before{content:'';position:absolute;left:0;color:var(--teal);font-weight:800}
 .prod-caract-wrap{background:#f5f8fb;border-radius:14px;padding:2.5rem;margin:2rem 0}
 .prod-caract-wrap h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin-bottom:1.4rem}
 .caract-table{width:100%;border-collapse:collapse}
@@ -806,7 +806,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 @media(min-width:600px){.eligibilite-grid,.docs-grid{grid-template-columns:1fr 1fr}}
 @media(min-width:960px){.eligibilite-grid,.docs-grid{grid-template-columns:1fr 1fr 1fr}}
 .eligibilite-item{background:#fff;border:1px solid #dde8f0;border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:.9rem;color:#333;line-height:1.5;display:flex;gap:.6rem;align-items:flex-start}
-.eligibilite-item::before{content:'✓';color:var(--teal);font-weight:800;flex-shrink:0;font-size:.95rem}
+.eligibilite-item::before{content:'';color:var(--teal);font-weight:800;flex-shrink:0;font-size:.95rem}
 .doc-item{background:#fff;border:1px solid #dde8f0;border-radius:8px;padding:.75rem 1rem;font-size:.9rem;color:#333;line-height:1.5;display:flex;gap:.6rem;align-items:flex-start}
 .doc-item-icon{font-size:1.1rem;flex-shrink:0}
 .prod-etapes-5{display:grid;gap:1.2rem;margin:2rem 0;counter-reset:step5}
@@ -860,8 +860,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* Icône avantage */
 .prod-av-icon{font-size:2rem;line-height:1;display:block;margin-bottom:.5rem}
 /* Sections internes des pages produit */
-.editorial{padding:2.5rem 0;background:#f9fafb}
-.prod-avantages{padding:3rem 0;background:#fff}
+.editorial{padding:2.5rem 0}
+.prod-avantages{padding:3rem 0}
 .prod-cta{background:linear-gradient(135deg,#001f38 0%,#00334D 100%);padding:3.5rem 1.5rem;text-align:center}
 .prod-cta h2{font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:.8rem}
 .prod-cta p{color:rgba(255,255,255,.75);margin-bottom:1.5rem;line-height:1.6}
@@ -1253,7 +1253,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <a href="https://www.avis-verifies.com/avis-clients/sofinco.fr" target="_blank" rel="noopener">
           <span style="font-weight:700;">5&nbsp;847 avis</span>
           <span style="color:var(--orange);font-weight:700;">&bull; 4,6</span>
-          <span class="stars">★★★★★</span>
+          <span class="stars"></span>
           <span style="font-size:.72rem;color:#aaa;">sur 5</span>
         </a>
       </div>
@@ -1262,19 +1262,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <p class="rv-title">Très efficace</p>
           <p class="rv-name">Nuno A</p>
           <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-          <span class="stars">★★★★★</span>
+          <span class="stars"></span>
         </li>
         <li class="rv-card">
           <p class="rv-title">Simple et rapide via l'application</p>
           <p class="rv-name">Patrick L</p>
           <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-          <span class="stars">★★★★★</span>
+          <span class="stars"></span>
         </li>
         <li class="rv-card">
           <p class="rv-title">Très rapide et adapté à mes besoins</p>
           <p class="rv-name">Monique C</p>
           <p class="rv-date">Réalisée le 13.06.2026 et publié le 14.06.2026</p>
-          <span class="stars">★★★★★</span>
+          <span class="stars"></span>
         </li>
       </ul>
       <div class="reviews-more">
@@ -1493,7 +1493,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ PRÊT PERSONNEL ════════════ -->
 <div class="page pg-section" id="pg-pret-personnel">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#003d5c 0%,#006680 40%,#06c2b0 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#06c2b0 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Prêt personnel</h1>
@@ -1598,12 +1598,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-documents-wrap inner">
     <h2>Documents demandés</h2>
     <div class="docs-grid">
-      <div class="doc-item"><span class="doc-item-icon">🪪</span><span>Pièce d'identité en cours de validité (CNI recto-verso ou passeport)</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏠</span><span>Justificatif de domicile de moins de 3 mois (facture, quittance de loyer)</span></div>
-      <div class="doc-item"><span class="doc-item-icon">💼</span><span>3 derniers bulletins de salaire ou 2 derniers avis d'imposition (indépendants)</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏦</span><span>Relevé d'identité bancaire (RIB) au nom du demandeur</span></div>
-      <div class="doc-item"><span class="doc-item-icon">📄</span><span>Contrat de travail si CDD ou période d'essai en cours</span></div>
-      <div class="doc-item"><span class="doc-item-icon">📊</span><span>Relevés bancaires des 3 derniers mois (selon profil)</span></div>
+      <div class="doc-item"><span>Pièce d'identité en cours de validité (CNI recto-verso ou passeport)</span></div>
+      <div class="doc-item"><span>Justificatif de domicile de moins de 3 mois (facture, quittance de loyer)</span></div>
+      <div class="doc-item"><span>3 derniers bulletins de salaire ou 2 derniers avis d'imposition (indépendants)</span></div>
+      <div class="doc-item"><span>Relevé d'identité bancaire (RIB) au nom du demandeur</span></div>
+      <div class="doc-item"><span>Contrat de travail si CDD ou période d'essai en cours</span></div>
+      <div class="doc-item"><span>Relevés bancaires des 3 derniers mois (selon profil)</span></div>
     </div>
     <p style="font-size:.87rem;color:#666;margin-top:1rem">Tous les documents peuvent être transmis par photo ou scan directement lors de la souscription en ligne. Aucun envoi postal nécessaire.</p>
   </div>
@@ -1622,12 +1622,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-avantages inner">
     <h2>Pourquoi choisir le prêt personnel Sofinco ?</h2>
     <div class="prod-av-grid">
-      <div class="prod-av-card"><span class="prod-av-icon">🔒</span><h3>Taux fixe garanti</h3><p>Votre taux ne change jamais pendant toute la durée du crédit. Vos mensualités restent identiques du premier au dernier mois, quelle que soit l'évolution des taux du marché. Vous budgétez en toute sérénité et sans mauvaise surprise.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">🆓</span><h3>Aucun frais de dossier</h3><p>Contrairement à de nombreux établissements, Sofinco ne facture aucun frais de dossier, quel que soit le montant ou la durée du crédit. Le coût total de votre crédit est uniquement constitué des intérêts calculés sur la base du TAEG fixe communiqué dans votre contrat.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">⚡</span><h3>Réponse rapide</h3><p>Dès réception de votre dossier complet, une réponse de principe vous est adressée par email sous 24 heures ouvrées. La réponse définitive intervient après vérification complète des pièces justificatives. Vous n'avez pas à attendre des semaines pour savoir si votre crédit est accordé.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">📱</span><h3>100 % en ligne</h3><p>De la simulation à la signature du contrat, tout se passe en ligne, depuis n'importe quel appareil (ordinateur, smartphone, tablette). Aucun déplacement en agence, aucun document à envoyer par courrier. Votre espace client vous permet de suivre l'avancement de votre dossier en temps réel.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">↩️</span><h3>Rétractation 14 jours</h3><p>Conformément à l'article L.312-19 du Code de la consommation, vous bénéficiez d'un délai de rétractation de 14 jours calendaires sans pénalité ni justification. Si vous avez utilisé les fonds, vous remboursez uniquement le capital et les intérêts courus, sans indemnité.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">💸</span><h3>Remboursement anticipé</h3><p>Vous pouvez rembourser votre prêt par anticipation, partiellement ou totalement, à tout moment. Pour les remboursements inférieurs à 10 000 € sur 12 mois glissants, aucune indemnité n'est due. Au-delà, l'indemnité est plafonnée à 0,5 % ou 1 % selon le délai restant.</p></div>
+      <div class="prod-av-card"><h3>Taux fixe garanti</h3><p>Votre taux ne change jamais pendant toute la durée du crédit. Vos mensualités restent identiques du premier au dernier mois, quelle que soit l'évolution des taux du marché. Vous budgétez en toute sérénité et sans mauvaise surprise.</p></div>
+      <div class="prod-av-card"><h3>Aucun frais de dossier</h3><p>Contrairement à de nombreux établissements, Sofinco ne facture aucun frais de dossier, quel que soit le montant ou la durée du crédit. Le coût total de votre crédit est uniquement constitué des intérêts calculés sur la base du TAEG fixe communiqué dans votre contrat.</p></div>
+      <div class="prod-av-card"><h3>Réponse rapide</h3><p>Dès réception de votre dossier complet, une réponse de principe vous est adressée par email sous 24 heures ouvrées. La réponse définitive intervient après vérification complète des pièces justificatives. Vous n'avez pas à attendre des semaines pour savoir si votre crédit est accordé.</p></div>
+      <div class="prod-av-card"><h3>100 % en ligne</h3><p>De la simulation à la signature du contrat, tout se passe en ligne, depuis n'importe quel appareil (ordinateur, smartphone, tablette). Aucun déplacement en agence, aucun document à envoyer par courrier. Votre espace client vous permet de suivre l'avancement de votre dossier en temps réel.</p></div>
+      <div class="prod-av-card"><h3>Rétractation 14 jours</h3><p>Conformément à l'article L.312-19 du Code de la consommation, vous bénéficiez d'un délai de rétractation de 14 jours calendaires sans pénalité ni justification. Si vous avez utilisé les fonds, vous remboursez uniquement le capital et les intérêts courus, sans indemnité.</p></div>
+      <div class="prod-av-card"><h3>Remboursement anticipé</h3><p>Vous pouvez rembourser votre prêt par anticipation, partiellement ou totalement, à tout moment. Pour les remboursements inférieurs à 10 000 € sur 12 mois glissants, aucune indemnité n'est due. Au-delà, l'indemnité est plafonnée à 0,5 % ou 1 % selon le délai restant.</p></div>
     </div>
   </div>
 
@@ -1660,7 +1660,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ════════════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-auto">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#001525 0%,#003366 45%,#1a7bbf 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#3ab5e5 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit auto</h1>
@@ -1762,12 +1762,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-documents-wrap inner">
     <h2>Documents demandés</h2>
     <div class="docs-grid">
-      <div class="doc-item"><span class="doc-item-icon">🪪</span><span>Pièce d'identité en cours de validité</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏠</span><span>Justificatif de domicile de moins de 3 mois</span></div>
-      <div class="doc-item"><span class="doc-item-icon">💼</span><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏦</span><span>RIB au nom du demandeur</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🚗</span><span>Bon de commande, devis ou annonce du véhicule</span></div>
-      <div class="doc-item"><span class="doc-item-icon">📋</span><span>Carte grise du véhicule (pour les occasions)</span></div>
+      <div class="doc-item"><span>Pièce d'identité en cours de validité</span></div>
+      <div class="doc-item"><span>Justificatif de domicile de moins de 3 mois</span></div>
+      <div class="doc-item"><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
+      <div class="doc-item"><span>RIB au nom du demandeur</span></div>
+      <div class="doc-item"><span>Bon de commande, devis ou annonce du véhicule</span></div>
+      <div class="doc-item"><span>Carte grise du véhicule (pour les occasions)</span></div>
     </div>
   </div>
 
@@ -1806,7 +1806,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ CRÉDIT TRAVAUX ════════════ -->
 <div class="page pg-section" id="pg-credit-travaux">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#1a3d00 0%,#2d6600 45%,#4cad00 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#049f90 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit travaux</h1>
@@ -1907,12 +1907,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-documents-wrap inner">
     <h2>Documents demandés</h2>
     <div class="docs-grid">
-      <div class="doc-item"><span class="doc-item-icon">🪪</span><span>Pièce d'identité en cours de validité</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏠</span><span>Justificatif de domicile de moins de 3 mois</span></div>
-      <div class="doc-item"><span class="doc-item-icon">💼</span><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏦</span><span>RIB au nom du demandeur</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🔨</span><span>Devis détaillé de l'artisan ou du maître d'œuvre</span></div>
-      <div class="doc-item"><span class="doc-item-icon">📜</span><span>Justificatif RGE de l'artisan (si travaux énergétiques)</span></div>
+      <div class="doc-item"><span>Pièce d'identité en cours de validité</span></div>
+      <div class="doc-item"><span>Justificatif de domicile de moins de 3 mois</span></div>
+      <div class="doc-item"><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
+      <div class="doc-item"><span>RIB au nom du demandeur</span></div>
+      <div class="doc-item"><span>Devis détaillé de l'artisan ou du maître d'œuvre</span></div>
+      <div class="doc-item"><span>Justificatif RGE de l'artisan (si travaux énergétiques)</span></div>
     </div>
   </div>
 
@@ -1953,7 +1953,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-renouvelable">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#5c1a00 0%,#a03000 45%,#e35718 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#e35718 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit permanent</p>
       <h1>Crédit renouvelable</h1>
@@ -2036,19 +2036,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-documents-wrap inner">
     <h2>Documents demandés</h2>
     <div class="docs-grid">
-      <div class="doc-item"><span class="doc-item-icon">🪪</span><span>Pièce d'identité en cours de validité</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏠</span><span>Justificatif de domicile de moins de 3 mois</span></div>
-      <div class="doc-item"><span class="doc-item-icon">💼</span><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏦</span><span>RIB au nom du demandeur</span></div>
+      <div class="doc-item"><span>Pièce d'identité en cours de validité</span></div>
+      <div class="doc-item"><span>Justificatif de domicile de moins de 3 mois</span></div>
+      <div class="doc-item"><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
+      <div class="doc-item"><span>RIB au nom du demandeur</span></div>
     </div>
   </div>
 
   <div class="prod-avantages inner">
     <h2>Les avantages du crédit renouvelable Sofinco</h2>
     <div class="prod-av-grid">
-      <div class="prod-av-card"><span class="prod-av-icon">🔄</span><h3>Réserve reconstituable</h3><p>Chaque euro remboursé reconstitue immédiatement votre réserve disponible. Vous n'avez pas à effectuer de nouvelle demande de crédit à chaque besoin : votre réserve est disponible en permanence, dans la limite de votre plafond contractuel.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">0️⃣</span><h3>Mode comptant à 0 %</h3><p>En utilisant votre crédit en mode comptant, vous bénéficiez d'un débit différé sans aucun intérêt : les sommes utilisées sont débitées le mois suivant, exactement comme avec une carte de paiement à débit différé. Ce mode est particulièrement avantageux pour les dépenses que vous pouvez régler dès la fin du mois.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">🛡️</span><h3>Protection loi Lagarde</h3><p>Le crédit renouvelable Sofinco est entièrement conforme aux dispositions de la loi Lagarde (2010) : information précontractuelle renforcée, formulaire de retrait standardisé, révision annuelle obligatoire, possibilité de résiliation immédiate et information systématique sur les alternatives (prêt personnel) lors de toute utilisation supérieure à 1 000 €.</p></div>
+      <div class="prod-av-card"><h3>Réserve reconstituable</h3><p>Chaque euro remboursé reconstitue immédiatement votre réserve disponible. Vous n'avez pas à effectuer de nouvelle demande de crédit à chaque besoin : votre réserve est disponible en permanence, dans la limite de votre plafond contractuel.</p></div>
+      <div class="prod-av-card"><h3>Mode comptant à 0 %</h3><p>En utilisant votre crédit en mode comptant, vous bénéficiez d'un débit différé sans aucun intérêt : les sommes utilisées sont débitées le mois suivant, exactement comme avec une carte de paiement à débit différé. Ce mode est particulièrement avantageux pour les dépenses que vous pouvez régler dès la fin du mois.</p></div>
+      <div class="prod-av-card"><h3>Protection loi Lagarde</h3><p>Le crédit renouvelable Sofinco est entièrement conforme aux dispositions de la loi Lagarde (2010) : information précontractuelle renforcée, formulaire de retrait standardisé, révision annuelle obligatoire, possibilité de résiliation immédiate et information systématique sur les alternatives (prêt personnel) lors de toute utilisation supérieure à 1 000 €.</p></div>
     </div>
   </div>
 
@@ -2075,7 +2075,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ RACHAT DE CRÉDITS ════════════ -->
 <div class="page pg-section" id="pg-rachat-de-credits">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#2d0066 0%,#4a0080 45%,#7b1fa2 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#06c2b0 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Regroupement de crédits</p>
       <h1>Rachat de crédits</h1>
@@ -2157,12 +2157,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-documents-wrap inner">
     <h2>Documents demandés</h2>
     <div class="docs-grid">
-      <div class="doc-item"><span class="doc-item-icon">🪪</span><span>Pièce d'identité en cours de validité</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏠</span><span>Justificatif de domicile et titre de propriété (si propriétaire)</span></div>
-      <div class="doc-item"><span class="doc-item-icon">💼</span><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏦</span><span>RIB au nom du demandeur</span></div>
-      <div class="doc-item"><span class="doc-item-icon">📋</span><span>Tableaux d'amortissement et derniers relevés de tous les crédits en cours</span></div>
-      <div class="doc-item"><span class="doc-item-icon">📊</span><span>3 derniers relevés de compte bancaire</span></div>
+      <div class="doc-item"><span>Pièce d'identité en cours de validité</span></div>
+      <div class="doc-item"><span>Justificatif de domicile et titre de propriété (si propriétaire)</span></div>
+      <div class="doc-item"><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
+      <div class="doc-item"><span>RIB au nom du demandeur</span></div>
+      <div class="doc-item"><span>Tableaux d'amortissement et derniers relevés de tous les crédits en cours</span></div>
+      <div class="doc-item"><span>3 derniers relevés de compte bancaire</span></div>
     </div>
   </div>
 
@@ -2204,7 +2204,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-assurances">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#5c001a 0%,#99002b 45%,#cc1f45 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Protection emprunteur</p>
       <h1>Assurance emprunteur</h1>
@@ -2237,12 +2237,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-avantages inner">
     <h2>Les garanties disponibles</h2>
     <div class="prod-av-grid">
-      <div class="prod-av-card"><span class="prod-av-icon">💀</span><h3>Décès (DC)</h3><p>En cas de décès de l'emprunteur assuré, le capital restant dû du crédit est intégralement remboursé à Sofinco par CNP Assurances. Vos proches n'héritent pas de votre dette. Cette garantie est incluse dans tous les niveaux d'assurance proposés et constitue la protection minimale de base. Elle s'applique 24h/24 et 365 jours/an, sans restriction géographique.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">♿</span><h3>PTIA — Perte Totale et Irréversible d'Autonomie</h3><p>La garantie PTIA couvre les situations où l'assuré, suite à un accident ou une maladie, ne peut plus accomplir seul les actes de la vie courante (se laver, s'habiller, se nourrir) et nécessite l'assistance permanente d'une tierce personne. Dans ce cas, le capital restant dû est remboursé par l'assurance. Cette garantie est cumulée avec la garantie Décès dans tous nos contrats.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">🏥</span><h3>ITT — Incapacité Temporaire de Travail</h3><p>La garantie ITT prend en charge vos mensualités de crédit si vous êtes dans l'impossibilité temporaire d'exercer votre activité professionnelle suite à un accident ou une maladie, après un délai de franchise de 90 jours. Cette garantie est particulièrement adaptée aux actifs dont les revenus dépendent directement de leur capacité à travailler. Elle prend fin dès que vous reprenez votre activité.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">💼</span><h3>Perte d'emploi involontaire</h3><p>La garantie perte d'emploi couvre vos mensualités en cas de licenciement économique ou autre perte d'emploi involontaire (hors démission et rupture conventionnelle). Elle est soumise à un délai de carence de 6 mois à compter de la souscription et à un délai de franchise de 90 jours après le licenciement. Elle s'applique uniquement aux salariés en CDI depuis plus de 12 mois au moment du sinistre.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">📋</span><h3>Convention AERAS</h3><p>Pour les personnes présentant un risque aggravé de santé (maladie grave, handicap, antécédents médicaux), la convention AERAS prévoit des procédures spécifiques d'accès à l'assurance à trois niveaux d'examen. Si aucune offre standard n'est possible, un dispositif de mutualisation permet d'accéder à une couverture adaptée. Ce dispositif est gratuit et accessible sur simple demande.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">🔐</span><h3>Souscription en ligne sécurisée</h3><p>La souscription à l'assurance emprunteur s'effectue directement lors de la demande de crédit en ligne. Un questionnaire de santé simplifié vous est proposé. La notice d'information vous est remise avant toute souscription, conformément aux obligations d'information de l'ORIAS et du Code des assurances. Vous disposez d'un délai de rétractation de 14 jours.</p></div>
+      <div class="prod-av-card"><h3>Décès (DC)</h3><p>En cas de décès de l'emprunteur assuré, le capital restant dû du crédit est intégralement remboursé à Sofinco par CNP Assurances. Vos proches n'héritent pas de votre dette. Cette garantie est incluse dans tous les niveaux d'assurance proposés et constitue la protection minimale de base. Elle s'applique 24h/24 et 365 jours/an, sans restriction géographique.</p></div>
+      <div class="prod-av-card"><h3>PTIA — Perte Totale et Irréversible d'Autonomie</h3><p>La garantie PTIA couvre les situations où l'assuré, suite à un accident ou une maladie, ne peut plus accomplir seul les actes de la vie courante (se laver, s'habiller, se nourrir) et nécessite l'assistance permanente d'une tierce personne. Dans ce cas, le capital restant dû est remboursé par l'assurance. Cette garantie est cumulée avec la garantie Décès dans tous nos contrats.</p></div>
+      <div class="prod-av-card"><h3>ITT — Incapacité Temporaire de Travail</h3><p>La garantie ITT prend en charge vos mensualités de crédit si vous êtes dans l'impossibilité temporaire d'exercer votre activité professionnelle suite à un accident ou une maladie, après un délai de franchise de 90 jours. Cette garantie est particulièrement adaptée aux actifs dont les revenus dépendent directement de leur capacité à travailler. Elle prend fin dès que vous reprenez votre activité.</p></div>
+      <div class="prod-av-card"><h3>Perte d'emploi involontaire</h3><p>La garantie perte d'emploi couvre vos mensualités en cas de licenciement économique ou autre perte d'emploi involontaire (hors démission et rupture conventionnelle). Elle est soumise à un délai de carence de 6 mois à compter de la souscription et à un délai de franchise de 90 jours après le licenciement. Elle s'applique uniquement aux salariés en CDI depuis plus de 12 mois au moment du sinistre.</p></div>
+      <div class="prod-av-card"><h3>Convention AERAS</h3><p>Pour les personnes présentant un risque aggravé de santé (maladie grave, handicap, antécédents médicaux), la convention AERAS prévoit des procédures spécifiques d'accès à l'assurance à trois niveaux d'examen. Si aucune offre standard n'est possible, un dispositif de mutualisation permet d'accéder à une couverture adaptée. Ce dispositif est gratuit et accessible sur simple demande.</p></div>
+      <div class="prod-av-card"><h3>Souscription en ligne sécurisée</h3><p>La souscription à l'assurance emprunteur s'effectue directement lors de la demande de crédit en ligne. Un questionnaire de santé simplifié vous est proposé. La notice d'information vous est remise avant toute souscription, conformément aux obligations d'information de l'ORIAS et du Code des assurances. Vous disposez d'un délai de rétractation de 14 jours.</p></div>
     </div>
   </div>
 
@@ -2281,7 +2281,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ CARTES JKL.OIN ════════════ -->
 <div class="page pg-section" id="pg-cartes">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#3d2600 0%,#7a4d00 45%,#c4860a 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#e35718 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Paiement et crédit</p>
       <h1>Cartes Sofinco</h1>
@@ -2366,9 +2366,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-avantages inner">
     <h2>Pourquoi choisir la carte Sofinco ?</h2>
     <div class="prod-av-grid">
-      <div class="prod-av-card"><span class="prod-av-icon">🌍</span><h3>Acceptée partout</h3><p>Le réseau Mastercard est l'un des plus étendus au monde : plus de 80 millions de commerces dans plus de 210 pays acceptent votre carte Sofinco. En ligne, en magasin, à l'étranger — vous pouvez régler partout sans restriction. En cas de problème lors d'un paiement à l'étranger, notre service client est disponible pour vous assister.</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">🔒</span><h3>Sécurité maximale</h3><p>Votre carte est protégée par les technologies de sécurité les plus récentes : puce EMV, sans contact NFC plafonné, 3D Secure pour les paiements en ligne, et authentification forte DSP2. En cas de perte ou de vol, faites opposition immédiatement au 09 69 39 10 00 — votre responsabilité est limitée à 50 € pour les paiements frauduleux avant opposition, et nulle après (art. L.133-19 CMF).</p></div>
-      <div class="prod-av-card"><span class="prod-av-icon">⚖️</span><h3>Liberté de paiement</h3><p>Choisissez votre mode de paiement achat par achat : comptant sans frais pour les dépenses que vous pouvez absorber immédiatement, ou en plusieurs fois pour les achats plus importants. Vous n'êtes jamais bloqué dans un mode unique. Votre solde disponible se reconstitue automatiquement au fur et à mesure de vos remboursements.</p></div>
+      <div class="prod-av-card"><h3>Acceptée partout</h3><p>Le réseau Mastercard est l'un des plus étendus au monde : plus de 80 millions de commerces dans plus de 210 pays acceptent votre carte Sofinco. En ligne, en magasin, à l'étranger — vous pouvez régler partout sans restriction. En cas de problème lors d'un paiement à l'étranger, notre service client est disponible pour vous assister.</p></div>
+      <div class="prod-av-card"><h3>Sécurité maximale</h3><p>Votre carte est protégée par les technologies de sécurité les plus récentes : puce EMV, sans contact NFC plafonné, 3D Secure pour les paiements en ligne, et authentification forte DSP2. En cas de perte ou de vol, faites opposition immédiatement au 09 69 39 10 00 — votre responsabilité est limitée à 50 € pour les paiements frauduleux avant opposition, et nulle après (art. L.133-19 CMF).</p></div>
+      <div class="prod-av-card"><h3>Liberté de paiement</h3><p>Choisissez votre mode de paiement achat par achat : comptant sans frais pour les dépenses que vous pouvez absorber immédiatement, ou en plusieurs fois pour les achats plus importants. Vous n'êtes jamais bloqué dans un mode unique. Votre solde disponible se reconstitue automatiquement au fur et à mesure de vos remboursements.</p></div>
     </div>
   </div>
 
@@ -2397,7 +2397,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-moto">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#1a0000 0%,#660000 45%,#cc2200 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#06c2b0 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit véhicule</p>
       <h1>Crédit moto</h1>
@@ -2494,12 +2494,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="prod-documents-wrap inner">
     <h2>Documents demandés</h2>
     <div class="docs-grid">
-      <div class="doc-item"><span class="doc-item-icon">🪪</span><span>Pièce d'identité en cours de validité</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏠</span><span>Justificatif de domicile de moins de 3 mois</span></div>
-      <div class="doc-item"><span class="doc-item-icon">💼</span><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏦</span><span>RIB au nom du demandeur</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🏍️</span><span>Devis / bon de commande du véhicule et équipements</span></div>
-      <div class="doc-item"><span class="doc-item-icon">🪪</span><span>Permis de conduire correspondant à la catégorie</span></div>
+      <div class="doc-item"><span>Pièce d'identité en cours de validité</span></div>
+      <div class="doc-item"><span>Justificatif de domicile de moins de 3 mois</span></div>
+      <div class="doc-item"><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
+      <div class="doc-item"><span>RIB au nom du demandeur</span></div>
+      <div class="doc-item"><span>Devis / bon de commande du véhicule et équipements</span></div>
+      <div class="doc-item"><span>Permis de conduire correspondant à la catégorie</span></div>
     </div>
   </div>
 
@@ -2539,7 +2539,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-nous-decouvrir">
 
-  <div class="prod-hero" style="background:linear-gradient(150deg,#002233 0%,#004466 45%,#006699 100%);">
+  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#06c2b0 100%);">
     <div class="inner">
       <p class="prod-hero-eyebrow">À propos</p>
       <h1>Nous découvrir</h1>
@@ -2567,32 +2567,32 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <h2>Nos engagements</h2>
     <div class="prod-av-grid">
       <div class="prod-av-card">
-        <span class="prod-av-icon">🤝</span>
+        
         <h3>Accompagnement personnalisé</h3>
         <p>Nos conseillers spécialisés sont disponibles par téléphone du lundi au vendredi de 8h30 à 19h30 et le samedi de 8h30 à 17h00. Ils vous guident à chaque étape de votre demande de crédit, de la simulation au déblocage des fonds, et restent à votre disposition tout au long de la vie de votre contrat. Aucune question ne reste sans réponse.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">🔐</span>
+        
         <h3>Sécurité et confidentialité</h3>
         <p>La sécurité de vos données personnelles et bancaires est notre priorité absolue. Nous appliquons les normes de sécurité les plus élevées du secteur bancaire, conformément au <strong>Règlement Général sur la Protection des Données (RGPD)</strong>. Toutes vos transactions en ligne sont protégées par des protocoles de chiffrement SSL et des systèmes d'authentification forte conformes à la directive DSP2.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">⚖️</span>
+        
         <h3>Conformité réglementaire</h3>
         <p>Sofinco est agréée par l'ACPR et inscrite à l'ORIAS sous le numéro <strong>07 008 079</strong> en qualité d'intermédiaire en opérations de banque et services de paiement. Nous respectons scrupuleusement toutes les obligations légales et réglementaires applicables au crédit à la consommation, notamment celles issues de la loi Lagarde du 1er juillet 2010 et de ses décrets d'application.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">🌱</span>
+        
         <h3>Responsabilité et durabilité</h3>
         <p>Conscients de notre impact environnemental et social, nous nous engageons dans une démarche RSE ambitieuse. Nous finançons prioritairement les projets de rénovation énergétique éligibles aux aides d'État (MaPrimeRénov', CEE), et nous participons activement au financement de la transition énergétique. Sofinco est également signataire de la charte des établissements de crédit responsables vis-à-vis des personnes en situation de fragilité financière.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">💡</span>
+        
         <h3>Innovation digitale</h3>
         <p>Nous investissons continuellement dans la transformation numérique de nos services pour offrir à nos clients une expérience toujours plus fluide et intuitive. Notre espace client en ligne permet de gérer l'intégralité de son contrat 24h/24 : consultation des échéances, téléchargement des tableaux d'amortissement, modification des coordonnées bancaires, demandes de remboursement anticipé. Notre application mobile est disponible sur iOS et Android.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">🏆</span>
+        
         <h3>Reconnaissance et confiance</h3>
         <p>Sofinco est régulièrement distinguée par les palmarès indépendants des meilleures offres de crédit à la consommation. Notre note de satisfaction client reflète notre engagement constant à dépasser les attentes de nos emprunteurs. Plus de 4 millions de clients nous font confiance pour financer leurs projets, ce qui témoigne de la solidité et de la pertinence de notre offre sur le long terme.</p>
       </div>
@@ -2642,32 +2642,32 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <h2>Pourquoi choisir le partenariat Sofinco ?</h2>
     <div class="prod-av-grid">
       <div class="prod-av-card">
-        <span class="prod-av-icon">📈</span>
+        
         <h3>Augmentation du panier moyen</h3>
         <p>En proposant une solution de financement au moment de l'achat, vous permettez à vos clients de concrétiser des projets qu'ils auraient reportés faute de trésorerie disponible. Les études sectorielles montrent que l'intégration d'une offre de crédit au point de vente peut augmenter le panier moyen de 30 à 50 %, selon le secteur d'activité. Ce levier de conversion est particulièrement efficace pour les biens d'équipement, l'automobile, les travaux et l'électroménager haut de gamme.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">⚡</span>
+        
         <h3>Réponse instantanée en ligne</h3>
         <p>Notre plateforme partenaire délivre une réponse de principe en temps réel grâce à des algorithmes de scoring performants. Le client n'a plus à attendre plusieurs jours pour savoir si son financement est accordé : la réponse est immédiate, ce qui permet de conclure la vente dans la même session. En cas d'accord, le déblocage des fonds intervient sous 24 à 48 heures après validation définitive du dossier et signature du contrat.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">📋</span>
+        
         <h3>Parcours 100% dématérialisé</h3>
         <p>De la saisie de la demande à la signature électronique du contrat de crédit, l'intégralité du processus est digitalisée. Vos clients signent leur contrat depuis leur smartphone, tablette ou ordinateur grâce à une solution de signature électronique qualifiée, conforme au règlement eIDAS. Plus aucun document papier à imprimer, scanner ou conserver : tout est archivé de manière sécurisée sur notre plateforme et accessible à tout moment.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">🎓</span>
+        
         <h3>Formation et support dédiés</h3>
         <p>Chaque nouveau partenaire bénéficie d'un programme d'onboarding complet : formation initiale sur nos produits et notre plateforme, mise à disposition d'outils pédagogiques et de supports de communication. Un gestionnaire de compte personnel est attribué à chaque partenaire pour répondre à ses questions, l'accompagner dans la montée en compétence de ses équipes et optimiser les performances commerciales. Des webinaires de formation continue sont organisés régulièrement.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">🔒</span>
+        
         <h3>Sécurité et conformité garanties</h3>
         <p>En tant que partenaire Sofinco, vous bénéficiez du cadre réglementaire sécurisé d'un établissement de crédit agréé par l'ACPR. Toutes les obligations légales liées à l'octroi de crédit (information précontractuelle FIPEN, vérification de solvabilité, assurance emprunteur) sont prises en charge par Sofinco. Vous n'avez pas à gérer les contraintes réglementaires complexes du crédit à la consommation : nous nous en occupons intégralement.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">💼</span>
+        
         <h3>Large gamme de produits</h3>
         <p>Notre offre partenaire couvre l'ensemble des besoins de financement de vos clients : crédit affecté pour l'achat d'un bien ou d'une prestation déterminée, prêt personnel pour les projets non affectés, crédit renouvelable pour les achats récurrents, et financement de travaux avec possibilité d'intégration des aides d'État. Quelle que soit votre activité (commerce, artisanat, automobile, voyage, santé…), nous avons une solution adaptée.</p>
       </div>
@@ -2678,17 +2678,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <h2>Quels professionnels peuvent devenir partenaires ?</h2>
     <div class="prod-av-grid">
       <div class="prod-av-card" style="background:#f0fffe;">
-        <span class="prod-av-icon">🚗</span>
+        
         <h3>Secteur automobile</h3>
         <p>Concessionnaires, négociants automobiles, vente de véhicules d'occasion, motos et scooters, caravanes et camping-cars. Sofinco propose des solutions de financement spécifiquement conçues pour le secteur automobile, avec des durées allant jusqu'à 84 mois et des offres de crédit ballon adaptées aux véhicules haut de gamme.</p>
       </div>
       <div class="prod-av-card" style="background:#f0fffe;">
-        <span class="prod-av-icon">🔨</span>
+        
         <h3>Artisans et travaux</h3>
         <p>Entreprises de bâtiment, artisans RGE (Reconnus Garants de l'Environnement), cuisinistes, pisciculteurs, installateurs de panneaux solaires et de pompes à chaleur. Nos solutions de financement travaux permettent à vos clients de bénéficier de durées pouvant atteindre 120 mois pour les projets de rénovation énergétique.</p>
       </div>
       <div class="prod-av-card" style="background:#f0fffe;">
-        <span class="prod-av-icon">🛍️</span>
+        
         <h3>Commerce et distribution</h3>
         <p>Grandes surfaces spécialisées, commerce indépendant, e-commerce, vente à distance. Nos APIs permettent une intégration directe dans votre tunnel d'achat en ligne pour proposer le financement de manière transparente à l'étape du paiement, sans rupture de l'expérience client.</p>
       </div>
@@ -2907,17 +2907,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <h2>Nos canaux de contact</h2>
     <div class="prod-av-grid">
       <div class="prod-av-card">
-        <span class="prod-av-icon">📞</span>
+        
         <h3>Par téléphone</h3>
         <p><strong>09 69 39 10 00</strong><br>Numéro non surtaxé — coût d'un appel local<br><br><strong>Lundi au vendredi</strong> : 8h30 – 19h30<br><strong>Samedi</strong> : 8h30 – 17h00<br><br>Nos conseillers sont disponibles pour toute question relative à vos crédits, vos contrats et vos remboursements. Pour accélérer le traitement de votre appel, munissez-vous de votre numéro de contrat.</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">💻</span>
+        
         <h3>Espace client en ligne</h3>
         <p>Connectez-vous à votre <strong>espace client personnel</strong> pour gérer l'intégralité de vos contrats en toute autonomie, 24h/24 et 7j/7 :<br><br>• Consulter vos échéances et votre tableau d'amortissement<br>• Télécharger vos documents contractuels<br>• Modifier vos coordonnées bancaires<br>• Faire une demande de remboursement anticipé<br>• Envoyer un message sécurisé à votre conseiller</p>
       </div>
       <div class="prod-av-card">
-        <span class="prod-av-icon">✉️</span>
+        
         <h3>Par courrier postal</h3>
         <p>Pour toute demande écrite formelle (réclamation, exercice de droits RGPD, résiliation) :<br><br><strong>CA Consumer Finance — Service Client Sofinco</strong><br>BP 87017<br>92563 Rueil-Malmaison Cedex<br><br>Joignez à votre courrier une copie de votre pièce d'identité ainsi que votre numéro de contrat. Nous accusons réception sous 10 jours ouvrables.</p>
       </div>
@@ -3830,7 +3830,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="sim-avis-badge">
         <div class="sim-avis-logo">AV</div>
         <div class="sim-avis-info">
-          <b>+5&nbsp;823 avis <span class="sim-avis-stars">★★★★★</span> 4,6</b>
+          <b>+5&nbsp;823 avis <span class="sim-avis-stars"></span> 4,6</b>
           <span>sur 5</span>
         </div>
       </div>
@@ -3874,7 +3874,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="sim-avis-badge">
         <div class="sim-avis-logo">AV</div>
         <div class="sim-avis-info">
-          <b>+5&nbsp;823 avis <span class="sim-avis-stars">★★★★★</span> 4,6</b>
+          <b>+5&nbsp;823 avis <span class="sim-avis-stars"></span> 4,6</b>
           <span>sur 5</span>
         </div>
       </div>
@@ -3925,7 +3925,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="sim-avis-badge">
         <div class="sim-avis-logo">AV</div>
         <div class="sim-avis-info">
-          <b>+5&nbsp;823 avis <span class="sim-avis-stars">★★★★★</span> 4,6</b>
+          <b>+5&nbsp;823 avis <span class="sim-avis-stars"></span> 4,6</b>
           <span>sur 5</span>
         </div>
       </div>
@@ -4215,7 +4215,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       document.getElementById('sim-bb-back').style.display='none';
       document.getElementById('sim-bb-prog').textContent='Demande envoyée !';
       var confirm=document.createElement('div');confirm.className='sim-pane s-show sim-confirm';
-      confirm.innerHTML='<div class="sim-confirm-ico">✅</div><p class="sim-confirm-title">Demande enregistrée !</p><p class="sim-confirm-msg">Un conseiller Jkl.oin vous contactera dans les plus brefs délais pour finaliser votre dossier.</p>';
+      confirm.innerHTML='<div class="sim-confirm-ico"></div><p class="sim-confirm-title">Demande enregistrée !</p><p class="sim-confirm-msg">Un conseiller Jkl.oin vous contactera dans les plus brefs délais pour finaliser votre dossier.</p>';
       document.querySelector('.sim-body').appendChild(confirm);
     }
   });
