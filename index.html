@@ -11,7 +11,8 @@
   <style>
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#222;background:#fff;line-height:1.5;overflow-x:hidden}
+html{overflow-x:hidden;max-width:100%}
+body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#222;background:#fff;line-height:1.5;overflow-x:hidden;max-width:100%}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 img{max-width:100%;height:auto;display:block}
@@ -803,7 +804,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .use-list li::before{content:'';position:absolute;left:0;color:var(--teal);font-weight:800}
 .prod-caract-wrap{background:#f5f8fb;border-radius:14px;padding:2.5rem;margin:2rem 0}
 .prod-caract-wrap h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin-bottom:1.4rem}
-.caract-table{width:100%;border-collapse:collapse}
+.prod-caract-wrap{overflow-x:auto}
+.caract-table{width:100%;border-collapse:collapse;min-width:0}
 .caract-table tr{border-bottom:1px solid #dde8f0}
 .caract-table tr:last-child{border-bottom:none}
 .caract-table td{padding:.72rem 1rem;font-size:.95rem;color:#333;vertical-align:top;line-height:1.5}
