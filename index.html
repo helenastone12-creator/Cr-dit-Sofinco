@@ -351,56 +351,59 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
    PRODUITS
 ═══════════════════════════ */
 .products{
-  padding:2.5rem 0;
+  padding:2rem 0 2.5rem;
   background:#fff;
 }
-.products .wrap{max-width:var(--w);margin:0 auto;padding:0 .75rem}
+.products .wrap{max-width:var(--w);margin:0 auto;padding:0 1rem}
 .prod-group{margin-bottom:2.5rem}
 .prod-group:last-child{margin-bottom:0}
-.prod-group h2{
-  font-size:1.5rem;font-weight:800;color:var(--navy);
-  text-align:center;margin-bottom:.4rem;
+.prod-group-hd{padding:0 .25rem;margin-bottom:1.2rem}
+.prod-group-hd h2{
+  font-size:1.6rem;font-weight:800;color:var(--navy);
+  margin-bottom:.35rem;line-height:1.25;
 }
-.products .prod-sub{
-  font-size:.95rem;color:#666;
-  text-align:center;margin-bottom:1.5rem;line-height:1.6;
+.prod-group-hd p{
+  font-size:.93rem;color:#666;line-height:1.55;
 }
 .prod-list{display:flex;flex-direction:column;gap:.75rem}
 .prod-item{
-  border-radius:20px;overflow:hidden;
-  position:relative;height:300px;cursor:pointer;
-  box-shadow:0 4px 18px rgba(0,0,0,.18);
+  border-radius:18px;overflow:hidden;
+  position:relative;height:280px;cursor:pointer;
 }
 .prod-item img{
   width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .4s ease;
 }
+.prod-item:hover img{transform:scale(1.04)}
 .prod-item-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,0) 25%,rgba(0,0,0,.72) 100%);
+  background:linear-gradient(160deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.78) 100%);
 }
 .prod-item-body{
   position:absolute;bottom:0;left:0;right:0;
-  padding:1.2rem 1.4rem 1.6rem;
-  display:flex;flex-direction:column;align-items:flex-start;gap:.75rem;
+  padding:1.1rem 1.3rem 1.4rem;
+  display:flex;flex-direction:column;align-items:flex-start;gap:.65rem;
 }
 .prod-item-title{
-  color:#fff;font-size:1.35rem;font-weight:800;
+  color:#fff;font-size:1.25rem;font-weight:800;
   text-transform:uppercase;letter-spacing:.04em;line-height:1.2;
+  text-shadow:0 1px 4px rgba(0,0,0,.4);
 }
 .prod-btn{
   background:var(--teal);color:#fff;border:none;
-  border-radius:50px;padding:.55rem 1.6rem;
-  font-size:.88rem;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:background .2s;
+  border-radius:50px;padding:.5rem 1.5rem;
+  font-size:.87rem;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:background .2s,transform .15s;
   text-decoration:none;display:inline-block;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
 }
-.prod-btn:hover{background:var(--teal-d);color:#fff}
-@media(min-width:500px){
-  .prod-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.prod-btn:hover{background:var(--teal-d);color:#fff;transform:scale(1.03)}
+@media(min-width:560px){
+  .prod-list{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
 }
-@media(min-width:800px){
-  .prod-list{grid-template-columns:repeat(3,1fr);gap:1.2rem}
-  .prod-item{height:300px}
+@media(min-width:860px){
+  .prod-list{grid-template-columns:repeat(3,1fr);gap:1rem}
+  .prod-item{height:310px}
 }
 
 /* ═══════════════════════════
@@ -1265,8 +1268,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="wrap">
 
       <div class="prod-group">
-        <h2>Des offres de crédits adaptées à vos besoins</h2>
-        <p class="prod-sub">Financez tous vos projets avec des mensualités fixes et 0 € de frais de dossier.</p>
+        <div class="prod-group-hd"><h2>Des offres de crédits adaptées à vos besoins</h2><p>Financez tous vos projets avec des mensualités fixes et 0 € de frais de dossier.</p></div>
         <ul class="prod-list">
           <li class="prod-item">
             <img src="https://picsum.photos/seed/couple42/800/500" alt="Prêt personnel"/>
@@ -1304,8 +1306,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       </div>
 
       <div class="prod-group">
-        <h2>Gérez votre budget en toute liberté</h2>
-        <p class="prod-sub">Des solutions flexibles pour simplifier vos finances au quotidien.</p>
+        <div class="prod-group-hd"><h2>Gérez votre budget en toute liberté</h2><p>Des solutions flexibles pour simplifier vos finances au quotidien.</p></div>
         <ul class="prod-list">
           <li class="prod-item">
             <img src="https://picsum.photos/seed/shopping55/800/500" alt="Crédit renouvelable"/>
