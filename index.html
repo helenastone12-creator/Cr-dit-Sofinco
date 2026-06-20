@@ -195,7 +195,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   z-index:800;
   box-shadow:0 -2px 16px rgba(0,0,0,.12);
   transform:translateY(100%);
-  transition:transform .3s ease;
+  transition:transform .18s ease;
 }
 .mob-sim-bar.visible{transform:translateY(0)}
 .mob-sim-btn{
@@ -4046,10 +4046,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       y > 8 ? '0 4px 18px rgba(0,0,0,.15)' : '0 1px 8px rgba(0,0,0,.12)';
     var simBar = document.getElementById('mob-sim-bar');
     if(simBar){
-      var scrollingUp = y < _lastScrollY;
+      var scrollingUp   = y < _lastScrollY;
+      var scrollingDown = y > _lastScrollY;
       if(scrollingUp && y > 150){
         simBar.classList.add('visible');
-      } else if(!scrollingUp || y <= 150){
+      } else if(scrollingDown || y <= 150){
         simBar.classList.remove('visible');
       }
     }
