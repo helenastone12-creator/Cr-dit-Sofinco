@@ -298,17 +298,21 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .cof-step{margin-bottom:1rem}
 .cof-step-lbl{font-size:.9rem;font-weight:600;color:var(--navy);margin-bottom:.55rem}
 .cof-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M2 4l5 6 5-6' stroke='%2306c2b0' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
-.cof-proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.cof-proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
 .cof-proj-btn{
-  display:flex;align-items:center;gap:.55rem;
-  border:1.5px solid #ddd;border-radius:10px;
-  padding:.65rem .75rem;font-size:.82rem;font-weight:600;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.45rem;text-align:center;
+  border:1.5px solid #ddd;border-radius:12px;
+  padding:.75rem .4rem;font-size:.75rem;font-weight:700;
   color:var(--navy);background:#fff;cursor:pointer;
-  font-family:inherit;text-align:left;line-height:1.25;
+  font-family:inherit;line-height:1.2;min-height:88px;
   transition:border-color .15s,background .15s;
 }
 .cof-proj-btn:hover,.cof-proj-btn.sel{border-color:var(--teal);background:#edfaf9;color:var(--teal)}
-.cof-proj-btn svg{flex-shrink:0;color:var(--teal)}
+.cof-proj-btn svg{flex-shrink:0;fill:var(--navy);transition:fill .15s}
+.cof-proj-btn:hover svg,.cof-proj-btn.sel svg{fill:var(--teal)}
+.cof-amount-wrap{position:relative}
+.cof-euro{position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:.95rem;font-weight:600;color:#888;pointer-events:none}
 .cof-cta-btn{width:100%;padding:.9rem;font-size:.95rem;font-weight:800;letter-spacing:.04em;margin-top:1rem;border-radius:10px}
 
 /* Formulaire simulateur */
@@ -1240,20 +1244,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
         <div class="cof-step">
           <p class="cof-step-lbl"><strong>1.</strong> De quel montant avez-vous besoin&nbsp;?</p>
-          <div class="sim-field">
-            <select class="sim-select cof-select" id="cof-montant" aria-label="Montant">
-              <option value="1000">1 000 €</option>
-              <option value="2000">2 000 €</option>
-              <option value="3000">3 000 €</option>
-              <option value="5000">5 000 €</option>
-              <option value="8000" selected>8 000 €</option>
-              <option value="10000">10 000 €</option>
-              <option value="15000">15 000 €</option>
-              <option value="20000">20 000 €</option>
-              <option value="30000">30 000 €</option>
-              <option value="50000">50 000 €</option>
-              <option value="75000">75 000 €</option>
-            </select>
+          <div class="sim-field cof-amount-wrap">
+            <input type="number" class="sim-input" id="cof-montant" placeholder="Ex : 5 000" min="500" max="75000" aria-label="Montant en euros"/>
+            <span class="cof-euro">€</span>
           </div>
         </div>
 
@@ -1261,28 +1254,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <p class="cof-step-lbl"><strong>2.</strong> Quel est votre projet&nbsp;?</p>
           <div class="cof-proj-grid">
             <button class="cof-proj-btn" data-sim="autre">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="3" y="4" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="20" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="20" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="15" y="4" width="10" height="20" rx="1.5" stroke="currentColor" stroke-width="1.8"/><line x1="17" y1="9" x2="23" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="17" y1="13" x2="23" y2="13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-              Gérer le quotidien
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M4 13L14 5l10 8v11a1 1 0 01-1 1H5a1 1 0 01-1-1V13z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="10" y="17" width="8" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/></svg>
-              Équiper la maison
+              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26C17.81 13.47 19 11.38 19 9c0-3.86-3.14-7-7-7z"/></svg>
+              Projets
             </button>
             <button class="cof-proj-btn" data-sim="travaux">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="3" y="20" width="22" height="5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 20V10l3-3 3 3v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M18 20v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="11" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
-              Faire des travaux
+              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/><path d="M15.5 2.1L11 6.6l1.4 1.4.7-.7 1.8 1.8 1.4-1.4-1.8-1.8.7-.7-1.4-1.4.7-.7z" opacity=".6"/></svg>
+              Travaux
             </button>
             <button class="cof-proj-btn" data-sim="auto">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M3 16l3-7h16l3 7v4H3v-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8" cy="20" r="2.5" stroke="currentColor" stroke-width="1.8"/><circle cx="20" cy="20" r="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M6 12h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-              Se déplacer
+              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+              Auto / Moto
             </button>
             <button class="cof-proj-btn" data-sim="autre">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="4" y="7" width="20" height="17" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M9 4v5M19 4v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 17l1.5-3-1.5 1-1.5-1 1.5 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-              Financer un évènement
+              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              Immobilier
             </button>
             <button class="cof-proj-btn" data-sim="autre">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M4 22h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 22V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 10c0-3.866 3.134-7 7-7s7 3.134 7 7H7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 22c0-2.5 1.5-4 3.5-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-              Voyager, se divertir
+              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              Personnel
+            </button>
+            <button class="cof-proj-btn" data-sim="autre">
+              <svg width="30" height="30" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+              Autres
             </button>
           </div>
         </div>
