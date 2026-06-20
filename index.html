@@ -4032,7 +4032,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   // Liens avec class pg-link (navigation interne)
   document.addEventListener('click',function(e){
-    var a = e.target.closest('a.pg-link, [data-page]');
+    var a = e.target.closest('a.pg-link, a.spa-link, [data-page]');
     if(a){
       var href = a.getAttribute('href')||'';
       if(href.startsWith('#')){
