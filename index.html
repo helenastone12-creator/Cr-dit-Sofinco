@@ -878,21 +878,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ════════════════════════
    HERO PRODUIT
 ════════════════════════ */
-.prod-hero{background-color:#00334D;background:linear-gradient(140deg,#001f38 0%,#00334D 50%,#004d73 100%);padding:4.5rem 1.5rem 3.5rem;color:#fff;position:relative;overflow:hidden;min-height:220px}
-.prod-hero::after{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(6,194,176,.12) 0%,transparent 70%);pointer-events:none}
-.prod-hero::before{content:'';position:absolute;left:-60px;bottom:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(58,181,229,.08) 0%,transparent 70%);pointer-events:none}
+.prod-hero{background:#fff;padding:2.5rem 0 2rem;color:var(--navy);position:relative;border-bottom:2px solid #ecf0f3;overflow:visible;min-height:0}
+.prod-hero::after{display:none}
+.prod-hero::before{display:none}
 .prod-hero .wrap,.prod-hero .inner{max-width:var(--w);margin:0 auto;position:relative;z-index:1}
-.prod-hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(6,194,176,.15);border:1.5px solid rgba(6,194,176,.35);color:var(--teal);border-radius:2rem;padding:.35rem 1rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.2rem}
-.prod-hero h1{font-size:2.4rem;font-weight:800;line-height:1.12;margin-bottom:1rem;color:#fff}
+.prod-hero-eyebrow{display:inline-block;background:var(--teal);color:#fff;border-radius:50px;padding:.32rem 1.1rem;font-size:.82rem;font-weight:700;letter-spacing:.02em;margin-bottom:1.1rem}
+.prod-hero h1{font-size:2rem;font-weight:800;line-height:1.22;margin-bottom:.9rem;color:var(--navy)}
 .prod-hero h1 span{color:var(--teal)}
-.prod-hero-desc{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:2rem;line-height:1.65;max-width:580px}
-.prod-hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
-.prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.2rem;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 20px rgba(6,194,176,.4)}
-.prod-hero .btn-prim:hover{background:var(--teal-d);transform:translateY(-1px)}
-.prod-hero .btn-sec{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4);border-radius:2rem;padding:.95rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
-.prod-hero .btn-sec:hover{border-color:#fff;background:rgba(255,255,255,.08)}
-.prod-hero-note{font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.8rem}
-@media(min-width:960px){.prod-hero h1{font-size:3.2rem}.prod-hero{padding:6rem 1.5rem 5rem}}
+.prod-hero-sub{font-size:.97rem;color:#555;line-height:1.7;margin-bottom:1.4rem;max-width:600px}
+.prod-hero-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+.prod-hero-badge{background:#f0f4f7;border:1px solid #dce4ea;color:var(--navy);padding:.32rem .9rem;border-radius:50px;font-size:.8rem;font-weight:600}
+.prod-hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-top:1.5rem}
+.prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3)}
+.prod-hero .btn-prim:hover{background:var(--teal-d)}
+.prod-hero .btn-sec{background:transparent;color:var(--navy);border:2px solid #ccd5dc;border-radius:2rem;padding:.9rem 1.8rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.prod-hero .btn-sec:hover{border-color:var(--teal);color:var(--teal)}
+.prod-hero-note{font-size:.78rem;color:#888;margin-top:.8rem}
+@media(min-width:960px){.prod-hero h1{font-size:2.8rem}.prod-hero{padding:3.5rem 0 3rem}}
 
 /* ════════════════════════
    BANDEAU CHIFFRES
@@ -1497,7 +1499,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ PRÊT PERSONNEL ════════════ -->
 <div class="page pg-section" id="pg-pret-personnel">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#06c2b0 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Prêt personnel</h1>
@@ -1664,7 +1666,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ════════════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-auto">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#3ab5e5 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit auto</h1>
@@ -1810,7 +1812,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ CRÉDIT TRAVAUX ════════════ -->
 <div class="page pg-section" id="pg-credit-travaux">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#049f90 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit travaux</h1>
@@ -1957,7 +1959,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-renouvelable">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#e35718 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit permanent</p>
       <h1>Crédit renouvelable</h1>
@@ -2079,7 +2081,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ RACHAT DE CRÉDITS ════════════ -->
 <div class="page pg-section" id="pg-rachat-de-credits">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#06c2b0 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Regroupement de crédits</p>
       <h1>Rachat de crédits</h1>
@@ -2208,7 +2210,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-assurances">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Protection emprunteur</p>
       <h1>Assurance emprunteur</h1>
@@ -2285,7 +2287,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ CARTES JKL.OIN ════════════ -->
 <div class="page pg-section" id="pg-cartes">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#e35718 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Paiement et crédit</p>
       <h1>Cartes Sofinco</h1>
@@ -2401,7 +2403,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-moto">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#06c2b0 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Crédit véhicule</p>
       <h1>Crédit moto</h1>
@@ -2543,7 +2545,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-nous-decouvrir">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#06c2b0 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">À propos</p>
       <h1>Nous découvrir</h1>
@@ -2618,7 +2620,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-devenir-partenaire">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#3ab5e5 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Partenariat</p>
       <h1>Devenir partenaire</h1>
@@ -2714,7 +2716,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-mentions-legales">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Informations légales</p>
       <h1>Mentions légales</h1>
@@ -2795,7 +2797,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-politique-donnees">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Vie privée</p>
       <h1>Politique de protection des données personnelles</h1>
@@ -2883,7 +2885,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-nous-contacter">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#06c2b0 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Service client</p>
       <h1>Nous contacter</h1>
@@ -2952,7 +2954,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-questions-reponses">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#3ab5e5 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Aide</p>
       <h1>Questions - Réponses</h1>
@@ -3032,7 +3034,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-informations-legales">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Réglementation</p>
       <h1>Informations légales crédit</h1>
@@ -3101,7 +3103,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-tarifs">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#001f38 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Transparence tarifaire</p>
       <h1>Tarifs et conditions</h1>
@@ -3201,7 +3203,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      PAGE : CGU
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-cgu">
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Réglementation</p>
       <h1>Conditions Générales d'Utilisation</h1>
@@ -3258,7 +3260,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      PAGE : CONDITIONS GÉNÉRALES DE CRÉDIT
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-conditions-credit">
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Réglementation</p>
       <h1>Conditions Générales de Crédit</h1>
@@ -3312,7 +3314,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      PAGE : SÉCURITÉ
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-securite">
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#06c2b0 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Protection</p>
       <h1>Sécurité de vos données</h1>
@@ -3363,7 +3365,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      PAGE : COOKIES
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-cookies">
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Vie privée</p>
       <h1>Politique en matière de cookies</h1>
@@ -3428,7 +3430,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      PAGE : ACCESSIBILITÉ
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-accessibilite">
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#049f90 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Inclusion numérique</p>
       <h1>Déclaration d'accessibilité</h1>
@@ -3500,7 +3502,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
      PAGE : RÉCLAMATIONS
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-reclamations">
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#001f38 100%);">
+  <div class="prod-hero">
     <div class="inner">
       <p class="prod-hero-eyebrow">Service client</p>
       <h1>Charte des réclamations</h1>
