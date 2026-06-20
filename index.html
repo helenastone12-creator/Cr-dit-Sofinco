@@ -848,6 +848,30 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .footer-copy-new{text-align:center;font-size:.74rem;color:#2d4454;padding:.9rem 0;border-top:1px solid rgba(255,255,255,.04)}
 
 /* ════════════════════════
+   CLASSES MANQUANTES — PAGES PRODUIT
+════════════════════════ */
+/* Hero produit : eyebrow + sous-titre */
+.prod-hero-eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:.6rem}
+.prod-hero-sub{font-size:1.05rem;color:rgba(255,255,255,.82);line-height:1.65;margin-top:.8rem;max-width:600px}
+/* Grille avantages */
+.prod-av-grid,.prod-avantages-grid{display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:1.5rem}
+@media(min-width:600px){.prod-av-grid,.prod-avantages-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.prod-av-grid,.prod-avantages-grid{grid-template-columns:repeat(3,1fr)}}
+/* Icône avantage */
+.prod-av-icon{font-size:2rem;line-height:1;display:block;margin-bottom:.5rem}
+/* Sections internes des pages produit */
+.editorial{padding:2.5rem 0;background:#f9fafb}
+.prod-avantages{padding:3rem 0;background:#fff}
+.prod-cta{background:linear-gradient(135deg,#001f38 0%,#00334D 100%);padding:3.5rem 1.5rem;text-align:center}
+.prod-cta h2{font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:.8rem}
+.prod-cta p{color:rgba(255,255,255,.75);margin-bottom:1.5rem;line-height:1.6}
+.prod-cta .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.5rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.prod-cta-note{font-size:.74rem;color:rgba(255,255,255,.4);margin-top:1rem}
+/* Titres sections produit */
+.editorial h2,.prod-avantages h2{font-size:1.35rem;font-weight:800;color:var(--navy);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--teal);display:inline-block}
+.editorial p{font-size:.97rem;color:#444;line-height:1.8;margin-bottom:.9rem}
+.editorial strong{color:var(--navy)}
+/* ════════════════════════
    HERO PRODUIT
 ════════════════════════ */
 .prod-hero{background:linear-gradient(140deg,#001f38 0%,#00334D 50%,#004d73 100%);padding:4.5rem 1.5rem 3.5rem;color:#fff;position:relative;overflow:hidden}
@@ -869,17 +893,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ════════════════════════
    BANDEAU CHIFFRES
 ════════════════════════ */
-.prod-chiffres{background:#fff;border-bottom:1px solid #e8edf2}
-.prod-chiffres .wrap{max-width:var(--w);margin:0 auto;padding:0}
-.prod-chiffres-grid{display:grid;grid-template-columns:repeat(2,1fr)}
-@media(min-width:700px){.prod-chiffres-grid{grid-template-columns:repeat(4,1fr)}}
-.prod-chiffre-item{padding:2.2rem 1rem;text-align:center;border-right:1px solid #e8edf2;border-bottom:1px solid #e8edf2;position:relative;transition:background .2s}
-.prod-chiffre-item:hover{background:#f9fafb}
-@media(min-width:700px){.prod-chiffre-item:nth-child(3),.prod-chiffre-item:nth-child(4){border-bottom:none}.prod-chiffre-item:nth-child(4){border-right:none}}
-@media(max-width:699px){.prod-chiffre-item:nth-child(even){border-right:none}.prod-chiffre-item:nth-last-child(-n+2){border-bottom:none}}
-.prod-chiffre-val{font-size:2.6rem;font-weight:800;color:var(--navy);display:block;line-height:1}
-.prod-chiffre-label{font-size:1rem;font-weight:700;color:var(--navy)}
-.prod-chiffre-desc{font-size:.82rem;color:#888;margin-top:.4rem;line-height:1.4}
+.prod-chiffres{background:#fff;border-bottom:3px solid var(--teal)}
+.prod-chiffres .inner,.prod-chiffres .wrap{display:grid;grid-template-columns:repeat(2,1fr);max-width:var(--w);margin:0 auto;padding:0}
+@media(min-width:700px){.prod-chiffres .inner,.prod-chiffres .wrap{grid-template-columns:repeat(4,1fr)}}
+/* classes utilisées dans le HTML */
+.chiffre-item,.prod-chiffre-item{padding:1.8rem 1rem;text-align:center;border-right:1px solid #e8edf2;border-bottom:1px solid #e8edf2;transition:background .2s}
+.chiffre-item:hover,.prod-chiffre-item:hover{background:#f9fafb}
+@media(min-width:700px){.chiffre-item:nth-child(3),.chiffre-item:nth-child(4),.prod-chiffre-item:nth-child(3),.prod-chiffre-item:nth-child(4){border-bottom:none}.chiffre-item:nth-child(4),.prod-chiffre-item:nth-child(4){border-right:none}}
+@media(max-width:699px){.chiffre-item:nth-child(even),.prod-chiffre-item:nth-child(even){border-right:none}.chiffre-item:nth-last-child(-n+2),.prod-chiffre-item:nth-last-child(-n+2){border-bottom:none}}
+.chiffre-val,.prod-chiffre-val{font-size:2.2rem;font-weight:800;color:var(--navy);display:block;line-height:1;margin-bottom:.35rem}
+.chiffre-lab,.prod-chiffre-label,.prod-chiffre-desc{font-size:.85rem;font-weight:600;color:#666;line-height:1.3}
 
 /* ════════════════════════
    AVANTAGES
@@ -1470,8 +1493,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ PRÊT PERSONNEL ════════════ -->
 <div class="page pg-section" id="pg-pret-personnel">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#06c2b0 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#003d5c 0%,#006680 40%,#06c2b0 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">💰</div>
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Prêt personnel</h1>
       <p class="prod-hero-sub">Financez tous vos projets sans justificatif d'utilisation, avec un taux fixe et des mensualités stables de bout en bout.</p>
@@ -1637,8 +1661,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ════════════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-auto">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#3ab5e5 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#001525 0%,#003366 45%,#1a7bbf 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🚗</div>
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit auto</h1>
       <p class="prod-hero-sub">Financer votre véhicule neuf ou d'occasion avec un taux compétitif, des mensualités fixes et des fonds débloqués directement chez votre vendeur.</p>
@@ -1783,8 +1808,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ CRÉDIT TRAVAUX ════════════ -->
 <div class="page pg-section" id="pg-credit-travaux">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#049f90 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#1a3d00 0%,#2d6600 45%,#4cad00 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🏠</div>
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit travaux</h1>
       <p class="prod-hero-sub">Financez vos travaux de rénovation, d'aménagement ou de transition énergétique avec des conditions avantageuses et cumulables avec les aides de l'État.</p>
@@ -1930,8 +1956,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-renouvelable">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#e35718 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#5c1a00 0%,#a03000 45%,#e35718 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">💳</div>
       <p class="prod-hero-eyebrow">Crédit permanent</p>
       <h1>Crédit renouvelable</h1>
       <p class="prod-hero-sub">Une réserve d'argent permanente, disponible quand vous en avez besoin, qui se reconstitue automatiquement au fur et à mesure de vos remboursements.</p>
@@ -2052,8 +2079,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ RACHAT DE CRÉDITS ════════════ -->
 <div class="page pg-section" id="pg-rachat-de-credits">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#06c2b0 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#2d0066 0%,#4a0080 45%,#7b1fa2 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🔄</div>
       <p class="prod-hero-eyebrow">Regroupement de crédits</p>
       <h1>Rachat de crédits</h1>
       <p class="prod-hero-sub">Regroupez tous vos crédits en un seul avec une mensualité réduite, un taux unique et un interlocuteur unique — et retrouvez du pouvoir d'achat.</p>
@@ -2181,8 +2209,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-assurances">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#00334D 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#5c001a 0%,#99002b 45%,#cc1f45 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🛡️</div>
       <p class="prod-hero-eyebrow">Protection emprunteur</p>
       <h1>Assurance emprunteur</h1>
       <p class="prod-hero-sub">Protégez votre crédit et vos proches contre les aléas de la vie grâce aux garanties CNP Assurances, partenaire historique de Sofinco.</p>
@@ -2258,8 +2287,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ════════════ CARTES JKL.OIN ════════════ -->
 <div class="page pg-section" id="pg-cartes">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#e35718 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#3d2600 0%,#7a4d00 45%,#c4860a 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">💎</div>
       <p class="prod-hero-eyebrow">Paiement et crédit</p>
       <h1>Cartes Sofinco</h1>
       <p class="prod-hero-sub">Payer en une fois sans frais ou en plusieurs fois selon vos besoins, avec une carte Gold Mastercard acceptée partout en France et dans le monde.</p>
@@ -2374,8 +2404,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-credit-moto">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#001f38 0%,#06c2b0 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#1a0000 0%,#660000 45%,#cc2200 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🏍️</div>
       <p class="prod-hero-eyebrow">Crédit véhicule</p>
       <h1>Crédit moto</h1>
       <p class="prod-hero-sub">Financez votre deux-roues, scooter ou quad neuf ou d'occasion avec un crédit affecté sécurisé, des mensualités fixes et une réponse sous 24 heures.</p>
@@ -2516,8 +2547,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <div class="page pg-section" id="pg-nous-decouvrir">
 
-  <div class="prod-hero" style="background:linear-gradient(135deg,#00334D 0%,#06c2b0 100%);">
+  <div class="prod-hero" style="background:linear-gradient(150deg,#002233 0%,#004466 45%,#006699 100%);">
     <div class="inner">
+      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🏢</div>
       <p class="prod-hero-eyebrow">À propos</p>
       <h1>Nous découvrir</h1>
       <p class="prod-hero-sub">Filiale de Crédit Agricole Consumer Finance, Sofinco est l'un des leaders du crédit à la consommation en France depuis plus de 70 ans.</p>
