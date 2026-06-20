@@ -387,8 +387,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .prod-item-body{
   position:absolute;bottom:0;left:0;right:0;
-  padding:1.2rem 1.4rem 1.8rem;
-  display:flex;flex-direction:column;align-items:flex-start;gap:1.2rem;
+  padding:1.2rem 1.4rem 1.4rem;
+  display:flex;flex-direction:row;align-items:flex-end;justify-content:space-between;
   z-index:2;
 }
 .prod-item-title{
@@ -396,19 +396,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   text-transform:uppercase;letter-spacing:.03em;line-height:1.2;
   text-align:left;
 }
-.prod-item-body .prod-btn{
-  align-self:center;
-  min-width:55%;
-  text-align:center;
+.prod-arrow{
+  width:44px;height:44px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.65);
+  background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background .2s,border-color .2s;
+  text-decoration:none;
 }
-.prod-btn{
-  background:var(--teal);color:#fff;border:none;
-  border-radius:50px;padding:.7rem 2rem;
-  font-size:.95rem;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:background .2s;
-  text-decoration:none;display:inline-block;
-}
-.prod-btn:hover{background:var(--teal-d);color:#fff}
+.prod-arrow:hover{background:rgba(255,255,255,.3);border-color:#fff}
+.prod-arrow svg{display:block}
 @media(min-width:560px){
   .prod-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
   .prod-item{height:320px}
@@ -1327,7 +1325,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <div class="prod-item-overlay"></div>
             <div class="prod-item-body">
               <span class="prod-item-title">Le prêt personnel</span>
-              <a href="#pret-personnel" class="prod-btn spa-link">Je découvre</a>
+              <a href="#pret-personnel" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </li>
           <li class="prod-item">
@@ -1335,7 +1333,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <div class="prod-item-overlay"></div>
             <div class="prod-item-body">
               <span class="prod-item-title">Le crédit auto</span>
-              <a href="#credit-auto" class="prod-btn spa-link">Je découvre</a>
+              <a href="#credit-auto" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </li>
           <li class="prod-item">
@@ -1343,7 +1341,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <div class="prod-item-overlay"></div>
             <div class="prod-item-body">
               <span class="prod-item-title">Le prêt travaux</span>
-              <a href="#credit-travaux" class="prod-btn spa-link">Je découvre</a>
+              <a href="#credit-travaux" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </li>
         </ul>
@@ -1357,7 +1355,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <div class="prod-item-overlay"></div>
             <div class="prod-item-body">
               <span class="prod-item-title">Le crédit renouvelable</span>
-              <a href="#credit-renouvelable" class="prod-btn spa-link">Je découvre</a>
+              <a href="#credit-renouvelable" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </li>
           <li class="prod-item">
@@ -1365,7 +1363,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <div class="prod-item-overlay"></div>
             <div class="prod-item-body">
               <span class="prod-item-title">Le rachat de crédits</span>
-              <a href="#rachat-de-credits" class="prod-btn spa-link">Je découvre</a>
+              <a href="#rachat-de-credits" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </li>
           <li class="prod-item">
@@ -1373,7 +1371,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <div class="prod-item-overlay"></div>
             <div class="prod-item-body">
               <span class="prod-item-title">Les assurances</span>
-              <a href="#assurances" class="prod-btn spa-link">Je découvre</a>
+              <a href="#assurances" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </li>
         </ul>
