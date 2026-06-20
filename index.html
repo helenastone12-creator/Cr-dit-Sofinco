@@ -194,7 +194,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
   z-index:800;
   box-shadow:0 -2px 16px rgba(0,0,0,.12);
+  transform:translateY(100%);
+  transition:transform .3s ease;
 }
+.mob-sim-bar.visible{transform:translateY(0)}
 .mob-sim-btn{
   display:block;width:100%;background:var(--teal);color:#fff;
   border:none;border-radius:2rem;padding:.85rem 1.5rem;
@@ -4035,10 +4038,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     });
   }
 
-  // Scroll shadow
+  // Scroll shadow + bouton flottant scroll-up
+  var _lastScrollY = 0;
   window.addEventListener('scroll', function() {
+    var y = window.scrollY;
     document.querySelector('.header').style.boxShadow =
-      window.scrollY > 8 ? '0 4px 18px rgba(0,0,0,.15)' : '0 1px 8px rgba(0,0,0,.12)';
+      y > 8 ? '0 4px 18px rgba(0,0,0,.15)' : '0 1px 8px rgba(0,0,0,.12)';
+    var simBar = document.getElementById('mob-sim-bar');
+    if(simBar){
+      var heroH = (document.querySelector('.hero-banner')||{offsetHeight:300}).offsetHeight;
+      var scrollingUp = y < _lastScrollY;
+      if(scrollingUp && y > heroH){
+        simBar.classList.add('visible');
+      } else {
+        simBar.classList.remove('visible');
+      }
+    }
+    _lastScrollY = y;
   });
 
   // ── Routeur SPA (navigation interne) ──────────────────
