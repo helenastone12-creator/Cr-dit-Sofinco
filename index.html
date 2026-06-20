@@ -214,7 +214,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 @media(max-width:959px){
   .page{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 }
-.inner{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.inner{max-width:var(--w);margin:0 auto;padding:0 2rem}
 
 /* ═══════════════════════════
    HERO BANNER — fond bleu ciel
@@ -874,7 +874,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ════════════════════════
    HERO PRODUIT
 ════════════════════════ */
-.prod-hero{background-color:#00334D;background:linear-gradient(140deg,#001f38 0%,#00334D 50%,#004d73 100%);padding:2.5rem 1.5rem 2.5rem;color:#fff;position:relative;min-height:180px}
+.prod-hero{background-color:#00334D;background:linear-gradient(140deg,#001f38 0%,#00334D 50%,#004d73 100%);padding:4.5rem 1.5rem 3.5rem;color:#fff;position:relative;overflow:hidden;min-height:220px}
+.prod-hero::after{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(6,194,176,.12) 0%,transparent 70%);pointer-events:none}
+.prod-hero::before{content:'';position:absolute;left:-60px;bottom:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(58,181,229,.08) 0%,transparent 70%);pointer-events:none}
 .prod-hero .wrap,.prod-hero .inner{max-width:var(--w);margin:0 auto;position:relative;z-index:1}
 .prod-hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(6,194,176,.15);border:1.5px solid rgba(6,194,176,.35);color:var(--teal);border-radius:2rem;padding:.35rem 1rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.2rem}
 .prod-hero h1{font-size:2.4rem;font-weight:800;line-height:1.12;margin-bottom:1rem;color:#fff}
@@ -1493,7 +1495,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#003d5c 0%,#006680 40%,#06c2b0 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">💰</div>
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Prêt personnel</h1>
       <p class="prod-hero-sub">Financez tous vos projets sans justificatif d'utilisation, avec un taux fixe et des mensualités stables de bout en bout.</p>
@@ -1661,7 +1662,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#001525 0%,#003366 45%,#1a7bbf 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🚗</div>
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit auto</h1>
       <p class="prod-hero-sub">Financer votre véhicule neuf ou d'occasion avec un taux compétitif, des mensualités fixes et des fonds débloqués directement chez votre vendeur.</p>
@@ -1808,7 +1808,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#1a3d00 0%,#2d6600 45%,#4cad00 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🏠</div>
       <p class="prod-hero-eyebrow">Crédit consommation</p>
       <h1>Crédit travaux</h1>
       <p class="prod-hero-sub">Financez vos travaux de rénovation, d'aménagement ou de transition énergétique avec des conditions avantageuses et cumulables avec les aides de l'État.</p>
@@ -1956,7 +1955,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#5c1a00 0%,#a03000 45%,#e35718 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">💳</div>
       <p class="prod-hero-eyebrow">Crédit permanent</p>
       <h1>Crédit renouvelable</h1>
       <p class="prod-hero-sub">Une réserve d'argent permanente, disponible quand vous en avez besoin, qui se reconstitue automatiquement au fur et à mesure de vos remboursements.</p>
@@ -2079,7 +2077,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#2d0066 0%,#4a0080 45%,#7b1fa2 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🔄</div>
       <p class="prod-hero-eyebrow">Regroupement de crédits</p>
       <h1>Rachat de crédits</h1>
       <p class="prod-hero-sub">Regroupez tous vos crédits en un seul avec une mensualité réduite, un taux unique et un interlocuteur unique — et retrouvez du pouvoir d'achat.</p>
@@ -2209,7 +2206,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#5c001a 0%,#99002b 45%,#cc1f45 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🛡️</div>
       <p class="prod-hero-eyebrow">Protection emprunteur</p>
       <h1>Assurance emprunteur</h1>
       <p class="prod-hero-sub">Protégez votre crédit et vos proches contre les aléas de la vie grâce aux garanties CNP Assurances, partenaire historique de Sofinco.</p>
@@ -2287,7 +2283,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#3d2600 0%,#7a4d00 45%,#c4860a 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">💎</div>
       <p class="prod-hero-eyebrow">Paiement et crédit</p>
       <h1>Cartes Sofinco</h1>
       <p class="prod-hero-sub">Payer en une fois sans frais ou en plusieurs fois selon vos besoins, avec une carte Gold Mastercard acceptée partout en France et dans le monde.</p>
@@ -2404,7 +2399,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#1a0000 0%,#660000 45%,#cc2200 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🏍️</div>
       <p class="prod-hero-eyebrow">Crédit véhicule</p>
       <h1>Crédit moto</h1>
       <p class="prod-hero-sub">Financez votre deux-roues, scooter ou quad neuf ou d'occasion avec un crédit affecté sécurisé, des mensualités fixes et une réponse sous 24 heures.</p>
@@ -2547,7 +2541,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero" style="background:linear-gradient(150deg,#002233 0%,#004466 45%,#006699 100%);">
     <div class="inner">
-      <div style="font-size:3.2rem;margin-bottom:.8rem;line-height:1">🏢</div>
       <p class="prod-hero-eyebrow">À propos</p>
       <h1>Nous découvrir</h1>
       <p class="prod-hero-sub">Filiale de Crédit Agricole Consumer Finance, Sofinco est l'un des leaders du crédit à la consommation en France depuis plus de 70 ans.</p>
