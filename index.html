@@ -882,19 +882,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-hero::after{display:none}
 .prod-hero::before{display:none}
 .prod-hero .wrap,.prod-hero .inner{max-width:var(--w);margin:0 auto;position:relative;z-index:1}
-.prod-hero-eyebrow{display:inline-block;background:var(--teal);color:#fff;border-radius:50px;padding:.32rem 1.1rem;font-size:.82rem;font-weight:700;letter-spacing:.02em;margin-bottom:1.1rem}
 .prod-hero h1{font-size:2rem;font-weight:800;line-height:1.22;margin-bottom:.9rem;color:var(--navy)}
 .prod-hero h1 span{color:var(--teal)}
-.prod-hero-sub{font-size:.97rem;color:#555;line-height:1.7;margin-bottom:1.4rem;max-width:600px}
-.prod-hero-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
-.prod-hero-badge{background:#f0f4f7;border:1px solid #dce4ea;color:var(--navy);padding:.32rem .9rem;border-radius:50px;font-size:.8rem;font-weight:600}
-.prod-hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-top:1.5rem}
-.prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3)}
+.prod-hero-eyebrow{display:inline-block;background:var(--teal);color:#fff;border-radius:50px;padding:.28rem 1rem;font-size:.78rem;font-weight:700;letter-spacing:.02em;margin-bottom:1.2rem}
+.prod-hero-rate{background:#f5fafd;border:1.5px solid #d0e5f2;border-radius:14px;padding:1.1rem 1.4rem;margin:1rem 0 1.4rem;display:inline-block}
+.prod-hero-rate-row{display:flex;align-items:baseline;gap:.15rem;line-height:1}
+.prod-hero-rate-num{font-size:2.8rem;font-weight:800;color:var(--navy)}
+.prod-hero-rate-pct{font-size:1.6rem;font-weight:800;color:var(--navy)}
+.prod-hero-rate-lab{display:block;font-size:.88rem;font-weight:700;color:var(--teal);margin-top:.25rem}
+.prod-hero-rate-info{margin-top:.7rem;padding-top:.6rem;border-top:1px solid #dce8f0}
+.prod-hero-rate-info span{display:block;font-size:.82rem;color:#555;line-height:1.65}
+.prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3);display:inline-block;margin-top:.2rem}
 .prod-hero .btn-prim:hover{background:var(--teal-d)}
-.prod-hero .btn-sec{background:transparent;color:var(--navy);border:2px solid #ccd5dc;border-radius:2rem;padding:.9rem 1.8rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
-.prod-hero .btn-sec:hover{border-color:var(--teal);color:var(--teal)}
-.prod-hero-note{font-size:.78rem;color:#888;margin-top:.8rem}
-@media(min-width:960px){.prod-hero h1{font-size:2.8rem}.prod-hero{padding:3.5rem 0 3rem}}
+.prod-hero-note{font-size:.74rem;color:#999;margin-top:.7rem}
+@media(min-width:960px){.prod-hero h1{font-size:2.6rem}.prod-hero{padding:3.5rem 0 3rem}}
 
 /* ════════════════════════
    BANDEAU CHIFFRES
@@ -1501,17 +1502,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Crédit consommation</p>
-      <h1>Prêt personnel</h1>
-      <p class="prod-hero-sub">Financez tous vos projets sans justificatif d'utilisation, avec un taux fixe et des mensualités stables de bout en bout.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">De 1 000 € à 75 000 €</span>
-        <span class="prod-hero-badge">Réponse sous 24h</span>
-        <span class="prod-hero-badge">6 à 84 mois</span>
-        <span class="prod-hero-badge">TAEG à partir de 5,90 %</span>
-        <span class="prod-hero-badge">0 € de frais de dossier</span>
+      <h1>Financez vos projets<br>grâce à notre prêt personnel</h1>
+      <p class="prod-hero-eyebrow">Prêt personnel</p>
+      <div class="prod-hero-rate">
+        <div class="prod-hero-rate-row"><span class="prod-hero-rate-num">5,90</span><span class="prod-hero-rate-pct">%</span></div>
+        <span class="prod-hero-rate-lab">TAEG fixe</span>
+        <div class="prod-hero-rate-info"><span>Pour 1 000 € à 75 000 €</span><span>De 6 à 84 mois</span><span>0 € de frais de dossier</span><span>Mensualités fixes et stables</span></div>
       </div>
+      <button class="btn-prim btn-sim" data-sim="autre">Simulez votre prêt personnel</button>
+      <p class="prod-hero-note">Sous réserve d'acceptation du dossier. Offre soumise à conditions.</p>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -1668,17 +1670,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Crédit consommation</p>
-      <h1>Crédit auto</h1>
-      <p class="prod-hero-sub">Financer votre véhicule neuf ou d'occasion avec un taux compétitif, des mensualités fixes et des fonds débloqués directement chez votre vendeur.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">De 3 000 € à 75 000 €</span>
-        <span class="prod-hero-badge">Réponse sous 24h</span>
-        <span class="prod-hero-badge">12 à 84 mois</span>
-        <span class="prod-hero-badge">TAEG à partir de 5,50 %</span>
-        <span class="prod-hero-badge">Véhicule électrique inclus</span>
+      <h1>Financez votre véhicule<br>avec notre crédit auto</h1>
+      <p class="prod-hero-eyebrow">Crédit auto</p>
+      <div class="prod-hero-rate">
+        <div class="prod-hero-rate-row"><span class="prod-hero-rate-num">5,50</span><span class="prod-hero-rate-pct">%</span></div>
+        <span class="prod-hero-rate-lab">TAEG fixe</span>
+        <div class="prod-hero-rate-info"><span>Pour 3 000 € à 75 000 €</span><span>De 12 à 84 mois</span><span>Neuf ou occasion</span><span>Fonds versés chez le vendeur</span></div>
       </div>
+      <button class="btn-prim btn-sim" data-sim="auto">Simulez votre crédit auto</button>
+      <p class="prod-hero-note">Sous réserve d'acceptation du dossier. Offre soumise à conditions.</p>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -1814,17 +1817,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Crédit consommation</p>
-      <h1>Crédit travaux</h1>
-      <p class="prod-hero-sub">Financez vos travaux de rénovation, d'aménagement ou de transition énergétique avec des conditions avantageuses et cumulables avec les aides de l'État.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">De 1 000 € à 75 000 €</span>
-        <span class="prod-hero-badge">Jusqu'à 120 mois</span>
-        <span class="prod-hero-badge">TAEG à partir de 5,90 %</span>
-        <span class="prod-hero-badge">Cumulable MaPrimeRénov'</span>
-        <span class="prod-hero-badge">Artisans RGE acceptés</span>
+      <h1>Rénovez votre logement<br>avec notre crédit travaux</h1>
+      <p class="prod-hero-eyebrow">Crédit travaux</p>
+      <div class="prod-hero-rate">
+        <div class="prod-hero-rate-row"><span class="prod-hero-rate-num">4,50</span><span class="prod-hero-rate-pct">%</span></div>
+        <span class="prod-hero-rate-lab">TAEG fixe</span>
+        <div class="prod-hero-rate-info"><span>Pour 1 000 € à 75 000 €</span><span>De 12 à 120 mois</span><span>Cumulable avec les aides de l'État</span><span>Éco-prêt transition énergétique</span></div>
       </div>
+      <button class="btn-prim btn-sim" data-sim="travaux">Simulez votre crédit travaux</button>
+      <p class="prod-hero-note">Sous réserve d'acceptation du dossier. Offre soumise à conditions.</p>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -1961,16 +1965,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Crédit permanent</p>
-      <h1>Crédit renouvelable</h1>
-      <p class="prod-hero-sub">Une réserve d'argent permanente, disponible quand vous en avez besoin, qui se reconstitue automatiquement au fur et à mesure de vos remboursements.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">Réserve de 500 € à 6 000 €</span>
-        <span class="prod-hero-badge">Disponible immédiatement</span>
-        <span class="prod-hero-badge">Résiliation sans frais</span>
-        <span class="prod-hero-badge">Révision annuelle garantie</span>
+      <h1>Une réserve d'argent<br>disponible à tout moment</h1>
+      <p class="prod-hero-eyebrow">Crédit renouvelable</p>
+      <div class="prod-hero-rate">
+        <div class="prod-hero-rate-row"><span class="prod-hero-rate-num">21,11</span><span class="prod-hero-rate-pct">%</span></div>
+        <span class="prod-hero-rate-lab">TAEG variable</span>
+        <div class="prod-hero-rate-info"><span>Jusqu'à 6 000 € de réserve</span><span>Reconstituable à chaque remboursement</span><span>Sans frais si non utilisée</span></div>
       </div>
+      <button class="btn-prim btn-sim" data-sim="famille-loisirs">Ouvrir ma réserve de crédit</button>
+      <p class="prod-hero-note">Sous réserve d'acceptation du dossier. Offre soumise à conditions.</p>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -2083,16 +2089,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Regroupement de crédits</p>
-      <h1>Rachat de crédits</h1>
-      <p class="prod-hero-sub">Regroupez tous vos crédits en un seul avec une mensualité réduite, un taux unique et un interlocuteur unique — et retrouvez du pouvoir d'achat.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">Jusqu'à 200 000 €</span>
-        <span class="prod-hero-badge">-40 % sur vos mensualités</span>
-        <span class="prod-hero-badge">Durée jusqu'à 180 mois</span>
-        <span class="prod-hero-badge">Un seul prélèvement/mois</span>
+      <h1>Regroupez vos crédits<br>et allégez vos mensualités</h1>
+      <p class="prod-hero-eyebrow">Rachat de crédits</p>
+      <div class="prod-hero-rate">
+        <div class="prod-hero-rate-row"><span class="prod-hero-rate-num">5,40</span><span class="prod-hero-rate-pct">%</span></div>
+        <span class="prod-hero-rate-lab">TAEG fixe</span>
+        <div class="prod-hero-rate-info"><span>De 1 500 € à 75 000 €</span><span>De 12 à 120 mois</span><span>Jusqu'à −60 % sur vos mensualités</span><span>1 seule mensualité réduite</span></div>
       </div>
+      <button class="btn-prim btn-sim" data-sim="regroupement">Simuler mon rachat de crédits</button>
+      <p class="prod-hero-note">Sous réserve d'acceptation du dossier. Offre soumise à conditions.</p>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -2212,16 +2220,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Protection emprunteur</p>
-      <h1>Assurance emprunteur</h1>
-      <p class="prod-hero-sub">Protégez votre crédit et vos proches contre les aléas de la vie grâce aux garanties CNP Assurances, partenaire historique de Sofinco.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">CNP Assurances — Partenaire ORIAS 07 008 079</span>
-        <span class="prod-hero-badge">Convention AERAS</span>
-        <span class="prod-hero-badge">Loi Lemoine 2022</span>
-        <span class="prod-hero-badge">Facultative</span>
-      </div>
+      <h1>Protégez votre crédit<br>avec nos assurances</h1>
+      <p class="prod-hero-eyebrow">Assurances crédit</p>
+      <button class="btn-prim btn-sim" data-sim="perso">Découvrir nos assurances</button>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -2289,17 +2293,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Paiement et crédit</p>
-      <h1>Cartes Sofinco</h1>
-      <p class="prod-hero-sub">Payer en une fois sans frais ou en plusieurs fois selon vos besoins, avec une carte Gold Mastercard acceptée partout en France et dans le monde.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">Gold Mastercard</span>
-        <span class="prod-hero-badge">Paiement 1x, 3x, 10x</span>
-        <span class="prod-hero-badge">3D Secure — DSP2</span>
-        <span class="prod-hero-badge">Sans contact NFC</span>
-        <span class="prod-hero-badge">Utilisable dans 80M+ commerces</span>
-      </div>
+      <h1>La carte de crédit Sofinco<br>à votre service</h1>
+      <p class="prod-hero-eyebrow">Cartes Sofinco</p>
+      <button class="btn-prim btn-sim" data-sim="famille-loisirs">Demander ma carte</button>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -2405,16 +2404,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">Crédit véhicule</p>
-      <h1>Crédit moto</h1>
-      <p class="prod-hero-sub">Financez votre deux-roues, scooter ou quad neuf ou d'occasion avec un crédit affecté sécurisé, des mensualités fixes et une réponse sous 24 heures.</p>
-      <div class="prod-hero-badges">
-        <span class="prod-hero-badge">De 1 500 € à 25 000 €</span>
-        <span class="prod-hero-badge">12 à 72 mois</span>
-        <span class="prod-hero-badge">TAEG à partir de 5,90 %</span>
-        <span class="prod-hero-badge">Neuf et occasion</span>
+      <h1>Financez votre moto<br>avec notre crédit dédié</h1>
+      <p class="prod-hero-eyebrow">Crédit moto</p>
+      <div class="prod-hero-rate">
+        <div class="prod-hero-rate-row"><span class="prod-hero-rate-num">5,90</span><span class="prod-hero-rate-pct">%</span></div>
+        <span class="prod-hero-rate-lab">TAEG fixe</span>
+        <div class="prod-hero-rate-info"><span>Pour 1 000 € à 75 000 €</span><span>De 12 à 84 mois</span><span>Neuve ou occasion</span><span>Équipements inclus</span></div>
       </div>
+      <button class="btn-prim btn-sim" data-sim="auto">Simulez votre crédit moto</button>
+      <p class="prod-hero-note">Sous réserve d'acceptation du dossier. Offre soumise à conditions.</p>
     </div>
+  </div>
+
   </div>
 
   <div class="prod-chiffres">
@@ -2547,11 +2548,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="prod-hero">
     <div class="inner">
-      <p class="prod-hero-eyebrow">À propos</p>
-      <h1>Nous découvrir</h1>
-      <p class="prod-hero-sub">Filiale de Crédit Agricole Consumer Finance, Sofinco est l'un des leaders du crédit à la consommation en France depuis plus de 70 ans.</p>
+      <h1>Sofinco, partenaire de<br>confiance depuis 70 ans</h1>
+      <p class="prod-hero-eyebrow">Qui sommes-nous</p>
+      <button class="btn-prim btn-sim" data-sim="autre">Faire une simulation</button>
     </div>
   </div>
+
 
   <div class="prod-chiffres">
     <div class="inner">
