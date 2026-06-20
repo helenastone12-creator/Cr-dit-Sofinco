@@ -505,95 +505,61 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══════════════════════════
    FOOTER
 ═══════════════════════════ */
-.footer{background:var(--navy-d);color:rgba(255,255,255,.8)}
+.footer{background:#0d1117;color:#fff;padding-bottom:env(safe-area-inset-bottom)}
 
-/* Mobile footer : accordéons (même style que menu) */
-.footer-acc-section{border-bottom:1px solid rgba(255,255,255,.1)}
-.footer-acc-btn{
-  width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:1rem 1.3rem;background:none;border:none;cursor:pointer;font-family:inherit;
-  font-size:.82rem;font-weight:800;color:#fff;letter-spacing:.06em;text-align:left;
+/* Nav liens */
+.ft-nav{padding:0 1.5rem}
+.ft-nav-link{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.15rem 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  font-size:.95rem;font-weight:800;color:#fff;
+  letter-spacing:.07em;text-decoration:none;
+  text-transform:uppercase;
 }
-.footer-acc-chev{font-size:.9rem;transition:transform .25s;display:inline-block;color:rgba(255,255,255,.7)}
-.footer-acc-section.open .footer-acc-chev{transform:rotate(180deg)}
-.footer-acc-body{display:none;background:rgba(0,0,0,.15);padding:.3rem 0}
-.footer-acc-section.open .footer-acc-body{display:block}
-.footer-acc-body a{
-  display:block;padding:.7rem 1.7rem;
-  font-size:.88rem;font-weight:500;color:rgba(255,255,255,.85);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-.footer-acc-body a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.ft-nav-link:last-child{border-bottom:none}
+.ft-chev{font-size:1.1rem;color:rgba(255,255,255,.5)}
 
-/* Réseaux sociaux footer */
-.footer-social{padding:1.5rem 1.5rem 1rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
-.footer-social-title{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:.9rem}
-.footer-social-icons{display:flex;justify-content:center;gap:.8rem}
-.footer-social-ico{
-  width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,.15);
-  display:flex;align-items:center;justify-content:center;color:#fff;
+/* Séparateur teal */
+.ft-sep{height:2px;background:var(--teal);margin:0 1.5rem;border-radius:1px}
+
+/* Social */
+.ft-social{padding:1.8rem 1.5rem 1.2rem;text-align:center}
+.ft-social-lbl{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:1rem;font-weight:600;letter-spacing:.04em}
+.ft-social-icons{display:flex;justify-content:center;gap:1rem}
+.ft-soc-ico{
+  width:46px;height:46px;border-radius:12px;
+  background:rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;text-decoration:none;
   transition:background .15s;
 }
-.footer-social-ico:hover{background:rgba(255,255,255,.28)}
+.ft-soc-ico:hover{background:var(--teal)}
 
-/* Liens légaux footer */
-.footer-legal-links{padding:.8rem 1.2rem;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
-.footer-legal-links a{
-  display:inline;font-size:.72rem;color:rgba(255,255,255,.65);font-weight:500;
-}
-.footer-legal-links a::after{content:' • ';color:rgba(255,255,255,.35)}
-.footer-legal-links a:last-child::after{content:''}
-.footer-legal-links a:hover{color:#fff}
-
-/* Texte légal footer */
-.footer-legal-text{
-  padding:.8rem 1.5rem 1.5rem;
-  font-size:.68rem;color:rgba(255,255,255,.5);line-height:1.6;text-align:center;
+/* Liens légaux */
+.ft-legal{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.35rem 1rem;padding:1rem 1.5rem .8rem;
   border-top:1px solid rgba(255,255,255,.07);
 }
+.ft-legal a{font-size:.78rem;color:rgba(255,255,255,.4);text-decoration:none}
+.ft-legal a:hover{color:#fff}
 
-/* Desktop footer */
-.footer-desktop{display:none}
-.footer-desktop .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-@media(min-width:960px){
-  .footer-mobile-acc{display:none}
-  .footer-desktop{display:block;padding:2.5rem 0 1.2rem}
-  .footer-grid{
-    display:grid;grid-template-columns:repeat(5,1fr);
-    gap:1.2rem;margin-bottom:1.8rem;
-  }
-  .footer-col h4{
-    font-size:.72rem;font-weight:800;color:#fff;
-    text-transform:uppercase;letter-spacing:.08em;margin-bottom:.85rem;
-    border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:.5rem;
-  }
-  .footer-col ul{list-style:none;padding:0;margin:0}
-  .footer-col li{margin-bottom:.45rem}
-  .footer-col li a{font-size:.8rem;color:rgba(255,255,255,.55);transition:color .15s;text-decoration:none}
-  .footer-col li a:hover{color:#fff}
-  .footer-dt-sep{border:none;border-top:1px solid rgba(255,255,255,.1);margin:1.2rem 0}
-  .footer-dt-social{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
-  .footer-dt-social-lbl{font-size:.78rem;color:rgba(255,255,255,.5);font-weight:600}
-  .footer-dt-social-icons{display:flex;gap:.5rem}
-  .footer-dt-social-icons a{
-    width:32px;height:32px;border-radius:50%;
-    background:rgba(255,255,255,.1);
-    display:flex;align-items:center;justify-content:center;
-    color:rgba(255,255,255,.7);transition:background .2s;
-  }
-  .footer-dt-social-icons a:hover{background:var(--orange);color:#fff}
-  .footer-dt-legal-links{display:flex;flex-wrap:wrap;gap:.2rem .6rem;margin-bottom:1rem}
-  .footer-dt-legal-links a{
-    font-size:.72rem;color:rgba(255,255,255,.4);text-decoration:none;
-    transition:color .15s;
-  }
-  .footer-dt-legal-links a:not(:last-child)::after{content:'•';margin-left:.6rem;color:rgba(255,255,255,.2)}
-  .footer-dt-legal-links a:hover{color:rgba(255,255,255,.75)}
-  .footer-dt-legal-text{
-    font-size:.67rem;color:rgba(255,255,255,.3);line-height:1.6;
-    border-top:1px solid rgba(255,255,255,.07);padding-top:1rem;
-  }
+/* Bouton CTA bas */
+.ft-cta{padding:.8rem 1.5rem 1.5rem}
+.ft-cta-btn{
+  display:block;width:100%;background:#1e2d3d;color:#fff;
+  border:none;border-radius:2rem;padding:1rem;
+  font-size:.95rem;font-weight:800;letter-spacing:.07em;
+  font-family:inherit;cursor:pointer;text-align:center;
+  text-decoration:none;transition:background .15s;
 }
+.ft-cta-btn:hover{background:#2a3f55}
+
+/* Mention légale bas de page */
+.ft-mention{font-size:.72rem;color:rgba(255,255,255,.25);text-align:center;padding:.5rem 1.5rem 1.2rem;line-height:1.5}
+
+
 
 /* ═══════════════════════════
    TRUST ICONS (4 pictos)
@@ -877,31 +843,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-mention-reg p:last-child{margin:0}
 .prod-mention-reg strong{color:#c04a12}
 
-/* ════════════════════════
-   FOOTER 6 COLONNES PROFESSIONNEL
-════════════════════════ */
-.footer-main-new{background:#001925;color:#8aa4b5;padding:4rem 0 0}
-.footer-6col{display:grid;gap:2rem;grid-template-columns:1fr}
-@media(min-width:560px){.footer-6col{grid-template-columns:1fr 1fr}}
-@media(min-width:900px){.footer-6col{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:1160px){.footer-6col{grid-template-columns:repeat(6,1fr)}}
-.footer-col-new h4{color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
-.footer-col-new ul{list-style:none;padding:0;margin:0}
-.footer-col-new ul li{margin-bottom:.42rem}
-.footer-col-new ul li a{color:#7a9db5;text-decoration:none;font-size:.83rem;line-height:1.4;transition:color .2s}
-.footer-col-new ul li a:hover{color:var(--teal)}
-.footer-new-sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:2.5rem 0 0}
-.footer-social-new{display:flex;gap:.7rem;margin-top:1.2rem}
-.footer-soc-ico{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:#7a9db5;text-decoration:none;transition:all .2s;flex-shrink:0}
-.footer-soc-ico:hover{background:var(--teal);color:#fff}
-.footer-trust-band{background:#000e18;padding:2rem 0 1rem}
-.footer-trust-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+
 .trust-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.28rem .65rem;font-size:.72rem;font-weight:700;color:#5a8099;white-space:nowrap;text-transform:uppercase;letter-spacing:.04em}
-.footer-trust-text{font-size:.77rem;color:#4a6878;line-height:1.7;margin-bottom:1rem}
-.footer-trust-links{display:flex;flex-wrap:wrap;gap:.4rem .75rem;padding:.8rem 0;border-top:1px solid rgba(255,255,255,.05)}
-.footer-trust-links a{color:#4a6878;font-size:.76rem;text-decoration:none;transition:color .18s}
-.footer-trust-links a:hover{color:var(--teal)}
-.footer-copy-new{text-align:center;font-size:.74rem;color:#2d4454;padding:.9rem 0;border-top:1px solid rgba(255,255,255,.04)}
 
 /* ════════════════════════
    CLASSES MANQUANTES — PAGES PRODUIT
@@ -3331,194 +3274,53 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <footer class="footer">
 
-  <!-- ── MOBILE : accordéons (visible < 960px) ── -->
-  <div class="footer-mobile-acc">
+  <!-- Liens nav -->
+  <nav class="ft-nav">
+    <a href="#pret-personnel" class="ft-nav-link pg-link">NOS CRÉDITS <span class="ft-chev">›</span></a>
+    <a href="#assurances" class="ft-nav-link pg-link">NOS SOLUTIONS <span class="ft-chev">›</span></a>
+    <a href="#questions-reponses" class="ft-nav-link pg-link">INFORMATIONS <span class="ft-chev">›</span></a>
+  </nav>
 
-    <div class="footer-acc-section">
-      <button class="footer-acc-btn">CRÉDITS <span class="footer-acc-chev">▾</span></button>
-      <div class="footer-acc-body">
-        <a href="#pret-personnel" class="pg-link">Prêt personnel</a>
-        <a href="#credit-auto" class="pg-link">Crédit auto</a>
-        <a href="#credit-travaux" class="pg-link">Crédit travaux</a>
-        <a href="#credit-renouvelable" class="pg-link">Crédit renouvelable</a>
-        <a href="#rachat-de-credits" class="pg-link">Rachat de crédits</a>
-        <a href="#credit-moto" class="pg-link">Crédit moto</a>
-      </div>
+  <!-- Séparateur teal -->
+  <div class="ft-sep"></div>
+
+  <!-- Réseaux sociaux -->
+  <div class="ft-social">
+    <p class="ft-social-lbl">Suivez-nous</p>
+    <div class="ft-social-icons">
+      <a href="#" class="ft-soc-ico" aria-label="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#" class="ft-soc-ico" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="#0d1117"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#0d1117" stroke-width="2"/></svg>
+      </a>
+      <a href="#" class="ft-soc-ico" aria-label="X / Twitter">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="#" class="ft-soc-ico" aria-label="YouTube">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0d1117"/></svg>
+      </a>
+      <a href="#" class="ft-soc-ico" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
     </div>
+  </div>
 
-    <div class="footer-acc-section">
-      <button class="footer-acc-btn">SOLUTIONS <span class="footer-acc-chev">▾</span></button>
-      <div class="footer-acc-body">
-        <a href="#assurances" class="pg-link">Assurance emprunteur</a>
-        <a href="#cartes" class="pg-link">Cartes Jkl.oin</a>
-        <a href="#devenir-partenaire" class="pg-link">Devenir partenaire</a>
-      </div>
-    </div>
+  <!-- Liens légaux -->
+  <div class="ft-legal">
+    <a href="#mentions-legales" class="pg-link">Mentions légales</a>
+    <a href="#politique-donnees" class="pg-link">Protection des données</a>
+    <a href="#cookies" class="pg-link">Politique cookies</a>
+    <a href="#reclamations" class="pg-link">Réclamations</a>
+  </div>
 
-    <div class="footer-acc-section">
-      <button class="footer-acc-btn">RESSOURCES <span class="footer-acc-chev">▾</span></button>
-      <div class="footer-acc-body">
-        <a href="#questions-reponses" class="pg-link">FAQ</a>
-        <a href="#informations-legales" class="pg-link">Informations légales crédit</a>
-        <a href="#tarifs" class="pg-link">Tarifs</a>
-        <a href="#nous-contacter" class="pg-link">Nous contacter</a>
-      </div>
-    </div>
+  <!-- Bouton CTA -->
+  <div class="ft-cta">
+    <button class="ft-cta-btn" data-sim="">SIMULER MON CRÉDIT</button>
+  </div>
 
-    <div class="footer-acc-section">
-      <button class="footer-acc-btn">ENTREPRISE <span class="footer-acc-chev">▾</span></button>
-      <div class="footer-acc-body">
-        <a href="#nous-decouvrir" class="pg-link">Qui sommes-nous</a>
-        <a href="#nous-decouvrir" class="pg-link">Nos engagements</a>
-        <a href="#nous-decouvrir" class="pg-link">RSE et éco-transition</a>
-        <a href="#devenir-partenaire" class="pg-link">Partenaires</a>
-      </div>
-    </div>
-
-    <div class="footer-acc-section">
-      <button class="footer-acc-btn">CONFORMITÉ <span class="footer-acc-chev">▾</span></button>
-      <div class="footer-acc-body">
-        <a href="#informations-legales" class="pg-link">ACPR / ORIAS</a>
-        <a href="#informations-legales" class="pg-link">Prévention fraude</a>
-        <a href="#reclamations" class="pg-link">Réclamations</a>
-        <a href="#informations-legales" class="pg-link">Médiateur CNPM</a>
-      </div>
-    </div>
-
-    <div class="footer-acc-section">
-      <button class="footer-acc-btn">LÉGAL <span class="footer-acc-chev">▾</span></button>
-      <div class="footer-acc-body">
-        <a href="#mentions-legales" class="pg-link">Mentions légales</a>
-        <a href="#politique-donnees" class="pg-link">Politique des données</a>
-        <a href="#cgu" class="pg-link">CGU</a>
-        <a href="#conditions-credit" class="pg-link">Conditions de crédit</a>
-        <a href="#cookies" class="pg-link">Politique cookies</a>
-        <a href="#securite" class="pg-link">Sécurité</a>
-        <a href="#accessibilite" class="pg-link">Accessibilité</a>
-      </div>
-    </div>
-
-
-    <div class="footer-legal-text">
-      Jkl.oin est une marque de <strong>CA Consumer Finance SA</strong> au capital de 559&nbsp;250&nbsp;313&nbsp;€ — 1 place Copernic, BP 87017, 92563 Rueil-Malmaison Cedex — RCS Nanterre B 542&nbsp;097&nbsp;522 — Établissement de crédit agréé par l'<strong>ACPR</strong> — Intermédiaire en assurances inscrit à l'<strong>ORIAS</strong> n°&nbsp;07&nbsp;008&nbsp;079 (www.orias.fr) — © CA Consumer Finance 2026
-    </div>
-  </div><!-- /footer-mobile-acc -->
-
-
-  <!-- ── DESKTOP : 6 colonnes (visible ≥ 960px) ── -->
-  <div class="footer-desktop">
-    <div class="footer-main-new">
-      <div class="wrap">
-        <div class="footer-6col">
-
-          <div class="footer-col-new">
-            <h4>Crédits consommation</h4>
-            <ul>
-              <li><a href="#pret-personnel" class="pg-link">Prêt personnel</a></li>
-              <li><a href="#credit-auto" class="pg-link">Crédit auto</a></li>
-              <li><a href="#credit-travaux" class="pg-link">Crédit travaux</a></li>
-              <li><a href="#credit-renouvelable" class="pg-link">Crédit renouvelable</a></li>
-              <li><a href="#rachat-de-credits" class="pg-link">Rachat de crédits</a></li>
-              <li><a href="#credit-moto" class="pg-link">Crédit moto</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col-new">
-            <h4>Solutions</h4>
-            <ul>
-              <li><a href="#assurances" class="pg-link">Assurance emprunteur</a></li>
-              <li><a href="#cartes" class="pg-link">Cartes Jkl.oin</a></li>
-              <li><a href="#devenir-partenaire" class="pg-link">Devenir partenaire</a></li>
-              <li><a href="#devenir-partenaire" class="pg-link">Espace partenaire</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col-new">
-            <h4>Ressources</h4>
-            <ul>
-              <li><a href="#questions-reponses" class="pg-link">Questions-Réponses (FAQ)</a></li>
-              <li><a href="#informations-legales" class="pg-link">Informations légales crédit</a></li>
-              <li><a href="#tarifs" class="pg-link">Grilles tarifaires</a></li>
-              <li><a href="#nous-contacter" class="pg-link">Nous contacter</a></li>
-              <li><a href="#securite" class="pg-link">Sécurité en ligne</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col-new">
-            <h4>Entreprise</h4>
-            <ul>
-              <li><a href="#nous-decouvrir" class="pg-link">Qui sommes-nous</a></li>
-              <li><a href="#nous-decouvrir" class="pg-link">Nos engagements RSE</a></li>
-              <li><a href="#nous-decouvrir" class="pg-link">Éco-transition</a></li>
-              <li><a href="#nous-decouvrir" class="pg-link">Groupe Crédit Agricole</a></li>
-              <li><a href="#devenir-partenaire" class="pg-link">Devenez partenaire</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col-new">
-            <h4>Conformité</h4>
-            <ul>
-              <li><a href="#informations-legales" class="pg-link">Agréments ACPR / ORIAS</a></li>
-              <li><a href="#securite" class="pg-link">Prévention de la fraude</a></li>
-              <li><a href="#reclamations" class="pg-link">Charte des réclamations</a></li>
-              <li><a href="#informations-legales" class="pg-link">Médiateur CNPM</a></li>
-              <li><a href="#accessibilite" class="pg-link">Accessibilité RGAA</a></li>
-            </ul>
-            <div class="footer-social-new" style="margin-top:1.2rem">
-              <a href="#" class="footer-soc-ico" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-              <a href="#" class="footer-soc-ico" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
-              <a href="#" class="footer-soc-ico" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/></svg></a>
-            </div>
-          </div>
-
-          <div class="footer-col-new">
-            <h4>Mentions légales</h4>
-            <ul>
-              <li><a href="#mentions-legales" class="pg-link">Mentions légales</a></li>
-              <li><a href="#politique-donnees" class="pg-link">Politique des données</a></li>
-              <li><a href="#cgu" class="pg-link">CGU</a></li>
-              <li><a href="#conditions-credit" class="pg-link">Conditions de crédit</a></li>
-              <li><a href="#cookies" class="pg-link">Politique cookies</a></li>
-              <li><a href="#cookies" class="pg-link">Gérer mes cookies</a></li>
-              <li><a href="#accessibilite" class="pg-link">Accessibilité</a></li>
-            </ul>
-          </div>
-
-        </div><!-- /footer-6col -->
-
-        <hr class="footer-new-sep"/>
-
-        <!-- Bandeau de confiance réglementaire -->
-        <div class="footer-trust-band" style="background:transparent;padding:1.5rem 0 0">
-          <div class="footer-trust-badges">
-            <span class="trust-badge">ACPR Agréé</span>
-            <span class="trust-badge">ORIAS 07 008 079</span>
-            <span class="trust-badge">RCS Nanterre B 542 097 522</span>
-            <span class="trust-badge">RGPD Conforme</span>
-            <span class="trust-badge">Groupe Crédit Agricole</span>
-            <span class="trust-badge">Médiation CNPM</span>
-          </div>
-          <div class="footer-trust-text">
-            <strong style="color:#6ea8c8">Jkl.oin</strong> est une marque commerciale de <strong style="color:#6ea8c8">CA Consumer Finance SA</strong> au capital de 559&nbsp;250&nbsp;313&nbsp;€ — Siège social : 1 place Copernic, BP 87017, 92563 Rueil-Malmaison Cedex — RCS Nanterre B 542&nbsp;097&nbsp;522 — APE 6492Z — N° TVA FR 80 542 097 522 — Établissement de crédit agréé par l'<strong style="color:#6ea8c8">Autorité de Contrôle Prudentiel et de Résolution (ACPR)</strong>, 4 place de Budapest CS 92459 75436 Paris Cedex 09 — Intermédiaire en assurances et en opérations de banque inscrit à l'<strong style="color:#6ea8c8">ORIAS</strong> sous le n°&nbsp;07&nbsp;008&nbsp;079 (www.orias.fr) — Médiateur de la consommation : <strong style="color:#6ea8c8">CNPM Médiation</strong>, 6 rue Jean-Pierre Timbaud, 75011 Paris — Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
-          </div>
-          <div class="footer-trust-links">
-            <a href="#mentions-legales" class="pg-link">Mentions légales</a>
-            <a href="#politique-donnees" class="pg-link">Politique des données</a>
-            <a href="#cgu" class="pg-link">CGU</a>
-            <a href="#conditions-credit" class="pg-link">Conditions de crédit</a>
-            <a href="#cookies" class="pg-link">Cookies</a>
-            <a href="#securite" class="pg-link">Sécurité</a>
-            <a href="#accessibilite" class="pg-link">Accessibilité</a>
-            <a href="#reclamations" class="pg-link">Réclamations</a>
-          </div>
-          <div class="footer-copy-new">
-            © CA Consumer Finance 2026 — Tous droits réservés — Mise à jour de la politique de confidentialité : juin 2026 — Version du site : 3.0
-          </div>
-        </div>
-
-      </div><!-- /wrap -->
-    </div><!-- /footer-main-new -->
-  </div><!-- /footer-desktop -->
+  <!-- Mention légale -->
+  <p class="ft-mention">Jkl.oin — CA Consumer Finance SA · RCS Nanterre B 542 097 522 · ORIAS 07 008 079 · © 2026</p>
 
 </footer>
 
