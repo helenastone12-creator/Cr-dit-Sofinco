@@ -38,7 +38,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
    HEADER
 ═══════════════════════════ */
 .top-legal-bar{
-  position:fixed;top:0;left:0;right:0;z-index:1001;
+  position:fixed;top:0;left:0;right:0;z-index:4000;
   background:#f5f5f5;
   padding:.5rem 1rem;
   font-size:.7rem;color:#444;text-align:center;line-height:1.35;
@@ -693,12 +693,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-page{display:none;position:fixed;inset:0;background:#fff;z-index:3000;overflow-y:auto}
 .sim-page.open{display:block}
 /* Header sticky */
-.sim-ph{position:sticky;top:0;background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
+.sim-ph{position:sticky;top:var(--tb);background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
 .sim-ph-logo{font-size:1.25rem;font-weight:800;color:var(--navy);letter-spacing:-.5px}
 .sim-ph-quit{position:absolute;right:1rem;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline;padding:.3rem}
 .sim-ph-quit:hover{color:var(--orange)}
-/* Legal top banner */
-.sim-legal-top{position:sticky;top:52px;background:#f5f5f5;border-bottom:1px solid #e0e0e0;font-size:.7rem;color:#444;text-align:center;padding:.5rem 1rem;line-height:1.35;z-index:49}
 /* Body */
 .sim-body{max-width:500px;margin:0 auto;padding:2rem 1.2rem 8rem}
 /* Panes */
@@ -3368,9 +3366,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <span class="sim-ph-logo">Jkl.oin</span>
     <button class="sim-ph-quit" id="sim-ph-quit">Quitter</button>
   </div>
-
-  <!-- Mention légale -->
-  <div class="sim-legal-top">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
 
   <div class="sim-body">
 
