@@ -338,8 +338,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .btn-teal:hover{background:var(--teal-d)}
 
-/* Colonne promo — cachée sur mobile */
-.hero-promo{display:none}
+/* Colonne image droite — cachée sur mobile */
+.hero-img-col{display:none}
 
 /* Desktop : 2 colonnes */
 @media(min-width:700px){
@@ -349,32 +349,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     display:flex;align-items:center;gap:3rem;
   }
   .hero-sim-wrap{flex:0 0 460px;max-width:460px}
-  .hero-promo{
-    display:flex;flex:1;flex-direction:column;align-items:center;
-    text-align:center;color:#fff;gap:.6rem;
+  .hero-img-col{
+    display:flex;flex:1;align-items:center;justify-content:center;
   }
-  .hero-promo-label{
-    font-size:.78rem;font-weight:800;letter-spacing:.1em;
-    text-transform:uppercase;opacity:.85;margin-bottom:.2rem;
+  .hero-img-col img{
+    width:100%;max-width:480px;border-radius:16px;
+    object-fit:cover;max-height:420px;
+    box-shadow:0 8px 32px rgba(0,0,0,.2);
   }
-  .hero-promo-rate{
-    font-size:5rem;font-weight:900;line-height:1;color:#fff;
-    text-shadow:0 2px 12px rgba(0,0,0,.18);
-  }
-  .hero-promo-rate span{font-size:2.5rem;vertical-align:top;margin-top:.7rem;display:inline-block}
-  .hero-promo-sub{font-size:.95rem;opacity:.9;line-height:1.5;margin:-.2rem 0 .2rem}
-  .hero-promo-tag{
-    background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);
-    border-radius:50px;padding:.35rem 1.1rem;font-size:.82rem;font-weight:700;
-    display:inline-block;
-  }
-  .hero-promo-badges{display:flex;gap:1rem;margin-top:.5rem}
-  .hero-promo-badge{
-    background:rgba(255,255,255,.15);border-radius:12px;
-    padding:.7rem 1rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;
-    font-size:.75rem;opacity:.9;min-width:80px;
-  }
-  .hero-promo-num{font-size:1.4rem;font-weight:900;line-height:1}
   .sim-form{flex-direction:row;align-items:center}
   .btn-teal{width:auto}
 }
@@ -1309,26 +1291,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       </div>
     </div>
 
-    <!-- Colonne droite desktop : offre mise en avant -->
-    <div class="hero-promo">
-      <p class="hero-promo-label">OFFRE SPÉCIALE</p>
-      <div class="hero-promo-rate">3,5<span>%</span></div>
-      <p class="hero-promo-sub">TAEG fixe — Prêt personnel<br>de 1 000 € à 75 000 €</p>
-      <p class="hero-promo-tag">Réponse immédiate en ligne</p>
-      <div class="hero-promo-badges">
-        <div class="hero-promo-badge">
-          <span class="hero-promo-num">0&nbsp;€</span>
-          <span>frais de dossier</span>
-        </div>
-        <div class="hero-promo-badge">
-          <span class="hero-promo-num">5&nbsp;min</span>
-          <span>pour simuler</span>
-        </div>
-        <div class="hero-promo-badge">
-          <span class="hero-promo-num">24h</span>
-          <span>réponse</span>
-        </div>
-      </div>
+    <!-- Colonne droite desktop : image -->
+    <div class="hero-img-col">
+      <img id="hero-right-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Crédit Jkl.oin"/>
     </div>
 
     </div><!-- /hero-banner-layout -->
