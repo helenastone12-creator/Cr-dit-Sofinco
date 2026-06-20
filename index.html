@@ -698,7 +698,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-ph-quit{position:absolute;right:1rem;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline;padding:.3rem}
 .sim-ph-quit:hover{color:var(--orange)}
 /* Legal top banner */
-.sim-legal-top{background:#f6f6f6;border-bottom:1px solid #eaeaea;font-size:.7rem;color:#555;text-align:center;padding:.5rem 1rem;line-height:1.5}
+.sim-legal-top{position:fixed;bottom:0;left:0;right:0;background:#f6f6f6;border-top:1px solid #eaeaea;font-size:.7rem;color:#555;text-align:center;padding:.4rem 1rem calc(.4rem + env(safe-area-inset-bottom));line-height:1.5;z-index:3100}
 /* Body */
 .sim-body{max-width:500px;margin:0 auto;padding:2rem 1.2rem 8rem}
 /* Panes */
@@ -3370,8 +3370,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </div>
 
   <!-- Mention légale -->
-  <div class="sim-legal-top">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
-
   <div class="sim-body">
 
     <!-- ── Étape 1 : Projet ── -->
@@ -3649,6 +3647,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </div>
 
   </div><!-- /sim-body -->
+
+  <div class="sim-legal-top">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
 
   <!-- Barre du bas fixe -->
   <div class="sim-bottombar">
