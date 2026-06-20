@@ -1128,7 +1128,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
             <li><a href="#nous-decouvrir" class="pg-link">Qui sommes-nous ?</a></li>
             <li><a href="#nous-decouvrir" class="pg-link">Jkl.oin s'engage</a></li>
             <li><a href="#nous-decouvrir" class="pg-link">Éco-transition</a></li>
-            <li><a href="#nous-decouvrir" class="pg-link">Accessibilité</a></li>
+            <li><a href="#accessibilite" class="pg-link">Accessibilité</a></li>
           </ul>
         </li>
         <li><a href="#devenir-partenaire" class="pg-link" style="color:var(--teal);font-weight:700">Devenir partenaire</a></li>
@@ -3860,7 +3860,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="sim-foot-links">
         <a href="#mentions-legales" class="pg-link">Mentions légales</a>
         <a href="#politique-donnees" class="pg-link">Utilisation des données</a>
-        <a href="#nous-decouvrir" class="pg-link">Accessibilité : Partiellement conforme</a>
+        <a href="#accessibilite" class="pg-link">Accessibilité : Partiellement conforme</a>
         <a href="#politique-donnees" class="pg-link">Gérer mes cookies</a>
       </div>
     </div>
@@ -3904,7 +3904,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="sim-foot-links">
         <a href="#mentions-legales" class="pg-link">Mentions légales</a>
         <a href="#politique-donnees" class="pg-link">Utilisation des données</a>
-        <a href="#nous-decouvrir" class="pg-link">Accessibilité : Partiellement conforme</a>
+        <a href="#accessibilite" class="pg-link">Accessibilité : Partiellement conforme</a>
         <a href="#politique-donnees" class="pg-link">Gérer mes cookies</a>
       </div>
     </div>
@@ -3955,7 +3955,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="sim-foot-links">
         <a href="#mentions-legales" class="pg-link">Mentions légales</a>
         <a href="#politique-donnees" class="pg-link">Utilisation des données</a>
-        <a href="#nous-decouvrir" class="pg-link">Accessibilité : Partiellement conforme</a>
+        <a href="#accessibilite" class="pg-link">Accessibilité : Partiellement conforme</a>
         <a href="#politique-donnees" class="pg-link">Gérer mes cookies</a>
       </div>
     </div>
@@ -4309,7 +4309,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       var href = a.getAttribute('href')||'';
       if(href.startsWith('#')){
         e.preventDefault();
-        window.location.hash = href.slice(1);
+        var newHash = href.slice(1);
+        if(window.location.hash !== '#'+newHash){
+          window.location.hash = newHash;
+        }
+        pgRoute();
       }
     }
   });
