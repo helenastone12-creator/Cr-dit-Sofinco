@@ -355,13 +355,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   background:#fff;
 }
 .products .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
-.products h2{
+.prod-group{margin-bottom:3rem}
+.prod-group:last-child{margin-bottom:0}
+.prod-group h2{
   font-size:1.5rem;font-weight:800;color:var(--navy);
   text-align:center;margin-bottom:.4rem;
 }
 .products .prod-sub{
-  font-size:.92rem;color:#888;font-weight:600;
-  text-align:center;margin-bottom:1.8rem;
+  font-size:.95rem;color:#666;
+  text-align:center;margin-bottom:1.5rem;line-height:1.6;
 }
 .prod-list{display:flex;flex-direction:column;gap:1rem}
 .prod-item{
@@ -1261,58 +1263,69 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- ── Produits ── -->
   <section class="products">
     <div class="wrap">
-      <h2>Un crédit pour tous vos projets</h2>
-      <p class="prod-sub">Simulez votre projet en quelques clics</p>
-      <ul class="prod-list">
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/couple42/800/500" alt="Prêt personnel"/>
-          <div class="prod-item-overlay"></div>
-          <div class="prod-item-body">
-            <span class="prod-item-title">Le prêt personnel</span>
-            <a href="#pg-pret-personnel" class="prod-btn spa-link">Je découvre</a>
-          </div>
-        </li>
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/carkeys7/800/500" alt="Crédit auto"/>
-          <div class="prod-item-overlay"></div>
-          <div class="prod-item-body">
-            <span class="prod-item-title">Le crédit auto</span>
-            <a href="#pg-credit-auto" class="prod-btn spa-link">Je découvre</a>
-          </div>
-        </li>
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/travaux19/800/500" alt="Crédit travaux"/>
-          <div class="prod-item-overlay"></div>
-          <div class="prod-item-body">
-            <span class="prod-item-title">Le prêt travaux</span>
-            <a href="#pg-credit-travaux" class="prod-btn spa-link">Je découvre</a>
-          </div>
-        </li>
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/shopping55/800/500" alt="Crédit renouvelable"/>
-          <div class="prod-item-overlay"></div>
-          <div class="prod-item-body">
-            <span class="prod-item-title">Le crédit renouvelable</span>
-            <a href="#pg-credit-renouvelable" class="prod-btn spa-link">Je découvre</a>
-          </div>
-        </li>
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/moto33/800/500" alt="Crédit moto"/>
-          <div class="prod-item-overlay"></div>
-          <div class="prod-item-body">
-            <span class="prod-item-title">Le crédit moto</span>
-            <a href="#pg-credit-moto" class="prod-btn spa-link">Je découvre</a>
-          </div>
-        </li>
-        <li class="prod-item">
-          <img src="https://picsum.photos/seed/finance88/800/500" alt="Rachat de crédits"/>
-          <div class="prod-item-overlay"></div>
-          <div class="prod-item-body">
-            <span class="prod-item-title">Le rachat de crédits</span>
-            <a href="#pg-rachat-credits" class="prod-btn spa-link">Je découvre</a>
-          </div>
-        </li>
-      </ul>
+
+      <div class="prod-group">
+        <h2>Des offres de crédits adaptées à vos besoins</h2>
+        <p class="prod-sub">Financez tous vos projets personnels avec des mensualités fixes et sans frais de dossier.</p>
+        <ul class="prod-list">
+          <li class="prod-item">
+            <img src="https://picsum.photos/seed/couple42/800/500" alt="Prêt personnel"/>
+            <div class="prod-item-overlay"></div>
+            <div class="prod-item-body">
+              <span class="prod-item-title">Le prêt personnel</span>
+              <a href="#pg-pret-personnel" class="prod-btn spa-link">Je découvre</a>
+            </div>
+          </li>
+          <li class="prod-item">
+            <img src="https://picsum.photos/seed/carkeys7/800/500" alt="Crédit auto"/>
+            <div class="prod-item-overlay"></div>
+            <div class="prod-item-body">
+              <span class="prod-item-title">Le crédit auto</span>
+              <a href="#pg-credit-auto" class="prod-btn spa-link">Je découvre</a>
+            </div>
+          </li>
+          <li class="prod-item">
+            <img src="https://picsum.photos/seed/travaux19/800/500" alt="Crédit travaux"/>
+            <div class="prod-item-overlay"></div>
+            <div class="prod-item-body">
+              <span class="prod-item-title">Le prêt travaux</span>
+              <a href="#pg-credit-travaux" class="prod-btn spa-link">Je découvre</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="prod-group">
+        <h2>Gérez votre budget en toute liberté</h2>
+        <p class="prod-sub">Des solutions flexibles pour simplifier vos finances au quotidien.</p>
+        <ul class="prod-list">
+          <li class="prod-item">
+            <img src="https://picsum.photos/seed/shopping55/800/500" alt="Crédit renouvelable"/>
+            <div class="prod-item-overlay"></div>
+            <div class="prod-item-body">
+              <span class="prod-item-title">Le crédit renouvelable</span>
+              <a href="#pg-credit-renouvelable" class="prod-btn spa-link">Je découvre</a>
+            </div>
+          </li>
+          <li class="prod-item">
+            <img src="https://picsum.photos/seed/moto33/800/500" alt="Crédit moto"/>
+            <div class="prod-item-overlay"></div>
+            <div class="prod-item-body">
+              <span class="prod-item-title">Le crédit moto</span>
+              <a href="#pg-credit-moto" class="prod-btn spa-link">Je découvre</a>
+            </div>
+          </li>
+          <li class="prod-item">
+            <img src="https://picsum.photos/seed/finance88/800/500" alt="Rachat de crédits"/>
+            <div class="prod-item-overlay"></div>
+            <div class="prod-item-body">
+              <span class="prod-item-title">Le rachat de crédits</span>
+              <a href="#pg-rachat-credits" class="prod-btn spa-link">Je découvre</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
