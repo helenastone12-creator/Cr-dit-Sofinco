@@ -505,20 +505,34 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══════════════════════════
    FOOTER
 ═══════════════════════════ */
-.footer{background:#0d1117;color:#fff;padding-bottom:env(safe-area-inset-bottom)}
+.footer{background:#0d1117;color:#fff;padding-bottom:calc(1.5rem + env(safe-area-inset-bottom))}
 
-/* Nav liens */
-.ft-nav{padding:0 1.5rem}
-.ft-nav-link{
+/* Nav accordéon */
+.ft-nav{padding:0}
+.ft-nav-btn{
   display:flex;justify-content:space-between;align-items:center;
-  padding:1.15rem 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
+  width:100%;padding:1.15rem 1.5rem;
+  border:none;border-bottom:1px solid rgba(255,255,255,.08);
+  background:none;cursor:pointer;font-family:inherit;
   font-size:.95rem;font-weight:800;color:#fff;
-  letter-spacing:.07em;text-decoration:none;
-  text-transform:uppercase;
+  letter-spacing:.07em;text-transform:uppercase;text-align:left;
 }
-.ft-nav-link:last-child{border-bottom:none}
-.ft-chev{font-size:1.1rem;color:rgba(255,255,255,.5)}
+.ft-nav-item:last-child .ft-nav-btn{border-bottom:none}
+.ft-chev{font-size:1.1rem;color:rgba(255,255,255,.5);display:inline-block;transition:transform .2s}
+.ft-nav-item.open .ft-chev{transform:rotate(90deg)}
+.ft-acc-list{
+  display:none;list-style:none;
+  padding:.25rem 1.5rem .85rem;margin:0;
+}
+.ft-nav-item.open .ft-acc-list{display:block}
+.ft-acc-list li a{
+  display:block;padding:.55rem 0;
+  font-size:.88rem;color:rgba(255,255,255,.6);
+  text-decoration:none;font-weight:600;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.ft-acc-list li:last-child a{border-bottom:none}
+.ft-acc-list li a:hover{color:#fff}
 
 /* Séparateur teal */
 .ft-sep{height:2px;background:var(--teal);margin:0 1.5rem;border-radius:1px}
@@ -3274,11 +3288,33 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ══════════════════════════════ -->
 <footer class="footer">
 
-  <!-- Liens nav -->
+  <!-- Nav accordéon -->
   <nav class="ft-nav">
-    <a href="#pret-personnel" class="ft-nav-link pg-link">NOS CRÉDITS <span class="ft-chev">›</span></a>
-    <a href="#assurances" class="ft-nav-link pg-link">NOS SOLUTIONS <span class="ft-chev">›</span></a>
-    <a href="#questions-reponses" class="ft-nav-link pg-link">INFORMATIONS <span class="ft-chev">›</span></a>
+    <div class="ft-nav-item">
+      <button class="ft-nav-btn" onclick="ftToggle(this)">NOS CRÉDITS <span class="ft-chev">›</span></button>
+      <ul class="ft-acc-list">
+        <li><a href="#pret-personnel" class="pg-link">Prêt personnel</a></li>
+        <li><a href="#credit-auto" class="pg-link">Crédit auto / moto</a></li>
+        <li><a href="#credit-travaux" class="pg-link">Crédit travaux</a></li>
+        <li><a href="#credit-renouvelable" class="pg-link">Crédit renouvelable</a></li>
+        <li><a href="#rachat-de-credits" class="pg-link">Rachat de crédits</a></li>
+      </ul>
+    </div>
+    <div class="ft-nav-item">
+      <button class="ft-nav-btn" onclick="ftToggle(this)">NOS SOLUTIONS <span class="ft-chev">›</span></button>
+      <ul class="ft-acc-list">
+        <li><a href="#assurances" class="pg-link">Assurances</a></li>
+        <li><a href="#cartes" class="pg-link">Cartes</a></li>
+      </ul>
+    </div>
+    <div class="ft-nav-item">
+      <button class="ft-nav-btn" onclick="ftToggle(this)">INFORMATIONS <span class="ft-chev">›</span></button>
+      <ul class="ft-acc-list">
+        <li><a href="#questions-reponses" class="pg-link">Questions &amp; Réponses</a></li>
+        <li><a href="#nous-decouvrir" class="pg-link">Nous découvrir</a></li>
+        <li><a href="#tarifs" class="pg-link">Tarifs</a></li>
+      </ul>
+    </div>
   </nav>
 
   <!-- Séparateur teal -->
@@ -3895,14 +3931,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     if(simBar){
       var scrollingUp   = y < _lastScrollY;
       var scrollingDown = y > _lastScrollY;
-      if(scrollingUp && y > 150){
+      var atBottom = (y + window.innerHeight) >= (document.documentElement.scrollHeight - 80);
+      if(scrollingUp && y > 150 && !atBottom){
         simBar.classList.add('visible');
-      } else if(scrollingDown || y <= 150){
+      } else if(scrollingDown || y <= 150 || atBottom){
         simBar.classList.remove('visible');
       }
     }
     _lastScrollY = y;
   });
+
+  // ── Footer accordéon ──────────────────────────────────
+  function ftToggle(btn){
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.ft-nav-item').forEach(function(i){i.classList.remove('open');});
+    if(!isOpen) item.classList.add('open');
+  }
 
   // ── Routeur SPA (navigation interne) ──────────────────
   function pgRoute(){
