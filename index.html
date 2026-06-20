@@ -1041,6 +1041,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-faq-hd{margin-bottom:2.5rem}
 .prod-faq-hd h2{font-size:2rem;font-weight:800;color:var(--navy)}
 .prod-faq-hd p{font-size:1rem;color:#666;margin-top:.5rem}
+/* ── Bannière cookies ── */
+.cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:9999;
+  background:#fff;
+  box-shadow:0 -4px 24px rgba(0,0,0,.18);
+  padding:1.4rem 1.5rem calc(1.4rem + env(safe-area-inset-bottom));
+  transform:translateY(100%);
+  transition:transform .3s ease;
+}
+.cookie-banner.show{transform:translateY(0)}
+.cookie-skip{display:block;text-align:right;font-size:.8rem;color:#666;text-decoration:underline;cursor:pointer;margin-bottom:.9rem;background:none;border:none;font-family:inherit;width:100%}
+.cookie-banner h3{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:.7rem}
+.cookie-banner p{font-size:.83rem;color:#555;line-height:1.6;margin-bottom:.8rem}
+.cookie-banner a{color:var(--teal);text-decoration:underline}
+.cookie-btns{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem}
+.cookie-btn-accept{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:.75rem;font-size:.95rem;font-weight:700;font-family:inherit;cursor:pointer;text-align:center}
+.cookie-btn-settings{background:#fff;color:var(--navy);border:1.5px solid var(--navy);border-radius:2rem;padding:.72rem;font-size:.95rem;font-weight:700;font-family:inherit;cursor:pointer;text-align:center}
+@media(min-width:600px){
+  .cookie-banner{max-width:480px;left:auto;right:1.5rem;bottom:1.5rem;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+  .cookie-btns{flex-direction:row}
+  .cookie-btn-accept,.cookie-btn-settings{flex:1}
+}
   </style>
 </head>
 <body>
@@ -1140,6 +1162,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- ── Bouton fixe mobile "Simuler un projet" ── -->
 <div class="mob-sim-bar" id="mob-sim-bar">
   <button class="mob-sim-btn" data-sim="">Simuler un projet</button>
+</div>
+
+<!-- ── Bannière cookies ── -->
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies">
+  <button class="cookie-skip" id="cookie-skip">Continuer sans accepter</button>
+  <h3>Jkl.oin respecte votre vie privée</h3>
+  <p>Avec votre accord, Jkl.oin aimerait utiliser des cookies pour améliorer votre expérience, mesurer l'audience et vous proposer des contenus personnalisés. <a href="#cookies" class="pg-link">Politique de cookies</a></p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-settings" id="cookie-settings">Paramétrer</button>
+    <button class="cookie-btn-accept" id="cookie-accept">Tout accepter</button>
+  </div>
 </div>
 
 <!-- ══════════════════════════════
@@ -4029,6 +4062,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       openSim(cofSelected, montant);
     });
   }
+
+  // ── Bannière cookies ──
+  (function(){
+    var banner = document.getElementById('cookie-banner');
+    if(!banner) return;
+    if(!localStorage.getItem('cookie_choice')){
+      setTimeout(function(){ banner.classList.add('show'); }, 800);
+    }
+    function closeBanner(){ banner.classList.remove('show'); }
+    document.getElementById('cookie-accept').addEventListener('click', function(){
+      localStorage.setItem('cookie_choice','accepted'); closeBanner();
+    });
+    document.getElementById('cookie-skip').addEventListener('click', function(){
+      localStorage.setItem('cookie_choice','refused'); closeBanner();
+    });
+    document.getElementById('cookie-settings').addEventListener('click', function(){
+      closeBanner();
+      window.location.hash = '#cookies';
+    });
+  })();
 
   // Scroll shadow + bouton flottant scroll-up
   var _lastScrollY = 0;
