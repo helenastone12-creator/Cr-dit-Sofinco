@@ -746,8 +746,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-confirm-msg{font-size:.9rem;color:#555;line-height:1.6}
 
 /* ── Routeur SPA ── */
-.pg-section{display:none}
-.pg-section.pg-active{display:block}
+.pg-section{display:none !important}
+.pg-section.pg-active{display:block !important}
 
 /* ════════════════════════
    PAGES INTERNES — BASE
@@ -1136,6 +1136,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   </div>
 </header>
+
+<noscript><style>#pg-home{display:block !important}</style></noscript>
 
 <!-- ══════════════════════════════
      PAGE
@@ -4244,26 +4246,30 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   // ── Routeur SPA (navigation interne) ──────────────────
   function pgRoute(){
-    var hash = (window.location.hash||'').replace('#','') || 'home';
-    // Fermer le menu si ouvert
-    if(document.getElementById('mob-menu').classList.contains('open')) closeMenu();
-    // Changer les sections
-    document.querySelectorAll('.pg-section').forEach(function(s){ s.classList.remove('pg-active'); });
-    var target = document.getElementById('pg-'+hash);
-    if(target){ target.classList.add('pg-active'); }
-    else { document.getElementById('pg-home').classList.add('pg-active'); }
-    // Scroll haut
-    window.scrollTo(0,0);
-    // mob-sim-bar : visible seulement sur home
-    var simBar = document.getElementById('mob-sim-bar');
-    if(simBar){ simBar.style.display = (hash==='home'||hash==='') ? '' : 'none'; }
-    // Rebrancher les boutons btn-sim sur la page active
-    document.querySelectorAll('.btn-sim').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var v = this.getAttribute('data-sim')||'';
-        openSim(v);
+    try {
+      var hash = (window.location.hash||'').replace('#','') || 'home';
+      var mobMenu = document.getElementById('mob-menu');
+      if(mobMenu && mobMenu.classList.contains('open')) closeMenu();
+      document.querySelectorAll('.pg-section').forEach(function(s){ s.classList.remove('pg-active'); });
+      var target = document.getElementById('pg-'+hash);
+      if(target){ target.classList.add('pg-active'); }
+      else {
+        var home = document.getElementById('pg-home');
+        if(home) home.classList.add('pg-active');
+      }
+      window.scrollTo(0,0);
+      var simBar = document.getElementById('mob-sim-bar');
+      if(simBar){ simBar.style.display = (hash==='home'||hash==='') ? '' : 'none'; }
+      document.querySelectorAll('.btn-sim').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          var v = this.getAttribute('data-sim')||'';
+          openSim(v);
+        });
       });
-    });
+    } catch(e) {
+      var home = document.getElementById('pg-home');
+      if(home) home.classList.add('pg-active');
+    }
   }
   window.addEventListener('hashchange', pgRoute);
   pgRoute();
