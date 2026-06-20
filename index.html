@@ -3718,7 +3718,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     btn.addEventListener('click',function(){
       var item=this.closest('.faq-item');
       var isOpen=item.classList.contains('open');
-      item.closest('.prod-faq,section,[class*="faq"]').querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open');});
+      document.querySelectorAll('.faq-item').forEach(function(el){el.classList.remove('open');});
       if(!isOpen){item.classList.add('open');}
     });
   });
