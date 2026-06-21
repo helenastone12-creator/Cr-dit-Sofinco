@@ -1119,38 +1119,56 @@ body.pg-inner .editorial{background:none}
 /* Prevent horizontal overflow inside the simulator on step 5 */
 #sp5{ width:100%;box-sizing:border-box;overflow-x:hidden; }
 
-/* ── Progress bar ── */
+/* ── Progress bar — style professionnel ── */
 .sp5-prog-bar{
-  display:flex;align-items:center;
+  display:flex;align-items:flex-start;
   width:100%;box-sizing:border-box;
-  margin:0 0 1.6rem;padding-top:.2rem;overflow:hidden;
+  margin:0 0 2rem;padding:.4rem 0 0;
 }
 .sp5-prog-step{
-  display:flex;flex-direction:column;align-items:center;gap:.3rem;
-  flex:0 0 auto;
+  display:flex;flex-direction:column;align-items:center;gap:.45rem;
+  flex:0 0 auto;position:relative;z-index:1;
 }
+/* Numéro / coche dans le cercle */
 .sp5-prog-dot{
-  width:26px;height:26px;border-radius:50%;
-  border:2.5px solid #ccc;background:#fff;
-  transition:background .25s,border-color .25s;flex-shrink:0;
+  width:32px;height:32px;border-radius:50%;
+  border:2px solid #d0d5dd;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;font-weight:800;color:#aaa;
+  transition:all .25s;flex-shrink:0;
+  box-shadow:0 0 0 3px #fff;
 }
+/* Étape active */
 .sp5-prog-step.active .sp5-prog-dot{
   background:var(--teal);border-color:var(--teal);
+  color:#fff;box-shadow:0 0 0 4px rgba(6,194,176,.15);
 }
+/* Étape terminée — affiche une coche */
 .sp5-prog-step.done .sp5-prog-dot{
-  background:var(--teal-d);border-color:var(--teal-d);
+  background:var(--teal);border-color:var(--teal);color:#fff;
 }
+.sp5-prog-step.done .sp5-prog-dot::after{
+  content:'';
+  display:block;width:9px;height:5px;
+  border-left:2px solid #fff;border-bottom:2px solid #fff;
+  transform:rotate(-45deg) translateY(-1px);
+}
+/* Label sous le cercle */
 .sp5-prog-step span{
-  font-size:.65rem;font-weight:600;color:#aaa;text-align:center;
-  transition:color .25s;white-space:nowrap;
+  font-size:.67rem;font-weight:600;color:#aaa;
+  text-align:center;white-space:nowrap;
+  transition:color .25s;letter-spacing:.01em;
 }
-.sp5-prog-step.active span,.sp5-prog-step.done span{ color:var(--teal); }
+.sp5-prog-step.active span{ color:var(--teal);font-weight:700; }
+.sp5-prog-step.done span{ color:var(--teal-d); }
+/* Ligne de connexion */
 .sp5-prog-line{
-  flex:1;height:2px;background:#ccc;
-  margin-bottom:1.1rem;min-width:8px;
-  transition:background .25s;
+  flex:1;height:1.5px;
+  background:#d0d5dd;
+  margin-top:15px;
+  transition:background .3s;
 }
-.sp5-prog-line.done{ background:var(--teal-d); }
+.sp5-prog-line.done{ background:var(--teal); }
 
 /* ── Title ── */
 .sp5-title{

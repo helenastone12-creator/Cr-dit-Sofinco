@@ -529,8 +529,16 @@ function sp5UpdateProg(step){
   for(var i=1;i<=4;i++){
     var el = document.getElementById('sp5p'+i);
     if(!el) continue;
-    el.classList.toggle('active', i===step);
-    el.classList.toggle('done',   i<step);
+    var isDone = i < step;
+    var isActive = i === step;
+    el.classList.toggle('active', isActive);
+    el.classList.toggle('done', isDone);
+    var dot = el.querySelector('.sp5-prog-dot');
+    if(dot){
+      // Étape terminée : vide le chiffre (la coche est en ::after CSS)
+      // Étape active/future : affiche le chiffre
+      dot.textContent = isDone ? '' : String(i);
+    }
   }
   var lines = document.querySelectorAll('.sp5-prog-line');
   lines.forEach(function(l,idx){
