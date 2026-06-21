@@ -1461,3 +1461,43 @@ body.pg-inner .editorial{background:none}
   cursor:pointer;transition:background .2s;
 }
 .sp5-confirm-close:hover{ background:var(--teal); }
+
+/* ── Section mot de passe espace client (sp5d) ── */
+.sp5-pwd-hint{
+  font-size:.82rem;color:#6b7280;margin:.05rem 0 .8rem;line-height:1.45;
+}
+.sp5-pwd-row{ display:flex;flex-direction:column;gap:.5rem; }
+.sp5-pwd-wrap{ position:relative; }
+.sp5-pwd-wrap .sp5-inp{ padding-right:2.8rem; }
+.sp5-eye-btn{
+  position:absolute;right:.75rem;top:50%;transform:translateY(-50%);
+  background:none;border:none;padding:0;cursor:pointer;
+  color:#9ca3af;display:flex;align-items:center;opacity:.7;
+  transition:opacity .2s;
+}
+.sp5-eye-btn:hover{ opacity:1;color:var(--navy); }
+.sp5-pwd-strength{
+  display:flex;gap:4px;margin-top:.1rem;
+}
+.sp5-pwd-strength span{
+  flex:1;height:4px;border-radius:4px;background:#e4e7ec;transition:background .25s;
+}
+.sp5-pwd-strength.weak span:first-child{ background:#ef4444; }
+.sp5-pwd-strength.medium span:first-child,
+.sp5-pwd-strength.medium span:nth-child(2){ background:#f59e0b; }
+.sp5-pwd-strength.strong span{ background:var(--teal); }
+/* CTA primaire confirmation */
+.sp5-confirm-cta{
+  display:block;text-align:center;text-decoration:none;
+  background:var(--teal);color:#fff;
+  border-radius:2rem;padding:.85rem 2.2rem;
+  font-size:.95rem;font-weight:700;margin-bottom:.6rem;
+  transition:background .2s;
+}
+.sp5-confirm-cta:hover{ background:var(--teal-d); }
+.sp5-confirm-secondary{
+  background:none;color:#aaa;border:none;
+  font-size:.82rem;font-family:inherit;cursor:pointer;
+  padding:.3rem;text-decoration:underline;
+}
+.sp5-confirm-secondary:hover{ color:var(--navy); }

@@ -506,14 +506,36 @@
 // Auto-format date JJ/MM/AAAA while typing
 document.addEventListener('DOMContentLoaded', function(){
   var ddn = document.getElementById('s5-ddn');
-  if(!ddn) return;
-  ddn.addEventListener('input', function(){
-    var v = this.value.replace(/\D/g,'');
-    if(v.length >= 3 && v.length <= 4) v = v.slice(0,2)+'/'+v.slice(2);
-    else if(v.length >= 5) v = v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4,8);
-    this.value = v;
-  });
+  if(ddn){
+    ddn.addEventListener('input', function(){
+      var v = this.value.replace(/\D/g,'');
+      if(v.length >= 3 && v.length <= 4) v = v.slice(0,2)+'/'+v.slice(2);
+      else if(v.length >= 5) v = v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4,8);
+      this.value = v;
+    });
+  }
+  var pwdInp = document.getElementById('s5-pwd');
+  var pwdBar = document.getElementById('s5-pwd-strength');
+  if(pwdInp && pwdBar){
+    pwdInp.addEventListener('input', function(){
+      var v = this.value;
+      pwdBar.className = 'sp5-pwd-strength';
+      pwdBar.innerHTML = '<span></span><span></span><span></span>';
+      if(!v) return;
+      if(v.length >= 10 && /[A-Z]/.test(v) && /[0-9]/.test(v)) pwdBar.classList.add('strong');
+      else if(v.length >= 8) pwdBar.classList.add('medium');
+      else pwdBar.classList.add('weak');
+    });
+  }
 });
+
+function sp5TogglePwd(id, btn){
+  var inp = document.getElementById(id);
+  if(!inp) return;
+  var show = inp.type === 'password';
+  inp.type = show ? 'text' : 'password';
+  btn.style.opacity = show ? '1' : '.5';
+}
 
 var sp5Current = 1;
 var sp5DocMode = 'cni';  // 'cni' | 'passport' | 'permis'
@@ -613,6 +635,21 @@ function sp5Validate(step){
     var revEr = document.getElementById('s5-rev-err');
     if(revEr) revEr.classList.toggle('show', !hasRev);
     if(!hasRev) ok=false;
+    // mot de passe espace client
+    var pwd  = (document.getElementById('s5-pwd')||{}).value||'';
+    var pwd2 = (document.getElementById('s5-pwd2')||{}).value||'';
+    var pwdEl  = document.getElementById('s5-pwd');
+    var pwd2El = document.getElementById('s5-pwd2');
+    var pwdEr  = document.getElementById('s5-pwd-err');
+    var pwd2Er = document.getElementById('s5-pwd2-err');
+    var pwdOk = pwd.length >= 8;
+    if(pwdEl)  pwdEl.classList.toggle('err', !pwdOk);
+    if(pwdEr)  pwdEr.classList.toggle('show', !pwdOk);
+    if(!pwdOk) ok = false;
+    var matchOk = pwd2 === pwd && pwd2.length > 0;
+    if(pwd2El) pwd2El.classList.toggle('err', !matchOk);
+    if(pwd2Er) pwd2Er.classList.toggle('show', !matchOk);
+    if(!matchOk) ok = false;
   }
   return ok;
 }
@@ -684,10 +721,26 @@ function sp5Submit(){
   var dateStr = now.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
   var timeStr = now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
 
-  // Nom du demandeur
+  // Données du demandeur
   var prenom = (document.getElementById('s5-prenom')||{}).value || '';
   var nom    = (document.getElementById('s5-nom')||{}).value || '';
+  var email  = (document.getElementById('s5-email')||{}).value || '';
+  var tel    = (document.getElementById('s5-tel')||{}).value || '';
+  var pwd    = (document.getElementById('s5-pwd')||{}).value || '';
   var nomAffiche = (prenom+' '+nom).trim() || 'Monsieur/Madame';
+
+  // Création automatique du compte espace client
+  var ecUser = {
+    prenom: prenom.trim(),
+    nom: nom.trim(),
+    email: email.trim().toLowerCase(),
+    tel: tel.trim(),
+    ref: ref,
+    pwd: pwd,
+    createdAt: new Date().toISOString()
+  };
+  localStorage.setItem('ec_user', JSON.stringify(ecUser));
+  localStorage.setItem('ec_session', '1');
 
   document.querySelectorAll('.sp5-sub').forEach(function(s){s.classList.remove('s5-show');});
 
@@ -733,7 +786,8 @@ function sp5Submit(){
       '</div>'+
     '</div>'+
     '<p class="sp5-confirm-email-note">Un email de confirmation a été envoyé à l\'adresse renseignée.</p>'+
-    '<button class="sp5-confirm-close" onclick="closeSim()">Fermer</button>';
+    '<a class="sp5-confirm-close sp5-confirm-cta" href="espace-client.html">Accéder à mon espace client →</a>'+
+    '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="closeSim()">Fermer</button>';
 
   body.appendChild(wrap);
   document.getElementById('sim-page').scrollTop=0;
