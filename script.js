@@ -73,6 +73,26 @@
       refreshDropdown();
     }
     if(n===4) renderResults();
+    // SP5: hide bottombar, reset to sub-step 1
+    var bb = document.querySelector('.sim-bottombar');
+    if(n===5){
+      if(bb) bb.style.display='none';
+      document.getElementById('sim-page').classList.add('sp5-active');
+      sp5Current=1;
+      sp5Files={};
+      document.querySelectorAll('.sp5-sub').forEach(function(s){s.classList.remove('s5-show');});
+      var sa = document.getElementById('sp5a');
+      if(sa) sa.classList.add('s5-show');
+      sp5UpdateProg(1);
+      simData.civilite='M';
+      var cm = document.getElementById('sp5-civ-m');
+      var cf = document.getElementById('sp5-civ-f');
+      if(cm) cm.classList.add('active');
+      if(cf) cf.classList.remove('active');
+    } else {
+      if(bb) bb.style.display='';
+      document.getElementById('sim-page').classList.remove('sp5-active');
+    }
   }
 
   function closeDd(){
@@ -295,14 +315,6 @@
       showStep(4);
     } else if(s===4){
       showStep(5);
-    } else if(s===5){
-      document.querySelectorAll('.sim-pane').forEach(function(p){p.classList.remove('s-show');});
-      document.getElementById('sim-bb-next').style.display='none';
-      document.getElementById('sim-bb-back').style.display='none';
-      document.getElementById('sim-bb-prog').textContent='Demande envoyée !';
-      var confirm=document.createElement('div');confirm.className='sim-pane s-show sim-confirm';
-      confirm.innerHTML='<div class="sim-confirm-ico"></div><p class="sim-confirm-title">Demande enregistrée !</p><p class="sim-confirm-msg">Un conseiller Jkl.oin vous contactera dans les plus brefs délais pour finaliser votre dossier.</p>';
-      document.querySelector('.sim-body').appendChild(confirm);
     }
   });
 
@@ -486,3 +498,176 @@
     document.querySelectorAll('.ft-nav-item').forEach(function(i){i.classList.remove('open');});
     if(!isOpen) item.classList.add('open');
   }
+
+/* ══════════════════════════════════════════
+   SP5 — Formulaire multi-étapes
+══════════════════════════════════════════ */
+var sp5Current = 1;
+var sp5DocMode = 'cni';  // 'cni' | 'passport' | 'permis'
+var sp5Files = {};        // keyed by slot name
+
+function sp5Civ(val){
+  simData.civilite = val;
+  document.getElementById('sp5-civ-m').classList.toggle('active', val==='M');
+  document.getElementById('sp5-civ-f').classList.toggle('active', val==='Mme');
+}
+
+function sp5UpdateProg(step){
+  for(var i=1;i<=4;i++){
+    var el = document.getElementById('sp5p'+i);
+    if(!el) continue;
+    el.classList.toggle('active', i===step);
+    el.classList.toggle('done',   i<step);
+  }
+  var lines = document.querySelectorAll('.sp5-prog-line');
+  lines.forEach(function(l,idx){
+    l.classList.toggle('done', idx+1 < step);
+  });
+}
+
+function sp5Validate(step){
+  var ok = true;
+  function req(id, errId){
+    var el = document.getElementById(id);
+    var er = document.getElementById(errId);
+    if(!el) return;
+    var empty = !el.value || !el.value.trim();
+    el.classList.toggle('err', empty);
+    if(er) er.classList.toggle('show', empty);
+    if(empty) ok = false;
+  }
+  if(step===1){
+    req('s5-nom','s5-nom-err');
+    req('s5-prenom','s5-prenom-err');
+    req('s5-ddn','s5-ddn-err');
+    req('s5-nat','s5-nat-err');
+    req('s5-sitfam','s5-sitfam-err');
+  } else if(step===2){
+    req('s5-sitpro','s5-sitpro-err');
+    req('s5-secteur','s5-secteur-err');
+    req('s5-anciennete','s5-anciennete-err');
+    req('s5-revenus','s5-revenus-err');
+    req('s5-charges','s5-charges-err');
+  } else if(step===3){
+    req('s5-adresse','s5-adresse-err');
+    req('s5-cp','s5-cp-err');
+    req('s5-ville','s5-ville-err');
+    req('s5-banque','s5-banque-err');
+    req('s5-iban','s5-iban-err');
+    // email
+    var em = document.getElementById('s5-email');
+    var emEr = document.getElementById('s5-email-err');
+    var emOk = em && /^[^@]+@[^@]+\.[^@]+$/.test(em.value||'');
+    if(em) em.classList.toggle('err', !emOk);
+    if(emEr) emEr.classList.toggle('show', !emOk);
+    if(!emOk) ok = false;
+    // tel
+    var tel = document.getElementById('s5-tel');
+    var telEr = document.getElementById('s5-tel-err');
+    var telOk = tel && /^[0-9 +()]{9,15}$/.test((tel.value||'').replace(/\s/g,''));
+    if(tel) tel.classList.toggle('err', !telOk);
+    if(telEr) telEr.classList.toggle('show', !telOk);
+    if(!telOk) ok = false;
+    // consentements
+    var c1 = document.getElementById('s5-cg1');
+    var c1Er = document.getElementById('s5-cg1-err');
+    if(c1 && !c1.checked){ if(c1Er) c1Er.classList.add('show'); ok=false; }
+    else if(c1Er) c1Er.classList.remove('show');
+    var c2 = document.getElementById('s5-cg2');
+    var c2Er = document.getElementById('s5-cg2-err');
+    if(c2 && !c2.checked){ if(c2Er) c2Er.classList.add('show'); ok=false; }
+    else if(c2Er) c2Er.classList.remove('show');
+  } else if(step===4){
+    // Check at least one identity doc
+    var hasId = false;
+    if(sp5DocMode==='cni'){ hasId = !!(sp5Files['cni-r'] && sp5Files['cni-v']); }
+    else if(sp5DocMode==='passport'){ hasId = !!sp5Files['passport']; }
+    else if(sp5DocMode==='permis'){ hasId = !!sp5Files['permis']; }
+    var idEr = document.getElementById('s5-id-err');
+    if(idEr) idEr.classList.toggle('show', !hasId);
+    if(!hasId) ok=false;
+    // domicile
+    var hasDom = !!sp5Files['domicile'];
+    var domEr = document.getElementById('s5-dom-err');
+    if(domEr) domEr.classList.toggle('show', !hasDom);
+    if(!hasDom) ok=false;
+    // revenus
+    var hasRev = !!sp5Files['revenus-doc'];
+    var revEr = document.getElementById('s5-rev-err');
+    if(revEr) revEr.classList.toggle('show', !hasRev);
+    if(!hasRev) ok=false;
+  }
+  return ok;
+}
+
+function sp5Go(toStep){
+  if(toStep > sp5Current){
+    if(!sp5Validate(sp5Current)) return;
+  }
+  var subs = ['sp5a','sp5b','sp5c','sp5d'];
+  subs.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.classList.remove('s5-show');
+  });
+  var target = document.getElementById('sp5'+['a','b','c','d'][toStep-1]);
+  if(target) target.classList.add('s5-show');
+  sp5Current = toStep;
+  sp5UpdateProg(toStep);
+  var sp5El = document.getElementById('sp5');
+  if(sp5El) sp5El.scrollIntoView({behavior:'smooth',block:'start'});
+  var simPage = document.getElementById('sim-page');
+  if(simPage) simPage.scrollTop=0;
+}
+
+function sp5DocTab(mode, btn){
+  sp5DocMode = mode;
+  document.querySelectorAll('.sp5-doc-tab').forEach(function(t){t.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+  var panels = ['cni','passport','permis'];
+  panels.forEach(function(p){
+    var el = document.getElementById('sp5-panel-'+p);
+    if(el) el.classList.toggle('sp5-doc-panel-hide', p!==mode);
+  });
+}
+
+function sp5PickFile(slot){
+  var inp = document.getElementById('f-'+slot);
+  if(inp) inp.click();
+}
+
+function sp5FileChosen(slot, inp){
+  if(!inp.files || !inp.files.length) return;
+  sp5Files[slot] = inp.files[0];
+  var upEl = document.getElementById('sp5-up-'+slot);
+  if(!upEl) return;
+  upEl.classList.add('has-file');
+  // show filename
+  var nameEl = upEl.querySelector('.sp5-upload-name');
+  if(!nameEl){
+    nameEl = document.createElement('div');
+    nameEl.className = 'sp5-upload-name';
+    upEl.appendChild(nameEl);
+  }
+  nameEl.textContent = inp.files.length > 1 ? inp.files.length+' fichiers sélectionnés' : inp.files[0].name;
+  // update button text
+  var btn = upEl.querySelector('.sp5-choisir');
+  if(btn) btn.textContent = 'Modifier';
+}
+
+function sp5Submit(){
+  if(!sp5Validate(4)) return;
+  // Hide sp5d, show confirmation
+  document.querySelectorAll('.sp5-sub').forEach(function(s){s.classList.remove('s5-show');});
+  var body = document.querySelector('.sim-body');
+  var existing = document.querySelector('.sim-confirm');
+  if(existing) existing.remove();
+  var confirm = document.createElement('div');
+  confirm.className = 'sim-pane s-show sim-confirm';
+  confirm.innerHTML =
+    '<div class="sim-confirm-ico"></div>'+
+    '<p class="sim-confirm-title">Demande enregistrée !</p>'+
+    '<p class="sim-confirm-msg">Un conseiller Sofinco vous contactera dans les plus brefs délais pour finaliser votre dossier.</p>';
+  body.appendChild(confirm);
+  document.getElementById('sim-page').scrollTop=0;
+}
+
