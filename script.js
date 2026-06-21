@@ -655,8 +655,44 @@ function sp5ValidTelFR(v){
   var d = v.replace(/[\s\.\-]/g,'');
   return /^(0[1-9][0-9]{8}|\+33[1-9][0-9]{8})$/.test(d);
 }
+var SP5_DISPOSABLE_DOMAINS = [
+  'mailinator.com','guerrillamail.com','guerrillamail.net','guerrillamail.org',
+  'guerrillamail.biz','guerrillamail.de','guerrillamail.info','guerrillamailblock.com',
+  'grr.la','sharklasers.com','spam4.me','yopmail.com','yopmail.fr','cool.fr.nf',
+  'jetable.fr.nf','nospam.ze.tc','nomail.xl.cx','speed.1s.fr','courriel.fr.nf',
+  'moncourrier.fr.nf','monemail.fr.nf','monmail.fr.nf','trashmail.com','trashmail.me',
+  'trashmail.net','trashmail.io','trashmail.at','trashmail.org','trash-mail.at',
+  'dispostable.com','mailexpire.com','mailzilla.com','maileater.com','mailnull.com',
+  'spamgourmet.com','spamgourmet.net','spamgourmet.org','spamspot.com','spam.la',
+  'temp-mail.org','tempmail.com','tempmail.net','tempmail.org','tempr.email',
+  'tempinbox.com','temporaryemail.net','tempail.com','mytemp.email','emailondeck.com',
+  'maildrop.cc','throwaway.email','throwam.com','fakeinbox.com','mailnew.com',
+  'mail7.io','discard.email','mailsac.com','burnermail.io','getairmail.com',
+  'moakt.com','mohmal.com','10minutemail.com','10minutemail.net','filzmail.com',
+  'inboxbear.com','foxja.com','spamgone.net','33mail.com','eyepaste.com',
+  'mail-temporaire.com','mail-temporaire.fr','jetable.com','jetable.net','jetable.org',
+  'bouncr.com','boun.cr','spaml.de','spamwc.de','discardmail.com','discardmail.de',
+  'crap.kakadua.net','trashdevil.com','trashdevil.de','wegwerfmail.de',
+  'wegwerfmail.net','wegwerfmail.org','e4ward.com','spamfree24.org',
+  'mt2015.com','mt2016.com','spamthisplease.com','klassmaster.net',
+  'klassmaster.com','mailforspam.com','notmailinator.com','tempinbox.com',
+  'owlpic.com','spamherelots.com','spamhereplease.com','herp.in',
+  'tafmail.com','vomoto.com','rcpt.at','amilegit.com','amiri.net',
+  'armyspy.com','cuvox.de','dayrep.com','einrot.com','fleckens.hu',
+  'gustr.com','inoutmail.de','inoutmail.eu','inoutmail.info','inoutmail.net',
+  'jnxjn.com','jourrapide.com','objectmail.com','obobbo.com','rtrtr.com',
+  'spamgrap.de','supergreatmail.com','suremail.info','teleworm.us',
+  'thinkskyward.com','tipsy.technology','tradermail.info','veryrealemail.com',
+  'webmasterseguro.com','wilemail.com','wronghead.com','xagloo.com',
+  'yopmail.gq','zehnminutenmail.de','ichimail.net','disposeamail.com',
+  'put2.net','tempsky.com','email-fake.com','tempomail.fr','spamfree.eu'
+];
+
 function sp5ValidEmail(v){
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((v||'').trim());
+  var val = (v||'').trim().toLowerCase();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)) return false;
+  var domain = val.split('@')[1];
+  return SP5_DISPOSABLE_DOMAINS.indexOf(domain) === -1;
 }
 function sp5ValidCP(v){
   return /^(0[1-9]|[1-8][0-9]|9[0-5]|97[1-6])[0-9]{3}$/.test((v||'').trim());
@@ -714,7 +750,16 @@ function sp5Validate(step){
     check('s5-ville',   's5-ville-err',   function(v){ return v && v.trim().length >= 2; },  'Ville invalide');
     check('s5-banque',  's5-banque-err',  function(v){ return v && v.trim().length >= 2; },  'Nom de banque requis');
     check('s5-iban',    's5-iban-err',    function(v){ return sp5ValidIban(v); },             'IBAN invalide — vérifiez les chiffres');
-    check('s5-email',   's5-email-err',   function(v){ return sp5ValidEmail(v); },            'Adresse email invalide');
+    check('s5-email',   's5-email-err',   function(v){
+      var val = (v||'').trim().toLowerCase();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)) return false;
+      var domain = val.split('@')[1];
+      var blocked = SP5_DISPOSABLE_DOMAINS.indexOf(domain) !== -1;
+      var emailEl = document.getElementById('s5-email');
+      var emailEr = document.getElementById('s5-email-err');
+      if(blocked && emailEr) emailEr.textContent = 'Les adresses email temporaires ne sont pas acceptées';
+      return !blocked;
+    }, 'Adresse email invalide');
     check('s5-tel',     's5-tel-err',     function(v){ return sp5ValidTelFR(v); },            'Numéro français invalide (ex : 06 12 34 56 78)');
     checkBox('s5-cg1', 's5-cg1-err', 'Vous devez accepter les conditions générales');
     checkBox('s5-cg2', 's5-cg2-err', 'Vous devez accepter la politique de données');
