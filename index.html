@@ -834,8 +834,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .sp4-sb-title{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid #e8e8e8}
   .sp4-sb-item{margin-bottom:1rem}
   .sp4-sb-lbl{font-size:.7rem;color:#777;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.2rem}
-  .sp4-sb-val{font-size:.9rem;font-weight:700;color:var(--navy);display:flex;align-items:center;justify-content:space-between;border:1.5px solid #ddd;border-radius:6px;padding:.5rem .7rem;background:#fff;cursor:pointer;transition:border-color .15s}
-  .sp4-sb-val:hover{border-color:var(--teal)}
+  .sp4-sb-inp-wrap{display:flex;align-items:center;border:1.5px solid #ddd;border-radius:6px;background:#fff;overflow:hidden;transition:border-color .15s}
+  .sp4-sb-inp-wrap:focus-within{border-color:var(--teal)}
+  .sp4-sb-inp{border:none;outline:none;padding:.48rem .6rem;font-size:.88rem;font-weight:700;color:var(--navy);font-family:inherit;flex:1;min-width:0;width:0}
+  .sp4-sb-inp-unit{font-size:.82rem;color:#777;flex-shrink:0;padding-right:.2rem}
+  .sp4-sb-clr{background:#e8e8e8;border:none;font-size:.75rem;color:#666;cursor:pointer;padding:0;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:.4rem;transition:background .15s}
+  .sp4-sb-clr:hover{background:#d0d0d0}
+  .sp4-sb-sel{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:.5rem .6rem;font-size:.88rem;font-weight:700;color:var(--navy);font-family:inherit;outline:none;background:#fff;cursor:pointer;transition:border-color .15s}
+  .sp4-sb-sel:focus{border-color:var(--teal)}
+  .sim-page.sp4-open .sim-bottombar{display:none}
   .sp4-main{flex:1;padding:1.8rem 2.5rem 5rem;overflow-y:auto}
   .sp4-intro{font-size:.82rem;color:#777;margin-bottom:1rem;font-style:italic}
   .sp4-type-lbl{font-size:.88rem;font-weight:600;color:var(--teal);margin-bottom:.25rem}
@@ -3565,33 +3572,36 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <div class="sp4-sb-title">Modifier votre simulation</div>
           <div class="sp4-sb-item">
             <div class="sp4-sb-lbl">Montant souhaité</div>
-            <div class="sp4-sb-val" id="sp4-sb-montant">5 000 €
-              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div class="sp4-sb-inp-wrap">
+              <input type="number" class="sp4-sb-inp" id="sp4-sb-montant-inp" min="500" max="75000" step="500" placeholder="5000"/>
+              <span class="sp4-sb-inp-unit">€</span>
+              <button class="sp4-sb-clr" id="sp4-sb-montant-clr" type="button" title="Effacer">✕</button>
             </div>
           </div>
           <div class="sp4-sb-item">
             <div class="sp4-sb-lbl">Type de crédit</div>
-            <div class="sp4-sb-val" id="sp4-sb-type">Prêt personnel
-              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
+            <select class="sp4-sb-sel" id="sp4-sb-type-sel">
+              <option value="pret">Prêt personnel</option>
+              <option value="regroupement">Regroupement de crédits</option>
+            </select>
           </div>
           <div class="sp4-sb-item">
             <div class="sp4-sb-lbl">Projet</div>
-            <div class="sp4-sb-val" id="sp4-sb-projet">—
-              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
+            <select class="sp4-sb-sel" id="sp4-sb-projet-sel">
+              <option value="famille-loisirs">Famille &amp; loisirs</option>
+              <option value="auto">Auto</option>
+              <option value="travaux">Travaux</option>
+              <option value="autre">Autre</option>
+              <option value="regroupement">Regroupement de crédits</option>
+            </select>
           </div>
           <div class="sp4-sb-item">
-            <div class="sp4-sb-lbl" id="sp4-sb-choix-lbl">Mensualité</div>
-            <div class="sp4-sb-val" id="sp4-sb-choix">—
-              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
+            <div class="sp4-sb-lbl">Mensualité</div>
+            <select class="sp4-sb-sel" id="sp4-sb-mens-sel"></select>
           </div>
           <div class="sp4-sb-item">
             <div class="sp4-sb-lbl">Durée</div>
-            <div class="sp4-sb-val" id="sp4-sb-duree">—
-              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
+            <select class="sp4-sb-sel" id="sp4-sb-dur-sel"></select>
           </div>
         </div>
         <div class="sp4-main">
@@ -3756,6 +3766,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     document.getElementById('sp'+n).classList.add('s-show');
     document.getElementById('sim-page').scrollTop=0;
     document.querySelector('.sim-body').classList.toggle('sp4-open', n===4);
+    document.getElementById('sim-page').classList.toggle('sp4-open', n===4);
     document.getElementById('sim-bb-prog').textContent='Progression : '+(PROG[n]||'90%');
     var nxt=document.getElementById('sim-bb-next');
     if(n===3){ nxt.textContent='Découvrir les offres'; nxt.classList.add('bb-teal'); }
@@ -3862,18 +3873,40 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
     // ── DESKTOP : 3 cartes côte à côte ──
     document.getElementById('sp4-type-lbl').textContent=typeName+' de '+fmtAmt(P);
-    // Sidebar
-    document.getElementById('sp4-sb-montant').childNodes[0].textContent=fmtAmt(P)+' ';
-    document.getElementById('sp4-sb-type').childNodes[0].textContent=typeName+' ';
-    document.getElementById('sp4-sb-projet').childNodes[0].textContent=(projetNames[simData.projet]||'—')+' ';
-    if(simData.choix==='mensualite'){
-      document.getElementById('sp4-sb-choix-lbl').textContent='Mensualité';
-      document.getElementById('sp4-sb-choix').childNodes[0].textContent=fmtEur(offers[1].mensualite)+'/mois ';
-    } else {
-      document.getElementById('sp4-sb-choix-lbl').textContent='Durée souhaitée';
-      document.getElementById('sp4-sb-choix').childNodes[0].textContent=n+' mois ';
+    // Sidebar — montant
+    var sbMontant=document.getElementById('sp4-sb-montant-inp');
+    if(sbMontant) sbMontant.value=P;
+    // Sidebar — type de crédit
+    var sbType=document.getElementById('sp4-sb-type-sel');
+    if(sbType) sbType.value=(simData.projet==='regroupement'?'regroupement':'pret');
+    // Sidebar — projet
+    var sbProjet=document.getElementById('sp4-sb-projet-sel');
+    if(sbProjet) sbProjet.value=simData.projet||'famille-loisirs';
+    // Sidebar — mensualité select (valeurs calculées par durée)
+    var sbMens=document.getElementById('sp4-sb-mens-sel');
+    if(sbMens){
+      sbMens.innerHTML='';
+      [180,144,120,96,84,72,60,48,36,24,12,6].forEach(function(d){
+        var pmt=calcPMT(P,d,isReg);
+        var opt=document.createElement('option');
+        opt.value=d;
+        opt.textContent=Math.round(pmt)+' € / mois';
+        if(d===n) opt.selected=true;
+        sbMens.appendChild(opt);
+      });
     }
-    document.getElementById('sp4-sb-duree').childNodes[0].textContent=n+' mois ('+Math.round(n/12*10)/10+' ans) ';
+    // Sidebar — durée select
+    var sbDur=document.getElementById('sp4-sb-dur-sel');
+    if(sbDur){
+      sbDur.innerHTML='';
+      [6,12,24,36,48,60,72,84,96,120,144,180].forEach(function(d){
+        var opt=document.createElement('option');
+        opt.value=d;
+        opt.textContent=d+' mois ('+Math.round(d/12*10)/10+' ans)';
+        if(d===n) opt.selected=true;
+        sbDur.appendChild(opt);
+      });
+    }
     // Cards
     var cardsEl=document.getElementById('sp4-cards');
     cardsEl.innerHTML='';
@@ -4021,6 +4054,45 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   document.getElementById('sp4-cta-btn').addEventListener('click',function(){
     showStep(5);
+  });
+
+  // Sidebar modifiable (desktop step 4)
+  document.getElementById('sp4-sb-montant-inp').addEventListener('change',function(){
+    var v=parseInt(this.value);
+    if(v>=500 && v<=75000){ simData.montant=v; renderResults(); }
+    else { this.value=simData.montant||5000; }
+  });
+  document.getElementById('sp4-sb-montant-clr').addEventListener('click',function(){
+    var inp=document.getElementById('sp4-sb-montant-inp');
+    inp.value=''; inp.focus();
+    simData.montant=5000;
+    renderResults();
+  });
+  document.getElementById('sp4-sb-type-sel').addEventListener('change',function(){
+    if(this.value==='regroupement'){
+      simData.projet='regroupement';
+      var ps=document.getElementById('sp4-sb-projet-sel');
+      if(ps) ps.value='regroupement';
+    } else {
+      if(simData.projet==='regroupement') simData.projet='famille-loisirs';
+    }
+    renderResults();
+  });
+  document.getElementById('sp4-sb-projet-sel').addEventListener('change',function(){
+    simData.projet=this.value;
+    var ts=document.getElementById('sp4-sb-type-sel');
+    if(ts) ts.value=(this.value==='regroupement'?'regroupement':'pret');
+    renderResults();
+  });
+  document.getElementById('sp4-sb-mens-sel').addEventListener('change',function(){
+    simData.duree=parseInt(this.value);
+    simData.choix='mensualite';
+    renderResults();
+  });
+  document.getElementById('sp4-sb-dur-sel').addEventListener('change',function(){
+    simData.duree=parseInt(this.value);
+    simData.choix='duree';
+    renderResults();
   });
 
   var heroForm=document.querySelector('.sim-form');
