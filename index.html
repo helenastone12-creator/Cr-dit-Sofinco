@@ -20,9 +20,9 @@ img{max-width:100%;height:auto;display:block}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 :root{
-  --orange:#00334D;
-  --navy:#00334D;
-  --navy-d:#001f38;
+  --orange:#1a1a1a;
+  --navy:#1a1a1a;
+  --navy-d:#000;
   --teal:#06c2b0;        /* bouton "Simuler un projet" */
   --teal-d:#049f90;
   --sky:#3ab5e5;
@@ -116,7 +116,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     font-size:.82rem;font-weight:700;
     display:flex;align-items:center;gap:.35rem;
   }
-  .hd-right .hd-connect-btn:hover{background:#001925}
+  .hd-right .hd-connect-btn:hover{background:#000}
   .hd-right .hd-dossier{
     display:flex;align-items:center;gap:.35rem;
     border:1.5px solid #ddd;border-radius:2rem;padding:.4rem .9rem;
@@ -461,7 +461,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   border-radius:2rem;padding:.65rem 1.8rem;
   font-size:.92rem;font-weight:700;transition:background .2s;
 }
-.btn-orange:hover{background:#001925;color:#fff}
+.btn-orange:hover{background:#000;color:#fff}
 
 /* ═══════════════════════════
    AVANTAGES
@@ -624,27 +624,27 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .faq-item{border-bottom:1px solid #e0e0e0}
 .faq-question{
   width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:1.1rem 0;font-size:.97rem;font-weight:700;color:var(--navy);
+  padding:1.1rem 0;font-size:.97rem;font-weight:700;color:#222;
   background:none;border:none;cursor:pointer;text-align:left;font-family:inherit;
   gap:1rem;
 }
-.faq-question:hover{color:var(--orange)}
+.faq-question:hover{color:#000}
 .faq-icon{
   flex-shrink:0;width:24px;height:24px;border-radius:50%;
-  border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;
+  border:2px solid #aaa;display:flex;align-items:center;justify-content:center;
   font-size:1rem;font-weight:700;line-height:1;transition:transform .25s,background .2s,border-color .2s;
 }
-.faq-item.open .faq-icon{background:var(--orange);border-color:var(--orange);color:#fff;transform:rotate(45deg)}
+.faq-item.open .faq-icon{background:#333;border-color:#333;color:#fff;transform:rotate(45deg)}
 .faq-answer{
   display:none;padding-bottom:1.1rem;
   font-size:.9rem;color:#555;line-height:1.7;
 }
 .faq-item.open .faq-answer{display:block}
 .faq-more{text-align:center;margin-top:.5rem}
-.faq-q{display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid #e8edf2;cursor:pointer;font-family:inherit;font-size:.97rem;font-weight:700;color:var(--navy);padding:1rem 2rem 1rem 0;position:relative}
-.faq-q::after{content:'+';position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:1.3rem;color:var(--navy);font-weight:400;transition:transform .2s}
+.faq-q{display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid #e8edf2;cursor:pointer;font-family:inherit;font-size:.97rem;font-weight:700;color:#222;padding:1rem 2rem 1rem 0;position:relative}
+.faq-q::after{content:'+';position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:1.3rem;color:#555;font-weight:400;transition:transform .2s}
 .faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
-.faq-item.open .faq-q{color:var(--navy)}
+.faq-item.open .faq-q{color:#222}
 .faq-a{display:none;padding:.9rem 0 1.2rem;border-bottom:1px solid #e8edf2}
 .faq-item.open .faq-a{display:block}
 .faq-a p{font-size:.9rem;color:#444;line-height:1.75;margin-bottom:.5rem}
@@ -669,7 +669,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:var(--orange);margin-bottom:1.4rem;
   transition:color .15s;
 }
-.besoin-main-link:hover{color:#001925}
+.besoin-main-link:hover{color:#000}
 .besoin-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.2rem}
 @media(max-width:500px){.besoin-cols{grid-template-columns:1fr}}
 .besoin-col h3{
@@ -740,7 +740,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-res-row b{color:var(--navy);font-weight:700}
 .sim-res-notice{font-size:.68rem;color:#bbb;margin-top:.7rem;line-height:1.5;text-align:center}
 .sim-cta-big{display:block;width:100%;background:var(--orange);color:#fff;border-radius:2rem;padding:.85rem;font-size:.95rem;font-weight:700;text-align:center;margin-bottom:.7rem;transition:background .2s;border:none;cursor:pointer;font-family:inherit}
-.sim-cta-big:hover{background:#001925}
+.sim-cta-big:hover{background:#000}
 .sim-restart{width:100%;background:none;border:2px solid #ddd;border-radius:2rem;padding:.65rem;font-size:.88rem;font-weight:600;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
 .sim-restart:hover{border-color:var(--navy);color:var(--navy)}
 /* Common : trust + legal */
@@ -876,7 +876,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-etapes.inner,.prod-avantages.inner,.prod-faq.inner,
 .prod-chiffres.inner,.prod-mention-reg.inner{background:transparent}
 .prod-avantages{padding-top:3rem;padding-bottom:3rem}
-.prod-cta{background:linear-gradient(135deg,#001f38 0%,#00334D 100%);padding:3.5rem 1.5rem;text-align:center}
+.prod-cta{background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);padding:3.5rem 1.5rem;text-align:center}
 .prod-cta h2{font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:.8rem}
 .prod-cta p{color:rgba(255,255,255,.75);margin-bottom:1.5rem;line-height:1.6}
 .prod-cta .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.5rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
@@ -895,7 +895,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-hero h1{font-size:2rem;font-weight:800;line-height:1.22;margin-bottom:.9rem;color:var(--navy)}
 .prod-hero h1 span{color:inherit}
 .prod-hero-eyebrow{display:inline-block;background:var(--teal);color:#fff;border-radius:50px;padding:.28rem 1rem;font-size:.78rem;font-weight:700;letter-spacing:.02em;margin-bottom:1rem;text-transform:none}
-.prod-hero-rate{background:#fff;border:1.5px solid #e4ecf2;border-radius:14px;padding:1.1rem 1.4rem;margin:.5rem 0 1.2rem;display:block;max-width:320px;box-shadow:0 2px 8px rgba(0,51,77,.06)}
+.prod-hero-rate{background:#fff;border:1.5px solid #e4ecf2;border-radius:14px;padding:1.1rem 1.4rem;margin:.5rem 0 1.2rem;display:block;max-width:320px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .prod-hero-rate-row{display:flex;align-items:baseline;gap:.15rem;line-height:1}
 .prod-hero-rate-num{font-size:2.8rem;font-weight:800;color:var(--navy)}
 .prod-hero-rate-pct{font-size:1.6rem;font-weight:800;color:var(--navy)}
@@ -935,7 +935,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .prod-avantages-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
 @media(min-width:700px){.prod-avantages-grid{grid-template-columns:repeat(3,1fr)}}
 .prod-av-card{background:#fff;border-radius:20px;padding:2rem 1.6rem;border:1px solid #e4eaf0;transition:all .25s;display:flex;flex-direction:column;gap:.9rem}
-.prod-av-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,51,77,.1);border-color:rgba(6,194,176,.3)}
+.prod-av-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.1);border-color:rgba(6,194,176,.3)}
 .prod-av-ico{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#e8faf8 0%,#d4f3ef 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .prod-av-ico svg{color:var(--teal-d)}
 .prod-av-card h3{font-size:1.05rem;font-weight:700;color:var(--navy);line-height:1.3}
@@ -950,7 +950,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 @media(min-width:700px){.prod-etapes-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
 .prod-step{position:relative;text-align:center;padding:2rem 1.5rem;border-radius:20px;border:1px solid #e8edf2}
 @media(min-width:700px){.prod-step:not(:last-child)::after{content:'→';position:absolute;right:-1.2rem;top:50%;transform:translateY(-50%);font-size:1.5rem;color:var(--teal);z-index:1}}
-.prod-step-num{width:62px;height:62px;border-radius:50%;background:var(--navy);color:#fff;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1.3rem;box-shadow:0 6px 20px rgba(0,51,77,.3)}
+.prod-step-num{width:62px;height:62px;border-radius:50%;background:var(--navy);color:#fff;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1.3rem;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .prod-step h3{font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.6rem}
 .prod-step p{font-size:.95rem;color:#666;line-height:1.65;margin:0}
 
@@ -967,7 +967,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ════════════════════════
    CTA BAND
 ════════════════════════ */
-.prod-cta{background:linear-gradient(135deg,#001f38 0%,#00334D 100%);padding:5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.prod-cta{background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);padding:5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
 .prod-cta::before{content:'';position:absolute;left:50%;top:-200px;transform:translateX(-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(6,194,176,.06) 0%,transparent 65%);pointer-events:none}
 .prod-cta h2{font-size:2.2rem;font-weight:800;color:#fff;margin-bottom:.8rem;position:relative}
 .prod-cta p{font-size:1.05rem;color:rgba(255,255,255,.7);margin-bottom:2.5rem;line-height:1.6;position:relative}
@@ -2774,7 +2774,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
     <section class="legal-section">
       <h2>7. Avertissement légal</h2>
-      <p style="font-weight:600;color:#00334D;">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Aucun versement de quelque nature que ce soit ne peut être exigé d'un particulier avant l'obtention d'un ou plusieurs prêts d'argent.</p>
+      <p style="font-weight:600;color:#1a1a1a;">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Aucun versement de quelque nature que ce soit ne peut être exigé d'un particulier avant l'obtention d'un ou plusieurs prêts d'argent.</p>
     </section>
 
   </div>
@@ -2874,7 +2874,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
     <section class="legal-section">
       <h2>5. Mentions réglementaires</h2>
-      <p style="font-weight:600;color:#00334D;">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Aucun versement de quelque nature que ce soit ne peut être exigé d'un particulier avant l'obtention d'un ou plusieurs prêts d'argent.</p>
+      <p style="font-weight:600;color:#1a1a1a;">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Aucun versement de quelque nature que ce soit ne peut être exigé d'un particulier avant l'obtention d'un ou plusieurs prêts d'argent.</p>
       <p>Les taux et tarifs affichés sur cette page sont donnés à titre indicatif et peuvent évoluer. Ils correspondent aux offres en vigueur au moment de la consultation mais ne constituent pas une offre ferme. Seules les conditions figurant dans votre contrat signé ont valeur contractuelle. CA Consumer Finance — RCS Nanterre B 542 097 522 — ACPR — ORIAS 07 008 079.</p>
       <p><em>Dernière mise à jour de la grille tarifaire : juin 2026.</em></p>
     </section>
