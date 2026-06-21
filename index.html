@@ -29,7 +29,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   --sky-l:#62c9ef;
   --text:#333;
   --gray:#f5f5f5;
-  --hh:64px;
+  --hh:72px;
   --tb:56px;
   --w:1200px;
 }
@@ -56,13 +56,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .hd-inner{
   max-width:var(--w);margin:0 auto;
-  height:100%;display:flex;align-items:center;
+  height:var(--hh);display:flex;align-items:center;
   padding:0 1rem;justify-content:space-between;
 }
 /* hamburger */
 .hd-menu-btn{
-  display:flex;flex-direction:column;align-items:center;gap:5px;padding:.5rem;
-  cursor:pointer;background:none;border:none;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:.4rem .5rem;
+  cursor:pointer;background:none;border:none;font-family:inherit;align-self:center;
 }
 .hd-menu-btn span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
 .hd-menu-label{font-size:.7rem;font-weight:700;color:var(--navy);margin-top:1px;text-align:center;letter-spacing:.03em}
@@ -78,7 +78,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hd-connect-btn{display:none}
 .hd-connect{
   display:flex;flex-direction:column;align-items:center;gap:.15rem;
-  font-size:.65rem;font-weight:700;color:var(--navy);text-decoration:none;
+  font-size:.65rem;font-weight:700;color:var(--navy);text-decoration:none;align-self:center;
 }
 /* nav desktop */
 .desktop-nav{display:none}
