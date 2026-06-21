@@ -4265,6 +4265,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   // Vérification au chargement
   pingServer();
+  // Re-vérification à chaque changement de page (hash)
+  window.addEventListener('hashchange', pingServer);
   // Re-vérification toutes les 15 secondes
   setInterval(pingServer, 15000);
   // Événements réseau en complément
