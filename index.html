@@ -767,7 +767,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-otyp{font-size:.85rem;color:#555;text-align:center;margin-bottom:.3rem;font-weight:500}
 .sim-ocount{font-size:.9rem;color:var(--navy);margin-bottom:.8rem;font-weight:600}
 .sim-otabs{display:flex;gap:.5rem;margin-bottom:1.2rem}
-.sim-otab{flex:1;padding:.65rem .4rem;border:1.5px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.sim-otab{flex:1;padding:.65rem .4rem;border:1.5px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;transition:all .15s;-webkit-tap-highlight-color:transparent;color:var(--navy)}
 .sim-otab.active{background:var(--navy);border-color:var(--navy);color:#fff}
 .sim-otab-price{display:block;font-size:.9rem;font-weight:700;line-height:1.2}
 .sim-otab-dur{display:block;font-size:.75rem;opacity:.75;margin-top:.15rem}
@@ -3502,6 +3502,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <span>Montant total dû<sup>(1)</sup></span>
           <b id="sim-r-total">—</b>
         </div>
+        <a href="#mentions-legales" class="pg-link" style="display:block;font-size:.8rem;color:var(--teal);margin-top:.7rem;text-decoration:underline">Informations précontractuelles</a>
       </div>
       <button class="sim-btn-outline">Voir le détail de mon crédit</button>
       <button class="sim-btn-outline" id="sim-restart">Modifier mes critères et mon offre</button>
@@ -3702,8 +3703,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     });
   }
 
+  function fmtNum(n){ return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
   function updateOfferCard(offer){
-    document.getElementById('sim-r-monthly').textContent=fmtEur(offer.mensualite);
+    document.getElementById('sim-r-monthly').textContent=fmtNum(offer.mensualite);
     document.getElementById('sim-r-duree').textContent=offer.duree+' mois';
     document.getElementById('sim-r-taeg').textContent='3,5 %';
     document.getElementById('sim-r-total').textContent=fmtEur(offer.mensualite*offer.duree);
