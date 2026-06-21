@@ -753,7 +753,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-dd-item:last-child{border-bottom:none}
 .sim-dd-item:hover,.sim-dd-item:active{background:#f5fefe}
 .sim-dd-item.selected{font-weight:700;color:var(--teal)}
-/* Step 4 : résultats */
+/* Step 4 : résultats — anciens styles */
 .sim-res-card{background:linear-gradient(135deg,#f0faff,#e4f4fb);border:1px solid #c0e5f7;border-radius:14px;padding:1.4rem 1.2rem;text-align:center;margin-bottom:1.3rem}
 .sim-res-lbl{font-size:.82rem;color:#778;margin-bottom:.2rem}
 .sim-res-val{font-size:3rem;font-weight:800;color:var(--navy);line-height:1.1}
@@ -762,7 +762,29 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-res-row{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;color:#555;padding:.28rem 0;border-bottom:1px solid #f0f0f0}
 .sim-res-row:last-child{border-bottom:none}
 .sim-res-row b{color:var(--navy);font-weight:700}
-.sim-res-notice{font-size:.68rem;color:#bbb;margin-top:.7rem;line-height:1.5;text-align:center}
+.sim-res-notice{font-size:.65rem;color:#aaa;margin-top:.8rem;line-height:1.5;text-align:left}
+/* Step 4 : offres style Sofinco */
+.sim-otyp{font-size:.85rem;color:#555;text-align:center;margin-bottom:.3rem;font-weight:500}
+.sim-ocount{font-size:.9rem;color:var(--navy);margin-bottom:.8rem;font-weight:600}
+.sim-otabs{display:flex;gap:.5rem;margin-bottom:1.2rem}
+.sim-otab{flex:1;padding:.65rem .4rem;border:1.5px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.sim-otab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.sim-otab-price{display:block;font-size:.9rem;font-weight:700;line-height:1.2}
+.sim-otab-dur{display:block;font-size:.75rem;opacity:.75;margin-top:.15rem}
+.sim-ocard{background:#f0f8ff;border:1.5px solid #b8dff5;border-radius:12px;padding:1.2rem 1rem;margin-bottom:1.1rem}
+.sim-ocard-lbl{font-size:.78rem;color:#555;font-weight:600;margin-bottom:.5rem}
+.sim-ocard-price-row{display:flex;align-items:baseline;gap:.35rem;margin-bottom:.9rem}
+.sim-ocard-price{font-size:2.8rem;font-weight:800;color:var(--navy);line-height:1}
+.sim-ocard-unit{font-size:1rem;color:var(--navy);font-weight:600}
+.sim-ocard-meta{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;background:#fff;border-radius:8px;padding:.7rem .8rem;margin-bottom:.8rem}
+.sim-ocard-meta-item{display:flex;flex-direction:column;gap:.15rem}
+.sim-ocard-meta-lbl{font-size:.7rem;color:#777;font-weight:500}
+.sim-ocard-meta-val{font-size:.95rem;font-weight:700;color:var(--navy)}
+.sim-ocard-total{display:flex;justify-content:space-between;align-items:center;font-size:.88rem;color:#555}
+.sim-ocard-total b{color:var(--navy);font-weight:700}
+.sim-ocard-total sup{font-size:.6rem}
+.sim-btn-outline{display:block;width:100%;border:1.5px solid #bbb;border-radius:2rem;padding:.75rem 1rem;font-size:.9rem;font-weight:600;color:var(--navy);background:#fff;text-align:center;margin-bottom:.6rem;cursor:pointer;font-family:inherit;text-decoration:none;transition:border-color .15s}
+.sim-btn-outline:hover{border-color:var(--navy)}
 .sim-cta-big{display:block;width:100%;background:var(--orange);color:#fff;border-radius:2rem;padding:.85rem;font-size:.95rem;font-weight:700;text-align:center;margin-bottom:.7rem;transition:background .2s;border:none;cursor:pointer;font-family:inherit}
 .sim-cta-big:hover{background:#000}
 .sim-restart{width:100%;background:none;border:2px solid #ddd;border-radius:2rem;padding:.65rem;font-size:.88rem;font-weight:600;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
@@ -3454,25 +3476,38 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       </div>
     </div>
 
-    <!-- ── Étape 4 : Résultats ── -->
+    <!-- ── Étape 4 : Résultats style Sofinco ── -->
     <div class="sim-pane" id="sp4">
-      <h1 class="sim-title">Votre simulation</h1>
-      <div class="sim-res-card">
-        <p class="sim-res-lbl">Soit environ</p>
-        <div class="sim-res-val" id="sim-r-monthly">— €</div>
-        <p class="sim-res-unit">par mois</p>
-        <div class="sim-res-tbl">
-          <div class="sim-res-row"><span>Projet</span><b id="sim-r-projet">—</b></div>
-          <div class="sim-res-row"><span>Montant emprunté</span><b id="sim-r-montant">—</b></div>
-          <div class="sim-res-row"><span>Durée du crédit</span><b id="sim-r-duree">—</b></div>
-          <div class="sim-res-row"><span>TAEG fixe indicatif</span><b id="sim-r-taeg">—</b></div>
-          <div class="sim-res-row"><span>Coût total du crédit</span><b id="sim-r-cout">—</b></div>
-          <div class="sim-res-row"><span>Montant total dû</span><b id="sim-r-total">—</b></div>
+      <p class="sim-otyp" id="sim-otyp">Prêt personnel de 5 000 €</p>
+      <h1 class="sim-title">Choisissez l'offre<br>la plus adaptée à votre projet</h1>
+      <p class="sim-ocount">Choisissez parmi <span id="sim-ocount-n">2</span> offres :</p>
+      <div class="sim-otabs" id="sim-otabs"></div>
+      <div class="sim-ocard">
+        <p class="sim-ocard-lbl">Votre simulation personnalisée</p>
+        <div class="sim-ocard-price-row">
+          <span class="sim-ocard-price" id="sim-r-monthly">—</span>
+          <span class="sim-ocard-unit">€ /mois</span>
         </div>
-        <p class="sim-res-notice">Simulation à titre indicatif. Offre soumise à acceptation. TAEG fixe indicatif. Un crédit vous engage et doit être remboursé.</p>
+        <div class="sim-ocard-meta">
+          <div class="sim-ocard-meta-item">
+            <span class="sim-ocard-meta-lbl">Durée</span>
+            <span class="sim-ocard-meta-val" id="sim-r-duree">—</span>
+          </div>
+          <div class="sim-ocard-meta-item">
+            <span class="sim-ocard-meta-lbl">TAEG fixe</span>
+            <span class="sim-ocard-meta-val" id="sim-r-taeg">—</span>
+          </div>
+        </div>
+        <div class="sim-ocard-total">
+          <span>Montant total dû<sup>(1)</sup></span>
+          <b id="sim-r-total">—</b>
+        </div>
       </div>
-      <button class="sim-cta-big">Je fais ma demande →</button>
-      <button class="sim-restart" id="sim-restart">← Nouvelle simulation</button>
+      <button class="sim-btn-outline">Voir le détail de mon crédit</button>
+      <button class="sim-btn-outline" id="sim-restart">Modifier mes critères et mon offre</button>
+      <p style="text-align:center;font-size:.75rem;color:#999;margin:.1rem 0 .9rem;font-style:italic">— Notre proposition de prêt est modifiable —</p>
+      <button class="sim-cta-big">Continuer avec cette offre →</button>
+      <p class="sim-res-notice"><sup>(1)</sup> Hors assurance facultative. Simulation à titre indicatif. Offre soumise à acceptation. TAEG fixe indicatif. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
     </div>
 
 
@@ -3667,22 +3702,46 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     });
   }
 
+  function updateOfferCard(offer){
+    document.getElementById('sim-r-monthly').textContent=fmtEur(offer.mensualite);
+    document.getElementById('sim-r-duree').textContent=offer.duree+' mois';
+    document.getElementById('sim-r-taeg').textContent='3,5 %';
+    document.getElementById('sim-r-total').textContent=fmtEur(offer.mensualite*offer.duree);
+  }
+
   function renderResults(){
     var P=parseInt(simData.montant)||5000;
     var n=simData.duree||36;
     var isReg=(simData.projet==='regroupement');
-    var rate=3.5;
-    var pmt=calcPMT(P,n,isReg);
-    var total=pmt*n;
-    var cout=total-P;
-    var projetLabels={'famille-loisirs':'Famille & loisirs','auto':'Auto','travaux':'Travaux','autre':'Autre','regroupement':'Regroupement de crédits'};
-    document.getElementById('sim-r-projet').textContent=projetLabels[simData.projet]||simData.projet||'—';
-    document.getElementById('sim-r-monthly').textContent=fmtEur(pmt);
-    document.getElementById('sim-r-montant').textContent=fmtAmt(P);
-    document.getElementById('sim-r-duree').textContent=n+' mois';
-    document.getElementById('sim-r-taeg').textContent=rate.toString().replace('.',',')+' %';
-    document.getElementById('sim-r-cout').textContent=fmtEur(cout);
-    document.getElementById('sim-r-total').textContent=fmtEur(total);
+    // Générer 2 offres : durée choisie + alternative proche
+    var altN=n>6?n-6:n+6;
+    if(altN<6)altN=6;
+    var offers=[
+      {duree:n,   mensualite:calcPMT(P,n,isReg)},
+      {duree:altN,mensualite:calcPMT(P,altN,isReg)}
+    ];
+    // Titre type de prêt
+    var projetLabels={'famille-loisirs':'Prêt personnel','auto':'Crédit auto','travaux':'Crédit travaux','autre':'Prêt personnel','regroupement':'Regroupement de crédits'};
+    var typeName=projetLabels[simData.projet]||'Prêt personnel';
+    document.getElementById('sim-otyp').textContent=typeName+' de '+fmtAmt(P);
+    document.getElementById('sim-ocount-n').textContent=offers.length;
+    // Rendu des onglets
+    var tabs=document.getElementById('sim-otabs');
+    tabs.innerHTML='';
+    offers.forEach(function(offer,i){
+      var btn=document.createElement('button');
+      btn.type='button';
+      btn.className='sim-otab'+(i===0?' active':'');
+      btn.innerHTML='<span class="sim-otab-price">'+fmtEur(offer.mensualite)+'/mois</span><span class="sim-otab-dur">'+offer.duree+' mois</span>';
+      btn.addEventListener('click',function(){
+        tabs.querySelectorAll('.sim-otab').forEach(function(t){t.classList.remove('active')});
+        btn.classList.add('active');
+        updateOfferCard(offer);
+      });
+      tabs.appendChild(btn);
+    });
+    // Auto-sélection de la première offre
+    updateOfferCard(offers[0]);
   }
 
   function openSim(projet, montant){
