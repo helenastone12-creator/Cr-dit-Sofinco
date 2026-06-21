@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crédit Jkl.oin : crédits auto, conso, perso, rachat et simulation de prêt</title>
+  <title>Crédit travaux — Jkl.oin</title>
   <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 
-<body class="pg-home">
+<body class="pg-inner">
 
 <!-- Bandeau légal fixe en haut de page -->
 <div class="top-legal-bar">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
@@ -105,10 +105,6 @@
 
 </div>
 
-<!-- ── Bouton fixe mobile "Simuler un projet" ── -->
-<div class="mob-sim-bar" id="mob-sim-bar">
-  <button class="mob-sim-btn" data-sim="">Simuler un projet</button>
-</div>
 
 <!-- ── Bannière cookies ── -->
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies">
@@ -213,230 +209,77 @@
 
 <div class="page">
 
-<!-- ── Héro simulateur style Cofidis ── -->
-  <section class="hero-banner">
-    <div class="hero-banner-layout">
-      <div class="hero-sim-wrap">
-        <div class="hcard-white">
-        <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>1.</strong> De quel montant avez-vous besoin&nbsp;?</p>
-          <div class="sim-field cof-amount-wrap">
-            <input type="number" class="sim-input" id="cof-montant" placeholder="Ex : 3 000" min="3000" max="200000" aria-label="Montant en euros"/>
-            <span class="cof-euro">€</span>
-          </div>
-          <p class="cof-amount-err" id="cof-montant-err">Montant entre 3 000 € et 200 000 €</p>
-        </div>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>2.</strong> Quel est votre projet&nbsp;?</p>
-          <div class="cof-proj-grid">
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26C17.81 13.47 19 11.38 19 9c0-3.86-3.14-7-7-7z"/></svg>
-              Projets
-            </button>
-            <button class="cof-proj-btn" data-sim="travaux">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/><path d="M15.5 2.1L11 6.6l1.4 1.4.7-.7 1.8 1.8 1.4-1.4-1.8-1.8.7-.7-1.4-1.4.7-.7z" opacity=".6"/></svg>
-              Travaux
-            </button>
-            <button class="cof-proj-btn" data-sim="auto">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-              Auto / Moto
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-              Immobilier
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              Personnel
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-              Autres
-            </button>
-          </div>
-        </div>
-
-        <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
-        </div>
+<div class="prod-hero">
+    <div class="inner">
+      <h1>Rénovez votre logement<br>avec notre crédit travaux</h1>
+      <p class="prod-hero-eyebrow">Crédit travaux</p>
+      <div class="prod-hero-rate">
+        <div class="prod-hero-rate-row"><span class="prod-hero-rate-num">3,5</span><span class="prod-hero-rate-pct">%</span></div>
+        <span class="prod-hero-rate-lab">TAEG fixe</span>
+        <div class="prod-hero-rate-info"><span>Pour 1 000 € à 75 000 €</span><span>De 12 à 120 mois</span><span>Cumulable avec les aides de l'État</span><span>Éco-prêt transition énergétique</span></div>
       </div>
-      <!-- Image droite — visible desktop uniquement -->
-      <div class="hero-img-col">
-        <img id="hero-right-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Crédit Jkl.oin"/>
-      </div>
-    </div><!-- /hero-banner-layout -->
-  </section>
-
-  <!-- ── Produits ── -->
-  <section class="products">
-    <div class="wrap">
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Des offres de crédits adaptées à vos besoins</h2><p>Financez tous vos projets avec des mensualités fixes et 0 € de frais de dossier.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="Prêt personnel"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt personnel</span>
-              <a href="pret-personnel.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Crédit auto"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit auto</span>
-              <a href="credit-auto.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Crédit travaux"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt travaux</span>
-              <a href="credit-travaux.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Gérez votre budget en toute liberté</h2><p>Des solutions flexibles pour simplifier vos finances au quotidien.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80" alt="Crédit renouvelable"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit renouvelable</span>
-              <a href="credit-renouvelable.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Rachat de crédits"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le rachat de crédits</span>
-              <a href="rachat-de-credits.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=800&q=80" alt="Assurances"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Les assurances</span>
-              <a href="assurances.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
+      <button class="btn-prim btn-sim" data-sim="travaux">Simulez votre crédit travaux</button>
+      <p class="prod-hero-note">Sous réserve d'acceptation du dossier. Offre soumise à conditions.</p>
+      <div class="prod-hero-avis"><span class="prod-hero-avis-stars">★★★★★</span><span class="prod-hero-avis-txt">5 847 avis &bull; <strong>4,6</strong> / 5 &mdash; Avis Vérifiés</span></div>
     </div>
-  </section>
+  </div>
 
-  <!-- ── Éditorial ── -->
-  <section class="editorial">
-    <div class="wrap">
-      <h2>Jkl.oin, partenaire de confiance pour votre crédit conso</h2>
-      <p>Depuis plus de <strong>70 ans</strong>, Jkl.oin accompagne les Français dans leurs projets de vie grâce au crédit à la consommation. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, Jkl.oin s'appuie sur l'expertise et la solidité d'un grand groupe bancaire pour vous proposer des solutions de financement adaptées à vos besoins.</p>
-      <p>Que vous souhaitiez financer un <strong>projet auto</strong>, des <strong>travaux</strong>, un voyage ou tout autre projet personnel, Jkl.oin met à votre disposition des offres de crédit conso compétitives et flexibles. Notre démarche&nbsp;: vous proposer un parcours 100&nbsp;% digital, simple et rapide, avec une réponse de principe en quelques minutes.</p>
-      <p>Avec plus de <strong>6 millions de clients</strong> et un réseau de plus de <strong>13&nbsp;000 partenaires</strong> (concessionnaires auto, grandes surfaces, enseignes spécialisées…), Jkl.oin est l'un des leaders du crédit à la consommation en France. Notre engagement&nbsp;: vous accompagner à chaque étape, du simulateur à la signature électronique, en toute transparence.</p>
-    </div>
-  </section>
 
-  <!-- ── FAQ ── -->
-  <section class="faq">
-    <div class="wrap">
-      <h2>Vos questions sur le crédit conso</h2>
-      <ul class="faq-list">
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels types de prêts propose Jkl.oin&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Jkl.oin propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quel délai entre l'acceptation de l'offre de prêt et le déblocage des fonds&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Après signature électronique de votre contrat, un délai légal de rétractation de 14 jours calendaires s'applique. Une fois ce délai écoulé, les fonds sont généralement versés dans un délai de 1 à 3 jours ouvrés.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Comment effectuer ma demande de crédit conso&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Rendez-vous sur notre simulateur en ligne, choisissez votre projet et votre montant, puis complétez le formulaire de demande. Vous obtiendrez une réponse de principe immédiate et pourrez finaliser votre dossier entièrement en ligne.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels documents dois-je fournir lors de ma demande de crédit&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>En général, il vous sera demandé&nbsp;: une pièce d'identité en cours de validité, un justificatif de domicile récent, vos derniers bulletins de salaire ou justificatifs de revenus, et un relevé d'identité bancaire (RIB).</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Jusqu'à quel âge peut-on emprunter&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Jkl.oin étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.</p>
-          </div>
-        </li>
-      </ul>
-      <div class="faq-more">
-        <a href="#" class="btn-orange">Consulter la FAQ</a>
-      </div>
-    </div>
-  </section>
+  <div class="editorial inner">
+    <h2>Le crédit travaux Jkl.oin : pour tous vos chantiers</h2>
+    <p>Le crédit travaux Jkl.oin est un <strong>crédit affecté</strong> destiné au financement de travaux de rénovation, d'amélioration, d'aménagement ou de construction réalisés sur votre résidence principale, secondaire ou un bien locatif. Étant affecté à un projet précis, il bénéficie de la protection juridique de l'article L.312-55 du Code de la consommation : si les travaux ne sont pas réalisés ou si le devis est annulé, le contrat de crédit est résolu sans pénalité.</p>
+    <p>Le crédit travaux Jkl.oin est pleinement <strong>cumulable avec les dispositifs d'aide de l'État</strong> à la rénovation énergétique : <strong>MaPrimeRénov'</strong> (ANAH), <strong>Certificats d'Économies d'Énergie (CEE)</strong>, <strong>TVA à taux réduit de 5,5 %</strong> pour les travaux d'amélioration de la performance énergétique, et <strong>éco-prêt à taux zéro (éco-PTZ)</strong> pour les propriétaires occupants. Ces aides sont déduites du montant à financer, ce qui réduit vos mensualités et le coût total du crédit.</p>
+    <p>Jkl.oin accepte les devis d'artisans <strong>Reconnus Garants de l'Environnement (RGE)</strong> pour les travaux d'isolation, de chauffage, de ventilation et d'installation de panneaux solaires. Ces chantiers sont éligibles aux aides bonifiées de l'ANAH. Notre service client dispose d'une équipe spécialisée dans le financement des projets de rénovation énergétique pour vous aider à optimiser votre plan de financement en intégrant toutes les aides disponibles.</p>
+  </div>
 
-  <!-- ── Besoin d'un crédit ? ── -->
-  <section class="besoin-credit">
-    <div class="wrap">
-      <div class="besoin-inner">
-        <h2>Besoin d'un crédit&nbsp;?</h2>
-        <a href="#" class="besoin-main-link" data-sim="autre">Je fais un crédit conso →</a>
-        <div class="besoin-cols">
-          <div class="besoin-col">
-            <h3>Simulez vos crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="autre">Simulation crédit</a></li>
-              <li><a href="#" data-sim="auto">Simulation crédit auto</a></li>
-              <li><a href="#" data-sim="travaux">Simulation crédit travaux</a></li>
-              <li><a href="#" data-sim="autre">Simulation prêt personnel</a></li>
-              <li><a href="#" data-sim="famille-loisirs">Simulation crédit renouvelable</a></li>
-              <li><a href="#" data-sim="regroupement">Simulation rachat de crédits</a></li>
-            </ul>
-          </div>
-          <div class="besoin-col">
-            <h3>Nos offres de crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
-            </ul>
-          </div>
-        </div>
-        <a href="#" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
-      </div>
+  <div class="prod-caract-wrap inner">
+    <h2>Caractéristiques financières</h2>
+    <table class="caract-table">
+      <tr><td>Montant finançable</td><td>De <strong>1 000 €</strong> à <strong>75 000 €</strong></td></tr>
+      <tr><td>Durée de remboursement</td><td>De <strong>12 mois</strong> à <strong>120 mois</strong> (10 ans) pour les projets énergétiques</td></tr>
+      <tr><td>Type de taux</td><td><strong>Taux fixe</strong> — mensualités constantes</td></tr>
+      <tr><td>TAEG indicatif</td><td>À partir de <strong>3,5 %</strong> (selon profil et montant)</td></tr>
+      <tr><td>Frais de dossier</td><td><strong>0 €</strong></td></tr>
+      <tr><td>TVA réduite éligible</td><td><strong>5,5 %</strong> pour travaux de performance énergétique (art. 278-0 bis CGI)</td></tr>
+      <tr><td>Cumulabilité aides État</td><td>MaPrimeRénov', CEE, éco-PTZ — déductibles du montant emprunté</td></tr>
+      <tr><td>Versement des fonds</td><td>À l'artisan ou au maître d'œuvre, sur présentation du devis/facture</td></tr>
+    </table>
+  </div>
+
+  <div class="prod-documents-wrap inner">
+    <h2>Documents demandés</h2>
+    <div class="docs-grid">
+      <div class="doc-item"><span>Pièce d'identité en cours de validité</span></div>
+      <div class="doc-item"><span>Justificatif de domicile de moins de 3 mois</span></div>
+      <div class="doc-item"><span>3 derniers bulletins de salaire ou avis d'imposition</span></div>
+      <div class="doc-item"><span>RIB au nom du demandeur</span></div>
+      <div class="doc-item"><span>Devis détaillé de l'artisan ou du maître d'œuvre</span></div>
+      <div class="doc-item"><span>Justificatif RGE de l'artisan (si travaux énergétiques)</span></div>
     </div>
-  </section>
+  </div>
+
+  <div class="prod-etapes inner">
+    <h2>Comment obtenir votre crédit travaux ?</h2>
+    <div class="prod-etapes-5">
+      <div class="etape5"><div class="etape5-num">1</div><h4>Simulez en ligne</h4><p>Renseignez le montant des travaux (déduction faite des aides) et la durée souhaitée.</p></div>
+      <div class="etape5"><div class="etape5-num">2</div><h4>Déposez votre dossier</h4><p>Complétez le formulaire et téléchargez vos pièces justificatives et le devis de votre artisan.</p></div>
+      <div class="etape5"><div class="etape5-num">3</div><h4>Réponse sous 24h</h4><p>Analyse de votre dossier par nos équipes spécialisées. Réponse par email sous 24 heures ouvrées.</p></div>
+      <div class="etape5"><div class="etape5-num">4</div><h4>Signez électroniquement</h4><p>Signature de votre contrat 100 % en ligne, conforme au règlement eIDAS.</p></div>
+      <div class="etape5"><div class="etape5-num">5</div><h4>Paiement artisan</h4><p>Les fonds sont versés à l'artisan sur présentation de la facture acquittée ou en accord avec lui.</p></div>
+    </div>
+  </div>
+
+  <div class="prod-faq inner">
+    <h2>Questions fréquentes — Crédit travaux</h2>
+    <div class="faq-item"><button class="faq-q">Puis-je cumuler le crédit travaux avec MaPrimeRénov' ?</button><div class="faq-a"><p>Oui. MaPrimeRénov' est une aide de l'ANAH (Agence Nationale de l'Habitat) versée directement à l'artisan ou au propriétaire après réalisation des travaux. Vous pouvez emprunter le montant total des travaux auprès de Jkl.oin, puis déduire l'aide reçue pour effectuer un remboursement anticipé partiel sans pénalité. Alternativement, si votre artisan accepte de vous faire une avance sur la prime, vous pouvez déduire directement le montant de MaPrimeRénov' du montant emprunté. Notre service client peut vous aider à optimiser ce montage.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Quelle est la différence entre crédit travaux et éco-PTZ ?</button><div class="faq-a"><p>L'éco-PTZ (éco-prêt à taux zéro) est un prêt sans intérêt destiné aux propriétaires finançant des travaux de rénovation énergétique dans des logements de plus de 2 ans. Son montant maximum est de 50 000 € (depuis 2022) et sa durée peut aller jusqu'à 20 ans. Il est distribué par les banques partenaires de l'État. Le crédit travaux Jkl.oin, quant à lui, n'est pas à taux zéro mais offre plus de flexibilité (montants, objets, délais). Les deux sont cumulables pour les projets de grande envergure.</p></div></div>
+    <div class="faq-item"><button class="faq-q">La TVA à 5,5 % s'applique-t-elle à tous les travaux ?</button><div class="faq-a"><p>Non. Le taux de TVA réduit à 5,5 % s'applique uniquement aux travaux d'amélioration de la qualité énergétique (isolation, chaudières à haute performance, ventilation mécanique contrôlée, etc.) dans les logements de plus de 2 ans, conformément à l'article 278-0 bis A du Code général des impôts. Les autres travaux de rénovation (salle de bains, cuisine, extension) bénéficient d'un taux de TVA de 10 % si le logement a plus de 2 ans. Les constructions neuves sont soumises au taux normal de 20 %.</p></div></div>
+  </div>
+
+  <div class="prod-mention-reg inner">
+    <p><strong>Avertissement légal :</strong> Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+    <p><strong>Exemple représentatif :</strong> Pour un crédit travaux de 20 000 € remboursable en 60 mensualités de 386,40 €, TAEG fixe de 3,5 %, montant total dû 23 184 €, frais de dossier 0 €, hors assurance. Sous réserve d'acceptation — CA Consumer Finance SA, ORIAS n° 07 008 079.</p>
+  </div>
 
 </div>
 

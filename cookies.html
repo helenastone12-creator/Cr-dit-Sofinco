@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crédit Jkl.oin : crédits auto, conso, perso, rachat et simulation de prêt</title>
+  <title>Politique de cookies — Jkl.oin</title>
   <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 
-<body class="pg-home">
+<body class="pg-inner">
 
 <!-- Bandeau légal fixe en haut de page -->
 <div class="top-legal-bar">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
@@ -105,10 +105,6 @@
 
 </div>
 
-<!-- ── Bouton fixe mobile "Simuler un projet" ── -->
-<div class="mob-sim-bar" id="mob-sim-bar">
-  <button class="mob-sim-btn" data-sim="">Simuler un projet</button>
-</div>
 
 <!-- ── Bannière cookies ── -->
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies">
@@ -213,230 +209,64 @@
 
 <div class="page">
 
-<!-- ── Héro simulateur style Cofidis ── -->
-  <section class="hero-banner">
-    <div class="hero-banner-layout">
-      <div class="hero-sim-wrap">
-        <div class="hcard-white">
-        <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>1.</strong> De quel montant avez-vous besoin&nbsp;?</p>
-          <div class="sim-field cof-amount-wrap">
-            <input type="number" class="sim-input" id="cof-montant" placeholder="Ex : 3 000" min="3000" max="200000" aria-label="Montant en euros"/>
-            <span class="cof-euro">€</span>
-          </div>
-          <p class="cof-amount-err" id="cof-montant-err">Montant entre 3 000 € et 200 000 €</p>
-        </div>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>2.</strong> Quel est votre projet&nbsp;?</p>
-          <div class="cof-proj-grid">
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26C17.81 13.47 19 11.38 19 9c0-3.86-3.14-7-7-7z"/></svg>
-              Projets
-            </button>
-            <button class="cof-proj-btn" data-sim="travaux">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/><path d="M15.5 2.1L11 6.6l1.4 1.4.7-.7 1.8 1.8 1.4-1.4-1.8-1.8.7-.7-1.4-1.4.7-.7z" opacity=".6"/></svg>
-              Travaux
-            </button>
-            <button class="cof-proj-btn" data-sim="auto">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-              Auto / Moto
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-              Immobilier
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              Personnel
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-              Autres
-            </button>
-          </div>
-        </div>
-
-        <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
-        </div>
-      </div>
-      <!-- Image droite — visible desktop uniquement -->
-      <div class="hero-img-col">
-        <img id="hero-right-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Crédit Jkl.oin"/>
-      </div>
-    </div><!-- /hero-banner-layout -->
-  </section>
-
-  <!-- ── Produits ── -->
-  <section class="products">
-    <div class="wrap">
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Des offres de crédits adaptées à vos besoins</h2><p>Financez tous vos projets avec des mensualités fixes et 0 € de frais de dossier.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="Prêt personnel"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt personnel</span>
-              <a href="pret-personnel.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Crédit auto"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit auto</span>
-              <a href="credit-auto.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Crédit travaux"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt travaux</span>
-              <a href="credit-travaux.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Gérez votre budget en toute liberté</h2><p>Des solutions flexibles pour simplifier vos finances au quotidien.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80" alt="Crédit renouvelable"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit renouvelable</span>
-              <a href="credit-renouvelable.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Rachat de crédits"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le rachat de crédits</span>
-              <a href="rachat-de-credits.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=800&q=80" alt="Assurances"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Les assurances</span>
-              <a href="assurances.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
+<div class="prod-hero">
+    <div class="inner">
+      <p class="prod-hero-eyebrow">Vie privée</p>
+      <h1>Politique en matière de cookies</h1>
+      <p class="prod-hero-sub">Informations complètes sur les cookies et traceurs utilisés par Jkl.oin, conformément aux recommandations de la CNIL et au RGPD.</p>
     </div>
-  </section>
-
-  <!-- ── Éditorial ── -->
-  <section class="editorial">
-    <div class="wrap">
-      <h2>Jkl.oin, partenaire de confiance pour votre crédit conso</h2>
-      <p>Depuis plus de <strong>70 ans</strong>, Jkl.oin accompagne les Français dans leurs projets de vie grâce au crédit à la consommation. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, Jkl.oin s'appuie sur l'expertise et la solidité d'un grand groupe bancaire pour vous proposer des solutions de financement adaptées à vos besoins.</p>
-      <p>Que vous souhaitiez financer un <strong>projet auto</strong>, des <strong>travaux</strong>, un voyage ou tout autre projet personnel, Jkl.oin met à votre disposition des offres de crédit conso compétitives et flexibles. Notre démarche&nbsp;: vous proposer un parcours 100&nbsp;% digital, simple et rapide, avec une réponse de principe en quelques minutes.</p>
-      <p>Avec plus de <strong>6 millions de clients</strong> et un réseau de plus de <strong>13&nbsp;000 partenaires</strong> (concessionnaires auto, grandes surfaces, enseignes spécialisées…), Jkl.oin est l'un des leaders du crédit à la consommation en France. Notre engagement&nbsp;: vous accompagner à chaque étape, du simulateur à la signature électronique, en toute transparence.</p>
-    </div>
-  </section>
-
-  <!-- ── FAQ ── -->
-  <section class="faq">
-    <div class="wrap">
-      <h2>Vos questions sur le crédit conso</h2>
-      <ul class="faq-list">
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels types de prêts propose Jkl.oin&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Jkl.oin propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quel délai entre l'acceptation de l'offre de prêt et le déblocage des fonds&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Après signature électronique de votre contrat, un délai légal de rétractation de 14 jours calendaires s'applique. Une fois ce délai écoulé, les fonds sont généralement versés dans un délai de 1 à 3 jours ouvrés.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Comment effectuer ma demande de crédit conso&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Rendez-vous sur notre simulateur en ligne, choisissez votre projet et votre montant, puis complétez le formulaire de demande. Vous obtiendrez une réponse de principe immédiate et pourrez finaliser votre dossier entièrement en ligne.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels documents dois-je fournir lors de ma demande de crédit&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>En général, il vous sera demandé&nbsp;: une pièce d'identité en cours de validité, un justificatif de domicile récent, vos derniers bulletins de salaire ou justificatifs de revenus, et un relevé d'identité bancaire (RIB).</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Jusqu'à quel âge peut-on emprunter&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Jkl.oin étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.</p>
-          </div>
-        </li>
+  </div>
+  <div class="inner-page inner">
+    <section class="legal-section">
+      <h2>1. Qu'est-ce qu'un cookie ?</h2>
+      <p>Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, smartphone, tablette) par le serveur du site web que vous visitez. Il permet au site de mémoriser certaines informations vous concernant lors de votre navigation et lors de vos visites ultérieures. Les cookies ne peuvent pas endommager votre terminal ni accéder à d'autres informations que celles qui y ont été déposées.</p>
+      <p>Conformément à l'article 82 de la loi Informatique et Libertés et aux recommandations de la <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés), le dépôt de certains cookies sur votre terminal nécessite votre consentement préalable. D'autres cookies, strictement nécessaires au fonctionnement du site, sont déposés sans votre consentement.</p>
+    </section>
+    <section class="legal-section">
+      <h2>2. Cookies strictement nécessaires</h2>
+      <p>Ces cookies sont indispensables au fonctionnement du site et ne peuvent pas être désactivés. Ils ne stockent aucune information permettant de vous identifier personnellement.</p>
+      <ul>
+        <li><strong>Cookie de session</strong> : maintient votre connexion active pendant votre navigation (durée : session)</li>
+        <li><strong>Cookie d'authentification</strong> : sécurise l'accès à votre espace client (durée : 30 jours)</li>
+        <li><strong>Cookie CSRF</strong> : protège contre les attaques par falsification de requête (durée : session)</li>
+        <li><strong>Cookie de panier/simulation</strong> : mémorise vos paramètres de simulation en cours (durée : session)</li>
+        <li><strong>Cookie de préférences</strong> : mémorise vos choix de langue et d'affichage (durée : 1 an)</li>
       </ul>
-      <div class="faq-more">
-        <a href="#" class="btn-orange">Consulter la FAQ</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Besoin d'un crédit ? ── -->
-  <section class="besoin-credit">
-    <div class="wrap">
-      <div class="besoin-inner">
-        <h2>Besoin d'un crédit&nbsp;?</h2>
-        <a href="#" class="besoin-main-link" data-sim="autre">Je fais un crédit conso →</a>
-        <div class="besoin-cols">
-          <div class="besoin-col">
-            <h3>Simulez vos crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="autre">Simulation crédit</a></li>
-              <li><a href="#" data-sim="auto">Simulation crédit auto</a></li>
-              <li><a href="#" data-sim="travaux">Simulation crédit travaux</a></li>
-              <li><a href="#" data-sim="autre">Simulation prêt personnel</a></li>
-              <li><a href="#" data-sim="famille-loisirs">Simulation crédit renouvelable</a></li>
-              <li><a href="#" data-sim="regroupement">Simulation rachat de crédits</a></li>
-            </ul>
-          </div>
-          <div class="besoin-col">
-            <h3>Nos offres de crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
-            </ul>
-          </div>
-        </div>
-        <a href="#" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
-      </div>
-    </div>
-  </section>
+    </section>
+    <section class="legal-section">
+      <h2>3. Cookies analytiques et de mesure d'audience</h2>
+      <p>Ces cookies nous permettent de mesurer le nombre de visites et les sources de trafic afin d'améliorer les performances du site. Ils collectent des informations de manière agrégée et anonyme. Ils sont déposés uniquement avec votre consentement.</p>
+      <ul>
+        <li><strong>Google Analytics</strong> : mesure d'audience, comportement de navigation, sources de trafic (durée : 13 mois maximum, conformément à la recommandation CNIL)</li>
+        <li><strong>Hotjar</strong> : cartes de chaleur et enregistrements de sessions anonymisés (durée : 12 mois)</li>
+        <li><strong>Cookie interne Jkl.oin</strong> : suivi des conversions et des simulations (durée : 13 mois)</li>
+      </ul>
+    </section>
+    <section class="legal-section">
+      <h2>4. Cookies marketing et de ciblage publicitaire</h2>
+      <p>Ces cookies sont déposés par nos partenaires publicitaires pour vous présenter des publicités pertinentes sur d'autres sites web et mesurer l'efficacité de nos campagnes. Ils sont déposés uniquement avec votre consentement exprès.</p>
+      <ul>
+        <li><strong>Google Ads / DoubleClick</strong> : ciblage publicitaire et mesure des conversions (durée : 13 mois)</li>
+        <li><strong>Facebook Pixel</strong> : remarketing sur les réseaux sociaux Meta (durée : 13 mois)</li>
+        <li><strong>LinkedIn Insight Tag</strong> : ciblage B2B et mesure d'audience (durée : 13 mois)</li>
+      </ul>
+    </section>
+    <section class="legal-section">
+      <h2>5. Gérer vos préférences en matière de cookies</h2>
+      <p>Vous pouvez à tout moment modifier vos préférences en matière de cookies de trois manières :</p>
+      <ul>
+        <li><strong>Via notre gestionnaire de cookies</strong> : cliquez sur le lien "Gérer mes cookies" en bas de toutes les pages du site pour accéder au panneau de gestion des préférences.</li>
+        <li><strong>Via votre navigateur</strong> : la plupart des navigateurs vous permettent de refuser les cookies tiers dans leurs paramètres de confidentialité. Attention : certains fonctionnements du site peuvent être affectés.</li>
+        <li><strong>Via les outils de désinscription</strong> : pour les cookies publicitaires, vous pouvez utiliser les outils de désinscription des plateformes (Google Ads Settings, Facebook Ad Preferences, etc.).</li>
+      </ul>
+      <p>Le refus des cookies non essentiels n'affecte pas votre accès aux services de crédit Jkl.oin. La durée de conservation de vos choix de consentement est de 6 mois, après quoi votre consentement vous sera à nouveau demandé.</p>
+    </section>
+    <section class="legal-section">
+      <h2>6. Transferts de données hors UE</h2>
+      <p>Certains de nos prestataires (notamment Google Analytics, Facebook Pixel) peuvent transférer des données vers des pays tiers (États-Unis). Ces transferts sont encadrés par des <strong>Clauses Contractuelles Types (CCT)</strong> approuvées par la Commission européenne et/ou par des mécanismes de certification équivalents. Pour plus d'informations, consultez les politiques de confidentialité de chaque prestataire.</p>
+      <p><em>Dernière mise à jour : juin 2026. Responsable du traitement : CA Consumer Finance SA, DPO : dpo@cacf.credit-agricole.fr</em></p>
+    </section>
+  </div>
 
 </div>
 
