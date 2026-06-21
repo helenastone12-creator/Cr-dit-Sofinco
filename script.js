@@ -673,18 +673,69 @@ function sp5FileChosen(slot, inp){
 
 function sp5Submit(){
   if(!sp5Validate(4)) return;
-  // Hide sp5d, show confirmation
+
+  // Génère un numéro de dossier unique
+  var ts = Date.now().toString(36).toUpperCase();
+  var rand = Math.floor(Math.random()*90000+10000);
+  var ref = 'SOF-' + new Date().getFullYear() + '-' + rand + ts.slice(-3);
+
+  // Date et heure de dépôt
+  var now = new Date();
+  var dateStr = now.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  var timeStr = now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+
+  // Nom du demandeur
+  var prenom = (document.getElementById('s5-prenom')||{}).value || '';
+  var nom    = (document.getElementById('s5-nom')||{}).value || '';
+  var nomAffiche = (prenom+' '+nom).trim() || 'Monsieur/Madame';
+
   document.querySelectorAll('.sp5-sub').forEach(function(s){s.classList.remove('s5-show');});
+
+  // Marquer toutes les barres comme terminées
+  sp5UpdateProg(5);
+
   var body = document.querySelector('.sim-body');
-  var existing = document.querySelector('.sim-confirm');
+  var existing = document.querySelector('.sp5-confirm-wrap');
   if(existing) existing.remove();
-  var confirm = document.createElement('div');
-  confirm.className = 'sim-pane s-show sim-confirm';
-  confirm.innerHTML =
-    '<div class="sim-confirm-ico"></div>'+
-    '<p class="sim-confirm-title">Demande enregistrée !</p>'+
-    '<p class="sim-confirm-msg">Un conseiller Sofinco vous contactera dans les plus brefs délais pour finaliser votre dossier.</p>';
-  body.appendChild(confirm);
+
+  var wrap = document.createElement('div');
+  wrap.className = 'sp5-confirm-wrap';
+  wrap.innerHTML =
+    '<div class="sp5-confirm-check">'+
+      '<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+        '<circle cx="26" cy="26" r="25" stroke="var(--teal)" stroke-width="2"/>'+
+        '<path d="M14 26.5l8 8 16-16" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>'+
+      '</svg>'+
+    '</div>'+
+    '<p class="sp5-confirm-hey">Merci, '+nomAffiche+' !</p>'+
+    '<h2 class="sp5-confirm-title">Votre dossier a été soumis</h2>'+
+    '<div class="sp5-confirm-ref-box">'+
+      '<span class="sp5-confirm-ref-lbl">Numéro de dossier</span>'+
+      '<span class="sp5-confirm-ref-num">'+ref+'</span>'+
+      '<span class="sp5-confirm-ref-date">Déposé le '+dateStr+' à '+timeStr+'</span>'+
+    '</div>'+
+    '<div class="sp5-confirm-steps">'+
+      '<div class="sp5-confirm-step done">'+
+        '<div class="sp5-cs-dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+
+        '<div class="sp5-cs-body"><strong>Dossier reçu</strong><span>Votre demande est enregistrée</span></div>'+
+      '</div>'+
+      '<div class="sp5-confirm-step">'+
+        '<div class="sp5-cs-dot sp5-cs-pending">2</div>'+
+        '<div class="sp5-cs-body"><strong>Analyse du dossier</strong><span>Sous 24 h ouvrées</span></div>'+
+      '</div>'+
+      '<div class="sp5-confirm-step">'+
+        '<div class="sp5-cs-dot sp5-cs-pending">3</div>'+
+        '<div class="sp5-cs-body"><strong>Appel de votre conseiller</strong><span>Confirmation et offre personnalisée</span></div>'+
+      '</div>'+
+      '<div class="sp5-confirm-step">'+
+        '<div class="sp5-cs-dot sp5-cs-pending">4</div>'+
+        '<div class="sp5-cs-body"><strong>Signature &amp; déblocage des fonds</strong><span>Dès validation de votre contrat</span></div>'+
+      '</div>'+
+    '</div>'+
+    '<p class="sp5-confirm-email-note">Un email de confirmation a été envoyé à l\'adresse renseignée.</p>'+
+    '<button class="sp5-confirm-close" onclick="closeSim()">Fermer</button>';
+
+  body.appendChild(wrap);
   document.getElementById('sim-page').scrollTop=0;
 }
 
