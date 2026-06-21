@@ -824,6 +824,51 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-confirm-title{font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:.7rem}
 .sim-confirm-msg{font-size:.9rem;color:#555;line-height:1.6}
 
+/* ── Desktop Step 4 ── */
+.sp4-wrap{display:none}
+@media(min-width:900px){
+  .sp4-mobile{display:none!important}
+  .sp4-wrap{display:flex;min-height:calc(100vh - 52px - var(--tb))}
+  .sim-body.sp4-open{max-width:100%;padding:0}
+  .sp4-sidebar{width:230px;flex-shrink:0;border-right:1px solid #e8e8e8;padding:1.5rem 1rem;background:#fafafa}
+  .sp4-sb-title{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid #e8e8e8}
+  .sp4-sb-item{margin-bottom:1rem}
+  .sp4-sb-lbl{font-size:.7rem;color:#777;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.2rem}
+  .sp4-sb-val{font-size:.9rem;font-weight:700;color:var(--navy);display:flex;align-items:center;justify-content:space-between;border:1.5px solid #ddd;border-radius:6px;padding:.5rem .7rem;background:#fff;cursor:pointer;transition:border-color .15s}
+  .sp4-sb-val:hover{border-color:var(--teal)}
+  .sp4-main{flex:1;padding:1.8rem 2.5rem 5rem;overflow-y:auto}
+  .sp4-intro{font-size:.82rem;color:#777;margin-bottom:1rem;font-style:italic}
+  .sp4-type-lbl{font-size:.88rem;font-weight:600;color:var(--teal);margin-bottom:.25rem}
+  .sp4-h1{font-size:1.35rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem}
+  .sp4-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+  .sp4-card{border:1.5px solid #ddd;border-radius:12px;padding:1.2rem 1rem;cursor:pointer;background:#fff;transition:all .15s}
+  .sp4-card:hover{border-color:var(--teal)}
+  .sp4-card.sel{border:2px solid var(--teal)}
+  .sp4-card-radio{width:20px;height:20px;border-radius:50%;border:2px solid #ccc;margin-bottom:.7rem;display:flex;align-items:center;justify-content:center}
+  .sp4-card.sel .sp4-card-radio{border-color:var(--teal)}
+  .sp4-card.sel .sp4-card-radio::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--teal);display:block}
+  .sp4-card-price{font-size:1.45rem;font-weight:800;color:var(--navy);margin-bottom:.15rem}
+  .sp4-card-price sup{font-size:.65rem;vertical-align:super}
+  .sp4-card-sublbl{font-size:.78rem;color:#555;margin-bottom:.8rem;font-weight:500}
+  .sp4-card-row{display:flex;justify-content:space-between;font-size:.8rem;padding:.28rem 0;border-bottom:1px solid #f2f2f2}
+  .sp4-card-row-lbl{color:#777}
+  .sp4-card-row-val{font-weight:700;color:var(--navy)}
+  .sp4-card-total{font-size:.78rem;color:#555;margin-top:.6rem;padding-top:.5rem;border-top:1px solid #ebebeb;display:flex;justify-content:space-between}
+  .sp4-card-total b{color:var(--navy)}
+  .sp4-detail{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;border:1px solid #e8e8e8;border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:1.5rem}
+  .sp4-detail-title{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid #f0f0f0}
+  .sp4-detail-row{display:flex;justify-content:space-between;font-size:.83rem;padding:.32rem 0;border-bottom:1px solid #f5f5f5}
+  .sp4-detail-row:last-child{border-bottom:none}
+  .sp4-detail-row-lbl{color:#555}
+  .sp4-detail-row-val{font-weight:700;color:var(--navy)}
+  .sp4-actions{display:flex;align-items:center;gap:1rem}
+  .sp4-back-btn{background:none;border:1.5px solid #ddd;border-radius:2rem;padding:.62rem 1.5rem;font-size:.88rem;font-weight:600;color:var(--navy);cursor:pointer;font-family:inherit;white-space:nowrap;transition:border-color .15s}
+  .sp4-back-btn:hover{border-color:var(--navy)}
+  .sp4-action-note{flex:1;text-align:center;font-size:.78rem;color:#888;font-style:italic}
+  .sp4-cta{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:.72rem 2rem;font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
+  .sp4-cta:hover{background:var(--teal-d)}
+}
+
 /* ── Routeur SPA ── */
 .pg-section{display:none !important}
 .pg-section.pg-active{display:block !important}
@@ -3478,37 +3523,103 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
     <!-- ── Étape 4 : Résultats style Sofinco ── -->
     <div class="sim-pane" id="sp4">
-      <p class="sim-otyp" id="sim-otyp">Prêt personnel de 5 000 €</p>
-      <h1 class="sim-title" style="font-size:clamp(.78rem,3.8vw,1.25rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Choisissez l'offre la plus adaptée à votre projet</h1>
-      <p class="sim-ocount">Choisissez parmi <span id="sim-ocount-n">2</span> offres :</p>
-      <div class="sim-otabs" id="sim-otabs"></div>
-      <div class="sim-ocard">
-        <p class="sim-ocard-lbl">Votre simulation personnalisée</p>
-        <div class="sim-ocard-price-row">
-          <span class="sim-ocard-price" id="sim-r-monthly">—</span>
-          <span class="sim-ocard-unit">€ /mois</span>
-        </div>
-        <div class="sim-ocard-meta">
-          <div class="sim-ocard-meta-item">
-            <span class="sim-ocard-meta-lbl">Durée</span>
-            <span class="sim-ocard-meta-val" id="sim-r-duree">—</span>
+
+      <!-- MOBILE -->
+      <div class="sp4-mobile">
+        <p class="sim-otyp" id="sim-otyp">Prêt personnel de 5 000 €</p>
+        <h1 class="sim-title" style="font-size:clamp(.78rem,3.8vw,1.25rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Choisissez l'offre la plus adaptée à votre projet</h1>
+        <p class="sim-ocount">Choisissez parmi <span id="sim-ocount-n">2</span> offres :</p>
+        <div class="sim-otabs" id="sim-otabs"></div>
+        <div class="sim-ocard">
+          <p class="sim-ocard-lbl">Votre simulation personnalisée</p>
+          <div class="sim-ocard-price-row">
+            <span class="sim-ocard-price" id="sim-r-monthly">—</span>
+            <span class="sim-ocard-unit">€ /mois</span>
           </div>
-          <div class="sim-ocard-meta-item">
-            <span class="sim-ocard-meta-lbl">TAEG fixe</span>
-            <span class="sim-ocard-meta-val" id="sim-r-taeg">—</span>
+          <div class="sim-ocard-meta">
+            <div class="sim-ocard-meta-item">
+              <span class="sim-ocard-meta-lbl">Durée</span>
+              <span class="sim-ocard-meta-val" id="sim-r-duree">—</span>
+            </div>
+            <div class="sim-ocard-meta-item">
+              <span class="sim-ocard-meta-lbl">TAEG fixe</span>
+              <span class="sim-ocard-meta-val" id="sim-r-taeg">—</span>
+            </div>
           </div>
+          <div class="sim-ocard-total">
+            <span>Montant total dû<sup>(1)</sup></span>
+            <b id="sim-r-total">—</b>
+          </div>
+          <a href="#mentions-legales" class="pg-link" style="display:block;font-size:.8rem;color:var(--teal);margin-top:.7rem;text-decoration:underline">Informations précontractuelles</a>
         </div>
-        <div class="sim-ocard-total">
-          <span>Montant total dû<sup>(1)</sup></span>
-          <b id="sim-r-total">—</b>
-        </div>
-        <a href="#mentions-legales" class="pg-link" style="display:block;font-size:.8rem;color:var(--teal);margin-top:.7rem;text-decoration:underline">Informations précontractuelles</a>
+        <button class="sim-btn-outline">Voir le détail de mon crédit</button>
+        <button class="sim-btn-outline" id="sim-restart">Modifier mes critères et mon offre</button>
+        <p style="text-align:center;font-size:.75rem;color:#999;margin:.1rem 0 .9rem;font-style:italic">— Notre proposition de prêt est modifiable —</p>
+        <button class="sim-cta-big">Continuer avec cette offre →</button>
+        <p class="sim-res-notice"><sup>(1)</sup> Hors assurance facultative. Simulation à titre indicatif. Offre soumise à acceptation. TAEG fixe indicatif. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
       </div>
-      <button class="sim-btn-outline">Voir le détail de mon crédit</button>
-      <button class="sim-btn-outline" id="sim-restart">Modifier mes critères et mon offre</button>
-      <p style="text-align:center;font-size:.75rem;color:#999;margin:.1rem 0 .9rem;font-style:italic">— Notre proposition de prêt est modifiable —</p>
-      <button class="sim-cta-big">Continuer avec cette offre →</button>
-      <p class="sim-res-notice"><sup>(1)</sup> Hors assurance facultative. Simulation à titre indicatif. Offre soumise à acceptation. TAEG fixe indicatif. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</p>
+
+      <!-- DESKTOP -->
+      <div class="sp4-wrap">
+        <div class="sp4-sidebar">
+          <div class="sp4-sb-title">Modifier votre simulation</div>
+          <div class="sp4-sb-item">
+            <div class="sp4-sb-lbl">Montant souhaité</div>
+            <div class="sp4-sb-val" id="sp4-sb-montant">5 000 €
+              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="sp4-sb-item">
+            <div class="sp4-sb-lbl">Type de crédit</div>
+            <div class="sp4-sb-val" id="sp4-sb-type">Prêt personnel
+              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="sp4-sb-item">
+            <div class="sp4-sb-lbl">Projet</div>
+            <div class="sp4-sb-val" id="sp4-sb-projet">—
+              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="sp4-sb-item">
+            <div class="sp4-sb-lbl" id="sp4-sb-choix-lbl">Mensualité</div>
+            <div class="sp4-sb-val" id="sp4-sb-choix">—
+              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="sp4-sb-item">
+            <div class="sp4-sb-lbl">Durée</div>
+            <div class="sp4-sb-val" id="sp4-sb-duree">—
+              <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="sp4-main">
+          <p class="sp4-intro">Simulez votre projet en quelques clics, c'est simple et sans engagement !</p>
+          <p class="sp4-type-lbl" id="sp4-type-lbl">Prêt personnel de 5 000 €</p>
+          <h1 class="sp4-h1">Choisissez l'offre la plus adaptée à votre projet</h1>
+          <div class="sp4-cards" id="sp4-cards"></div>
+          <div class="sp4-detail">
+            <div>
+              <div class="sp4-detail-title">Crédit sans assurance</div>
+              <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Montant emprunté</span><span class="sp4-detail-row-val" id="sp4-d-montant">—</span></div>
+              <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Mensualité<sup>(1)</sup></span><span class="sp4-detail-row-val" id="sp4-d-mens">—</span></div>
+              <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Dernière mensualité ajustée</span><span class="sp4-detail-row-val" id="sp4-d-last">—</span></div>
+              <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Nombre de mensualités</span><span class="sp4-detail-row-val" id="sp4-d-n">—</span></div>
+            </div>
+            <div>
+              <div class="sp4-detail-title">Crédit avec assurance *</div>
+              <p style="font-size:.8rem;color:#555;line-height:1.55">La prime mensuelle d'assurance facultative est de 0,70% du solde restant dû. La première prime est la plus élevée. Vérifiez votre éligibilité.</p>
+            </div>
+          </div>
+          <div class="sp4-actions">
+            <button class="sp4-back-btn" id="sp4-back-btn">Retour</button>
+            <span class="sp4-action-note">— Le choix d'une offre est sans engagement —</span>
+            <button class="sp4-cta" id="sp4-cta-btn">Choisir cette offre</button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
 
@@ -3644,6 +3755,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     document.querySelectorAll('.sim-pane').forEach(function(p){p.classList.remove('s-show');});
     document.getElementById('sp'+n).classList.add('s-show');
     document.getElementById('sim-page').scrollTop=0;
+    document.querySelector('.sim-body').classList.toggle('sp4-open', n===4);
     document.getElementById('sim-bb-prog').textContent='Progression : '+(PROG[n]||'90%');
     var nxt=document.getElementById('sim-bb-next');
     if(n===3){ nxt.textContent='Découvrir les offres'; nxt.classList.add('bb-teal'); }
@@ -3716,25 +3828,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     var P=parseInt(simData.montant)||5000;
     var n=simData.duree||36;
     var isReg=(simData.projet==='regroupement');
-    // Générer 2 offres : durée choisie + alternative proche
-    var altN=n>6?n-6:n+6;
-    if(altN<6)altN=6;
-    var offers=[
-      {duree:n,   mensualite:calcPMT(P,n,isReg)},
-      {duree:altN,mensualite:calcPMT(P,altN,isReg)}
-    ];
-    // Titre type de prêt
     var projetLabels={'famille-loisirs':'Prêt personnel','auto':'Crédit auto','travaux':'Crédit travaux','autre':'Prêt personnel','regroupement':'Regroupement de crédits'};
+    var projetNames={'famille-loisirs':'Famille & loisirs','auto':'Auto','travaux':'Travaux','autre':'Autre','regroupement':'Regroupement'};
     var typeName=projetLabels[simData.projet]||'Prêt personnel';
+
+    // 3 offres pour desktop, 2 onglets pour mobile
+    var alt1=n>12?n-12:n+12; if(alt1<6)alt1=6;
+    var alt2=n+12;
+    var offers=[
+      {duree:alt1, mensualite:calcPMT(P,alt1,isReg), lbl:'Une offre sur '+alt1+' mois'},
+      {duree:n,    mensualite:calcPMT(P,n,isReg),    lbl:'Votre simulation personnalisée'},
+      {duree:alt2, mensualite:calcPMT(P,alt2,isReg), lbl:'Une offre sur '+alt2+' mois'}
+    ];
+
+    // ── MOBILE : 2 onglets (offre 1 + offre centrale) ──
     document.getElementById('sim-otyp').textContent=typeName+' de '+fmtAmt(P);
-    document.getElementById('sim-ocount-n').textContent=offers.length;
-    // Rendu des onglets
+    document.getElementById('sim-ocount-n').textContent='2';
     var tabs=document.getElementById('sim-otabs');
     tabs.innerHTML='';
-    offers.forEach(function(offer,i){
+    [offers[0],offers[1]].forEach(function(offer,i){
       var btn=document.createElement('button');
       btn.type='button';
-      btn.className='sim-otab'+(i===0?' active':'');
+      btn.className='sim-otab'+(i===1?' active':'');
       btn.innerHTML='<span class="sim-otab-price">'+fmtEur(offer.mensualite)+'/mois</span><span class="sim-otab-dur">'+offer.duree+' mois</span>';
       btn.addEventListener('click',function(){
         tabs.querySelectorAll('.sim-otab').forEach(function(t){t.classList.remove('active')});
@@ -3743,8 +3858,54 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       });
       tabs.appendChild(btn);
     });
-    // Auto-sélection de la première offre
-    updateOfferCard(offers[0]);
+    updateOfferCard(offers[1]);
+
+    // ── DESKTOP : 3 cartes côte à côte ──
+    document.getElementById('sp4-type-lbl').textContent=typeName+' de '+fmtAmt(P);
+    // Sidebar
+    document.getElementById('sp4-sb-montant').childNodes[0].textContent=fmtAmt(P)+' ';
+    document.getElementById('sp4-sb-type').childNodes[0].textContent=typeName+' ';
+    document.getElementById('sp4-sb-projet').childNodes[0].textContent=(projetNames[simData.projet]||'—')+' ';
+    if(simData.choix==='mensualite'){
+      document.getElementById('sp4-sb-choix-lbl').textContent='Mensualité';
+      document.getElementById('sp4-sb-choix').childNodes[0].textContent=fmtEur(offers[1].mensualite)+'/mois ';
+    } else {
+      document.getElementById('sp4-sb-choix-lbl').textContent='Durée souhaitée';
+      document.getElementById('sp4-sb-choix').childNodes[0].textContent=n+' mois ';
+    }
+    document.getElementById('sp4-sb-duree').childNodes[0].textContent=n+' mois ('+Math.round(n/12*10)/10+' ans) ';
+    // Cards
+    var cardsEl=document.getElementById('sp4-cards');
+    cardsEl.innerHTML='';
+    var selOffer=offers[1];
+    offers.forEach(function(offer,i){
+      var isSel=(i===1);
+      var card=document.createElement('div');
+      card.className='sp4-card'+(isSel?' sel':'');
+      card.innerHTML=
+        '<div class="sp4-card-radio"></div>'+
+        '<div class="sp4-card-price">'+fmtNum(offer.mensualite)+' <sup>€</sup>/mois</div>'+
+        '<div class="sp4-card-sublbl">'+offer.lbl+'</div>'+
+        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">Durée</span><span class="sp4-card-row-val">'+offer.duree+' mois</span></div>'+
+        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">TAEG fixe</span><span class="sp4-card-row-val">voir le détail</span></div>'+
+        '<div class="sp4-card-total"><span>Montant total dû<sup>(1)</sup></span><b>'+fmtEur(offer.mensualite*offer.duree)+'</b></div>';
+      card.addEventListener('click',function(){
+        cardsEl.querySelectorAll('.sp4-card').forEach(function(c){c.classList.remove('sel')});
+        card.classList.add('sel');
+        selOffer=offer;
+        updateDesktopDetail(offer, P);
+      });
+      cardsEl.appendChild(card);
+    });
+    updateDesktopDetail(offers[1], P);
+  }
+
+  function updateDesktopDetail(offer, P){
+    var last=offer.mensualite; // simplifié
+    document.getElementById('sp4-d-montant').textContent=fmtEur(P);
+    document.getElementById('sp4-d-mens').textContent=fmtEur(offer.mensualite)+' par mois';
+    document.getElementById('sp4-d-last').textContent=fmtEur(last);
+    document.getElementById('sp4-d-n').textContent=offer.duree;
   }
 
   function openSim(projet, montant){
@@ -3851,6 +4012,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   });
 
   document.querySelector('.sim-cta-big').addEventListener('click',function(){
+    showStep(5);
+  });
+
+  document.getElementById('sp4-back-btn').addEventListener('click',function(){
+    showStep(3);
+  });
+
+  document.getElementById('sp4-cta-btn').addEventListener('click',function(){
     showStep(5);
   });
 
