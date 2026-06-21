@@ -502,6 +502,19 @@
 /* ══════════════════════════════════════════
    SP5 — Formulaire multi-étapes
 ══════════════════════════════════════════ */
+
+// Auto-format date JJ/MM/AAAA while typing
+document.addEventListener('DOMContentLoaded', function(){
+  var ddn = document.getElementById('s5-ddn');
+  if(!ddn) return;
+  ddn.addEventListener('input', function(){
+    var v = this.value.replace(/\D/g,'');
+    if(v.length >= 3 && v.length <= 4) v = v.slice(0,2)+'/'+v.slice(2);
+    else if(v.length >= 5) v = v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4,8);
+    this.value = v;
+  });
+});
+
 var sp5Current = 1;
 var sp5DocMode = 'cni';  // 'cni' | 'passport' | 'permis'
 var sp5Files = {};        // keyed by slot name
