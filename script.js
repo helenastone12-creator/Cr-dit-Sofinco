@@ -505,15 +505,70 @@
 
 // Auto-format date JJ/MM/AAAA while typing
 document.addEventListener('DOMContentLoaded', function(){
+  // Date de naissance — auto-slash + validation âge en direct
   var ddn = document.getElementById('s5-ddn');
+  var ddnErr = document.getElementById('s5-ddn-err');
   if(ddn){
     ddn.addEventListener('input', function(){
       var v = this.value.replace(/\D/g,'');
       if(v.length >= 3 && v.length <= 4) v = v.slice(0,2)+'/'+v.slice(2);
       else if(v.length >= 5) v = v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4,8);
       this.value = v;
+      if(v.length === 10){
+        var dateOk = sp5ValidDate(v);
+        var ageOk  = dateOk && sp5ValidAge(v);
+        var err = !dateOk ? 'Date invalide' : (!ageOk ? 'Vous devez avoir au moins 18 ans' : '');
+        ddn.classList.toggle('err', !!err);
+        if(ddnErr){ ddnErr.classList.toggle('show', !!err); if(err) ddnErr.textContent = err; }
+      } else {
+        ddn.classList.remove('err');
+        if(ddnErr) ddnErr.classList.remove('show');
+      }
     });
   }
+
+  // IBAN — formatage automatique (groupes de 4)
+  var iban = document.getElementById('s5-iban');
+  var ibanErr = document.getElementById('s5-iban-err');
+  if(iban){
+    iban.addEventListener('input', function(){
+      var raw = this.value.replace(/\s/g,'').toUpperCase();
+      this.value = raw.replace(/(.{4})/g,'$1 ').trim();
+    });
+    iban.addEventListener('blur', function(){
+      var valid = sp5ValidIban(this.value);
+      iban.classList.toggle('err', !valid && this.value.trim().length > 0);
+      if(ibanErr && this.value.trim().length > 0){
+        ibanErr.classList.toggle('show', !valid);
+        if(!valid) ibanErr.textContent = 'IBAN invalide — vérifiez les chiffres';
+      }
+    });
+  }
+
+  // Téléphone — feedback en direct
+  var tel = document.getElementById('s5-tel');
+  var telErr = document.getElementById('s5-tel-err');
+  if(tel){
+    tel.addEventListener('blur', function(){
+      if(!this.value.trim()) return;
+      var valid = sp5ValidTelFR(this.value);
+      tel.classList.toggle('err', !valid);
+      if(telErr){ telErr.classList.toggle('show', !valid); if(!valid) telErr.textContent='Numéro français invalide (ex : 06 12 34 56 78)'; }
+    });
+  }
+
+  // Revenus/charges — nombres positifs uniquement
+  ['s5-revenus','s5-charges'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('blur', function(){
+      var n = parseFloat(this.value.replace(/\s/g,'').replace(',','.'));
+      var invalid = isNaN(n) || n < 0;
+      el.classList.toggle('err', invalid && this.value.trim().length>0);
+    });
+  });
+
+  // Mot de passe — barre de force
   var pwdInp = document.getElementById('s5-pwd');
   var pwdBar = document.getElementById('s5-pwd-strength');
   if(pwdInp && pwdBar){
@@ -564,77 +619,125 @@ function sp5UpdateProg(step){
   }
 }
 
+// ── Helpers de validation ──
+function sp5ValidIban(raw){
+  var v = raw.replace(/\s/g,'').toUpperCase();
+  if(!/^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,}$/.test(v)) return false;
+  // Reorder + convert letters to digits then mod-97
+  var rearranged = v.slice(4) + v.slice(0,4);
+  var digits = rearranged.split('').map(function(c){
+    var n = c.charCodeAt(0);
+    return n >= 65 ? (n - 55).toString() : c;
+  }).join('');
+  var remainder = digits.match(/.{1,9}/g).reduce(function(rem, chunk){
+    return parseInt(rem + chunk, 10) % 97;
+  }, '');
+  return remainder === 1;
+}
+function sp5ValidDate(str){
+  var m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str);
+  if(!m) return false;
+  var d = +m[1], mo = +m[2], y = +m[3];
+  var dt = new Date(y, mo-1, d);
+  return dt.getFullYear()===y && dt.getMonth()===mo-1 && dt.getDate()===d;
+}
+function sp5ValidAge(str){
+  if(!sp5ValidDate(str)) return false;
+  var m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str);
+  var born = new Date(+m[3], +m[2]-1, +m[1]);
+  var age = (new Date() - born) / (365.25*24*3600*1000);
+  return age >= 18 && age <= 90;
+}
+function sp5ValidName(v){
+  return v && v.trim().length >= 2 && /^[A-Za-zÀ-ÿ\s'\-]+$/.test(v.trim());
+}
+function sp5ValidTelFR(v){
+  var d = v.replace(/[\s\.\-]/g,'');
+  return /^(0[1-9][0-9]{8}|\+33[1-9][0-9]{8})$/.test(d);
+}
+function sp5ValidEmail(v){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((v||'').trim());
+}
+function sp5ValidCP(v){
+  return /^(0[1-9]|[1-8][0-9]|9[0-5]|97[1-6])[0-9]{3}$/.test((v||'').trim());
+}
+function sp5Field(id, errId, testFn, errMsg){
+  var el = document.getElementById(id);
+  var er = document.getElementById(errId);
+  if(!el) return true;
+  var valid = testFn(el.value||'');
+  el.classList.toggle('err', !valid);
+  if(er){ er.classList.toggle('show', !valid); if(!valid && errMsg) er.textContent = errMsg; }
+  return valid;
+}
+
 function sp5Validate(step){
   var ok = true;
-  function req(id, errId){
+  function check(id, errId, testFn, msg){
+    if(!sp5Field(id, errId, testFn, msg)) ok = false;
+  }
+  function checkBox(id, errId, msg){
     var el = document.getElementById(id);
     var er = document.getElementById(errId);
-    if(!el) return;
-    var empty = !el.value || !el.value.trim();
-    el.classList.toggle('err', empty);
-    if(er) er.classList.toggle('show', empty);
-    if(empty) ok = false;
+    var valid = el && el.checked;
+    if(er){ er.classList.toggle('show', !valid); if(!valid && msg) er.textContent = msg; }
+    if(!valid) ok = false;
   }
+
   if(step===1){
-    req('s5-nom','s5-nom-err');
-    req('s5-prenom','s5-prenom-err');
-    req('s5-ddn','s5-ddn-err');
-    req('s5-nat','s5-nat-err');
-    req('s5-sitfam','s5-sitfam-err');
+    check('s5-nom',    's5-nom-err',    function(v){ return sp5ValidName(v); },    'Nom invalide (lettres uniquement, 2 car. min.)');
+    check('s5-prenom', 's5-prenom-err', function(v){ return sp5ValidName(v); },    'Prénom invalide (lettres uniquement, 2 car. min.)');
+    check('s5-ddn',    's5-ddn-err',    function(v){
+      if(!sp5ValidDate(v)) return false;
+      if(!sp5ValidAge(v)) return false;
+      return true;
+    }, 'Date invalide ou âge non conforme (18 ans minimum)');
+    check('s5-nat',    's5-nat-err',    function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre nationalité');
+    check('s5-sitfam', 's5-sitfam-err', function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre situation familiale');
+
   } else if(step===2){
-    req('s5-sitpro','s5-sitpro-err');
-    req('s5-secteur','s5-secteur-err');
-    req('s5-anciennete','s5-anciennete-err');
-    req('s5-revenus','s5-revenus-err');
-    req('s5-charges','s5-charges-err');
+    check('s5-sitpro',    's5-sitpro-err',    function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre situation professionnelle');
+    check('s5-secteur',   's5-secteur-err',   function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre secteur d\'activité');
+    check('s5-anciennete','s5-anciennete-err', function(v){ return v && v.trim().length>0; }, 'Veuillez indiquer votre ancienneté');
+    check('s5-revenus',   's5-revenus-err',   function(v){
+      var n = parseFloat((v||'').replace(/\s/g,'').replace(',','.'));
+      return !isNaN(n) && n > 0 && n < 1000000;
+    }, 'Montant de revenus invalide');
+    check('s5-charges',   's5-charges-err',   function(v){
+      var n = parseFloat((v||'').replace(/\s/g,'').replace(',','.'));
+      return !isNaN(n) && n >= 0 && n < 1000000;
+    }, 'Montant de charges invalide');
+
   } else if(step===3){
-    req('s5-adresse','s5-adresse-err');
-    req('s5-cp','s5-cp-err');
-    req('s5-ville','s5-ville-err');
-    req('s5-banque','s5-banque-err');
-    req('s5-iban','s5-iban-err');
-    // email
-    var em = document.getElementById('s5-email');
-    var emEr = document.getElementById('s5-email-err');
-    var emOk = em && /^[^@]+@[^@]+\.[^@]+$/.test(em.value||'');
-    if(em) em.classList.toggle('err', !emOk);
-    if(emEr) emEr.classList.toggle('show', !emOk);
-    if(!emOk) ok = false;
-    // tel
-    var tel = document.getElementById('s5-tel');
-    var telEr = document.getElementById('s5-tel-err');
-    var telOk = tel && /^[0-9 +()]{9,15}$/.test((tel.value||'').replace(/\s/g,''));
-    if(tel) tel.classList.toggle('err', !telOk);
-    if(telEr) telEr.classList.toggle('show', !telOk);
-    if(!telOk) ok = false;
-    // consentements
-    var c1 = document.getElementById('s5-cg1');
-    var c1Er = document.getElementById('s5-cg1-err');
-    if(c1 && !c1.checked){ if(c1Er) c1Er.classList.add('show'); ok=false; }
-    else if(c1Er) c1Er.classList.remove('show');
-    var c2 = document.getElementById('s5-cg2');
-    var c2Er = document.getElementById('s5-cg2-err');
-    if(c2 && !c2.checked){ if(c2Er) c2Er.classList.add('show'); ok=false; }
-    else if(c2Er) c2Er.classList.remove('show');
+    check('s5-adresse', 's5-adresse-err', function(v){ return v && v.trim().length >= 5; }, 'Adresse incomplète (5 car. min.)');
+    check('s5-cp',      's5-cp-err',      function(v){ return sp5ValidCP(v); },              'Code postal français invalide');
+    check('s5-ville',   's5-ville-err',   function(v){ return v && v.trim().length >= 2; },  'Ville invalide');
+    check('s5-banque',  's5-banque-err',  function(v){ return v && v.trim().length >= 2; },  'Nom de banque requis');
+    check('s5-iban',    's5-iban-err',    function(v){ return sp5ValidIban(v); },             'IBAN invalide — vérifiez les chiffres');
+    check('s5-email',   's5-email-err',   function(v){ return sp5ValidEmail(v); },            'Adresse email invalide');
+    check('s5-tel',     's5-tel-err',     function(v){ return sp5ValidTelFR(v); },            'Numéro français invalide (ex : 06 12 34 56 78)');
+    checkBox('s5-cg1', 's5-cg1-err', 'Vous devez accepter les conditions générales');
+    checkBox('s5-cg2', 's5-cg2-err', 'Vous devez accepter la politique de données');
+
   } else if(step===4){
-    // Check at least one identity doc
     var hasId = false;
-    if(sp5DocMode==='cni'){ hasId = !!(sp5Files['cni-r'] && sp5Files['cni-v']); }
-    else if(sp5DocMode==='passport'){ hasId = !!sp5Files['passport']; }
-    else if(sp5DocMode==='permis'){ hasId = !!(sp5Files['permis-r'] && sp5Files['permis-v']); }
+    if(sp5DocMode==='cni')     hasId = !!(sp5Files['cni-r'] && sp5Files['cni-v']);
+    else if(sp5DocMode==='passport') hasId = !!sp5Files['passport'];
+    else if(sp5DocMode==='permis')   hasId = !!(sp5Files['permis-r'] && sp5Files['permis-v']);
     var idEr = document.getElementById('s5-id-err');
     if(idEr) idEr.classList.toggle('show', !hasId);
     if(!hasId) ok=false;
-    // domicile
+
     var hasDom = !!sp5Files['domicile'];
     var domEr = document.getElementById('s5-dom-err');
     if(domEr) domEr.classList.toggle('show', !hasDom);
     if(!hasDom) ok=false;
-    // revenus (slot fixed: 'revenus' not 'revenus-doc')
+
     var hasRev = !!sp5Files['revenus'];
     var revEr = document.getElementById('s5-rev-err');
     if(revEr) revEr.classList.toggle('show', !hasRev);
     if(!hasRev) ok=false;
+
     // mot de passe espace client
     var pwd  = (document.getElementById('s5-pwd')||{}).value||'';
     var pwd2 = (document.getElementById('s5-pwd2')||{}).value||'';
@@ -644,11 +747,11 @@ function sp5Validate(step){
     var pwd2Er = document.getElementById('s5-pwd2-err');
     var pwdOk = pwd.length >= 8;
     if(pwdEl)  pwdEl.classList.toggle('err', !pwdOk);
-    if(pwdEr)  pwdEr.classList.toggle('show', !pwdOk);
+    if(pwdEr){ pwdEr.classList.toggle('show', !pwdOk); if(!pwdOk) pwdEr.textContent='Le mot de passe doit contenir au moins 8 caractères'; }
     if(!pwdOk) ok = false;
     var matchOk = pwd2 === pwd && pwd2.length > 0;
     if(pwd2El) pwd2El.classList.toggle('err', !matchOk);
-    if(pwd2Er) pwd2Er.classList.toggle('show', !matchOk);
+    if(pwd2Er){ pwd2Er.classList.toggle('show', !matchOk); if(!matchOk) pwd2Er.textContent='Les mots de passe ne correspondent pas'; }
     if(!matchOk) ok = false;
   }
   return ok;
