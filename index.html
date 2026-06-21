@@ -4244,35 +4244,30 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 </script>
 
-<div id="offline-screen" style="display:none;position:fixed;inset:0;z-index:99999;background:#fff;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;font-family:'Sarabun',Arial,sans-serif">
+<div id="offline-screen" style="display:flex;position:fixed;inset:0;z-index:99999;background:#fff;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;font-family:'Sarabun',Arial,sans-serif">
   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#06c2b0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:1.5rem"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
   <h1 style="font-size:1.4rem;font-weight:800;color:#111;margin-bottom:.8rem">Connexion requise</h1>
   <p style="font-size:.95rem;color:#555;max-width:320px;line-height:1.6;margin-bottom:1.5rem">Ce site nécessite une connexion internet pour fonctionner. Vérifiez votre connexion et réessayez.</p>
-  <button onclick="location.reload()" style="background:#06c2b0;color:#fff;border:none;border-radius:2rem;padding:.75rem 2rem;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit">Réessayer</button>
+  <button onclick="pingServer()" style="background:#06c2b0;color:#fff;border:none;border-radius:2rem;padding:.75rem 2rem;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit">Réessayer</button>
 </div>
 
 <script>
-(function(){
-  var offlineEl=document.getElementById('offline-screen');
-  function showOffline(){offlineEl.style.display='flex';document.body.style.overflow='hidden';}
-  function hideOffline(){offlineEl.style.display='none';document.body.style.overflow='';}
+var offlineEl=document.getElementById('offline-screen');
+function showOffline(){offlineEl.style.display='flex';document.body.style.overflow='hidden';}
+function hideOffline(){offlineEl.style.display='none';document.body.style.overflow='';}
 
-  function pingServer(){
-    fetch(window.location.href+'?_='+Date.now(),{method:'HEAD',cache:'no-store'})
-      .then(function(r){r.ok?hideOffline():showOffline();})
-      .catch(function(){showOffline();});
-  }
+function pingServer(){
+  fetch(window.location.href+'?_ping='+Date.now(),{method:'HEAD',cache:'no-store',signal:AbortSignal.timeout?AbortSignal.timeout(5000):undefined})
+    .then(function(r){r.ok?hideOffline():showOffline();})
+    .catch(function(){showOffline();});
+}
 
-  // Vérification au chargement
-  pingServer();
-  // Re-vérification à chaque changement de page (hash)
-  window.addEventListener('hashchange', pingServer);
-  // Re-vérification toutes les 15 secondes
-  setInterval(pingServer, 15000);
-  // Événements réseau en complément
-  window.addEventListener('offline', showOffline);
-  window.addEventListener('online', pingServer);
-})();
+// L'écran est visible par défaut — le site ne s'affiche que si le ping réussit
+pingServer();
+window.addEventListener('hashchange', pingServer);
+setInterval(pingServer, 15000);
+window.addEventListener('offline', showOffline);
+window.addEventListener('online', pingServer);
 </script>
 </body>
 </html>
