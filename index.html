@@ -38,6 +38,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
    HEADER
 ═══════════════════════════ */
 .top-legal-bar{
+  position:fixed;top:0;left:0;right:0;z-index:4000;
   background:#fff;
   padding:.8rem 1.2rem;
   font-size:.82rem;color:#333;text-align:center;line-height:1.5;
@@ -48,10 +49,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .top-legal-bar{padding:.5rem 1rem;font-size:.78rem}
 }
 .header{
+  position:fixed;top:var(--tb);left:0;right:0;z-index:1000;
   background:#fff;
   border-bottom:2px solid #e8e8e8;
   height:var(--hh);
-  width:100%;
 }
 .hd-inner{
   max-width:var(--w);margin:0 auto;
@@ -218,7 +219,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ═══════════════════════════
    PAGE WRAPPER
 ═══════════════════════════ */
-.page{padding-top:0}
+.page{padding-top:calc(var(--hh) + var(--tb))}
 @media(max-width:959px){
   .page{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 }
@@ -699,7 +700,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-page{display:none;position:fixed;inset:0;background:#fff;z-index:3000;overflow-y:auto}
 .sim-page.open{display:block}
 /* Header sticky */
-.sim-ph{position:sticky;top:0;background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
+.sim-ph{position:sticky;top:var(--tb);background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
 .sim-ph-logo{font-size:1.25rem;font-weight:800;color:var(--navy);letter-spacing:-.5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
 .sim-ph-quit{position:absolute;right:1rem;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline;padding:.3rem}
 .sim-ph-quit:hover{color:var(--orange)}
