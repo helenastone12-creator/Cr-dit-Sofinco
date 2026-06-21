@@ -1196,10 +1196,9 @@ body.pg-inner .editorial{background:none}
 .sp5-inp[type="text"],.sp5-inp[type="email"],.sp5-inp[type="tel"],.sp5-inp[type="number"]{
   -webkit-appearance:none;appearance:none;
 }
-/* Le champ date garde son apparence native sur mobile */
+/* Le champ date : aucune modification d'apparence, juste le style visuel */
 .sp5-inp[type="date"]{
-  -webkit-appearance:textfield;appearance:textfield;
-  color:var(--navy);min-height:48px;
+  color:var(--navy);min-height:48px;cursor:pointer;
 }
 .sp5-inp:focus,.sp5-sel:focus{ border-color:var(--teal); }
 .sp5-inp.err,.sp5-sel.err{ border-color:#e74c3c; }
