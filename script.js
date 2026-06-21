@@ -595,7 +595,7 @@ function sp5Validate(step){
     var hasId = false;
     if(sp5DocMode==='cni'){ hasId = !!(sp5Files['cni-r'] && sp5Files['cni-v']); }
     else if(sp5DocMode==='passport'){ hasId = !!sp5Files['passport']; }
-    else if(sp5DocMode==='permis'){ hasId = !!sp5Files['permis']; }
+    else if(sp5DocMode==='permis'){ hasId = !!(sp5Files['permis-r'] && sp5Files['permis-v']); }
     var idEr = document.getElementById('s5-id-err');
     if(idEr) idEr.classList.toggle('show', !hasId);
     if(!hasId) ok=false;
@@ -604,8 +604,8 @@ function sp5Validate(step){
     var domEr = document.getElementById('s5-dom-err');
     if(domEr) domEr.classList.toggle('show', !hasDom);
     if(!hasDom) ok=false;
-    // revenus
-    var hasRev = !!sp5Files['revenus-doc'];
+    // revenus (slot fixed: 'revenus' not 'revenus-doc')
+    var hasRev = !!sp5Files['revenus'];
     var revEr = document.getElementById('s5-rev-err');
     if(revEr) revEr.classList.toggle('show', !hasRev);
     if(!hasRev) ok=false;

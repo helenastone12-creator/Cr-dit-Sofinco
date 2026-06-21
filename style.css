@@ -1263,14 +1263,18 @@ body.pg-inner .editorial{background:none}
 
 /* ── Doc tabs (CNI / Passeport / Permis) ── */
 .sp5-doc-tabs{
-  display:flex;gap:.4rem;margin-bottom:.9rem;
+  display:flex;gap:.35rem;margin-bottom:.9rem;
   border-bottom:2px solid #eee;padding-bottom:.5rem;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
 }
+.sp5-doc-tabs::-webkit-scrollbar{display:none;}
 .sp5-doc-tab{
-  padding:.42rem .85rem;border-radius:2rem;border:1.5px solid #ddd;
-  background:#fff;font-size:.8rem;font-weight:700;color:#666;
-  cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap;
+  padding:.38rem .65rem;border-radius:2rem;border:1.5px solid #ddd;
+  background:#fff;font-size:.78rem;font-weight:700;color:#666;
+  cursor:pointer;transition:all .2s;font-family:inherit;
+  white-space:nowrap;flex-shrink:0;
 }
 .sp5-doc-tab.active{
   background:var(--navy);border-color:var(--navy);color:#fff;
