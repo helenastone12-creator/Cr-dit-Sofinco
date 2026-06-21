@@ -1190,7 +1190,16 @@ body.pg-inner .editorial{background:none}
   padding:.72rem .9rem;font-size:.95rem;font-family:inherit;
   color:var(--navy);background:#fff;
   transition:border-color .2s;outline:none;
+}
+/* Ne pas supprimer l'apparence native sur les champs date (iOS) */
+.sp5-sel{ -webkit-appearance:none;appearance:none; }
+.sp5-inp[type="text"],.sp5-inp[type="email"],.sp5-inp[type="tel"],.sp5-inp[type="number"]{
   -webkit-appearance:none;appearance:none;
+}
+/* Le champ date garde son apparence native sur mobile */
+.sp5-inp[type="date"]{
+  -webkit-appearance:textfield;appearance:textfield;
+  color:var(--navy);min-height:48px;
 }
 .sp5-inp:focus,.sp5-sel:focus{ border-color:var(--teal); }
 .sp5-inp.err,.sp5-sel.err{ border-color:#e74c3c; }
