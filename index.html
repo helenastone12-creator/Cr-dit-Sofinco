@@ -4253,18 +4253,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 <script>
 (function(){
-  function checkOnline(){
-    if(!navigator.onLine){
-      document.getElementById('offline-screen').style.display='flex';
-      document.body.style.overflow='hidden';
-    } else {
-      document.getElementById('offline-screen').style.display='none';
-      document.body.style.overflow='';
-    }
+  var offlineEl=document.getElementById('offline-screen');
+  function showOffline(){offlineEl.style.display='flex';document.body.style.overflow='hidden';}
+  function hideOffline(){offlineEl.style.display='none';document.body.style.overflow='';}
+
+  function pingServer(){
+    fetch(window.location.href+'?_='+Date.now(),{method:'HEAD',cache:'no-store'})
+      .then(function(r){r.ok?hideOffline():showOffline();})
+      .catch(function(){showOffline();});
   }
-  checkOnline();
-  window.addEventListener('online', checkOnline);
-  window.addEventListener('offline', checkOnline);
+
+  // Vérification au chargement
+  pingServer();
+  // Re-vérification toutes les 15 secondes
+  setInterval(pingServer, 15000);
+  // Événements réseau en complément
+  window.addEventListener('offline', showOffline);
+  window.addEventListener('online', pingServer);
 })();
 </script>
 </body>
