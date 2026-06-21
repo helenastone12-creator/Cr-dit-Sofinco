@@ -20,7 +20,7 @@ img{max-width:100%;height:auto;display:block}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 :root{
-  --orange:#111;
+  --orange:#06c2b0;
   --navy:#111;
   --navy-d:#000;
   --teal:#06c2b0;        /* bouton "Simuler un projet" */
@@ -465,7 +465,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   border-radius:2rem;padding:.65rem 1.8rem;
   font-size:.92rem;font-weight:700;transition:background .2s;
 }
-.btn-orange:hover{background:#000;color:#fff}
+.btn-orange:hover{background:var(--teal-d);color:#fff}
 
 /* ═══════════════════════════
    AVANTAGES
@@ -786,7 +786,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-btn-outline{display:block;width:100%;border:1.5px solid #bbb;border-radius:2rem;padding:.75rem 1rem;font-size:.9rem;font-weight:600;color:var(--navy);background:#fff;text-align:center;margin-bottom:.6rem;cursor:pointer;font-family:inherit;text-decoration:none;transition:border-color .15s}
 .sim-btn-outline:hover{border-color:var(--navy)}
 .sim-cta-big{display:block;width:100%;background:var(--orange);color:#fff;border-radius:2rem;padding:.85rem;font-size:.95rem;font-weight:700;text-align:center;margin-bottom:.7rem;transition:background .2s;border:none;cursor:pointer;font-family:inherit}
-.sim-cta-big:hover{background:#000}
+.sim-cta-big:hover{background:var(--teal-d)}
 .sim-restart{width:100%;background:none;border:2px solid #ddd;border-radius:2rem;padding:.65rem;font-size:.88rem;font-weight:600;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
 .sim-restart:hover{border-color:var(--navy);color:var(--navy)}
 /* Common : trust + legal */
@@ -3479,7 +3479,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <!-- ── Étape 4 : Résultats style Sofinco ── -->
     <div class="sim-pane" id="sp4">
       <p class="sim-otyp" id="sim-otyp">Prêt personnel de 5 000 €</p>
-      <h1 class="sim-title">Choisissez l'offre la plus adaptée à votre projet</h1>
+      <h1 class="sim-title" style="font-size:clamp(.78rem,3.8vw,1.25rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Choisissez l'offre la plus adaptée à votre projet</h1>
       <p class="sim-ocount">Choisissez parmi <span id="sim-ocount-n">2</span> offres :</p>
       <div class="sim-otabs" id="sim-otabs"></div>
       <div class="sim-ocard">
