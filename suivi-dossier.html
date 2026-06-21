@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suivi de dossier — Espace client Sofinco</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="espace-client.css"/>
+</head>
+<body class="ec-body ec-dash-body">
+
+<header class="ec-header">
+  <a href="index.html" class="ec-hd-logo">Jkl.oin</a>
+  <div class="ec-hd-right">
+    <div class="ec-hd-user">
+      <div class="ec-hd-avatar" id="ec-hd-avatar">J</div>
+      <span class="ec-hd-name" id="ec-hd-name">Mon compte</span>
+    </div>
+    <button class="ec-hd-logout" onclick="ecLogout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnexion
+    </button>
+  </div>
+</header>
+
+<nav class="ec-nav">
+  <a href="espace-client.html" class="ec-nav-link">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Tableau de bord
+  </a>
+  <a href="mes-documents.html" class="ec-nav-link">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Mes documents
+  </a>
+  <a href="suivi-dossier.html" class="ec-nav-link active">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Suivi de dossier
+  </a>
+</nav>
+
+<main class="ec-main">
+  <div class="ec-welcome">
+    <div>
+      <p class="ec-welcome-sub">Espace client</p>
+      <h1 class="ec-welcome-title">Suivi de dossier</h1>
+    </div>
+  </div>
+
+  <!-- Recherche par numéro -->
+  <div class="ec-suivi-search">
+    <label class="ec-lbl" for="ec-suivi-ref">Numéro de dossier</label>
+    <div class="ec-suivi-row">
+      <input type="text" id="ec-suivi-ref" class="ec-inp" placeholder="SOF-2026-XXXXX" style="text-transform:uppercase"/>
+      <button class="ec-btn-primary ec-suivi-btn" onclick="ecSuiviSearch()">Rechercher</button>
+    </div>
+    <div id="ec-suivi-err" class="ec-form-err" style="display:none">Numéro de dossier introuvable. Vérifiez et réessayez.</div>
+  </div>
+
+  <!-- Résultat -->
+  <div id="ec-suivi-result" style="display:none">
+
+    <div class="ec-suivi-header">
+      <div>
+        <div class="ec-suivi-ref-lbl">Dossier</div>
+        <div class="ec-suivi-ref-num" id="ec-suivi-ref-disp"></div>
+      </div>
+      <div class="ec-suivi-badge" id="ec-suivi-badge">En cours d'analyse</div>
+    </div>
+
+    <div class="ec-suivi-timeline">
+
+      <div class="ec-tl-item done" id="ec-tl-1">
+        <div class="ec-tl-dot">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ec-tl-line"></div>
+        <div class="ec-tl-content">
+          <div class="ec-tl-title">Dossier reçu</div>
+          <div class="ec-tl-desc">Votre demande a été enregistrée avec succès.</div>
+          <div class="ec-tl-date" id="ec-tl-date1"></div>
+        </div>
+      </div>
+
+      <div class="ec-tl-item active" id="ec-tl-2">
+        <div class="ec-tl-dot ec-tl-dot-active">
+          <span class="ec-tl-pulse"></span>
+        </div>
+        <div class="ec-tl-line"></div>
+        <div class="ec-tl-content">
+          <div class="ec-tl-title">Analyse en cours</div>
+          <div class="ec-tl-desc">Notre équipe étudie votre dossier. Délai estimé : 24 h ouvrées.</div>
+          <div class="ec-tl-date">En cours</div>
+        </div>
+      </div>
+
+      <div class="ec-tl-item pending" id="ec-tl-3">
+        <div class="ec-tl-dot ec-tl-dot-pending"></div>
+        <div class="ec-tl-line"></div>
+        <div class="ec-tl-content">
+          <div class="ec-tl-title">Appel de votre conseiller</div>
+          <div class="ec-tl-desc">Un conseiller vous contactera pour vous présenter votre offre personnalisée.</div>
+        </div>
+      </div>
+
+      <div class="ec-tl-item pending" id="ec-tl-4">
+        <div class="ec-tl-dot ec-tl-dot-pending"></div>
+        <div class="ec-tl-line"></div>
+        <div class="ec-tl-content">
+          <div class="ec-tl-title">Signature du contrat</div>
+          <div class="ec-tl-desc">Signature électronique sécurisée de votre contrat de crédit.</div>
+        </div>
+      </div>
+
+      <div class="ec-tl-item pending" id="ec-tl-5">
+        <div class="ec-tl-dot ec-tl-dot-pending"></div>
+        <div class="ec-tl-line ec-tl-line-last"></div>
+        <div class="ec-tl-content">
+          <div class="ec-tl-title">Déblocage des fonds</div>
+          <div class="ec-tl-desc">Virement sur votre compte bancaire sous 48 h après signature.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ec-suivi-contact">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3-8.59A2 2 0 0 1 3.59 2H6.5a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.59 9.91a16 16 0 0 0 6.5 6.5l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Une question ? <a href="nous-contacter.html">Contacter notre équipe</a></span>
+    </div>
+
+  </div>
+</main>
+
+<script src="espace-client.js"></script>
+</body>
+</html>

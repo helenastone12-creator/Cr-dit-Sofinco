@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connexion — Espace client Sofinco</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="espace-client.css"/>
+</head>
+<body class="ec-body">
+
+<div class="ec-auth-wrap">
+
+  <a href="index.html" class="ec-auth-logo">Jkl.oin</a>
+  <p class="ec-auth-sub">Espace client</p>
+
+  <div class="ec-auth-card">
+    <h1 class="ec-auth-title">Connexion</h1>
+    <p class="ec-auth-hint">Accédez à vos crédits et documents en toute sécurité.</p>
+
+    <div id="ec-login-err" class="ec-form-err" style="display:none">
+      Identifiants incorrects. Vérifiez votre email et mot de passe.
+    </div>
+
+    <div class="ec-form-group">
+      <label class="ec-lbl" for="ec-email">Adresse email</label>
+      <input type="email" id="ec-email" class="ec-inp" placeholder="votre@email.fr" autocomplete="email"/>
+    </div>
+
+    <div class="ec-form-group">
+      <label class="ec-lbl" for="ec-pwd">Mot de passe</label>
+      <div class="ec-pwd-wrap">
+        <input type="password" id="ec-pwd" class="ec-inp" placeholder="••••••••" autocomplete="current-password"/>
+        <button type="button" class="ec-eye-btn" onclick="ecTogglePwd('ec-pwd',this)" aria-label="Afficher le mot de passe">
+          <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <a href="mot-de-passe-oublie.html" class="ec-forgot">Mot de passe oublié ?</a>
+
+    <button class="ec-btn-primary" onclick="ecLogin()">Se connecter</button>
+
+    <div class="ec-auth-sep"><span>ou</span></div>
+
+    <a href="inscription.html" class="ec-btn-secondary">Créer mon espace client</a>
+  </div>
+
+  <p class="ec-auth-legal">
+    Vos données sont protégées conformément au RGPD.<br/>
+    <a href="politique-donnees.html">Politique de confidentialité</a>
+  </p>
+
+</div>
+
+<script src="espace-client.js"></script>
+</body>
+</html>
