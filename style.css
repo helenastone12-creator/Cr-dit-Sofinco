@@ -1119,56 +1119,54 @@ body.pg-inner .editorial{background:none}
 /* Prevent horizontal overflow inside the simulator on step 5 */
 #sp5{ width:100%;box-sizing:border-box;overflow-x:hidden; }
 
-/* ── Progress bar — style professionnel ── */
-.sp5-prog-bar{
-  display:flex;align-items:flex-start;
-  width:100%;box-sizing:border-box;
-  margin:0 0 2rem;padding:.4rem 0 0;
+/* ── Stepper 2026 — segmenté style fintech ── */
+.sp5-stepper{
+  margin:0 0 1.8rem;
 }
-.sp5-prog-step{
-  display:flex;flex-direction:column;align-items:center;gap:.45rem;
-  flex:0 0 auto;position:relative;z-index:1;
+/* 4 barres colorées */
+.sp5-seg-track{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:4px;
+  margin-bottom:.65rem;
 }
-/* Numéro / coche dans le cercle */
-.sp5-prog-dot{
-  width:32px;height:32px;border-radius:50%;
-  border:2px solid #d0d5dd;background:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.78rem;font-weight:800;color:#aaa;
-  transition:all .25s;flex-shrink:0;
-  box-shadow:0 0 0 3px #fff;
+.sp5-seg{
+  height:4px;border-radius:4px;
+  background:#e4e7ec;
+  transition:background .3s ease;
+  position:relative;overflow:hidden;
 }
-/* Étape active */
-.sp5-prog-step.active .sp5-prog-dot{
-  background:var(--teal);border-color:var(--teal);
-  color:#fff;box-shadow:0 0 0 4px rgba(6,194,176,.15);
+/* Complété : teal plein */
+.sp5-seg.done{
+  background:var(--teal);
 }
-/* Étape terminée — affiche une coche */
-.sp5-prog-step.done .sp5-prog-dot{
-  background:var(--teal);border-color:var(--teal);color:#fff;
+/* Actif : teal avec effet shimmer */
+.sp5-seg.active{
+  background:var(--teal);
 }
-.sp5-prog-step.done .sp5-prog-dot::after{
+.sp5-seg.active::after{
   content:'';
-  display:block;width:9px;height:5px;
-  border-left:2px solid #fff;border-bottom:2px solid #fff;
-  transform:rotate(-45deg) translateY(-1px);
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.4) 50%,transparent 100%);
+  animation:sp5Shimmer 1.6s ease-in-out infinite;
 }
-/* Label sous le cercle */
-.sp5-prog-step span{
-  font-size:.67rem;font-weight:600;color:#aaa;
+@keyframes sp5Shimmer{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+/* Labels */
+.sp5-step-labels{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:4px;
+}
+.sp5-slbl{
+  font-size:.65rem;font-weight:600;color:#b0b7c3;
   text-align:center;white-space:nowrap;
-  transition:color .25s;letter-spacing:.01em;
+  overflow:hidden;text-overflow:ellipsis;
+  transition:color .25s,font-weight .25s;
+  letter-spacing:.01em;
 }
-.sp5-prog-step.active span{ color:var(--teal);font-weight:700; }
-.sp5-prog-step.done span{ color:var(--teal-d); }
-/* Ligne de connexion */
-.sp5-prog-line{
-  flex:1;height:1.5px;
-  background:#d0d5dd;
-  margin-top:15px;
-  transition:background .3s;
+.sp5-slbl.active{
+  color:var(--navy);font-weight:800;font-size:.68rem;
 }
-.sp5-prog-line.done{ background:var(--teal); }
+.sp5-slbl.done{ color:var(--teal); }
 
 /* ── Title ── */
 .sp5-title{

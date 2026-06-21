@@ -527,23 +527,19 @@ function sp5Civ(val){
 
 function sp5UpdateProg(step){
   for(var i=1;i<=4;i++){
-    var el = document.getElementById('sp5p'+i);
-    if(!el) continue;
-    var isDone = i < step;
+    var seg = document.getElementById('sp5p'+i);
+    var lbl = document.getElementById('sp5l'+i);
+    var isDone   = i < step;
     var isActive = i === step;
-    el.classList.toggle('active', isActive);
-    el.classList.toggle('done', isDone);
-    var dot = el.querySelector('.sp5-prog-dot');
-    if(dot){
-      // Étape terminée : vide le chiffre (la coche est en ::after CSS)
-      // Étape active/future : affiche le chiffre
-      dot.textContent = isDone ? '' : String(i);
+    if(seg){
+      seg.classList.toggle('done',   isDone);
+      seg.classList.toggle('active', isActive);
+    }
+    if(lbl){
+      lbl.classList.toggle('done',   isDone);
+      lbl.classList.toggle('active', isActive);
     }
   }
-  var lines = document.querySelectorAll('.sp5-prog-line');
-  lines.forEach(function(l,idx){
-    l.classList.toggle('done', idx+1 < step);
-  });
 }
 
 function sp5Validate(step){
