@@ -1101,3 +1101,244 @@ body.pg-inner .editorial{background:none}
   .cookie-btns{flex-direction:row}
   .cookie-btn-accept,.cookie-btn-settings{flex:1}
 }
+
+
+/* ═══════════════════════════════════════════════
+   SP5 — Formulaire multi-étapes (5A→5B→5C→5D)
+════════════════════════════════════════════════*/
+
+/* Hide bottombar on step 5 */
+.sp5-active .sim-bottombar{ display:none !important; }
+
+/* Sub-step visibility */
+.sp5-sub{ display:none; }
+.sp5-sub.s5-show{ display:block; }
+
+/* ── Progress bar ── */
+.sp5-prog-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;margin:0 0 1.6rem;padding-top:.2rem;
+}
+.sp5-prog-step{
+  display:flex;flex-direction:column;align-items:center;gap:.35rem;
+  min-width:64px;
+}
+.sp5-prog-dot{
+  width:30px;height:30px;border-radius:50%;
+  border:2.5px solid #ccc;background:#fff;
+  transition:background .25s,border-color .25s;
+}
+.sp5-prog-step.active .sp5-prog-dot{
+  background:var(--teal);border-color:var(--teal);
+}
+.sp5-prog-step.done .sp5-prog-dot{
+  background:var(--teal-d);border-color:var(--teal-d);
+}
+.sp5-prog-step span{
+  font-size:.68rem;font-weight:600;color:#aaa;text-align:center;
+  transition:color .25s;
+}
+.sp5-prog-step.active span,.sp5-prog-step.done span{ color:var(--teal); }
+.sp5-prog-line{
+  flex:1;height:2px;background:#ccc;
+  margin-bottom:1.1rem;max-width:40px;
+  transition:background .25s;
+}
+.sp5-prog-line.done{ background:var(--teal-d); }
+
+/* ── Title ── */
+.sp5-title{
+  font-size:1.25rem;font-weight:800;color:var(--navy);
+  margin:0 0 1.2rem;
+}
+
+/* ── Labels & required star ── */
+.sp5-lbl{
+  display:block;font-size:.82rem;font-weight:700;
+  color:var(--navy);margin-bottom:.35rem;
+}
+.sp5-req{ color:var(--teal);font-weight:800; }
+
+/* ── Field group ── */
+.sp5-field-group{ margin-bottom:1rem;position:relative; }
+
+/* ── 2-column row ── */
+.sp5-row2{ display:grid;grid-template-columns:1fr 1fr;gap:.9rem; }
+@media(max-width:479px){
+  .sp5-row2{ grid-template-columns:1fr; }
+}
+
+/* ── Civilité pills ── */
+.sp5-civ-row{ display:flex;gap:.6rem;margin-top:.15rem; }
+.sp5-civ-btn{
+  flex:1;padding:.7rem 0;border-radius:2rem;border:2px solid #ddd;
+  background:#fff;font-size:.95rem;font-weight:700;color:#666;
+  cursor:pointer;transition:all .2s;font-family:inherit;
+}
+.sp5-civ-btn.active{
+  border-color:var(--teal);background:var(--teal);color:#fff;
+}
+
+/* ── Inputs & selects ── */
+.sp5-inp,.sp5-sel{
+  width:100%;box-sizing:border-box;
+  border:1.5px solid #ddd;border-radius:10px;
+  padding:.72rem .9rem;font-size:.95rem;font-family:inherit;
+  color:var(--navy);background:#fff;
+  transition:border-color .2s;outline:none;
+  -webkit-appearance:none;appearance:none;
+}
+.sp5-inp:focus,.sp5-sel:focus{ border-color:var(--teal); }
+.sp5-inp.err,.sp5-sel.err{ border-color:#e74c3c; }
+.sp5-sel{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .85rem center;
+  padding-right:2.2rem;
+}
+
+/* ── Error text ── */
+.sp5-err{
+  display:none;font-size:.76rem;color:#e74c3c;
+  margin-top:.3rem;font-weight:600;
+}
+.sp5-err.show{ display:block; }
+
+/* ── 2-column professional layout (5B) ── */
+.sp5-2col{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;
+  margin-bottom:.5rem;
+}
+@media(max-width:600px){
+  .sp5-2col{ grid-template-columns:1fr; }
+}
+.sp5-col-block{
+  background:#f8f9fb;border-radius:14px;padding:1rem 1.1rem;
+}
+.sp5-col-hd{
+  font-size:.72rem;font-weight:800;color:var(--teal);
+  letter-spacing:.06em;margin-bottom:.9rem;
+}
+
+/* ── Consent checkboxes ── */
+.sp5-consent-block{ margin:1rem 0; }
+.sp5-check-item{
+  display:flex;align-items:flex-start;gap:.7rem;
+  margin-bottom:.6rem;cursor:pointer;
+}
+.sp5-check-item input[type="checkbox"]{
+  display:none;
+}
+.sp5-check-box{
+  width:20px;height:20px;min-width:20px;border-radius:5px;
+  border:2px solid #ccc;background:#fff;margin-top:.1rem;
+  transition:all .2s;position:relative;
+}
+.sp5-check-item input:checked + .sp5-check-box{
+  background:var(--teal);border-color:var(--teal);
+}
+.sp5-check-item input:checked + .sp5-check-box::after{
+  content:'✓';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-55%);color:#fff;font-size:.75rem;font-weight:800;
+}
+.sp5-check-txt{
+  font-size:.82rem;color:#555;line-height:1.5;
+}
+.sp5-check-txt a{ color:var(--teal);text-decoration:underline; }
+
+/* ── Document section ── */
+.sp5-doc-section{ margin-bottom:1.3rem; }
+.sp5-doc-sec-lbl{
+  font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.6rem;
+}
+
+/* ── Doc tabs (CNI / Passeport / Permis) ── */
+.sp5-doc-tabs{
+  display:flex;gap:.4rem;margin-bottom:.9rem;
+  border-bottom:2px solid #eee;padding-bottom:.5rem;
+  flex-wrap:wrap;
+}
+.sp5-doc-tab{
+  padding:.42rem .85rem;border-radius:2rem;border:1.5px solid #ddd;
+  background:#fff;font-size:.8rem;font-weight:700;color:#666;
+  cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap;
+}
+.sp5-doc-tab.active{
+  background:var(--navy);border-color:var(--navy);color:#fff;
+}
+
+/* ── Document panels ── */
+.sp5-doc-panel{ }
+.sp5-doc-panel-hide{ display:none; }
+
+/* ── Upload grid (CNI recto+verso) ── */
+.sp5-upload-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.8rem;
+}
+@media(max-width:420px){
+  .sp5-upload-grid{ grid-template-columns:1fr; }
+}
+
+/* ── Upload item ── */
+.sp5-upload-item{
+  border:2px dashed #ddd;border-radius:14px;
+  padding:1.1rem .8rem;text-align:center;
+  background:#fafafa;transition:border-color .2s,background .2s;
+}
+.sp5-upload-item.has-file{
+  border-color:var(--teal);background:#f0faf9;border-style:solid;
+}
+.sp5-upload-ico{ font-size:1.8rem;margin-bottom:.35rem; }
+.sp5-upload-lbl{
+  font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.2rem;
+}
+.sp5-upload-sub{ font-size:.72rem;color:#888;margin-bottom:.65rem; }
+.sp5-upload-name{
+  font-size:.75rem;color:var(--teal);font-weight:600;
+  margin-top:.3rem;word-break:break-all;
+}
+
+/* ── Choisir button ── */
+.sp5-choisir{
+  background:var(--navy);color:#fff;border:none;border-radius:2rem;
+  padding:.5rem 1.1rem;font-size:.82rem;font-weight:700;
+  font-family:inherit;cursor:pointer;transition:background .2s;
+}
+.sp5-choisir:hover{ background:var(--teal); }
+.sp5-upload-item.has-file .sp5-choisir{
+  background:var(--teal);
+}
+
+/* ── Hidden file input ── */
+.sp5-file-inp{ display:none !important; }
+
+/* ── Navigation buttons ── */
+.sp5-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:1.4rem;padding-top:1rem;border-top:1px solid #eee;
+  gap:.8rem;
+}
+.sp5-back-btn{
+  padding:.75rem 1.3rem;border-radius:2rem;
+  border:2px solid var(--navy);background:#fff;
+  font-size:.9rem;font-weight:700;color:var(--navy);
+  cursor:pointer;font-family:inherit;transition:all .2s;
+  white-space:nowrap;
+}
+.sp5-back-btn:hover{ background:var(--navy);color:#fff; }
+.sp5-cont-btn{
+  padding:.78rem 1.6rem;border-radius:2rem;
+  background:var(--teal);color:#fff;border:none;
+  font-size:.9rem;font-weight:700;font-family:inherit;
+  cursor:pointer;transition:background .2s;white-space:nowrap;
+}
+.sp5-cont-btn:hover{ background:var(--teal-d); }
+.sp5-send-btn{
+  padding:.82rem 1.6rem;border-radius:2rem;
+  background:var(--teal);color:#fff;border:none;
+  font-size:.95rem;font-weight:800;font-family:inherit;
+  cursor:pointer;transition:background .2s;white-space:nowrap;
+  letter-spacing:.01em;
+}
+.sp5-send-btn:hover{ background:var(--teal-d); }
+.sp5-arr{ font-size:1.1rem; }
+.sp5-arr-l{ font-size:1.1rem; }

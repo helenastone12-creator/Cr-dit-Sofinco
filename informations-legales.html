@@ -689,69 +689,368 @@
     </div>
 
 
-    <!-- ── Étape 5 : Formulaire de demande ── -->
-    <div class="sim-pane" id="sp5">
-      <h1 class="sim-title">Votre demande de crédit</h1>
-      <p class="sim-sub">Renseignez vos informations pour finaliser votre demande.</p>
-      <p class="sim-req">Tous les champs sont obligatoires</p>
+    <!-- ── Étape 5 : Formulaire multi-étapes ── -->
+<div class="sim-pane" id="sp5">
 
-      <div class="sim-form-group">
-        <label class="sim-form-lbl">Civilité</label>
-        <div class="sim-civility">
-          <label><input type="radio" name="civilite" value="M" checked/> M.</label>
-          <label><input type="radio" name="civilite" value="Mme"/> Mme</label>
-        </div>
+  <!-- Barre de progression sp5 -->
+  <div class="sp5-prog-bar">
+    <div class="sp5-prog-step active" id="sp5p1">
+      <div class="sp5-prog-dot"></div>
+      <span>Identité</span>
+    </div>
+    <div class="sp5-prog-line"></div>
+    <div class="sp5-prog-step" id="sp5p2">
+      <div class="sp5-prog-dot"></div>
+      <span>Situation</span>
+    </div>
+    <div class="sp5-prog-line"></div>
+    <div class="sp5-prog-step" id="sp5p3">
+      <div class="sp5-prog-dot"></div>
+      <span>Coordonnées</span>
+    </div>
+    <div class="sp5-prog-line"></div>
+    <div class="sp5-prog-step" id="sp5p4">
+      <div class="sp5-prog-dot"></div>
+      <span>Documents</span>
+    </div>
+  </div>
+
+  <!-- ── 5A : Votre identité ── -->
+  <div class="sp5-sub s5-show" id="sp5a">
+    <h2 class="sp5-title">Votre identité</h2>
+
+    <div class="sp5-field-group">
+      <label class="sp5-lbl">Civilité <span class="sp5-req">*</span></label>
+      <div class="sp5-civ-row">
+        <button type="button" class="sp5-civ-btn active" id="sp5-civ-m" onclick="sp5Civ('M')">M.</button>
+        <button type="button" class="sp5-civ-btn" id="sp5-civ-f" onclick="sp5Civ('Mme')">Mme</button>
       </div>
-
-      <div class="sim-form-row">
-        <div class="sim-form-group">
-          <label class="sim-form-lbl" for="f-prenom">Prénom</label>
-          <input type="text" id="f-prenom" class="sim-form-input" placeholder="Votre prénom" autocomplete="given-name"/>
-        </div>
-        <div class="sim-form-group">
-          <label class="sim-form-lbl" for="f-nom">Nom</label>
-          <input type="text" id="f-nom" class="sim-form-input" placeholder="Votre nom" autocomplete="family-name"/>
-        </div>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-ddn">Date de naissance</label>
-        <input type="date" id="f-ddn" class="sim-form-input"/>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-email">Email</label>
-        <input type="email" id="f-email" class="sim-form-input" placeholder="votre@email.fr" autocomplete="email"/>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-tel">Téléphone mobile</label>
-        <input type="tel" id="f-tel" class="sim-form-input" placeholder="06 XX XX XX XX" autocomplete="tel"/>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-sitpro">Situation professionnelle</label>
-        <select id="f-sitpro" class="sim-sel">
-          <option value="" disabled selected>Choisissez...</option>
-          <option value="cdi">Salarié(e) CDI</option>
-          <option value="cdd">Salarié(e) CDD</option>
-          <option value="independant">Travailleur indépendant</option>
-          <option value="fonctionnaire">Fonctionnaire / Titulaire</option>
-          <option value="retraite">Retraité(e)</option>
-          <option value="sans">Sans emploi</option>
-          <option value="autre">Autre</option>
-        </select>
-      </div>
-
-      <div class="sim-form-group">
-        <label class="sim-form-lbl" for="f-revenus">Revenus mensuels nets (€)</label>
-        <input type="number" id="f-revenus" class="sim-form-input" placeholder="Ex : 2 000" min="0"/>
-      </div>
-
-      <p class="sim-form-note">En soumettant ce formulaire, vous acceptez que vos données soient traitées par Jkl.oin dans le cadre de votre demande de crédit. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données conformément à la réglementation en vigueur.</p>
     </div>
 
-  </div><!-- /sim-body -->
+    <div class="sp5-row2">
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-nom">Nom <span class="sp5-req">*</span></label>
+        <input type="text" id="s5-nom" class="sp5-inp" placeholder="Votre nom" autocomplete="family-name"/>
+        <span class="sp5-err" id="s5-nom-err">Champ requis</span>
+      </div>
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-prenom">Prénom <span class="sp5-req">*</span></label>
+        <input type="text" id="s5-prenom" class="sp5-inp" placeholder="Votre prénom" autocomplete="given-name"/>
+        <span class="sp5-err" id="s5-prenom-err">Champ requis</span>
+      </div>
+    </div>
+
+    <div class="sp5-row2">
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-ddn">Date de naissance <span class="sp5-req">*</span></label>
+        <input type="date" id="s5-ddn" class="sp5-inp"/>
+        <span class="sp5-err" id="s5-ddn-err">Champ requis</span>
+      </div>
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-nat">Nationalité <span class="sp5-req">*</span></label>
+        <select id="s5-nat" class="sp5-sel">
+          <option value="" disabled selected>Choisir...</option>
+          <option value="FR">Française</option>
+          <option value="EU">Européenne</option>
+          <option value="AUTRE">Autre</option>
+        </select>
+        <span class="sp5-err" id="s5-nat-err">Champ requis</span>
+      </div>
+    </div>
+
+    <div class="sp5-row2">
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-sitfam">Situation familiale <span class="sp5-req">*</span></label>
+        <select id="s5-sitfam" class="sp5-sel">
+          <option value="" disabled selected>Choisir...</option>
+          <option value="celibataire">Célibataire</option>
+          <option value="marie">Marié(e)</option>
+          <option value="pacse">Pacsé(e)</option>
+          <option value="concubin">En concubinage</option>
+          <option value="divorce">Divorcé(e)</option>
+          <option value="veuf">Veuf/Veuve</option>
+        </select>
+        <span class="sp5-err" id="s5-sitfam-err">Champ requis</span>
+      </div>
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-enfants">Nombre d'enfants à charge <span class="sp5-req">*</span></label>
+        <select id="s5-enfants" class="sp5-sel">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5+">5 ou plus</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sp5-nav">
+      <div></div>
+      <button type="button" class="sp5-cont-btn" onclick="sp5Go(2)">Continuer <span class="sp5-arr">›</span></button>
+    </div>
+  </div><!-- /sp5a -->
+
+  <!-- ── 5B : Votre situation professionnelle ── -->
+  <div class="sp5-sub" id="sp5b">
+    <h2 class="sp5-title">Votre situation professionnelle</h2>
+
+    <div class="sp5-2col">
+      <div class="sp5-col-block">
+        <div class="sp5-col-hd">SITUATION PROFESSIONNELLE</div>
+
+        <div class="sp5-field-group">
+          <label class="sp5-lbl" for="s5-sitpro">Situation <span class="sp5-req">*</span></label>
+          <select id="s5-sitpro" class="sp5-sel">
+            <option value="" disabled selected>Choisir...</option>
+            <option value="cdi">Salarié(e) CDI</option>
+            <option value="cdd">Salarié(e) CDD</option>
+            <option value="independant">Travailleur indépendant</option>
+            <option value="fonctionnaire">Fonctionnaire / Titulaire</option>
+            <option value="interim">Intérimaire</option>
+            <option value="retraite">Retraité(e)</option>
+            <option value="sans">Sans emploi</option>
+            <option value="autre">Autre</option>
+          </select>
+          <span class="sp5-err" id="s5-sitpro-err">Champ requis</span>
+        </div>
+
+        <div class="sp5-field-group">
+          <label class="sp5-lbl" for="s5-secteur">Secteur d'activité <span class="sp5-req">*</span></label>
+          <select id="s5-secteur" class="sp5-sel">
+            <option value="" disabled selected>Choisir...</option>
+            <option value="prive">Secteur privé</option>
+            <option value="public">Secteur public</option>
+            <option value="agricole">Agriculture</option>
+            <option value="commerce">Commerce</option>
+            <option value="industrie">Industrie</option>
+            <option value="services">Services</option>
+            <option value="autre">Autre</option>
+          </select>
+          <span class="sp5-err" id="s5-secteur-err">Champ requis</span>
+        </div>
+
+        <div class="sp5-field-group">
+          <label class="sp5-lbl" for="s5-anciennete">Ancienneté dans l'emploi <span class="sp5-req">*</span></label>
+          <select id="s5-anciennete" class="sp5-sel">
+            <option value="" disabled selected>Choisir...</option>
+            <option value="moins1">Moins d'1 an</option>
+            <option value="1-3">1 à 3 ans</option>
+            <option value="3-5">3 à 5 ans</option>
+            <option value="plus5">Plus de 5 ans</option>
+          </select>
+          <span class="sp5-err" id="s5-anciennete-err">Champ requis</span>
+        </div>
+      </div>
+
+      <div class="sp5-col-block">
+        <div class="sp5-col-hd">SITUATION FINANCIÈRE</div>
+
+        <div class="sp5-field-group">
+          <label class="sp5-lbl" for="s5-revenus">Revenus mensuels nets (€) <span class="sp5-req">*</span></label>
+          <input type="number" id="s5-revenus" class="sp5-inp" placeholder="Ex : 2 000" min="0"/>
+          <span class="sp5-err" id="s5-revenus-err">Champ requis</span>
+        </div>
+
+        <div class="sp5-field-group">
+          <label class="sp5-lbl" for="s5-autres-rev">Autres revenus mensuels (€)</label>
+          <input type="number" id="s5-autres-rev" class="sp5-inp" placeholder="Ex : 500" min="0"/>
+        </div>
+
+        <div class="sp5-field-group">
+          <label class="sp5-lbl" for="s5-charges">Charges mensuelles (€) <span class="sp5-req">*</span></label>
+          <input type="number" id="s5-charges" class="sp5-inp" placeholder="Ex : 800" min="0"/>
+          <span class="sp5-err" id="s5-charges-err">Champ requis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp5-nav">
+      <button type="button" class="sp5-back-btn" onclick="sp5Go(1)"><span class="sp5-arr-l">‹</span> Retour</button>
+      <button type="button" class="sp5-cont-btn" onclick="sp5Go(3)">Continuer <span class="sp5-arr">›</span></button>
+    </div>
+  </div><!-- /sp5b -->
+
+  <!-- ── 5C : Vos coordonnées ── -->
+  <div class="sp5-sub" id="sp5c">
+    <h2 class="sp5-title">Vos coordonnées</h2>
+
+    <div class="sp5-row2">
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-email">Email <span class="sp5-req">*</span></label>
+        <input type="email" id="s5-email" class="sp5-inp" placeholder="votre@email.fr" autocomplete="email"/>
+        <span class="sp5-err" id="s5-email-err">Email invalide</span>
+      </div>
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-tel">Téléphone mobile <span class="sp5-req">*</span></label>
+        <input type="tel" id="s5-tel" class="sp5-inp" placeholder="06 XX XX XX XX" autocomplete="tel"/>
+        <span class="sp5-err" id="s5-tel-err">Numéro invalide</span>
+      </div>
+    </div>
+
+    <div class="sp5-field-group">
+      <label class="sp5-lbl" for="s5-adresse">Adresse <span class="sp5-req">*</span></label>
+      <input type="text" id="s5-adresse" class="sp5-inp" placeholder="N° et nom de rue" autocomplete="street-address"/>
+      <span class="sp5-err" id="s5-adresse-err">Champ requis</span>
+    </div>
+
+    <div class="sp5-row2">
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-cp">Code postal <span class="sp5-req">*</span></label>
+        <input type="text" id="s5-cp" class="sp5-inp" placeholder="75001" maxlength="5" autocomplete="postal-code"/>
+        <span class="sp5-err" id="s5-cp-err">Code postal invalide</span>
+      </div>
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-ville">Ville <span class="sp5-req">*</span></label>
+        <input type="text" id="s5-ville" class="sp5-inp" placeholder="Paris" autocomplete="address-level2"/>
+        <span class="sp5-err" id="s5-ville-err">Champ requis</span>
+      </div>
+    </div>
+
+    <div class="sp5-row2">
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-banque">Banque principale <span class="sp5-req">*</span></label>
+        <select id="s5-banque" class="sp5-sel">
+          <option value="" disabled selected>Choisir...</option>
+          <option value="bnp">BNP Paribas</option>
+          <option value="sg">Société Générale</option>
+          <option value="ca">Crédit Agricole</option>
+          <option value="lcl">LCL</option>
+          <option value="ce">Caisse d'Épargne</option>
+          <option value="bp">Banque Populaire</option>
+          <option value="cm">Crédit Mutuel</option>
+          <option value="hsbc">HSBC</option>
+          <option value="bourso">Boursorama</option>
+          <option value="autre">Autre</option>
+        </select>
+        <span class="sp5-err" id="s5-banque-err">Champ requis</span>
+      </div>
+      <div class="sp5-field-group">
+        <label class="sp5-lbl" for="s5-iban">IBAN <span class="sp5-req">*</span></label>
+        <input type="text" id="s5-iban" class="sp5-inp" placeholder="FR76 XXXX XXXX XXXX" autocomplete="off"/>
+        <span class="sp5-err" id="s5-iban-err">IBAN invalide</span>
+      </div>
+    </div>
+
+    <div class="sp5-consent-block">
+      <label class="sp5-check-item">
+        <input type="checkbox" id="s5-cg1"/>
+        <span class="sp5-check-box"></span>
+        <span class="sp5-check-txt">J'accepte que mes données personnelles soient traitées par Sofinco dans le cadre de ma demande de crédit. <a href="politique-donnees.html" target="_blank">En savoir plus</a></span>
+      </label>
+      <span class="sp5-err" id="s5-cg1-err">Consentement requis</span>
+
+      <label class="sp5-check-item">
+        <input type="checkbox" id="s5-cg2"/>
+        <span class="sp5-check-box"></span>
+        <span class="sp5-check-txt">J'accepte les <a href="cgu.html" target="_blank">Conditions Générales d'Utilisation</a> et la politique de confidentialité.</span>
+      </label>
+      <span class="sp5-err" id="s5-cg2-err">Consentement requis</span>
+
+      <label class="sp5-check-item">
+        <input type="checkbox" id="s5-cg3"/>
+        <span class="sp5-check-box"></span>
+        <span class="sp5-check-txt">J'accepte de recevoir des offres commerciales de la part de Sofinco et de ses partenaires. (Facultatif)</span>
+      </label>
+    </div>
+
+    <div class="sp5-nav">
+      <button type="button" class="sp5-back-btn" onclick="sp5Go(2)"><span class="sp5-arr-l">‹</span> Retour</button>
+      <button type="button" class="sp5-cont-btn" onclick="sp5Go(4)">Continuer <span class="sp5-arr">›</span></button>
+    </div>
+  </div><!-- /sp5c -->
+
+  <!-- ── 5D : Vos documents ── -->
+  <div class="sp5-sub" id="sp5d">
+    <h2 class="sp5-title">Vos documents</h2>
+
+    <!-- Pièce d'identité -->
+    <div class="sp5-doc-section">
+      <div class="sp5-doc-sec-lbl">Pièce d'identité <span class="sp5-req">*</span></div>
+
+      <div class="sp5-doc-tabs">
+        <button type="button" class="sp5-doc-tab active" onclick="sp5DocTab('cni',this)">Carte nationale d'identité</button>
+        <button type="button" class="sp5-doc-tab" onclick="sp5DocTab('passport',this)">Passeport</button>
+        <button type="button" class="sp5-doc-tab" onclick="sp5DocTab('permis',this)">Permis de conduire</button>
+      </div>
+
+      <!-- CNI : recto + verso -->
+      <div class="sp5-doc-panel" id="sp5-panel-cni">
+        <div class="sp5-upload-grid">
+          <div class="sp5-upload-item" id="sp5-up-cni-r">
+            <div class="sp5-upload-ico">🪪</div>
+            <div class="sp5-upload-lbl">Recto</div>
+            <div class="sp5-upload-sub">JPG, PNG ou PDF – 5 Mo max</div>
+            <button type="button" class="sp5-choisir" onclick="sp5PickFile('cni-r')">Choisir</button>
+            <input type="file" id="f-cni-r" class="sp5-file-inp" accept="image/*,.pdf" onchange="sp5FileChosen('cni-r',this)"/>
+          </div>
+          <div class="sp5-upload-item" id="sp5-up-cni-v">
+            <div class="sp5-upload-ico">🪪</div>
+            <div class="sp5-upload-lbl">Verso</div>
+            <div class="sp5-upload-sub">JPG, PNG ou PDF – 5 Mo max</div>
+            <button type="button" class="sp5-choisir" onclick="sp5PickFile('cni-v')">Choisir</button>
+            <input type="file" id="f-cni-v" class="sp5-file-inp" accept="image/*,.pdf" onchange="sp5FileChosen('cni-v',this)"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passeport -->
+      <div class="sp5-doc-panel sp5-doc-panel-hide" id="sp5-panel-passport">
+        <div class="sp5-upload-item" id="sp5-up-passport">
+          <div class="sp5-upload-ico">📘</div>
+          <div class="sp5-upload-lbl">Page avec photo</div>
+          <div class="sp5-upload-sub">JPG, PNG ou PDF – 5 Mo max</div>
+          <button type="button" class="sp5-choisir" onclick="sp5PickFile('passport')">Choisir</button>
+          <input type="file" id="f-passport" class="sp5-file-inp" accept="image/*,.pdf" onchange="sp5FileChosen('passport',this)"/>
+        </div>
+      </div>
+
+      <!-- Permis -->
+      <div class="sp5-doc-panel sp5-doc-panel-hide" id="sp5-panel-permis">
+        <div class="sp5-upload-item" id="sp5-up-permis">
+          <div class="sp5-upload-ico">🪪</div>
+          <div class="sp5-upload-lbl">Recto du permis</div>
+          <div class="sp5-upload-sub">JPG, PNG ou PDF – 5 Mo max</div>
+          <button type="button" class="sp5-choisir" onclick="sp5PickFile('permis')">Choisir</button>
+          <input type="file" id="f-permis" class="sp5-file-inp" accept="image/*,.pdf" onchange="sp5FileChosen('permis',this)"/>
+        </div>
+      </div>
+      <span class="sp5-err" id="s5-id-err">Veuillez fournir votre pièce d'identité</span>
+    </div>
+
+    <!-- Justificatif de domicile -->
+    <div class="sp5-doc-section">
+      <div class="sp5-doc-sec-lbl">Justificatif de domicile <span class="sp5-req">*</span></div>
+      <div class="sp5-upload-item" id="sp5-up-domicile">
+        <div class="sp5-upload-ico">🏠</div>
+        <div class="sp5-upload-lbl">Facture ou quittance (- 3 mois)</div>
+        <div class="sp5-upload-sub">JPG, PNG ou PDF – 5 Mo max</div>
+        <button type="button" class="sp5-choisir" onclick="sp5PickFile('domicile')">Choisir</button>
+        <input type="file" id="f-domicile" class="sp5-file-inp" accept="image/*,.pdf" onchange="sp5FileChosen('domicile',this)"/>
+      </div>
+      <span class="sp5-err" id="s5-dom-err">Veuillez fournir un justificatif de domicile</span>
+    </div>
+
+    <!-- Justificatif de revenus -->
+    <div class="sp5-doc-section">
+      <div class="sp5-doc-sec-lbl">Justificatif de revenus <span class="sp5-req">*</span></div>
+      <div class="sp5-upload-item" id="sp5-up-revenus">
+        <div class="sp5-upload-ico">💶</div>
+        <div class="sp5-upload-lbl">3 derniers bulletins de salaire</div>
+        <div class="sp5-upload-sub">JPG, PNG ou PDF – 5 Mo max chacun</div>
+        <button type="button" class="sp5-choisir" onclick="sp5PickFile('revenus-doc')">Choisir</button>
+        <input type="file" id="f-revenus-doc" class="sp5-file-inp" accept="image/*,.pdf" multiple onchange="sp5FileChosen('revenus-doc',this)"/>
+      </div>
+      <span class="sp5-err" id="s5-rev-err">Veuillez fournir vos justificatifs de revenus</span>
+    </div>
+
+    <div class="sp5-nav">
+      <button type="button" class="sp5-back-btn" onclick="sp5Go(3)"><span class="sp5-arr-l">‹</span> Retour</button>
+      <button type="button" class="sp5-send-btn" onclick="sp5Submit()">Envoyer ma demande ✈</button>
+    </div>
+  </div><!-- /sp5d -->
+
+</div><!-- /sp5 --></div><!-- /sim-body -->
 
   <!-- Barre du bas fixe -->
   <div class="sim-bottombar">
