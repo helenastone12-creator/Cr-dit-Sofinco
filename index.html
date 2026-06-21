@@ -694,7 +694,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-page.open{display:block}
 /* Header sticky */
 .sim-ph{position:sticky;top:var(--tb);background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
-.sim-ph-logo{font-size:1.25rem;font-weight:800;color:var(--navy);letter-spacing:-.5px}
+.sim-ph-logo{font-size:1.25rem;font-weight:800;color:var(--navy);letter-spacing:-.5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
 .sim-ph-quit{position:absolute;right:1rem;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline;padding:.3rem}
 .sim-ph-quit:hover{color:var(--orange)}
 /* Body */
@@ -1042,7 +1042,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       </svg>
       <span>Fermer</span>
     </button>
-    <span class="mob-mhd-logo">Jkl.oin</span>
+    <a href="#" class="mob-mhd-logo pg-link">Jkl.oin</a>
     <button class="mob-search-btn" aria-label="Recherche">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </button>
@@ -3363,7 +3363,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <!-- En-tête sticky -->
   <div class="sim-ph">
-    <span class="sim-ph-logo">Jkl.oin</span>
+    <button class="sim-ph-logo" id="sim-ph-logo">Jkl.oin</button>
     <button class="sim-ph-quit" id="sim-ph-quit">Quitter</button>
   </div>
 
@@ -3794,6 +3794,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   }
 
   document.getElementById('sim-ph-quit').addEventListener('click',closeSim);
+  document.getElementById('sim-ph-logo').addEventListener('click',closeSim);
 
   document.querySelectorAll('.sim-proj-card').forEach(function(btn){
     btn.addEventListener('click',function(){
