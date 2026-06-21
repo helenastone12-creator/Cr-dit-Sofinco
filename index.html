@@ -3546,6 +3546,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <div class="sim-res-val" id="sim-r-monthly">— €</div>
         <p class="sim-res-unit">par mois</p>
         <div class="sim-res-tbl">
+          <div class="sim-res-row"><span>Projet</span><b id="sim-r-projet">—</b></div>
           <div class="sim-res-row"><span>Montant emprunté</span><b id="sim-r-montant">—</b></div>
           <div class="sim-res-row"><span>Durée du crédit</span><b id="sim-r-duree">—</b></div>
           <div class="sim-res-row"><span>TAEG fixe indicatif</span><b id="sim-r-taeg">—</b></div>
@@ -3740,6 +3741,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     var pmt=calcPMT(P,n,isReg);
     var total=pmt*n;
     var cout=total-P;
+    var projetLabels={'famille-loisirs':'Famille & loisirs','auto':'Auto','travaux':'Travaux','autre':'Autre','regroupement':'Regroupement de crédits'};
+    document.getElementById('sim-r-projet').textContent=projetLabels[simData.projet]||simData.projet||'—';
     document.getElementById('sim-r-monthly').textContent=fmtEur(pmt);
     document.getElementById('sim-r-montant').textContent=fmtAmt(P);
     document.getElementById('sim-r-duree').textContent=n+' mois';
