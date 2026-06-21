@@ -733,6 +733,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sim-radio input[type=radio]{width:18px;height:18px;accent-color:var(--orange);cursor:pointer}
 .sim-sel{width:100%;border:1.5px solid #999;border-radius:6px;padding:.95rem 2.5rem .95rem 1rem;font-size:1rem;font-family:inherit;color:var(--navy);outline:none;appearance:none;-webkit-appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 1rem center/11px,#fff;cursor:pointer;transition:border-color .2s;margin-bottom:1.5rem}
 .sim-sel:focus{border-color:var(--teal)}
+/* Custom bottom-sheet dropdown */
+.sim-dd-trigger{width:100%;display:flex;justify-content:space-between;align-items:center;border:1.5px solid #999;border-radius:6px;padding:.95rem 1rem;font-size:1rem;font-family:inherit;color:var(--navy);background:#fff;cursor:pointer;text-align:left;margin-bottom:1.5rem;transition:border-color .2s}
+.sim-dd-trigger:hover,.sim-dd-trigger:focus{border-color:var(--teal);outline:none}
+.sim-dd-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:5500;align-items:flex-end}
+.sim-dd-overlay.open{display:flex}
+.sim-dd-sheet{width:100%;background:#fff;border-radius:16px 16px 0 0;max-height:65vh;display:flex;flex-direction:column;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sim-dd-sheet-hd{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid #eee;flex-shrink:0;font-weight:700;font-size:.95rem;color:var(--navy)}
+.sim-dd-close{background:none;border:none;font-size:1.1rem;cursor:pointer;color:#888;padding:.2rem .6rem;line-height:1;border-radius:50%}
+.sim-dd-list{list-style:none;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;padding:0}
+.sim-dd-item{padding:1rem 1.2rem;font-size:1rem;cursor:pointer;border-bottom:1px solid #f5f5f5;display:flex;justify-content:space-between;align-items:center;color:var(--navy)}
+.sim-dd-item:active{background:#f5f5f5}
+.sim-dd-item.selected{font-weight:700}
+.sim-dd-item.selected::after{content:"✓";color:var(--teal);font-weight:700;font-size:1.1rem}
 /* Step 4 : résultats */
 .sim-res-card{background:linear-gradient(135deg,#f0faff,#e4f4fb);border:1px solid #c0e5f7;border-radius:14px;padding:1.4rem 1.2rem;text-align:center;margin-bottom:1.3rem}
 .sim-res-lbl{font-size:.82rem;color:#778;margin-bottom:.2rem}
@@ -3396,7 +3410,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           Le nombre de mensualités
         </label>
       </div>
-      <select class="sim-sel" id="sim-options-sel" aria-label="Choisissez une option"></select>
+      <button class="sim-dd-trigger" id="sim-options-trigger" type="button">
+        <span id="sim-dd-label">—</span>
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="sim-dd-overlay" id="sim-dd-overlay">
+        <div class="sim-dd-sheet">
+          <div class="sim-dd-sheet-hd">
+            <span id="sim-dd-sheet-title">Choisissez</span>
+            <button class="sim-dd-close" id="sim-dd-close" type="button">✕</button>
+          </div>
+          <ul class="sim-dd-list" id="sim-dd-list"></ul>
+        </div>
+      </div>
       <!-- Common -->
       <p class="sim-tagline">Simulez votre projet en quelques clics, c'est simple et sans engagement&nbsp;!</p>
       <div class="sim-trust-grid">
@@ -3597,27 +3623,39 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   }
 
   function refreshDropdown(){
-    var sel=document.getElementById('sim-options-sel');
-    sel.innerHTML='';
     var P=parseInt(simData.montant)||5000;
     var isReg=(simData.projet==='regroupement');
+    var items=[];
     if(simData.choix==='mensualite'){
+      document.getElementById('sim-dd-sheet-title').textContent='La mensualité';
       [180,144,120,96,84,72,60,48,36,24,12,6].forEach(function(m){
         var pmt=calcPMT(P,m,isReg);
-        var o=document.createElement('option');
-        o.value=m;
-        o.textContent=Math.round(pmt)+' € / mois';
-        sel.appendChild(o);
+        items.push({value:m,label:Math.round(pmt)+' € / mois'});
       });
     } else {
+      document.getElementById('sim-dd-sheet-title').textContent='Le nombre de mensualités';
       [6,12,24,36,48,60,72,84,96,120,144,180].forEach(function(m){
-        var o=document.createElement('option');
-        o.value=m;
-        o.textContent=m+' mensualités';
-        sel.appendChild(o);
+        items.push({value:m,label:m+' mensualités'});
       });
     }
-    simData.duree=parseInt(sel.value);
+    var list=document.getElementById('sim-dd-list');
+    list.innerHTML='';
+    simData.duree=items[0].value;
+    document.getElementById('sim-dd-label').textContent=items[0].label;
+    items.forEach(function(item,i){
+      var li=document.createElement('li');
+      li.className='sim-dd-item'+(i===0?' selected':'');
+      li.dataset.value=item.value;
+      li.textContent=item.label;
+      li.addEventListener('click',function(){
+        simData.duree=parseInt(li.dataset.value);
+        document.getElementById('sim-dd-label').textContent=item.label;
+        list.querySelectorAll('.sim-dd-item').forEach(function(x){x.classList.remove('selected')});
+        li.classList.add('selected');
+        document.getElementById('sim-dd-overlay').classList.remove('open');
+      });
+      list.appendChild(li);
+    });
   }
 
   function renderResults(){
@@ -3697,7 +3735,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       simData.montant=val;
       showStep(3);
     } else if(s===3){
-      simData.duree=parseInt(document.getElementById('sim-options-sel').value);
+      if(!simData.duree) simData.duree=36;
       showStep(4);
     } else if(s===4){
       showStep(5);
@@ -3723,8 +3761,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     });
   });
 
-  document.getElementById('sim-options-sel').addEventListener('change',function(){
-    simData.duree=parseInt(this.value);
+  document.getElementById('sim-options-trigger').addEventListener('click',function(){
+    document.getElementById('sim-dd-overlay').classList.add('open');
+  });
+  document.getElementById('sim-dd-close').addEventListener('click',function(){
+    document.getElementById('sim-dd-overlay').classList.remove('open');
+  });
+  document.getElementById('sim-dd-overlay').addEventListener('click',function(e){
+    if(e.target===this) this.classList.remove('open');
   });
 
   document.getElementById('sim-restart').addEventListener('click',function(){
