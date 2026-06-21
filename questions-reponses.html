@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crédit Jkl.oin : crédits auto, conso, perso, rachat et simulation de prêt</title>
+  <title>FAQ — Jkl.oin</title>
   <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 
-<body class="pg-home">
+<body class="pg-inner">
 
 <!-- Bandeau légal fixe en haut de page -->
 <div class="top-legal-bar">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
@@ -105,10 +105,6 @@
 
 </div>
 
-<!-- ── Bouton fixe mobile "Simuler un projet" ── -->
-<div class="mob-sim-bar" id="mob-sim-bar">
-  <button class="mob-sim-btn" data-sim="">Simuler un projet</button>
-</div>
 
 <!-- ── Bannière cookies ── -->
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies">
@@ -213,230 +209,77 @@
 
 <div class="page">
 
-<!-- ── Héro simulateur style Cofidis ── -->
-  <section class="hero-banner">
-    <div class="hero-banner-layout">
-      <div class="hero-sim-wrap">
-        <div class="hcard-white">
-        <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>1.</strong> De quel montant avez-vous besoin&nbsp;?</p>
-          <div class="sim-field cof-amount-wrap">
-            <input type="number" class="sim-input" id="cof-montant" placeholder="Ex : 3 000" min="3000" max="200000" aria-label="Montant en euros"/>
-            <span class="cof-euro">€</span>
-          </div>
-          <p class="cof-amount-err" id="cof-montant-err">Montant entre 3 000 € et 200 000 €</p>
-        </div>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>2.</strong> Quel est votre projet&nbsp;?</p>
-          <div class="cof-proj-grid">
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26C17.81 13.47 19 11.38 19 9c0-3.86-3.14-7-7-7z"/></svg>
-              Projets
-            </button>
-            <button class="cof-proj-btn" data-sim="travaux">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/><path d="M15.5 2.1L11 6.6l1.4 1.4.7-.7 1.8 1.8 1.4-1.4-1.8-1.8.7-.7-1.4-1.4.7-.7z" opacity=".6"/></svg>
-              Travaux
-            </button>
-            <button class="cof-proj-btn" data-sim="auto">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-              Auto / Moto
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-              Immobilier
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              Personnel
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-              Autres
-            </button>
-          </div>
-        </div>
-
-        <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
-        </div>
-      </div>
-      <!-- Image droite — visible desktop uniquement -->
-      <div class="hero-img-col">
-        <img id="hero-right-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Crédit Jkl.oin"/>
-      </div>
-    </div><!-- /hero-banner-layout -->
-  </section>
-
-  <!-- ── Produits ── -->
-  <section class="products">
-    <div class="wrap">
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Des offres de crédits adaptées à vos besoins</h2><p>Financez tous vos projets avec des mensualités fixes et 0 € de frais de dossier.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="Prêt personnel"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt personnel</span>
-              <a href="pret-personnel.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Crédit auto"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit auto</span>
-              <a href="credit-auto.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Crédit travaux"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt travaux</span>
-              <a href="credit-travaux.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Gérez votre budget en toute liberté</h2><p>Des solutions flexibles pour simplifier vos finances au quotidien.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80" alt="Crédit renouvelable"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit renouvelable</span>
-              <a href="credit-renouvelable.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Rachat de crédits"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le rachat de crédits</span>
-              <a href="rachat-de-credits.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=800&q=80" alt="Assurances"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Les assurances</span>
-              <a href="assurances.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
+<div class="prod-hero">
+    <div class="inner">
+      <p class="prod-hero-eyebrow">Aide</p>
+      <h1>Questions - Réponses</h1>
+      <p class="prod-hero-sub">Retrouvez les réponses aux questions les plus fréquemment posées par nos clients sur nos produits, nos services et nos démarches en ligne.</p>
     </div>
-  </section>
+  </div>
 
-  <!-- ── Éditorial ── -->
-  <section class="editorial">
-    <div class="wrap">
-      <h2>Jkl.oin, partenaire de confiance pour votre crédit conso</h2>
-      <p>Depuis plus de <strong>70 ans</strong>, Jkl.oin accompagne les Français dans leurs projets de vie grâce au crédit à la consommation. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, Jkl.oin s'appuie sur l'expertise et la solidité d'un grand groupe bancaire pour vous proposer des solutions de financement adaptées à vos besoins.</p>
-      <p>Que vous souhaitiez financer un <strong>projet auto</strong>, des <strong>travaux</strong>, un voyage ou tout autre projet personnel, Jkl.oin met à votre disposition des offres de crédit conso compétitives et flexibles. Notre démarche&nbsp;: vous proposer un parcours 100&nbsp;% digital, simple et rapide, avec une réponse de principe en quelques minutes.</p>
-      <p>Avec plus de <strong>6 millions de clients</strong> et un réseau de plus de <strong>13&nbsp;000 partenaires</strong> (concessionnaires auto, grandes surfaces, enseignes spécialisées…), Jkl.oin est l'un des leaders du crédit à la consommation en France. Notre engagement&nbsp;: vous accompagner à chaque étape, du simulateur à la signature électronique, en toute transparence.</p>
-    </div>
-  </section>
+  <div class="inner" style="padding-top:2.5rem;">
 
-  <!-- ── FAQ ── -->
-  <section class="faq">
-    <div class="wrap">
-      <h2>Vos questions sur le crédit conso</h2>
-      <ul class="faq-list">
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels types de prêts propose Jkl.oin&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Jkl.oin propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quel délai entre l'acceptation de l'offre de prêt et le déblocage des fonds&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Après signature électronique de votre contrat, un délai légal de rétractation de 14 jours calendaires s'applique. Une fois ce délai écoulé, les fonds sont généralement versés dans un délai de 1 à 3 jours ouvrés.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Comment effectuer ma demande de crédit conso&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Rendez-vous sur notre simulateur en ligne, choisissez votre projet et votre montant, puis complétez le formulaire de demande. Vous obtiendrez une réponse de principe immédiate et pourrez finaliser votre dossier entièrement en ligne.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels documents dois-je fournir lors de ma demande de crédit&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>En général, il vous sera demandé&nbsp;: une pièce d'identité en cours de validité, un justificatif de domicile récent, vos derniers bulletins de salaire ou justificatifs de revenus, et un relevé d'identité bancaire (RIB).</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Jusqu'à quel âge peut-on emprunter&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Jkl.oin étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.</p>
-          </div>
-        </li>
-      </ul>
-      <div class="faq-more">
-        <a href="#" class="btn-orange">Consulter la FAQ</a>
+    <div class="prod-faq">
+      <h2>Demande de crédit</h2>
+      <div class="faq-item">
+        <button class="faq-q">Quelles sont les conditions pour souscrire un crédit Jkl.oin ?</button>
+        <div class="faq-a"><p>Pour souscrire un crédit à la consommation chez Jkl.oin, vous devez : être âgé d'au moins 18 ans, résider en France métropolitaine ou dans les DOM, disposer de revenus réguliers suffisants pour assurer le remboursement du crédit, et ne pas être inscrit au Fichier National des Incidents de remboursement des Crédits aux Particuliers (FICP) de la Banque de France. Chaque demande est étudiée individuellement par nos équipes, qui évaluent votre capacité de remboursement sur la base des informations que vous fournissez et des consultations réglementaires obligatoires.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quels documents dois-je fournir pour ma demande ?</button>
+        <div class="faq-a"><p>La liste des documents requis varie selon le type de crédit et votre situation personnelle. En règle générale, vous devrez fournir : une pièce d'identité en cours de validité (carte nationale d'identité ou passeport), un justificatif de domicile de moins de 3 mois, vos 3 derniers bulletins de salaire ou votre dernier avis d'imposition, et un relevé d'identité bancaire (RIB) au nom du demandeur. Pour les crédit affectés (auto, travaux), un devis ou une facture du bien à financer peut également être demandé. Tous les documents peuvent être transmis de manière dématérialisée lors de la souscription en ligne.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quel est le délai entre ma demande et le déblocage des fonds ?</button>
+        <div class="faq-a"><p>Dès réception de votre dossier complet, une réponse de principe vous est communiquée sous 24 à 48 heures. En cas d'accord, vous recevez votre offre de contrat de crédit par voie électronique. Vous bénéficiez alors d'un délai de réflexion minimum de 14 jours calendaires (délai de rétractation légal). Si vous choisissez d'exercer votre droit de rétractation, vous pouvez le faire sans frais ni justification pendant ce délai. Si vous confirmez votre souscription, les fonds sont débloqués sur votre compte bancaire dans un délai de 24 à 72 heures après l'expiration du délai de rétractation ou après votre renonciation expresse à ce délai.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Puis-je obtenir un crédit si je suis en CDI période d'essai, CDD, ou auto-entrepreneur ?</button>
+        <div class="faq-a"><p>Oui, Jkl.oin étudie les demandes de crédit de toutes les situations professionnelles, y compris les salariés en CDI période d'essai, en CDD, les travailleurs indépendants, les auto-entrepreneurs et les professions libérales. L'analyse de votre dossier est individuelle et prend en compte l'ensemble de votre situation financière (revenus, charges, épargne). Des revenus réguliers et suffisants par rapport aux mensualités demandées constituent le critère principal. Des justificatifs spécifiques peuvent être demandés selon votre statut (derniers avis d'imposition, bilan comptable pour les indépendants).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Que se passe-t-il si ma demande est refusée ?</button>
+        <div class="faq-a"><p>En cas de refus de votre demande de crédit, vous en êtes informé par email dans les meilleurs délais. Conformément à l'article L.311-14 du Code de la consommation, si le refus est fondé sur des informations contenues dans un fichier géré par la Banque de France (FICP), nous sommes tenus de vous en informer et de vous indiquer le nom de ce fichier. Vous pouvez alors exercer votre droit d'accès et de rectification auprès de la Banque de France. Un refus n'est pas définitif : si votre situation évolue (augmentation de revenus, remboursement d'un crédit en cours), vous pouvez soumettre une nouvelle demande ultérieurement.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Est-il possible de souscrire à deux sans me marier ?</button>
+        <div class="faq-a"><p>Oui, il est possible de souscrire un crédit à la consommation en co-emprunteur avec votre conjoint, partenaire pacsé ou toute autre personne physique, sans qu'un lien matrimonial ne soit nécessaire. La co-souscription peut renforcer votre dossier en augmentant les revenus pris en compte pour le calcul de votre capacité de remboursement. Chacun des co-emprunteurs est solidairement responsable du remboursement intégral du crédit. Des pièces justificatives seront demandées pour les deux personnes.</p></div>
       </div>
     </div>
-  </section>
 
-  <!-- ── Besoin d'un crédit ? ── -->
-  <section class="besoin-credit">
-    <div class="wrap">
-      <div class="besoin-inner">
-        <h2>Besoin d'un crédit&nbsp;?</h2>
-        <a href="#" class="besoin-main-link" data-sim="autre">Je fais un crédit conso →</a>
-        <div class="besoin-cols">
-          <div class="besoin-col">
-            <h3>Simulez vos crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="autre">Simulation crédit</a></li>
-              <li><a href="#" data-sim="auto">Simulation crédit auto</a></li>
-              <li><a href="#" data-sim="travaux">Simulation crédit travaux</a></li>
-              <li><a href="#" data-sim="autre">Simulation prêt personnel</a></li>
-              <li><a href="#" data-sim="famille-loisirs">Simulation crédit renouvelable</a></li>
-              <li><a href="#" data-sim="regroupement">Simulation rachat de crédits</a></li>
-            </ul>
-          </div>
-          <div class="besoin-col">
-            <h3>Nos offres de crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
-            </ul>
-          </div>
-        </div>
-        <a href="#" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
+    <div class="prod-faq" style="margin-top:2.5rem;">
+      <h2>Espace client et contrat</h2>
+      <div class="faq-item">
+        <button class="faq-q">Comment modifier mes coordonnées bancaires ?</button>
+        <div class="faq-a"><p>Pour modifier votre IBAN de prélèvement, connectez-vous à votre espace client et accédez à la rubrique "Mes données personnelles" puis "Coordonnées bancaires". Vous pourrez y saisir votre nouveau RIB et valider la modification. Pour des raisons de sécurité, la prise en compte du nouveau RIB intervient à partir du mois suivant la validation de votre demande, dans le respect des délais SEPA. Vous pouvez également adresser un mandat SEPA signé accompagné de votre nouveau RIB par courrier à notre service client.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Comment télécharger mon tableau d'amortissement ?</button>
+        <div class="faq-a"><p>Votre tableau d'amortissement est disponible en téléchargement depuis votre espace client, dans la rubrique "Mes documents". Il détaille l'ensemble des échéances de votre crédit (date, montant, part de capital, part d'intérêts, capital restant dû). Ce document vous est également remis lors de la souscription, conformément aux obligations d'information précontractuelle prévues par l'article L.312-28 du Code de la consommation. Si vous ne retrouvez pas ce document, contactez notre service client au 09 69 39 10 00.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Puis-je modifier la date de prélèvement de mes mensualités ?</button>
+        <div class="faq-a"><p>La date de prélèvement de vos mensualités est fixée lors de la souscription. Pour toute demande de modification, contactez notre service client par téléphone au 09 69 39 10 00 ou via la messagerie sécurisée de votre espace client. Selon les conditions de votre contrat, une modification de date peut être accordée sous réserve d'acceptation par nos équipes. Ce service est généralement disponible une fois par an. Des frais peuvent être applicables selon votre contrat, dans les limites fixées par la grille tarifaire disponible sur la page Tarifs.</p></div>
       </div>
     </div>
-  </section>
+
+    <div class="prod-faq" style="margin-top:2.5rem;">
+      <h2>Remboursement</h2>
+      <div class="faq-item">
+        <button class="faq-q">Comment effectuer un remboursement anticipé ?</button>
+        <div class="faq-a"><p>Conformément aux articles L.312-34 et suivants du Code de la consommation, vous pouvez procéder à tout moment au remboursement anticipé, total ou partiel, de votre crédit à la consommation. Pour cela, envoyez une demande écrite à notre service client (par messagerie sécurisée ou courrier postal) en précisant le montant que vous souhaitez rembourser et la date souhaitée. Nous vous transmettrons un décompte de remboursement anticipé sous 7 jours. Pour les remboursements anticipés partiels, vous pouvez choisir entre la réduction de la durée du crédit et la réduction du montant des mensualités.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Des pénalités sont-elles prévues en cas de remboursement anticipé ?</button>
+        <div class="faq-a"><p>Conformément à l'article L.312-34 du Code de la consommation, les remboursements anticipés de crédits à la consommation peuvent donner lieu à une indemnité de remboursement anticipé (IRA) dans certains cas. Toutefois, aucune indemnité ne peut être réclamée si le montant remboursé par anticipation sur une période de 12 mois est inférieur à 10 000 euros. Au-delà de ce seuil, l'IRA est plafonnée à 0,5% du montant remboursé si le remboursement intervient plus d'un an avant le terme du contrat, et à 1% si le remboursement intervient dans l'année précédant le terme. Les conditions exactes applicables à votre contrat sont précisées dans vos conditions particulières.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Que faire en cas de difficultés de remboursement ?</button>
+        <div class="faq-a"><p>Si vous rencontrez des difficultés temporaires pour honorer vos échéances, contactez immédiatement notre service client au 09 69 39 10 00. Plus tôt vous nous alertez, plus nous pourrons vous proposer des solutions adaptées à votre situation : report d'échéance, modulation des mensualités, ou mise en place d'un plan d'apurement. En cas de difficultés financières sérieuses, vous pouvez également vous rapprocher d'un conseiller de la Banque de France pour bénéficier du dispositif de surendettement prévu par la loi. Jkl.oin s'engage à vous accompagner avec bienveillance dans ces situations difficiles, conformément à sa charte de responsabilité envers les clients en situation de fragilité.</p></div>
+      </div>
+    </div>
+
+  </div>
 
 </div>
 

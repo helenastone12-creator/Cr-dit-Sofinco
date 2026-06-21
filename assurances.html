@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crédit Jkl.oin : crédits auto, conso, perso, rachat et simulation de prêt</title>
+  <title>Assurances — Jkl.oin</title>
   <meta name="description" content="Simulez en ligne votre prêt Jkl.oin avec notre simulateur de crédit."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 
-<body class="pg-home">
+<body class="pg-inner">
 
 <!-- Bandeau légal fixe en haut de page -->
 <div class="top-legal-bar">Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</div>
@@ -105,10 +105,6 @@
 
 </div>
 
-<!-- ── Bouton fixe mobile "Simuler un projet" ── -->
-<div class="mob-sim-bar" id="mob-sim-bar">
-  <button class="mob-sim-btn" data-sim="">Simuler un projet</button>
-</div>
 
 <!-- ── Bannière cookies ── -->
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies">
@@ -213,230 +209,63 @@
 
 <div class="page">
 
-<!-- ── Héro simulateur style Cofidis ── -->
-  <section class="hero-banner">
-    <div class="hero-banner-layout">
-      <div class="hero-sim-wrap">
-        <div class="hcard-white">
-        <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>1.</strong> De quel montant avez-vous besoin&nbsp;?</p>
-          <div class="sim-field cof-amount-wrap">
-            <input type="number" class="sim-input" id="cof-montant" placeholder="Ex : 3 000" min="3000" max="200000" aria-label="Montant en euros"/>
-            <span class="cof-euro">€</span>
-          </div>
-          <p class="cof-amount-err" id="cof-montant-err">Montant entre 3 000 € et 200 000 €</p>
-        </div>
-
-        <div class="cof-step">
-          <p class="cof-step-lbl"><strong>2.</strong> Quel est votre projet&nbsp;?</p>
-          <div class="cof-proj-grid">
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26C17.81 13.47 19 11.38 19 9c0-3.86-3.14-7-7-7z"/></svg>
-              Projets
-            </button>
-            <button class="cof-proj-btn" data-sim="travaux">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/><path d="M15.5 2.1L11 6.6l1.4 1.4.7-.7 1.8 1.8 1.4-1.4-1.8-1.8.7-.7-1.4-1.4.7-.7z" opacity=".6"/></svg>
-              Travaux
-            </button>
-            <button class="cof-proj-btn" data-sim="auto">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-              Auto / Moto
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-              Immobilier
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              Personnel
-            </button>
-            <button class="cof-proj-btn" data-sim="autre">
-              <svg width="30" height="30" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-              Autres
-            </button>
-          </div>
-        </div>
-
-        <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
-        </div>
-      </div>
-      <!-- Image droite — visible desktop uniquement -->
-      <div class="hero-img-col">
-        <img id="hero-right-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Crédit Jkl.oin"/>
-      </div>
-    </div><!-- /hero-banner-layout -->
-  </section>
-
-  <!-- ── Produits ── -->
-  <section class="products">
-    <div class="wrap">
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Des offres de crédits adaptées à vos besoins</h2><p>Financez tous vos projets avec des mensualités fixes et 0 € de frais de dossier.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="Prêt personnel"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt personnel</span>
-              <a href="pret-personnel.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Crédit auto"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit auto</span>
-              <a href="credit-auto.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Crédit travaux"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le prêt travaux</span>
-              <a href="credit-travaux.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="prod-group">
-        <div class="prod-group-hd"><h2>Gérez votre budget en toute liberté</h2><p>Des solutions flexibles pour simplifier vos finances au quotidien.</p></div>
-        <ul class="prod-list">
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80" alt="Crédit renouvelable"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le crédit renouvelable</span>
-              <a href="credit-renouvelable.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Rachat de crédits"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Le rachat de crédits</span>
-              <a href="rachat-de-credits.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-          <li class="prod-item">
-            <img src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=800&q=80" alt="Assurances"/>
-            <div class="prod-item-overlay"></div>
-            <div class="prod-item-body">
-              <span class="prod-item-title">Les assurances</span>
-              <a href="assurances.html" class="prod-arrow spa-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
+<div class="prod-hero">
+    <div class="inner">
+      <h1>Protégez votre crédit<br>avec nos assurances</h1>
+      <p class="prod-hero-eyebrow">Assurances crédit</p>
+      <button class="btn-prim btn-sim" data-sim="perso">Découvrir nos assurances</button>
     </div>
-  </section>
+  </div>
 
-  <!-- ── Éditorial ── -->
-  <section class="editorial">
-    <div class="wrap">
-      <h2>Jkl.oin, partenaire de confiance pour votre crédit conso</h2>
-      <p>Depuis plus de <strong>70 ans</strong>, Jkl.oin accompagne les Français dans leurs projets de vie grâce au crédit à la consommation. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, Jkl.oin s'appuie sur l'expertise et la solidité d'un grand groupe bancaire pour vous proposer des solutions de financement adaptées à vos besoins.</p>
-      <p>Que vous souhaitiez financer un <strong>projet auto</strong>, des <strong>travaux</strong>, un voyage ou tout autre projet personnel, Jkl.oin met à votre disposition des offres de crédit conso compétitives et flexibles. Notre démarche&nbsp;: vous proposer un parcours 100&nbsp;% digital, simple et rapide, avec une réponse de principe en quelques minutes.</p>
-      <p>Avec plus de <strong>6 millions de clients</strong> et un réseau de plus de <strong>13&nbsp;000 partenaires</strong> (concessionnaires auto, grandes surfaces, enseignes spécialisées…), Jkl.oin est l'un des leaders du crédit à la consommation en France. Notre engagement&nbsp;: vous accompagner à chaque étape, du simulateur à la signature électronique, en toute transparence.</p>
-    </div>
-  </section>
 
-  <!-- ── FAQ ── -->
-  <section class="faq">
-    <div class="wrap">
-      <h2>Vos questions sur le crédit conso</h2>
-      <ul class="faq-list">
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels types de prêts propose Jkl.oin&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Jkl.oin propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quel délai entre l'acceptation de l'offre de prêt et le déblocage des fonds&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Après signature électronique de votre contrat, un délai légal de rétractation de 14 jours calendaires s'applique. Une fois ce délai écoulé, les fonds sont généralement versés dans un délai de 1 à 3 jours ouvrés.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Comment effectuer ma demande de crédit conso&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Rendez-vous sur notre simulateur en ligne, choisissez votre projet et votre montant, puis complétez le formulaire de demande. Vous obtiendrez une réponse de principe immédiate et pourrez finaliser votre dossier entièrement en ligne.</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Quels documents dois-je fournir lors de ma demande de crédit&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>En général, il vous sera demandé&nbsp;: une pièce d'identité en cours de validité, un justificatif de domicile récent, vos derniers bulletins de salaire ou justificatifs de revenus, et un relevé d'identité bancaire (RIB).</p>
-          </div>
-        </li>
-        <li class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Jusqu'à quel âge peut-on emprunter&nbsp;?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Jkl.oin étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.</p>
-          </div>
-        </li>
-      </ul>
-      <div class="faq-more">
-        <a href="#" class="btn-orange">Consulter la FAQ</a>
-      </div>
-    </div>
-  </section>
+  <div class="editorial inner">
+    <h2>L'assurance emprunteur Jkl.oin : votre protection face aux imprévus</h2>
+    <p>L'assurance emprunteur est un contrat qui prend en charge tout ou partie des remboursements de votre crédit si vous ne pouvez plus les assumer en raison d'un événement grave (décès, invalidité, incapacité de travail, perte d'emploi). Pour les crédits à la consommation, elle est <strong>entièrement facultative</strong> : son refus ne peut jamais entraîner le refus d'octroi du crédit. Son coût est intégré dans le TAEG uniquement si elle est obligatoire (ce qui n'est pas le cas pour les crédits conso). Elle vous est présentée comme une option que vous êtes libre d'accepter ou de refuser.</p>
+    <p>Les contrats d'assurance groupe de Jkl.oin sont souscrits auprès de <strong>CNP Assurances</strong> (SA au capital de 686 618 477,50 €, siège 4 place Raoul Dautry — 75015 Paris, entreprise régie par le Code des assurances). CA Consumer Finance agit en qualité d'intermédiaire en assurance, inscrit à l'<strong>ORIAS</strong> sous le numéro <strong>07 008 079</strong> (consultable sur www.orias.fr). Vous pouvez vérifier notre inscription sur le registre ORIAS à tout moment.</p>
+    <p>Conformément à la <strong>convention AERAS</strong> (<em>s'Assurer et Emprunter avec un Risque Aggravé de Santé</em>), les personnes présentant un risque aggravé de santé peuvent accéder à une assurance adaptée via des procédures spécifiques de second et troisième niveau d'examen médical. La <strong>loi Lemoine du 28 février 2022</strong> a renforcé le droit à l'oubli : les personnes guéries d'un cancer depuis 5 ans (au lieu de 10 ans auparavant) n'ont plus à le déclarer dans leur questionnaire de santé pour les crédits à la consommation.</p>
+  </div>
 
-  <!-- ── Besoin d'un crédit ? ── -->
-  <section class="besoin-credit">
-    <div class="wrap">
-      <div class="besoin-inner">
-        <h2>Besoin d'un crédit&nbsp;?</h2>
-        <a href="#" class="besoin-main-link" data-sim="autre">Je fais un crédit conso →</a>
-        <div class="besoin-cols">
-          <div class="besoin-col">
-            <h3>Simulez vos crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="autre">Simulation crédit</a></li>
-              <li><a href="#" data-sim="auto">Simulation crédit auto</a></li>
-              <li><a href="#" data-sim="travaux">Simulation crédit travaux</a></li>
-              <li><a href="#" data-sim="autre">Simulation prêt personnel</a></li>
-              <li><a href="#" data-sim="famille-loisirs">Simulation crédit renouvelable</a></li>
-              <li><a href="#" data-sim="regroupement">Simulation rachat de crédits</a></li>
-            </ul>
-          </div>
-          <div class="besoin-col">
-            <h3>Nos offres de crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
-            </ul>
-          </div>
-        </div>
-        <a href="#" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
-      </div>
+  <div class="prod-avantages inner">
+    <h2>Les garanties disponibles</h2>
+    <div class="prod-av-grid">
+      <div class="prod-av-card"><h3>Décès (DC)</h3><p>En cas de décès de l'emprunteur assuré, le capital restant dû du crédit est intégralement remboursé à Jkl.oin par CNP Assurances. Vos proches n'héritent pas de votre dette. Cette garantie est incluse dans tous les niveaux d'assurance proposés et constitue la protection minimale de base. Elle s'applique 24h/24 et 365 jours/an, sans restriction géographique.</p></div>
+      <div class="prod-av-card"><h3>PTIA — Perte Totale et Irréversible d'Autonomie</h3><p>La garantie PTIA couvre les situations où l'assuré, suite à un accident ou une maladie, ne peut plus accomplir seul les actes de la vie courante (se laver, s'habiller, se nourrir) et nécessite l'assistance permanente d'une tierce personne. Dans ce cas, le capital restant dû est remboursé par l'assurance. Cette garantie est cumulée avec la garantie Décès dans tous nos contrats.</p></div>
+      <div class="prod-av-card"><h3>ITT — Incapacité Temporaire de Travail</h3><p>La garantie ITT prend en charge vos mensualités de crédit si vous êtes dans l'impossibilité temporaire d'exercer votre activité professionnelle suite à un accident ou une maladie, après un délai de franchise de 90 jours. Cette garantie est particulièrement adaptée aux actifs dont les revenus dépendent directement de leur capacité à travailler. Elle prend fin dès que vous reprenez votre activité.</p></div>
+      <div class="prod-av-card"><h3>Perte d'emploi involontaire</h3><p>La garantie perte d'emploi couvre vos mensualités en cas de licenciement économique ou autre perte d'emploi involontaire (hors démission et rupture conventionnelle). Elle est soumise à un délai de carence de 6 mois à compter de la souscription et à un délai de franchise de 90 jours après le licenciement. Elle s'applique uniquement aux salariés en CDI depuis plus de 12 mois au moment du sinistre.</p></div>
+      <div class="prod-av-card"><h3>Convention AERAS</h3><p>Pour les personnes présentant un risque aggravé de santé (maladie grave, handicap, antécédents médicaux), la convention AERAS prévoit des procédures spécifiques d'accès à l'assurance à trois niveaux d'examen. Si aucune offre standard n'est possible, un dispositif de mutualisation permet d'accéder à une couverture adaptée. Ce dispositif est gratuit et accessible sur simple demande.</p></div>
+      <div class="prod-av-card"><h3>Souscription en ligne sécurisée</h3><p>La souscription à l'assurance emprunteur s'effectue directement lors de la demande de crédit en ligne. Un questionnaire de santé simplifié vous est proposé. La notice d'information vous est remise avant toute souscription, conformément aux obligations d'information de l'ORIAS et du Code des assurances. Vous disposez d'un délai de rétractation de 14 jours.</p></div>
     </div>
-  </section>
+  </div>
+
+  <div class="prod-caract-wrap inner">
+    <h2>Tarification de l'assurance emprunteur</h2>
+    <table class="caract-table">
+      <tr><td>DC + PTIA</td><td><strong>0,25 %</strong> du capital initial par mois</td></tr>
+      <tr><td>DC + PTIA + ITT</td><td><strong>0,40 %</strong> du capital initial par mois</td></tr>
+      <tr><td>DC + PTIA + ITT + Perte d'emploi</td><td><strong>0,60 %</strong> du capital initial par mois</td></tr>
+      <tr><td>Franchise ITT</td><td><strong>90 jours</strong> continus d'arrêt de travail</td></tr>
+      <tr><td>Délai de carence perte d'emploi</td><td><strong>6 mois</strong> à compter de la souscription</td></tr>
+      <tr><td>Droit à l'oubli (loi Lemoine)</td><td>Cancer guéri depuis <strong>5 ans</strong> : pas de déclaration obligatoire</td></tr>
+      <tr><td>Rétractation</td><td><strong>14 jours</strong> calendaires — remboursement intégral de la prime</td></tr>
+    </table>
+  </div>
+
+  <div class="prod-faq inner">
+    <h2>Questions fréquentes — Assurance emprunteur</h2>
+    <div class="faq-item"><button class="faq-q">L'assurance emprunteur est-elle obligatoire pour obtenir un crédit conso ?</button><div class="faq-a"><p>Non. Pour les crédits à la consommation (prêt personnel, crédit auto, crédit travaux), l'assurance emprunteur est entièrement facultative. Son refus ne peut en aucun cas être invoqué pour refuser le crédit. Elle se distingue du crédit immobilier pour lequel les banques exigent généralement une assurance décès-invalidité comme condition d'octroi. Nous vous recommandons toutefois de souscrire une assurance si votre situation financière serait fragile en cas d'arrêt de travail ou de perte d'emploi.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Que se passe-t-il si je tombe malade et ne peux plus rembourser ?</button><div class="faq-a"><p>Si vous avez souscrit la garantie ITT, CNP Assurances prend en charge vos mensualités après le délai de franchise de 90 jours d'arrêt continu de travail. Pour déclarer un sinistre, contactez notre service client au 09 69 39 10 00 ou via votre espace client. Vous devrez fournir un arrêt de travail médical et les justificatifs de votre situation. Si vous n'avez pas souscrit d'assurance, contactez-nous dès que possible pour étudier un aménagement de vos remboursements avant de vous retrouver en situation d'impayé.</p></div></div>
+    <div class="faq-item"><button class="faq-q">La convention AERAS m'oblige-t-elle à révéler ma maladie à Jkl.oin ?</button><div class="faq-a"><p>Non. La convention AERAS est un accord entre les pouvoirs publics, les fédérations bancaires et les associations de patients. Elle prévoit des procédures confidentielles : les informations médicales que vous fournissez dans le cadre de la demande d'assurance sont traitées exclusivement par le médecin-conseil de l'assureur et ne sont jamais communiquées à Jkl.oin (le prêteur). Jkl.oin ne connaît que la décision finale (acceptation ou refus) de l'assureur, pas les raisons médicales de cette décision.</p></div></div>
+  </div>
+
+  <div class="prod-mention-reg inner">
+    <p>L'assurance emprunteur est facultative pour les crédits à la consommation. Son refus n'entraîne pas le refus du crédit. CNP Assurances — SA au capital de 686 618 477,50 € — 4 place Raoul Dautry 75015 Paris — entreprise régie par le Code des assurances. CA Consumer Finance, intermédiaire en assurances ORIAS n° 07 008 079. Convention AERAS : www.aeras-infos.fr. Loi Lemoine n° 2022-270 du 28 février 2022.</p>
+  </div>
+
+  <div class="prod-cta inner">
+    <h2>Protégez votre crédit dès aujourd'hui</h2>
+    <p>L'assurance emprunteur s'ajoute facilement à votre crédit lors de la souscription en ligne.</p>
+    <button class="btn-prim" data-sim="perso">Simuler avec assurance</button>
+  </div>
 
 </div>
 
