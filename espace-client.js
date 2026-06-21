@@ -137,19 +137,34 @@ function ecInitDashboard(){
     dateEl.textContent=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   }
 
-  var capital=12000, mens=245, moisPasses=4, duree=60;
-  var restant=Math.round(capital-(capital/duree)*moisPasses);
-  var pct=Math.round((moisPasses/duree)*100);
+  var loan = user.loan || {};
+  var capital    = loan.montant    || 0;
+  var mens       = loan.mensualite || 0;
+  var duree      = loan.duree      || 60;
+  var dateDebut  = loan.dateDebut  ? new Date(loan.dateDebut) : new Date();
+  var moisPasses = Math.max(0, Math.floor((new Date() - dateDebut) / (30.44 * 24 * 3600 * 1000)));
+  moisPasses     = Math.min(moisPasses, duree);
+  var restant    = capital > 0 ? Math.round(capital - (capital / duree) * moisPasses) : 0;
+  var pct        = capital > 0 ? Math.round((moisPasses / duree) * 100) : 0;
 
   var refEl=document.getElementById('ec-credit-ref');
-  if(refEl) refEl.textContent=user.ref||'SOF-2026-00000';
+  if(refEl) refEl.textContent=user.ref||'—';
 
   var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-  set('ec-stat-capital', capital.toLocaleString('fr-FR')+'€');
-  set('ec-stat-mens', mens+'€ / mois');
-  set('ec-stat-restant', restant.toLocaleString('fr-FR')+'€');
-  set('ec-prog-pct', pct+'%');
-  set('ec-next-amt', mens+'€');
+
+  if(capital > 0){
+    set('ec-stat-capital', capital.toLocaleString('fr-FR')+'€');
+    set('ec-stat-mens',    mens.toLocaleString('fr-FR')+'€ / mois');
+    set('ec-stat-restant', restant.toLocaleString('fr-FR')+'€');
+    set('ec-prog-pct',     pct+'%');
+    set('ec-next-amt',     mens.toLocaleString('fr-FR')+'€');
+  } else {
+    set('ec-stat-capital', 'En attente');
+    set('ec-stat-mens',    '—');
+    set('ec-stat-restant', '—');
+    set('ec-prog-pct',     '0%');
+    set('ec-next-amt',     '—');
+  }
 
   var fill=document.getElementById('ec-prog-fill');
   if(fill) setTimeout(function(){fill.style.width=pct+'%';},200);
@@ -159,7 +174,43 @@ function ecInitDashboard(){
 }
 
 // ── Mes documents ──
-function ecInitDocuments(){ ecGuard(); ecInitHeader(); }
+function ecInitDocuments(){
+  ecGuard();
+  ecInitHeader();
+  var user = ecGetUser();
+  if(!user) return;
+  var createdAt = user.createdAt ? new Date(user.createdAt) : new Date();
+  var fmtDate = function(d){ return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}); };
+  // Date de signature = date de création du compte
+  var signDate = fmtDate(createdAt);
+  // Relevé mois précédent
+  var releve1 = new Date(createdAt); releve1.setDate(1);
+  var releve1Lbl = releve1.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  var releve1Dispo = new Date(releve1); releve1Dispo.setMonth(releve1Dispo.getMonth()+1);
+  var releve2 = new Date(releve1); releve2.setMonth(releve2.getMonth()-1);
+  var releve2Lbl = releve2.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  var releve2Dispo = new Date(releve2); releve2Dispo.setMonth(releve2Dispo.getMonth()+1);
+  // Attestation valide 1 an
+  var assuranceExp = new Date(createdAt); assuranceExp.setFullYear(assuranceExp.getFullYear()+1);
+
+  var setDoc = function(sel, txt){ var el = document.querySelector(sel); if(el) el.textContent = txt; };
+  // Contrat + tableau
+  document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[0] &&
+    (document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[0].textContent = 'Signé le '+signDate+' · 124 Ko');
+  document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[1] &&
+    (document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[1].textContent = 'Généré le '+signDate+' · 48 Ko');
+  // Relevés
+  var releveMetas = document.querySelectorAll('.ec-doc-item[data-cat="releve"] .ec-doc-meta');
+  if(releveMetas[0]) releveMetas[0].textContent = 'Disponible le '+fmtDate(releve1Dispo)+' · 32 Ko';
+  if(releveMetas[1]) releveMetas[1].textContent = 'Disponible le '+fmtDate(releve2Dispo)+' · 30 Ko';
+  // Noms relevés
+  var releveNoms = document.querySelectorAll('.ec-doc-item[data-cat="releve"] .ec-doc-name');
+  if(releveNoms[0]) releveNoms[0].textContent = 'Relevé de compte — '+releve1Lbl.charAt(0).toUpperCase()+releve1Lbl.slice(1);
+  if(releveNoms[1]) releveNoms[1].textContent = 'Relevé de compte — '+releve2Lbl.charAt(0).toUpperCase()+releve2Lbl.slice(1);
+  // Attestation
+  var attMeta = document.querySelector('.ec-doc-item[data-cat="attestation"] .ec-doc-meta');
+  if(attMeta) attMeta.textContent = 'Valide jusqu\'au '+fmtDate(assuranceExp)+' · 56 Ko';
+}
 
 function ecDocFilter(cat, btn){
   document.querySelectorAll('.ec-doc-ftab').forEach(function(t){t.classList.remove('active');});

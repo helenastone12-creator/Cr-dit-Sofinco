@@ -877,15 +877,31 @@ function sp5Submit(){
   var pwd    = (document.getElementById('s5-pwd')||{}).value || '';
   var nomAffiche = (prenom+' '+nom).trim() || 'Monsieur/Madame';
 
+  // Calcule la mensualité réelle depuis simData
+  var loanMontant = parseInt(simData.montant) || 0;
+  var loanDuree   = parseInt(simData.duree)   || 60;
+  var loanRate    = 3.5/100/12;
+  var loanMens    = loanMontant > 0
+    ? Math.round(loanMontant * loanRate * Math.pow(1+loanRate, loanDuree) / (Math.pow(1+loanRate, loanDuree) - 1))
+    : 0;
+
   // Création automatique du compte espace client
   var ecUser = {
+    civilite: simData.civilite || 'M',
     prenom: prenom.trim(),
     nom: nom.trim(),
     email: email.trim().toLowerCase(),
     tel: tel.trim(),
     ref: ref,
     pwd: pwd,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    loan: {
+      montant:    loanMontant,
+      duree:      loanDuree,
+      mensualite: loanMens,
+      moisPasses: 0,
+      dateDebut:  new Date().toISOString()
+    }
   };
   localStorage.setItem('ec_user', JSON.stringify(ecUser));
   localStorage.setItem('ec_session', '1');
