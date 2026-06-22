@@ -379,16 +379,21 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hero-trust-list li{color:rgba(255,255,255,.85);font-size:.93rem;padding-left:1.5rem;position:relative}
   .hero-trust-list li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:800}
 
-  /* Photo — absolue, fond de scène, fondue dans le bleu */
+  /* Photo — couvre toute la hauteur/largeur du hero, fondue depuis la gauche */
   .hero-photo-right{
-    position:absolute;right:0;top:0;bottom:0;
-    width:52%;overflow:hidden;
+    position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;
   }
   .hero-photo-right::before{
     content:'';position:absolute;inset:0;z-index:1;
-    background:linear-gradient(to right,#1258a8 0%,rgba(18,88,168,.5) 30%,transparent 62%);
+    background:linear-gradient(to right,
+      #0d3a6e 0%,
+      #1258a8 22%,
+      rgba(18,88,168,.78) 42%,
+      rgba(18,88,168,.15) 65%,
+      transparent 80%
+    );
   }
-  .hero-photo-right img{width:100%;height:100%;object-fit:cover;object-position:60% 15%}
+  .hero-photo-right img{width:100%;height:100%;object-fit:cover;object-position:75% 15%}
 
   /* Deux cartes chevauchantes */
   .hero-cards-row{
@@ -397,14 +402,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     padding:0 2rem;position:relative;z-index:10;
   }
   .hero-promo-card{
-    flex:0 0 270px;background:#08192e;border-radius:12px;
-    padding:1.6rem 1.8rem;box-shadow:0 8px 32px rgba(0,0,0,.35);
+    flex:0 0 270px;background:#fff;border-radius:12px;
+    padding:1.6rem 1.8rem;box-shadow:0 8px 32px rgba(0,0,0,.15);
   }
   .hpc-tag{font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:.7rem}
-  .hpc-rate-label{font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:.15rem}
-  .hpc-rate{font-size:3rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.4rem}
+  .hpc-rate-label{font-size:.8rem;color:#888;margin-bottom:.15rem}
+  .hpc-rate{font-size:3rem;font-weight:900;color:var(--navy);line-height:1;margin-bottom:.4rem}
   .hpc-rate sup{font-size:1.3rem;font-weight:700;vertical-align:super}
-  .hpc-sub{font-size:.71rem;color:rgba(255,255,255,.4);line-height:1.5;margin-bottom:1.2rem}
+  .hpc-sub{font-size:.71rem;color:#999;line-height:1.5;margin-bottom:1.2rem}
   .hpc-btn{
     display:block;background:var(--teal);color:#fff;text-align:center;
     border-radius:2rem;padding:.65rem 1rem;font-size:.88rem;font-weight:700;
@@ -427,7 +432,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(min-width:960px){
   .hero-banner h1{font-size:3.2rem}
   .hero-upper-inner{padding:5rem 2rem 6rem;min-height:460px}
-  .hero-photo-right{width:56%}
+  .hero-photo-right img{object-position:70% 15%}
 }
 
 /* ═══════════════════════════
