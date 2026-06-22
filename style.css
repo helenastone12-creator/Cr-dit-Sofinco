@@ -365,13 +365,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hero-photo-bar{display:none}
   .hero-sim-wrap{display:none}
 
-  /* Desktop hero — bleu à gauche (texte), blanc à droite (photo en vraies couleurs) */
+  /* Desktop hero — bleu clair → blanc pour intégrer la photo naturellement */
   .hero-banner{
     position:relative;padding:0;overflow:hidden;
     background:linear-gradient(to right,
-      #1565c0 0%,#1565c0 36%,
-      #b8d8f0 50%,#dceef9 60%,
-      #f0f8fd 68%,#fff 78%);
+      #b0e2f0 0%,#ccedf8 35%,
+      #e6f6fc 65%,#f5fbfd 85%,#fff 100%);
   }
   .hero-banner::before{content:none}
   .hero-banner::after{content:none}
