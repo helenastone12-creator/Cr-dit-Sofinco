@@ -1731,6 +1731,17 @@ body.pg-inner .editorial{background:none}
 
 /* ── Sections produit desktop ── */
 @media(min-width:960px){
+  .editorial.inner,
+  .prod-avantages.inner,
+  .prod-caract-wrap.inner,
+  .prod-documents-wrap.inner,
+  .prod-etapes.inner,
+  .prod-eligibilite-wrap.inner,
+  .prod-audience.inner,
+  .prod-exemple-wrap.inner,
+  .prod-faq.inner,
+  .prod-mention-reg.inner,
+  .prod-cta.inner{max-width:1040px}
   .editorial h2,
   .prod-caract-wrap h2,
   .prod-etapes h2,
