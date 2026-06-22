@@ -1729,47 +1729,19 @@ body.pg-inner .editorial{background:none}
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-avis{grid-column:1}
 }
 
-/* ── Sections produit : typographie et espacement desktop ── */
+/* ── Sections produit desktop ── */
 @media(min-width:960px){
-  /* Texte éditorial : centré et à largeur lisible ── */
-  .editorial.inner{max-width:860px}
-  /* Titres de sections agrandis ── */
   .editorial h2,
   .prod-caract-wrap h2,
   .prod-etapes h2,
   .prod-eligibilite-wrap h2,
   .prod-documents-wrap h2,
   .prod-avantages h2,
-  .prod-faq h2{
-    font-size:1.65rem;margin-bottom:1.5rem;
-  }
-  /* Corps de texte éditorial — centré ── */
-  .editorial p{font-size:1rem;line-height:1.9;text-align:center}
-  /* Paragraphes des sections produit — centrés ── */
-  .prod-av-card p,
-  .prod-mention-reg p,
-  .prod-cta p,
-  .prod-hero-sub,
-  .doc-item span,
-  .eligibilite-item{text-align:center}
-  .docs-grid,.eligibilite-grid{justify-items:center}
-  /* Tableau caractéristiques centré ── */
-  .prod-caract-wrap.inner{max-width:860px}
+  .prod-faq h2{font-size:1.65rem;margin-bottom:1.5rem}
+  .editorial p{font-size:1rem;line-height:1.9}
   .prod-caract-wrap{padding:3rem}
   .caract-table td{padding:.9rem 1.2rem;font-size:1rem}
-  /* Documents centrés ── */
-  .prod-documents-wrap.inner{max-width:860px}
-  /* Étapes centrées ── */
-  .prod-etapes.inner{max-width:1000px}
-  /* Section avantages ── */
   .prod-avantages{padding-top:4rem;padding-bottom:4rem}
-  .prod-avantages.inner{max-width:1000px}
-  /* FAQ ── */
-  .prod-faq.inner{max-width:860px}
-  /* Mention réglementaire ── */
-  .prod-mention-reg.inner{max-width:860px}
-  /* Éligibilité ── */
-  .prod-eligibilite-wrap.inner{max-width:860px}
 }
 .sp5-confirm-secondary:hover{ color:var(--navy); }
 
