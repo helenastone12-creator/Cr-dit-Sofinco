@@ -371,19 +371,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 
   /* Desktop hero */
   .hero-banner{
-    padding:0;overflow:hidden;background-color:#1565c0;
-    background-image:
-      linear-gradient(to right,#1565c0 0%,#1565c0 28%,rgba(21,101,192,.5) 50%,transparent 68%),
-      url('Heropc%20homepage.jpg.jpg');
-    background-position:center,right center;
-    background-size:auto,auto 100%;
-    background-repeat:no-repeat,no-repeat;
-    background-blend-mode:normal,multiply;
+    position:relative;padding:0;overflow:hidden;background:#1565c0;
+  }
+  /* Dégradé gauche → centre (couvre la zone texte + bord gauche photo) */
+  .hero-banner::before{
+    content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(to right,
+      #1565c0 0%,#1565c0 28%,
+      rgba(21,101,192,.85) 46%,
+      rgba(21,101,192,.15) 64%,
+      transparent 78%);
+  }
+  /* Bord droit — masque le blanc éventuel à l'extrémité */
+  .hero-banner::after{
+    content:'';position:absolute;top:0;right:0;bottom:0;z-index:2;pointer-events:none;
+    width:6%;
+    background:linear-gradient(to right,transparent,#1565c0);
   }
   .hero-upper-inner{
     display:flex;align-items:center;
     max-width:1100px;margin:0 auto;
     padding:4.5rem 2rem 5.5rem;min-height:420px;
+    position:relative;z-index:4;
   }
   .hero-text-col{display:flex;flex:1;flex-direction:column;gap:1.5rem;max-width:520px}
   .hero-banner h1{color:#fff;font-size:2.6rem;font-weight:800;line-height:1.15}
@@ -392,8 +401,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hero-trust-list li{color:rgba(255,255,255,.85);font-size:.93rem;padding-left:1.5rem;position:relative}
   .hero-trust-list li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:800}
 
-  /* Photo maintenant en background — div masquée */
-  .hero-photo-right{display:none}
+  /* Photo : élément img positionné en absolu, couleurs naturelles */
+  .hero-photo-right{
+    display:block;
+    position:absolute;right:0;top:0;height:100%;z-index:1;
+  }
+  .hero-photo-right img{
+    height:100%;width:auto;display:block;
+    mask-image:linear-gradient(to right,transparent 0%,black 14%);
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,black 14%);
+  }
 
   /* Deux cartes chevauchantes */
   .hero-cards-row{
