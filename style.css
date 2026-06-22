@@ -225,7 +225,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .hero-photo-bar{display:block;width:100%;height:260px;background:url('Heropc%20homepage.jpg.jpg') center 30%/cover no-repeat}
 /* Mobile defaults */
-.hero-upper-inner{display:none !important}
+.hero-upper-inner{display:block;padding:1.4rem 1.5rem 1rem;position:relative;z-index:2}
 .hero-photo-right{display:none}
 .hero-cards-row{display:none}
 .hero-banner-inner{
@@ -1637,7 +1637,7 @@ body.pg-inner .editorial{background:none}
 ══════════════════════════════════════════════════════════ */
 
 /* ── Hero accueil : H1 taille mobile ── */
-.hero-banner h1{color:#fff;font-size:1.45rem;font-weight:800;line-height:1.25}
+.hero-banner h1{color:#0d2748;font-size:1.65rem;font-weight:800;line-height:1.25}
 
 /* ── Hero desktop : couleur sombre lisible sur fond bleu clair ── */
 @media(min-width:700px){
