@@ -368,10 +368,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hero-banner{
     padding:0;overflow:hidden;background-color:#1565c0;
     background-image:
-      linear-gradient(to right,#0f5aa8 0%,#1565c0 26%,rgba(21,101,192,.25) 42%,transparent 58%),
+      linear-gradient(to right,#1565c0 0%,#1565c0 16%,rgba(21,101,192,0) 36%,rgba(21,101,192,0) 68%,#1565c0 84%,#1565c0 100%),
       url('Hero%20homepage.jpg');
-    background-position:center,68% 12%;
-    background-size:auto,cover;
+    background-position:center,center 12%;
+    background-size:auto,auto 95%;
     background-repeat:no-repeat,no-repeat;
   }
   .hero-upper-inner{
@@ -426,7 +426,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(min-width:960px){
   .hero-banner h1{font-size:3.2rem}
   .hero-upper-inner{padding:5rem 2rem 6rem;min-height:460px}
-  .hero-banner{background-position:center,72% 10%}
+  .hero-banner{background-position:center,center 10%;background-size:auto,auto 100%}
 }
 
 /* ═══════════════════════════
