@@ -1500,4 +1500,115 @@ body.pg-inner .editorial{background:none}
   font-size:.82rem;font-family:inherit;cursor:pointer;
   padding:.3rem;text-decoration:underline;
 }
+
+/* ══════════════════════════════════════════════════════════
+   AMÉLIORATIONS DESKTOP — MISE EN PAGE PROFESSIONNELLE
+══════════════════════════════════════════════════════════ */
+
+/* ── Hero accueil : H1 plus impactant ── */
+@media(min-width:700px){
+  .hero-banner h1{font-size:1.9rem;line-height:1.2}
+}
+@media(min-width:960px){
+  .hero-banner h1{font-size:2.5rem}
+}
+
+/* ── Section produits accueil : titre agrandi ── */
+@media(min-width:960px){
+  .prod-group-hd h2{font-size:2rem}
+  .prod-group-hd p{font-size:1rem}
+}
+
+/* ── Avantages accueil : 4 colonnes sur grand écran ── */
+@media(min-width:1100px){
+  .av-grid{grid-template-columns:repeat(4,1fr);gap:1.4rem}
+}
+
+/* ── Footer : grille 4 colonnes (place des accordéons mobiles) ── */
+@media(min-width:960px){
+  .footer .ft-nav{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0 2.5rem;
+    padding:3rem 2rem;
+    max-width:var(--w);
+    margin:0 auto;
+  }
+  .footer .ft-nav-item{border-bottom:none}
+  .footer .ft-nav-btn{
+    display:block;
+    font-size:.74rem;font-weight:800;
+    letter-spacing:.08em;text-transform:uppercase;
+    padding:0 0 .9rem;
+    border:none;border-bottom:1px solid rgba(255,255,255,.12);
+    pointer-events:none;cursor:default;
+    background:none;color:#fff;
+    text-align:left;width:100%;
+    justify-content:flex-start;
+  }
+  .footer .ft-nav-item:last-child .ft-nav-btn{
+    border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .footer .ft-chev{display:none}
+  .footer .ft-acc-list{
+    display:block !important;
+    padding:0;margin-top:.7rem;
+  }
+  .footer .ft-acc-list li a{
+    padding:.38rem 0;font-size:.84rem;
+    border-bottom:none;color:rgba(255,255,255,.55);
+  }
+  .footer .ft-sep{margin:0 2rem}
+}
+
+/* ── Hero produit : 2 colonnes (texte gauche + carte taux droite) ── */
+@media(min-width:960px){
+  .prod-hero:has(.prod-hero-rate) .inner{
+    display:grid;
+    grid-template-columns:1fr 360px;
+    column-gap:3.5rem;
+    align-items:start;
+  }
+  /* Eyebrow badge affiché au-dessus du H1 ── */
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-eyebrow{
+    grid-column:1;order:-1;
+  }
+  .prod-hero:has(.prod-hero-rate) .inner h1{
+    grid-column:1;
+  }
+  /* Carte taux : colonne droite, hauteur complète ── */
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-rate{
+    grid-column:2;grid-row:1 / span 6;
+    max-width:none;margin:0;
+    box-shadow:0 6px 32px rgba(0,0,0,.1);
+    padding:1.6rem 1.8rem;
+  }
+  /* Bouton CTA : largeur naturelle, non étiré ── */
+  .prod-hero:has(.prod-hero-rate) .inner .btn-prim{
+    grid-column:1;display:inline-block;width:auto;
+  }
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-note{grid-column:1}
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-avis{grid-column:1}
+}
+
+/* ── Sections produit : typographie et espacement desktop ── */
+@media(min-width:960px){
+  /* Texte éditorial : centré et à largeur lisible ── */
+  .editorial.inner{max-width:860px}
+  /* Titres de sections ── */
+  .editorial h2,
+  .prod-caract-wrap h2,
+  .prod-etapes h2,
+  .prod-eligibilite-wrap h2,
+  .prod-documents-wrap h2{
+    font-size:1.65rem;
+  }
+  /* Corps de texte éditorial ── */
+  .editorial p{font-size:1rem;line-height:1.9}
+  /* Tableau caractéristiques ── */
+  .prod-caract-wrap{padding:3rem}
+  .caract-table td{padding:.9rem 1.2rem;font-size:1rem}
+  /* Section avantages ── */
+  .prod-avantages{padding-top:6rem;padding-bottom:6rem}
+}
 .sp5-confirm-secondary:hover{ color:var(--navy); }
