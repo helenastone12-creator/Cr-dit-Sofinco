@@ -216,6 +216,16 @@
 <!-- ── Héro simulateur style Cofidis ── -->
   <section class="hero-banner">
     <div class="hero-banner-layout">
+      <!-- Colonne texte — visible desktop uniquement -->
+      <div class="hero-text-col">
+        <h1>Financez vos projets<br>en toute confiance</h1>
+        <p class="hero-sub">Prêt personnel, crédit auto, travaux et plus.<br>Réponse de principe en 24h, 100&nbsp;% en ligne.</p>
+        <ul class="hero-trust-list">
+          <li>6 millions de clients</li>
+          <li>Taux fixe et mensualités stables</li>
+          <li>Parcours 100&nbsp;% sécurisé</li>
+        </ul>
+      </div>
       <div class="hero-sim-wrap">
         <div class="hcard-white">
         <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
@@ -261,10 +271,6 @@
 
         <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
         </div>
-      </div>
-      <!-- Image droite — visible desktop uniquement -->
-      <div class="hero-img-col">
-        <img id="hero-right-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Crédit Jkl.oin"/>
       </div>
     </div><!-- /hero-banner-layout -->
   </section>
@@ -398,43 +404,19 @@
         </li>
       </ul>
       <div class="faq-more">
-        <a href="#" class="btn-orange">Consulter la FAQ</a>
+        <a href="questions-reponses.html" class="faq-more-link">Consulter toutes nos questions fréquentes →</a>
       </div>
     </div>
   </section>
 
-  <!-- ── Besoin d'un crédit ? ── -->
-  <section class="besoin-credit">
-    <div class="wrap">
-      <div class="besoin-inner">
-        <h2>Besoin d'un crédit&nbsp;?</h2>
-        <a href="#" class="besoin-main-link" data-sim="autre">Je fais un crédit conso →</a>
-        <div class="besoin-cols">
-          <div class="besoin-col">
-            <h3>Simulez vos crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="autre">Simulation crédit</a></li>
-              <li><a href="#" data-sim="auto">Simulation crédit auto</a></li>
-              <li><a href="#" data-sim="travaux">Simulation crédit travaux</a></li>
-              <li><a href="#" data-sim="autre">Simulation prêt personnel</a></li>
-              <li><a href="#" data-sim="famille-loisirs">Simulation crédit renouvelable</a></li>
-              <li><a href="#" data-sim="regroupement">Simulation rachat de crédits</a></li>
-            </ul>
-          </div>
-          <div class="besoin-col">
-            <h3>Nos offres de crédits</h3>
-            <ul>
-              <li><a href="#" data-sim="" data-sim-amt="4000">Crédit 4&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="5000">Crédit 5&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="10000">Crédit 10&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="20000">Crédit 20&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="30000">Crédit 30&nbsp;000&nbsp;€</a></li>
-              <li><a href="#" data-sim="" data-sim-amt="50000">Crédit 50&nbsp;000&nbsp;€</a></li>
-            </ul>
-          </div>
-        </div>
-        <a href="#" class="voir-conditions">Voir les conditions de l'offre &gt;</a>
+  <!-- ── CTA bande sombre ── -->
+  <section class="cta-strip">
+    <div class="cta-strip-inner">
+      <div>
+        <h2>Besoin d'un financement&nbsp;?</h2>
+        <p>Simulez gratuitement votre crédit et obtenez une réponse de principe en quelques minutes.</p>
       </div>
+      <button class="btn-teal cta-strip-btn" data-sim="">Simuler mon crédit</button>
     </div>
   </section>
 
