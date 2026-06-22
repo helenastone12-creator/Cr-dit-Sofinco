@@ -1643,6 +1643,14 @@ body.pg-inner .editorial{background:none}
 /* ── Hero accueil : H1 taille mobile ── */
 .hero-banner h1{color:#fff;font-size:1.45rem;font-weight:800;line-height:1.25}
 
+/* ── Hero desktop : couleur sombre lisible sur fond bleu clair ── */
+@media(min-width:700px){
+  .hero-upper-inner{justify-content:center}
+  .hero-text-col{flex:none;text-align:center;max-width:440px}
+  .hero-upper-inner .hero-text-col h1{color:#0a2040;font-size:2.5rem;line-height:1.15;font-weight:800}
+  .hero-upper-inner .hero-text-col .hero-sub{color:rgba(10,32,64,.75);font-size:1rem;line-height:1.65}
+}
+
 /* ── Section produits accueil : titre agrandi ── */
 @media(min-width:960px){
   .prod-group-hd h2{font-size:2rem}
