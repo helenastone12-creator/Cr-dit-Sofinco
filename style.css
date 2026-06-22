@@ -220,11 +220,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    HERO BANNER — style Sofinco
 ═══════════════════════════ */
 .hero-banner{
-  position:relative;
-  padding:0;
-  background:linear-gradient(140deg,#06172e 0%,#0d2748 100%);
+  position:relative;padding:0;overflow:hidden;
+  background:#fff;
 }
-.hero-photo-bar{display:none}
+.hero-photo-bar{display:block;width:100%;height:260px;background:url('Heropc%20homepage.jpg.jpg') center 30%/cover no-repeat}
 /* Mobile defaults */
 .hero-upper-inner{display:none}
 .hero-photo-right{display:none}
