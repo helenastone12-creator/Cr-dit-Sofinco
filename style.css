@@ -365,11 +365,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hero-sim-wrap{display:none}
 
   /* Desktop hero : fond uni + texte + photo */
-  .hero-banner{padding:0;background:linear-gradient(140deg,#06172e 0%,#0d2748 100%)}
+  .hero-banner{padding:0;background:linear-gradient(135deg,#0d3a6e 0%,#1258a8 55%,#1565c0 100%)}
   .hero-upper-inner{
-    display:flex;align-items:flex-end;gap:2rem;
+    display:flex;align-items:center;gap:2rem;
     max-width:1100px;margin:0 auto;
-    padding:4rem 2rem 3rem;min-height:320px;
+    padding:4.5rem 2rem 5.5rem;min-height:420px;
   }
   .hero-text-col{display:flex;flex:1;flex-direction:column;gap:1.5rem}
   .hero-banner h1{color:#fff;font-size:2.6rem;font-weight:800;line-height:1.15}
@@ -385,7 +385,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   }
   .hero-photo-right::before{
     content:'';position:absolute;inset:0;z-index:1;
-    background:linear-gradient(to right,rgba(6,23,46,.7) 0%,transparent 45%);
+    background:linear-gradient(to right,rgba(13,58,110,.75) 0%,transparent 50%);
   }
   .hero-photo-right img{width:100%;height:100%;object-fit:cover;object-position:60% 20%}
 
@@ -425,7 +425,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 @media(min-width:960px){
   .hero-banner h1{font-size:3.2rem}
-  .hero-upper-inner{padding:5rem 2rem 3.5rem;min-height:360px}
+  .hero-upper-inner{padding:5rem 2rem 6rem;min-height:460px}
   .hero-photo-right{width:420px;height:340px}
 }
 
