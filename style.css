@@ -366,9 +366,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 
   /* Desktop hero : photo en fond de la bannière, dégradé bleu à gauche */
   .hero-banner{
-    padding:0;overflow:hidden;background-color:#1258a8;
+    padding:0;overflow:hidden;background-color:#1565c0;
     background-image:
-      linear-gradient(to right,#0d3a6e 0%,#1258a8 24%,rgba(18,88,168,.28) 40%,transparent 56%),
+      linear-gradient(to right,#0f5aa8 0%,#1565c0 26%,rgba(21,101,192,.25) 42%,transparent 58%),
       url('Hero%20homepage.jpg');
     background-position:center,68% 12%;
     background-size:auto,cover;
