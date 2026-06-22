@@ -8,7 +8,7 @@ input,select,textarea{font-size:max(16px,1em) !important;}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 img{max-width:100%;height:auto;display:block}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
 
 :root{
   --orange:#06c2b0;
@@ -627,8 +627,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   padding:1.1rem 0;font-size:.97rem;font-weight:700;color:#222;
   background:none;border:none;cursor:pointer;text-align:left;font-family:inherit;
   gap:1rem;
+  -webkit-tap-highlight-color:transparent;
+  outline:none;
+  transition:color .22s ease;
 }
-.faq-question:hover{color:#000}
+.faq-question:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+.faq-question:hover{color:#111}
 .faq-item.open .faq-question{color:var(--teal)}
 .faq-icon{
   flex-shrink:0;width:20px;height:20px;
@@ -656,9 +660,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   border-bottom:1px solid #e8edf2;cursor:pointer;font-family:inherit;
   font-size:.97rem;font-weight:600;color:#222;
   padding:1.15rem 2.6rem 1.15rem 0;position:relative;
-  transition:color .2s;
+  -webkit-tap-highlight-color:transparent;
+  outline:none;
+  transition:color .22s ease;
 }
-.faq-q:hover{color:#000}
+.faq-q:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+.faq-q:hover{color:#111}
 .faq-q::after{
   content:'';position:absolute;right:6px;top:50%;
   display:block;width:8px;height:8px;
