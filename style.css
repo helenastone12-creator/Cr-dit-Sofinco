@@ -225,7 +225,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .hero-photo-bar{display:block;width:100%;height:260px;background:url('Heropc%20homepage.jpg.jpg') center 30%/cover no-repeat}
 /* Mobile defaults */
-.hero-upper-inner{display:none}
+.hero-upper-inner{display:none !important}
 .hero-photo-right{display:none}
 .hero-cards-row{display:none}
 .hero-banner-inner{
