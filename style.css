@@ -366,8 +366,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 
   /* Desktop hero */
   .hero-banner{
-    padding:0;overflow:hidden;
-    background:linear-gradient(135deg,#0f5aa8 0%,#1565c0 50%,#1976d2 100%);
+    padding:0;overflow:hidden;background-color:#1565c0;
+    background-image:
+      linear-gradient(to right,#1565c0 0%,#1565c0 20%,rgba(21,101,192,.5) 38%,transparent 55%),
+      url('Hero%20homepage.jpg');
+    background-position:center,58% 25%;
+    background-size:auto,cover;
+    background-repeat:no-repeat,no-repeat;
   }
   .hero-upper-inner{
     display:flex;align-items:center;
