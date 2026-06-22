@@ -901,19 +901,7 @@
     <div class="sp5-row2">
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-banque">Banque principale <span class="sp5-req">*</span></label>
-        <select id="s5-banque" class="sp5-sel">
-          <option value="" disabled selected>Choisir...</option>
-          <option value="bnp">BNP Paribas</option>
-          <option value="sg">Société Générale</option>
-          <option value="ca">Crédit Agricole</option>
-          <option value="lcl">LCL</option>
-          <option value="ce">Caisse d'Épargne</option>
-          <option value="bp">Banque Populaire</option>
-          <option value="cm">Crédit Mutuel</option>
-          <option value="hsbc">HSBC</option>
-          <option value="bourso">Boursorama</option>
-          <option value="autre">Autre</option>
-        </select>
+        <input type="text" id="s5-banque" class="sp5-inp" placeholder="Ex : Crédit Agricole, BNP Paribas…" autocomplete="organization"/>
         <span class="sp5-err" id="s5-banque-err">Champ requis</span>
       </div>
       <div class="sp5-field-group">
