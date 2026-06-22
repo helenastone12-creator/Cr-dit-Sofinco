@@ -364,16 +364,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hero-photo-bar{display:none}
   .hero-sim-wrap{display:none}
 
-  /* Desktop hero : photo en fond de la bannière, dégradé bleu à gauche */
+  /* Desktop hero : fond bleu uni */
   .hero-banner{
-    padding:0;overflow:hidden;background-color:#1565c0;
-    background-image:
-      linear-gradient(to right,#1565c0 0%,#1565c0 14%,rgba(21,101,192,.55) 28%,rgba(21,101,192,.28) 44%,rgba(21,101,192,.28) 64%,rgba(21,101,192,.55) 80%,#1565c0 100%),
-      linear-gradient(rgba(21,101,192,.38),rgba(21,101,192,.38)),
-      url('Hero%20homepage.jpg');
-    background-position:center,center,55% 30%;
-    background-size:auto,auto,cover;
-    background-repeat:no-repeat,no-repeat;
+    padding:0;overflow:hidden;
+    background:linear-gradient(135deg,#0f5aa8 0%,#1565c0 50%,#1976d2 100%);
   }
   .hero-upper-inner{
     display:flex;align-items:center;
@@ -427,7 +421,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(min-width:960px){
   .hero-banner h1{font-size:3.2rem}
   .hero-upper-inner{padding:5rem 2rem 6rem;min-height:460px}
-  .hero-banner{background-position:center,center,58% 25%;background-size:auto,auto,cover}
 }
 
 /* ═══════════════════════════
