@@ -221,22 +221,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 ═══════════════════════════ */
 .hero-banner{
   position:relative;padding:0;overflow:hidden;
-  background-color:#b8d8ea;
-  background-image:
-    linear-gradient(to right,rgba(168,216,236,.95) 0%,rgba(197,232,245,.75) 45%,rgba(197,232,245,.2) 100%),
-    url('Heropc%20homepage.jpg.jpg');
-  background-position:center,right center;
-  background-size:auto,auto 100%;
-  background-repeat:no-repeat,no-repeat;
-  background-blend-mode:normal,multiply;
-  min-height:220px;
+  background:#fff;
 }
-.hero-photo-bar{display:none}
+.hero-photo-bar{display:block;width:100%;height:auto}
 /* Mobile defaults */
 .hero-upper-inner{
   display:block;
   max-width:var(--w);margin:0 auto;
-  padding:3.5rem 1.5rem 3.5rem;
+  padding:1.5rem 1.5rem 1rem;
   position:relative;z-index:2;
 }
 .hero-photo-right{display:none}
@@ -247,7 +239,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .hero-banner h1{
   color:#0d2748;font-size:1.75rem;font-weight:800;
-  line-height:1.22;max-width:55%;
+  line-height:1.22;
 }
 .hero-banner h1 sup{font-size:.65rem}
 
