@@ -1638,7 +1638,7 @@ body.pg-inner .editorial{background:none}
 ══════════════════════════════════════════════════════════ */
 
 /* ── Hero accueil : H1 taille mobile ── */
-.hero-banner h1{color:#fff;font-size:1.45rem;font-weight:800;line-height:1.25}
+.hero-banner h1{color:#0d2748;font-size:1.65rem;font-weight:800;line-height:1.25}
 
 /* ── Hero desktop : couleur sombre lisible sur fond bleu clair ── */
 @media(min-width:700px){
