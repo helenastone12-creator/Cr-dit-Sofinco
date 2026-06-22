@@ -647,9 +647,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   display:block;max-height:0;overflow:hidden;
   padding-bottom:0;
   font-size:.9rem;color:#555;line-height:1.75;
-  transition:max-height .38s ease,padding-bottom .25s ease;
+  transition:max-height .34s cubic-bezier(.4,0,.2,1),padding-bottom .25s ease;
 }
-.faq-item.open .faq-answer{max-height:700px;padding-bottom:1.3rem}
+.faq-item.open .faq-answer{padding-bottom:1.3rem}
 .faq-more{text-align:center;margin-top:.5rem}
 .faq-q{
   display:block;width:100%;text-align:left;background:none;border:none;
@@ -672,9 +672,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   display:block;max-height:0;overflow:hidden;
   padding-top:0;padding-bottom:0;
   border-bottom:1px solid transparent;
-  transition:max-height .38s ease,padding .25s ease;
+  transition:max-height .34s cubic-bezier(.4,0,.2,1),padding .25s ease;
 }
-.faq-item.open .faq-a{max-height:900px;padding:.85rem 0 1.25rem;border-bottom-color:#e8edf2}
+.faq-item.open .faq-a{padding:.85rem 0 1.25rem;border-bottom-color:#e8edf2}
 .faq-a p{font-size:.9rem;color:#444;line-height:1.75;margin-bottom:.5rem}
 .faq-a p:last-child{margin-bottom:0}
 
