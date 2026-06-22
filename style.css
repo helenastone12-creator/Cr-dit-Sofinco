@@ -1743,17 +1743,8 @@ body.pg-inner .editorial{background:none}
   .prod-faq h2{
     font-size:1.65rem;text-align:center;margin-bottom:1.8rem;
   }
-  /* Corps de texte éditorial — centré ── */
-  .editorial p{font-size:1rem;line-height:1.9;text-align:center}
-  /* Paragraphes des sections produit — centrés ── */
-  .prod-av-card p,
-  .prod-mention-reg p,
-  .prod-cta p,
-  .prod-hero-sub,
-  .doc-item span,
-  .eligibilite-item{text-align:center}
-  /* Grilles docs/éligibilité centrées ── */
-  .docs-grid,.eligibilite-grid{justify-items:center}
+  /* Corps de texte éditorial ── */
+  .editorial p{font-size:1rem;line-height:1.9}
   /* Tableau caractéristiques centré ── */
   .prod-caract-wrap.inner{max-width:860px}
   .prod-caract-wrap{padding:3rem}
