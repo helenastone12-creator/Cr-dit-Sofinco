@@ -379,7 +379,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     height:100%;width:auto;
     mix-blend-mode:multiply;
     z-index:0;
+    opacity:0;
+    transition:opacity .4s ease;
   }
+  .hero-pc-img.loaded{opacity:1}
   .hero-banner::before{content:none}
   .hero-banner::after{content:none}
   .hero-upper-inner{

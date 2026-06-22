@@ -1242,6 +1242,14 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+(function(){
+  var img=document.querySelector('.hero-pc-img');
+  if(!img)return;
+  if(img.complete){img.classList.add('loaded');}
+  else{img.addEventListener('load',function(){img.classList.add('loaded');});}
+})();
+</script>
 
 </body>
 
