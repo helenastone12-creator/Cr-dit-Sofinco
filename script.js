@@ -466,6 +466,20 @@
     });
   }
 
+  // ── Simulateur desktop (carte Sofinco) ──
+  var hscBtn = document.getElementById('hsc-sim-btn');
+  if(hscBtn){
+    hscBtn.addEventListener('click',function(){
+      var projet = document.getElementById('hsc-projet').value;
+      var montant = parseInt(document.getElementById('hsc-montant').value)||0;
+      var page = projet==='auto'?'credit-auto.html':
+                 projet==='travaux'?'credit-travaux.html':
+                 projet==='renouvelable'?'credit-renouvelable.html':
+                 projet==='rachat'?'rachat-de-credits.html':'pret-personnel.html';
+      window.location.href = page + (montant>=3000&&montant<=200000?'?montant='+montant:'');
+    });
+  }
+
   // ── Bannière cookies ──
   (function(){
     var banner = document.getElementById('cookie-banner');

@@ -209,11 +209,12 @@
 
 <div class="page">
 
-<!-- ── Héro simulateur style Cofidis ── -->
+<!-- ── Héro style Sofinco ── -->
   <section class="hero-banner">
+    <!-- Mobile : bande photo -->
     <div class="hero-photo-bar"></div>
-    <div class="hero-banner-layout">
-      <!-- Colonne texte — visible desktop uniquement -->
+    <!-- Desktop : texte + photo -->
+    <div class="hero-upper-inner">
       <div class="hero-text-col">
         <h1>Financez vos projets<br>en toute confiance</h1>
         <p class="hero-sub">Prêt personnel, crédit auto, travaux et plus.<br>Réponse de principe en 24h, 100&nbsp;% en ligne.</p>
@@ -223,10 +224,14 @@
           <li>Parcours 100&nbsp;% sécurisé</li>
         </ul>
       </div>
-      <div class="hero-sim-wrap">
-        <div class="hcard-white">
+      <div class="hero-photo-right">
+        <img src="Hero%20homepage.jpg" alt="Crédit en ligne rapide et sécurisé">
+      </div>
+    </div>
+    <!-- Mobile : carte simulation complète -->
+    <div class="hero-sim-wrap">
+      <div class="hcard-white">
         <h2 class="cof-sim-title">Simulez votre crédit en 2 étapes</h2>
-
         <div class="cof-step">
           <p class="cof-step-lbl"><strong>1.</strong> De quel montant avez-vous besoin&nbsp;?</p>
           <div class="sim-field cof-amount-wrap">
@@ -235,7 +240,6 @@
           </div>
           <p class="cof-amount-err" id="cof-montant-err">Montant entre 3 000 € et 200 000 €</p>
         </div>
-
         <div class="cof-step">
           <p class="cof-step-lbl"><strong>2.</strong> Quel est votre projet&nbsp;?</p>
           <div class="cof-proj-grid">
@@ -265,12 +269,38 @@
             </button>
           </div>
         </div>
-
         <button class="btn-teal cof-cta-btn" id="cof-sim-btn">SIMULER MON CRÉDIT</button>
-        </div>
       </div>
-    </div><!-- /hero-banner-layout -->
+    </div>
   </section>
+
+  <!-- Desktop : deux cartes chevauchant hero + produits -->
+  <div class="hero-cards-row">
+    <div class="hero-promo-card">
+      <p class="hpc-tag">CRÉDIT PERSONNEL</p>
+      <p class="hpc-rate-label">À partir de</p>
+      <p class="hpc-rate">3,50<sup>%</sup></p>
+      <p class="hpc-sub">TAEG fixe. Offre indicative, sous réserve d'acceptation du dossier.</p>
+      <a href="pret-personnel.html" class="hpc-btn pg-link">Simuler mon crédit</a>
+    </div>
+    <div class="hero-sim-card">
+      <h2 class="hsc-title">Financez votre projet en ligne</h2>
+      <p class="hsc-sub">Simulez en 2 minutes et obtenez une réponse de principe immédiate.</p>
+      <div class="hsc-form">
+        <select class="sim-select hsc-sel" id="hsc-projet" aria-label="Votre projet">
+          <option value="">Votre projet</option>
+          <option value="auto">Auto / Moto</option>
+          <option value="travaux">Travaux</option>
+          <option value="personnel">Prêt personnel</option>
+          <option value="renouvelable">Crédit renouvelable</option>
+          <option value="rachat">Rachat de crédits</option>
+          <option value="autre">Autre projet</option>
+        </select>
+        <input type="number" class="sim-input hsc-inp" id="hsc-montant" placeholder="Montant (€)" min="3000" max="200000" aria-label="Montant en euros">
+        <button class="btn-teal hsc-btn" id="hsc-sim-btn">Simuler un projet</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Produits ── -->
   <section class="products">

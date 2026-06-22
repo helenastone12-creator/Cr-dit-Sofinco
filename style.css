@@ -217,17 +217,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .inner{max-width:var(--w);margin:0 auto;padding:0 2rem}
 
 /* ═══════════════════════════
-   HERO BANNER — photo background
+   HERO BANNER — style Sofinco
 ═══════════════════════════ */
 .hero-banner{
   position:relative;
   padding:0;
-  background:#08192e;
+  background:linear-gradient(140deg,#06172e 0%,#0d2748 100%);
 }
 .hero-photo-bar{
   width:100%;height:220px;
-  background:url('Hero%20homepage.jpg') center 30%/cover no-repeat;
+  background:url('Hero%20homepage.jpg') center 25%/cover no-repeat;
 }
+/* Mobile defaults */
+.hero-upper-inner{display:none}
+.hero-cards-row{display:none}
 .hero-banner-inner{
   max-width:var(--w);margin:0 auto;width:100%;
   position:relative;z-index:1;
@@ -286,7 +289,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .hcard-dark-cta:hover{background:#e8f4fa}
 
-/* Layout mobile : pleine largeur */
+/* Mobile: hero-sim-wrap pleine largeur */
 .hero-banner-layout{padding:0}
 
 /* Enveloppe de la carte dans le hero */
@@ -352,28 +355,78 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .btn-teal:hover{background:var(--teal-d)}
 
-/* Colonne texte + image — cachées sur mobile */
+/* Colonne texte — cachée sur mobile */
 .hero-text-col{display:none}
 .hero-img-col{display:none}
 
 @media(min-width:700px){
+  /* Mobile elements hidden */
   .hero-photo-bar{display:none}
-  .hero-banner{
-    padding:5rem 2rem;
-    min-height:520px;
-    display:flex;align-items:center;
-    background:
-      linear-gradient(to right, rgba(4,10,30,.86) 0%, rgba(4,10,30,.58) 42%, rgba(4,10,30,.1) 100%),
-      url('Hero%20homepage.jpg') center center/cover no-repeat;
+  .hero-sim-wrap{display:none}
+
+  /* Desktop hero : fond uni + texte + photo */
+  .hero-banner{padding:0;background:linear-gradient(140deg,#06172e 0%,#0d2748 100%)}
+  .hero-upper-inner{
+    display:flex;align-items:flex-end;gap:2rem;
+    max-width:1100px;margin:0 auto;
+    padding:4rem 2rem 3rem;min-height:320px;
   }
-  .hero-banner-layout{max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;gap:3.5rem;padding:0}
-  .hero-sim-wrap{flex:0 0 440px;max-width:440px}
-  .hcard-white{border-radius:16px;box-shadow:0 16px 56px rgba(0,0,0,.38);padding:2rem 2rem 2.4rem;margin-top:0}
-  .hero-text-col{display:flex;flex:1;flex-direction:column;gap:1.6rem}
-  .hero-sub{color:rgba(255,255,255,.9);font-size:1.05rem;line-height:1.8}
-  .hero-trust-list{display:flex;flex-direction:column;gap:.7rem}
-  .hero-trust-list li{color:rgba(255,255,255,.88);font-size:.95rem;padding-left:1.6rem;position:relative}
-  .hero-trust-list li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:800;font-size:1rem}
+  .hero-text-col{display:flex;flex:1;flex-direction:column;gap:1.5rem}
+  .hero-banner h1{color:#fff;font-size:2.6rem;font-weight:800;line-height:1.15}
+  .hero-sub{color:rgba(255,255,255,.88);font-size:1rem;line-height:1.75}
+  .hero-trust-list{display:flex;flex-direction:column;gap:.6rem}
+  .hero-trust-list li{color:rgba(255,255,255,.85);font-size:.93rem;padding-left:1.5rem;position:relative}
+  .hero-trust-list li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:800}
+
+  /* Photo droite */
+  .hero-photo-right{
+    width:360px;flex-shrink:0;align-self:flex-end;
+    height:300px;overflow:hidden;border-radius:12px 12px 0 0;position:relative;
+  }
+  .hero-photo-right::before{
+    content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(to right,rgba(6,23,46,.7) 0%,transparent 45%);
+  }
+  .hero-photo-right img{width:100%;height:100%;object-fit:cover;object-position:60% 20%}
+
+  /* Deux cartes chevauchantes */
+  .hero-cards-row{
+    display:flex;gap:1.5rem;
+    max-width:1100px;margin:-72px auto 0;
+    padding:0 2rem;position:relative;z-index:10;
+  }
+  .hero-promo-card{
+    flex:0 0 270px;background:#08192e;border-radius:12px;
+    padding:1.6rem 1.8rem;box-shadow:0 8px 32px rgba(0,0,0,.35);
+  }
+  .hpc-tag{font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:.7rem}
+  .hpc-rate-label{font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:.15rem}
+  .hpc-rate{font-size:3rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.4rem}
+  .hpc-rate sup{font-size:1.3rem;font-weight:700;vertical-align:super}
+  .hpc-sub{font-size:.71rem;color:rgba(255,255,255,.4);line-height:1.5;margin-bottom:1.2rem}
+  .hpc-btn{
+    display:block;background:var(--teal);color:#fff;text-align:center;
+    border-radius:2rem;padding:.65rem 1rem;font-size:.88rem;font-weight:700;
+    transition:background .15s;
+  }
+  .hpc-btn:hover{background:var(--teal-d)}
+  .hero-sim-card{
+    flex:1;background:#fff;border-radius:12px;
+    padding:1.6rem 2rem;box-shadow:0 8px 32px rgba(0,0,0,.15);
+  }
+  .hsc-title{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.35rem}
+  .hsc-sub{font-size:.83rem;color:#666;margin-bottom:1rem;line-height:1.5}
+  .hsc-form{display:flex;gap:.65rem;align-items:center;flex-wrap:wrap}
+  .hsc-sel,.hsc-inp{flex:1;min-width:130px;height:46px}
+  .hsc-btn{flex-shrink:0;width:auto;padding:.75rem 1.4rem;white-space:nowrap;border-radius:10px}
+
+  /* Products : espace pour les cartes chevauchantes */
+  .products{padding-top:calc(72px + 2.5rem)}
+}
+@media(min-width:960px){
+  .hero-banner h1{font-size:3.2rem}
+  .hero-upper-inner{padding:5rem 2rem 3.5rem;min-height:360px}
+  .hero-photo-right{width:420px;height:340px}
 }
 
 /* ═══════════════════════════
@@ -1582,13 +1635,8 @@ body.pg-inner .editorial{background:none}
    AMÉLIORATIONS DESKTOP — MISE EN PAGE PROFESSIONNELLE
 ══════════════════════════════════════════════════════════ */
 
-/* ── Hero accueil : H1 plus impactant ── */
-@media(min-width:700px){
-  .hero-banner h1{font-size:1.9rem;line-height:1.2}
-}
-@media(min-width:960px){
-  .hero-banner h1{font-size:3rem;line-height:1.15}
-}
+/* ── Hero accueil : H1 taille mobile ── */
+.hero-banner h1{color:#fff;font-size:1.45rem;font-weight:800;line-height:1.25}
 
 /* ── Section produits accueil : titre agrandi ── */
 @media(min-width:960px){
