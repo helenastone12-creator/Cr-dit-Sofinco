@@ -226,7 +226,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .hero-photo-bar{
   width:100%;height:220px;
-  background:url('Hero%20homepage.jpg') center 25%/cover no-repeat;
+  background-color:#1565c0;
+  background-image:url('Heropc%20homepage.jpg.jpg');
+  background-position:center top;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-blend-mode:multiply;
 }
 /* Mobile defaults */
 .hero-upper-inner{display:none}
@@ -368,11 +373,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hero-banner{
     padding:0;overflow:hidden;background-color:#1565c0;
     background-image:
-      linear-gradient(to right,#1565c0 0%,#1565c0 20%,rgba(21,101,192,.5) 38%,transparent 55%),
-      url('Hero%20homepage.jpg');
-    background-position:center,58% 25%;
-    background-size:auto,cover;
+      linear-gradient(to right,#1565c0 0%,#1565c0 28%,rgba(21,101,192,.5) 50%,transparent 68%),
+      url('Heropc%20homepage.jpg.jpg');
+    background-position:center,right center;
+    background-size:auto,auto 100%;
     background-repeat:no-repeat,no-repeat;
+    background-blend-mode:normal,multiply;
   }
   .hero-upper-inner{
     display:flex;align-items:center;
