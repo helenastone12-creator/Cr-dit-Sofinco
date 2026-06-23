@@ -114,6 +114,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     border-radius:2rem;padding:.42rem 1.1rem;
     font-size:.82rem;font-weight:700;
     display:flex;align-items:center;gap:.35rem;
+    white-space:nowrap;
   }
   .hd-right .hd-connect-btn:hover{background:#000}
   .hd-right .hd-dossier{
