@@ -1098,7 +1098,7 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    HERO PRODUIT
 ════════════════════════ */
-.prod-hero{background:#fff;padding:2.5rem 0 2rem;color:var(--navy);position:relative;border-bottom:2px solid #ecf0f3;overflow:visible;min-height:0}
+.prod-hero{background:#fff;padding:0 0 2rem;color:var(--navy);position:relative;border-bottom:2px solid #ecf0f3;overflow:visible;min-height:0}
 .prod-hero::after{display:none}
 .prod-hero::before{display:none}
 .prod-hero .wrap,.prod-hero .inner{max-width:var(--w);margin:0 auto;position:relative;z-index:1}
