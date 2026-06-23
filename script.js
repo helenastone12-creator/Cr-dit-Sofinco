@@ -1091,7 +1091,7 @@ function sp5Submit(){
       : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
     a.href = href;
     a.className = 'ft-lang-list-item' + (l.code === current ? ' ft-lang-list-item--active' : '');
-    a.innerHTML = '<img class="ft-lang-list-flag" src="' + flagSvg[l.code] + '" alt="">'
+    a.innerHTML = '<span class="ft-lang-list-flag"><img src="' + flagSvg[l.code] + '" alt=""></span>'
       + '<span class="ft-lang-list-name">' + l.name + '</span>'
       + '<span class="ft-lang-list-check">' + CHECK_SVG + '</span>';
     a.addEventListener('click', function(){ localStorage.setItem('lang_choice', l.code); });

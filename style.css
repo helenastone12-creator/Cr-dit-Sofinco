@@ -2162,7 +2162,12 @@ body.pg-inner .editorial{background:none}
 .ft-lang-list-item--active{background:#F0FDFA}
 .ft-lang-list-flag{
   width:36px;height:36px;border-radius:50%;
-  object-fit:cover;flex-shrink:0;
+  overflow:hidden;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#F3F4F6;
+}
+.ft-lang-list-flag img{
+  width:54px;height:54px;object-fit:cover;
 }
 .ft-lang-list-name{
   font-size:.88rem;font-weight:400;color:#374151;flex:1;
