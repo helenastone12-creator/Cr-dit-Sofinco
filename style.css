@@ -1717,9 +1717,9 @@ body.pg-inner .editorial{background:none}
     column-gap:3.5rem;
     align-items:start;
   }
-  /* Eyebrow badge affiché au-dessus du H1 ── */
+  /* Eyebrow badge : même ordre que le HTML (sous le H1) ── */
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-eyebrow{
-    grid-column:1;order:-1;
+    grid-column:1;
   }
   .prod-hero:has(.prod-hero-rate) .inner h1{
     grid-column:1;
