@@ -1,10 +1,29 @@
+// ── Scroll lock universel (iOS Safari + PC + tablette) ──
+var _lockScrollY = 0;
+function lockScroll(){
+  _lockScrollY = window.scrollY || window.pageYOffset;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + _lockScrollY + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.overflow = 'hidden';
+}
+function unlockScroll(){
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.overflow = '';
+  window.scrollTo(0, _lockScrollY);
+}
+
 // Menu mobile
   var btn = document.getElementById('menu-btn');
   var menu = document.getElementById('mob-menu');
   var closeBtn = document.getElementById('mob-close');
   var simBar = document.getElementById('mob-sim-bar');
-  function openMenu(){ menu.classList.add('open'); document.body.style.overflow='hidden'; if(simBar) simBar.style.display='none'; }
-  function closeMenu(){ menu.classList.remove('open'); document.body.style.overflow=''; if(simBar) simBar.style.display=''; }
+  function openMenu(){ menu.classList.add('open'); lockScroll(); if(simBar) simBar.style.display='none'; }
+  function closeMenu(){ menu.classList.remove('open'); unlockScroll(); if(simBar) simBar.style.display=''; }
   if(btn) btn.addEventListener('click', function(){ if(menu.classList.contains('open')){ closeMenu(); } else { openMenu(); } });
   if(closeBtn) closeBtn.addEventListener('click', closeMenu);
 
@@ -276,14 +295,14 @@
     var startStep = (projet && !montant) ? 2 : 1;
     if(projet && montant){ startStep=3; }
     document.getElementById('sim-page').classList.add('open');
-    document.body.style.overflow='hidden';
+    lockScroll();
     if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='none';
     showStep(startStep);
   }
 
   function closeSim(){
     document.getElementById('sim-page').classList.remove('open');
-    document.body.style.overflow='';
+    unlockScroll();
     if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
   }
 
@@ -482,12 +501,12 @@
     function showBanner(){
       banner.classList.add('show');
       if(overlay) overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
+      lockScroll();
     }
     function closeBanner(){
       banner.classList.remove('show');
       if(overlay) overlay.classList.remove('show');
-      document.body.style.overflow = '';
+      unlockScroll();
     }
     if(!localStorage.getItem('cookie_choice')){
       setTimeout(showBanner, 800);
@@ -1110,24 +1129,6 @@ function sp5Submit(){
     });
   }
 
-  var _scrollY = 0;
-  function lockScroll(){
-    _scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + _scrollY + 'px';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.overflow = 'hidden';
-  }
-  function unlockScroll(){
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.overflow = '';
-    window.scrollTo(0, _scrollY);
-  }
-
   // Open panel — pas de focus() pour éviter le clavier mobile
   btn.addEventListener('click', function(e){
     e.stopPropagation();
@@ -1150,7 +1151,6 @@ function sp5Submit(){
     if(e.key==='Escape' && panel.classList.contains('open')){
       panel.classList.remove('open');
       unlockScroll();
-      document.body.style.overflow='';
     }
   });
 })();
