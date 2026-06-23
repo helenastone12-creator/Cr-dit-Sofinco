@@ -1,3 +1,306 @@
+var LANG = (function(){
+  var m = location.pathname.match(/^\/(en|de|es|it|nl|pl|sv)\//);
+  return m ? m[1] : 'fr';
+})();
+var T = {
+  fr: {
+    next: 'Suivant',
+    discover_offers: 'Découvrir les offres',
+    validate: 'Valider ma demande',
+    progress: 'Progression',
+    monthly: 'Mensualité',
+    nb_monthly: 'Nombre de mensualités',
+    months: 'mois',
+    per_month: '€ / mois',
+    duration: 'Durée',
+    fixed_taeg: 'TAEG fixe',
+    see_detail: 'voir le détail',
+    total_due: 'Montant total dû',
+    your_sim: 'Votre simulation personnalisée',
+    offer_on: 'Une offre sur',
+    indicate_pref: 'Indiquez vos préférences pour rembourser votre emprunt de',
+    pret_perso: 'Prêt personnel',
+    credit_auto: 'Crédit auto',
+    credit_travaux: 'Crédit travaux',
+    regroupement: 'Regroupement de crédits',
+    famille: 'Famille & loisirs',
+    auto_lbl: 'Auto',
+    travaux_lbl: 'Travaux',
+    autre_lbl: 'Autre',
+    regroupement_lbl: 'Regroupement',
+    nationality_err: 'Veuillez sélectionner votre nationalité',
+    sitfam_err: 'Veuillez sélectionner votre situation familiale',
+    sitpro_err: 'Veuillez sélectionner votre situation professionnelle',
+    secteur_err: 'Veuillez sélectionner votre secteur d\'activité',
+    anciennete_err: 'Veuillez indiquer votre ancienneté',
+    advisor_call: 'Appel de votre conseiller',
+    advisor_sub: 'Confirmation et offre personnalisée',
+    sign_funds: 'Signature & déblocage des fonds',
+    sign_sub: 'Dès validation de votre contrat',
+    years: 'ans',
+    search: 'Rechercher'
+  },
+  en: {
+    next: 'Next',
+    discover_offers: 'Discover offers',
+    validate: 'Submit my application',
+    progress: 'Progress',
+    monthly: 'Monthly payment',
+    nb_monthly: 'Number of instalments',
+    months: 'months',
+    per_month: '€ / month',
+    duration: 'Duration',
+    fixed_taeg: 'Fixed APR',
+    see_detail: 'see details',
+    total_due: 'Total amount due',
+    your_sim: 'Your personalised simulation',
+    offer_on: 'An offer over',
+    indicate_pref: 'Set your preferences to repay your loan of',
+    pret_perso: 'Personal loan',
+    credit_auto: 'Car loan',
+    credit_travaux: 'Home improvement loan',
+    regroupement: 'Debt consolidation',
+    famille: 'Family & leisure',
+    auto_lbl: 'Car',
+    travaux_lbl: 'Home',
+    autre_lbl: 'Other',
+    regroupement_lbl: 'Consolidation',
+    nationality_err: 'Please select your nationality',
+    sitfam_err: 'Please select your family situation',
+    sitpro_err: 'Please select your professional situation',
+    secteur_err: 'Please select your activity sector',
+    anciennete_err: 'Please indicate your seniority',
+    advisor_call: 'Advisor call',
+    advisor_sub: 'Confirmation and personalised offer',
+    sign_funds: 'Signature & fund release',
+    sign_sub: 'Upon validation of your contract',
+    years: 'yrs',
+    search: 'Search'
+  },
+  de: {
+    next: 'Weiter',
+    discover_offers: 'Angebote entdecken',
+    validate: 'Antrag einreichen',
+    progress: 'Fortschritt',
+    monthly: 'Monatliche Rate',
+    nb_monthly: 'Anzahl der Raten',
+    months: 'Monate',
+    per_month: '€ / Monat',
+    duration: 'Laufzeit',
+    fixed_taeg: 'Fester effektiver Jahreszins',
+    see_detail: 'Details anzeigen',
+    total_due: 'Gesamtrückzahlungsbetrag',
+    your_sim: 'Ihre persönliche Simulation',
+    offer_on: 'Ein Angebot über',
+    indicate_pref: 'Geben Sie Ihre Präferenzen für die Rückzahlung Ihres Darlehens von',
+    pret_perso: 'Privatkredit',
+    credit_auto: 'Autokredit',
+    credit_travaux: 'Renovierungskredit',
+    regroupement: 'Schuldenumschuldung',
+    familie: 'Familie & Freizeit',
+    auto_lbl: 'Auto',
+    travaux_lbl: 'Renovierung',
+    autre_lbl: 'Sonstiges',
+    regroupement_lbl: 'Umschuldung',
+    nationality_err: 'Bitte wählen Sie Ihre Nationalität',
+    sitfam_err: 'Bitte wählen Sie Ihren Familienstand',
+    sitpro_err: 'Bitte wählen Sie Ihre berufliche Situation',
+    secteur_err: 'Bitte wählen Sie Ihren Tätigkeitsbereich',
+    anciennete_err: 'Bitte geben Sie Ihre Betriebszugehörigkeit an',
+    advisor_call: 'Beratergespräch',
+    advisor_sub: 'Bestätigung und persönliches Angebot',
+    sign_funds: 'Unterschrift & Auszahlung',
+    sign_sub: 'Nach Genehmigung Ihres Vertrags',
+    years: 'J.',
+    search: 'Suchen'
+  },
+  es: {
+    next: 'Siguiente',
+    discover_offers: 'Descubrir ofertas',
+    validate: 'Enviar mi solicitud',
+    progress: 'Progreso',
+    monthly: 'Cuota mensual',
+    nb_monthly: 'Número de cuotas',
+    months: 'meses',
+    per_month: '€ / mes',
+    duration: 'Duración',
+    fixed_taeg: 'TAE fija',
+    see_detail: 'ver detalles',
+    total_due: 'Importe total a pagar',
+    your_sim: 'Su simulación personalizada',
+    offer_on: 'Una oferta a',
+    indicate_pref: 'Indique sus preferencias para reembolsar su préstamo de',
+    pret_perso: 'Préstamo personal',
+    credit_auto: 'Préstamo de coche',
+    credit_travaux: 'Préstamo para reformas',
+    regroupement: 'Consolidación de deudas',
+    famille: 'Familia & ocio',
+    auto_lbl: 'Coche',
+    travaux_lbl: 'Reformas',
+    autre_lbl: 'Otro',
+    regroupement_lbl: 'Consolidación',
+    nationality_err: 'Por favor seleccione su nacionalidad',
+    sitfam_err: 'Por favor seleccione su situación familiar',
+    sitpro_err: 'Por favor seleccione su situación profesional',
+    secteur_err: 'Por favor seleccione su sector de actividad',
+    anciennete_err: 'Por favor indique su antigüedad',
+    advisor_call: 'Llamada de su asesor',
+    advisor_sub: 'Confirmación y oferta personalizada',
+    sign_funds: 'Firma y desembolso de fondos',
+    sign_sub: 'Tras la validación de su contrato',
+    years: 'años',
+    search: 'Buscar'
+  },
+  it: {
+    next: 'Avanti',
+    discover_offers: 'Scopri le offerte',
+    validate: 'Invia la mia richiesta',
+    progress: 'Avanzamento',
+    monthly: 'Rata mensile',
+    nb_monthly: 'Numero di rate',
+    months: 'mesi',
+    per_month: '€ / mese',
+    duration: 'Durata',
+    fixed_taeg: 'TAEG fisso',
+    see_detail: 'vedi dettagli',
+    total_due: 'Importo totale dovuto',
+    your_sim: 'La tua simulazione personalizzata',
+    offer_on: "Un'offerta su",
+    indicate_pref: 'Indica le tue preferenze per rimborsare il tuo prestito di',
+    pret_perso: 'Prestito personale',
+    credit_auto: 'Prestito auto',
+    credit_travaux: 'Prestito ristrutturazione',
+    regroupement: 'Consolidamento debiti',
+    famille: 'Famiglia & svago',
+    auto_lbl: 'Auto',
+    travaux_lbl: 'Ristrutturazione',
+    autre_lbl: 'Altro',
+    regroupement_lbl: 'Consolidamento',
+    nationality_err: 'Seleziona la tua nazionalità',
+    sitfam_err: 'Seleziona la tua situazione familiare',
+    sitpro_err: 'Seleziona la tua situazione professionale',
+    secteur_err: 'Seleziona il tuo settore di attività',
+    anciennete_err: 'Indica la tua anzianità',
+    advisor_call: 'Chiamata del tuo consulente',
+    advisor_sub: 'Conferma e offerta personalizzata',
+    sign_funds: 'Firma e sblocco dei fondi',
+    sign_sub: 'Dopo la convalida del contratto',
+    years: 'anni',
+    search: 'Cerca'
+  },
+  nl: {
+    next: 'Volgende',
+    discover_offers: 'Aanbiedingen ontdekken',
+    validate: 'Aanvraag indienen',
+    progress: 'Voortgang',
+    monthly: 'Maandbedrag',
+    nb_monthly: 'Aantal termijnen',
+    months: 'maanden',
+    per_month: '€ / maand',
+    duration: 'Looptijd',
+    fixed_taeg: 'Vaste JKP',
+    see_detail: 'details bekijken',
+    total_due: 'Totaal te betalen bedrag',
+    your_sim: 'Uw persoonlijke simulatie',
+    offer_on: 'Een aanbieding over',
+    indicate_pref: 'Geef uw voorkeuren aan voor de terugbetaling van uw lening van',
+    pret_perso: 'Persoonlijke lening',
+    credit_auto: 'Autolening',
+    credit_travaux: 'Renovatielening',
+    regroupement: 'Schuldenherstructurering',
+    famille: 'Familie & vrije tijd',
+    auto_lbl: 'Auto',
+    travaux_lbl: 'Renovatie',
+    autre_lbl: 'Overig',
+    regroupement_lbl: 'Herstructurering',
+    nationality_err: 'Selecteer uw nationaliteit',
+    sitfam_err: 'Selecteer uw gezinssituatie',
+    sitpro_err: 'Selecteer uw beroepssituatie',
+    secteur_err: 'Selecteer uw activiteitssector',
+    anciennete_err: 'Geef uw dienstverband aan',
+    advisor_call: 'Oproep van uw adviseur',
+    advisor_sub: 'Bevestiging en persoonlijk aanbod',
+    sign_funds: 'Ondertekening & uitbetaling',
+    sign_sub: 'Na goedkeuring van uw contract',
+    years: 'jr',
+    search: 'Zoeken'
+  },
+  pl: {
+    next: 'Dalej',
+    discover_offers: 'Odkryj oferty',
+    validate: 'Złóż wniosek',
+    progress: 'Postęp',
+    monthly: 'Rata miesięczna',
+    nb_monthly: 'Liczba rat',
+    months: 'miesięcy',
+    per_month: '€ / miesiąc',
+    duration: 'Czas trwania',
+    fixed_taeg: 'Stałe RRSO',
+    see_detail: 'zobacz szczegóły',
+    total_due: 'Całkowita kwota do zapłaty',
+    your_sim: 'Twoja spersonalizowana symulacja',
+    offer_on: 'Oferta na',
+    indicate_pref: 'Podaj swoje preferencje dotyczące spłaty pożyczki w wysokości',
+    pret_perso: 'Pożyczka osobista',
+    credit_auto: 'Kredyt samochodowy',
+    credit_travaux: 'Kredyt remontowy',
+    regroupement: 'Konsolidacja długów',
+    famille: 'Rodzina i wypoczynek',
+    auto_lbl: 'Samochód',
+    travaux_lbl: 'Remont',
+    autre_lbl: 'Inne',
+    regroupement_lbl: 'Konsolidacja',
+    nationality_err: 'Proszę wybrać narodowość',
+    sitfam_err: 'Proszę wybrać sytuację rodzinną',
+    sitpro_err: 'Proszę wybrać sytuację zawodową',
+    secteur_err: 'Proszę wybrać sektor działalności',
+    anciennete_err: 'Proszę podać staż pracy',
+    advisor_call: 'Rozmowa z doradcą',
+    advisor_sub: 'Potwierdzenie i spersonalizowana oferta',
+    sign_funds: 'Podpisanie i uruchomienie środków',
+    sign_sub: 'Po zatwierdzeniu umowy',
+    years: 'lat',
+    search: 'Szukaj'
+  },
+  sv: {
+    next: 'Nästa',
+    discover_offers: 'Utforska erbjudanden',
+    validate: 'Skicka min ansökan',
+    progress: 'Framsteg',
+    monthly: 'Månadsbetalning',
+    nb_monthly: 'Antal avbetalningar',
+    months: 'månader',
+    per_month: '€ / månad',
+    duration: 'Löptid',
+    fixed_taeg: 'Fast effektiv ränta',
+    see_detail: 'se detaljer',
+    total_due: 'Totalt belopp att betala',
+    your_sim: 'Din personliga simulering',
+    offer_on: 'Ett erbjudande på',
+    indicate_pref: 'Ange dina preferenser för återbetalning av ditt lån på',
+    pret_perso: 'Personligt lån',
+    credit_auto: 'Billån',
+    credit_travaux: 'Renoveringslån',
+    regroupement: 'Skuldkonsolidering',
+    famille: 'Familj & fritid',
+    auto_lbl: 'Bil',
+    travaux_lbl: 'Renovering',
+    autre_lbl: 'Övrigt',
+    regroupement_lbl: 'Konsolidering',
+    nationality_err: 'Välj ditt medborgarskap',
+    sitfam_err: 'Välj din familjesituation',
+    sitpro_err: 'Välj din yrkessituation',
+    secteur_err: 'Välj din verksamhetssektor',
+    anciennete_err: 'Ange din anställningstid',
+    advisor_call: 'Rådgivares samtal',
+    advisor_sub: 'Bekräftelse och personligt erbjudande',
+    sign_funds: 'Underskrift & utbetalning',
+    sign_sub: 'Efter godkännande av ditt avtal',
+    years: 'år',
+    search: 'Sök'
+  }
+};
+var t = T[LANG] || T.fr;
 // ── Scroll lock universel (iOS Safari + PC + tablette) ──
 var _lockScrollY = 0;
 function lockScroll(){
@@ -89,16 +392,16 @@ function unlockScroll(){
     document.getElementById('sim-page').scrollTop=0;
     document.querySelector('.sim-body').classList.toggle('sp4-open', n===4);
     document.getElementById('sim-page').classList.toggle('sp4-open', n===4);
-    document.getElementById('sim-bb-prog').textContent='Progression : '+(PROG[n]||'90%');
+    document.getElementById('sim-bb-prog').textContent=t.progress+' : '+(PROG[n]||'90%');
     var nxt=document.getElementById('sim-bb-next');
-    if(n===3){ nxt.textContent='Découvrir les offres'; nxt.classList.add('bb-teal'); }
-    else if(n===5){ nxt.textContent='Valider ma demande'; nxt.classList.add('bb-teal'); }
-    else{ nxt.textContent='Suivant'; nxt.classList.remove('bb-teal'); }
+    if(n===3){ nxt.textContent=t.discover_offers; nxt.classList.add('bb-teal'); }
+    else if(n===5){ nxt.textContent=t.validate; nxt.classList.add('bb-teal'); }
+    else{ nxt.textContent=t.next; nxt.classList.remove('bb-teal'); }
     document.getElementById('sim-bb-back').disabled=(n<=1);
     if(n===3){
       var P=parseInt(simData.montant)||5000;
       document.getElementById('sim-step3-sub').innerHTML=
-        'Indiquez vos préférences pour rembourser votre emprunt de <strong>'+fmtAmt(P)+'</strong>.';
+        t.indicate_pref+' <strong>'+fmtAmt(P)+'</strong>.';
       document.getElementById('sim-r-mens').checked=true;
       simData.choix='mensualite';
       refreshDropdown();
@@ -136,15 +439,15 @@ function unlockScroll(){
     var isReg=(simData.projet==='regroupement');
     var items=[];
     if(simData.choix==='mensualite'){
-      document.getElementById('sim-dd-type-lbl').textContent='Mensualité';
+      document.getElementById('sim-dd-type-lbl').textContent=t.monthly;
       [180,144,120,96,84,72,60,48,36,24,12,6].forEach(function(m){
         var pmt=calcPMT(P,m,isReg);
-        items.push({value:m,label:Math.round(pmt)+' € / mois'});
+        items.push({value:m,label:Math.round(pmt)+' '+t.per_month});
       });
     } else {
-      document.getElementById('sim-dd-type-lbl').textContent='Nombre de mensualités';
+      document.getElementById('sim-dd-type-lbl').textContent=t.nb_monthly;
       [6,12,24,36,48,60,72,84,96,120,144,180].forEach(function(m){
-        items.push({value:m,label:m+' mensualités'});
+        items.push({value:m,label:m+' '+t.months});
       });
     }
     var list=document.getElementById('sim-dd-list');
@@ -172,7 +475,7 @@ function unlockScroll(){
 
   function updateOfferCard(offer){
     document.getElementById('sim-r-monthly').textContent=fmtNum(offer.mensualite);
-    document.getElementById('sim-r-duree').textContent=offer.duree+' mois';
+    document.getElementById('sim-r-duree').textContent=offer.duree+' '+t.months;
     document.getElementById('sim-r-taeg').textContent='3,5 %';
     document.getElementById('sim-r-total').textContent=fmtEur(offer.mensualite*offer.duree);
   }
@@ -181,17 +484,17 @@ function unlockScroll(){
     var P=parseInt(simData.montant)||5000;
     var n=simData.duree||36;
     var isReg=(simData.projet==='regroupement');
-    var projetLabels={'famille-loisirs':'Prêt personnel','auto':'Crédit auto','travaux':'Crédit travaux','autre':'Prêt personnel','regroupement':'Regroupement de crédits'};
-    var projetNames={'famille-loisirs':'Famille & loisirs','auto':'Auto','travaux':'Travaux','autre':'Autre','regroupement':'Regroupement'};
+    var projetLabels={'famille-loisirs':t.pret_perso,'auto':t.credit_auto,'travaux':t.credit_travaux,'autre':t.pret_perso,'regroupement':t.regroupement};
+    var projetNames={'famille-loisirs':t.famille,'auto':t.auto_lbl,'travaux':t.travaux_lbl,'autre':t.autre_lbl,'regroupement':t.regroupement_lbl};
     var typeName=projetLabels[simData.projet]||'Prêt personnel';
 
     // 3 offres pour desktop, 2 onglets pour mobile
     var alt1=n>12?n-12:n+12; if(alt1<6)alt1=6;
     var alt2=n+12;
     var offers=[
-      {duree:alt1, mensualite:calcPMT(P,alt1,isReg), lbl:'Une offre sur '+alt1+' mois'},
-      {duree:n,    mensualite:calcPMT(P,n,isReg),    lbl:'Votre simulation personnalisée'},
-      {duree:alt2, mensualite:calcPMT(P,alt2,isReg), lbl:'Une offre sur '+alt2+' mois'}
+      {duree:alt1, mensualite:calcPMT(P,alt1,isReg), lbl:t.offer_on+' '+alt1+' '+t.months},
+      {duree:n,    mensualite:calcPMT(P,n,isReg),    lbl:t.your_sim},
+      {duree:alt2, mensualite:calcPMT(P,alt2,isReg), lbl:t.offer_on+' '+alt2+' '+t.months}
     ];
 
     // ── MOBILE : 2 onglets (offre 1 + offre centrale) ──
@@ -244,7 +547,7 @@ function unlockScroll(){
       [6,12,24,36,48,60,72,84,96,120,144,180].forEach(function(d){
         var opt=document.createElement('option');
         opt.value=d;
-        opt.textContent=d+' mois ('+Math.round(d/12*10)/10+' ans)';
+        opt.textContent=d+' '+t.months+' ('+Math.round(d/12*10)/10+' '+t.years+')';
         if(d===n) opt.selected=true;
         sbDur.appendChild(opt);
       });
@@ -261,9 +564,9 @@ function unlockScroll(){
         '<div class="sp4-card-radio"></div>'+
         '<div class="sp4-card-price">'+fmtNum(offer.mensualite)+' <sup>€</sup>/mois</div>'+
         '<div class="sp4-card-sublbl">'+offer.lbl+'</div>'+
-        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">Durée</span><span class="sp4-card-row-val">'+offer.duree+' mois</span></div>'+
-        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">TAEG fixe</span><span class="sp4-card-row-val">voir le détail</span></div>'+
-        '<div class="sp4-card-total"><span>Montant total dû<sup>(1)</sup></span><b>'+fmtEur(offer.mensualite*offer.duree)+'</b></div>';
+        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+t.duration+'</span><span class="sp4-card-row-val">'+offer.duree+' mois</span></div>'+
+        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+t.fixed_taeg+'</span><span class="sp4-card-row-val">'+t.see_detail+'</span></div>'+
+        '<div class="sp4-card-total"><span>'+t.total_due+'<sup>(1)</sup></span><b>'+fmtEur(offer.mensualite*offer.duree)+'</b></div>';
       card.addEventListener('click',function(){
         cardsEl.querySelectorAll('.sp4-card').forEach(function(c){c.classList.remove('sel')});
         card.classList.add('sel');
@@ -783,13 +1086,13 @@ function sp5Validate(step){
       if(!sp5ValidAge(v)) return false;
       return true;
     }, 'Date invalide ou âge non conforme (18 ans minimum)');
-    check('s5-nat',    's5-nat-err',    function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre nationalité');
-    check('s5-sitfam', 's5-sitfam-err', function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre situation familiale');
+    check('s5-nat',    's5-nat-err',    function(v){ return v && v.trim().length>0; }, t.nationality_err);
+    check('s5-sitfam', 's5-sitfam-err', function(v){ return v && v.trim().length>0; }, t.sitfam_err);
 
   } else if(step===2){
-    check('s5-sitpro',    's5-sitpro-err',    function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre situation professionnelle');
-    check('s5-secteur',   's5-secteur-err',   function(v){ return v && v.trim().length>0; }, 'Veuillez sélectionner votre secteur d\'activité');
-    check('s5-anciennete','s5-anciennete-err', function(v){ return v && v.trim().length>0; }, 'Veuillez indiquer votre ancienneté');
+    check('s5-sitpro',    's5-sitpro-err',    function(v){ return v && v.trim().length>0; }, t.sitpro_err);
+    check('s5-secteur',   's5-secteur-err',   function(v){ return v && v.trim().length>0; }, t.secteur_err);
+    check('s5-anciennete','s5-anciennete-err', function(v){ return v && v.trim().length>0; }, t.anciennete_err);
     check('s5-revenus',   's5-revenus-err',   function(v){
       var n = parseFloat((v||'').replace(/\s/g,'').replace(',','.'));
       return !isNaN(n) && n > 0 && n < 1000000;
@@ -997,11 +1300,11 @@ function sp5Submit(){
       '</div>'+
       '<div class="sp5-confirm-step">'+
         '<div class="sp5-cs-dot sp5-cs-pending">3</div>'+
-        '<div class="sp5-cs-body"><strong>Appel de votre conseiller</strong><span>Confirmation et offre personnalisée</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+t.advisor_call+'</strong><span>'+t.advisor_sub+'</span></div>'+
       '</div>'+
       '<div class="sp5-confirm-step">'+
         '<div class="sp5-cs-dot sp5-cs-pending">4</div>'+
-        '<div class="sp5-cs-body"><strong>Signature &amp; déblocage des fonds</strong><span>Dès validation de votre contrat</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+t.sign_funds+'</strong><span>'+t.sign_sub+'</span></div>'+
       '</div>'+
     '</div>'+
     '<p class="sp5-confirm-email-note">Un email de confirmation a été envoyé à l\'adresse renseignée.</p>'+
