@@ -1035,16 +1035,22 @@ function sp5Submit(){
   var list = document.getElementById('ft-lang-list');
   if(!trigger_wrap || !panel || !list) return;
 
+  // flagcdn.com fournit de vraies images de drapeaux circulaires
+  var flagUrl = function(code){ return 'https://flagcdn.com/w40/' + code + '.png'; };
+  var flagMap = {fr:'fr',en:'gb',de:'de',es:'es',it:'it',nl:'nl',pl:'pl',sv:'se'};
+
   var langs = [
-    {code:'fr', flag:'🇫🇷', name:'Français'},
-    {code:'en', flag:'🇬🇧', name:'English'},
-    {code:'de', flag:'🇩🇪', name:'Deutsch'},
-    {code:'es', flag:'🇪🇸', name:'Español'},
-    {code:'it', flag:'🇮🇹', name:'Italiano'},
-    {code:'nl', flag:'🇳🇱', name:'Nederlands'},
-    {code:'pl', flag:'🇵🇱', name:'Polski'},
-    {code:'sv', flag:'🇸🇪', name:'Svenska'}
+    {code:'fr', name:'Français'},
+    {code:'en', name:'English'},
+    {code:'de', name:'Deutsch'},
+    {code:'es', name:'Español'},
+    {code:'it', name:'Italiano'},
+    {code:'nl', name:'Nederlands'},
+    {code:'pl', name:'Polski'},
+    {code:'sv', name:'Svenska'}
   ];
+
+  var CHECK_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
   var path = location.pathname;
   var m = path.match(/\/([a-z]{2})\//);
@@ -1058,9 +1064,9 @@ function sp5Submit(){
   // Build trigger button
   var btn = document.createElement('button');
   btn.className = 'ft-lang-trigger';
-  btn.innerHTML = '<span class="ft-lang-trigger-flag">' + cur.flag + '</span>'
+  btn.innerHTML = '<img class="ft-lang-trigger-img" src="' + flagUrl(flagMap[cur.code]) + '" alt="">'
     + '<span class="ft-lang-trigger-name">' + cur.name + '</span>'
-    + '<span class="ft-lang-trigger-chev">▾</span>';
+    + '<svg class="ft-lang-trigger-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
   trigger_wrap.appendChild(btn);
 
   // Build list inside panel
@@ -1071,9 +1077,9 @@ function sp5Submit(){
       : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
     a.href = href;
     a.className = 'ft-lang-list-item' + (l.code === current ? ' ft-lang-list-item--active' : '');
-    a.innerHTML = '<span class="ft-lang-list-flag">' + l.flag + '</span>'
+    a.innerHTML = '<img class="ft-lang-list-flag" src="' + flagUrl(flagMap[l.code]) + '" alt="' + l.name + '">'
       + '<span class="ft-lang-list-name">' + l.name + '</span>'
-      + '<span class="ft-lang-list-check">✓</span>';
+      + '<span class="ft-lang-list-check">' + CHECK_SVG + '</span>';
     a.addEventListener('click', function(){ localStorage.setItem('lang_choice', l.code); });
     list.appendChild(a);
   });
@@ -1090,12 +1096,12 @@ function sp5Submit(){
     });
   }
 
-  // Open panel
+  // Open panel — pas de focus() pour éviter le clavier mobile
   btn.addEventListener('click', function(e){
     e.stopPropagation();
     panel.classList.add('open');
     document.body.style.overflow = 'hidden';
-    if(searchInput){ searchInput.value=''; searchInput.focus(); }
+    if(searchInput){ searchInput.value=''; }
     list.querySelectorAll('.ft-lang-list-item').forEach(function(i){ i.style.display=''; });
   });
 
