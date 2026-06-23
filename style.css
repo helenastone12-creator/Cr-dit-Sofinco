@@ -40,6 +40,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   :root{--tb:34px}
   .top-legal-bar{font-size:.78rem}
 }
+@media(min-width:960px){
+  .top-legal-bar{font-size:.92rem}
+}
 .header{
   position:fixed;top:var(--tb);left:0;right:0;z-index:1000;
   background:#fff;
