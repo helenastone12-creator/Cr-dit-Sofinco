@@ -1112,31 +1112,37 @@ body.pg-inner .editorial{background:none}
 .prod-hero-rate-lab{display:block;font-size:.88rem;font-weight:700;color:#666;margin-top:.25rem}
 .prod-hero-rate-info{margin-top:.7rem;padding-top:.6rem;border-top:1px solid #dce8f0}
 .prod-hero-rate-info span{display:block;font-size:.82rem;color:#555;line-height:1.65}
-/* ── Image produit hero : mobile pleine largeur ── */
-.prod-hero-img{
-  display:block;
+/* ── Image produit hero — wrapper ── */
+.prod-hero-img-wrap{
   order:-10;
   width:calc(100% + 4rem);
   margin-left:-2rem;
   margin-right:-2rem;
-  height:260px;
-  object-fit:cover;
-  object-position:center;
-  border-radius:0;
   margin-bottom:2rem;
   flex-shrink:0;
+  border-radius:0;
+  overflow:hidden;
+  background:linear-gradient(135deg,#06c2b0 0%,#a8d8ec 55%,#c5e8f5 100%);
+}
+.prod-hero-img{
+  display:block;
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  object-position:center top;
 }
 /* Force flex-column sur .prod-hero .inner pour mobile */
 .prod-hero .inner{display:flex;flex-direction:column}
-/* Tablette : image plus haute, légèrement arrondie */
+
+/* Tablette */
 @media(min-width:700px) and (max-width:959px){
-  .prod-hero-img{
-    height:340px;
-    border-radius:12px;
+  .prod-hero-img-wrap{
     width:100%;
     margin-left:0;margin-right:0;
+    border-radius:16px;
     margin-bottom:2rem;
   }
+  .prod-hero-img{height:340px;}
 }
 .prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3);display:inline-block;margin-top:.2rem}
 .prod-hero .btn-prim:hover{background:var(--teal-d)}
@@ -1743,44 +1749,53 @@ body.pg-inner .editorial{background:none}
   .footer .ft-sep{margin:0 2rem}
 }
 
-/* ── Hero produit : 2 colonnes (texte gauche + image droite) ── */
+/* ── Hero produit desktop : 3 colonnes (texte | image | taux) ── */
 @media(min-width:960px){
   .prod-hero:has(.prod-hero-rate) .inner{
     display:grid;
-    grid-template-columns:1fr 420px;
-    grid-template-rows:auto auto 1fr auto auto auto;
-    column-gap:4rem;
+    grid-template-columns:1fr 370px 200px;
+    grid-template-rows:auto auto auto auto auto;
+    column-gap:2.5rem;
     align-items:start;
-    min-height:440px;
   }
-  /* Eyebrow badge : au-dessus du H1 */
+  /* Colonne 1 : badge, titre, bouton, note, avis */
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-eyebrow{
     grid-column:1;grid-row:1;justify-self:start;
   }
-  .prod-hero:has(.prod-hero-rate) .inner h1{
-    grid-column:1;grid-row:2;
-  }
-  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-note{grid-column:1;grid-row:4}
-  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-avis{grid-column:1;grid-row:5}
-  /* Carte taux : cachée sur PC, remplacée par l'image */
-  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-rate{display:none}
-  /* Image produit : colonne droite, toute la hauteur */
-  .prod-hero-img{
-    grid-column:2;
-    grid-row:1 / -1;
-    align-self:stretch;
-    width:100%;
-    height:100%;
-    min-height:400px;
-    object-fit:cover;
-    border-radius:20px;
-    box-shadow:0 8px 40px rgba(0,0,0,.14);
-    margin:0;
-    order:0;
-  }
-  /* Bouton CTA : largeur naturelle, non étiré */
+  .prod-hero:has(.prod-hero-rate) .inner h1{grid-column:1;grid-row:2;}
   .prod-hero:has(.prod-hero-rate) .inner .btn-prim{
     grid-column:1;grid-row:3;justify-self:start;display:inline-block;width:auto;
+  }
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-note{grid-column:1;grid-row:4;}
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-avis{grid-column:1;grid-row:5;}
+
+  /* Colonne 2 : image */
+  .prod-hero-img-wrap{
+    grid-column:2;
+    grid-row:1 / 6;
+    align-self:stretch;
+    width:100%;
+    margin:0;
+    border-radius:20px;
+    overflow:hidden;
+    order:0;
+    background:linear-gradient(135deg,#06c2b0 0%,#a8d8ec 55%,#c5e8f5 100%);
+    box-shadow:0 8px 32px rgba(0,0,0,.12);
+  }
+  .prod-hero-img{
+    width:100%;
+    height:100%;
+    min-height:360px;
+    object-fit:cover;
+    object-position:center;
+  }
+
+  /* Colonne 3 : carte taux — affichée */
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-rate{
+    display:block;
+    grid-column:3;
+    grid-row:1 / 3;
+    align-self:start;
   }
 }
 
