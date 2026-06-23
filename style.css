@@ -1163,11 +1163,8 @@ body.pg-inner .editorial{background:none}
 .prod-hero-text{display:flex;flex-direction:column;align-items:flex-start}
 .prod-hero-text .prod-hero-eyebrow{margin-bottom:.6rem}
 
-/* Carte taux : compacte sous le bouton sur mobile */
-.prod-hero-rate{
-  margin-top:1.2rem;
-  max-width:100%;
-}
+/* Carte taux : cachée sur mobile */
+.prod-hero-rate{display:none}
 
 /* Tablette */
 @media(min-width:700px) and (max-width:959px){
@@ -1833,8 +1830,9 @@ body.pg-inner .editorial{background:none}
     position:static;
   }
 
-  /* Carte taux fond teal */
+  /* Carte taux fond teal — visible sur desktop uniquement */
   .prod-hero .prod-hero-rate{
+    display:block;
     flex:0 0 190px;
     align-self:flex-start;
     background:var(--teal);
