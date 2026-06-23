@@ -92,8 +92,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     transition:color .15s,border-color .15s;
   }
   .desktop-nav > ul > li > a:hover{color:var(--orange);border-bottom-color:var(--orange)}
-  .desktop-nav > ul > li > a[style*="teal"]{color:var(--teal) !important}
-  .desktop-nav > ul > li > a[style*="teal"]:hover{color:var(--teal) !important;border-bottom-color:var(--teal)}
   .desktop-nav li.has-sub > a::after{
     content:'';display:inline-block;width:5px;height:5px;margin-left:.3rem;margin-top:-2px;
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
