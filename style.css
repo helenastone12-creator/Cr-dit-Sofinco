@@ -2093,7 +2093,7 @@ body.pg-inner .editorial{background:none}
 }
 .mob-lang-opt--active .mob-lang-opt-check{display:block}
 
-/* ── Footer — bouton langue + panneau Revolut ── */
+/* ── Footer — bouton langue + modal Revolut ── */
 .ft-lang-section{
   border-top:1px solid rgba(255,255,255,.1);
   padding:1.25rem 1.5rem 1.5rem;
@@ -2112,37 +2112,58 @@ body.pg-inner .editorial{background:none}
 .ft-lang-trigger-name{font-size:.83rem;font-weight:500;color:rgba(255,255,255,.85)}
 .ft-lang-trigger-chev{color:rgba(255,255,255,.5);font-size:.75rem;margin-left:.1rem}
 
-/* Panneau pleine largeur style Revolut */
+/* Modal centré — style Revolut desktop + mobile */
 .ft-lang-panel{
   display:none;
   position:fixed;inset:0;z-index:9990;
-  background:rgba(0,0,0,.45);
+  background:rgba(0,0,0,.5);
+  align-items:center;justify-content:center;
+  padding:1rem;
 }
-.ft-lang-panel.open{display:block}
+.ft-lang-panel.open{display:flex}
 .ft-lang-panel-inner{
-  position:absolute;bottom:0;left:0;right:0;
-  background:#fff;border-radius:1.2rem 1.2rem 0 0;
-  padding:1.25rem 0 2rem;
-  max-height:85vh;overflow-y:auto;
+  background:#fff;
+  border-radius:1.1rem;
+  width:100%;max-width:420px;
+  max-height:80vh;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
-.ft-lang-panel-title{
-  font-size:.78rem;font-weight:600;color:#9CA3AF;
-  text-transform:uppercase;letter-spacing:.08em;
-  padding:.1rem 1.25rem .9rem;
+/* Barre de recherche */
+.ft-lang-search-wrap{
+  padding:1rem 1rem .6rem;
+  flex-shrink:0;
+}
+.ft-lang-search{
+  display:flex;align-items:center;gap:.6rem;
+  background:#F3F4F6;border-radius:2rem;
+  padding:.6rem 1rem;
+}
+.ft-lang-search svg{color:#9CA3AF;flex-shrink:0}
+.ft-lang-search input{
+  border:none;background:none;outline:none;
+  font-size:.92rem;color:#111827;width:100%;
+  font-family:inherit;
+}
+.ft-lang-search input::placeholder{color:#9CA3AF}
+/* Liste scrollable */
+.ft-lang-list{
+  overflow-y:auto;
+  flex:1;
 }
 .ft-lang-list-item{
   display:flex;align-items:center;gap:.9rem;
   padding:.85rem 1.25rem;
   text-decoration:none;
   transition:background .1s;
-  border-radius:0;
 }
 .ft-lang-list-item:hover{background:#F9FAFB}
 .ft-lang-list-item--active{background:#F0FDFA}
 .ft-lang-list-flag{
-  width:36px;height:36px;border-radius:50%;
+  width:38px;height:38px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;line-height:1;
+  font-size:1.35rem;line-height:1;
   background:#F3F4F6;flex-shrink:0;
   overflow:hidden;
 }
@@ -2151,8 +2172,7 @@ body.pg-inner .editorial{background:none}
 }
 .ft-lang-list-item--active .ft-lang-list-name{font-weight:600}
 .ft-lang-list-check{
-  color:#06b6a2;font-size:1rem;font-weight:700;
-  display:none;
+  color:#06b6a2;font-size:1rem;font-weight:700;display:none;
 }
 .ft-lang-list-item--active .ft-lang-list-check{display:block}
 .mob-lang-opt-name{flex:1}

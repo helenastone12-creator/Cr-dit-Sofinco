@@ -1078,11 +1078,25 @@ function sp5Submit(){
     list.appendChild(a);
   });
 
+  // Search filter
+  var searchInput = document.getElementById('ft-lang-search-input');
+  if(searchInput){
+    searchInput.addEventListener('input', function(){
+      var q = this.value.toLowerCase();
+      list.querySelectorAll('.ft-lang-list-item').forEach(function(item){
+        var name = item.querySelector('.ft-lang-list-name').textContent.toLowerCase();
+        item.style.display = name.includes(q) ? '' : 'none';
+      });
+    });
+  }
+
   // Open panel
   btn.addEventListener('click', function(e){
     e.stopPropagation();
     panel.classList.add('open');
     document.body.style.overflow = 'hidden';
+    if(searchInput){ searchInput.value=''; searchInput.focus(); }
+    list.querySelectorAll('.ft-lang-list-item').forEach(function(i){ i.style.display=''; });
   });
 
   // Close on overlay click
@@ -1090,6 +1104,14 @@ function sp5Submit(){
     if(e.target === panel){
       panel.classList.remove('open');
       document.body.style.overflow = '';
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && panel.classList.contains('open')){
+      panel.classList.remove('open');
+      document.body.style.overflow='';
     }
   });
 })();
