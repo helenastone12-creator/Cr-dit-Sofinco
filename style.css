@@ -1134,38 +1134,49 @@ body.pg-inner .editorial{background:none}
 .prod-hero-rate-lab{display:block;font-size:.88rem;font-weight:700;color:#666;margin-top:.25rem}
 .prod-hero-rate-info{margin-top:.7rem;padding-top:.6rem;border-top:1px solid #dce8f0}
 .prod-hero-rate-info span{display:block;font-size:.8rem;color:#555;line-height:1.7}
-/* ── Image produit hero — wrapper ── */
+/* ── Hero produit : layout mobile (colonne, image en premier) ── */
+.prod-hero .inner{display:flex;flex-direction:column}
+
+/* Image : pleine largeur en tête sur mobile */
 .prod-hero-img-wrap{
-  order:-10;
+  order:-1;
   width:calc(100% + 4rem);
   margin-left:-2rem;
   margin-right:-2rem;
-  margin-bottom:2rem;
+  margin-bottom:1.8rem;
   flex-shrink:0;
   border-radius:0;
   overflow:hidden;
-  background:#e8f9f7;
+  background:#f0f0f0;
   display:block;
+  padding-top:0;
 }
 .prod-hero-img{
   display:block;
   width:100%;
-  height:260px;
+  height:240px;
   object-fit:cover;
-  object-position:center center;
+  object-position:center;
 }
-/* Force flex-column sur .prod-hero .inner pour mobile */
-.prod-hero .inner{display:flex;flex-direction:column}
+
+/* Texte : affiché normalement sous l'image */
+.prod-hero-text{display:flex;flex-direction:column;align-items:flex-start}
+.prod-hero-text .prod-hero-eyebrow{margin-bottom:.6rem}
+
+/* Carte taux : compacte sous le bouton sur mobile */
+.prod-hero-rate{
+  margin-top:1.2rem;
+  max-width:100%;
+}
 
 /* Tablette */
 @media(min-width:700px) and (max-width:959px){
   .prod-hero-img-wrap{
-    width:100%;
-    margin-left:0;margin-right:0;
-    border-radius:20px;
-    margin-bottom:2.5rem;
+    width:100%;margin-left:0;margin-right:0;
+    border-radius:20px;margin-bottom:2rem;
   }
-  .prod-hero-img{height:360px;object-fit:cover;}
+  .prod-hero-img{height:340px;}
+  .prod-hero-rate{max-width:320px;}
 }
 .prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3);display:inline-block;margin-top:.2rem}
 .prod-hero .btn-prim:hover{background:var(--teal-d)}
