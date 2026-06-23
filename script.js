@@ -474,14 +474,24 @@
     });
   }
 
-  // ── Bannière cookies ──
+  // ── Modale cookies ──
   (function(){
     var banner = document.getElementById('cookie-banner');
+    var overlay = document.getElementById('cookie-overlay');
     if(!banner) return;
-    if(!localStorage.getItem('cookie_choice')){
-      setTimeout(function(){ banner.classList.add('show'); }, 800);
+    function showBanner(){
+      banner.classList.add('show');
+      if(overlay) overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
     }
-    function closeBanner(){ banner.classList.remove('show'); }
+    function closeBanner(){
+      banner.classList.remove('show');
+      if(overlay) overlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    if(!localStorage.getItem('cookie_choice')){
+      setTimeout(showBanner, 800);
+    }
     document.getElementById('cookie-accept').addEventListener('click', function(){
       localStorage.setItem('cookie_choice','accepted'); closeBanner();
     });
@@ -491,6 +501,9 @@
     document.getElementById('cookie-settings').addEventListener('click', function(){
       closeBanner();
       window.location.href = 'cookies.html';
+    });
+    if(overlay) overlay.addEventListener('click', function(){
+      localStorage.setItem('cookie_choice','refused'); closeBanner();
     });
   })();
 

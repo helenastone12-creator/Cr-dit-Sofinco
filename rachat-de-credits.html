@@ -103,17 +103,23 @@
 </div>
 
 
-<!-- ── Bannière cookies ── -->
-<div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies">
+<!-- ── Modale cookies ── -->
+<div class="cookie-overlay" id="cookie-overlay"></div>
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-modal="true" aria-label="Gestion des cookies">
+  <div class="cookie-top-bar">
+    <button class="cookie-skip-link" id="cookie-skip">Continuer sans accepter →</button>
+  </div>
   <div class="cookie-inner">
-    <div class="cookie-text">
-      <p class="cookie-title">Gestion des cookies</p>
-      <p class="cookie-desc">Nous utilisons des cookies pour améliorer votre expérience, mesurer l'audience et personnaliser les contenus. <a href="cookies.html">En savoir plus</a></p>
+    <div class="cookie-logo">
+      <div class="cookie-logo-icon">S</div>
+      <span class="cookie-logo-name">Solfianza</span>
     </div>
+    <p class="cookie-desc">Dans le cadre de votre navigation, Solfianza et ses partenaires utilisent des cookies fonctionnels et analytiques pour garantir le bon fonctionnement, la sécurité du site et l'amélioration de votre expérience en mémorisant vos préférences.</p>
+    <p class="cookie-desc">À l'exception des cookies analytiques produisant des données statistiques anonymes, auxquels vous disposez d'un droit d'opposition, ces cookies sont indispensables au fonctionnement de notre site et ne nécessitent pas l'obtention de votre consentement.</p>
+    <p class="cookie-desc">Avec votre consentement, nous déposons également des cookies marketing pour analyser les performances du site et personnaliser nos contenus. En cliquant sur « Accepter &amp; Fermer », vous consentez à l'utilisation de tous les cookies marketing. Vous pouvez, à tout moment, paramétrer votre choix en consultant notre <a href="cookies.html">charte cookies</a>.</p>
     <div class="cookie-btns">
-      <button class="cookie-btn-refuse" id="cookie-skip">Tout refuser</button>
-      <button class="cookie-btn-settings" id="cookie-settings">Paramétrer</button>
-      <button class="cookie-btn-accept" id="cookie-accept">Tout accepter</button>
+      <button class="cookie-btn-refuse" id="cookie-settings">En savoir plus →</button>
+      <button class="cookie-btn-accept" id="cookie-accept">Accepter &amp; Fermer</button>
     </div>
   </div>
 </div>
