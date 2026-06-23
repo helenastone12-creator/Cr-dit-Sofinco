@@ -290,8 +290,10 @@
     if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
   }
 
-  document.getElementById('sim-ph-quit').addEventListener('click',closeSim);
-  document.getElementById('sim-ph-logo').addEventListener('click',closeSim);
+  var simPhQuit=document.getElementById('sim-ph-quit');
+  if(simPhQuit) simPhQuit.addEventListener('click',closeSim);
+  var simPhLogo=document.getElementById('sim-ph-logo');
+  if(simPhLogo) simPhLogo.addEventListener('click',closeSim);
 
   // Validation temps réel montant simulateur
   document.getElementById('sim-amount-input').addEventListener('input',function(){
@@ -358,26 +360,22 @@
     if(wrap&&!wrap.contains(e.target)) closeDd();
   });
 
-  document.getElementById('sim-restart').addEventListener('click',function(){
-    openSim(null,null);
-  });
+  var simRestart=document.getElementById('sim-restart');
+  if(simRestart) simRestart.addEventListener('click',function(){ openSim(null,null); });
 
-  document.querySelector('.sim-cta-big').addEventListener('click',function(){
-    showStep(5);
-  });
+  var simCtaBig=document.querySelector('.sim-cta-big');
+  if(simCtaBig) simCtaBig.addEventListener('click',function(){ showStep(5); });
 
-  document.getElementById('sp4-back-btn').addEventListener('click',function(){
-    showStep(3);
-  });
+  var sp4BackBtn=document.getElementById('sp4-back-btn');
+  if(sp4BackBtn) sp4BackBtn.addEventListener('click',function(){ showStep(3); });
 
-  document.getElementById('sp4-cta-btn').addEventListener('click',function(){
-    showStep(5);
-  });
+  var sp4CtaBtn=document.getElementById('sp4-cta-btn');
+  if(sp4CtaBtn) sp4CtaBtn.addEventListener('click',function(){ showStep(5); });
 
   // Sidebar modifiable (desktop step 4)
   document.getElementById('sp4-sb-montant-inp').addEventListener('change',function(){
     var v=parseInt(this.value);
-    if(v>=500 && v<=75000){ simData.montant=v; renderResults(); }
+    if(v>=3000 && v<=200000){ simData.montant=v; renderResults(); }
     else { this.value=simData.montant||5000; }
   });
   document.getElementById('sp4-sb-montant-clr').addEventListener('click',function(){
@@ -444,13 +442,16 @@
     });
   });
   // Validation temps réel champ hero
-  document.getElementById('cof-montant').addEventListener('input',function(){
-    var v=parseInt(this.value)||0;
-    var errEl=document.getElementById('cof-montant-err');
-    var ok=!this.value||(v>=3000&&v<=200000);
-    this.classList.toggle('f-err',!ok);
-    errEl.classList.toggle('show',!ok);
-  });
+  var cofMontantInp=document.getElementById('cof-montant');
+  if(cofMontantInp){
+    cofMontantInp.addEventListener('input',function(){
+      var v=parseInt(this.value)||0;
+      var errEl=document.getElementById('cof-montant-err');
+      var ok=!this.value||(v>=3000&&v<=200000);
+      this.classList.toggle('f-err',!ok);
+      if(errEl) errEl.classList.toggle('show',!ok);
+    });
+  }
 
   var cofSimBtn = document.getElementById('cof-sim-btn');
   if(cofSimBtn){
@@ -659,8 +660,8 @@ function sp5ValidIban(raw){
     return n >= 65 ? (n - 55).toString() : c;
   }).join('');
   var remainder = digits.match(/.{1,9}/g).reduce(function(rem, chunk){
-    return parseInt(rem + chunk, 10) % 97;
-  }, '');
+    return parseInt(String(rem) + chunk, 10) % 97;
+  }, 0);
   return remainder === 1;
 }
 function sp5ValidDate(str){
