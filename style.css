@@ -60,7 +60,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* logo centré */
 .hd-logo{
   position:absolute;left:50%;transform:translateX(-50%);
-  font-size:1.55rem;font-weight:800;color:var(--navy);letter-spacing:-1px;
+  font-size:1.55rem;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,#06c2b0 0%,#0d2748 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
 }
 /* droite */
 .hd-right{display:flex;align-items:center;gap:.5rem}
@@ -143,7 +146,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .mob-close-btn svg{display:block}
 .mob-close-btn span{font-size:.65rem;font-weight:700;color:var(--navy);letter-spacing:.03em}
-.mob-mhd-logo{font-size:1.45rem;font-weight:800;color:var(--navy);letter-spacing:-1px}
+.mob-mhd-logo{font-size:1.45rem;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#06c2b0 0%,#0d2748 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .mob-search-btn{
   min-width:52px;background:none;border:none;cursor:pointer;color:var(--navy);
   display:flex;justify-content:flex-end;
@@ -812,7 +815,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sim-page.open{display:block}
 /* Header sticky */
 .sim-ph{position:sticky;top:var(--tb);background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
-.sim-ph-logo{font-size:1.25rem;font-weight:800;color:var(--navy);letter-spacing:-.5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
+.sim-ph-logo{font-size:1.25rem;font-weight:800;letter-spacing:-.5px;border:none;cursor:pointer;font-family:inherit;padding:0;background:linear-gradient(135deg,#06c2b0 0%,#0d2748 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .sim-ph-quit{position:absolute;right:1rem;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline;padding:.3rem}
 .sim-ph-quit:hover{color:var(--orange)}
 /* Body */
