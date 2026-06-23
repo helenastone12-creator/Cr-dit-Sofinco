@@ -1944,3 +1944,66 @@ body.pg-inner .editorial{background:none}
   transition:color .15s;
 }
 .faq-more-link:hover{color:var(--teal-d)}
+
+
+/* ══════════════════════════════════════════════════════════
+   SÉLECTEUR DE LANGUE (i18n)
+══════════════════════════════════════════════════════════ */
+.lang-switcher{
+  position:relative;
+  display:none; /* hidden mobile by default */
+}
+@media(min-width:960px){
+  .lang-switcher{display:block}
+}
+.lang-switcher-btn{
+  display:flex;align-items:center;gap:.35rem;
+  background:none;border:1px solid rgba(0,0,0,.15);border-radius:2rem;
+  padding:.35rem .75rem;font-family:inherit;font-size:.78rem;font-weight:600;
+  color:var(--navy);cursor:pointer;white-space:nowrap;
+  transition:border-color .15s,background .15s;
+}
+.lang-switcher-btn:hover{border-color:var(--teal);color:var(--teal)}
+.lang-switcher-btn[aria-expanded="true"]{
+  border-color:var(--teal);background:rgba(0,168,151,.06);
+}
+.lang-current{max-width:90px;overflow:hidden;text-overflow:ellipsis}
+.lang-dropdown{
+  display:none;
+  position:absolute;top:calc(100% + .5rem);right:0;z-index:2000;
+  background:#fff;border:1px solid #e0e0e0;border-radius:.75rem;
+  box-shadow:0 8px 32px rgba(0,0,0,.14);
+  min-width:160px;padding:.4rem 0;
+  animation:langDrop .15s ease;
+}
+@keyframes langDrop{
+  from{opacity:0;transform:translateY(-6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.lang-dropdown.open{display:block}
+.lang-opt{
+  display:block;padding:.55rem 1.1rem;font-size:.85rem;font-weight:500;
+  color:#333;white-space:nowrap;transition:background .1s,color .1s;
+  text-decoration:none;
+}
+.lang-opt:hover{background:rgba(0,168,151,.08);color:var(--teal)}
+.lang-opt--active{
+  color:var(--teal);font-weight:700;
+  background:rgba(0,168,151,.06);
+}
+/* Mobile lang switcher inside mobile menu */
+.mob-lang-section{
+  padding:.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);
+  display:flex;flex-wrap:wrap;gap:.4rem;
+}
+.mob-lang-btn{
+  display:inline-flex;align-items:center;
+  padding:.4rem .75rem;border-radius:2rem;
+  border:1px solid rgba(255,255,255,.2);
+  font-size:.78rem;font-weight:600;color:rgba(255,255,255,.7);
+  background:none;font-family:inherit;cursor:pointer;
+  text-decoration:none;transition:border-color .15s,color .15s;
+}
+.mob-lang-btn:hover,.mob-lang-btn--active{
+  border-color:var(--teal);color:var(--teal);
+}

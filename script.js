@@ -993,3 +993,28 @@ function sp5Submit(){
   document.getElementById('sim-page').scrollTop=0;
 }
 
+
+// ── Sélecteur de langue ──
+(function(){
+  var btn = document.getElementById('lang-switcher-btn');
+  var dropdown = document.getElementById('lang-dropdown');
+  if(!btn || !dropdown) return;
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = dropdown.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', function(){
+    dropdown.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      dropdown.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
