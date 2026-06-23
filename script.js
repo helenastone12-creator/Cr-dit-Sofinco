@@ -468,13 +468,9 @@
   var hscBtn = document.getElementById('hsc-sim-btn');
   if(hscBtn){
     hscBtn.addEventListener('click',function(){
-      var projet = document.getElementById('hsc-projet').value;
+      var projet = document.getElementById('hsc-projet').value || null;
       var montant = parseInt(document.getElementById('hsc-montant').value)||0;
-      var page = projet==='auto'?'credit-auto.html':
-                 projet==='travaux'?'credit-travaux.html':
-                 projet==='renouvelable'?'credit-renouvelable.html':
-                 projet==='rachat'?'rachat-de-credits.html':'pret-personnel.html';
-      window.location.href = page + (montant>=3000&&montant<=200000?'?montant='+montant:'');
+      openSim(projet, montant >= 3000 && montant <= 200000 ? montant : null);
     });
   }
 
