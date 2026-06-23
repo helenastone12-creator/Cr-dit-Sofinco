@@ -1311,15 +1311,10 @@ body.pg-inner .editorial{background:none}
 .cookie-skip-link:hover{color:#000}
 .cookie-inner{padding:1.5rem 1.75rem 2rem}
 .cookie-logo{
-  display:flex;align-items:center;gap:.6rem;margin-bottom:1.25rem;
+  display:flex;justify-content:center;margin-bottom:1.25rem;
 }
-.cookie-logo-icon{
-  width:36px;height:36px;background:linear-gradient(135deg,#a8d8ec,#1a5c7a);
-  border-radius:6px;display:flex;align-items:center;justify-content:center;
-  font-weight:900;font-size:1.2rem;color:#0a2040;font-family:'Arial Black',Arial,sans-serif;
-  flex-shrink:0;
-}
-.cookie-logo-name{font-size:1.3rem;font-weight:800;color:#1a5c7a;letter-spacing:.01em}
+.cookie-logo-icon{display:none}
+.cookie-logo-name{font-size:1.6rem;font-weight:800;color:#1a5c7a;letter-spacing:.01em}
 .cookie-desc{font-size:.88rem;color:#333;line-height:1.7;margin-bottom:.75rem}
 .cookie-desc a{color:#c0392b;text-decoration:underline}
 .cookie-btns{
