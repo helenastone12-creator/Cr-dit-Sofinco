@@ -1050,7 +1050,8 @@ function sp5Submit(){
     {code:'sv', name:'Svenska'}
   ];
 
-  var CHECK_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  var CHECK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  var GLOBE_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>';
 
   var path = location.pathname;
   var m = path.match(/\/([a-z]{2})\//);
@@ -1061,15 +1062,15 @@ function sp5Submit(){
 
   var cur = langs.filter(function(l){return l.code===current;})[0] || langs[0];
 
-  // Build trigger button
+  // Trigger button — globe + nom
   var btn = document.createElement('button');
   btn.className = 'ft-lang-trigger';
-  btn.innerHTML = '<img class="ft-lang-trigger-img" src="' + flagUrl(flagMap[cur.code]) + '" alt="">'
+  btn.innerHTML = GLOBE_SVG
     + '<span class="ft-lang-trigger-name">' + cur.name + '</span>'
-    + '<svg class="ft-lang-trigger-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    + '<svg class="ft-lang-trigger-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
   trigger_wrap.appendChild(btn);
 
-  // Build list inside panel
+  // Liste — nom seulement, sans drapeau
   langs.forEach(function(l){
     var a = document.createElement('a');
     var href = l.code === 'fr'
@@ -1077,8 +1078,7 @@ function sp5Submit(){
       : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
     a.href = href;
     a.className = 'ft-lang-list-item' + (l.code === current ? ' ft-lang-list-item--active' : '');
-    a.innerHTML = '<img class="ft-lang-list-flag" src="' + flagUrl(flagMap[l.code]) + '" alt="' + l.name + '">'
-      + '<span class="ft-lang-list-name">' + l.name + '</span>'
+    a.innerHTML = '<span class="ft-lang-list-name">' + l.name + '</span>'
       + '<span class="ft-lang-list-check">' + CHECK_SVG + '</span>';
     a.addEventListener('click', function(){ localStorage.setItem('lang_choice', l.code); });
     list.appendChild(a);

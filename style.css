@@ -2108,9 +2108,9 @@ body.pg-inner .editorial{background:none}
   transition:background .15s;
 }
 .ft-lang-trigger:hover{background:rgba(255,255,255,.12)}
-.ft-lang-trigger-img{width:20px;height:20px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.ft-lang-trigger-name{font-size:.83rem;font-weight:500;color:rgba(255,255,255,.85)}
-.ft-lang-trigger-chev{color:rgba(255,255,255,.5);flex-shrink:0}
+.ft-lang-trigger svg:first-child{color:rgba(255,255,255,.7);flex-shrink:0}
+.ft-lang-trigger-name{font-size:.82rem;font-weight:500;color:rgba(255,255,255,.85)}
+.ft-lang-trigger-chev{color:rgba(255,255,255,.45);flex-shrink:0}
 
 /* Modal centré — style Revolut desktop + mobile */
 .ft-lang-panel{
@@ -2154,21 +2154,17 @@ body.pg-inner .editorial{background:none}
 }
 .ft-lang-list-item{
   display:flex;align-items:center;gap:.9rem;
-  padding:.85rem 1.25rem;
+  padding:.65rem 1.25rem;
   text-decoration:none;
   transition:background .1s;
 }
 .ft-lang-list-item:hover{background:#F9FAFB}
 .ft-lang-list-item--active{background:#F0FDFA}
-.ft-lang-list-flag{
-  width:38px;height:38px;border-radius:50%;
-  object-fit:cover;flex-shrink:0;
-  background:#F3F4F6;
-}
 .ft-lang-list-name{
-  font-size:.95rem;font-weight:400;color:#111827;flex:1;
+  font-size:.82rem;font-weight:400;color:#374151;flex:1;
+  letter-spacing:.01em;
 }
-.ft-lang-list-item--active .ft-lang-list-name{font-weight:600}
+.ft-lang-list-item--active .ft-lang-list-name{font-weight:600;color:#111827}
 .ft-lang-list-check{
   display:none;color:#06b6a2;flex-shrink:0;
 }
