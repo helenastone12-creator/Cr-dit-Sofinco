@@ -1110,11 +1110,29 @@ function sp5Submit(){
     });
   }
 
+  var _scrollY = 0;
+  function lockScroll(){
+    _scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + _scrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+  }
+  function unlockScroll(){
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, _scrollY);
+  }
+
   // Open panel — pas de focus() pour éviter le clavier mobile
   btn.addEventListener('click', function(e){
     e.stopPropagation();
     panel.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     if(searchInput){ searchInput.value=''; }
     list.querySelectorAll('.ft-lang-list-item').forEach(function(i){ i.style.display=''; });
   });
@@ -1123,7 +1141,7 @@ function sp5Submit(){
   panel.addEventListener('click', function(e){
     if(e.target === panel){
       panel.classList.remove('open');
-      document.body.style.overflow = '';
+      unlockScroll();
     }
   });
 
@@ -1131,6 +1149,7 @@ function sp5Submit(){
   document.addEventListener('keydown', function(e){
     if(e.key==='Escape' && panel.classList.contains('open')){
       panel.classList.remove('open');
+      unlockScroll();
       document.body.style.overflow='';
     }
   });
