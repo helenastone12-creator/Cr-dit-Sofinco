@@ -1788,13 +1788,15 @@ body.pg-inner .editorial{background:none}
     background-color:#e8f5fb;
   }
 
-  /* Flexbox sur .inner → 3 enfants directs : text | img-wrap | rate */
+  /* 2 colonnes : texte | image (sans carte taux) */
   .prod-hero .inner{
     display:flex !important;
     flex-direction:row;
     align-items:center;
-    gap:24px;
+    gap:3rem;
   }
+  /* Carte taux cachée sur desktop aussi */
+  .prod-hero .prod-hero-rate{display:none !important}
 
   /* Bloc texte */
   .prod-hero-text{
@@ -1818,8 +1820,8 @@ body.pg-inner .editorial{background:none}
 
   /* Image */
   .prod-hero-img-wrap{
-    flex:0 0 42%;
-    height:400px;
+    flex:0 0 48%;
+    height:420px;
     border-radius:28px;
     overflow:hidden;
     background:#f0f0f0;
