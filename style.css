@@ -2160,9 +2160,12 @@ body.pg-inner .editorial{background:none}
 }
 .ft-lang-list-item:hover{background:#F9FAFB}
 .ft-lang-list-item--active{background:#F0FDFA}
+.ft-lang-list-flag{
+  width:36px;height:36px;border-radius:50%;
+  object-fit:cover;flex-shrink:0;
+}
 .ft-lang-list-name{
-  font-size:.82rem;font-weight:400;color:#374151;flex:1;
-  letter-spacing:.01em;
+  font-size:.88rem;font-weight:400;color:#374151;flex:1;
 }
 .ft-lang-list-item--active .ft-lang-list-name{font-weight:600;color:#111827}
 .ft-lang-list-check{

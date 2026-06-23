@@ -1050,6 +1050,19 @@ function sp5Submit(){
     {code:'sv', name:'Svenska'}
   ];
 
+  // Twemoji CDN — SVG flags fiables sur PC et mobile
+  var twemoji = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/';
+  var flagSvg = {
+    fr: twemoji + '1f1eb-1f1f7.svg',
+    en: twemoji + '1f1ec-1f1e7.svg',
+    de: twemoji + '1f1e9-1f1ea.svg',
+    es: twemoji + '1f1ea-1f1f8.svg',
+    it: twemoji + '1f1ee-1f1f9.svg',
+    nl: twemoji + '1f1f3-1f1f1.svg',
+    pl: twemoji + '1f1f5-1f1f1.svg',
+    sv: twemoji + '1f1f8-1f1ea.svg'
+  };
+
   var CHECK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   var GLOBE_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>';
 
@@ -1062,7 +1075,7 @@ function sp5Submit(){
 
   var cur = langs.filter(function(l){return l.code===current;})[0] || langs[0];
 
-  // Trigger button — globe + nom
+  // Trigger — globe + nom
   var btn = document.createElement('button');
   btn.className = 'ft-lang-trigger';
   btn.innerHTML = GLOBE_SVG
@@ -1070,7 +1083,7 @@ function sp5Submit(){
     + '<svg class="ft-lang-trigger-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
   trigger_wrap.appendChild(btn);
 
-  // Liste — nom seulement, sans drapeau
+  // Liste — drapeau rond + nom
   langs.forEach(function(l){
     var a = document.createElement('a');
     var href = l.code === 'fr'
@@ -1078,7 +1091,8 @@ function sp5Submit(){
       : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
     a.href = href;
     a.className = 'ft-lang-list-item' + (l.code === current ? ' ft-lang-list-item--active' : '');
-    a.innerHTML = '<span class="ft-lang-list-name">' + l.name + '</span>'
+    a.innerHTML = '<img class="ft-lang-list-flag" src="' + flagSvg[l.code] + '" alt="">'
+      + '<span class="ft-lang-list-name">' + l.name + '</span>'
       + '<span class="ft-lang-list-check">' + CHECK_SVG + '</span>';
     a.addEventListener('click', function(){ localStorage.setItem('lang_choice', l.code); });
     list.appendChild(a);
