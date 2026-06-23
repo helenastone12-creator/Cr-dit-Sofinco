@@ -33,7 +33,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   background:#fff;
   padding:.8rem 1.2rem;
   font-size:.82rem;color:#333;text-align:center;line-height:1.5;
-  border-bottom:1px solid #ddd;
+  border-bottom:none;
 }
 @media(min-width:700px){
   :root{--tb:38px}
