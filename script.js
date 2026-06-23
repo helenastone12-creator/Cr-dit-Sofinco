@@ -1027,3 +1027,40 @@ function sp5Submit(){
     }
   });
 })();
+
+// ── Sélecteur de langue mobile ──
+(function(){
+  var container = document.getElementById('mob-lang-flags');
+  if(!container) return;
+  var langs = [
+    {code:'fr', flag:'🇫🇷', label:'FR'},
+    {code:'en', flag:'🇬🇧', label:'EN'},
+    {code:'de', flag:'🇩🇪', label:'DE'},
+    {code:'es', flag:'🇪🇸', label:'ES'},
+    {code:'it', flag:'🇮🇹', label:'IT'},
+    {code:'nl', flag:'🇳🇱', label:'NL'},
+    {code:'pl', flag:'🇵🇱', label:'PL'},
+    {code:'sv', flag:'🇸🇪', label:'SV'}
+  ];
+  // Detect current lang from URL
+  var path = location.pathname;
+  var m = path.match(/\/([a-z]{2})\//);
+  var current = m ? m[1] : 'fr';
+  var page = path.split('/').pop() || 'index.html';
+  if(!page.endsWith('.html')) page = 'index.html';
+  var depth = m ? 1 : 0;
+
+  langs.forEach(function(l){
+    var a = document.createElement('a');
+    var href = l.code === 'fr'
+      ? (depth === 1 ? '../' + page : page)
+      : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
+    a.href = href;
+    a.className = 'mob-lang-flag' + (l.code === current ? ' mob-lang-flag--active' : '');
+    a.textContent = l.flag + ' ' + l.label;
+    a.addEventListener('click', function(){
+      localStorage.setItem('lang_choice', l.code);
+    });
+    container.appendChild(a);
+  });
+})();

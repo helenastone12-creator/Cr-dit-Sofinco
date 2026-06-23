@@ -2007,3 +2007,11 @@ body.pg-inner .editorial{background:none}
 .mob-lang-btn:hover,.mob-lang-btn--active{
   border-color:var(--teal);color:var(--teal);
 }
+
+/* ── Mobile langue ── */
+.mob-lang-row{display:flex;align-items:center;gap:.55rem;padding:.75rem 1rem;border-top:1px solid #eee;flex-wrap:wrap}
+.mob-lang-label{font-size:.78rem;font-weight:600;color:#555;white-space:nowrap}
+.mob-lang-flags{display:flex;flex-wrap:wrap;gap:.4rem;margin-left:.2rem}
+.mob-lang-flag{display:inline-flex;align-items:center;gap:.25rem;padding:.3rem .6rem;border:1px solid #e0e0e0;border-radius:2rem;font-size:.78rem;font-weight:600;color:var(--navy);text-decoration:none;background:#fff;white-space:nowrap}
+.mob-lang-flag:hover{border-color:var(--teal);color:var(--teal)}
+.mob-lang-flag--active{border-color:var(--teal);color:var(--teal);background:rgba(0,168,151,.07)}
