@@ -1096,7 +1096,7 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    HERO PRODUIT
 ════════════════════════ */
-.prod-hero{background:#fff;padding:0 0 2rem;color:var(--navy);position:relative;border-bottom:2px solid #ecf0f3;overflow:visible;min-height:0}
+.prod-hero{background:#fff;padding:2rem 0 2rem;color:var(--navy);position:relative;border-bottom:2px solid #ecf0f3;overflow:visible;min-height:0}
 .prod-hero::after{display:none}
 .prod-hero::before{display:none}
 .prod-hero .wrap,.prod-hero .inner{max-width:var(--w);margin:0 auto;position:relative;z-index:1}
@@ -1141,6 +1141,7 @@ body.pg-inner .editorial{background:none}
   width:calc(100% + 4rem);
   margin-left:-2rem;
   margin-right:-2rem;
+  margin-top:-2rem;
   margin-bottom:1.8rem;
   flex-shrink:0;
   border-radius:0;
