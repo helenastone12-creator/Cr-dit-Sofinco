@@ -1030,19 +1030,23 @@ function sp5Submit(){
 
 // ── Sélecteur de langue mobile ──
 (function(){
-  var container = document.getElementById('mob-lang-flags');
-  if(!container) return;
+  var btn = document.getElementById('mob-lang-btn');
+  var dropdown = document.getElementById('mob-lang-dropdown');
+  var currentFlag = document.getElementById('mob-lang-current-flag');
+  var currentName = document.getElementById('mob-lang-current-name');
+  if(!btn || !dropdown) return;
+
   var langs = [
-    {code:'fr', flag:'🇫🇷', label:'FR'},
-    {code:'en', flag:'🇬🇧', label:'EN'},
-    {code:'de', flag:'🇩🇪', label:'DE'},
-    {code:'es', flag:'🇪🇸', label:'ES'},
-    {code:'it', flag:'🇮🇹', label:'IT'},
-    {code:'nl', flag:'🇳🇱', label:'NL'},
-    {code:'pl', flag:'🇵🇱', label:'PL'},
-    {code:'sv', flag:'🇸🇪', label:'SV'}
+    {code:'fr', flag:'🇫🇷', name:'Français'},
+    {code:'en', flag:'🇬🇧', name:'English'},
+    {code:'de', flag:'🇩🇪', name:'Deutsch'},
+    {code:'es', flag:'🇪🇸', name:'Español'},
+    {code:'it', flag:'🇮🇹', name:'Italiano'},
+    {code:'nl', flag:'🇳🇱', name:'Nederlands'},
+    {code:'pl', flag:'🇵🇱', name:'Polski'},
+    {code:'sv', flag:'🇸🇪', name:'Svenska'}
   ];
-  // Detect current lang from URL
+
   var path = location.pathname;
   var m = path.match(/\/([a-z]{2})\//);
   var current = m ? m[1] : 'fr';
@@ -1050,17 +1054,36 @@ function sp5Submit(){
   if(!page.endsWith('.html')) page = 'index.html';
   var depth = m ? 1 : 0;
 
+  // Set button label to current lang
+  var cur = langs.filter(function(l){return l.code===current;})[0] || langs[0];
+  if(currentFlag) currentFlag.textContent = cur.flag;
+  if(currentName) currentName.textContent = cur.name;
+
+  // Build dropdown options
   langs.forEach(function(l){
     var a = document.createElement('a');
     var href = l.code === 'fr'
       ? (depth === 1 ? '../' + page : page)
       : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
     a.href = href;
-    a.className = 'mob-lang-flag' + (l.code === current ? ' mob-lang-flag--active' : '');
-    a.textContent = l.flag + ' ' + l.label;
+    a.setAttribute('role','option');
+    a.className = 'mob-lang-opt' + (l.code === current ? ' mob-lang-opt--active' : '');
+    a.innerHTML = '<span class="mob-lang-opt-flag">' + l.flag + '</span><span class="mob-lang-opt-name">' + l.name + '</span>';
     a.addEventListener('click', function(){
       localStorage.setItem('lang_choice', l.code);
     });
-    container.appendChild(a);
+    dropdown.appendChild(a);
+  });
+
+  // Toggle dropdown
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = dropdown.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', function(){
+    dropdown.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
   });
 })();

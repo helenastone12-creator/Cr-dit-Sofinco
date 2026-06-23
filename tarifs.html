@@ -106,9 +106,16 @@
       Se connecter
     </button>
     <div class="mob-lang-row">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
-      <span class="mob-lang-label">Langue</span>
-      <div class="mob-lang-flags" id="mob-lang-flags"></div>
+      <div class="mob-lang-select-wrap">
+        <button class="mob-lang-select-btn" id="mob-lang-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span class="mob-lang-select-left">
+            <span id="mob-lang-current-flag"></span>
+            <span id="mob-lang-current-name">Langue</span>
+          </span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="mob-lang-dropdown" id="mob-lang-dropdown" role="listbox"></div>
+      </div>
     </div>
   </div>
 
