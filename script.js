@@ -1000,6 +1000,15 @@ function sp5Submit(){
   var dropdown = document.getElementById('lang-dropdown');
   if(!btn || !dropdown) return;
 
+  // Save manual lang choice so auto-detect doesn't override it
+  dropdown.querySelectorAll('.lang-opt').forEach(function(a){
+    a.addEventListener('click', function(){
+      var href = a.getAttribute('href') || '';
+      var m = href.match(/^(?:\.\.\/)?([a-z]{2})\//);
+      localStorage.setItem('lang_choice', m ? m[1] : 'fr');
+    });
+  });
+
   btn.addEventListener('click', function(e){
     e.stopPropagation();
     var open = dropdown.classList.toggle('open');
