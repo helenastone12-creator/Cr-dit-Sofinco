@@ -1144,18 +1144,15 @@ body.pg-inner .editorial{background:none}
   flex-shrink:0;
   border-radius:0;
   overflow:hidden;
-  background:linear-gradient(160deg,#06c2b0 0%,#0bbfb0 40%,#72cfe6 100%);
-  display:flex;
-  flex-direction:column;
-  padding-top:2.5rem;
+  background:#e8f9f7;
+  display:block;
 }
 .prod-hero-img{
   display:block;
   width:100%;
   height:260px;
   object-fit:cover;
-  object-position:center top;
-  flex-shrink:0;
+  object-position:center center;
 }
 /* Force flex-column sur .prod-hero .inner pour mobile */
 .prod-hero .inner{display:flex;flex-direction:column}
@@ -1167,9 +1164,8 @@ body.pg-inner .editorial{background:none}
     margin-left:0;margin-right:0;
     border-radius:20px;
     margin-bottom:2.5rem;
-    padding-top:3rem;
   }
-  .prod-hero-img{height:360px;}
+  .prod-hero-img{height:360px;object-fit:cover;}
 }
 .prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3);display:inline-block;margin-top:.2rem}
 .prod-hero .btn-prim:hover{background:var(--teal-d)}
@@ -1781,21 +1777,18 @@ body.pg-inner .editorial{background:none}
   .prod-hero{padding:4rem 0}
   .prod-hero:has(.prod-hero-rate) .inner{
     display:grid;
-    grid-template-columns:1fr 400px 210px;
+    grid-template-columns:1fr 420px 210px;
     column-gap:2.8rem;
-    align-items:start;
+    align-items:center;
   }
 
-  /* Colonne 1 : H1, badge, bouton, note, avis */
+  /* Colonne 1 */
   .prod-hero:has(.prod-hero-rate) .inner h1{
     grid-column:1;grid-row:1;
-    font-size:2.6rem;
-    margin-bottom:.6rem;
+    font-size:2.6rem;margin-bottom:.6rem;
   }
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-eyebrow{
-    grid-column:1;grid-row:2;
-    justify-self:start;
-    margin-bottom:1.2rem;
+    grid-column:1;grid-row:2;justify-self:start;margin-bottom:1.2rem;
   }
   .prod-hero:has(.prod-hero-rate) .inner .btn-prim{
     grid-column:1;grid-row:3;justify-self:start;display:inline-block;width:auto;
@@ -1803,40 +1796,28 @@ body.pg-inner .editorial{background:none}
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-note{grid-column:1;grid-row:4;margin-top:.8rem}
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-avis{grid-column:1;grid-row:5;margin-top:.8rem}
 
-  /* Colonne 2 : image grande avec fond teal */
+  /* Colonne 2 : image */
   .prod-hero-img-wrap{
-    grid-column:2;
-    grid-row:1 / 6;
-    order:0;
-    margin:0;
-    width:100%;
-    height:440px;
-    position:relative;
+    grid-column:2;grid-row:1/6;
+    order:0;margin:0;width:100%;
+    height:420px;
     border-radius:28px;
     overflow:hidden;
-    background:linear-gradient(160deg,#06c2b0 0%,#0ab8a8 40%,#6dcfe5 100%);
-    box-shadow:0 16px 48px rgba(6,194,176,.3),0 4px 16px rgba(0,0,0,.08);
+    background:#e8f9f7;
+    box-shadow:0 20px 60px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.06);
     display:block;
-    flex-direction:unset;
     padding-top:0;
   }
   .prod-hero-img{
-    position:absolute;
-    top:3.5rem;left:0;right:0;bottom:0;
-    width:100%;
-    height:calc(100% - 3.5rem);
+    width:100%;height:100%;
     object-fit:cover;
-    object-position:center top;
-    flex:unset;
-    min-height:unset;
+    object-position:center center;
+    position:static;top:auto;left:auto;right:auto;bottom:auto;
   }
 
   /* Colonne 3 : carte taux */
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-rate{
-    display:block;
-    grid-column:3;
-    grid-row:1 / 3;
-    align-self:start;
+    display:block;grid-column:3;grid-row:1/3;align-self:start;
   }
 }
 
