@@ -20,15 +20,12 @@
   function faqClose(el, answerSel, qSel) {
     var ans = el.querySelector(answerSel);
     if (!ans) return;
-    ans.style.maxHeight = ans.offsetHeight + 'px';
     el.classList.remove('open');
     if (qSel) { var q = el.querySelector(qSel); if (q) q.setAttribute('aria-expanded','false'); }
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ ans.style.maxHeight = '0'; }); });
   }
   function faqOpen(item, ans, btn) {
     item.classList.add('open');
     if (btn) btn.setAttribute('aria-expanded','true');
-    ans.style.maxHeight = ans.scrollHeight + 'px';
   }
 
   document.querySelectorAll('.faq-question').forEach(function(btn){
