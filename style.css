@@ -2097,6 +2097,7 @@ body.pg-inner .editorial{background:none}
 .ft-lang-section{
   border-top:1px solid rgba(255,255,255,.1);
   padding:1.25rem 1.5rem 1.5rem;
+  display:flex;justify-content:center;
 }
 .ft-lang-trigger{
   display:inline-flex;align-items:center;gap:.55rem;
