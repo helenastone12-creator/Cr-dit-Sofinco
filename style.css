@@ -31,13 +31,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .top-legal-bar{
   position:fixed;top:0;left:0;right:0;z-index:4000;
   background:#fff;
-  padding:.8rem 1.2rem;
+  height:var(--tb);
+  display:flex;align-items:center;justify-content:center;
+  padding:0 1.2rem;
   font-size:.82rem;color:#333;text-align:center;line-height:1.5;
-  border-bottom:none;
 }
 @media(min-width:700px){
-  :root{--tb:38px}
-  .top-legal-bar{padding:.5rem 1rem;font-size:.78rem}
+  :root{--tb:34px}
+  .top-legal-bar{font-size:.78rem}
 }
 .header{
   position:fixed;top:var(--tb);left:0;right:0;z-index:1000;
