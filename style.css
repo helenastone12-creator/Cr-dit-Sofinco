@@ -1112,6 +1112,7 @@ body.pg-inner .editorial{background:none}
 .prod-hero-rate-lab{display:block;font-size:.88rem;font-weight:700;color:#666;margin-top:.25rem}
 .prod-hero-rate-info{margin-top:.7rem;padding-top:.6rem;border-top:1px solid #dce8f0}
 .prod-hero-rate-info span{display:block;font-size:.82rem;color:#555;line-height:1.65}
+.prod-hero-img{display:none}
 .prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3);display:inline-block;margin-top:.2rem}
 .prod-hero .btn-prim:hover{background:var(--teal-d)}
 .prod-hero-note{font-size:.74rem;color:#999;margin-top:.7rem}
@@ -1732,12 +1733,15 @@ body.pg-inner .editorial{background:none}
   .prod-hero:has(.prod-hero-rate) .inner h1{
     grid-column:1;
   }
-  /* Carte taux : colonne droite, hauteur complète ── */
-  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-rate{
+  /* Carte taux : cachée sur PC, remplacée par l'image ── */
+  .prod-hero:has(.prod-hero-rate) .inner .prod-hero-rate{display:none}
+  /* Image produit : colonne droite ── */
+  .prod-hero-img{
     grid-column:2;grid-row:1 / span 6;
-    max-width:none;margin:0;
-    box-shadow:0 6px 32px rgba(0,0,0,.1);
-    padding:1.6rem 1.8rem;
+    width:100%;height:100%;min-height:320px;
+    object-fit:cover;border-radius:20px;
+    box-shadow:0 8px 40px rgba(0,0,0,.14);
+    display:block;
   }
   /* Bouton CTA : largeur naturelle, non étiré ── */
   .prod-hero:has(.prod-hero-rate) .inner .btn-prim{
