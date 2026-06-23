@@ -1725,9 +1725,9 @@ body.pg-inner .editorial{background:none}
     column-gap:3.5rem;
     align-items:start;
   }
-  /* Eyebrow badge : même ordre que le HTML (sous le H1) ── */
+  /* Eyebrow badge : taille naturelle, non étiré ── */
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-eyebrow{
-    grid-column:1;
+    grid-column:1;justify-self:start;
   }
   .prod-hero:has(.prod-hero-rate) .inner h1{
     grid-column:1;
@@ -1741,7 +1741,7 @@ body.pg-inner .editorial{background:none}
   }
   /* Bouton CTA : largeur naturelle, non étiré ── */
   .prod-hero:has(.prod-hero-rate) .inner .btn-prim{
-    grid-column:1;display:inline-block;width:auto;
+    grid-column:1;justify-self:start;display:inline-block;width:auto;
   }
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-note{grid-column:1}
   .prod-hero:has(.prod-hero-rate) .inner .prod-hero-avis{grid-column:1}
