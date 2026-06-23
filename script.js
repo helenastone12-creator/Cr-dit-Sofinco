@@ -1028,22 +1028,20 @@ function sp5Submit(){
   });
 })();
 
-// ── Sélecteur de langue mobile — premium ──
+// ── Sélecteur de langue footer — style Revolut ──
 (function(){
-  var btn = document.getElementById('mob-lang-btn');
-  var dropdown = document.getElementById('mob-lang-dropdown');
-  var currentName = document.getElementById('mob-lang-current-name');
-  if(!btn || !dropdown) return;
+  var container = document.getElementById('ft-lang-section');
+  if(!container) return;
 
   var langs = [
-    {code:'fr', name:'Français'},
-    {code:'en', name:'English'},
-    {code:'de', name:'Deutsch'},
-    {code:'es', name:'Español'},
-    {code:'it', name:'Italiano'},
-    {code:'nl', name:'Nederlands'},
-    {code:'pl', name:'Polski'},
-    {code:'sv', name:'Svenska'}
+    {code:'fr', flag:'🇫🇷', name:'Français'},
+    {code:'en', flag:'🇬🇧', name:'English'},
+    {code:'de', flag:'🇩🇪', name:'Deutsch'},
+    {code:'es', flag:'🇪🇸', name:'Español'},
+    {code:'it', flag:'🇮🇹', name:'Italiano'},
+    {code:'nl', flag:'🇳🇱', name:'Nederlands'},
+    {code:'pl', flag:'🇵🇱', name:'Polski'},
+    {code:'sv', flag:'🇸🇪', name:'Svenska'}
   ];
 
   var path = location.pathname;
@@ -1053,8 +1051,8 @@ function sp5Submit(){
   if(!page.endsWith('.html')) page = 'index.html';
   var depth = m ? 1 : 0;
 
-  var cur = langs.filter(function(l){return l.code===current;})[0] || langs[0];
-  if(currentName) currentName.textContent = cur.name;
+  var grid = document.createElement('div');
+  grid.className = 'ft-lang-grid';
 
   langs.forEach(function(l){
     var a = document.createElement('a');
@@ -1062,21 +1060,11 @@ function sp5Submit(){
       ? (depth === 1 ? '../' + page : page)
       : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
     a.href = href;
-    a.setAttribute('role','option');
-    a.className = 'mob-lang-opt' + (l.code === current ? ' mob-lang-opt--active' : '');
-    a.innerHTML = '<span class="mob-lang-opt-name">' + l.name + '</span><span class="mob-lang-opt-check">✓</span>';
+    a.className = 'ft-lang-item' + (l.code === current ? ' ft-lang-item--active' : '');
+    a.innerHTML = '<span class="ft-lang-flag">' + l.flag + '</span><span class="ft-lang-name">' + l.name + '</span>';
     a.addEventListener('click', function(){ localStorage.setItem('lang_choice', l.code); });
-    dropdown.appendChild(a);
+    grid.appendChild(a);
   });
 
-  btn.addEventListener('click', function(e){
-    e.stopPropagation();
-    var open = dropdown.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  document.addEventListener('click', function(){
-    dropdown.classList.remove('open');
-    btn.setAttribute('aria-expanded','false');
-  });
+  container.appendChild(grid);
 })();
