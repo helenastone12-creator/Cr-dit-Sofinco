@@ -1951,20 +1951,17 @@ body.pg-inner .editorial{background:none}
 ══════════════════════════════════════════════════════════ */
 .lang-switcher{
   position:relative;
-  display:block; /* visible on all screen sizes */
+  display:none;
 }
-.lang-switcher-btn{}
+@media(min-width:960px){
+  .lang-switcher{display:block}
+}
 .lang-switcher-btn{
-  display:flex;align-items:center;gap:.3rem;
-  background:none;border:1.5px solid rgba(0,0,0,.15);border-radius:2rem;
-  padding:.3rem .6rem;font-family:inherit;font-size:.75rem;font-weight:700;
+  display:flex;align-items:center;gap:.35rem;
+  background:none;border:1px solid rgba(0,0,0,.15);border-radius:2rem;
+  padding:.35rem .75rem;font-family:inherit;font-size:.78rem;font-weight:600;
   color:var(--navy);cursor:pointer;white-space:nowrap;
   transition:border-color .15s,background .15s;
-}
-/* On mobile, show only the globe icon — hide the flag+code text */
-@media(max-width:959px){
-  .lang-current,.lang-switcher-btn>svg:last-child{display:none}
-  .lang-switcher-btn{border:none;padding:.25rem .3rem;background:none}
 }
 .lang-switcher-btn:hover{border-color:var(--teal);color:var(--teal)}
 .lang-switcher-btn[aria-expanded="true"]{
