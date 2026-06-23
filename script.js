@@ -1030,8 +1030,10 @@ function sp5Submit(){
 
 // ── Sélecteur de langue footer — style Revolut ──
 (function(){
-  var container = document.getElementById('ft-lang-section');
-  if(!container) return;
+  var trigger_wrap = document.getElementById('ft-lang-section');
+  var panel = document.getElementById('ft-lang-panel');
+  var list = document.getElementById('ft-lang-list');
+  if(!trigger_wrap || !panel || !list) return;
 
   var langs = [
     {code:'fr', flag:'🇫🇷', name:'Français'},
@@ -1051,20 +1053,43 @@ function sp5Submit(){
   if(!page.endsWith('.html')) page = 'index.html';
   var depth = m ? 1 : 0;
 
-  var grid = document.createElement('div');
-  grid.className = 'ft-lang-grid';
+  var cur = langs.filter(function(l){return l.code===current;})[0] || langs[0];
 
+  // Build trigger button
+  var btn = document.createElement('button');
+  btn.className = 'ft-lang-trigger';
+  btn.innerHTML = '<span class="ft-lang-trigger-flag">' + cur.flag + '</span>'
+    + '<span class="ft-lang-trigger-name">' + cur.name + '</span>'
+    + '<span class="ft-lang-trigger-chev">▾</span>';
+  trigger_wrap.appendChild(btn);
+
+  // Build list inside panel
   langs.forEach(function(l){
     var a = document.createElement('a');
     var href = l.code === 'fr'
       ? (depth === 1 ? '../' + page : page)
       : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
     a.href = href;
-    a.className = 'ft-lang-item' + (l.code === current ? ' ft-lang-item--active' : '');
-    a.innerHTML = '<span class="ft-lang-flag">' + l.flag + '</span><span class="ft-lang-name">' + l.name + '</span>';
+    a.className = 'ft-lang-list-item' + (l.code === current ? ' ft-lang-list-item--active' : '');
+    a.innerHTML = '<span class="ft-lang-list-flag">' + l.flag + '</span>'
+      + '<span class="ft-lang-list-name">' + l.name + '</span>'
+      + '<span class="ft-lang-list-check">✓</span>';
     a.addEventListener('click', function(){ localStorage.setItem('lang_choice', l.code); });
-    grid.appendChild(a);
+    list.appendChild(a);
   });
 
-  container.appendChild(grid);
+  // Open panel
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Close on overlay click
+  panel.addEventListener('click', function(e){
+    if(e.target === panel){
+      panel.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
 })();

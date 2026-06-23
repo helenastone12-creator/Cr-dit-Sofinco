@@ -2093,39 +2093,66 @@ body.pg-inner .editorial{background:none}
 }
 .mob-lang-opt--active .mob-lang-opt-check{display:block}
 
-/* ── Footer — sélecteur de langue ── */
+/* ── Footer — bouton langue + panneau Revolut ── */
 .ft-lang-section{
   border-top:1px solid rgba(255,255,255,.1);
-  padding:1.5rem 1.5rem 0;
+  padding:1.25rem 1.5rem 1.5rem;
 }
-.ft-lang-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:.15rem;
+.ft-lang-trigger{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:2rem;
+  padding:.55rem 1rem;
+  cursor:pointer;font-family:inherit;
+  transition:background .15s;
 }
-@media(min-width:600px){
-  .ft-lang-grid{grid-template-columns:repeat(4,1fr)}
+.ft-lang-trigger:hover{background:rgba(255,255,255,.12)}
+.ft-lang-trigger-flag{font-size:1.1rem;line-height:1}
+.ft-lang-trigger-name{font-size:.83rem;font-weight:500;color:rgba(255,255,255,.85)}
+.ft-lang-trigger-chev{color:rgba(255,255,255,.5);font-size:.75rem;margin-left:.1rem}
+
+/* Panneau pleine largeur style Revolut */
+.ft-lang-panel{
+  display:none;
+  position:fixed;inset:0;z-index:9990;
+  background:rgba(0,0,0,.45);
 }
-.ft-lang-item{
-  display:flex;align-items:center;gap:.65rem;
-  padding:.65rem .75rem;
-  border-radius:.6rem;
+.ft-lang-panel.open{display:block}
+.ft-lang-panel-inner{
+  position:absolute;bottom:0;left:0;right:0;
+  background:#fff;border-radius:1.2rem 1.2rem 0 0;
+  padding:1.25rem 0 2rem;
+  max-height:85vh;overflow-y:auto;
+}
+.ft-lang-panel-title{
+  font-size:.78rem;font-weight:600;color:#9CA3AF;
+  text-transform:uppercase;letter-spacing:.08em;
+  padding:.1rem 1.25rem .9rem;
+}
+.ft-lang-list-item{
+  display:flex;align-items:center;gap:.9rem;
+  padding:.85rem 1.25rem;
   text-decoration:none;
-  transition:background .13s;
-  cursor:pointer;
+  transition:background .1s;
+  border-radius:0;
 }
-.ft-lang-item:hover{background:rgba(255,255,255,.07)}
-.ft-lang-item--active{background:rgba(255,255,255,.1)}
-.ft-lang-flag{
-  width:28px;height:28px;border-radius:50%;
+.ft-lang-list-item:hover{background:#F9FAFB}
+.ft-lang-list-item--active{background:#F0FDFA}
+.ft-lang-list-flag{
+  width:36px;height:36px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;line-height:1;
-  overflow:hidden;flex-shrink:0;
-  background:rgba(255,255,255,.08);
+  font-size:1.3rem;line-height:1;
+  background:#F3F4F6;flex-shrink:0;
+  overflow:hidden;
 }
-.ft-lang-name{
-  font-size:.82rem;font-weight:500;color:rgba(255,255,255,.75);
-  letter-spacing:.01em;
+.ft-lang-list-name{
+  font-size:.95rem;font-weight:400;color:#111827;flex:1;
 }
-.ft-lang-item--active .ft-lang-name{color:#fff;font-weight:600}
+.ft-lang-list-item--active .ft-lang-list-name{font-weight:600}
+.ft-lang-list-check{
+  color:#06b6a2;font-size:1rem;font-weight:700;
+  display:none;
+}
+.ft-lang-list-item--active .ft-lang-list-check{display:block}
 .mob-lang-opt-name{flex:1}
