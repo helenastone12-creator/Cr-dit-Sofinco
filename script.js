@@ -1634,3 +1634,110 @@ function sp5Submit(){
   localStorage.setItem('lang_choice', detectedLang);
   window.location.replace(targetUrl);
 })();
+
+// ── Searchable nationality dropdown ──
+(function(){
+  var searchLabel = {fr:'Rechercher...',en:'Search...',de:'Suchen...',es:'Buscar...',it:'Cerca...',nl:'Zoeken...',pl:'Szukaj...',sv:'Sök...'};
+  var otherLabel  = {fr:'Autre',en:'Other',de:'Andere',es:'Otro',it:'Altro',nl:'Andere',pl:'Inne',sv:'Annan'};
+  var lang = (typeof LANG !== 'undefined' ? LANG : 'fr');
+
+  function initNatDropdown(){
+    var sel = document.getElementById('s5-nat');
+    if(!sel || sel.dataset.customized) return;
+    sel.dataset.customized = '1';
+
+    // Collect options
+    var opts = [];
+    for(var i=0;i<sel.options.length;i++){
+      var o = sel.options[i];
+      if(o.value) opts.push({value:o.value, label:o.text});
+    }
+    // Add "Autres" at end
+    opts.push({value:'AUTRE', label: otherLabel[lang]||'Other'});
+
+    // Hide native select
+    sel.style.display='none';
+
+    // Build custom widget
+    var wrap = document.createElement('div');
+    wrap.className='nat-wrap';
+
+    var trigger = document.createElement('button');
+    trigger.type='button';
+    trigger.className='nat-trigger sp5-sel';
+    trigger.textContent = sel.options[0] ? sel.options[0].text : '...';
+
+    var panel = document.createElement('div');
+    panel.className='nat-panel';
+
+    var searchInp = document.createElement('input');
+    searchInp.type='text';
+    searchInp.className='nat-search';
+    searchInp.placeholder = searchLabel[lang]||'Search...';
+    searchInp.autocomplete='off';
+
+    var list = document.createElement('ul');
+    list.className='nat-list';
+
+    function renderList(filter){
+      list.innerHTML='';
+      var filtered = filter ? opts.filter(function(o){
+        return o.label.toLowerCase().indexOf(filter.toLowerCase())>=0;
+      }) : opts;
+      filtered.forEach(function(o){
+        var li = document.createElement('li');
+        li.className='nat-item';
+        li.textContent=o.label;
+        li.dataset.value=o.value;
+        if(o.value===sel.value) li.classList.add('nat-sel');
+        li.addEventListener('mousedown',function(e){
+          e.preventDefault();
+          sel.value=o.value;
+          trigger.textContent=o.label;
+          trigger.classList.toggle('nat-has-val',!!o.value);
+          closePanel();
+          sel.dispatchEvent(new Event('change'));
+        });
+        list.appendChild(li);
+      });
+    }
+
+    function openPanel(){
+      panel.classList.add('open');
+      searchInp.value='';
+      renderList('');
+      searchInp.focus();
+    }
+    function closePanel(){
+      panel.classList.remove('open');
+    }
+
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      panel.classList.contains('open') ? closePanel() : openPanel();
+    });
+
+    searchInp.addEventListener('input',function(){
+      renderList(this.value);
+    });
+
+    document.addEventListener('click',function(e){
+      if(!wrap.contains(e.target)) closePanel();
+    });
+
+    panel.appendChild(searchInp);
+    panel.appendChild(list);
+    wrap.appendChild(trigger);
+    wrap.appendChild(panel);
+    sel.parentNode.insertBefore(wrap,sel);
+  }
+
+  // Init when simulator step 5a is shown
+  document.addEventListener('DOMContentLoaded', function(){
+    initNatDropdown();
+  });
+  // Also try after simulator opens
+  document.addEventListener('click', function(){
+    setTimeout(initNatDropdown, 100);
+  });
+})();
