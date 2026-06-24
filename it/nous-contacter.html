@@ -217,74 +217,74 @@
   <!-- Formulaire de contact -->
   <div class="inner" style="margin:2.5rem auto;max-width:640px">
     <h2>Invia un messaggio</h2>
-    <p style="color:#666;font-size:.9rem;margin-bottom:1.5rem">Réponse sous 24 h ouvrées. Pour un traitement plus rapide, mentionnez votre numéro de dossier.</p>
+    <p style="color:#666;font-size:.9rem;margin-bottom:1.5rem">Risposta entro 24 ore lavorative. Per un trattamento più rapido, indica il tuo numero di pratica.</p>
     <form id="contact-form" style="display:flex;flex-direction:column;gap:1rem">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
         <div>
-          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-prenom">Prénom *</label>
-          <input type="text" id="cf-prenom" class="sp5-inp" placeholder="Jean" required style="width:100%;box-sizing:border-box"/>
+          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-prenom">Nome *</label>
+          <input type="text" id="cf-prenom" class="sp5-inp" placeholder="Mario" required style="width:100%;box-sizing:border-box"/>
         </div>
         <div>
-          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-nom">Nom *</label>
-          <input type="text" id="cf-nom" class="sp5-inp" placeholder="Dupont" required style="width:100%;box-sizing:border-box"/>
+          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-nom">Cognome *</label>
+          <input type="text" id="cf-nom" class="sp5-inp" placeholder="Rossi" required style="width:100%;box-sizing:border-box"/>
         </div>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-email">Email *</label>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-email">E-mail *</label>
         <input type="email" id="cf-email" class="sp5-inp" placeholder="jean.dupont@email.fr" required style="width:100%;box-sizing:border-box"/>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-sujet">Sujet *</label>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-sujet">Oggetto *</label>
         <select id="cf-sujet" class="sp5-inp" required style="width:100%;box-sizing:border-box">
-          <option value="">Sélectionnez un sujet</option>
-          <option>Demande d'information sur un crédit</option>
+          <option value="">Seleziona un oggetto</option>
+          <option>Richiesta di informazioni su un credito</option>
           <option>Monitoraggio pratica en cours</option>
-          <option>Problème avec mon espace client</option>
-          <option>Remboursement anticipé</option>
-          <option>Réclamation</option>
+          <option>Problema con la mia area clienti</option>
+          <option>Rimborso anticipato</option>
+          <option>Reclamo</option>
           <option>Altro</option>
         </select>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-ref">Numéro de dossier (optionnel)</label>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-ref">Numero di pratica (opzionale)</label>
         <input type="text" id="cf-ref" class="sp5-inp" placeholder="SOF-2026-XXXXX" style="width:100%;box-sizing:border-box;text-transform:uppercase"/>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-message">Message *</label>
-        <textarea id="cf-message" class="sp5-inp" rows="5" placeholder="Décrivez votre demande..." required style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-message">Messaggio *</label>
+        <textarea id="cf-message" class="sp5-inp" rows="5" placeholder="Descrivi la tua richiesta..." required style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
       </div>
       <div id="cf-err" class="sp5-err show" style="display:none;color:#e74c3c;font-size:.82rem"></div>
       <div id="cf-ok" style="display:none;background:#f0fdf4;border:1px solid #86efac;border-radius:.6rem;padding:.9rem 1rem;color:#166534;font-size:.88rem;font-weight:600">
-        Votre message a bien été envoyé. Notre équipe vous répond sous 24 h ouvrées.
+        Il tuo messaggio è stato inviato. Il nostro team ti risponderà entro 24 ore lavorative.
       </div>
-      <button type="button" class="sp5-send-btn" onclick="cfSubmit()" style="align-self:flex-start;padding:.75rem 2rem">Envoyer le message</button>
+      <button type="button" class="sp5-send-btn" onclick="cfSubmit()" style="align-self:flex-start;padding:.75rem 2rem">Invia messaggio</button>
     </form>
   </div>
 
   <div class="editorial inner">
-    <h2>Un service client à votre écoute</h2>
-    <p>Chez Solfianza, nous accordons une importance capitale à la qualité de notre service client. Chaque demande, qu'elle concerne une simulation de crédit, un suivi de dossier en cours, une modification de coordonnées bancaires ou une réclamation, est traitée avec la plus grande attention par nos conseillers spécialisés. Notre objectif est de vous apporter une réponse claire, précise et rapide, quel que soit le canal que vous utilisez pour nous contacter.</p>
-    <p>Notre service téléphonique est accessible au <strong>09 69 39 10 00</strong> (numéro non surtaxé, coût d'un appel local depuis un poste fixe), du lundi au vendredi de 8h30 à 19h30 et le samedi de 8h30 à 17h00. Nos conseillers sont formés pour répondre à toutes les questions relatives à nos produits de crédit, aux conditions d'octroi, aux modalités de remboursement et à la gestion quotidienne de votre contrat. Vous pouvez également accéder à votre espace client personnel 24h/24 et 7j/7 depuis notre site web ou notre application mobile.</p>
-    <p>Pour les demandes nécessitant un traitement par écrit (réclamations formelles, exercice de droits RGPD, demandes de remboursement anticipé, résiliation d'assurance), nous vous invitons à nous adresser un courrier postal à l'adresse de notre service client. Conformément à nos engagements qualité, nous nous engageons à accuser réception de toute réclamation écrite dans un délai de <strong>10 jours ouvrables</strong> et à y apporter une réponse définitive dans un délai maximal de <strong>2 mois</strong>.</p>
+    <h2>Un servizio clienti che ti ascolta</h2>
+    <p>Da Solfianza, attribuiamo la massima importanza alla qualità del nostro servizio clienti. Ogni richiesta, che si tratti di una simulazione di credito, del monitoraggio di una pratica in corso, di una modifica delle coordinate bancarie o di un reclamo, viene trattata con la massima cura dai nostri consulenti specializzati. Il nostro obiettivo è fornirti una risposta chiara, precisa e rapida, indipendentemente dal canale che utilizzi per contattarci.</p>
+    <p>Il nostro servizio telefonico è accessibile al <strong>09 69 39 10 00</strong> (numero non maggiorato, costo di una chiamata locale da un telefono fisso), dal lunedì al venerdì dalle 8:30 alle 19:30 e il sabato dalle 8:30 alle 17:00. I nostri consulenti sono formati per rispondere a tutte le domande relative ai nostri prodotti di credito, alle condizioni di concessione, alle modalità di rimborso e alla gestione quotidiana del tuo contratto. Puoi anche accedere alla tua area clienti personale 24 ore su 24 e 7 giorni su 7 dal nostro sito web o dalla nostra app mobile.</p>
+    <p>Per le richieste che richiedono un trattamento scritto (reclami formali, esercizio dei diritti RGPD, richieste di rimborso anticipato, disdetta dell'assicurazione), ti invitiamo a inviarci una lettera postale all'indirizzo del nostro servizio clienti. In conformità con i nostri impegni di qualità, ci impegniamo ad accusare ricevuta di qualsiasi reclamo scritto entro <strong>10 giorni lavorativi</strong> e a fornire una risposta definitiva entro un massimo di <strong>2 mesi</strong>.</p>
   </div>
 
   <div class="prod-avantages inner">
-    <h2>Nos canaux de contact</h2>
+    <h2>I nostri canali di contatto</h2>
     <div class="prod-av-grid">
       <div class="prod-av-card">
         
-        <h3>Par téléphone</h3>
-        <p><strong>09 69 39 10 00</strong><br>Numéro non surtaxé — coût d'un appel local<br><br><strong>Lundi au vendredi</strong> : 8h30 – 19h30<br><strong>Samedi</strong> : 8h30 – 17h00<br><br>Nos conseillers sont disponibles pour toute question relative à vos crédits, vos contrats et vos remboursements. Pour accélérer le traitement de votre appel, munissez-vous de votre numéro de contrat.</p>
+        <h3>Per telefono</h3>
+        <p><strong>09 69 39 10 00</strong><br>Numero non maggiorato — costo di una chiamata locale<br><br><strong>Da lunedì a venerdì</strong>: 8:30 – 19:30<br><strong>Sabato</strong>: 8:30 – 17:00<br><br>I nostri consulenti sono disponibili per qualsiasi domanda relativa ai tuoi crediti, contratti e rimborsi. Per accelerare il trattamento della tua chiamata, tieni a portata di mano il numero del tuo contratto.</p>
       </div>
       <div class="prod-av-card">
         
-        <h3>Espace client en ligne</h3>
+        <h3>Area clienti online</h3>
         <p>Connectez-vous à votre <strong>espace client personnel</strong> pour gérer l'intégralité de vos contrats en toute autonomie, 24h/24 et 7j/7 :<br><br>• Consulter vos échéances et votre tableau d'amortissement<br>• Télécharger vos documents contractuels<br>• Modifier vos coordonnées bancaires<br>• Faire une demande de remboursement anticipé<br>• Invia un messaggio sécurisé à votre conseiller</p>
       </div>
       <div class="prod-av-card">
         
         <h3>Par courrier postal</h3>
-        <p>Pour toute demande écrite formelle (réclamation, exercice de droits RGPD, résiliation) :<br><br><strong>CA Consumer Finance — Service Client Solfianza</strong><br>BP 87017<br>92563 Rueil-Malmaison Cedex<br><br>Joignez à votre courrier une copie de votre pièce d'identité ainsi que votre numéro de contrat. Nous accusons réception sous 10 jours ouvrables.</p>
+        <p>Per qualsiasi richiesta formale scritta (reclamo, esercizio dei diritti RGPD, disdetta):<br><br><strong>CA Consumer Finance — Servizio Clienti Solfianza</strong><br>BP 87017<br>92563 Rueil-Malmaison Cedex<br><br>Allega alla tua lettera una copia del tuo documento d'identità e il numero del tuo contratto. Accustiamo ricevuta entro 10 giorni lavorativi.</p>
       </div>
     </div>
   </div>
@@ -292,16 +292,16 @@
   <div class="prod-faq inner">
     <h2>Domande frequenti — Service client</h2>
     <div class="faq-item">
-      <button class="faq-q">Comment récupérer mes identifiants espace client ?</button>
-      <div class="faq-a"><p>Si vous avez oublié votre mot de passe, cliquez sur le lien "Mot de passe oublié ?" sur la page de connexion de votre espace client. Un email de réinitialisation vous sera envoyé à l'adresse email associée à votre compte dans un délai de quelques minutes. Si vous n'avez pas encore créé votre espace client, munissez-vous de votre numéro de contrat et de votre date de naissance, puis suivez la procédure d'inscription en ligne. En cas de difficultés, notre service client téléphonique peut vous assister au 09 69 39 10 00.</p></div>
+      <button class="faq-q">Come recupero le mie credenziali per l'area clienti?</button>
+      <div class="faq-a"><p>Se hai dimenticato la password, clicca sul link "Password dimenticata?" sulla pagina di accesso alla tua area clienti. Ti verrà inviata un'e-mail di reimpostazione all'indirizzo e-mail associato al tuo account nel giro di pochi minuti. Se non hai ancora creato la tua area clienti, tieni a portata di mano il numero del tuo contratto e la tua data di nascita, poi segui la procedura di registrazione online. In caso di difficoltà, il nostro servizio clienti telefonico può assisterti al 09 69 39 10 00.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">Comment déposer une réclamation formelle ?</button>
-      <div class="faq-a"><p>Pour déposer une réclamation formelle, vous pouvez utiliser la messagerie sécurisée de votre espace client, nous appeler au 09 69 39 10 00, ou nous adresser un courrier postal au Service Client Solfianza, BP 87017, 92563 Rueil-Malmaison Cedex. Nous accusons réception sous 10 jours ouvrables et apportons une réponse définitive sous 2 mois maximum. Si notre réponse ne vous satisfait pas, vous pouvez saisir gratuitement le médiateur de la consommation désigné par Solfianza : CNPM Médiation, 6 rue Jean-Pierre Timbaud, 75011 Paris (www.cnpm-mediation-consommation.eu).</p></div>
+      <button class="faq-q">Come presento un reclamo formale?</button>
+      <div class="faq-a"><p>Per presentare un reclamo formale, puoi utilizzare la messaggistica sicura della tua area clienti, chiamarci al 09 69 39 10 00, o inviarci una lettera postale al Servizio Clienti Solfianza, BP 87017, 92563 Rueil-Malmaison Cedex. Accustiamo ricevuta entro 10 giorni lavorativi e forniamo una risposta definitiva entro 2 mesi massimo. Se la nostra risposta non ti soddisfa, puoi contattare gratuitamente il mediatore del consumo designato da Solfianza: CNPM Médiation, 6 rue Jean-Pierre Timbaud, 75011 Paris (www.cnpm-mediation-consommation.eu).</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">Mon dossier est en cours d'instruction, comment suivre son avancement ?</button>
-      <div class="faq-a"><p>Dès réception de votre dossier complet, vous recevez un email de confirmation indiquant le délai prévisionnel de traitement. Vous pouvez suivre l'avancement de votre dossier en temps réel depuis votre espace client personnel ou en contactant notre service client au 09 69 39 10 00. En règle générale, une réponse de principe est apportée dans les 24 à 48 heures suivant la réception du dossier complet. Si des documents complémentaires sont nécessaires, un email vous en informe automatiquement.</p></div>
+      <button class="faq-q">La mia pratica è in corso di istruzione, come posso seguirne l'avanzamento?</button>
+      <div class="faq-a"><p>Dalla ricezione della tua pratica completa, ricevi un'e-mail di conferma che indica il tempo di trattamento previsto. Puoi seguire l'avanzamento della tua pratica in tempo reale dalla tua area clienti personale o contattando il nostro servizio clienti al 09 69 39 10 00. Di norma, viene fornita una risposta di massima entro 24-48 ore dalla ricezione della pratica completa. Se sono necessari documenti aggiuntivi, ti viene inviata automaticamente un'e-mail.</p></div>
     </div>
   </div>
 
@@ -320,7 +320,7 @@
             <path d="M22 18.5c2.8.7 5 3.2 5.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <p>Votre partenaire de confiance</p>
+        <p>Il tuo partner di fiducia</p>
       </li>
       <li class="trust-item">
         <div class="trust-icon">
@@ -518,7 +518,7 @@
       <div class="sim-trust-grid">
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Votre partenaire de confiance</span>
+          <span class="sim-trust-lbl">Il vostro partner di fiducia</span>
         </div>
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -555,7 +555,7 @@
       <div class="sim-trust-grid">
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Votre partenaire de confiance</span>
+          <span class="sim-trust-lbl">Il vostro partner di fiducia</span>
         </div>
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -608,7 +608,7 @@
       <div class="sim-trust-grid">
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Votre partenaire de confiance</span>
+          <span class="sim-trust-lbl">Il vostro partner di fiducia</span>
         </div>
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -666,7 +666,7 @@
         <button class="sim-btn-outline" id="sim-restart">Modifier mes critères et mon offre</button>
         <p style="text-align:center;font-size:.75rem;color:#999;margin:.1rem 0 .9rem;font-style:italic">— Notre proposition de prêt est modifiable —</p>
         <button class="sim-cta-big">Continua con questa offerta →</button>
-        <p class="sim-res-notice"><sup>(1)</sup> Hors assurance facultative. Simulation à titre indicatif. Offre soumise à acceptation. TAEG fisso indicatif. Un credito la impegna e deve essere rimborsato. Verifichi la sua capacità di rimborso prima di impegnarsi.</p>
+        <p class="sim-res-notice"><sup>(1)</sup> Senza assicurazione facoltativa. Simulazione indicativa. Soggetto ad accettazione. TAEG fisso indicatif. Un credito la impegna e deve essere rimborsato. Verifichi la sua capacità di rimborso prima di impegnarsi.</p>
       </div>
 
       <!-- DESKTOP -->
@@ -770,12 +770,12 @@
     <div class="sp5-row2">
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-nom">Nom <span class="sp5-req">*</span></label>
-        <input type="text" id="s5-nom" class="sp5-inp" placeholder="Votre nom" autocomplete="family-name"/>
+        <input type="text" id="s5-nom" class="sp5-inp" placeholder="Il tuo cognome" autocomplete="family-name"/>
         <span class="sp5-err" id="s5-nom-err">Campo obbligatorio</span>
       </div>
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-prenom">Nome <span class="sp5-req">*</span></label>
-        <input type="text" id="s5-prenom" class="sp5-inp" placeholder="Votre prénom" autocomplete="given-name"/>
+        <input type="text" id="s5-prenom" class="sp5-inp" placeholder="Il tuo nome" autocomplete="given-name"/>
         <span class="sp5-err" id="s5-prenom-err">Campo obbligatorio</span>
       </div>
     </div>
@@ -790,8 +790,8 @@
         <label class="sp5-lbl" for="s5-nat">Nazionalità <span class="sp5-req">*</span></label>
         <select id="s5-nat" class="sp5-sel">
           <option value="" disabled selected>Seleziona...</option>
-          <option value="FR">Française</option>
-          <option value="EU">Européenne</option>
+          <option value="FR">Francese</option>
+          <option value="EU">Europea</option>
           <option value="AUTRE">Altro</option>
         </select>
         <span class="sp5-err" id="s5-nat-err">Campo obbligatorio</span>
@@ -803,12 +803,12 @@
         <label class="sp5-lbl" for="s5-sitfam">Situazione familiare <span class="sp5-req">*</span></label>
         <select id="s5-sitfam" class="sp5-sel">
           <option value="" disabled selected>Seleziona...</option>
-          <option value="celibataire">Célibataire</option>
-          <option value="marie">Marié(e)</option>
-          <option value="pacse">Pacsé(e)</option>
-          <option value="concubin">En concubinage</option>
-          <option value="divorce">Divorcé(e)</option>
-          <option value="veuf">Veuf/Veuve</option>
+          <option value="celibataire">Celibe/Nubile</option>
+          <option value="marie">Coniugato/a</option>
+          <option value="pacse">Unione civile</option>
+          <option value="concubin">Convivente</option>
+          <option value="divorce">Divorziato/a</option>
+          <option value="veuf">Vedovo/a</option>
         </select>
         <span class="sp5-err" id="s5-sitfam-err">Campo obbligatorio</span>
       </div>
@@ -820,7 +820,7 @@
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
-          <option value="5+">5 ou plus</option>
+          <option value="5+">5 o più</option>
         </select>
       </div>
     </div>
@@ -837,47 +837,47 @@
 
     <div class="sp5-2col">
       <div class="sp5-col-block">
-        <div class="sp5-col-hd">SITUATION PROFESSIONNELLE</div>
+        <div class="sp5-col-hd">SITUAZIONE PROFESSIONALE</div>
 
         <div class="sp5-field-group">
           <label class="sp5-lbl" for="s5-sitpro">Situation <span class="sp5-req">*</span></label>
           <select id="s5-sitpro" class="sp5-sel">
             <option value="" disabled selected>Seleziona...</option>
-            <option value="cdi">Salarié(e) CDI</option>
-            <option value="cdd">Salarié(e) CDD</option>
-            <option value="independant">Travailleur indépendant</option>
-            <option value="fonctionnaire">Fonctionnaire / Titulaire</option>
-            <option value="interim">Intérimaire</option>
+            <option value="cdi">Dipendente a tempo indeterminato</option>
+            <option value="cdd">Dipendente a tempo determinato</option>
+            <option value="independant">Lavoratore autonomo</option>
+            <option value="fonctionnaire">Dipendente pubblico</option>
+            <option value="interim">Lavoratore interinale</option>
             <option value="retraite">Pensionato/a</option>
-            <option value="sans">Sans emploi</option>
+            <option value="sans">Disoccupato</option>
             <option value="autre">Altro</option>
           </select>
           <span class="sp5-err" id="s5-sitpro-err">Campo obbligatorio</span>
         </div>
 
         <div class="sp5-field-group">
-          <label class="sp5-lbl" for="s5-secteur">Secteur d'activité <span class="sp5-req">*</span></label>
+          <label class="sp5-lbl" for="s5-secteur">Settore lavorativo <span class="sp5-req">*</span></label>
           <select id="s5-secteur" class="sp5-sel">
             <option value="" disabled selected>Seleziona...</option>
-            <option value="prive">Secteur privé</option>
-            <option value="public">Secteur public</option>
-            <option value="agricole">Agriculture</option>
-            <option value="commerce">Commerce</option>
-            <option value="industrie">Industrie</option>
-            <option value="services">Services</option>
+            <option value="prive">Settore privato</option>
+            <option value="public">Settore pubblico</option>
+            <option value="agricole">Agricoltura</option>
+            <option value="commerce">Commercio</option>
+            <option value="industrie">Industria</option>
+            <option value="services">Servizi</option>
             <option value="autre">Altro</option>
           </select>
           <span class="sp5-err" id="s5-secteur-err">Campo obbligatorio</span>
         </div>
 
         <div class="sp5-field-group">
-          <label class="sp5-lbl" for="s5-anciennete">Ancienneté dans l'emploi <span class="sp5-req">*</span></label>
+          <label class="sp5-lbl" for="s5-anciennete">Anzianità lavorativa <span class="sp5-req">*</span></label>
           <select id="s5-anciennete" class="sp5-sel">
             <option value="" disabled selected>Seleziona...</option>
-            <option value="moins1">Moins d'1 an</option>
-            <option value="1-3">1 à 3 ans</option>
-            <option value="3-5">3 à 5 ans</option>
-            <option value="plus5">Plus de 5 ans</option>
+            <option value="moins1">Meno di 1 anno</option>
+            <option value="1-3">1 a 3 anni</option>
+            <option value="3-5">3 a 5 anni</option>
+            <option value="plus5">Più di 5 anni</option>
           </select>
           <span class="sp5-err" id="s5-anciennete-err">Campo obbligatorio</span>
         </div>
@@ -918,7 +918,7 @@
     <div class="sp5-row2">
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-email">Email <span class="sp5-req">*</span></label>
-        <input type="email" id="s5-email" class="sp5-inp" placeholder="votre@email.fr" autocomplete="email"/>
+        <input type="email" id="s5-email" class="sp5-inp" placeholder="tua@email.it" autocomplete="email"/>
         <span class="sp5-err" id="s5-email-err">Email invalide</span>
       </div>
       <div class="sp5-field-group">
@@ -1100,7 +1100,7 @@
 
     <div class="sp5-nav">
       <button type="button" class="sp5-back-btn" onclick="sp5Go(3)"><span class="sp5-arr-l">‹</span> Retour</button>
-      <button type="button" class="sp5-send-btn" onclick="sp5Submit()">Envoyer ma demande</button>
+      <button type="button" class="sp5-send-btn" onclick="sp5Submit()">Invia la mia richiesta</button>
     </div>
   </div><!-- /sp5d -->
 

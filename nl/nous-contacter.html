@@ -217,74 +217,74 @@
   <!-- Formulaire de contact -->
   <div class="inner" style="margin:2.5rem auto;max-width:640px">
     <h2>Een bericht sturen</h2>
-    <p style="color:#666;font-size:.9rem;margin-bottom:1.5rem">Réponse sous 24 h ouvrées. Pour un traitement plus rapide, mentionnez votre numéro de dossier.</p>
+    <p style="color:#666;font-size:.9rem;margin-bottom:1.5rem">Antwoord binnen 24 werkuren. Vermeld uw dossiernummer voor een snellere verwerking.</p>
     <form id="contact-form" style="display:flex;flex-direction:column;gap:1rem">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
         <div>
-          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-prenom">Prénom *</label>
-          <input type="text" id="cf-prenom" class="sp5-inp" placeholder="Jean" required style="width:100%;box-sizing:border-box"/>
+          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-prenom">Voornaam *</label>
+          <input type="text" id="cf-prenom" class="sp5-inp" placeholder="Jan" required style="width:100%;box-sizing:border-box"/>
         </div>
         <div>
-          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-nom">Nom *</label>
-          <input type="text" id="cf-nom" class="sp5-inp" placeholder="Dupont" required style="width:100%;box-sizing:border-box"/>
+          <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-nom">Achternaam *</label>
+          <input type="text" id="cf-nom" class="sp5-inp" placeholder="Jansen" required style="width:100%;box-sizing:border-box"/>
         </div>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-email">Email *</label>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-email">E-mail *</label>
         <input type="email" id="cf-email" class="sp5-inp" placeholder="jean.dupont@email.fr" required style="width:100%;box-sizing:border-box"/>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-sujet">Sujet *</label>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-sujet">Onderwerp *</label>
         <select id="cf-sujet" class="sp5-inp" required style="width:100%;box-sizing:border-box">
-          <option value="">Sélectionnez un sujet</option>
-          <option>Demande d'information sur un crédit</option>
+          <option value="">Selecteer een onderwerp</option>
+          <option>Informatieverzoek over een krediet</option>
           <option>Dossier opvolgen en cours</option>
-          <option>Problème avec mon espace client</option>
-          <option>Remboursement anticipé</option>
-          <option>Réclamation</option>
+          <option>Probleem met mijn klantenruimte</option>
+          <option>Vervroegde aflossing</option>
+          <option>Klacht</option>
           <option>Ander</option>
         </select>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-ref">Numéro de dossier (optionnel)</label>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-ref">Dossiernummer (optioneel)</label>
         <input type="text" id="cf-ref" class="sp5-inp" placeholder="SOF-2026-XXXXX" style="width:100%;box-sizing:border-box;text-transform:uppercase"/>
       </div>
       <div>
-        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-message">Message *</label>
-        <textarea id="cf-message" class="sp5-inp" rows="5" placeholder="Décrivez votre demande..." required style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
+        <label style="font-size:.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:.35rem" for="cf-message">Bericht *</label>
+        <textarea id="cf-message" class="sp5-inp" rows="5" placeholder="Beschrijf uw verzoek..." required style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
       </div>
       <div id="cf-err" class="sp5-err show" style="display:none;color:#e74c3c;font-size:.82rem"></div>
       <div id="cf-ok" style="display:none;background:#f0fdf4;border:1px solid #86efac;border-radius:.6rem;padding:.9rem 1rem;color:#166534;font-size:.88rem;font-weight:600">
-        Votre message a bien été envoyé. Notre équipe vous répond sous 24 h ouvrées.
+        Uw bericht is verzonden. Ons team antwoordt u binnen 24 werkuren.
       </div>
-      <button type="button" class="sp5-send-btn" onclick="cfSubmit()" style="align-self:flex-start;padding:.75rem 2rem">Envoyer le message</button>
+      <button type="button" class="sp5-send-btn" onclick="cfSubmit()" style="align-self:flex-start;padding:.75rem 2rem">Bericht verzenden</button>
     </form>
   </div>
 
   <div class="editorial inner">
-    <h2>Un service client à votre écoute</h2>
-    <p>Chez Solfianza, nous accordons une importance capitale à la qualité de notre service client. Chaque demande, qu'elle concerne une simulation de crédit, un suivi de dossier en cours, une modification de coordonnées bancaires ou une réclamation, est traitée avec la plus grande attention par nos conseillers spécialisés. Notre objectif est de vous apporter une réponse claire, précise et rapide, quel que soit le canal que vous utilisez pour nous contacter.</p>
-    <p>Notre service téléphonique est accessible au <strong>09 69 39 10 00</strong> (numéro non surtaxé, coût d'un appel local depuis un poste fixe), du lundi au vendredi de 8h30 à 19h30 et le samedi de 8h30 à 17h00. Nos conseillers sont formés pour répondre à toutes les questions relatives à nos produits de crédit, aux conditions d'octroi, aux modalités de remboursement et à la gestion quotidienne de votre contrat. Vous pouvez également accéder à votre espace client personnel 24h/24 et 7j/7 depuis notre site web ou notre application mobile.</p>
-    <p>Pour les demandes nécessitant un traitement par écrit (réclamations formelles, exercice de droits RGPD, demandes de remboursement anticipé, résiliation d'assurance), nous vous invitons à nous adresser un courrier postal à l'adresse de notre service client. Conformément à nos engagements qualité, nous nous engageons à accuser réception de toute réclamation écrite dans un délai de <strong>10 jours ouvrables</strong> et à y apporter une réponse définitive dans un délai maximal de <strong>2 mois</strong>.</p>
+    <h2>Een klantenservice die naar u luistert</h2>
+    <p>Bij Solfianza hechten we het grootste belang aan de kwaliteit van onze klantenservice. Elk verzoek, of het nu gaat om een kredietsimulatie, het volgen van een lopend dossier, het wijzigen van bankgegevens of een klacht, wordt door onze gespecialiseerde adviseurs met de grootste zorg behandeld. Ons doel is u een duidelijk, nauwkeurig en snel antwoord te geven, ongeacht het kanaal dat u gebruikt om contact met ons op te nemen.</p>
+    <p>Onze telefonische dienst is bereikbaar op <strong>09 69 39 10 00</strong> (geen meerprijs, kosten van een lokaal gesprek vanaf een vaste lijn), van maandag tot vrijdag van 8:30 tot 19:30 uur en op zaterdag van 8:30 tot 17:00 uur. Onze adviseurs zijn opgeleid om alle vragen te beantwoorden over onze kredietproducten, verleningsvoorwaarden, terugbetalingsmodaliteiten en het dagelijks beheer van uw contract. U heeft ook 24/7 toegang tot uw persoonlijke klantenruimte via onze website of mobiele app.</p>
+    <p>Voor verzoeken die schriftelijke verwerking vereisen (formele klachten, uitoefening van AVG-rechten, verzoeken om vervroegde terugbetaling, verzekeringskoppelingen), nodigen wij u uit ons een postbrief te sturen naar het adres van onze klantenservice. In overeenstemming met onze kwaliteitsverbintenissen verbinden wij ons ertoe elke schriftelijke klacht binnen <strong>10 werkdagen</strong> te bevestigen en een definitief antwoord te geven binnen maximaal <strong>2 maanden</strong>.</p>
   </div>
 
   <div class="prod-avantages inner">
-    <h2>Nos canaux de contact</h2>
+    <h2>Onze contactkanalen</h2>
     <div class="prod-av-grid">
       <div class="prod-av-card">
         
-        <h3>Par téléphone</h3>
-        <p><strong>09 69 39 10 00</strong><br>Numéro non surtaxé — coût d'un appel local<br><br><strong>Lundi au vendredi</strong> : 8h30 – 19h30<br><strong>Samedi</strong> : 8h30 – 17h00<br><br>Nos conseillers sont disponibles pour toute question relative à vos crédits, vos contrats et vos remboursements. Pour accélérer le traitement de votre appel, munissez-vous de votre numéro de contrat.</p>
+        <h3>Per telefoon</h3>
+        <p><strong>09 69 39 10 00</strong><br>Geen meerprijs — kosten van een lokaal gesprek<br><br><strong>Maandag tot vrijdag</strong>: 8:30 – 19:30 uur<br><strong>Zaterdag</strong>: 8:30 – 17:00 uur<br><br>Onze adviseurs staan klaar voor alle vragen over uw kredieten, contracten en terugbetalingen. Houd uw contractnummer bij de hand om de verwerking van uw gesprek te versnellen.</p>
       </div>
       <div class="prod-av-card">
         
-        <h3>Espace client en ligne</h3>
+        <h3>Online klantenruimte</h3>
         <p>Connectez-vous à votre <strong>espace client personnel</strong> pour gérer l'intégralité de vos contrats en toute autonomie, 24h/24 et 7j/7 :<br><br>• Consulter vos échéances et votre tableau d'amortissement<br>• Télécharger vos documents contractuels<br>• Modifier vos coordonnées bancaires<br>• Faire une demande de remboursement anticipé<br>• Een bericht sturen sécurisé à votre conseiller</p>
       </div>
       <div class="prod-av-card">
         
         <h3>Par courrier postal</h3>
-        <p>Pour toute demande écrite formelle (réclamation, exercice de droits RGPD, résiliation) :<br><br><strong>CA Consumer Finance — Service Client Solfianza</strong><br>BP 87017<br>92563 Rueil-Malmaison Cedex<br><br>Joignez à votre courrier une copie de votre pièce d'identité ainsi que votre numéro de contrat. Nous accusons réception sous 10 jours ouvrables.</p>
+        <p>Voor elk formeel schriftelijk verzoek (klacht, uitoefening van AVG-rechten, opzegging):<br><br><strong>CA Consumer Finance — Solfianza Klantenservice</strong><br>BP 87017<br>92563 Rueil-Malmaison Cedex<br><br>Voeg een kopie van uw identiteitsdocument en uw contractnummer bij uw brief. Wij bevestigen de ontvangst binnen 10 werkdagen.</p>
       </div>
     </div>
   </div>
@@ -292,16 +292,16 @@
   <div class="prod-faq inner">
     <h2>Veelgestelde vragen — Service client</h2>
     <div class="faq-item">
-      <button class="faq-q">Comment récupérer mes identifiants espace client ?</button>
-      <div class="faq-a"><p>Si vous avez oublié votre mot de passe, cliquez sur le lien "Mot de passe oublié ?" sur la page de connexion de votre espace client. Un email de réinitialisation vous sera envoyé à l'adresse email associée à votre compte dans un délai de quelques minutes. Si vous n'avez pas encore créé votre espace client, munissez-vous de votre numéro de contrat et de votre date de naissance, puis suivez la procédure d'inscription en ligne. En cas de difficultés, notre service client téléphonique peut vous assister au 09 69 39 10 00.</p></div>
+      <button class="faq-q">Hoe haal ik mijn inloggegevens voor de klantenruimte op?</button>
+      <div class="faq-a"><p>Als u uw wachtwoord vergeten bent, klik dan op de link "Wachtwoord vergeten?" op de aanmeldpagina van uw klantenruimte. Er wordt binnen enkele minuten een reset-e-mail gestuurd naar het e-mailadres dat aan uw account is gekoppeld. Als u uw klantenruimte nog niet heeft aangemaakt, houd dan uw contractnummer en geboortedatum bij de hand en volg de online registratieprocedure. Als u problemen ondervindt, kan onze telefonische klantenservice u helpen op 09 69 39 10 00.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">Comment déposer une réclamation formelle ?</button>
-      <div class="faq-a"><p>Pour déposer une réclamation formelle, vous pouvez utiliser la messagerie sécurisée de votre espace client, nous appeler au 09 69 39 10 00, ou nous adresser un courrier postal au Service Client Solfianza, BP 87017, 92563 Rueil-Malmaison Cedex. Nous accusons réception sous 10 jours ouvrables et apportons une réponse définitive sous 2 mois maximum. Si notre réponse ne vous satisfait pas, vous pouvez saisir gratuitement le médiateur de la consommation désigné par Solfianza : CNPM Médiation, 6 rue Jean-Pierre Timbaud, 75011 Paris (www.cnpm-mediation-consommation.eu).</p></div>
+      <button class="faq-q">Hoe dien ik een formele klacht in?</button>
+      <div class="faq-a"><p>Om een formele klacht in te dienen, kunt u het beveiligde berichtensysteem van uw klantenruimte gebruiken, ons bellen op 09 69 39 10 00, of ons een postbrief sturen naar Solfianza Klantenservice, BP 87017, 92563 Rueil-Malmaison Cedex. We bevestigen de ontvangst binnen 10 werkdagen en geven een definitief antwoord binnen maximaal 2 maanden. Als ons antwoord u niet tevreden stelt, kunt u gratis contact opnemen met de door Solfianza aangestelde consumentenbemiddelaar: CNPM Médiation, 6 rue Jean-Pierre Timbaud, 75011 Paris (www.cnpm-mediation-consommation.eu).</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">Mon dossier est en cours d'instruction, comment suivre son avancement ?</button>
-      <div class="faq-a"><p>Dès réception de votre dossier complet, vous recevez un email de confirmation indiquant le délai prévisionnel de traitement. Vous pouvez suivre l'avancement de votre dossier en temps réel depuis votre espace client personnel ou en contactant notre service client au 09 69 39 10 00. En règle générale, une réponse de principe est apportée dans les 24 à 48 heures suivant la réception du dossier complet. Si des documents complémentaires sont nécessaires, un email vous en informe automatiquement.</p></div>
+      <button class="faq-q">Mijn dossier wordt behandeld — hoe kan ik de voortgang volgen?</button>
+      <div class="faq-a"><p>Na ontvangst van uw volledig dossier ontvangt u een bevestigingsmail met de verwachte verwerkingstijd. U kunt de voortgang van uw dossier in realtime volgen vanuit uw persoonlijke klantenruimte of door onze klantenservice te contacteren op 09 69 39 10 00. In het algemeen wordt binnen 24 tot 48 uur na ontvangst van het volledige dossier een principebesluit gegeven. Als aanvullende documenten vereist zijn, wordt u automatisch per e-mail geïnformeerd.</p></div>
     </div>
   </div>
 
@@ -320,7 +320,7 @@
             <path d="M22 18.5c2.8.7 5 3.2 5.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <p>Votre partenaire de confiance</p>
+        <p>Uw vertrouwde partner</p>
       </li>
       <li class="trust-item">
         <div class="trust-icon">
@@ -518,7 +518,7 @@
       <div class="sim-trust-grid">
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Votre partenaire de confiance</span>
+          <span class="sim-trust-lbl">Uw betrouwbare partner</span>
         </div>
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -555,7 +555,7 @@
       <div class="sim-trust-grid">
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Votre partenaire de confiance</span>
+          <span class="sim-trust-lbl">Uw betrouwbare partner</span>
         </div>
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -608,7 +608,7 @@
       <div class="sim-trust-grid">
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M3 27V14l11-11 11 11v13H17V20h-6v7H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-          <span class="sim-trust-lbl">Votre partenaire de confiance</span>
+          <span class="sim-trust-lbl">Uw betrouwbare partner</span>
         </div>
         <div class="sim-trust-item">
           <div class="sim-trust-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 7v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -666,7 +666,7 @@
         <button class="sim-btn-outline" id="sim-restart">Modifier mes critères et mon offre</button>
         <p style="text-align:center;font-size:.75rem;color:#999;margin:.1rem 0 .9rem;font-style:italic">— Notre proposition de prêt est modifiable —</p>
         <button class="sim-cta-big">Doorgaan met dit aanbod →</button>
-        <p class="sim-res-notice"><sup>(1)</sup> Hors assurance facultative. Simulation à titre indicatif. Offre soumise à acceptation. Vaste JKP indicatif. Een krediet verbindt u en moet worden terugbetaald. Controleer uw terugbetalingscapaciteit voordat u zich engageert.</p>
+        <p class="sim-res-notice"><sup>(1)</sup> Zonder facultatieve verzekering. Indicatieve simulatie. Onder voorbehoud van aanvaarding. Vaste JKP indicatif. Een krediet verbindt u en moet worden terugbetaald. Controleer uw terugbetalingscapaciteit voordat u zich engageert.</p>
       </div>
 
       <!-- DESKTOP -->
@@ -770,12 +770,12 @@
     <div class="sp5-row2">
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-nom">Nom <span class="sp5-req">*</span></label>
-        <input type="text" id="s5-nom" class="sp5-inp" placeholder="Votre nom" autocomplete="family-name"/>
+        <input type="text" id="s5-nom" class="sp5-inp" placeholder="Uw achternaam" autocomplete="family-name"/>
         <span class="sp5-err" id="s5-nom-err">Verplicht veld</span>
       </div>
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-prenom">Voornaam <span class="sp5-req">*</span></label>
-        <input type="text" id="s5-prenom" class="sp5-inp" placeholder="Votre prénom" autocomplete="given-name"/>
+        <input type="text" id="s5-prenom" class="sp5-inp" placeholder="Uw voornaam" autocomplete="given-name"/>
         <span class="sp5-err" id="s5-prenom-err">Verplicht veld</span>
       </div>
     </div>
@@ -790,8 +790,8 @@
         <label class="sp5-lbl" for="s5-nat">Nationaliteit <span class="sp5-req">*</span></label>
         <select id="s5-nat" class="sp5-sel">
           <option value="" disabled selected>Selecteren...</option>
-          <option value="FR">Française</option>
-          <option value="EU">Européenne</option>
+          <option value="FR">Frans</option>
+          <option value="EU">Europees</option>
           <option value="AUTRE">Ander</option>
         </select>
         <span class="sp5-err" id="s5-nat-err">Verplicht veld</span>
@@ -803,12 +803,12 @@
         <label class="sp5-lbl" for="s5-sitfam">Gezinssituatie <span class="sp5-req">*</span></label>
         <select id="s5-sitfam" class="sp5-sel">
           <option value="" disabled selected>Selecteren...</option>
-          <option value="celibataire">Célibataire</option>
-          <option value="marie">Marié(e)</option>
-          <option value="pacse">Pacsé(e)</option>
-          <option value="concubin">En concubinage</option>
-          <option value="divorce">Divorcé(e)</option>
-          <option value="veuf">Veuf/Veuve</option>
+          <option value="celibataire">Alleenstaand</option>
+          <option value="marie">Getrouwd</option>
+          <option value="pacse">Geregistreerd partnerschap</option>
+          <option value="concubin">Samenwonend</option>
+          <option value="divorce">Gescheiden</option>
+          <option value="veuf">Weduwe/Weduwnaar</option>
         </select>
         <span class="sp5-err" id="s5-sitfam-err">Verplicht veld</span>
       </div>
@@ -820,7 +820,7 @@
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
-          <option value="5+">5 ou plus</option>
+          <option value="5+">5 of meer</option>
         </select>
       </div>
     </div>
@@ -837,47 +837,47 @@
 
     <div class="sp5-2col">
       <div class="sp5-col-block">
-        <div class="sp5-col-hd">SITUATION PROFESSIONNELLE</div>
+        <div class="sp5-col-hd">BEROEPSSITUATIE</div>
 
         <div class="sp5-field-group">
           <label class="sp5-lbl" for="s5-sitpro">Situation <span class="sp5-req">*</span></label>
           <select id="s5-sitpro" class="sp5-sel">
             <option value="" disabled selected>Selecteren...</option>
-            <option value="cdi">Salarié(e) CDI</option>
-            <option value="cdd">Salarié(e) CDD</option>
-            <option value="independant">Travailleur indépendant</option>
-            <option value="fonctionnaire">Fonctionnaire / Titulaire</option>
-            <option value="interim">Intérimaire</option>
+            <option value="cdi">Vast dienstverband</option>
+            <option value="cdd">Tijdelijk dienstverband</option>
+            <option value="independant">Zelfstandige</option>
+            <option value="fonctionnaire">Ambtenaar</option>
+            <option value="interim">Uitzendkracht</option>
             <option value="retraite">Gepensioneerd</option>
-            <option value="sans">Sans emploi</option>
+            <option value="sans">Werkloos</option>
             <option value="autre">Ander</option>
           </select>
           <span class="sp5-err" id="s5-sitpro-err">Verplicht veld</span>
         </div>
 
         <div class="sp5-field-group">
-          <label class="sp5-lbl" for="s5-secteur">Secteur d'activité <span class="sp5-req">*</span></label>
+          <label class="sp5-lbl" for="s5-secteur">Activiteitssector <span class="sp5-req">*</span></label>
           <select id="s5-secteur" class="sp5-sel">
             <option value="" disabled selected>Selecteren...</option>
-            <option value="prive">Secteur privé</option>
-            <option value="public">Secteur public</option>
-            <option value="agricole">Agriculture</option>
-            <option value="commerce">Commerce</option>
+            <option value="prive">Privésector</option>
+            <option value="public">Publieke sector</option>
+            <option value="agricole">Landbouw</option>
+            <option value="commerce">Handel</option>
             <option value="industrie">Industrie</option>
-            <option value="services">Services</option>
+            <option value="services">Diensten</option>
             <option value="autre">Ander</option>
           </select>
           <span class="sp5-err" id="s5-secteur-err">Verplicht veld</span>
         </div>
 
         <div class="sp5-field-group">
-          <label class="sp5-lbl" for="s5-anciennete">Ancienneté dans l'emploi <span class="sp5-req">*</span></label>
+          <label class="sp5-lbl" for="s5-anciennete">Anciënniteit <span class="sp5-req">*</span></label>
           <select id="s5-anciennete" class="sp5-sel">
             <option value="" disabled selected>Selecteren...</option>
-            <option value="moins1">Moins d'1 an</option>
-            <option value="1-3">1 à 3 ans</option>
-            <option value="3-5">3 à 5 ans</option>
-            <option value="plus5">Plus de 5 ans</option>
+            <option value="moins1">Minder dan 1 jaar</option>
+            <option value="1-3">1 tot 3 jaar</option>
+            <option value="3-5">3 tot 5 jaar</option>
+            <option value="plus5">Meer dan 5 jaar</option>
           </select>
           <span class="sp5-err" id="s5-anciennete-err">Verplicht veld</span>
         </div>
@@ -918,7 +918,7 @@
     <div class="sp5-row2">
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-email">Email <span class="sp5-req">*</span></label>
-        <input type="email" id="s5-email" class="sp5-inp" placeholder="votre@email.fr" autocomplete="email"/>
+        <input type="email" id="s5-email" class="sp5-inp" placeholder="uw@email.nl" autocomplete="email"/>
         <span class="sp5-err" id="s5-email-err">Email invalide</span>
       </div>
       <div class="sp5-field-group">
@@ -1100,7 +1100,7 @@
 
     <div class="sp5-nav">
       <button type="button" class="sp5-back-btn" onclick="sp5Go(3)"><span class="sp5-arr-l">‹</span> Retour</button>
-      <button type="button" class="sp5-send-btn" onclick="sp5Submit()">Envoyer ma demande</button>
+      <button type="button" class="sp5-send-btn" onclick="sp5Submit()">Mijn aanvraag verzenden</button>
     </div>
   </div><!-- /sp5d -->
 
