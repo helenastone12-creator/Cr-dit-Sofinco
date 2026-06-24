@@ -1391,9 +1391,45 @@ function sp5Submit(){
   var path = location.pathname;
   var m = path.match(/\/([a-z]{2})\//);
   var current = m ? m[1] : 'fr';
-  var page = path.split('/').pop() || 'index.html';
-  if(!page.endsWith('.html')) page = 'index.html';
   var depth = m ? 1 : 0;
+  var pageMap = {
+    "index.html":               {"en":"index.html","de":"index.html","es":"index.html","it":"index.html","nl":"index.html","pl":"index.html","sv":"index.html"},
+    "connexion.html":           {"en":"login.html","de":"anmelden.html","es":"iniciar-sesion.html","it":"accedi.html","nl":"inloggen.html","pl":"logowanie.html","sv":"logga-in.html"},
+    "inscription.html":         {"en":"register.html","de":"registrieren.html","es":"registro.html","it":"registrazione.html","nl":"registreren.html","pl":"rejestracja.html","sv":"registrera.html"},
+    "mot-de-passe-oublie.html": {"en":"forgot-password.html","de":"passwort-vergessen.html","es":"contrasena-olvidada.html","it":"password-dimenticata.html","nl":"wachtwoord-vergeten.html","pl":"zapomniane-haslo.html","sv":"glomt-losenord.html"},
+    "espace-client.html":       {"en":"my-account.html","de":"mein-konto.html","es":"mi-cuenta.html","it":"il-mio-conto.html","nl":"mijn-account.html","pl":"moje-konto.html","sv":"mitt-konto.html"},
+    "mes-documents.html":       {"en":"my-documents.html","de":"meine-dokumente.html","es":"mis-documentos.html","it":"i-miei-documenti.html","nl":"mijn-documenten.html","pl":"moje-dokumenty.html","sv":"mina-dokument.html"},
+    "suivi-dossier.html":       {"en":"application-tracking.html","de":"antrag-verfolgen.html","es":"seguimiento-solicitud.html","it":"monitoraggio-pratica.html","nl":"dossier-volgen.html","pl":"sledzenie-wniosku.html","sv":"arende-uppfoljning.html"},
+    "questions-reponses.html":  {"en":"faq.html","de":"faq.html","es":"faq.html","it":"faq.html","nl":"faq.html","pl":"faq.html","sv":"faq.html"},
+    "tarifs.html":              {"en":"pricing.html","de":"preise.html","es":"tarifas.html","it":"tariffe.html","nl":"tarieven.html","pl":"cennik.html","sv":"priser.html"},
+    "cartes.html":              {"en":"cards.html","de":"karten.html","es":"tarjetas.html","it":"carte.html","nl":"kaarten.html","pl":"karty.html","sv":"kort.html"},
+    "securite.html":            {"en":"security.html","de":"sicherheit.html","es":"seguridad.html","it":"sicurezza.html","nl":"beveiliging.html","pl":"bezpieczenstwo.html","sv":"sakerhet.html"},
+    "devenir-partenaire.html":  {"en":"become-a-partner.html","de":"partner-werden.html","es":"convertirse-en-socio.html","it":"diventa-partner.html","nl":"word-partner.html","pl":"zostan-partnerem.html","sv":"bli-partner.html"},
+    "mentions-legales.html":    {"en":"legal-notice.html","de":"impressum.html","es":"aviso-legal.html","it":"note-legali.html","nl":"juridische-informatie.html","pl":"nota-prawna.html","sv":"juridisk-information.html"},
+    "informations-legales.html":{"en":"legal-information.html","de":"rechtliche-informationen.html","es":"informacion-legal.html","it":"informazioni-legali.html","nl":"wettelijke-informatie.html","pl":"informacje-prawne.html","sv":"rattslig-information.html"},
+    "cgu.html":                 {"en":"terms.html","de":"nutzungsbedingungen.html","es":"terminos-uso.html","it":"termini-uso.html","nl":"gebruiksvoorwaarden.html","pl":"regulamin.html","sv":"anvandarvillkor.html"},
+    "politique-donnees.html":   {"en":"privacy-policy.html","de":"datenschutz.html","es":"politica-privacidad.html","it":"politica-privacy.html","nl":"privacybeleid.html","pl":"polityka-prywatnosci.html","sv":"integritetspolicy.html"},
+    "cookies.html":             {"en":"cookies.html","de":"cookies.html","es":"cookies.html","it":"cookies.html","nl":"cookies.html","pl":"cookies.html","sv":"cookies.html"},
+    "reclamations.html":        {"en":"complaints.html","de":"beschwerden.html","es":"reclamaciones.html","it":"reclami.html","nl":"klachten.html","pl":"reklamacje.html","sv":"klagomal.html"},
+    "accessibilite.html":       {"en":"accessibility.html","de":"barrierefreiheit.html","es":"accesibilidad.html","it":"accessibilita.html","nl":"toegankelijkheid.html","pl":"dostepnosc.html","sv":"tillganglighet.html"},
+    "conditions-credit.html":   {"en":"credit-conditions.html","de":"kreditbedingungen.html","es":"condiciones-credito.html","it":"condizioni-credito.html","nl":"kredietvoorwaarden.html","pl":"warunki-kredytu.html","sv":"kreditvillkor.html"},
+    "nous-contacter.html":      {"en":"contact.html","de":"kontakt.html","es":"contacto.html","it":"contatti.html","nl":"contact.html","pl":"kontakt.html","sv":"kontakt.html"},
+    "nous-decouvrir.html":      {"en":"about-us.html","de":"ueber-uns.html","es":"sobre-nosotros.html","it":"chi-siamo.html","nl":"over-ons.html","pl":"o-nas.html","sv":"om-oss.html"},
+    "assurances.html":          {"en":"insurance.html","de":"versicherungen.html","es":"seguros.html","it":"assicurazioni.html","nl":"verzekeringen.html","pl":"ubezpieczenia.html","sv":"forsakringar.html"},
+    "credit-auto.html":         {"en":"car-loan.html","de":"autokredit.html","es":"credito-auto.html","it":"credito-auto.html","nl":"autolening.html","pl":"kredyt-samochodowy.html","sv":"billaan.html"},
+    "credit-moto.html":         {"en":"motorcycle-loan.html","de":"motorradkredit.html","es":"credito-moto.html","it":"credito-moto.html","nl":"motorlening.html","pl":"kredyt-motocyklowy.html","sv":"motorcykellaan.html"},
+    "credit-renouvelable.html": {"en":"revolving-credit.html","de":"revolving-kredit.html","es":"credito-renovable.html","it":"credito-revolving.html","nl":"doorlopend-krediet.html","pl":"kredyt-odnawialny.html","sv":"roterande-kredit.html"},
+    "credit-travaux.html":      {"en":"home-improvement-loan.html","de":"renovierungskredit.html","es":"credito-obras.html","it":"credito-ristrutturazione.html","nl":"verbouwingslening.html","pl":"kredyt-remontowy.html","sv":"renoveringslaan.html"},
+    "pret-personnel.html":      {"en":"personal-loan.html","de":"privatkredit.html","es":"prestamo-personal.html","it":"prestito-personale.html","nl":"persoonlijke-lening.html","pl":"pozyczka-osobista.html","sv":"personligt-laan.html"},
+    "rachat-de-credits.html":   {"en":"debt-consolidation.html","de":"kreditabloesung.html","es":"reunion-de-deudas.html","it":"consolidamento-debiti.html","nl":"schuldenherfinanciering.html","pl":"konsolidacja-dlugow.html","sv":"skuldkonsolidering.html"}
+  };
+  // Build reverse map: lang -> {localized_name: fr_name}
+  var reverseMap = {};
+  Object.keys(pageMap).forEach(function(fr){ Object.keys(pageMap[fr]).forEach(function(lc){ if(!reverseMap[lc]) reverseMap[lc]={};reverseMap[lc][pageMap[fr][lc]]=fr; }); });
+  var rawPage = path.split('/').pop() || 'index.html';
+  if(!rawPage.endsWith('.html')) rawPage = 'index.html';
+  // Resolve to FR canonical name
+  var frPage = (current === 'fr') ? rawPage : ((reverseMap[current] && reverseMap[current][rawPage]) || rawPage);
 
   var cur = langs.filter(function(l){return l.code===current;})[0] || langs[0];
 
@@ -1408,9 +1444,10 @@ function sp5Submit(){
   // Liste — drapeau rond + nom
   langs.forEach(function(l){
     var a = document.createElement('a');
+    var targetPage = l.code === 'fr' ? frPage : ((pageMap[frPage] && pageMap[frPage][l.code]) || frPage);
     var href = l.code === 'fr'
-      ? (depth === 1 ? '../' + page : page)
-      : (depth === 1 ? '../' + l.code + '/' + page : l.code + '/' + page);
+      ? (depth === 1 ? '../' + targetPage : targetPage)
+      : (depth === 1 ? '../' + l.code + '/' + targetPage : l.code + '/' + targetPage);
     a.href = href;
     a.className = 'ft-lang-list-item' + (l.code === current ? ' ft-lang-list-item--active' : '');
     a.innerHTML = '<span class="ft-lang-list-flag"><img src="' + flagSvg[l.code] + '" alt=""></span>'
