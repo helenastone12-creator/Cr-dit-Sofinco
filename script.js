@@ -1641,6 +1641,22 @@ function sp5Submit(){
   var otherLabel  = {fr:'Autre',en:'Other',de:'Andere',es:'Otro',it:'Altro',nl:'Andere',pl:'Inne',sv:'Annan'};
   var lang = (typeof LANG !== 'undefined' ? LANG : 'fr');
 
+  // Twemoji flag SVGs — code ISO 2 lettres → unicode regional indicator
+  var twemoji = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/';
+  function flagUrl(code){
+    if(!code || code==='AUTRE') return '';
+    var c = code.toUpperCase();
+    // Convert each letter to regional indicator unicode point
+    var a = (0x1F1E6 - 65 + c.charCodeAt(0)).toString(16);
+    var b = (0x1F1E6 - 65 + c.charCodeAt(1)).toString(16);
+    return twemoji + a + '-' + b + '.svg';
+  }
+  function flagImg(code){
+    var url = flagUrl(code);
+    if(!url) return '<span class="nat-flag-placeholder"></span>';
+    return '<img class="nat-flag" src="'+url+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
+  }
+
   function initNatDropdown(){
     var sel = document.getElementById('s5-nat');
     if(!sel || sel.dataset.customized) return;
@@ -1664,8 +1680,8 @@ function sp5Submit(){
 
     var trigger = document.createElement('button');
     trigger.type='button';
-    trigger.className='nat-trigger sp5-sel';
-    trigger.textContent = sel.options[0] ? sel.options[0].text : '...';
+    trigger.className='nat-trigger';
+    trigger.innerHTML = '<span class="nat-trigger-label">'+(sel.options[0]?sel.options[0].text:'...')+'</span><svg class="nat-chev" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="#999" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>';
 
     var panel = document.createElement('div');
     panel.className='nat-panel';
@@ -1682,6 +1698,8 @@ function sp5Submit(){
     var list = document.createElement('ul');
     list.className='nat-list';
 
+    var CHECK_SVG = '<svg class="nat-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#06c2b0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
     function renderList(filter){
       list.innerHTML='';
       var filtered = filter ? opts.filter(function(o){
@@ -1689,14 +1707,17 @@ function sp5Submit(){
       }) : opts;
       filtered.forEach(function(o){
         var li = document.createElement('li');
-        li.className='nat-item';
-        li.textContent=o.label;
+        li.className='nat-item' + (o.value===sel.value?' nat-sel':'');
         li.dataset.value=o.value;
-        if(o.value===sel.value) li.classList.add('nat-sel');
+        li.innerHTML = flagImg(o.value)
+          + '<span class="nat-item-label">'+o.label+'</span>'
+          + (o.value===sel.value ? CHECK_SVG : '');
         li.addEventListener('click',function(e){
           e.stopPropagation();
           sel.value=o.value;
-          trigger.textContent=o.label;
+          trigger.innerHTML = (o.value?flagImg(o.value):'')
+            + '<span class="nat-trigger-label">'+o.label+'</span>'
+            + '<svg class="nat-chev" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="#999" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>';
           trigger.classList.toggle('nat-has-val',!!o.value);
           closePanel();
           sel.dispatchEvent(new Event('change'));
