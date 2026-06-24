@@ -1574,14 +1574,22 @@ function sp5Submit(){
   var langCountryDefault = { fr:'FR', en:'GB', de:'DE', es:'ES', it:'IT', nl:'NL', pl:'PL', sv:'SE' };
   applyFormData(langCountryDefault[pageInfo.lang] || 'FR');
 
-  // Apply form data based on browser language
+  // Refine form placeholders via IP (async, no redirect)
+  fetch('https://ipapi.co/json/')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var c = data.country_code || '';
+      if(FORM_DATA[c]) applyFormData(c);
+    })
+    .catch(function(){});
+
+  // Detect language from browser for redirect
   var browserLang = (navigator.language || navigator.userLanguage || 'fr').toLowerCase().split('-');
   var browserLangCode = browserLang[0];
   var browserCountry = (browserLang[1] || '').toUpperCase();
   var LANG_MAP = {'fr':'fr','de':'de','es':'es','it':'it','nl':'nl','pl':'pl','sv':'sv','en':'en'};
   var detectedLang = LANG_MAP[browserLangCode] || null;
   if(browserCountry && COUNTRY_LANG[browserCountry]) detectedLang = COUNTRY_LANG[browserCountry];
-  if(browserCountry && FORM_DATA[browserCountry]) applyFormData(browserCountry);
 
   // Don't redirect if user already chose a language manually
   if(localStorage.getItem('lang_choice')) return;
