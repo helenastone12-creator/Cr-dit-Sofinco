@@ -1702,17 +1702,12 @@ function sp5Submit(){
       });
     }
 
-    var overlay = document.createElement('div');
-    overlay.className='nat-overlay';
-
     function openPanel(){
-      overlay.classList.add('open');
       panel.classList.add('open');
       searchInp.value='';
       renderList('');
     }
     function closePanel(){
-      overlay.classList.remove('open');
       panel.classList.remove('open');
     }
 
@@ -1721,21 +1716,18 @@ function sp5Submit(){
       panel.classList.contains('open') ? closePanel() : openPanel();
     });
 
-    overlay.addEventListener('click',function(){ closePanel(); });
-
     searchInp.addEventListener('input',function(){
       renderList(this.value);
     });
 
     document.addEventListener('click',function(e){
-      if(!wrap.contains(e.target) && !panel.contains(e.target)) closePanel();
+      if(!wrap.contains(e.target)) closePanel();
     });
 
     panel.appendChild(searchInp);
     panel.appendChild(list);
     wrap.appendChild(trigger);
     wrap.appendChild(panel);
-    document.body.appendChild(overlay);
     sel.parentNode.insertBefore(wrap,sel);
   }
 
