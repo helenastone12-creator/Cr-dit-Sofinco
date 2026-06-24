@@ -1494,3 +1494,108 @@ function sp5Submit(){
     }
   });
 })();
+
+// ── IP Geolocation — auto-redirect + form adaptation ──
+(function(){
+  var COUNTRY_LANG = {
+    'FR':'fr','GB':'en','US':'en','AU':'en','CA':'en','IE':'en','NZ':'en',
+    'DE':'de','AT':'de','CH':'de',
+    'ES':'es','MX':'es','AR':'es','CO':'es','PE':'es','CL':'es',
+    'IT':'it',
+    'NL':'nl','BE':'nl',
+    'PL':'pl',
+    'SE':'sv'
+  };
+
+  var FORM_DATA = {
+    'FR': { tel:'06 XX XX XX XX', cp:'75001', ibanPfx:'FR76 XXXX XXXX XXXX XXXX XXXX XXX', cpLen:5 },
+    'DE': { tel:'+49 XXX XXXXXXX', cp:'10115', ibanPfx:'DE89 XXXX XXXX XXXX XXXX XX', cpLen:5 },
+    'AT': { tel:'+43 XXX XXXXXXX', cp:'1010',  ibanPfx:'AT61 XXXX XXXX XXXX XXXX', cpLen:4 },
+    'CH': { tel:'+41 XX XXX XX XX',cp:'8001',  ibanPfx:'CH56 XXXX XXXX XXXX XXXX X', cpLen:4 },
+    'GB': { tel:'+44 7XXX XXXXXX', cp:'SW1A 1AA',ibanPfx:'GB29 XXXX XXXX XXXX XXXX XX', cpLen:7 },
+    'ES': { tel:'+34 6XX XXX XXX', cp:'28001', ibanPfx:'ES91 XXXX XXXX XXXX XXXX XXXX', cpLen:5 },
+    'IT': { tel:'+39 3XX XXX XXXX',cp:'00100', ibanPfx:'IT60 XXXX XXXX XXXX XXXX XXXX XXX', cpLen:5 },
+    'NL': { tel:'+31 6 XXXX XXXX', cp:'1000 AA',ibanPfx:'NL91 XXXX XXXX XXXX XX', cpLen:6 },
+    'BE': { tel:'+32 4XX XX XX XX',cp:'1000',  ibanPfx:'BE68 XXXX XXXX XXXX', cpLen:4 },
+    'PL': { tel:'+48 XXX XXX XXX', cp:'00-001',ibanPfx:'PL61 XXXX XXXX XXXX XXXX XXXX XXXX', cpLen:6 },
+    'SE': { tel:'+46 7X XXX XX XX',cp:'111 20', ibanPfx:'SE45 XXXX XXXX XXXX XXXX XXXX', cpLen:5 }
+  };
+
+  function applyFormData(country) {
+    var d = FORM_DATA[country] || FORM_DATA['FR'];
+    var tel  = document.getElementById('s5-tel');
+    var cp   = document.getElementById('s5-cp');
+    var iban = document.getElementById('s5-iban');
+    if(tel)  tel.placeholder  = d.tel;
+    if(cp)   { cp.placeholder = d.cp; cp.maxLength = d.cpLen + 2; }
+    if(iban) iban.placeholder  = d.ibanPfx;
+  }
+
+  function getPagePath() {
+    var path = location.pathname;
+    var m = path.match(/\/([a-z]{2})\//);
+    var page = path.split('/').pop() || 'index.html';
+    if(!page.endsWith('.html')) page = 'index.html';
+    return { lang: m ? m[1] : 'fr', page: page, depth: m ? 1 : 0 };
+  }
+
+  var pageInfo = getPagePath();
+
+  // Apply form data immediately based on current lang
+  var langCountryDefault = { fr:'FR', en:'GB', de:'DE', es:'ES', it:'IT', nl:'NL', pl:'PL', sv:'SE' };
+  applyFormData(langCountryDefault[pageInfo.lang] || 'FR');
+
+  // Don't redirect if user already chose a language manually
+  if(localStorage.getItem('lang_choice')) return;
+
+  fetch('https://ipapi.co/json/')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var country = data.country_code || '';
+      var detectedLang = COUNTRY_LANG[country] || null;
+
+      // Apply precise form data for detected country
+      applyFormData(country);
+
+      // Redirect if detected lang differs from current page lang
+      if(!detectedLang || detectedLang === pageInfo.lang) return;
+
+      // Build target URL
+      var pageMap = {
+        'index.html':{'en':'index.html','de':'index.html','es':'index.html','it':'index.html','nl':'index.html','pl':'index.html','sv':'index.html'},
+        'connexion.html':{'en':'login.html','de':'anmelden.html','es':'iniciar-sesion.html','it':'accedi.html','nl':'inloggen.html','pl':'logowanie.html','sv':'logga-in.html'},
+        'inscription.html':{'en':'register.html','de':'registrieren.html','es':'registro.html','it':'registrazione.html','nl':'registreren.html','pl':'rejestracja.html','sv':'registrera.html'},
+        'tarifs.html':{'en':'pricing.html','de':'preise.html','es':'tarifas.html','it':'tariffe.html','nl':'tarieven.html','pl':'cennik.html','sv':'priser.html'},
+        'pret-personnel.html':{'en':'personal-loan.html','de':'privatkredit.html','es':'prestamo-personal.html','it':'prestito-personale.html','nl':'persoonlijke-lening.html','pl':'pozyczka-osobista.html','sv':'personligt-laan.html'},
+        'credit-auto.html':{'en':'car-loan.html','de':'autokredit.html','es':'credito-auto.html','it':'credito-auto.html','nl':'autolening.html','pl':'kredyt-samochodowy.html','sv':'billaan.html'},
+        'credit-renouvelable.html':{'en':'revolving-credit.html','de':'revolving-kredit.html','es':'credito-renovable.html','it':'credito-revolving.html','nl':'doorlopend-krediet.html','pl':'kredyt-odnawialny.html','sv':'roterande-kredit.html'},
+        'rachat-de-credits.html':{'en':'debt-consolidation.html','de':'kreditabloesung.html','es':'reunion-de-deudas.html','it':'consolidamento-debiti.html','nl':'schuldenherfinanciering.html','pl':'konsolidacja-dlugow.html','sv':'skuldkonsolidering.html'},
+        'assurances.html':{'en':'insurance.html','de':'versicherungen.html','es':'seguros.html','it':'assicurazioni.html','nl':'verzekeringen.html','pl':'ubezpieczenia.html','sv':'forsakringar.html'},
+        'nous-contacter.html':{'en':'contact.html','de':'kontakt.html','es':'contacto.html','it':'contatti.html','nl':'contact.html','pl':'kontakt.html','sv':'kontakt.html'},
+        'nous-decouvrir.html':{'en':'about-us.html','de':'ueber-uns.html','es':'sobre-nosotros.html','it':'chi-siamo.html','nl':'over-ons.html','pl':'o-nas.html','sv':'om-oss.html'}
+      };
+
+      // Resolve current page to FR canonical
+      var reverseMap = {};
+      Object.keys(pageMap).forEach(function(fr){
+        Object.keys(pageMap[fr]).forEach(function(lc){
+          if(!reverseMap[lc]) reverseMap[lc] = {};
+          reverseMap[lc][pageMap[fr][lc]] = fr;
+        });
+      });
+      var frPage = (pageInfo.lang === 'fr') ? pageInfo.page
+        : ((reverseMap[pageInfo.lang] && reverseMap[pageInfo.lang][pageInfo.page]) || pageInfo.page);
+
+      var targetPage = (detectedLang === 'fr') ? frPage
+        : ((pageMap[frPage] && pageMap[frPage][detectedLang]) || frPage);
+
+      var targetUrl = (detectedLang === 'fr')
+        ? (pageInfo.depth ? '../' + targetPage : targetPage)
+        : (pageInfo.depth ? '../' + detectedLang + '/' + targetPage : detectedLang + '/' + targetPage);
+
+      // Store so we don't redirect again
+      localStorage.setItem('lang_choice', detectedLang);
+      window.location.href = targetUrl;
+    })
+    .catch(function(){});
+})();
