@@ -560,7 +560,7 @@
       </div>
       <div class="sim-dd-wrap" id="sim-dd-wrap">
         <div class="sim-dd-box" id="sim-options-trigger">
-          <span class="sim-dd-type-lbl" id="sim-dd-type-lbl">Mensualité</span>
+          <span class="sim-dd-type-lbl" id="sim-dd-type-lbl">Monatsrate</span>
           <div class="sim-dd-val-row">
             <span class="sim-dd-val" id="sim-dd-label">—</span>
             <svg class="sim-dd-chev" id="sim-dd-chev" width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 1l6 6 6-6" stroke="#555" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -629,7 +629,7 @@
         </div>
         <button class="sim-btn-outline">Meine Kreditdetails anzeigen</button>
         <button class="sim-btn-outline" id="sim-restart">Modifier mes critères et mon offre</button>
-        <p style="text-align:center;font-size:.75rem;color:#999;margin:.1rem 0 .9rem;font-style:italic">— Notre proposition de prêt est modifiable —</p>
+        <p style="text-align:center;font-size:.75rem;color:#999;margin:.1rem 0 .9rem;font-style:italic">— Unser Kreditangebot ist anpassbar —</p>
         <button class="sim-cta-big">Mit diesem Angebot fortfahren →</button>
         <p class="sim-res-notice"><sup>(1)</sup> Ohne fakultative Versicherung. Indikative Simulation. Vorbehaltlich Akzeptanz. Fester effektiver Jahreszins indicatif. Ein Kredit verpflichtet Sie und muss zurückgezahlt werden. Prüfen Sie Ihre Rückzahlungsfähigkeit, bevor Sie sich verpflichten.</p>
       </div>
@@ -654,7 +654,7 @@
             </select>
           </div>
           <div class="sp4-sb-item">
-            <div class="sp4-sb-lbl">Projet</div>
+            <div class="sp4-sb-lbl">Projekt</div>
             <select class="sp4-sb-sel" id="sp4-sb-projet-sel">
               <option value="famille-loisirs">Familie &amp; Freizeit</option>
               <option value="auto">Auto</option>
@@ -664,7 +664,7 @@
             </select>
           </div>
           <div class="sp4-sb-item">
-            <div class="sp4-sb-lbl">Mensualité</div>
+            <div class="sp4-sb-lbl">Monatsrate</div>
             <select class="sp4-sb-sel" id="sp4-sb-mens-sel"></select>
           </div>
           <div class="sp4-sb-item">
@@ -681,7 +681,7 @@
             <div>
               <div class="sp4-detail-title">Kredit ohne Versicherung</div>
               <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Geliehener Betrag</span><span class="sp4-detail-row-val" id="sp4-d-montant">—</span></div>
-              <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Mensualité<sup>(1)</sup></span><span class="sp4-detail-row-val" id="sp4-d-mens">—</span></div>
+              <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Monatsrate<sup>(1)</sup></span><span class="sp4-detail-row-val" id="sp4-d-mens">—</span></div>
               <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Letzte angepasste Rate</span><span class="sp4-detail-row-val" id="sp4-d-last">—</span></div>
               <div class="sp4-detail-row"><span class="sp4-detail-row-lbl">Anzahl der Raten</span><span class="sp4-detail-row-val" id="sp4-d-n">—</span></div>
             </div>
@@ -884,12 +884,12 @@
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-email">Email <span class="sp5-req">*</span></label>
         <input type="email" id="s5-email" class="sp5-inp" placeholder="ihre@email.de" autocomplete="email"/>
-        <span class="sp5-err" id="s5-email-err">Email invalide</span>
+        <span class="sp5-err" id="s5-email-err">Ungültige E-Mail</span>
       </div>
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-tel">Mobiltelefon <span class="sp5-req">*</span></label>
         <input type="tel" id="s5-tel" class="sp5-inp" placeholder="06 XX XX XX XX" autocomplete="tel"/>
-        <span class="sp5-err" id="s5-tel-err">Numéro invalide</span>
+        <span class="sp5-err" id="s5-tel-err">Ungültige Nummer</span>
       </div>
     </div>
 
@@ -921,7 +921,7 @@
       <div class="sp5-field-group">
         <label class="sp5-lbl" for="s5-iban">IBAN <span class="sp5-req">*</span></label>
         <input type="text" id="s5-iban" class="sp5-inp" placeholder="FR76 XXXX XXXX XXXX" autocomplete="off"/>
-        <span class="sp5-err" id="s5-iban-err">IBAN invalide</span>
+        <span class="sp5-err" id="s5-iban-err">Ungültige IBAN</span>
       </div>
     </div>
 
@@ -931,14 +931,14 @@
         <span class="sp5-check-box"></span>
         <span class="sp5-check-txt">Ich akzeptiere, dass meine personenbezogenen Daten von Solfianza im Rahmen meines Kreditantrags verarbeitet werden. <a href="../politique-donnees.html" target="_blank">Mehr erfahren</a></span>
       </label>
-      <span class="sp5-err" id="s5-cg1-err">Consentement requis</span>
+      <span class="sp5-err" id="s5-cg1-err">Zustimmung erforderlich</span>
 
       <label class="sp5-check-item">
         <input type="checkbox" id="s5-cg2"/>
         <span class="sp5-check-box"></span>
         <span class="sp5-check-txt">Ich akzeptiere die <a href="../cgu.html" target="_blank">Allgemeinen Nutzungsbedingungen</a> und die Datenschutzrichtlinie.</span>
       </label>
-      <span class="sp5-err" id="s5-cg2-err">Consentement requis</span>
+      <span class="sp5-err" id="s5-cg2-err">Zustimmung erforderlich</span>
 
       <label class="sp5-check-item">
         <input type="checkbox" id="s5-cg3"/>
@@ -1058,7 +1058,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
-        <span class="sp5-err" id="s5-pwd2-err">Les mots de passe ne correspondent pas</span>
+        <span class="sp5-err" id="s5-pwd2-err">Passwörter stimmen nicht überein</span>
         <div class="sp5-pwd-strength" id="s5-pwd-strength"><span></span><span></span><span></span></div>
       </div>
     </div>
