@@ -1625,10 +1625,17 @@ body.pg-inner .editorial{background:none}
   cursor:pointer;transition:background .2s;white-space:nowrap;
 }
 .sp5-cont-btn:hover{ background:var(--teal-d); }
-/* Desktop: bouton centré, auto-width (style Sofinco) */
+/* Desktop: bouton fixe en bas centré (style Sofinco) */
 @media(min-width:760px){
-  .sp5-nav{justify-content:flex-end}
-  .sp5-cont-btn{flex:none;min-width:180px}
+  .sp5-nav{
+    position:fixed;bottom:0;left:0;right:0;
+    background:#fff;border-top:1px solid #eee;
+    justify-content:center;padding:1rem 2rem;
+    z-index:100;margin-top:0;
+  }
+  .sp5-cont-btn{flex:none;min-width:200px}
+  .sp5-back-btn{position:absolute;left:2rem}
+  .sim-body{padding-bottom:6rem}
 }
 .sp5-send-btn{
   padding:.82rem 1.6rem;border-radius:2rem;
