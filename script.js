@@ -1703,9 +1703,17 @@ function sp5Submit(){
     }
 
     function openPanel(){
-      panel.classList.add('open');
       searchInp.value='';
       renderList('');
+      panel.style.top=''; panel.style.bottom='';
+      panel.classList.add('open');
+      var rect = trigger.getBoundingClientRect();
+      var spaceBelow = window.innerHeight - rect.bottom;
+      var panelH = panel.offsetHeight;
+      if(spaceBelow < panelH + 8 && rect.top > spaceBelow){
+        panel.style.top='auto';
+        panel.style.bottom='calc(100% + 4px)';
+      }
     }
     function closePanel(){
       panel.classList.remove('open');
