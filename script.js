@@ -1651,9 +1651,11 @@ function sp5Submit(){
     var b = (0x1F1E6 - 65 + c.charCodeAt(1)).toString(16);
     return twemoji + a + '-' + b + '.svg';
   }
+  var GLOBE_SVG = '<svg class="nat-globe" width="22" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>';
+
   function flagImg(code){
+    if(!code || code==='AUTRE') return GLOBE_SVG;
     var url = flagUrl(code);
-    if(!url) return '<span class="nat-flag-placeholder"></span>';
     return '<img class="nat-flag" src="'+url+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
   }
 
