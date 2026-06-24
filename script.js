@@ -506,7 +506,7 @@ function unlockScroll(){
       var btn=document.createElement('button');
       btn.type='button';
       btn.className='sim-otab'+(i===1?' active':'');
-      btn.innerHTML='<span class="sim-otab-price">'+fmtEur(offer.mensualite)+'/mois</span><span class="sim-otab-dur">'+offer.duree+' mois</span>';
+      btn.innerHTML='<span class="sim-otab-price">'+fmtEur(offer.mensualite)+' '+t.per_month+'</span><span class="sim-otab-dur">'+offer.duree+' '+t.months+'</span>';
       btn.addEventListener('click',function(){
         tabs.querySelectorAll('.sim-otab').forEach(function(t){t.classList.remove('active')});
         btn.classList.add('active');
@@ -535,7 +535,7 @@ function unlockScroll(){
         var pmt=calcPMT(P,d,isReg);
         var opt=document.createElement('option');
         opt.value=d;
-        opt.textContent=Math.round(pmt)+' € / mois';
+        opt.textContent=Math.round(pmt)+' '+t.per_month;
         if(d===n) opt.selected=true;
         sbMens.appendChild(opt);
       });
@@ -562,9 +562,9 @@ function unlockScroll(){
       card.className='sp4-card'+(isSel?' sel':'');
       card.innerHTML=
         '<div class="sp4-card-radio"></div>'+
-        '<div class="sp4-card-price">'+fmtNum(offer.mensualite)+' <sup>€</sup>/mois</div>'+
+        '<div class="sp4-card-price">'+fmtNum(offer.mensualite)+' <sup>€</sup> '+t.per_month+'</div>'+
         '<div class="sp4-card-sublbl">'+offer.lbl+'</div>'+
-        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+t.duration+'</span><span class="sp4-card-row-val">'+offer.duree+' mois</span></div>'+
+        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+t.duration+'</span><span class="sp4-card-row-val">'+offer.duree+' '+t.months+'</span></div>'+
         '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+t.fixed_taeg+'</span><span class="sp4-card-row-val">'+t.see_detail+'</span></div>'+
         '<div class="sp4-card-total"><span>'+t.total_due+'<sup>(1)</sup></span><b>'+fmtEur(offer.mensualite*offer.duree)+'</b></div>';
       card.addEventListener('click',function(){
@@ -581,7 +581,7 @@ function unlockScroll(){
   function updateDesktopDetail(offer, P){
     var last=offer.mensualite; // simplifié
     document.getElementById('sp4-d-montant').textContent=fmtEur(P);
-    document.getElementById('sp4-d-mens').textContent=fmtEur(offer.mensualite)+' par mois';
+    document.getElementById('sp4-d-mens').textContent=fmtEur(offer.mensualite)+' '+t.per_month;
     document.getElementById('sp4-d-last').textContent=fmtEur(last);
     document.getElementById('sp4-d-n').textContent=offer.duree;
   }
@@ -1150,11 +1150,13 @@ function sp5Validate(step){
     var pwd2Er = document.getElementById('s5-pwd2-err');
     var pwdOk = pwd.length >= 8;
     if(pwdEl)  pwdEl.classList.toggle('err', !pwdOk);
-    if(pwdEr){ pwdEr.classList.toggle('show', !pwdOk); if(!pwdOk) pwdEr.textContent='Le mot de passe doit contenir au moins 8 caractères'; }
+    var pwdErrMsg={'fr':'Le mot de passe doit contenir au moins 8 caractères','en':'Password must be at least 8 characters','de':'Passwort muss mindestens 8 Zeichen haben','es':'La contraseña debe tener al menos 8 caracteres','it':'La password deve contenere almeno 8 caratteri','nl':'Wachtwoord moet minimaal 8 tekens bevatten','pl':'Hasło musi mieć co najmniej 8 znaków','sv':'Lösenordet måste ha minst 8 tecken'};
+    var pwdMatchMsg={'fr':'Les mots de passe ne correspondent pas','en':'Passwords do not match','de':'Passwörter stimmen nicht überein','es':'Las contraseñas no coinciden','it':'Le password non corrispondono','nl':'Wachtwoorden komen niet overeen','pl':'Hasła nie są zgodne','sv':'Lösenorden stämmer inte överens'};
+    if(pwdEr){ pwdEr.classList.toggle('show', !pwdOk); if(!pwdOk) pwdEr.textContent=pwdErrMsg[LANG]||pwdErrMsg.fr; }
     if(!pwdOk) ok = false;
     var matchOk = pwd2 === pwd && pwd2.length > 0;
     if(pwd2El) pwd2El.classList.toggle('err', !matchOk);
-    if(pwd2Er){ pwd2Er.classList.toggle('show', !matchOk); if(!matchOk) pwd2Er.textContent='Les mots de passe ne correspondent pas'; }
+    if(pwd2Er){ pwd2Er.classList.toggle('show', !matchOk); if(!matchOk) pwd2Er.textContent=pwdMatchMsg[LANG]||pwdMatchMsg.fr; }
     if(!matchOk) ok = false;
   }
   return ok;
