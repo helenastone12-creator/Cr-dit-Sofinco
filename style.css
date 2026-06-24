@@ -925,6 +925,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sim-foot-links{border-top:1px solid #eee;padding-top:.4rem}
 .sim-foot-links a{display:block;font-size:.82rem;font-weight:600;color:#333;padding:.5rem 0;border-bottom:1px solid #f4f4f4;text-align:center;text-decoration:none}
 .sim-foot-links a:hover{color:var(--orange)}
+@media(min-width:760px){
+  .sim-foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0 1.5rem;padding-top:.6rem}
+  .sim-foot-links a{display:inline;border-bottom:none;padding:.3rem 0}
+}
 /* Bottom bar fixe */
 .sim-bottombar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;align-items:center;padding:.9rem 1.2rem;z-index:60;gap:.5rem}
 .sim-bb-back{font-size:.88rem;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;padding:.5rem .2rem;min-width:55px;text-align:left}
