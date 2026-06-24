@@ -390,7 +390,7 @@
     <div class="sim-pane" id="sp3">
       <h1 class="sim-title">Elija su cuota mensual o duración del reembolso</h1>
       <p class="sim-sub" id="sim-step3-sub">Indique sus preferencias para el reembolso de su préstamo.</p>
-      <p class="sim-choice-lbl">Je souhaite définir :</p>
+      <p class="sim-choice-lbl">Quiero definir:</p>
       <div class="sim-radios">
         <label class="sim-radio"><input type="radio" name="sim-choix" value="mensualite" id="sim-r-mens" checked/>Cuota mensual</label>
         <label class="sim-radio"><input type="radio" name="sim-choix" value="duree" id="sim-r-dur"/>Número de cuotas</label>
@@ -488,10 +488,10 @@
           <div class="sp5-seg" id="sp5p4"></div>
         </div>
         <div class="sp5-step-labels">
-          <span class="sp5-slbl done" id="sp5l1">Identité</span>
+          <span class="sp5-slbl done" id="sp5l1">Identidad</span>
           <span class="sp5-slbl" id="sp5l2">Situación</span>
-          <span class="sp5-slbl" id="sp5l3">Coordonnées</span>
-          <span class="sp5-slbl" id="sp5l4">Documents</span>
+          <span class="sp5-slbl" id="sp5l3">Datos de contacto</span>
+          <span class="sp5-slbl" id="sp5l4">Documentos</span>
         </div>
       </div>
       <div class="sp5-sub s5-show" id="sp5a">
@@ -509,7 +509,7 @@
           <div class="sp5-field-group"><label class="sp5-lbl" for="s5-sitfam">Situación familiar <span class="sp5-req">*</span></label><select id="s5-sitfam" class="sp5-sel"><option value="" disabled selected>Seleccionar...</option><option value="celibataire">Soltero/a</option><option value="marie">Casado/a</option><option value="pacse">Pareja de hecho</option><option value="concubin">Conviviendo</option><option value="divorce">Divorciado/a</option><option value="veuf">Viudo/a</option></select><span class="sp5-err" id="s5-sitfam-err">Campo obligatorio</span></div>
           <div class="sp5-field-group"><label class="sp5-lbl" for="s5-enfants">Número de hijos a cargo <span class="sp5-req">*</span></label><select id="s5-enfants" class="sp5-sel"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5+">5 o más</option></select></div>
         </div>
-        <div class="sp5-nav"><div></div><button type="button" class="sp5-cont-btn" onclick="sp5Go(2)">Continuer <span class="sp5-arr">›</span></button></div>
+        <div class="sp5-nav"><div></div><button type="button" class="sp5-cont-btn" onclick="sp5Go(2)">Continuar <span class="sp5-arr">›</span></button></div>
       </div>
       <div class="sp5-sub" id="sp5b">
         <h2 class="sp5-title">Su situación profesional</h2>
@@ -521,13 +521,13 @@
             <div class="sp5-field-group"><label class="sp5-lbl" for="s5-anciennete">Antigüedad laboral <span class="sp5-req">*</span></label><select id="s5-anciennete" class="sp5-sel"><option value="" disabled selected>Seleccionar...</option><option value="moins1">Menos de 1 año</option><option value="1-3">1 a 3 años</option><option value="3-5">3 a 5 años</option><option value="plus5">Más de 5 años</option></select><span class="sp5-err" id="s5-anciennete-err">Campo obligatorio</span></div>
           </div>
           <div class="sp5-col-block">
-            <div class="sp5-col-hd">SITUATION FINANCIÈRE</div>
+            <div class="sp5-col-hd">SITUACIÓN FINANCIERA</div>
             <div class="sp5-field-group"><label class="sp5-lbl" for="s5-revenus">Ingresos mensuales netos (€) <span class="sp5-req">*</span></label><input type="number" id="s5-revenus" class="sp5-inp" placeholder="Ex : 2 000" min="0"/><span class="sp5-err" id="s5-revenus-err">Campo obligatorio</span></div>
-            <div class="sp5-field-group"><label class="sp5-lbl" for="s5-autres-rev">Otros revenus mensuels (€)</label><input type="number" id="s5-autres-rev" class="sp5-inp" placeholder="Ex : 500" min="0"/></div>
+            <div class="sp5-field-group"><label class="sp5-lbl" for="s5-autres-rev">Otros ingresos mensuales (€)</label><input type="number" id="s5-autres-rev" class="sp5-inp" placeholder="Ex : 500" min="0"/></div>
             <div class="sp5-field-group"><label class="sp5-lbl" for="s5-charges">Gastos mensuales (€) <span class="sp5-req">*</span></label><input type="number" id="s5-charges" class="sp5-inp" placeholder="Ex : 800" min="0"/><span class="sp5-err" id="s5-charges-err">Campo obligatorio</span></div>
           </div>
         </div>
-        <div class="sp5-nav"><button type="button" class="sp5-back-btn" onclick="sp5Go(1)"><span class="sp5-arr-l">‹</span> Volver</button><button type="button" class="sp5-cont-btn" onclick="sp5Go(3)">Continuer <span class="sp5-arr">›</span></button></div>
+        <div class="sp5-nav"><button type="button" class="sp5-back-btn" onclick="sp5Go(1)"><span class="sp5-arr-l">‹</span> Volver</button><button type="button" class="sp5-cont-btn" onclick="sp5Go(3)">Continuar <span class="sp5-arr">›</span></button></div>
       </div>
       <div class="sp5-sub" id="sp5c">
         <h2 class="sp5-title">Vos coordonnées</h2>
@@ -538,10 +538,10 @@
         <div class="sp5-field-group"><label class="sp5-lbl" for="s5-adresse">Dirección <span class="sp5-req">*</span></label><input type="text" id="s5-adresse" class="sp5-inp" placeholder="N° et nom de rue" autocomplete="street-address"/><span class="sp5-err" id="s5-adresse-err">Campo obligatorio</span></div>
         <div class="sp5-row2">
           <div class="sp5-field-group"><label class="sp5-lbl" for="s5-cp">Código postal <span class="sp5-req">*</span></label><input type="text" id="s5-cp" class="sp5-inp" placeholder="75001" maxlength="5" autocomplete="postal-code"/><span class="sp5-err" id="s5-cp-err">Código postal no válido</span></div>
-          <div class="sp5-field-group"><label class="sp5-lbl" for="s5-ville">Ville <span class="sp5-req">*</span></label><input type="text" id="s5-ville" class="sp5-inp" placeholder="Paris" autocomplete="address-level2"/><span class="sp5-err" id="s5-ville-err">Campo obligatorio</span></div>
+          <div class="sp5-field-group"><label class="sp5-lbl" for="s5-ville">Ciudad <span class="sp5-req">*</span></label><input type="text" id="s5-ville" class="sp5-inp" placeholder="Madrid" autocomplete="address-level2"/><span class="sp5-err" id="s5-ville-err">Campo obligatorio</span></div>
         </div>
         <div class="sp5-row2">
-          <div class="sp5-field-group"><label class="sp5-lbl" for="s5-banque">Banque principale <span class="sp5-req">*</span></label><input type="text" id="s5-banque" class="sp5-inp" placeholder="Ex : Crédit Agricole, BNP Paribas…" autocomplete="organization"/><span class="sp5-err" id="s5-banque-err">Campo obligatorio</span></div>
+          <div class="sp5-field-group"><label class="sp5-lbl" for="s5-banque">Banco principal <span class="sp5-req">*</span></label><input type="text" id="s5-banque" class="sp5-inp" placeholder="Ex : Crédit Agricole, BNP Paribas…" autocomplete="organization"/><span class="sp5-err" id="s5-banque-err">Campo obligatorio</span></div>
           <div class="sp5-field-group"><label class="sp5-lbl" for="s5-iban">IBAN <span class="sp5-req">*</span></label><input type="text" id="s5-iban" class="sp5-inp" placeholder="FR76 XXXX XXXX XXXX" autocomplete="off"/><span class="sp5-err" id="s5-iban-err">IBAN inválido</span></div>
         </div>
         <div class="sp5-consent-block">
@@ -551,7 +551,7 @@
           <span class="sp5-err" id="s5-cg2-err">Consentimiento requerido</span>
           <label class="sp5-check-item"><input type="checkbox" id="s5-cg3"/><span class="sp5-check-box"></span><span class="sp5-check-txt">Acepto recibir ofertas comerciales de Solfianza y sus socios. (Opcional)</span></label>
         </div>
-        <div class="sp5-nav"><button type="button" class="sp5-back-btn" onclick="sp5Go(2)"><span class="sp5-arr-l">‹</span> Volver</button><button type="button" class="sp5-cont-btn" onclick="sp5Go(4)">Continuer <span class="sp5-arr">›</span></button></div>
+        <div class="sp5-nav"><button type="button" class="sp5-back-btn" onclick="sp5Go(2)"><span class="sp5-arr-l">‹</span> Volver</button><button type="button" class="sp5-cont-btn" onclick="sp5Go(4)">Continuar <span class="sp5-arr">›</span></button></div>
       </div>
       <div class="sp5-sub" id="sp5d">
         <h2 class="sp5-title">Vos documents</h2>
