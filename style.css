@@ -1619,12 +1619,17 @@ body.pg-inner .editorial{background:none}
 }
 .sp5-back-btn:hover{ background:var(--navy);color:#fff; }
 .sp5-cont-btn{
-  padding:.78rem 1.6rem;border-radius:2rem;
+  flex:1;padding:.78rem 1.6rem;border-radius:2rem;
   background:var(--teal);color:#fff;border:none;
   font-size:.9rem;font-weight:700;font-family:inherit;
   cursor:pointer;transition:background .2s;white-space:nowrap;
 }
 .sp5-cont-btn:hover{ background:var(--teal-d); }
+/* Desktop: bouton centré, auto-width (style Sofinco) */
+@media(min-width:760px){
+  .sp5-nav{justify-content:flex-end}
+  .sp5-cont-btn{flex:none;min-width:180px}
+}
 .sp5-send-btn{
   padding:.82rem 1.6rem;border-radius:2rem;
   background:var(--teal);color:#fff;border:none;
