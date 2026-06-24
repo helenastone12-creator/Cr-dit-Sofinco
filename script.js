@@ -1706,7 +1706,6 @@ function sp5Submit(){
       panel.classList.add('open');
       searchInp.value='';
       renderList('');
-      searchInp.focus();
     }
     function closePanel(){
       panel.classList.remove('open');
