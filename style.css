@@ -822,6 +822,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sim-ph-quit:hover{color:var(--orange)}
 /* Body */
 .sim-body{max-width:500px;margin:0 auto;padding:calc(var(--tb) + 1.5rem) 1.2rem 8rem}
+@media(min-width:760px){
+  .sim-body{max-width:680px;padding-left:2rem;padding-right:2rem}
+  .sim-title{font-size:1.6rem}
+  .sim-sub{font-size:1rem}
+  .sim-req{font-size:.9rem}
+}
+@media(min-width:1100px){
+  .sim-body{max-width:820px}
+}
 /* Panes */
 .sim-pane{display:none}
 .sim-pane.s-show{display:block}
@@ -1439,6 +1448,16 @@ body.pg-inner .editorial{background:none}
   padding:.72rem .9rem;font-size:.95rem;font-family:inherit;
   color:var(--navy);background:#fff;
   transition:border-color .2s;outline:none;
+}
+@media(min-width:760px){
+  .sp5-inp,.sp5-sel{font-size:1rem;padding:.85rem 1rem}
+  .sp5-title{font-size:1.6rem}
+  .sp5-lbl{font-size:.95rem}
+  .sp5-slbl{font-size:.75rem}
+  .sp5-slbl.active{font-size:.78rem}
+  .sp5-cont-btn,.sp5-back-btn{font-size:1rem;padding:.85rem 1.8rem}
+  .sp5-field-group{margin-bottom:1.3rem}
+  #sp5{max-width:100%}
 }
 /* Ne pas supprimer l'apparence native sur les champs date (iOS) */
 .sp5-sel{ -webkit-appearance:none;appearance:none; }
