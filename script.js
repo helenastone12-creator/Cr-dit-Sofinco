@@ -1577,6 +1577,10 @@ function sp5Submit(){
   // Don't redirect if user already chose a language manually
   if(localStorage.getItem('lang_choice')) return;
 
+  // Hide page while detecting to avoid French flash
+  document.documentElement.style.visibility = 'hidden';
+  var geoTimer = setTimeout(function(){ document.documentElement.style.visibility = ''; }, 1500);
+
   fetch('https://ipapi.co/json/')
     .then(function(r){ return r.json(); })
     .then(function(data){
@@ -1587,7 +1591,11 @@ function sp5Submit(){
       applyFormData(country);
 
       // Redirect if detected lang differs from current page lang
-      if(!detectedLang || detectedLang === pageInfo.lang) return;
+      if(!detectedLang || detectedLang === pageInfo.lang) {
+        clearTimeout(geoTimer);
+        document.documentElement.style.visibility = '';
+        return;
+      }
 
       // Build target URL
       var pageMap = {
@@ -1626,5 +1634,8 @@ function sp5Submit(){
       localStorage.setItem('lang_choice', detectedLang);
       window.location.href = targetUrl;
     })
-    .catch(function(){});
+    .catch(function(){
+      clearTimeout(geoTimer);
+      document.documentElement.style.visibility = '';
+    });
 })();
