@@ -102,16 +102,95 @@
     </div>
   </div>
 </header>
-<div class="page">
-  <div class="page-inner">
-    <div class="container" style="max-width:800px;margin:0 auto;padding:4rem 1.5rem">
-      <h1>Strefa klienta</h1>
-      <p>Ta strona jest dostępna tylko w języku francuskim.</p>
-      <p><a href="../espace-client.html">Zobacz wersję francuską →</a></p>
-      <p><a href="index.html">← Powrót do strony głównej</a></p>
+<div class="ec-dashboard-wrap">
+<link rel="stylesheet" href="../espace-client.css"/>
+<header class="ec-header">
+  <a href="../index.html" class="ec-hd-logo">Solfianza</a>
+  <div class="ec-hd-right">
+    <div class="ec-hd-user">
+      <div class="ec-hd-avatar" id="ec-hd-avatar">J</div>
+      <span class="ec-hd-name" id="ec-hd-name">Moje konto</span>
     </div>
+    <button class="ec-hd-logout" onclick="ecLogout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Wyloguj się
+    </button>
   </div>
+</header>
+<nav class="ec-nav">
+  <a href="../espace-client.html" class="ec-nav-link active">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Panel
+  </a>
+  <a href="../mes-documents.html" class="ec-nav-link">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Moje dokumenty
+  </a>
+  <a href="../suivi-dossier.html" class="ec-nav-link">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Śledzenie wniosku
+  </a>
+</nav>
+<main class="ec-main">
+  <div class="ec-welcome">
+    <div>
+      <p class="ec-welcome-sub">Witaj w swojej strefie</p>
+      <h1 class="ec-welcome-title" id="ec-welcome-name">Witaj!</h1>
+    </div>
+    <div class="ec-welcome-date" id="ec-welcome-date"></div>
+  </div>
+  <div class="ec-section-title">Twój aktualny kredyt</div>
+  <div class="ec-credit-card">
+    <div class="ec-credit-card-top">
+      <div>
+        <div class="ec-credit-type">Pożyczka osobista</div>
+        <div class="ec-credit-label">Numer referencyjny · <span id="ec-credit-ref">SOF-2026-—</span></div>
+      </div>
+      <div class="ec-credit-badge">Aktywny</div>
+    </div>
+    <div class="ec-credit-stats">
+      <div class="ec-credit-stat"><span class="ec-cs-lbl">Pożyczony kapitał</span><span class="ec-cs-val" id="ec-stat-capital">—</span></div>
+      <div class="ec-credit-stat"><span class="ec-cs-lbl">Miesięczna rata</span><span class="ec-cs-val" id="ec-stat-mens">—</span></div>
+      <div class="ec-credit-stat"><span class="ec-cs-lbl">Pozostały kapitał</span><span class="ec-cs-val" id="ec-stat-restant">—</span></div>
+    </div>
+    <div class="ec-credit-prog-lbl"><span>Spłata</span><span id="ec-prog-pct">0%</span></div>
+    <div class="ec-credit-prog-track"><div class="ec-credit-prog-fill" id="ec-prog-fill"></div></div>
+  </div>
+  <div class="ec-echeance-card">
+    <div class="ec-echeance-left">
+      <div class="ec-echeance-ico">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <div class="ec-echeance-lbl">Następna płatność</div>
+        <div class="ec-echeance-date" id="ec-next-date">1 lipca 2026</div>
+      </div>
+    </div>
+    <div class="ec-echeance-amt" id="ec-next-amt">—</div>
+  </div>
+  <div class="ec-section-title">Szybkie akcje</div>
+  <div class="ec-quick-grid">
+    <a href="../mes-documents.html" class="ec-quick-card">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Moje dokumenty</span>
+    </a>
+    <a href="../suivi-dossier.html" class="ec-quick-card">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span>Śledzenie wniosku</span>
+    </a>
+    <a href="../nous-contacter.html" class="ec-quick-card">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3-8.59A2 2 0 0 1 3.59 2H6.5a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.59 9.91a16 16 0 0 0 6.5 6.5l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Skontaktuj się z nami</span>
+    </a>
+    <a href="../index.html" data-sim="" class="ec-quick-card">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span>Nowy kredyt</span>
+    </a>
+  </div>
+</main>
+<script src="../espace-client.js"></script>
 </div>
+
 <footer class="footer">
   <nav class="ft-nav">
     <div class="ft-nav-item">
