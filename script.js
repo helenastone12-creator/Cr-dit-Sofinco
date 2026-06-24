@@ -1732,9 +1732,11 @@ function sp5Submit(){
       searchInp.value='';
       renderList('');
       panel.classList.add('open');
+      document.body.style.overflow='hidden';
     }
     function closePanel(){
       panel.classList.remove('open');
+      document.body.style.overflow='';
     }
 
     trigger.addEventListener('click',function(e){
