@@ -2240,23 +2240,31 @@ body.pg-inner .editorial{background:none}
 }
 .nat-trigger.nat-has-val{color:#0d2748}
 .nat-trigger:focus,.nat-trigger:hover{border-color:#06c2b0}
+/* Nationality modal — same pattern as ft-lang-panel */
 .nat-panel{
-  display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;
-  background:#fff;border:1.5px solid #06c2b0;border-radius:10px;
-  z-index:500;box-shadow:0 4px 20px rgba(0,0,0,.18);overflow:hidden;
+  display:none;position:fixed;inset:0;z-index:9990;
+  background:rgba(0,0,0,.5);
+  align-items:center;justify-content:center;
+  padding:1rem;
 }
-.nat-panel.open{display:block}
+.nat-panel.open{display:flex}
+.nat-inner{
+  background:#fff;border-radius:1.1rem;
+  width:100%;max-width:420px;max-height:80vh;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.18);
+}
 .nat-search{
   width:100%;box-sizing:border-box;border:none;border-bottom:1px solid #eee;
-  padding:.65rem .9rem;font-size:.9rem;font-family:inherit;outline:none;
-  color:#0d2748;background:#f8fafc;
+  padding:.75rem 1rem;font-size:.95rem;font-family:inherit;outline:none;
+  color:#0d2748;background:#f8fafc;flex-shrink:0;
 }
 .nat-list{
-  list-style:none;margin:0;padding:0;
-  max-height:calc(5 * 42px);overflow-y:auto;
+  list-style:none;margin:0;padding:.4rem 0;
+  overflow-y:auto;flex:1;
 }
 .nat-item{
-  padding:.65rem .9rem;font-size:.92rem;color:#0d2748;
+  padding:.75rem 1rem;font-size:.95rem;color:#0d2748;
   cursor:pointer;transition:background .1s;
 }
 .nat-item:hover{background:#edfaf9}

@@ -1670,6 +1670,9 @@ function sp5Submit(){
     var panel = document.createElement('div');
     panel.className='nat-panel';
 
+    var inner = document.createElement('div');
+    inner.className='nat-inner';
+
     var searchInp = document.createElement('input');
     searchInp.type='text';
     searchInp.className='nat-search';
@@ -1690,8 +1693,8 @@ function sp5Submit(){
         li.textContent=o.label;
         li.dataset.value=o.value;
         if(o.value===sel.value) li.classList.add('nat-sel');
-        li.addEventListener('mousedown',function(e){
-          e.preventDefault();
+        li.addEventListener('click',function(e){
+          e.stopPropagation();
           sel.value=o.value;
           trigger.textContent=o.label;
           trigger.classList.toggle('nat-has-val',!!o.value);
@@ -1705,15 +1708,7 @@ function sp5Submit(){
     function openPanel(){
       searchInp.value='';
       renderList('');
-      panel.style.top=''; panel.style.bottom='';
       panel.classList.add('open');
-      var rect = trigger.getBoundingClientRect();
-      var spaceBelow = window.innerHeight - rect.bottom;
-      var panelH = panel.offsetHeight;
-      if(spaceBelow < panelH + 8 && rect.top > spaceBelow){
-        panel.style.top='auto';
-        panel.style.bottom='calc(100% + 4px)';
-      }
     }
     function closePanel(){
       panel.classList.remove('open');
@@ -1724,16 +1719,17 @@ function sp5Submit(){
       panel.classList.contains('open') ? closePanel() : openPanel();
     });
 
+    panel.addEventListener('click',function(e){
+      if(e.target===panel) closePanel();
+    });
+
     searchInp.addEventListener('input',function(){
       renderList(this.value);
     });
 
-    document.addEventListener('click',function(e){
-      if(!wrap.contains(e.target)) closePanel();
-    });
-
-    panel.appendChild(searchInp);
-    panel.appendChild(list);
+    inner.appendChild(searchInp);
+    inner.appendChild(list);
+    panel.appendChild(inner);
     wrap.appendChild(trigger);
     wrap.appendChild(panel);
     sel.parentNode.insertBefore(wrap,sel);
