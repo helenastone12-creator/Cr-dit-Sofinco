@@ -1498,27 +1498,56 @@ function sp5Submit(){
 // ── IP Geolocation — auto-redirect + form adaptation ──
 (function(){
   var COUNTRY_LANG = {
-    'FR':'fr','GB':'en','US':'en','AU':'en','CA':'en','IE':'en','NZ':'en',
-    'DE':'de','AT':'de','CH':'de',
-    'ES':'es','MX':'es','AR':'es','CO':'es','PE':'es','CL':'es',
-    'IT':'it',
+    // Français
+    'FR':'fr','MC':'fr','LU':'fr',
+    // English
+    'GB':'en','IE':'en',
+    // Deutsch
+    'DE':'de','AT':'de','LI':'de','CH':'de',
+    // Español
+    'ES':'es',
+    // Italiano
+    'IT':'it','SM':'it','VA':'it',
+    // Nederlands
     'NL':'nl','BE':'nl',
+    // Polski
     'PL':'pl',
-    'SE':'sv'
+    // Svenska
+    'SE':'sv','FI':'sv',
+    // Autres pays européens → anglais par défaut
+    'PT':'en','GR':'en','CZ':'en','SK':'en','HU':'en','RO':'en','BG':'en',
+    'HR':'en','RS':'en','SI':'en','BA':'en','MK':'en','AL':'en','NO':'en',
+    'DK':'en','IS':'en','EE':'en','LV':'en','LT':'en','BY':'en','MD':'en',
+    'ME':'en','XK':'en','CY':'en','MT':'en'
   };
 
   var FORM_DATA = {
-    'FR': { tel:'06 XX XX XX XX', cp:'75001', ibanPfx:'FR76 XXXX XXXX XXXX XXXX XXXX XXX', cpLen:5 },
-    'DE': { tel:'+49 XXX XXXXXXX', cp:'10115', ibanPfx:'DE89 XXXX XXXX XXXX XXXX XX', cpLen:5 },
-    'AT': { tel:'+43 XXX XXXXXXX', cp:'1010',  ibanPfx:'AT61 XXXX XXXX XXXX XXXX', cpLen:4 },
-    'CH': { tel:'+41 XX XXX XX XX',cp:'8001',  ibanPfx:'CH56 XXXX XXXX XXXX XXXX X', cpLen:4 },
-    'GB': { tel:'+44 7XXX XXXXXX', cp:'SW1A 1AA',ibanPfx:'GB29 XXXX XXXX XXXX XXXX XX', cpLen:7 },
-    'ES': { tel:'+34 6XX XXX XXX', cp:'28001', ibanPfx:'ES91 XXXX XXXX XXXX XXXX XXXX', cpLen:5 },
-    'IT': { tel:'+39 3XX XXX XXXX',cp:'00100', ibanPfx:'IT60 XXXX XXXX XXXX XXXX XXXX XXX', cpLen:5 },
-    'NL': { tel:'+31 6 XXXX XXXX', cp:'1000 AA',ibanPfx:'NL91 XXXX XXXX XXXX XX', cpLen:6 },
-    'BE': { tel:'+32 4XX XX XX XX',cp:'1000',  ibanPfx:'BE68 XXXX XXXX XXXX', cpLen:4 },
-    'PL': { tel:'+48 XXX XXX XXX', cp:'00-001',ibanPfx:'PL61 XXXX XXXX XXXX XXXX XXXX XXXX', cpLen:6 },
-    'SE': { tel:'+46 7X XXX XX XX',cp:'111 20', ibanPfx:'SE45 XXXX XXXX XXXX XXXX XXXX', cpLen:5 }
+    'FR': { tel:'06 XX XX XX XX',   cp:'75001',   ibanPfx:'FR76 XXXX XXXX XXXX XXXX XXXX XXX',      cpLen:5 },
+    'MC': { tel:'+377 6X XX XX XX', cp:'98000',   ibanPfx:'MC58 XXXX XXXX XXXX XXXX XXXX XXX',      cpLen:5 },
+    'LU': { tel:'+352 6XX XXX XXX', cp:'1009',    ibanPfx:'LU28 XXXX XXXX XXXX XXXX',               cpLen:4 },
+    'DE': { tel:'+49 XXX XXXXXXX',  cp:'10115',   ibanPfx:'DE89 XXXX XXXX XXXX XXXX XX',            cpLen:5 },
+    'AT': { tel:'+43 XXX XXXXXXX',  cp:'1010',    ibanPfx:'AT61 XXXX XXXX XXXX XXXX',               cpLen:4 },
+    'CH': { tel:'+41 XX XXX XX XX', cp:'8001',    ibanPfx:'CH56 XXXX XXXX XXXX XXXX X',             cpLen:4 },
+    'LI': { tel:'+423 XXX XXXX',    cp:'9490',    ibanPfx:'LI21 XXXX XXXX XXXX XXXX X',             cpLen:4 },
+    'GB': { tel:'+44 7XXX XXXXXX',  cp:'SW1A 1AA',ibanPfx:'GB29 XXXX XXXX XXXX XXXX XX',            cpLen:7 },
+    'IE': { tel:'+353 8X XXX XXXX', cp:'D01 F5P2',ibanPfx:'IE29 XXXX XXXX XXXX XXXX XX',            cpLen:7 },
+    'ES': { tel:'+34 6XX XXX XXX',  cp:'28001',   ibanPfx:'ES91 XXXX XXXX XXXX XXXX XXXX',          cpLen:5 },
+    'IT': { tel:'+39 3XX XXX XXXX', cp:'00100',   ibanPfx:'IT60 XXXX XXXX XXXX XXXX XXXX XXX',      cpLen:5 },
+    'NL': { tel:'+31 6 XXXX XXXX',  cp:'1000 AA', ibanPfx:'NL91 XXXX XXXX XXXX XX',                 cpLen:6 },
+    'BE': { tel:'+32 4XX XX XX XX', cp:'1000',    ibanPfx:'BE68 XXXX XXXX XXXX',                    cpLen:4 },
+    'PL': { tel:'+48 XXX XXX XXX',  cp:'00-001',  ibanPfx:'PL61 XXXX XXXX XXXX XXXX XXXX XXXX',    cpLen:6 },
+    'SE': { tel:'+46 7X XXX XX XX', cp:'111 20',  ibanPfx:'SE45 XXXX XXXX XXXX XXXX XXXX',          cpLen:5 },
+    'FI': { tel:'+358 4X XXX XXXX', cp:'00100',   ibanPfx:'FI21 XXXX XXXX XXXX XX',                 cpLen:5 },
+    'DK': { tel:'+45 XX XX XX XX',  cp:'1000',    ibanPfx:'DK50 XXXX XXXX XXXX XX',                 cpLen:4 },
+    'NO': { tel:'+47 4XX XX XXX',   cp:'0010',    ibanPfx:'NO93 XXXX XXXX XXX',                     cpLen:4 },
+    'PT': { tel:'+351 9XX XXX XXX', cp:'1000-001',ibanPfx:'PT50 XXXX XXXX XXXX XXXX XXXX X',        cpLen:8 },
+    'GR': { tel:'+30 6XX XXX XXXX', cp:'10431',   ibanPfx:'GR16 XXXX XXXX XXXX XXXX XXXX XXX',      cpLen:5 },
+    'CZ': { tel:'+420 7XX XXX XXX', cp:'110 00',  ibanPfx:'CZ65 XXXX XXXX XXXX XXXX XXXX',          cpLen:6 },
+    'SK': { tel:'+421 9XX XXX XXX', cp:'811 01',  ibanPfx:'SK31 XXXX XXXX XXXX XXXX XXXX',          cpLen:6 },
+    'HU': { tel:'+36 XX XXX XXXX',  cp:'1011',    ibanPfx:'HU42 XXXX XXXX XXXX XXXX XXXX XXXX',    cpLen:4 },
+    'RO': { tel:'+40 7XX XXX XXX',  cp:'010011',  ibanPfx:'RO49 XXXX XXXX XXXX XXXX XXXX',          cpLen:6 },
+    'BG': { tel:'+359 8XX XXX XXX', cp:'1000',    ibanPfx:'BG80 XXXX XXXX XXXX XXXX XX',            cpLen:4 },
+    'HR': { tel:'+385 9X XXX XXXX', cp:'10000',   ibanPfx:'HR12 XXXX XXXX XXXX XXXX X',             cpLen:5 },
   };
 
   function applyFormData(country) {
