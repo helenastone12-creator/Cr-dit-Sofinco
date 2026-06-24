@@ -102,16 +102,35 @@
     </div>
   </div>
 </header>
-<div class="page">
-  <div class="page-inner">
-    <div class="container" style="max-width:800px;margin:0 auto;padding:4rem 1.5rem">
-      <h1>Anmelden</h1>
-      <p>Diese Seite ist nur auf Französisch verfügbar.</p>
-      <p><a href="../connexion.html">Französische Version anzeigen →</a></p>
-      <p><a href="index.html">← Zurück zur Startseite</a></p>
+<div class="ec-auth-wrap">
+  <a href="../index.html" class="ec-auth-logo">Solfianza</a>
+  <p class="ec-auth-sub">Kundenbereich</p>
+  <div class="ec-auth-card">
+    <h1 class="ec-auth-title">Anmelden</h1>
+    <p class="ec-auth-hint">Greifen Sie sicher auf Ihre Kredite und Dokumente zu.</p>
+    <div id="ec-login-err" class="ec-form-err" style="display:none">Falsche Anmeldedaten. Bitte überprüfen Sie Ihre E-Mail-Adresse und Ihr Passwort.</div>
+    <div class="ec-form-group">
+      <label class="ec-lbl" for="ec-email">E-Mail-Adresse</label>
+      <input type="email" id="ec-email" class="ec-inp" placeholder="ihre@email.de" autocomplete="email"/>
     </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl" for="ec-pwd">Passwort</label>
+      <div class="ec-pwd-wrap">
+        <input type="password" id="ec-pwd" class="ec-inp" placeholder="••••••••" autocomplete="current-password"/>
+        <button type="button" class="ec-eye-btn" onclick="ecTogglePwd('ec-pwd',this)" aria-label="Passwort anzeigen">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <a href="../mot-de-passe-oublie.html" class="ec-forgot">Passwort vergessen?</a>
+    <button class="ec-btn-primary" onclick="ecLogin()">Anmelden</button>
+    <div class="ec-auth-sep"><span>oder</span></div>
+    <a href="../inscription.html" class="ec-btn-secondary">Mein Kundenkonto erstellen</a>
   </div>
+  <p class="ec-auth-legal">Ihre Daten werden gemäß der DSGVO geschützt.<br/><a href="../politique-donnees.html">Datenschutzrichtlinie</a></p>
 </div>
+<link rel="stylesheet" href="../espace-client.css"/>
+<script src="../espace-client.js"></script>
 <footer class="footer">
   <nav class="ft-nav">
     <div class="ft-nav-item">

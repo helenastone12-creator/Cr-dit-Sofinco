@@ -102,16 +102,40 @@
     </div>
   </div>
 </header>
-<div class="page">
-  <div class="page-inner">
-    <div class="container" style="max-width:800px;margin:0 auto;padding:4rem 1.5rem">
-      <h1>Password dimenticata</h1>
-      <p>Questa pagina è disponibile solo in francese.</p>
-      <p><a href="../mot-de-passe-oublie.html">Vedi la versione francese →</a></p>
-      <p><a href="index.html">← Torna alla home</a></p>
-    </div>
+<div class="ec-auth-wrap">
+  <a href="../index.html" class="ec-auth-logo">Solfianza</a>
+  <p class="ec-auth-sub">Area clienti</p>
+  <div class="ec-auth-card" id="ec-step1">
+    <h1 class="ec-auth-title">Password dimenticata</h1>
+    <p class="ec-auth-hint">Inserisca il suo indirizzo e-mail per reimpostare la password.</p>
+    <div id="ec-fp-err" class="ec-form-err" style="display:none"></div>
+    <div class="ec-form-group"><label class="ec-lbl" for="ec-fp-email">Indirizzo e-mail</label><input type="email" id="ec-fp-email" class="ec-inp" placeholder="la-sua@email.it" autocomplete="email"/></div>
+    <button class="ec-btn-primary" onclick="ecFpStep1()">Continua</button>
+    <p class="ec-auth-link"><a href="../connexion.html" class="ec-link">Torna all'accesso</a></p>
+  </div>
+  <div class="ec-auth-card" id="ec-step2" style="display:none">
+    <h1 class="ec-auth-title">Nuova password</h1>
+    <p class="ec-auth-hint">Scelga una nuova password per il suo account.</p>
+    <div id="ec-fp-err2" class="ec-form-err" style="display:none"></div>
+    <div class="ec-form-group"><label class="ec-lbl" for="ec-fp-pwd">Nuova password</label><div class="ec-pwd-field"><input type="password" id="ec-fp-pwd" class="ec-inp" placeholder="••••••••" autocomplete="new-password"/><button type="button" class="ec-eye-btn" onclick="ecTogglePwd('ec-fp-pwd',this)" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div><div class="ec-pwd-strength" id="ec-fp-strength"><span></span><span></span><span></span></div></div>
+    <div class="ec-form-group"><label class="ec-lbl" for="ec-fp-pwd2">Conferma password</label><div class="ec-pwd-field"><input type="password" id="ec-fp-pwd2" class="ec-inp" placeholder="••••••••" autocomplete="new-password"/><button type="button" class="ec-eye-btn" onclick="ecTogglePwd('ec-fp-pwd2',this)" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+    <button class="ec-btn-primary" onclick="ecFpStep2()">Salva password</button>
+  </div>
+  <div class="ec-auth-card" id="ec-step3" style="display:none">
+    <div style="text-align:center;margin-bottom:1.2rem"><svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="var(--teal)" stroke-width="2"/><path d="M14 26.5l8 8 16-16" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h1 class="ec-auth-title" style="text-align:center">Password aggiornata</h1>
+    <p class="ec-auth-hint" style="text-align:center">La sua password è stata modificata con successo.</p>
+    <a href="../connexion.html" class="ec-btn-primary" style="display:block;text-align:center;text-decoration:none;margin-top:1rem">Accedi</a>
   </div>
 </div>
+<link rel="stylesheet" href="../espace-client.css"/>
+<script src="../espace-client.js"></script>
+<script>
+function ecFpStep1(){var email=(document.getElementById("ec-fp-email")||{}).value||"";var err=document.getElementById("ec-fp-err");if(!email.trim()){if(err){err.textContent="Inserisca il suo indirizzo e-mail.";err.style.display="block";}return;}var user=ecGetUser();if(!user||user.email!==email.trim().toLowerCase()){if(err){err.textContent="Nessun account trovato con questo indirizzo e-mail.";err.style.display="block";}return;}if(err)err.style.display="none";document.getElementById("ec-step1").style.display="none";document.getElementById("ec-step2").style.display="block";}
+function ecFpStep2(){var pwd=(document.getElementById("ec-fp-pwd")||{}).value||"";var pwd2=(document.getElementById("ec-fp-pwd2")||{}).value||"";var err=document.getElementById("ec-fp-err2");if(pwd.length<8){if(err){err.textContent="La password deve contenere almeno 8 caratteri.";err.style.display="block";}return;}if(pwd!==pwd2){if(err){err.textContent="Le password non corrispondono.";err.style.display="block";}return;}if(err)err.style.display="none";var user=ecGetUser();if(user){user.pwd=pwd;ecSetUser(user);}document.getElementById("ec-step2").style.display="none";document.getElementById("ec-step3").style.display="block";}
+document.getElementById("ec-fp-pwd").addEventListener("input",function(){var bar=document.getElementById("ec-fp-strength");var v=this.value;bar.className="ec-pwd-strength";bar.innerHTML="<span></span><span></span><span></span>";if(!v)return;if(v.length>=10&&/[A-Z]/.test(v)&&/[0-9]/.test(v))bar.classList.add("strong");else if(v.length>=8)bar.classList.add("medium");else bar.classList.add("weak");});
+document.addEventListener("keydown",function(e){if(e.key!=="Enter")return;if(document.getElementById("ec-step1").style.display!=="none")ecFpStep1();else if(document.getElementById("ec-step2").style.display!=="none")ecFpStep2();});
+</script>
 <footer class="footer">
   <nav class="ft-nav">
     <div class="ft-nav-item">

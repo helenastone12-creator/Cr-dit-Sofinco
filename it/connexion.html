@@ -102,16 +102,24 @@
     </div>
   </div>
 </header>
-<div class="page">
-  <div class="page-inner">
-    <div class="container" style="max-width:800px;margin:0 auto;padding:4rem 1.5rem">
-      <h1>Accedi</h1>
-      <p>Questa pagina è disponibile solo in francese.</p>
-      <p><a href="../connexion.html">Vedi la versione francese →</a></p>
-      <p><a href="index.html">← Torna alla home</a></p>
-    </div>
+<div class="ec-auth-wrap">
+  <a href="../index.html" class="ec-auth-logo">Solfianza</a>
+  <p class="ec-auth-sub">Area clienti</p>
+  <div class="ec-auth-card">
+    <h1 class="ec-auth-title">Accedi</h1>
+    <p class="ec-auth-hint">Acceda ai suoi crediti e documenti in tutta sicurezza.</p>
+    <div id="ec-login-err" class="ec-form-err" style="display:none">Credenziali errate. Verifichi il suo indirizzo e-mail e la password.</div>
+    <div class="ec-form-group"><label class="ec-lbl" for="ec-email">Indirizzo e-mail</label><input type="email" id="ec-email" class="ec-inp" placeholder="la-sua@email.it" autocomplete="email"/></div>
+    <div class="ec-form-group"><label class="ec-lbl" for="ec-pwd">Password</label><div class="ec-pwd-wrap"><input type="password" id="ec-pwd" class="ec-inp" placeholder="••••••••" autocomplete="current-password"/><button type="button" class="ec-eye-btn" onclick="ecTogglePwd('ec-pwd',this)" aria-label="Mostra password"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+    <a href="../mot-de-passe-oublie.html" class="ec-forgot">Password dimenticata?</a>
+    <button class="ec-btn-primary" onclick="ecLogin()">Accedi</button>
+    <div class="ec-auth-sep"><span>oppure</span></div>
+    <a href="../inscription.html" class="ec-btn-secondary">Crea la mia area clienti</a>
   </div>
+  <p class="ec-auth-legal">I suoi dati sono protetti conformemente al GDPR.<br/><a href="../politique-donnees.html">Informativa sulla privacy</a></p>
 </div>
+<link rel="stylesheet" href="../espace-client.css"/>
+<script src="../espace-client.js"></script>
 <footer class="footer">
   <nav class="ft-nav">
     <div class="ft-nav-item">
