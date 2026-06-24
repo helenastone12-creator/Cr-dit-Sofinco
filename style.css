@@ -824,9 +824,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sim-body{max-width:500px;margin:0 auto;padding:calc(var(--tb) + 1.5rem) 1.2rem 8rem}
 @media(min-width:760px){
   .sim-body{max-width:760px;padding-left:2.5rem;padding-right:2.5rem}
-  .sim-title{font-size:1.6rem}
-  .sim-sub{font-size:1rem}
-  .sim-req{font-size:.9rem}
+  .sim-title{font-size:1.6rem;text-align:center}
+  .sim-sub{font-size:1rem;text-align:center}
+  .sim-req{font-size:.9rem;text-align:center}
+  .sim-choice-lbl{text-align:center}
+  .sim-proj-grid{margin-top:1.5rem}
+  .sim-dd-wrap{margin:1.5rem auto}
+  .sim-trust-grid{margin-top:2.5rem;padding-top:2rem;border-top:1px solid #eee}
+  .sim-foot-links{margin-top:1.5rem}
+  .sim-pane{padding-bottom:1rem}
 }
 @media(min-width:1100px){
   .sim-body{max-width:960px}
