@@ -1574,68 +1574,53 @@ function sp5Submit(){
   var langCountryDefault = { fr:'FR', en:'GB', de:'DE', es:'ES', it:'IT', nl:'NL', pl:'PL', sv:'SE' };
   applyFormData(langCountryDefault[pageInfo.lang] || 'FR');
 
+  // Apply form data based on browser language
+  var browserLang = (navigator.language || navigator.userLanguage || 'fr').toLowerCase().split('-');
+  var browserLangCode = browserLang[0];
+  var browserCountry = (browserLang[1] || '').toUpperCase();
+  var LANG_MAP = {'fr':'fr','de':'de','es':'es','it':'it','nl':'nl','pl':'pl','sv':'sv','en':'en'};
+  var detectedLang = LANG_MAP[browserLangCode] || null;
+  if(browserCountry && COUNTRY_LANG[browserCountry]) detectedLang = COUNTRY_LANG[browserCountry];
+  if(browserCountry && FORM_DATA[browserCountry]) applyFormData(browserCountry);
+
   // Don't redirect if user already chose a language manually
   if(localStorage.getItem('lang_choice')) return;
 
-  // Hide page while detecting to avoid French flash
-  document.documentElement.style.visibility = 'hidden';
-  var geoTimer = setTimeout(function(){ document.documentElement.style.visibility = ''; }, 1500);
-
-  fetch('https://ipapi.co/json/')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      var country = data.country_code || '';
-      var detectedLang = COUNTRY_LANG[country] || null;
-
-      // Apply precise form data for detected country
-      applyFormData(country);
-
-      // Redirect if detected lang differs from current page lang
-      if(!detectedLang || detectedLang === pageInfo.lang) {
-        clearTimeout(geoTimer);
-        document.documentElement.style.visibility = '';
-        return;
-      }
+  // Redirect immediately (no network needed — no flash)
+  if(!detectedLang || detectedLang === pageInfo.lang) return;
 
       // Build target URL
-      var pageMap = {
-        'index.html':{'en':'index.html','de':'index.html','es':'index.html','it':'index.html','nl':'index.html','pl':'index.html','sv':'index.html'},
-        'connexion.html':{'en':'login.html','de':'anmelden.html','es':'iniciar-sesion.html','it':'accedi.html','nl':'inloggen.html','pl':'logowanie.html','sv':'logga-in.html'},
-        'inscription.html':{'en':'register.html','de':'registrieren.html','es':'registro.html','it':'registrazione.html','nl':'registreren.html','pl':'rejestracja.html','sv':'registrera.html'},
-        'tarifs.html':{'en':'pricing.html','de':'preise.html','es':'tarifas.html','it':'tariffe.html','nl':'tarieven.html','pl':'cennik.html','sv':'priser.html'},
-        'pret-personnel.html':{'en':'personal-loan.html','de':'privatkredit.html','es':'prestamo-personal.html','it':'prestito-personale.html','nl':'persoonlijke-lening.html','pl':'pozyczka-osobista.html','sv':'personligt-laan.html'},
-        'credit-auto.html':{'en':'car-loan.html','de':'autokredit.html','es':'credito-auto.html','it':'credito-auto.html','nl':'autolening.html','pl':'kredyt-samochodowy.html','sv':'billaan.html'},
-        'credit-renouvelable.html':{'en':'revolving-credit.html','de':'revolving-kredit.html','es':'credito-renovable.html','it':'credito-revolving.html','nl':'doorlopend-krediet.html','pl':'kredyt-odnawialny.html','sv':'roterande-kredit.html'},
-        'rachat-de-credits.html':{'en':'debt-consolidation.html','de':'kreditabloesung.html','es':'reunion-de-deudas.html','it':'consolidamento-debiti.html','nl':'schuldenherfinanciering.html','pl':'konsolidacja-dlugow.html','sv':'skuldkonsolidering.html'},
-        'assurances.html':{'en':'insurance.html','de':'versicherungen.html','es':'seguros.html','it':'assicurazioni.html','nl':'verzekeringen.html','pl':'ubezpieczenia.html','sv':'forsakringar.html'},
-        'nous-contacter.html':{'en':'contact.html','de':'kontakt.html','es':'contacto.html','it':'contatti.html','nl':'contact.html','pl':'kontakt.html','sv':'kontakt.html'},
-        'nous-decouvrir.html':{'en':'about-us.html','de':'ueber-uns.html','es':'sobre-nosotros.html','it':'chi-siamo.html','nl':'over-ons.html','pl':'o-nas.html','sv':'om-oss.html'}
-      };
+  var pageMap = {
+    'index.html':{'en':'index.html','de':'index.html','es':'index.html','it':'index.html','nl':'index.html','pl':'index.html','sv':'index.html'},
+    'connexion.html':{'en':'login.html','de':'anmelden.html','es':'iniciar-sesion.html','it':'accedi.html','nl':'inloggen.html','pl':'logowanie.html','sv':'logga-in.html'},
+    'inscription.html':{'en':'register.html','de':'registrieren.html','es':'registro.html','it':'registrazione.html','nl':'registreren.html','pl':'rejestracja.html','sv':'registrera.html'},
+    'tarifs.html':{'en':'pricing.html','de':'preise.html','es':'tarifas.html','it':'tariffe.html','nl':'tarieven.html','pl':'cennik.html','sv':'priser.html'},
+    'pret-personnel.html':{'en':'personal-loan.html','de':'privatkredit.html','es':'prestamo-personal.html','it':'prestito-personale.html','nl':'persoonlijke-lening.html','pl':'pozyczka-osobista.html','sv':'personligt-laan.html'},
+    'credit-auto.html':{'en':'car-loan.html','de':'autokredit.html','es':'credito-auto.html','it':'credito-auto.html','nl':'autolening.html','pl':'kredyt-samochodowy.html','sv':'billaan.html'},
+    'credit-renouvelable.html':{'en':'revolving-credit.html','de':'revolving-kredit.html','es':'credito-renovable.html','it':'credito-revolving.html','nl':'doorlopend-krediet.html','pl':'kredyt-odnawialny.html','sv':'roterande-kredit.html'},
+    'rachat-de-credits.html':{'en':'debt-consolidation.html','de':'kreditabloesung.html','es':'reunion-de-deudas.html','it':'consolidamento-debiti.html','nl':'schuldenherfinanciering.html','pl':'konsolidacja-dlugow.html','sv':'skuldkonsolidering.html'},
+    'assurances.html':{'en':'insurance.html','de':'versicherungen.html','es':'seguros.html','it':'assicurazioni.html','nl':'verzekeringen.html','pl':'ubezpieczenia.html','sv':'forsakringar.html'},
+    'nous-contacter.html':{'en':'contact.html','de':'kontakt.html','es':'contacto.html','it':'contatti.html','nl':'contact.html','pl':'kontakt.html','sv':'kontakt.html'},
+    'nous-decouvrir.html':{'en':'about-us.html','de':'ueber-uns.html','es':'sobre-nosotros.html','it':'chi-siamo.html','nl':'over-ons.html','pl':'o-nas.html','sv':'om-oss.html'}
+  };
 
-      // Resolve current page to FR canonical
-      var reverseMap = {};
-      Object.keys(pageMap).forEach(function(fr){
-        Object.keys(pageMap[fr]).forEach(function(lc){
-          if(!reverseMap[lc]) reverseMap[lc] = {};
-          reverseMap[lc][pageMap[fr][lc]] = fr;
-        });
-      });
-      var frPage = (pageInfo.lang === 'fr') ? pageInfo.page
-        : ((reverseMap[pageInfo.lang] && reverseMap[pageInfo.lang][pageInfo.page]) || pageInfo.page);
-
-      var targetPage = (detectedLang === 'fr') ? frPage
-        : ((pageMap[frPage] && pageMap[frPage][detectedLang]) || frPage);
-
-      var targetUrl = (detectedLang === 'fr')
-        ? (pageInfo.depth ? '../' + targetPage : targetPage)
-        : (pageInfo.depth ? '../' + detectedLang + '/' + targetPage : detectedLang + '/' + targetPage);
-
-      // Store so we don't redirect again
-      localStorage.setItem('lang_choice', detectedLang);
-      window.location.href = targetUrl;
-    })
-    .catch(function(){
-      clearTimeout(geoTimer);
-      document.documentElement.style.visibility = '';
+  var reverseMap = {};
+  Object.keys(pageMap).forEach(function(fr){
+    Object.keys(pageMap[fr]).forEach(function(lc){
+      if(!reverseMap[lc]) reverseMap[lc] = {};
+      reverseMap[lc][pageMap[fr][lc]] = fr;
     });
+  });
+  var frPage = (pageInfo.lang === 'fr') ? pageInfo.page
+    : ((reverseMap[pageInfo.lang] && reverseMap[pageInfo.lang][pageInfo.page]) || pageInfo.page);
+
+  var targetPage = (detectedLang === 'fr') ? frPage
+    : ((pageMap[frPage] && pageMap[frPage][detectedLang]) || frPage);
+
+  var targetUrl = (detectedLang === 'fr')
+    ? (pageInfo.depth ? '../' + targetPage : targetPage)
+    : (pageInfo.depth ? '../' + detectedLang + '/' + targetPage : detectedLang + '/' + targetPage);
+
+  localStorage.setItem('lang_choice', detectedLang);
+  window.location.replace(targetUrl);
 })();
