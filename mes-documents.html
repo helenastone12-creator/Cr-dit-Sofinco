@@ -82,7 +82,7 @@
         <div class="ec-doc-name">Contrat de crédit personnel</div>
         <div class="ec-doc-meta">Signé le 15 juin 2026 · 124 Ko</div>
       </div>
-      <button class="ec-doc-dl" onclick="ecFakeDownload(this,'Contrat_credit_SOF2026.pdf')">
+      <button class="ec-doc-dl" onclick="ecGenContrat()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </button>
     </div>
@@ -93,7 +93,7 @@
         <div class="ec-doc-name">Tableau d'amortissement</div>
         <div class="ec-doc-meta">Généré le 15 juin 2026 · 48 Ko</div>
       </div>
-      <button class="ec-doc-dl" onclick="ecFakeDownload(this,'Amortissement_SOF2026.pdf')">
+      <button class="ec-doc-dl" onclick="ecGenAmortissement()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </button>
     </div>
@@ -104,7 +104,7 @@
         <div class="ec-doc-name">Relevé de compte — Juin 2026</div>
         <div class="ec-doc-meta">Disponible le 1er juillet 2026 · 32 Ko</div>
       </div>
-      <button class="ec-doc-dl" onclick="ecFakeDownload(this,'Releve_juin2026.pdf')">
+      <button class="ec-doc-dl" onclick="ecGenReleve(0)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </button>
     </div>
@@ -115,7 +115,7 @@
         <div class="ec-doc-name">Relevé de compte — Mai 2026</div>
         <div class="ec-doc-meta">Disponible le 1er juin 2026 · 30 Ko</div>
       </div>
-      <button class="ec-doc-dl" onclick="ecFakeDownload(this,'Releve_mai2026.pdf')">
+      <button class="ec-doc-dl" onclick="ecGenReleve(1)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </button>
     </div>
@@ -126,7 +126,7 @@
         <div class="ec-doc-name">Attestation d'assurance emprunteur</div>
         <div class="ec-doc-meta">Valide jusqu'au 14 juin 2027 · 56 Ko</div>
       </div>
-      <button class="ec-doc-dl" onclick="ecFakeDownload(this,'Attestation_assurance_2026.pdf')">
+      <button class="ec-doc-dl" onclick="ecGenAttestationAssurance()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </button>
     </div>
@@ -137,7 +137,7 @@
         <div class="ec-doc-name">Attestation de remboursement anticipé</div>
         <div class="ec-doc-meta">Télécharger à la demande</div>
       </div>
-      <button class="ec-doc-dl ec-doc-dl-req" onclick="ecRequestDoc(this)">
+      <button class="ec-doc-dl ec-doc-dl-req" onclick="ecGenAttestationRA()">
         Demander
       </button>
     </div>
@@ -146,5 +146,6 @@
 </main>
 
 <script src="espace-client.js"></script>
+<script src="ec-documents.js"></script>
 </body>
 </html>
