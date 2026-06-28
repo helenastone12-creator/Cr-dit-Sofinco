@@ -94,7 +94,9 @@ function ecRegister(){
   if(errEl) errEl.style.display='none';
   if(btn){ btn.textContent='Création…'; btn.disabled=true; }
 
+  var uid = 'USR-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,6).toUpperCase();
   var user={
+    id: uid,
     prenom:prenom.trim(), nom:nom.trim(),
     email:email.trim().toLowerCase(), tel:tel.trim(),
     ref:ref.trim().toUpperCase(), pwd:pwd,

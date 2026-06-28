@@ -240,6 +240,7 @@
     </div>
     <div class="pf-name" id="pf-name">—</div>
     <div class="pf-email" id="pf-email">—</div>
+    <div style="font-size:.72rem;font-family:monospace;color:var(--muted);margin-top:.2rem" id="pf-hero-id"></div>
     <div class="pf-badge">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
       Compte vérifié
@@ -442,6 +443,10 @@
 
     <!-- Lignes d'info -->
     <div class="pf-info-list">
+      <div class="pf-info-row">
+        <span class="pf-info-lbl">Identifiant</span>
+        <span class="pf-info-val" id="pf-ro-id" style="font-family:monospace;font-size:.82rem;color:var(--muted)">—</span>
+      </div>
       <div class="pf-info-row">
         <span class="pf-info-lbl">Prénom</span>
         <span class="pf-info-val" id="pf-ro-prenom">—</span>
@@ -694,12 +699,21 @@ function pfInit(){
     avatarEl.textContent = initials;
   }
 
+  // Générer un ID si l'ancien compte n'en a pas
+  if(!user.id){
+    user.id = 'USR-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,6).toUpperCase();
+    ecSetUser(user);
+  }
+
   // Hero
   var fullName = ((user.prenom||'')+' '+(user.nom||'')).trim();
   document.getElementById('pf-name').textContent  = fullName||'Mon compte';
   document.getElementById('pf-email').textContent = user.email||'—';
+  var heroId = document.getElementById('pf-hero-id');
+  if(heroId) heroId.textContent = user.id;
 
   // Modal lecture seule — coordonnées de la demande
+  document.getElementById('pf-ro-id').textContent    = user.id||'—';
   document.getElementById('pf-ro-prenom').textContent = user.prenom||'Non renseigné';
   document.getElementById('pf-ro-nom').textContent    = user.nom||'Non renseigné';
   document.getElementById('pf-ro-email').textContent  = user.email||'Non renseigné';
