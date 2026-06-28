@@ -1771,12 +1771,13 @@ function sp5Submit(){
   var langCountryDefault = { fr:'FR', en:'GB', de:'DE', es:'ES', it:'IT', nl:'NL', pl:'PL', sv:'SE' };
   applyFormData(langCountryDefault[pageInfo.lang] || 'FR');
 
-  // Refine form placeholders via IP (async, no redirect)
-  fetch('https://ipapi.co/json/')
+  // Detect visitor country via IP (free, unlimited) — fallback to lang default
+  fetch('https://ipwho.is/')
     .then(function(r){ return r.json(); })
     .then(function(data){
-      var c = data.country_code || '';
-      if(FORM_DATA[c]) applyFormData(c);
+      var c = (data.country_code || '').toUpperCase();
+      // Only apply if country is in our European list
+      if(FORM_DATA[c] || TEL_LENGTH[c]) applyFormData(c);
     })
     .catch(function(){});
 
