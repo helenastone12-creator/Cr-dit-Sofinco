@@ -233,10 +233,10 @@
   <div class="pf-hero">
     <div class="pf-avatar-wrap">
       <div class="pf-avatar" id="pf-avatar">J</div>
-      <label class="pf-photo-btn" for="pf-photo-input" title="Changer la photo">
+      <button class="pf-photo-btn" type="button" title="Changer la photo" onclick="document.getElementById('pf-photo-input').click()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      </label>
-      <input type="file" id="pf-photo-input" accept="image/*" style="display:none" onchange="pfUploadPhoto(this)"/>
+      </button>
+      <input type="file" id="pf-photo-input" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;" onchange="pfUploadPhoto(this)"/>
     </div>
     <div class="pf-name" id="pf-name">—</div>
     <div class="pf-email" id="pf-email">—</div>
@@ -665,11 +665,12 @@ function pfToast(msg){
 
 function pfInit(){
   ecGuard();
-  ecInitHeader();
   var user = ecGetUser();
-  if(!user) return;
+  if(!user){ window.location.href='connexion.html'; return; }
 
-  // Photo ou initiales
+  ecInitHeader();
+
+  // Photo ou initiales dans le hero
   var avatarEl = document.getElementById('pf-avatar');
   var photo = localStorage.getItem('ec_photo');
   if(photo){
@@ -680,23 +681,24 @@ function pfInit(){
   }
 
   // Hero
-  document.getElementById('pf-name').textContent = ((user.prenom||'')+' '+(user.nom||'')).trim()||'—';
+  var fullName = ((user.prenom||'')+' '+(user.nom||'')).trim();
+  document.getElementById('pf-name').textContent  = fullName||'Mon compte';
   document.getElementById('pf-email').textContent = user.email||'—';
 
-  // Modal lecture seule
-  document.getElementById('pf-ro-prenom').textContent = user.prenom||'—';
-  document.getElementById('pf-ro-nom').textContent    = user.nom||'—';
-  document.getElementById('pf-ro-email').textContent  = user.email||'—';
-  document.getElementById('pf-ro-tel').textContent    = user.tel||'—';
-  document.getElementById('pf-ro-ref').textContent    = user.ref||'—';
-  var iban = user.iban||'—';
-  document.getElementById('pf-ro-iban').textContent   = iban !== '—' ? iban.substring(0,8)+'••••' : '—';
+  // Modal lecture seule — coordonnées de la demande
+  document.getElementById('pf-ro-prenom').textContent = user.prenom||'Non renseigné';
+  document.getElementById('pf-ro-nom').textContent    = user.nom||'Non renseigné';
+  document.getElementById('pf-ro-email').textContent  = user.email||'Non renseigné';
+  document.getElementById('pf-ro-tel').textContent    = user.tel||'Non renseigné';
+  document.getElementById('pf-ro-ref').textContent    = user.ref||'Non renseigné';
+  var iban = user.iban||'';
+  document.getElementById('pf-ro-iban').textContent   = iban ? iban.substring(0,8)+'••••' : 'Non renseigné';
 
   // IBAN sous-titre et display
   var ibanSub = document.getElementById('pf-iban-sub');
-  if(ibanSub) ibanSub.textContent = iban !== '—' ? iban.substring(0,8)+'••••' : 'Non renseigné';
+  if(ibanSub) ibanSub.textContent = iban ? iban.substring(0,8)+'••••' : 'Non renseigné';
   var ibanDisplay = document.getElementById('pf-iban-display');
-  if(ibanDisplay) ibanDisplay.textContent = iban;
+  if(ibanDisplay) ibanDisplay.textContent = iban||'—';
 }
 
 function pfUploadPhoto(input){

@@ -628,6 +628,7 @@
   transform:translateY(48px);
   transition:transform .32s cubic-bezier(.22,1,.36,1);
   box-shadow:0 -4px 32px rgba(0,0,0,.1);
+  max-height:90vh;overflow-y:auto;
 }
 .ec-modal-overlay.open .ec-modal-card{ transform:translateY(0); }
 .ec-modal-card--sm{
@@ -767,6 +768,7 @@
   transform:translateY(48px);
   transition:transform .32s cubic-bezier(.22,1,.36,1);
   box-shadow:0 -4px 32px rgba(0,0,0,.1);
+  max-height:90vh;overflow-y:auto;
 }
 .pf-modal-overlay.open .pf-modal-card{ transform:translateY(0); }
 .pf-modal-handle{ width:32px;height:4px;border-radius:2px;background:#E5E7EB;margin:0 auto 1.3rem; }

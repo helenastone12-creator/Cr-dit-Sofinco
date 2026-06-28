@@ -115,10 +115,17 @@ function ecLogout(){
 function ecInitHeader(){
   var user=ecGetUser();
   if(!user) return;
-  var initials=(((user.prenom||'')[0]||'').toUpperCase()+(( user.nom||'')[0]||'').toUpperCase())||'U';
   var av=document.getElementById('ec-hd-avatar');
   var nm=document.getElementById('ec-hd-name');
-  if(av) av.textContent=initials;
+  if(av){
+    var photo=localStorage.getItem('ec_photo');
+    if(photo){
+      av.innerHTML='<img src="'+photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>';
+    } else {
+      var initials=(((user.prenom||'')[0]||'').toUpperCase()+(( user.nom||'')[0]||'').toUpperCase())||'U';
+      av.textContent=initials;
+    }
+  }
   if(nm) nm.textContent=user.prenom||'Mon compte';
 }
 
