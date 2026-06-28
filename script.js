@@ -1729,22 +1729,27 @@ function sp5Submit(){
     }
 
     var scrollY = 0;
+    function preventScroll(e){
+      // Allow scroll inside the list, block everywhere else
+      if(inner.contains(e.target)) return;
+      e.preventDefault();
+    }
     function openPanel(){
       searchInp.value='';
       renderList('');
-      panel.classList.add('open');
       scrollY = window.scrollY;
       document.body.style.position='fixed';
       document.body.style.top='-'+scrollY+'px';
-      document.body.style.left='0';
-      document.body.style.right='0';
+      document.body.style.width='100%';
+      document.addEventListener('touchmove', preventScroll, {passive:false});
+      panel.classList.add('open');
     }
     function closePanel(){
       panel.classList.remove('open');
+      document.removeEventListener('touchmove', preventScroll);
       document.body.style.position='';
       document.body.style.top='';
-      document.body.style.left='';
-      document.body.style.right='';
+      document.body.style.width='';
       window.scrollTo(0, scrollY);
     }
 
