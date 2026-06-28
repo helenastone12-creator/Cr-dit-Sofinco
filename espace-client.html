@@ -100,7 +100,7 @@
     <div class="ec-credit-card-top">
       <div>
         <div class="ec-credit-type" data-i18n="credit_type">Prêt personnel</div>
-        <div class="ec-credit-label">Réf. <span id="ec-credit-ref">SOF-2026-—</span></div>
+        <div class="ec-credit-label"><span data-i18n="credit_ref">Réf.</span> <span id="ec-credit-ref">SOF-2026-—</span></div>
       </div>
       <div class="ec-credit-badge" data-i18n="credit_badge">En cours</div>
     </div>
@@ -204,7 +204,7 @@
 <nav class="ec-bottom-nav">
   <div class="ec-sidebar-brand">
     <a href="index.html" class="ec-sidebar-logo">Solfianza</a>
-    <div class="ec-sidebar-tagline">Espace Client</div>
+    <div class="ec-sidebar-tagline" data-i18n="sidebar_espace">Espace Client</div>
   </div>
   <div class="ec-sidebar-user-card" id="ec-sidebar-user-card">
     <div class="ec-sidebar-avatar" id="ec-sidebar-avatar">J</div>
@@ -257,15 +257,15 @@
     </div>
     <div class="ec-modal-body">
       <div class="ec-form-group">
-        <label class="ec-lbl">Montant à déposer <span class="ec-req">*</span></label>
+        <label class="ec-lbl"><span data-i18n="depot_lbl">Montant à déposer</span> <span class="ec-req">*</span></label>
         <div class="ec-amount-wrap"><input class="ec-inp" id="ec-depot-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div>
       </div>
       <div class="ec-form-group">
-        <label class="ec-lbl">Depuis votre IBAN</label>
+        <label class="ec-lbl" data-i18n="depot_from_iban">Depuis votre IBAN</label>
         <input class="ec-inp" id="ec-depot-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/>
       </div>
       <div class="ec-modal-err" id="ec-depot-err" style="display:none"></div>
-      <button class="ec-btn-primary" onclick="ecConfirmDepot()" style="margin-top:.5rem">Confirmer le dépôt</button>
+      <button class="ec-btn-primary" onclick="ecConfirmDepot()" style="margin-top:.5rem" data-i18n="depot_confirm_btn">Confirmer le dépôt</button>
     </div>
   </div>
 </div>
@@ -279,12 +279,12 @@
       <button class="ec-modal-close" onclick="ecCloseModal('virement')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-modal-body">
-      <div class="ec-form-group"><label class="ec-lbl">Bénéficiaire <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire"/></div>
-      <div class="ec-form-group"><label class="ec-lbl">IBAN destinataire <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/></div>
-      <div class="ec-form-group"><label class="ec-lbl">Montant <span class="ec-req">*</span></label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div></div>
-      <div class="ec-form-group"><label class="ec-lbl">Motif</label><input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..."/></div>
+      <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_beneficiaire">Bénéficiaire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire"/></div>
+      <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_iban_dest">IBAN destinataire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/></div>
+      <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_montant">Montant</span> <span class="ec-req">*</span></label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div></div>
+      <div class="ec-form-group"><label class="ec-lbl" data-i18n="vir_motif">Motif</label><input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..."/></div>
       <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>
-      <button class="ec-btn-primary" onclick="ecConfirmVirement()" style="margin-top:.5rem">Confirmer le virement</button>
+      <button class="ec-btn-primary" onclick="ecConfirmVirement()" style="margin-top:.5rem" data-i18n="vir_confirm_btn">Confirmer le virement</button>
     </div>
   </div>
 </div>
@@ -294,13 +294,13 @@
   <div class="ec-modal-card" onclick="event.stopPropagation()">
     <div class="ec-modal-handle"></div>
     <div class="ec-modal-header">
-      <span class="ec-modal-title">Convertir une devise</span>
+      <span class="ec-modal-title" data-i18n="conv_title">Convertir une devise</span>
       <button class="ec-modal-close" onclick="ecCloseModal('convert')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-modal-body">
       <div class="ec-convert-row">
-        <div class="ec-form-group" style="flex:1"><label class="ec-lbl">Montant (€)</label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-conv-amt" type="number" min="0" placeholder="0,00" oninput="ecConvert()"/><span class="ec-amount-euro">€</span></div></div>
-        <div class="ec-form-group" style="flex:1"><label class="ec-lbl">Vers</label>
+        <div class="ec-form-group" style="flex:1"><label class="ec-lbl" data-i18n="conv_montant">Montant (€)</label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-conv-amt" type="number" min="0" placeholder="0,00" oninput="ecConvert()"/><span class="ec-amount-euro">€</span></div></div>
+        <div class="ec-form-group" style="flex:1"><label class="ec-lbl" data-i18n="conv_vers">Vers</label>
           <select class="ec-inp" id="ec-conv-currency" onchange="ecConvert()">
             <option value="GBP">🇬🇧 Livre (GBP)</option><option value="CHF">🇨🇭 Franc suisse (CHF)</option>
             <option value="SEK">🇸🇪 Couronne SE (SEK)</option><option value="NOK">🇳🇴 Couronne NO (NOK)</option>
@@ -312,11 +312,11 @@
         </div>
       </div>
       <div class="ec-convert-result">
-        <div class="ec-conv-res-lbl">Résultat estimé</div>
+        <div class="ec-conv-res-lbl" data-i18n="conv_result_lbl">Résultat estimé</div>
         <div class="ec-conv-res-amt" id="ec-conv-res-amt">—</div>
         <div class="ec-conv-res-rate" id="ec-conv-res-rate"></div>
       </div>
-      <div class="ec-conv-note">Taux indicatifs (BCE). Non contractuels.</div>
+      <div class="ec-conv-note" data-i18n="conv_note">Taux indicatifs (BCE). Non contractuels.</div>
     </div>
   </div>
 </div>
@@ -367,11 +367,11 @@
         <div class="ec-remb-row ec-remb-row--total"><span class="ec-remb-lbl" data-i18n="remb_total">Total à verser</span><span class="ec-remb-val" id="ec-remb-total">—</span></div>
       </div>
       <div class="ec-remb-note">
-        L'IRA est plafonnée à 6 mois d'intérêts ou 3% du capital restant (Loi Lagarde — Art. L312-34 C. conso.). Pour finaliser, contactez votre conseiller.
+        <span data-i18n="remb_ira_note">L'IRA est plafonnée à 6 mois d'intérêts ou 3% du capital restant (Loi Lagarde — Art. L312-34 C. conso.). Pour finaliser, contactez votre conseiller.</span>
       </div>
       <a href="messagerie.html" class="ec-btn-primary" style="margin-top:1rem;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.5rem" onclick="ecCloseModal('remb')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Contacter mon conseiller
+        <span data-i18n="remb_contact_btn">Contacter mon conseiller</span>
       </a>
     </div>
   </div>
@@ -386,7 +386,7 @@
       <button class="ec-modal-close" onclick="ecCloseModal('alertes')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-notif-list" id="ec-notif-list">
-      <div class="ec-notif-empty">Aucune nouvelle notification.</div>
+      <div class="ec-notif-empty" data-i18n="notif_none">Aucune nouvelle notification.</div>
     </div>
   </div>
 </div>
@@ -396,17 +396,17 @@
   <div class="ec-modal-card" onclick="event.stopPropagation()">
     <div class="ec-modal-handle"></div>
     <div class="ec-modal-header">
-      <span class="ec-modal-title">Détail de l'opération</span>
+      <span class="ec-modal-title" data-i18n="tx_detail_title">Détail de l'opération</span>
       <button class="ec-modal-close" onclick="ecCloseModal('tx')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-tx-detail">
       <div class="ec-tx-d-amt" id="ec-tx-d-amt">—</div>
       <div class="ec-tx-d-status" id="ec-tx-d-status"></div>
       <div class="ec-tx-d-rows">
-        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Libellé</span><span class="ec-tx-d-val" id="ec-tx-d-label">—</span></div>
-        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Type</span><span class="ec-tx-d-val" id="ec-tx-d-type">—</span></div>
-        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Date</span><span class="ec-tx-d-val" id="ec-tx-d-date">—</span></div>
-        <div class="ec-tx-d-row" style="border-bottom:none"><span class="ec-tx-d-lbl">Référence</span><span class="ec-tx-d-val ec-tx-d-mono" id="ec-tx-d-ref">—</span></div>
+        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl" data-i18n="tx_detail_label">Libellé</span><span class="ec-tx-d-val" id="ec-tx-d-label">—</span></div>
+        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl" data-i18n="tx_detail_type">Type</span><span class="ec-tx-d-val" id="ec-tx-d-type">—</span></div>
+        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl" data-i18n="tx_detail_date">Date</span><span class="ec-tx-d-val" id="ec-tx-d-date">—</span></div>
+        <div class="ec-tx-d-row" style="border-bottom:none"><span class="ec-tx-d-lbl" data-i18n="tx_detail_ref">Référence</span><span class="ec-tx-d-val ec-tx-d-mono" id="ec-tx-d-ref">—</span></div>
       </div>
     </div>
   </div>
@@ -418,9 +418,9 @@
     <div class="ec-success-ico">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
-    <div class="ec-success-title" id="ec-success-title">Opération réussie</div>
+    <div class="ec-success-title" id="ec-success-title" data-i18n="success_title">Opération réussie</div>
     <div class="ec-success-msg" id="ec-success-msg"></div>
-    <button class="ec-btn-primary" onclick="ecCloseModal('success')" style="margin-top:1.4rem">Fermer</button>
+    <button class="ec-btn-primary" onclick="ecCloseModal('success')" style="margin-top:1.4rem" data-i18n="btn_close">Fermer</button>
   </div>
 </div>
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mon profil — Espace client Solfianza</title>
+  <title data-i18n="profil_title">Mon profil — Espace client Solfianza</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/></noscript>
@@ -210,7 +210,7 @@
   </div>
   <button class="ec-hd-logout" onclick="ecLogout()">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-    Déconnexion
+    <span data-i18n="pf_logout_btn">Déconnexion</span>
   </button>
 </header>
 
@@ -230,20 +230,20 @@
     <div style="font-size:.72rem;font-family:monospace;color:var(--muted);margin-top:.2rem" id="pf-hero-id"></div>
     <div class="pf-badge">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      Compte vérifié
+      <span data-i18n="pf_verified_badge">Compte vérifié</span>
     </div>
   </div>
 
   <!-- COMPTE -->
-  <div class="pf-section-lbl">Compte</div>
+  <div class="pf-section-lbl" data-i18n="pf_compte_lbl">Compte</div>
   <div class="pf-group">
     <button class="pf-item" onclick="pfOpenModal('profil')">
       <div class="pf-item-ico pf-item-ico--teal">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Votre profil</div>
-        <div class="pf-item-sub">Nom, prénom, téléphone</div>
+        <div class="pf-item-label" data-i18n="pf_profile_label">Votre profil</div>
+        <div class="pf-item-sub" data-i18n="pf_profile_sub">Nom, prénom, téléphone</div>
       </div>
       <div class="pf-item-right">
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -254,10 +254,10 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Vérification du compte</div>
+        <div class="pf-item-label" data-i18n="pf_verif_label">Vérification du compte</div>
       </div>
       <div class="pf-item-right">
-        <span class="pf-tag pf-tag--green">Vérifié</span>
+        <span class="pf-tag pf-tag--green" data-i18n="pf_verified">Vérifié</span>
       </div>
     </button>
     <button class="pf-item" onclick="pfOpenModal('notif')">
@@ -265,26 +265,26 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Notifications</div>
-        <div class="pf-item-sub">Email, alertes de compte</div>
+        <div class="pf-item-label" data-i18n="pf_notif_label">Notifications</div>
+        <div class="pf-item-sub" data-i18n="pf_notif_sub">Email, alertes de compte</div>
       </div>
       <div class="pf-item-right">
-        <span class="pf-tag pf-tag--green">Activées</span>
+        <span class="pf-tag pf-tag--green" data-i18n="pf_enabled">Activées</span>
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
     </button>
   </div>
 
   <!-- FINANCES -->
-  <div class="pf-section-lbl">Finances</div>
+  <div class="pf-section-lbl" data-i18n="pf_section_finances">Finances</div>
   <div class="pf-group">
     <button class="pf-item" onclick="pfOpenModal('limites')">
       <div class="pf-item-ico pf-item-ico--orange">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Limites de transaction</div>
-        <div class="pf-item-sub">Dépôt max. 10 000 € / Virement max. 5 000 €</div>
+        <div class="pf-item-label" data-i18n="pf_limits_label">Limites de transaction</div>
+        <div class="pf-item-sub" data-i18n="pf_limits_sub">Dépôt max. 10 000 € / Virement max. 5 000 €</div>
       </div>
       <div class="pf-item-right">
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -295,7 +295,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Mon IBAN</div>
+        <div class="pf-item-label" data-i18n="pf_iban_label">Mon IBAN</div>
         <div class="pf-item-sub" id="pf-iban-sub">—</div>
       </div>
       <div class="pf-item-right">
@@ -305,14 +305,14 @@
   </div>
 
   <!-- SÉCURITÉ -->
-  <div class="pf-section-lbl">Sécurité</div>
+  <div class="pf-section-lbl" data-i18n="pf_section_securite">Sécurité</div>
   <div class="pf-group">
     <button class="pf-item" onclick="pfOpenModal('pwd')">
       <div class="pf-item-ico pf-item-ico--blue">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Changer le mot de passe</div>
+        <div class="pf-item-label" data-i18n="pf_pwd_label">Changer le mot de passe</div>
       </div>
       <div class="pf-item-right">
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -323,10 +323,10 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Authentification à deux facteurs</div>
+        <div class="pf-item-label" data-i18n="pf_2fa_label">Authentification à deux facteurs</div>
       </div>
       <div class="pf-item-right">
-        <span class="pf-tag pf-tag--orange">Inactif</span>
+        <span class="pf-tag pf-tag--orange" data-i18n="pf_inactive">Inactif</span>
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
     </button>
@@ -335,8 +335,8 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Appareils et sessions</div>
-        <div class="pf-item-sub">1 session active</div>
+        <div class="pf-item-label" data-i18n="pf_sessions_label">Appareils et sessions</div>
+        <div class="pf-item-sub" data-i18n="pf_sessions_sub">1 session active</div>
       </div>
       <div class="pf-item-right">
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -345,14 +345,14 @@
   </div>
 
   <!-- AUTRES -->
-  <div class="pf-section-lbl">Autres</div>
+  <div class="pf-section-lbl" data-i18n="pf_section_autres">Autres</div>
   <div class="pf-group">
     <a href="nous-contacter.html" class="pf-item">
       <div class="pf-item-ico pf-item-ico--teal">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Contacter le support</div>
+        <div class="pf-item-label" data-i18n="pf_support_label">Contacter le support</div>
       </div>
       <div class="pf-item-right">
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -363,7 +363,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Mentions légales</div>
+        <div class="pf-item-label" data-i18n="pf_legal_label">Mentions légales</div>
       </div>
       <div class="pf-item-right">
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -374,7 +374,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Politique de confidentialité</div>
+        <div class="pf-item-label" data-i18n="pf_privacy_label">Politique de confidentialité</div>
       </div>
       <div class="pf-item-right">
         <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -385,7 +385,7 @@
   <!-- Déconnexion -->
   <button class="pf-logout" onclick="ecLogout()">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-    Se déconnecter
+    <span data-i18n="pf_logout_btn">Se déconnecter</span>
   </button>
 
 </main>
@@ -394,19 +394,19 @@
 <nav class="ec-bottom-nav">
   <a href="espace-client.html" class="ec-bnav-link">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Accueil<div class="ec-bnav-dot"></div>
+    <span data-i18n="nav_accueil">Accueil</span><div class="ec-bnav-dot"></div>
   </a>
   <a href="mes-documents.html" class="ec-bnav-link">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-    Documents<div class="ec-bnav-dot"></div>
+    <span data-i18n="nav_documents">Documents</span><div class="ec-bnav-dot"></div>
   </a>
   <a href="suivi-dossier.html" class="ec-bnav-link">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    Suivi<div class="ec-bnav-dot"></div>
+    <span data-i18n="nav_suivi_short">Suivi</span><div class="ec-bnav-dot"></div>
   </a>
   <a href="profil.html" class="ec-bnav-link active">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-    Plus<div class="ec-bnav-dot"></div>
+    <span data-i18n="nav_plus">Plus</span><div class="ec-bnav-dot"></div>
   </a>
 </nav>
 
@@ -416,7 +416,7 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Mes informations</span>
+      <span class="pf-modal-title" data-i18n="pf_modal_infos_title">Mes informations</span>
       <button class="pf-modal-close" onclick="pfCloseModal('profil')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -425,37 +425,37 @@
     <!-- Bandeau info lecture seule -->
     <div class="pf-readonly-banner">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Ces informations sont celles fournies lors de votre demande de crédit. Elles ne peuvent pas être modifiées directement.
+      <span data-i18n="pf_readonly_msg">Ces informations sont celles fournies lors de votre demande de crédit. Elles ne peuvent pas être modifiées directement.</span>
     </div>
 
     <!-- Lignes d'info -->
     <div class="pf-info-list">
       <div class="pf-info-row">
-        <span class="pf-info-lbl">Identifiant</span>
+        <span class="pf-info-lbl" data-i18n="pf_lbl_id">Identifiant</span>
         <span class="pf-info-val" id="pf-ro-id" style="font-family:monospace;font-size:.82rem;color:var(--muted)">—</span>
       </div>
       <div class="pf-info-row">
-        <span class="pf-info-lbl">Prénom</span>
+        <span class="pf-info-lbl" data-i18n="pf_lbl_prenom">Prénom</span>
         <span class="pf-info-val" id="pf-ro-prenom">—</span>
       </div>
       <div class="pf-info-row">
-        <span class="pf-info-lbl">Nom</span>
+        <span class="pf-info-lbl" data-i18n="pf_lbl_nom">Nom</span>
         <span class="pf-info-val" id="pf-ro-nom">—</span>
       </div>
       <div class="pf-info-row">
-        <span class="pf-info-lbl">Email</span>
+        <span class="pf-info-lbl" data-i18n="pf_lbl_email">Email</span>
         <span class="pf-info-val" id="pf-ro-email">—</span>
       </div>
       <div class="pf-info-row">
-        <span class="pf-info-lbl">Téléphone</span>
+        <span class="pf-info-lbl" data-i18n="pf_lbl_tel">Téléphone</span>
         <span class="pf-info-val" id="pf-ro-tel">—</span>
       </div>
       <div class="pf-info-row">
-        <span class="pf-info-lbl">N° dossier</span>
+        <span class="pf-info-lbl" data-i18n="pf_lbl_dossier">N° dossier</span>
         <span class="pf-info-val" id="pf-ro-ref">—</span>
       </div>
       <div class="pf-info-row" style="border-bottom:none">
-        <span class="pf-info-lbl">IBAN</span>
+        <span class="pf-info-lbl" data-i18n="pf_lbl_iban">IBAN</span>
         <span class="pf-info-val" id="pf-ro-iban">—</span>
       </div>
     </div>
@@ -463,7 +463,7 @@
     <!-- Bouton contact -->
     <a href="nous-contacter.html" class="pf-contact-modify">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Contacter le service clientèle pour modifier
+      <span data-i18n="pf_contact_modify">Contacter le service clientèle pour modifier</span>
     </a>
   </div>
 </div>
@@ -473,11 +473,11 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Changer le mot de passe</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('pwd')">✕</button>
+      <span class="pf-modal-title" data-i18n="pf_pwd_title">Changer le mot de passe</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('pwd')" data-i18n="btn_close">✕</button>
     </div>
     <div class="ec-form-group">
-      <label class="ec-lbl">Mot de passe actuel</label>
+      <label class="ec-lbl" data-i18n="pf_pwd_current">Mot de passe actuel</label>
       <div class="ec-pwd-wrap">
         <input class="ec-inp" id="pf-pwd-old" type="password" placeholder="••••••••"/>
         <button class="ec-eye-btn" type="button" onclick="ecTogglePwd('pf-pwd-old',this)">
@@ -486,7 +486,7 @@
       </div>
     </div>
     <div class="ec-form-group">
-      <label class="ec-lbl">Nouveau mot de passe</label>
+      <label class="ec-lbl" data-i18n="pf_pwd_new">Nouveau mot de passe</label>
       <div class="ec-pwd-wrap">
         <input class="ec-inp" id="pf-pwd-new" type="password" placeholder="••••••••"/>
         <button class="ec-eye-btn" type="button" onclick="ecTogglePwd('pf-pwd-new',this)">
@@ -495,11 +495,11 @@
       </div>
     </div>
     <div class="ec-form-group">
-      <label class="ec-lbl">Confirmer</label>
+      <label class="ec-lbl" data-i18n="pf_pwd_confirm">Confirmer</label>
       <input class="ec-inp" id="pf-pwd-confirm" type="password" placeholder="••••••••"/>
     </div>
     <div class="ec-form-err" id="pf-pwd-err" style="display:none"></div>
-    <button class="ec-btn-primary" onclick="pfSavePwd()" style="margin-top:.5rem">Mettre à jour</button>
+    <button class="ec-btn-primary" onclick="pfSavePwd()" style="margin-top:.5rem" data-i18n="pf_pwd_update_btn">Mettre à jour</button>
   </div>
 </div>
 
@@ -508,33 +508,33 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Limites de transaction</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('limites')">✕</button>
+      <span class="pf-modal-title" data-i18n="pf_lim_title">Limites de transaction</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('limites')" data-i18n="btn_close">✕</button>
     </div>
     <div style="display:flex;flex-direction:column;gap:.8rem;margin-bottom:1rem">
       <div style="background:#f8f9fb;border-radius:12px;padding:1rem 1.1rem;display:flex;justify-content:space-between">
         <div>
-          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem">Dépôt maximum</div>
+          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem" data-i18n="pf_lim_depot">Dépôt maximum</div>
           <div style="font-size:1.1rem;font-weight:800;color:var(--navy)">10 000 € / opération</div>
         </div>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </div>
       <div style="background:#f8f9fb;border-radius:12px;padding:1rem 1.1rem;display:flex;justify-content:space-between">
         <div>
-          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem">Virement maximum</div>
+          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem" data-i18n="pf_lim_virement">Virement maximum</div>
           <div style="font-size:1.1rem;font-weight:800;color:var(--navy)">5 000 € / opération</div>
         </div>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </div>
       <div style="background:#f8f9fb;border-radius:12px;padding:1rem 1.1rem;display:flex;justify-content:space-between">
         <div>
-          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem">Mensuel cumulé</div>
+          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem" data-i18n="pf_lim_mensuel">Mensuel cumulé</div>
           <div style="font-size:1.1rem;font-weight:800;color:var(--navy)">50 000 € / mois</div>
         </div>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
     </div>
-    <p style="font-size:.78rem;color:var(--ec-muted);text-align:center;line-height:1.5">Pour augmenter vos limites, contactez notre équipe.</p>
+    <p style="font-size:.78rem;color:var(--ec-muted);text-align:center;line-height:1.5" data-i18n="pf_lim_contact">Pour augmenter vos limites, contactez notre équipe.</p>
   </div>
 </div>
 
@@ -543,20 +543,20 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Appareils et sessions</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('sessions')">✕</button>
+      <span class="pf-modal-title" data-i18n="pf_sess_title">Appareils et sessions</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('sessions')" data-i18n="btn_close">✕</button>
     </div>
     <div style="background:#f0fff4;border:1.5px solid rgba(39,174,96,.2);border-radius:12px;padding:1rem 1.1rem;display:flex;gap:.8rem;align-items:center;margin-bottom:1rem">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       <div>
-        <div style="font-size:.88rem;font-weight:700;color:var(--navy)">Session actuelle</div>
-        <div style="font-size:.75rem;color:var(--ec-muted)" id="pf-session-info">Ce navigateur · Actif maintenant</div>
+        <div style="font-size:.88rem;font-weight:700;color:var(--navy)" data-i18n="pf_sess_current">Session actuelle</div>
+        <div style="font-size:.75rem;color:var(--ec-muted)" id="pf-session-info" data-i18n="pf_sess_browser">Ce navigateur · Actif maintenant</div>
       </div>
-      <span style="margin-left:auto;font-size:.7rem;font-weight:800;background:#f0fff4;color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:2rem;padding:.2rem .6rem">Actif</span>
+      <span style="margin-left:auto;font-size:.7rem;font-weight:800;background:#f0fff4;color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:2rem;padding:.2rem .6rem" data-i18n="pf_sess_active">Actif</span>
     </div>
     <button class="pf-logout" onclick="ecLogout()" style="margin-top:0">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      Déconnecter toutes les sessions
+      <span data-i18n="pf_sess_logout_all">Déconnecter toutes les sessions</span>
     </button>
   </div>
 </div>
@@ -566,14 +566,14 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Vérification du compte</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('verif')">✕</button>
+      <span class="pf-modal-title" data-i18n="pf_verif_title">Vérification du compte</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('verif')" data-i18n="btn_close">✕</button>
     </div>
     <div style="text-align:center;padding:1.5rem 0">
       <div style="width:60px;height:60px;border-radius:50%;background:#f0fff4;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <div style="font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem">Identité vérifiée</div>
+      <div style="font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem" data-i18n="pf_verif_ok">Identité vérifiée</div>
       <div style="font-size:.85rem;color:var(--ec-muted);line-height:1.5">Votre compte est vérifié et sécurisé.<br/>Aucune action requise.</div>
     </div>
   </div>
@@ -583,24 +583,24 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Notifications</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('notif')">✕</button>
+      <span class="pf-modal-title" data-i18n="pf_notif_title">Notifications</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('notif')" data-i18n="btn_close">✕</button>
     </div>
     <div style="display:flex;flex-direction:column;gap:.6rem">
       <div style="display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid #f0f2f5">
-        <span style="font-size:.9rem;font-weight:600;color:var(--navy)">Alertes de compte</span>
-        <span style="font-size:.75rem;font-weight:800;color:#27ae60">Activées</span>
+        <span style="font-size:.9rem;font-weight:600;color:var(--navy)" data-i18n="pf_notif_alertes">Alertes de compte</span>
+        <span style="font-size:.75rem;font-weight:800;color:#27ae60" data-i18n="pf_enabled">Activées</span>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid #f0f2f5">
-        <span style="font-size:.9rem;font-weight:600;color:var(--navy)">Confirmations email</span>
-        <span style="font-size:.75rem;font-weight:800;color:#27ae60">Activées</span>
+        <span style="font-size:.9rem;font-weight:600;color:var(--navy)" data-i18n="pf_notif_email">Confirmations email</span>
+        <span style="font-size:.75rem;font-weight:800;color:#27ae60" data-i18n="pf_enabled">Activées</span>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:.8rem 0">
-        <span style="font-size:.9rem;font-weight:600;color:var(--navy)">Rappels échéances</span>
-        <span style="font-size:.75rem;font-weight:800;color:#27ae60">Activées</span>
+        <span style="font-size:.9rem;font-weight:600;color:var(--navy)" data-i18n="pf_notif_rappels">Rappels échéances</span>
+        <span style="font-size:.75rem;font-weight:800;color:#27ae60" data-i18n="pf_enabled">Activées</span>
       </div>
     </div>
-    <p style="font-size:.76rem;color:var(--ec-muted);margin-top:1rem;line-height:1.5;text-align:center">La gestion avancée des notifications sera disponible prochainement.</p>
+    <p style="font-size:.76rem;color:var(--ec-muted);margin-top:1rem;line-height:1.5;text-align:center" data-i18n="pf_notif_soon">La gestion avancée des notifications sera disponible prochainement.</p>
   </div>
 </div>
 
@@ -608,15 +608,15 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Authentification à deux facteurs</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('2fa')">✕</button>
+      <span class="pf-modal-title" data-i18n="pf_2fa_title">Authentification à deux facteurs</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('2fa')" data-i18n="btn_close">✕</button>
     </div>
     <div style="text-align:center;padding:1rem 0">
       <div style="width:60px;height:60px;border-radius:50%;background:#f0f4ff;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
-      <div style="font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem">2FA bientôt disponible</div>
-      <div style="font-size:.85rem;color:var(--ec-muted);line-height:1.5">Cette fonctionnalité sera activée prochainement pour renforcer la sécurité de votre compte.</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem" data-i18n="pf_2fa_soon">2FA bientôt disponible</div>
+      <div style="font-size:.85rem;color:var(--ec-muted);line-height:1.5" data-i18n="pf_2fa_msg">Cette fonctionnalité sera activée prochainement pour renforcer la sécurité de votre compte.</div>
     </div>
   </div>
 </div>
@@ -625,14 +625,14 @@
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Mon IBAN</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('iban')">✕</button>
+      <span class="pf-modal-title" data-i18n="pf_iban_title">Mon IBAN</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('iban')" data-i18n="btn_close">✕</button>
     </div>
     <div style="background:#f8f9fb;border-radius:14px;padding:1.2rem;text-align:center;margin-bottom:1rem">
-      <div style="font-size:.72rem;font-weight:700;color:var(--ec-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">IBAN enregistré</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--ec-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem" data-i18n="pf_iban_registered">IBAN enregistré</div>
       <div style="font-size:1rem;font-weight:800;color:var(--navy);letter-spacing:.04em;word-break:break-all" id="pf-iban-display">—</div>
     </div>
-    <button class="ec-btn-primary" onclick="pfCopyIban()">Copier l'IBAN</button>
+    <button class="ec-btn-primary" onclick="pfCopyIban()" data-i18n="pf_iban_copy_btn">Copier l'IBAN</button>
   </div>
 </div>
 
