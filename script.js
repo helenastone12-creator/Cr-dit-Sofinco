@@ -1685,17 +1685,38 @@ function sp5Submit(){
     trigger.className='nat-trigger';
     trigger.innerHTML = '<span class="nat-trigger-label">'+(sel.options[0]?sel.options[0].text:'...')+'</span><svg class="nat-chev" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="#999" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>';
 
+    var titleLabel = {fr:'Choisir la nationalité',en:'Choose nationality',de:'Staatsangehörigkeit',es:'Elegir nacionalidad',it:'Scegli nazionalità',nl:'Kies nationaliteit',pl:'Wybierz narodowość',sv:'Välj nationalitet'};
+    var searchPlLabel = {fr:'Rechercher un pays...',en:'Search a country...',de:'Land suchen...',es:'Buscar un país...',it:'Cerca un paese...',nl:'Zoek een land...',pl:'Szukaj kraju...',sv:'Sök ett land...'};
+
     var panel = document.createElement('div');
     panel.className='nat-panel';
 
-    var inner = document.createElement('div');
-    inner.className='nat-inner';
+    // Header
+    var header = document.createElement('div');
+    header.className='nat-header';
+    var closeBtn = document.createElement('button');
+    closeBtn.type='button';
+    closeBtn.className='nat-close-btn';
+    closeBtn.innerHTML='<svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 1l6 7 6-7" stroke="#555" stroke-width="2" stroke-linecap="round"/></svg>';
+    var titleEl = document.createElement('span');
+    titleEl.className='nat-title';
+    titleEl.textContent = titleLabel[lang]||'Choose nationality';
+    header.appendChild(closeBtn);
+    header.appendChild(titleEl);
 
+    // Search
+    var searchWrap = document.createElement('div');
+    searchWrap.className='nat-search-wrap';
+    var searchBox = document.createElement('div');
+    searchBox.className='nat-search-box';
+    searchBox.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
     var searchInp = document.createElement('input');
     searchInp.type='text';
     searchInp.className='nat-search';
-    searchInp.placeholder = searchLabel[lang]||'Search...';
+    searchInp.placeholder = searchPlLabel[lang]||'Search...';
     searchInp.autocomplete='off';
+    searchBox.appendChild(searchInp);
+    searchWrap.appendChild(searchBox);
 
     var list = document.createElement('ul');
     list.className='nat-list';
@@ -1762,13 +1783,15 @@ function sp5Submit(){
       if(e.target===panel) closePanel();
     });
 
+    closeBtn.addEventListener('click',function(){ closePanel(); });
+
     searchInp.addEventListener('input',function(){
       renderList(this.value);
     });
 
-    inner.appendChild(searchInp);
-    inner.appendChild(list);
-    panel.appendChild(inner);
+    panel.appendChild(header);
+    panel.appendChild(searchWrap);
+    panel.appendChild(list);
     wrap.appendChild(trigger);
     wrap.appendChild(panel);
     sel.parentNode.insertBefore(wrap,sel);

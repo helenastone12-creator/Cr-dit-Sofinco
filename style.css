@@ -2240,31 +2240,63 @@ body.pg-inner .editorial{background:none}
 }
 .nat-trigger.nat-has-val{color:#0d2748}
 .nat-trigger:focus,.nat-trigger:hover{border-color:#06c2b0}
-/* Nationality modal — same pattern as ft-lang-panel */
+/* Nationality — bottom sheet full screen */
 .nat-panel{
   display:none;position:fixed;inset:0;z-index:9990;
-  background:rgba(0,0,0,.5);
-  align-items:center;justify-content:center;
-  padding:1rem;
-  padding-top:6rem;
+  flex-direction:column;
+  background:#f2f2f7;
 }
 .nat-panel.open{display:flex}
-.nat-inner{
-  background:#fff;border-radius:1.1rem;
-  width:100%;max-width:420px;
-  display:flex;flex-direction:column;overflow:hidden;
-  box-shadow:0 8px 40px rgba(0,0,0,.18);
+.nat-header{
+  display:flex;align-items:center;justify-content:center;
+  padding:1.1rem 1rem .9rem;background:#f2f2f7;
+  position:relative;flex-shrink:0;
 }
+.nat-close-btn{
+  position:absolute;left:1rem;
+  width:36px;height:36px;border-radius:50%;border:none;
+  background:#e5e5ea;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#555;font-size:1.1rem;
+}
+.nat-title{font-size:1rem;font-weight:700;color:#0d2748}
+.nat-search-wrap{
+  padding:.6rem 1rem .8rem;background:#f2f2f7;flex-shrink:0;
+}
+.nat-search-box{
+  display:flex;align-items:center;gap:.55rem;
+  background:#fff;border-radius:12px;padding:.65rem .9rem;
+  border:1px solid #e0e0e0;
+}
+.nat-search-box svg{color:#9ca3af;flex-shrink:0}
 .nat-search{
-  width:100%;box-sizing:border-box;border:none;border-bottom:1px solid #eee;
-  padding:.75rem 1rem;font-size:.95rem;font-family:inherit;outline:none;
-  color:#0d2748;background:#f8fafc;flex-shrink:0;
+  flex:1;border:none;outline:none;font-size:.95rem;
+  font-family:inherit;color:#0d2748;background:transparent;
 }
 .nat-list{
-  list-style:none;margin:0;padding:.4rem 0;
-  overflow-y:auto;
-  max-height:calc(10 * 52px);
+  list-style:none;margin:0;padding:0;
+  overflow-y:auto;flex:1;
+  background:#fff;border-radius:14px;margin:0 1rem 1rem;
 }
+.nat-item{
+  padding:.85rem 1rem;font-size:.95rem;color:#0d2748;
+  cursor:pointer;
+  display:flex;align-items:center;gap:.85rem;
+  border-bottom:1px solid #f0f0f0;
+}
+.nat-item:last-child{border-bottom:none}
+.nat-item:active{background:#f5f5f5}
+.nat-item.nat-sel{background:#edfaf9;font-weight:600;color:#06c2b0}
+.nat-item-label{flex:1}
+.nat-check{flex-shrink:0}
+/* Round flags */
+.nat-flag{
+  width:38px;height:38px;object-fit:cover;
+  border-radius:50%;flex-shrink:0;display:block;
+  border:1px solid rgba(0,0,0,.06);
+}
+.nat-globe{flex-shrink:0;display:block}
+/* Trigger button */
 .nat-trigger{
   width:100%;box-sizing:border-box;display:flex;align-items:center;gap:.55rem;
   border:1.5px solid #ddd;border-radius:10px;
@@ -2276,15 +2308,6 @@ body.pg-inner .editorial{background:none}
 .nat-trigger-label{flex:1;text-align:left;color:#aaa}
 .nat-trigger.nat-has-val .nat-trigger-label{color:#0d2748}
 .nat-chev{flex-shrink:0}
-.nat-flag{width:22px;height:15px;object-fit:cover;border-radius:3px;flex-shrink:0;display:block}
-.nat-globe{flex-shrink:0;display:block}
-.nat-item{
-  padding:.72rem 1rem;font-size:.95rem;color:#0d2748;
-  cursor:pointer;transition:background .1s;
-  display:flex;align-items:center;gap:.75rem;
-}
-.nat-item:hover{background:#edfaf9}
-.nat-item.nat-sel{background:#edfaf9;font-weight:600;color:#06c2b0}
-.nat-item-label{flex:1}
-.nat-check{flex-shrink:0}
-.nat-item svg.nat-check{display:block}
+/* Small flag in trigger */
+.nat-trigger .nat-flag{width:22px;height:22px;border-radius:50%}
+.nat-trigger .nat-globe{width:22px;height:15px}
