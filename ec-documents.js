@@ -57,8 +57,15 @@ function ecDocStyles(){
 
 function ecDocOpen(html){
   var w = window.open('','_blank');
-  w.document.write(html);
-  w.document.close();
+  if(w){
+    w.document.write(html);
+    w.document.close();
+  } else {
+    /* Popup bloqué — fallback data URI */
+    var blob = new Blob([html],{type:'text/html'});
+    var url = URL.createObjectURL(blob);
+    window.location.href = url;
+  }
 }
 
 function ecDocButtons(){
@@ -72,7 +79,7 @@ function ecDocButtons(){
    1. CONTRAT DE CRÉDIT PERSONNEL
 ────────────────────────────────*/
 function ecGenContrat(){
-  var u = ecDocGetUser(); if(!u) return;
+  var u = ecDocGetUser() || {};
   var loan = u.loan || {};
   var montant  = loan.montant    || 0;
   var mens     = loan.mensualite || 0;
@@ -177,7 +184,7 @@ function ecGenContrat(){
    2. TABLEAU D'AMORTISSEMENT
 ────────────────────────────────*/
 function ecGenAmortissement(){
-  var u = ecDocGetUser(); if(!u) return;
+  var u = ecDocGetUser() || {};
   var loan = u.loan || {};
   var capital  = loan.montant    || 0;
   var mens     = loan.mensualite || 0;
@@ -247,7 +254,7 @@ function ecGenAmortissement(){
 ────────────────────────────────*/
 function ecGenReleve(moisOffset){
   moisOffset = moisOffset || 0;
-  var u = ecDocGetUser(); if(!u) return;
+  var u = ecDocGetUser() || {};
   var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
   var d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - moisOffset);
   var moisLabel = d.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
@@ -309,7 +316,7 @@ function ecGenReleve(moisOffset){
    4. ATTESTATION ASSURANCE
 ────────────────────────────────*/
 function ecGenAttestationAssurance(){
-  var u = ecDocGetUser(); if(!u) return;
+  var u = ecDocGetUser() || {};
   var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
   var loan = u.loan || {};
   var dateDebut = ecDocFmt(u.createdAt);
@@ -384,7 +391,7 @@ function ecGenAttestationAssurance(){
    5. ATTESTATION REMBOURSEMENT ANTICIPÉ
 ────────────────────────────────*/
 function ecGenAttestationRA(){
-  var u = ecDocGetUser(); if(!u) return;
+  var u = ecDocGetUser() || {};
   var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
   var loan = u.loan || {};
   var numAtt = 'ATT-RA-'+(u.ref||'SOF').slice(-8)+'-'+new Date().getFullYear();
