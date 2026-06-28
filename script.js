@@ -1561,7 +1561,131 @@ function sp5Submit(){
     'BA':'+387','RS':'+381','ME':'+382','MK':'+389','UA':'+380','MD':'+373','BY':'+375','TR':'+90'
   };
 
+  // Local placeholder without dial prefix
+  var TEL_LOCAL = {
+    'FR':'6 XX XX XX XX','MC':'6X XX XX XX','LU':'6XX XXX XXX','DE':'XXX XXXXXXX',
+    'AT':'XXX XXXXXXX','CH':'XX XXX XX XX','LI':'XXX XXXX','GB':'7XXX XXXXXX',
+    'IE':'8X XXX XXXX','ES':'6XX XXX XXX','IT':'3XX XXX XXXX','NL':'6 XXXX XXXX',
+    'BE':'4XX XX XX XX','PL':'XXX XXX XXX','SE':'7X XXX XX XX','FI':'4X XXX XXXX',
+    'DK':'XX XX XX XX','NO':'4XX XX XXX','PT':'9XX XXX XXX','GR':'6XX XXX XXXX',
+    'CZ':'7XX XXX XXX','SK':'9XX XXX XXX','HU':'XX XXX XXXX','RO':'7XX XXX XXX',
+    'BG':'8XX XXX XXX','HR':'9X XXX XXXX','SI':'XX XXX XXX','EE':'5XXX XXXX',
+    'LV':'2XXX XXXX','LT':'6XX XXXXX','MT':'79XX XXXX','CY':'9X XXX XXX',
+    'IS':'XXX XXXX','AL':'6X XXX XXXX','BA':'6X XXX XXX','RS':'6X XXX XXXX',
+    'ME':'6X XXX XXX','MK':'7X XXX XXX','UA':'XX XXX XXXX','MD':'7X XXX XXX',
+    'BY':'XX XXX XXXX','TR':'5XX XXX XXXX'
+  };
+
+  // Country names for tel picker (use same names as nat dropdown — fr fallback)
+  var TEL_COUNTRY_NAMES = {
+    'FR':'France','DE':'Allemagne','GB':'Royaume-Uni','IT':'Italie','ES':'Espagne',
+    'BE':'Belgique','NL':'Pays-Bas','PT':'Portugal','CH':'Suisse','AT':'Autriche',
+    'PL':'Pologne','SE':'Suède','DK':'Danemark','NO':'Norvège','FI':'Finlande',
+    'IE':'Irlande','GR':'Grèce','CZ':'Rép. tchèque','SK':'Slovaquie','HU':'Hongrie',
+    'RO':'Roumanie','BG':'Bulgarie','HR':'Croatie','SI':'Slovénie','EE':'Estonie',
+    'LV':'Lettonie','LT':'Lituanie','MT':'Malte','CY':'Chypre','LU':'Luxembourg',
+    'MC':'Monaco','LI':'Liechtenstein','IS':'Islande','AL':'Albanie','BA':'Bosnie',
+    'RS':'Serbie','ME':'Monténégro','MK':'Macédoine','UA':'Ukraine','MD':'Moldavie',
+    'BY':'Biélorussie','TR':'Turquie'
+  };
+
   var currentTelCountry = 'FR';
+  var telPickerOpen = false;
+
+  function buildTelPicker(){
+    if(document.getElementById('tel-picker-panel')) return;
+    var lang = (typeof LANG !== 'undefined' ? LANG : 'fr');
+    var titleMap = {fr:'Code pays',en:'Country code',de:'Ländervorwahl',es:'Código de país',it:'Prefisso paese',nl:'Landcode',pl:'Kod kraju',sv:'Landskod'};
+    var searchMap = {fr:'Rechercher...',en:'Search...',de:'Suchen...',es:'Buscar...',it:'Cerca...',nl:'Zoeken...',pl:'Szukaj...',sv:'Sök...'};
+
+    var panel = document.createElement('div');
+    panel.id = 'tel-picker-panel';
+    panel.className = 'nat-panel';
+
+    // Header
+    var hdr = document.createElement('div');
+    hdr.className = 'nat-header';
+    var closeB = document.createElement('button');
+    closeB.type='button'; closeB.className='nat-close-btn';
+    closeB.innerHTML='<svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 1l6 7 6-7" stroke="#555" stroke-width="2" stroke-linecap="round"/></svg>';
+    var titleS = document.createElement('span');
+    titleS.className='nat-title';
+    titleS.textContent = titleMap[lang]||'Country code';
+    hdr.appendChild(closeB); hdr.appendChild(titleS);
+
+    // Search
+    var sw = document.createElement('div'); sw.className='nat-search-wrap';
+    var sb = document.createElement('div'); sb.className='nat-search-box';
+    sb.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    var sinp = document.createElement('input');
+    sinp.type='text'; sinp.className='nat-search'; sinp.placeholder=searchMap[lang]||'Search...'; sinp.autocomplete='off';
+    sb.appendChild(sinp); sw.appendChild(sb);
+
+    // List
+    var list = document.createElement('ul'); list.className='nat-list';
+
+    var entries = Object.keys(DIAL_CODES).sort(function(a,b){
+      var na = TEL_COUNTRY_NAMES[a]||a, nb = TEL_COUNTRY_NAMES[b]||b;
+      return na.localeCompare(nb);
+    });
+
+    function renderTelList(filter){
+      list.innerHTML='';
+      entries.forEach(function(code){
+        var name = TEL_COUNTRY_NAMES[code]||code;
+        var dial = DIAL_CODES[code];
+        if(filter && name.toLowerCase().indexOf(filter.toLowerCase())<0 && dial.indexOf(filter)<0) return;
+        var li = document.createElement('li');
+        li.className='nat-item'+(code===currentTelCountry?' nat-sel':'');
+        li.innerHTML='<img class="nat-flag" src="https://hatscripts.github.io/circle-flags/flags/'+code.toLowerCase()+'.svg" alt="'+code+'">'
+          +'<span class="nat-item-label">'+name+'</span>'
+          +'<span style="color:#888;font-size:.9rem">'+dial+'</span>'
+          +(code===currentTelCountry?'<svg class="nat-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#06c2b0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':'');
+        li.addEventListener('click', function(){
+          currentTelCountry = code;
+          updateTelPfx(null, code);
+          // Update placeholder to local format
+          var tel = document.getElementById('s5-tel');
+          if(tel) tel.placeholder = TEL_LOCAL[code]||'XX XX XX XX';
+          closeTelPicker();
+        });
+        list.appendChild(li);
+      });
+    }
+
+    sinp.addEventListener('input', function(){ renderTelList(this.value); });
+    closeB.addEventListener('click', function(){ closeTelPicker(); });
+    panel.addEventListener('click', function(e){ if(e.target===panel) closeTelPicker(); });
+
+    panel.appendChild(hdr); panel.appendChild(sw); panel.appendChild(list);
+    document.body.appendChild(panel);
+
+    panel._renderList = renderTelList;
+    return panel;
+  }
+
+  function openTelPicker(){
+    var panel = document.getElementById('tel-picker-panel') || buildTelPicker();
+    panel._renderList('');
+    var scrollY = window.scrollY;
+    document.body.style.position='fixed';
+    document.body.style.top='-'+scrollY+'px';
+    document.body.style.width='100%';
+    panel._scrollY = scrollY;
+    panel.classList.add('open');
+    telPickerOpen = true;
+  }
+
+  function closeTelPicker(){
+    var panel = document.getElementById('tel-picker-panel');
+    if(panel){ panel.classList.remove('open'); }
+    var sy = panel && panel._scrollY || 0;
+    document.body.style.position='';
+    document.body.style.top='';
+    document.body.style.width='';
+    window.scrollTo(0, sy);
+    telPickerOpen = false;
+  }
 
   function initTelPrefix(){
     var tel = document.getElementById('s5-tel');
@@ -1575,9 +1699,11 @@ function sp5Submit(){
     pfx.type = 'button';
     pfx.id = 's5-tel-pfx';
     pfx.className = 'sp5-tel-pfx';
+    pfx.addEventListener('click', function(e){ e.stopPropagation(); openTelPicker(); });
     updateTelPfx(pfx, currentTelCountry);
     wrap.insertBefore(pfx, tel);
     tel.classList.add('sp5-inp--tel');
+    tel.placeholder = TEL_LOCAL[currentTelCountry]||'XX XX XX XX';
   }
 
   function updateTelPfx(btn, country){
@@ -1587,7 +1713,7 @@ function sp5Submit(){
     var flagUrl = 'https://hatscripts.github.io/circle-flags/flags/' + country.toLowerCase() + '.svg';
     btn.innerHTML =
       '<img class="sp5-tel-flag" src="'+flagUrl+'" alt="'+country+'">'
-      +'<svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg>'
+      +'<svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>'
       +'<span class="sp5-tel-code">'+code+'</span>';
   }
 
@@ -1597,7 +1723,7 @@ function sp5Submit(){
     var tel  = document.getElementById('s5-tel');
     var cp   = document.getElementById('s5-cp');
     var iban = document.getElementById('s5-iban');
-    if(tel)  tel.placeholder  = d.tel;
+    if(tel)  tel.placeholder = TEL_LOCAL[country] || d.tel;
     if(cp)   { cp.placeholder = d.cp; cp.maxLength = d.cpLen + 2; }
     if(iban) iban.placeholder  = d.ibanPfx;
     updateTelPfx(null, country);
