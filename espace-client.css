@@ -164,25 +164,29 @@
 .ec-header{
   position:fixed;top:0;left:0;right:0;z-index:300;
   height:58px;
-  background:rgba(247,248,250,.92);
+  background:rgba(255,255,255,.96);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   display:flex;align-items:center;
   justify-content:space-between;
   padding:0 1.25rem;
 }
-.ec-hd-user{ display:flex;align-items:center;gap:.6rem; }
+.ec-hd-logo{
+  font-size:1.25rem;font-weight:800;color:var(--navy);
+  text-decoration:none;letter-spacing:-.04em;
+}
+.ec-hd-right{ display:flex;align-items:center;gap:.6rem; }
 .ec-hd-avatar{
-  width:38px;height:38px;border-radius:50%;
+  width:36px;height:36px;border-radius:50%;
   background:linear-gradient(135deg,#6366F1,#8B5CF6);
   color:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;font-weight:700;flex-shrink:0;
-  box-shadow:0 0 0 3px rgba(99,102,241,.15);
+  font-size:.82rem;font-weight:700;flex-shrink:0;
+  box-shadow:0 0 0 2px rgba(99,102,241,.2);
   cursor:pointer;text-decoration:none;overflow:hidden;
   transition:box-shadow .18s,transform .15s;
 }
 .ec-hd-avatar:hover{
-  box-shadow:0 0 0 4px rgba(99,102,241,.25);
+  box-shadow:0 0 0 3px rgba(99,102,241,.3);
   transform:scale(1.06);
 }
 .ec-hd-user-info{ display:flex;flex-direction:column;gap:.05rem; }
@@ -197,6 +201,15 @@
   cursor:pointer;font-family:inherit;transition:all .2s;
 }
 .ec-hd-logout:hover{ background:#E5E7EB;color:var(--text); }
+
+/* ════════════════════════════
+   SIDEBAR BRAND + USER CARD
+   (cachés sur mobile)
+════════════════════════════ */
+.ec-sidebar-brand{ display:none; }
+.ec-sidebar-user-card{ display:none; }
+.ec-sidebar-divider{ display:none; }
+.ec-sidebar-logout{ display:none; }
 
 /* ════════════════════════════
    BOTTOM NAV — pill active
@@ -270,17 +283,26 @@
 }
 
 /* ════════════════════════════
-   SOLDE — Centré style Revolut
+   SOLDE — Carte compte premium
 ════════════════════════════ */
 .ec-solde-block{
+  background:linear-gradient(135deg,#071325 0%,#0B1D3A 60%,#0e2347 100%);
+  border-radius:20px;
   text-align:center;
-  padding:1.8rem 1rem 1.6rem;
-  margin-bottom:.5rem;
+  padding:2rem 1.4rem 1.8rem;
+  margin-bottom:1rem;
+  position:relative;overflow:hidden;
+  box-shadow:0 12px 40px rgba(7,19,37,.3);
+}
+.ec-solde-block::before{
+  content:'';position:absolute;top:-80px;right:-60px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,.03);pointer-events:none;
 }
 .ec-solde-lbl{
-  font-size:.65rem;font-weight:700;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.14em;
-  margin-bottom:.85rem;
+  font-size:.6rem;font-weight:700;color:rgba(255,255,255,.4);
+  text-transform:uppercase;letter-spacing:.16em;
+  margin-bottom:.7rem;
   display:flex;align-items:center;justify-content:center;gap:.3rem;
 }
 .ec-solde-amt-row{
@@ -288,26 +310,24 @@
   gap:.8rem;margin-bottom:2rem;
 }
 .ec-solde-amt{
-  font-size:2.8rem;font-weight:700;color:var(--text);
+  font-size:2.8rem;font-weight:700;color:#fff;
   letter-spacing:-.03em;
   font-variant-numeric:tabular-nums;
   transition:opacity .18s;line-height:1;
 }
-/* Bouton œil circulaire — exact Revolut */
+/* Bouton œil circulaire */
 .ec-eye-circle{
-  width:36px;height:36px;border-radius:50%;
-  background:#fff;
-  border:1.5px solid var(--border-s);
-  box-shadow:var(--shadow-sm);
-  color:var(--muted);
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.6);
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;flex-shrink:0;padding:0;
-  transition:border-color .18s,box-shadow .18s,color .18s;
+  transition:background .18s,color .18s;
 }
 .ec-eye-circle:hover{
-  border-color:var(--teal);
-  box-shadow:0 0 0 3px rgba(11,158,138,.1);
-  color:var(--teal);
+  background:rgba(255,255,255,.18);
+  color:#fff;
 }
 .ec-eye-circle:active{ transform:scale(.9); }
 
@@ -317,80 +337,78 @@
 .ec-solde-action{
   display:flex;flex-direction:column;align-items:center;gap:.55rem;
 }
-/* Boutons d'action — cercles blancs bordés */
+/* Boutons d'action circulaires */
 .ec-solde-circle{
-  width:52px;height:52px;border-radius:50%;
-  background:#fff;
-  border:1.5px solid var(--border-s);
-  box-shadow:var(--shadow-md);
-  color:var(--text);cursor:pointer;
+  width:50px;height:50px;border-radius:50%;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  transition:border-color .18s,box-shadow .18s,transform .15s;
+  transition:background .18s,transform .15s;
 }
-.ec-solde-circle svg{ width:20px;height:20px;stroke:var(--text);stroke-width:2; }
+.ec-solde-circle svg{ width:20px;height:20px;stroke:#fff;stroke-width:2; }
 .ec-solde-circle:hover{
-  border-color:var(--teal);
-  box-shadow:0 4px 16px rgba(11,158,138,.15);
+  background:rgba(255,255,255,.22);
   transform:translateY(-2px);
 }
 .ec-solde-circle:active{ transform:scale(.93); }
 .ec-solde-action-lbl{
-  font-size:.74rem;font-weight:500;color:var(--text-2);
+  font-size:.72rem;font-weight:500;color:rgba(255,255,255,.65);
 }
 
 /* ════════════════════════════
-   CARTE CRÉDIT
+   CARTE CRÉDIT — style bancaire premium
 ════════════════════════════ */
 .ec-credit-card{
-  background:linear-gradient(135deg,#a8d8ec 0%,#c5e8f5 55%,#d6eff8 100%);
-  border-radius:20px;padding:1.4rem 1.3rem 1.2rem;
-  color:var(--navy);margin-bottom:1rem;
-  box-shadow:0 8px 32px rgba(168,216,236,.35);
+  background:linear-gradient(135deg,#0B1D3A 0%,#152E56 55%,#1a3a68 100%);
+  border-radius:20px;padding:1.5rem 1.4rem 1.3rem;
+  color:#fff;margin-bottom:1rem;
+  box-shadow:0 12px 40px rgba(11,29,58,.3);
   position:relative;overflow:hidden;
-  border:1px solid rgba(168,216,236,.6);
+  border:none;
 }
 .ec-credit-card::before{
-  content:'';position:absolute;top:-50px;right:-50px;
-  width:180px;height:180px;border-radius:50%;
-  background:rgba(255,255,255,.25);pointer-events:none;
+  content:'';position:absolute;top:-60px;right:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.04);pointer-events:none;
 }
 .ec-credit-card::after{
-  content:'';position:absolute;bottom:-35px;left:20px;
-  width:130px;height:130px;border-radius:50%;
-  background:rgba(11,158,138,.08);pointer-events:none;
+  content:'';position:absolute;bottom:-45px;left:10px;
+  width:150px;height:150px;border-radius:50%;
+  background:rgba(11,158,138,.12);pointer-events:none;
 }
 .ec-credit-card-top{
   display:flex;justify-content:space-between;align-items:flex-start;
-  margin-bottom:1.3rem;position:relative;z-index:1;
+  margin-bottom:1.4rem;position:relative;z-index:1;
 }
 .ec-credit-type{
-  font-size:.63rem;font-weight:700;color:rgba(11,29,58,.45);
-  text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;
+  font-size:.6rem;font-weight:700;color:rgba(255,255,255,.45);
+  text-transform:uppercase;letter-spacing:.12em;margin-bottom:.3rem;
 }
-.ec-credit-label{ font-size:.93rem;font-weight:700;color:var(--navy); }
+.ec-credit-label{ font-size:.93rem;font-weight:700;color:#fff;letter-spacing:.01em; }
 .ec-credit-badge{
-  background:rgba(11,158,138,.15);color:#0B6E62;
-  border:1px solid rgba(11,158,138,.25);border-radius:6px;
-  padding:.25rem .65rem;font-size:.65rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.05em;
+  background:rgba(11,158,138,.25);color:#4DD9C8;
+  border:1px solid rgba(11,158,138,.35);border-radius:6px;
+  padding:.25rem .65rem;font-size:.63rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
 }
 .ec-credit-stats{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:.5rem;margin-bottom:1.2rem;position:relative;z-index:1;
+  gap:.5rem;margin-bottom:1.3rem;position:relative;z-index:1;
 }
 .ec-credit-stat{ display:flex;flex-direction:column;gap:.18rem; }
 .ec-cs-lbl{
-  font-size:.6rem;color:rgba(11,29,58,.45);font-weight:600;
-  text-transform:uppercase;letter-spacing:.07em;
+  font-size:.58rem;color:rgba(255,255,255,.4);font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;
 }
-.ec-cs-val{ font-size:.9rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums; }
+.ec-cs-val{ font-size:.92rem;font-weight:700;color:#fff;font-variant-numeric:tabular-nums; }
 .ec-credit-prog-lbl{
   display:flex;justify-content:space-between;
-  font-size:.65rem;color:rgba(11,29,58,.45);font-weight:500;
-  margin-bottom:.4rem;position:relative;z-index:1;
+  font-size:.63rem;color:rgba(255,255,255,.4);font-weight:500;
+  margin-bottom:.45rem;position:relative;z-index:1;
 }
 .ec-credit-prog-track{
-  height:3px;background:rgba(11,29,58,.12);border-radius:4px;
+  height:3px;background:rgba(255,255,255,.15);border-radius:4px;
   overflow:hidden;position:relative;z-index:1;
 }
 .ec-credit-prog-fill{
@@ -840,33 +858,100 @@
   /* Sidebar fixe à gauche */
   .ec-bottom-nav{
     left:0;top:0;bottom:0;right:auto;
-    width:220px;height:100vh;
+    width:240px;height:100vh;
     flex-direction:column;justify-content:flex-start;
-    padding:4.5rem .75rem 2rem;
+    padding:0 .85rem 1.5rem;
     border-top:none;border-right:1px solid var(--border);
-    gap:.2rem;
-    background:rgba(255,255,255,.98);
+    gap:.15rem;
+    background:#fff;
+    box-shadow:1px 0 0 var(--border);
   }
+
+  /* Brand: logo en haut de la sidebar */
+  .ec-sidebar-brand{
+    display:block;
+    padding:1.4rem .75rem 1rem;
+    flex-shrink:0;
+  }
+  .ec-sidebar-logo{
+    font-size:1.35rem;font-weight:800;color:var(--navy);
+    text-decoration:none;letter-spacing:-.04em;display:block;
+  }
+  .ec-sidebar-tagline{
+    font-size:.6rem;font-weight:600;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.12em;margin-top:.12rem;
+  }
+
+  /* User card dans la sidebar */
+  .ec-sidebar-user-card{
+    display:flex;align-items:center;gap:.7rem;
+    background:var(--bg);border-radius:12px;
+    border:1px solid var(--border);
+    padding:.65rem .8rem;margin-bottom:.5rem;flex-shrink:0;
+  }
+  .ec-sidebar-avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,#6366F1,#8B5CF6);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;font-weight:700;flex-shrink:0;overflow:hidden;
+  }
+  .ec-sidebar-user-info{ min-width:0; }
+  .ec-sidebar-user-name{
+    font-size:.82rem;font-weight:700;color:var(--navy);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .ec-sidebar-user-id{
+    font-size:.68rem;color:var(--muted);margin-top:.08rem;
+    font-family:monospace;letter-spacing:.03em;
+  }
+
+  .ec-sidebar-divider{
+    display:block;height:1px;background:var(--border);
+    margin:.25rem 0 .5rem;flex-shrink:0;
+  }
+
+  /* Bouton déconnexion en bas de sidebar */
+  .ec-sidebar-logout{
+    display:flex;align-items:center;gap:.6rem;
+    margin-top:auto;width:100%;
+    padding:.7rem .9rem;border-radius:10px;
+    border:none;background:none;
+    font-size:.81rem;font-weight:600;color:var(--muted);
+    cursor:pointer;font-family:inherit;transition:all .18s;
+    flex-shrink:0;
+  }
+  .ec-sidebar-logout:hover{ background:var(--red-light);color:var(--red); }
+
   .ec-bnav-link{
     flex:none;flex-direction:row;justify-content:flex-start;
-    width:100%;padding:.72rem 1rem;border-radius:12px;
-    font-size:.82rem;text-transform:none;letter-spacing:0;gap:.75rem;
+    width:100%;padding:.72rem .9rem;border-radius:10px;
+    font-size:.84rem;text-transform:none;letter-spacing:0;gap:.8rem;
+    color:var(--text-2);
   }
-  .ec-bnav-link svg{ width:20px;height:20px; }
+  .ec-bnav-link svg{ width:18px;height:18px;stroke-width:1.8; }
+  .ec-bnav-link.active{
+    color:var(--navy);font-weight:700;
+  }
   .ec-bnav-link.active::before{
-    inset:0;width:100%;height:100%;border-radius:12px;top:0;
+    inset:0;width:100%;height:100%;border-radius:10px;top:0;
+    background:#F1F3F8;
   }
+  .ec-bnav-link.active svg{ stroke:var(--navy); }
+
+  /* Masquer logo mobile + bouton logout mobile dans le header */
+  .ec-hd-logo{ display:none; }
+  .ec-hd-logout--mobile{ display:none; }
 
   /* Header — décalé pour laisser place à la sidebar */
   .ec-header{
-    left:220px;
+    left:240px;
     padding:0 2rem;
   }
 
   /* Main — décalé sidebar + header */
   .ec-dash-body{ padding-bottom:0; }
   .ec-main{
-    margin-left:220px;
+    margin-left:240px;
     max-width:none;
     padding:calc(58px + 2rem) 2.5rem 2.5rem;
   }
@@ -885,8 +970,8 @@
   }
 
   /* Solde plus grand */
-  .ec-solde-amt{ font-size:3.5rem; }
-  .ec-solde-block{ padding:2.2rem 1rem 2rem; }
+  .ec-solde-amt{ font-size:3.2rem; }
+  .ec-solde-block{ padding:2.2rem 2rem 2rem; }
 
   /* Carte crédit pleine largeur */
   .ec-credit-card{ border-radius:24px; }
@@ -935,6 +1020,9 @@
 
   /* Toast au-dessus de la sidebar */
   .pf-toast{ bottom:2rem; }
+
+  /* Profil pages — sidebar width */
+  .pf-hero{ padding-left:calc(240px + 2rem); }
 }
 
 @media(min-width:1100px){

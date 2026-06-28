@@ -119,16 +119,23 @@ function ecInitHeader(){
   if(!user) return;
   var av=document.getElementById('ec-hd-avatar');
   var nm=document.getElementById('ec-hd-name');
+  var photo=localStorage.getItem('ec_photo');
+  var initials=(((user.prenom||'')[0]||'').toUpperCase()+(( user.nom||'')[0]||'').toUpperCase())||'U';
   if(av){
-    var photo=localStorage.getItem('ec_photo');
     if(photo){
       av.innerHTML='<img src="'+photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>';
     } else {
-      var initials=(((user.prenom||'')[0]||'').toUpperCase()+(( user.nom||'')[0]||'').toUpperCase())||'U';
       av.textContent=initials;
     }
   }
   if(nm) nm.textContent=user.prenom||'Mon compte';
+  // Sidebar desktop
+  var sav=document.getElementById('ec-sidebar-avatar');
+  var snm=document.getElementById('ec-sidebar-user-name');
+  var sid=document.getElementById('ec-sidebar-user-id');
+  if(sav){ if(photo) sav.innerHTML='<img src="'+photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>'; else sav.textContent=initials; }
+  if(snm) snm.textContent=(user.prenom||'')+' '+(user.nom||'');
+  if(sid) sid.textContent=user.id||'—';
 }
 
 // ── Solde ──
