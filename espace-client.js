@@ -563,8 +563,9 @@ function ecInitAlertBanner(){
   var msgs=[];
 
   // Prochaine échéance dans <7 jours ?
-  var next=new Date(); next.setDate(1); next.setMonth(next.getMonth()+1);
-  var diff=Math.ceil((next-new Date())/(24*3600*1000));
+  var now=new Date();
+  var next=new Date(now.getFullYear(), now.getMonth()+1, 1);
+  var diff=Math.ceil((next-now)/(24*3600*1000));
   if(mens>0 && diff<=7) msgs.push('Votre prochaine échéance de '+mens.toLocaleString('fr-FR')+'€ est dans '+diff+' jour'+(diff>1?'s':'')+'.');
 
   // Solde faible ?
@@ -697,7 +698,10 @@ function ecFilterTx(type, btn){
 
 // ── RIB / IBAN ──
 function ecGenerateIban(userId){
-  var seed=(userId||'SOF000').replace(/[^0-9]/g,'').padStart(10,'0').slice(0,10);
+  var s=userId||'SOF000';
+  var hash=0;
+  for(var i=0;i<s.length;i++) hash=(hash*31+s.charCodeAt(i))>>>0;
+  var seed=String(hash).padStart(10,'0').slice(0,10);
   return 'FR76 3000 6000 '+seed.slice(0,4)+' '+seed.slice(4,8)+' '+seed.slice(8)+'00 00';
 }
 function ecInitRib(){
@@ -764,15 +768,16 @@ function ecInitNotifs(){
   list.innerHTML='';
   var notifs=[];
 
-  var next=new Date();next.setDate(1);next.setMonth(next.getMonth()+1);
-  var diff=Math.ceil((next-new Date())/(24*3600*1000));
+  var now2=new Date();
+  var next=new Date(now2.getFullYear(),now2.getMonth()+1,1);
+  var diff=Math.ceil((next-now2)/(24*3600*1000));
   if(mens>0&&diff<=7) notifs.push({type:'warn',txt:'<strong>Échéance proche</strong> — Prélèvement de '+mens.toLocaleString('fr-FR')+'€ dans '+diff+' jour'+(diff>1?'s':'')+'.'});
   if(mens>0&&solde<mens*2) notifs.push({type:'warn',txt:'<strong>Solde faible</strong> — Votre solde est inférieur à 2 mensualités.'});
-  notifs.push({type:'info',txt:'<strong>Bienvenue</strong> — Votre espace client Solfianza est actif.'});
 
   if(!notifs.length){
-    list.innerHTML='<div class="ec-notif-empty">Aucune notification.</div>';return;
+    list.innerHTML='<div class="ec-notif-empty">Aucune notification pour le moment.</div>';return;
   }
+  notifs.push({type:'info',txt:'<strong>Bienvenue</strong> — Votre espace client Solfianza est actif.'});
   notifs.forEach(function(n){
     var item=document.createElement('div');
     item.className='ec-notif-item ec-notif-item--'+n.type;
