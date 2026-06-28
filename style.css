@@ -1471,20 +1471,24 @@ body.pg-inner .editorial{background:none}
 }
 .sp5-tel-wrap:focus-within{border-color:var(--teal)}
 .sp5-tel-pfx{
-  display:flex;align-items:center;gap:.35rem;
-  padding:.72rem .8rem .72rem 1rem;
-  border:none;border-right:1.5px solid #e8e8e8;
-  background:#fff;cursor:pointer;outline:none;
+  display:flex;align-items:center;gap:.3rem;
+  padding:.72rem .7rem .72rem .9rem;
+  border:none;background:#fff;cursor:pointer;outline:none;
   flex-shrink:0;transition:background .15s;
 }
-.sp5-tel-pfx:hover{background:#f5f5f5}
+.sp5-tel-pfx:hover{background:#f8f8f8}
 .sp5-tel-flag{width:26px;height:26px;display:block;flex-shrink:0}
-.sp5-tel-code{font-size:.93rem;color:#333;font-weight:600;white-space:nowrap;letter-spacing:.01em}
+.sp5-tel-sep{width:1.5px;background:#e8e8e8;align-self:stretch;flex-shrink:0;margin:.6rem 0}
+.sp5-tel-dial{
+  font-size:.95rem;color:#0d2748;font-weight:600;
+  white-space:nowrap;padding:.72rem .4rem .72rem .7rem;
+  flex-shrink:0;
+}
 .sp5-inp--tel{
   border:none!important;border-radius:0!important;outline:none!important;
   flex:1;width:auto;min-width:0;
-  padding-left:.8rem;font-size:.95rem;
-  background:transparent;
+  padding-left:.3rem;font-size:.95rem;
+  background:transparent;color:#0d2748;
 }
 @media(min-width:760px){
   .sp5-inp,.sp5-sel{font-size:1rem;padding:.85rem 1rem}

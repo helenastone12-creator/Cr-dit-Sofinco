@@ -1010,8 +1010,9 @@ function sp5ValidName(v){
   return v && v.trim().length >= 2 && /^[A-Za-zÀ-ÿ\s'\-]+$/.test(v.trim());
 }
 function sp5ValidTelFR(v){
-  var d = v.replace(/[\s\.\-]/g,'');
-  return /^(0[1-9][0-9]{8}|\+33[1-9][0-9]{8})$/.test(d);
+  // Accept any local number with 6-15 digits
+  var d = v.replace(/[\s\.\-\(\)]/g,'');
+  return /^\+?[0-9]{6,15}$/.test(d);
 }
 var SP5_DISPOSABLE_DOMAINS = [
   'mailinator.com','guerrillamail.com','guerrillamail.net','guerrillamail.org',
@@ -1694,14 +1695,25 @@ function sp5Submit(){
     var wrap = document.createElement('div');
     wrap.className = 'sp5-tel-wrap';
     tel.parentNode.insertBefore(wrap, tel);
-    wrap.appendChild(tel);
+    // Flag button (left)
     var pfx = document.createElement('button');
     pfx.type = 'button';
     pfx.id = 's5-tel-pfx';
     pfx.className = 'sp5-tel-pfx';
     pfx.addEventListener('click', function(e){ e.stopPropagation(); openTelPicker(); });
+    // Dial code span (inside input area)
+    var dialSpan = document.createElement('span');
+    dialSpan.id = 's5-tel-dial';
+    dialSpan.className = 'sp5-tel-dial';
+    dialSpan.textContent = DIAL_CODES[currentTelCountry]||'+33';
+    // Separator
+    var sep = document.createElement('span');
+    sep.className = 'sp5-tel-sep';
+    wrap.appendChild(pfx);
+    wrap.appendChild(sep);
+    wrap.appendChild(dialSpan);
+    wrap.appendChild(tel);
     updateTelPfx(pfx, currentTelCountry);
-    wrap.insertBefore(pfx, tel);
     tel.classList.add('sp5-inp--tel');
     tel.placeholder = TEL_LOCAL[currentTelCountry]||'XX XX XX XX';
   }
@@ -1709,12 +1721,12 @@ function sp5Submit(){
   function updateTelPfx(btn, country){
     if(!btn) btn = document.getElementById('s5-tel-pfx');
     if(!btn) return;
-    var code = DIAL_CODES[country] || DIAL_CODES['FR'];
     var flagUrl = 'https://hatscripts.github.io/circle-flags/flags/' + country.toLowerCase() + '.svg';
     btn.innerHTML =
       '<img class="sp5-tel-flag" src="'+flagUrl+'" alt="'+country+'">'
-      +'<svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>'
-      +'<span class="sp5-tel-code">'+code+'</span>';
+      +'<svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>';
+    var dialSpan = document.getElementById('s5-tel-dial');
+    if(dialSpan) dialSpan.textContent = DIAL_CODES[country]||'+33';
   }
 
   function applyFormData(country) {
