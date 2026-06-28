@@ -374,9 +374,7 @@ function ecConfirmVirement(){
 // ── Tableau de bord ──
 function ecInitDashboard(){
   ecGuard();
-  if(typeof ecApplyI18n==='function'){ ecApplyI18n(); ecRenderLangSwitcher('ec-lang-switcher-wrap'); ecRenderLangSwitcher('ec-lang-sidebar'); }
-  var flags={fr:'🇫🇷',en:'🇬🇧',de:'🇩🇪',es:'🇪🇸',it:'🇮🇹',nl:'🇳🇱',pl:'🇵🇱',sv:'🇸🇪'};
-  var cur=document.getElementById('ec-lang-cur'); if(cur) cur.textContent=(flags[EC_LANG]||'🌐')+' '+(EC_LANG||'FR').toUpperCase();
+  if(typeof ecApplyI18n==='function') ecApplyI18n();
   document.addEventListener('click',function(e){ var dd=document.getElementById('ec-lang-dropdown'); if(dd&&!dd.contains(e.target)&&e.target.id!=='ec-lang-toggle'&&!e.target.closest('#ec-lang-toggle')) dd.classList.remove('open'); });
   ecInitHeader();
   ecRefreshSolde();

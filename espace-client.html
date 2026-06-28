@@ -456,5 +456,29 @@
 
 <script src="espace-client.js"></script>
 <script src="script.js"></script>
+<script>
+// Le sélecteur ft-lang redirige vers des fichiers séparés par langue qui n'existent
+// pas dans l'espace client. On intercepte les clics pour rester sur la même page.
+(function(){
+  function patchLangLinks(){
+    document.querySelectorAll('.ft-lang-list-item').forEach(function(a){
+      a.href = '#';
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var lang = a.querySelector('.ft-lang-list-name');
+        // Retrouver le code langue via le texte ou l'état actif déjà géré par script.js
+        // On lit lang_choice qui a été mis à jour par le listener de script.js
+        setTimeout(function(){ location.reload(); }, 50);
+      });
+    });
+  }
+  // Attendre que script.js ait rendu la liste
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(patchLangLinks, 200); });
+  } else {
+    setTimeout(patchLangLinks, 200);
+  }
+})();
+</script>
 </body>
 </html>
