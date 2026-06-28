@@ -1009,10 +1009,18 @@ function sp5ValidAge(str){
 function sp5ValidName(v){
   return v && v.trim().length >= 2 && /^[A-Za-zÀ-ÿ\s'\-]+$/.test(v.trim());
 }
+function sp5GetTelFull(){
+  var inp = document.getElementById('s5-tel');
+  if(!inp) return '';
+  var local = inp.value.replace(/[\s\.\-\(\)]/g,'');
+  var dialEl = inp.closest('.sp5-tel-wrap') && inp.closest('.sp5-tel-wrap').querySelector('.sp5-tel-dial');
+  var dial = dialEl ? dialEl.textContent.trim() : '+33';
+  return dial + local;
+}
 function sp5ValidTelFR(v){
-  // Accept any local number with 6-15 digits
-  var d = v.replace(/[\s\.\-\(\)]/g,'');
-  return /^\+?[0-9]{6,15}$/.test(d);
+  // v is the raw input value (without dial code); combine with dial code for full validation
+  var local = v.replace(/[\s\.\-\(\)]/g,'');
+  return /^[0-9]{6,14}$/.test(local);
 }
 var SP5_DISPOSABLE_DOMAINS = [
   'mailinator.com','guerrillamail.com','guerrillamail.net','guerrillamail.org',
@@ -1119,7 +1127,7 @@ function sp5Validate(step){
       if(blocked && emailEr) emailEr.textContent = 'Les adresses email temporaires ne sont pas acceptées';
       return !blocked;
     }, 'Adresse email invalide');
-    check('s5-tel',     's5-tel-err',     function(v){ return sp5ValidTelFR(v); },            'Numéro français invalide (ex : 06 12 34 56 78)');
+    check('s5-tel',     's5-tel-err',     function(v){ return sp5ValidTelFR(v); },            'Numéro invalide (6 à 14 chiffres)');
     checkBox('s5-cg1', 's5-cg1-err', 'Vous devez accepter les conditions générales');
     checkBox('s5-cg2', 's5-cg2-err', 'Vous devez accepter la politique de données');
 
