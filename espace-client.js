@@ -140,8 +140,8 @@ function ecRefreshSolde(){
   var eyeBtn = document.getElementById('ec-eye-toggle');
   if(eyeBtn){
     eyeBtn.innerHTML = ecSoldeHidden()
-      ? '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
-      : '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
   }
 }
 
@@ -169,6 +169,20 @@ function ecAddTx(tx){
   if(list.length > 30) list = list.slice(0,30);
   localStorage.setItem('ec_tx', JSON.stringify(list));
 }
+function ecTxInitials(label){
+  var words = label.replace(/—/g,' ').trim().split(/\s+/);
+  if(words.length >= 2) return (words[0][0]+(words[1][0]||'')).toUpperCase();
+  return label.substring(0,2).toUpperCase();
+}
+var EC_AVATAR_COLORS = [
+  ['#DBEAFE','#1D4ED8'],['#D1FAE5','#065F46'],
+  ['#FEE2E2','#991B1B'],['#EDE9FE','#6D28D9'],
+  ['#FEF3C7','#92400E'],['#E0F2FE','#0369A1']
+];
+function ecTxColor(label){
+  var i = label.charCodeAt(0) % EC_AVATAR_COLORS.length;
+  return EC_AVATAR_COLORS[i];
+}
 function ecRenderTx(){
   var list = ecGetTx();
   var container = document.getElementById('ec-tx-list');
@@ -176,19 +190,22 @@ function ecRenderTx(){
   if(!container) return;
   if(!list.length){ if(empty) empty.style.display=''; return; }
   if(empty) empty.style.display='none';
-  var icons = { depot:'💰', virement:'📤', convert:'🔄' };
   var html = list.slice(0,5).map(function(tx){
     var isOut = tx.type==='virement';
-    var sign = isOut ? '-' : '+';
-    var cls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
-    var icoCls = tx.type==='convert' ? 'ec-tx-ico--conv' : (isOut ? 'ec-tx-ico--out' : 'ec-tx-ico--in');
+    var isConv = tx.type==='convert';
+    var sign = isOut ? '−' : '+';
+    var amtCls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
+    var icoCls = isConv ? 'ec-tx-ico--conv' : (isOut ? 'ec-tx-ico--out' : 'ec-tx-ico--in');
+    var initials = ecTxInitials(tx.label);
+    var colors = ecTxColor(tx.label);
+    var avatarStyle = 'background:'+colors[0]+';color:'+colors[1]+';';
     return '<div class="ec-tx-item">'
-      +'<div class="ec-tx-ico '+icoCls+'">'+icons[tx.type]+'</div>'
+      +'<div class="ec-tx-ico '+icoCls+'" style="'+avatarStyle+'">'+initials+'</div>'
       +'<div class="ec-tx-info">'
       +'<div class="ec-tx-name">'+tx.label+'</div>'
       +'<div class="ec-tx-date">'+tx.date+'</div>'
       +'</div>'
-      +'<div class="ec-tx-amt '+cls+'">'+sign+ecFormatAmt(tx.amt)+'</div>'
+      +'<div class="ec-tx-amt '+amtCls+'">'+sign+ecFormatAmt(tx.amt)+'</div>'
       +'</div>';
   }).join('');
   container.innerHTML = html + (empty ? empty.outerHTML : '');
