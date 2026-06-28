@@ -557,6 +557,26 @@
   font-weight:700;color:var(--ec-muted);pointer-events:none;
 }
 
+/* Convertisseur */
+.ec-convert-row{ display:flex;gap:.8rem;margin-bottom:1rem; }
+.ec-convert-result{
+  background:#f4fffe;border:1.5px solid rgba(6,194,176,.25);
+  border-radius:14px;padding:1.1rem;text-align:center;margin-bottom:.8rem;
+}
+.ec-conv-res-lbl{
+  font-size:.72rem;font-weight:700;color:var(--teal);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;
+}
+.ec-conv-res-amt{
+  font-size:1.7rem;font-weight:800;color:var(--navy);margin-bottom:.25rem;
+}
+.ec-conv-res-rate{
+  font-size:.78rem;color:var(--ec-muted);
+}
+.ec-conv-note{
+  font-size:.72rem;color:var(--ec-muted);text-align:center;line-height:1.5;
+}
+
 /* Succès modal */
 .ec-success-ico{
   width:64px;height:64px;border-radius:50%;background:var(--teal);

@@ -160,6 +160,40 @@ function ecConfirmDepot(){
   ecOpenModal('success');
 }
 
+// ── Convertisseur ──
+var EC_RATES = {
+  GBP:0.8547, CHF:0.9623, SEK:11.42, NOK:11.73, DKK:7.461,
+  PLN:4.258,  CZK:25.14,  HUF:393.2, RON:4.976, BGN:1.956,
+  HRK:7.534,  TRY:36.12,  ISK:149.8
+};
+var EC_SYMBOLS = {
+  GBP:'£', CHF:'Fr', SEK:'kr', NOK:'kr', DKK:'kr',
+  PLN:'zł', CZK:'Kč', HUF:'Ft', RON:'lei', BGN:'лв',
+  HRK:'kn', TRY:'₺', ISK:'kr'
+};
+
+function ecConvert(){
+  var amt  = parseFloat((document.getElementById('ec-conv-amt')||{}).value||'0');
+  var cur  = (document.getElementById('ec-conv-currency')||{}).value||'GBP';
+  var rate = EC_RATES[cur] || 1;
+  var sym  = EC_SYMBOLS[cur] || cur;
+  var res  = amt * rate;
+  var resEl  = document.getElementById('ec-conv-res-amt');
+  var rateEl = document.getElementById('ec-conv-res-rate');
+  if(resEl) resEl.textContent = amt > 0 ? res.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+sym : '—';
+  if(rateEl) rateEl.textContent = amt > 0 ? '1 € = '+rate+' '+cur : '';
+  // Refresh rates from API if available
+  if(amt > 0 && !ecConvert._fetched){
+    ecConvert._fetched = true;
+    fetch('https://api.frankfurter.app/latest?from=EUR&to='+Object.keys(EC_RATES).join(','))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d && d.rates) Object.assign(EC_RATES, d.rates);
+        ecConvert();
+      }).catch(function(){});
+  }
+}
+
 function ecConfirmVirement(){
   var nom   = ((document.getElementById('ec-vir-nom')||{}).value||'').trim();
   var iban  = ((document.getElementById('ec-vir-iban')||{}).value||'').trim();

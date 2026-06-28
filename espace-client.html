@@ -81,6 +81,12 @@
         </button>
         <span class="ec-solde-action-lbl">Virement</span>
       </div>
+      <div class="ec-solde-action">
+        <button class="ec-solde-circle" onclick="ecOpenModal('convert')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        </button>
+        <span class="ec-solde-action-lbl">Convertir</span>
+      </div>
     </div>
   </div>
 
@@ -222,6 +228,53 @@
       </div>
       <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>
       <button class="ec-btn-primary" onclick="ecConfirmVirement()">Confirmer le virement</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Convertir -->
+<div class="ec-modal-overlay" id="ec-modal-convert" onclick="ecCloseModal('convert')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Convertir une devise</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('convert')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-convert-row">
+        <div class="ec-form-group" style="flex:1">
+          <label class="ec-lbl">Montant</label>
+          <div class="ec-amount-wrap">
+            <input class="ec-inp" id="ec-conv-amt" type="number" min="0" placeholder="0,00" oninput="ecConvert()" />
+            <span class="ec-amount-euro">€</span>
+          </div>
+        </div>
+        <div class="ec-form-group" style="flex:1">
+          <label class="ec-lbl">Vers</label>
+          <select class="ec-inp" id="ec-conv-currency" onchange="ecConvert()">
+            <option value="GBP">🇬🇧 Livre sterling (GBP)</option>
+            <option value="CHF">🇨🇭 Franc suisse (CHF)</option>
+            <option value="SEK">🇸🇪 Couronne suédoise (SEK)</option>
+            <option value="NOK">🇳🇴 Couronne norvégienne (NOK)</option>
+            <option value="DKK">🇩🇰 Couronne danoise (DKK)</option>
+            <option value="PLN">🇵🇱 Zloty polonais (PLN)</option>
+            <option value="CZK">🇨🇿 Couronne tchèque (CZK)</option>
+            <option value="HUF">🇭🇺 Forint hongrois (HUF)</option>
+            <option value="RON">🇷🇴 Leu roumain (RON)</option>
+            <option value="BGN">🇧🇬 Lev bulgare (BGN)</option>
+            <option value="HRK">🇭🇷 Kuna croate (HRK)</option>
+            <option value="TRY">🇹🇷 Livre turque (TRY)</option>
+            <option value="ISK">🇮🇸 Couronne islandaise (ISK)</option>
+          </select>
+        </div>
+      </div>
+      <div class="ec-convert-result" id="ec-conv-result">
+        <div class="ec-conv-res-lbl">Résultat estimé</div>
+        <div class="ec-conv-res-amt" id="ec-conv-res-amt">—</div>
+        <div class="ec-conv-res-rate" id="ec-conv-res-rate"></div>
+      </div>
+      <div class="ec-conv-note">Taux indicatifs mis à jour quotidiennement. Non contractuels.</div>
     </div>
   </div>
 </div>
