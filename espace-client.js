@@ -132,6 +132,40 @@ function ecRefreshSolde(){
   if(el) el.textContent = ecFormatAmt(ecGetSolde());
 }
 
+// ── Transactions ──
+function ecGetTx(){ try{ return JSON.parse(localStorage.getItem('ec_tx')||'[]'); }catch(e){ return []; } }
+function ecAddTx(tx){
+  var list = ecGetTx();
+  list.unshift(tx);
+  if(list.length > 30) list = list.slice(0,30);
+  localStorage.setItem('ec_tx', JSON.stringify(list));
+}
+function ecRenderTx(){
+  var list = ecGetTx();
+  var container = document.getElementById('ec-tx-list');
+  var empty = document.getElementById('ec-tx-empty');
+  if(!container) return;
+  if(!list.length){ if(empty) empty.style.display=''; return; }
+  if(empty) empty.style.display='none';
+  var icons = { depot:'💰', virement:'📤', convert:'🔄' };
+  var html = list.slice(0,5).map(function(tx){
+    var isOut = tx.type==='virement';
+    var sign = isOut ? '-' : '+';
+    var cls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
+    var icoCls = tx.type==='convert' ? 'ec-tx-ico--conv' : (isOut ? 'ec-tx-ico--out' : 'ec-tx-ico--in');
+    return '<div class="ec-tx-item">'
+      +'<div class="ec-tx-ico '+icoCls+'">'+icons[tx.type]+'</div>'
+      +'<div class="ec-tx-info">'
+      +'<div class="ec-tx-name">'+tx.label+'</div>'
+      +'<div class="ec-tx-date">'+tx.date+'</div>'
+      +'</div>'
+      +'<div class="ec-tx-amt '+cls+'">'+sign+ecFormatAmt(tx.amt)+'</div>'
+      +'</div>';
+  }).join('');
+  container.innerHTML = html + (empty ? empty.outerHTML : '');
+  if(empty) document.getElementById('ec-tx-empty').style.display='none';
+}
+
 // ── Modals ──
 function ecOpenModal(name){
   var el = document.getElementById('ec-modal-'+name);
@@ -152,11 +186,13 @@ function ecConfirmDepot(){
   if(errEl) errEl.style.display='none';
   var nouveau = ecGetSolde() + amt;
   ecSetSolde(nouveau);
+  ecAddTx({ type:'depot', label:'Dépôt', amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
   ecRefreshSolde();
+  ecRenderTx();
   ecCloseModal('depot');
   document.getElementById('ec-depot-amt').value='';
   document.getElementById('ec-success-title').textContent='Dépôt effectué';
-  document.getElementById('ec-success-msg').textContent='+'+ ecFormatAmt(amt)+' ont été crédités sur votre compte. Nouveau solde : '+ecFormatAmt(nouveau);
+  document.getElementById('ec-success-msg').textContent='+'+ecFormatAmt(amt)+' crédités. Nouveau solde : '+ecFormatAmt(nouveau);
   ecOpenModal('success');
 }
 
@@ -209,11 +245,13 @@ function ecConfirmVirement(){
   if(errEl) errEl.style.display='none';
   var nouveau = solde - amt;
   ecSetSolde(nouveau);
+  ecAddTx({ type:'virement', label:'Virement — '+nom, amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
   ecRefreshSolde();
+  ecRenderTx();
   ecCloseModal('virement');
   ['ec-vir-nom','ec-vir-iban','ec-vir-amt','ec-vir-motif'].forEach(function(id){ var e=document.getElementById(id); if(e)e.value=''; });
   document.getElementById('ec-success-title').textContent='Virement envoyé';
-  document.getElementById('ec-success-msg').textContent=ecFormatAmt(amt)+' ont été virés à '+nom+'. Nouveau solde : '+ecFormatAmt(nouveau);
+  document.getElementById('ec-success-msg').textContent=ecFormatAmt(amt)+' virés à '+nom+'. Nouveau solde : '+ecFormatAmt(nouveau);
   ecOpenModal('success');
 }
 
@@ -222,6 +260,7 @@ function ecInitDashboard(){
   ecGuard();
   ecInitHeader();
   ecRefreshSolde();
+  ecRenderTx();
   var user=ecGetUser();
 
   var welcomeEl=document.getElementById('ec-welcome-name');
@@ -387,12 +426,6 @@ function ecSuiviSearch(){
   });
 })();
 
-// ── Animation shake ──
-(function(){
-  var style=document.createElement('style');
-  style.textContent='@keyframes ecShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}';
-  document.head.appendChild(style);
-})();
 
 // ── Auto-init selon la page ──
 (function(){
