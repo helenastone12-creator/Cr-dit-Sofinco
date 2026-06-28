@@ -1723,8 +1723,7 @@ function sp5Submit(){
     var dial = DIAL_CODES[country]||'+33';
     btn.innerHTML =
       '<img class="sp5-tel-flag" src="'+flagUrl+'" alt="'+country+'">'
-      +'<span class="sp5-tel-dial">'+dial+'</span>'
-      +'<svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>';
+      +'<span class="sp5-tel-dial">'+dial+'</span>';
   }
 
   function applyFormData(country) {
