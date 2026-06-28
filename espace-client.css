@@ -330,6 +330,11 @@
   letter-spacing:-.03em;margin-bottom:2rem;
   position:relative;z-index:1;
   font-variant-numeric:tabular-nums;
+  transition:opacity .18s;
+  min-height:3rem;display:flex;align-items:center;
+}
+.ec-solde-amt[data-hidden="true"]{
+  letter-spacing:.08em;
 }
 .ec-solde-actions{
   display:flex;justify-content:center;gap:2.5rem;

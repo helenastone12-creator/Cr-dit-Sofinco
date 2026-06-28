@@ -127,9 +127,38 @@ function ecGetSolde(){ return parseFloat(localStorage.getItem('ec_solde')||'0');
 function ecSetSolde(v){ localStorage.setItem('ec_solde', v.toFixed(2)); }
 function ecFormatAmt(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
 
+function ecSoldeHidden(){ return localStorage.getItem('ec_solde_hidden')==='1'; }
+
 function ecRefreshSolde(){
   var el = document.getElementById('ec-solde-amt');
-  if(el) el.textContent = ecFormatAmt(ecGetSolde());
+  if(!el) return;
+  if(ecSoldeHidden()){
+    el.textContent = '•••• ••';
+  } else {
+    el.textContent = ecFormatAmt(ecGetSolde());
+  }
+  var eyeBtn = document.getElementById('ec-eye-toggle');
+  if(eyeBtn){
+    eyeBtn.innerHTML = ecSoldeHidden()
+      ? '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+      : '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  }
+}
+
+function ecToggleSolde(){
+  var hidden = ecSoldeHidden();
+  localStorage.setItem('ec_solde_hidden', hidden ? '0' : '1');
+  var el = document.getElementById('ec-solde-amt');
+  if(el){
+    el.style.transition = 'opacity .18s';
+    el.style.opacity = '0';
+    setTimeout(function(){
+      ecRefreshSolde();
+      el.style.opacity = '1';
+    }, 180);
+  } else {
+    ecRefreshSolde();
+  }
 }
 
 // ── Transactions ──
