@@ -15,7 +15,7 @@ function ecSetSession(){ localStorage.setItem('ec_session','1'); }
 function ecClearSession(){ localStorage.removeItem('ec_session'); }
 
 function ecGuard(){
-  if(!ecIsLoggedIn()) window.location.href='connexion.html';
+  if(!ecIsLoggedIn()) window.location.href='/connexion.html';
 }
 
 // ── Toggle mot de passe visible/caché ──
@@ -62,7 +62,7 @@ function ecLogin(){
 
   // Ouvre la session
   ecSetSession();
-  setTimeout(function(){ window.location.href='espace-client.html'; }, 300);
+  setTimeout(function(){ window.location.href='/espace-client.html'; }, 300);
 }
 
 // ── Inscription ──
@@ -104,13 +104,13 @@ function ecRegister(){
   };
   ecSetUser(user);
   ecSetSession();
-  setTimeout(function(){ window.location.href='espace-client.html'; }, 300);
+  setTimeout(function(){ window.location.href='/espace-client.html'; }, 300);
 }
 
 // ── Déconnexion ──
 function ecLogout(){
   ecClearSession();
-  window.location.href='connexion.html';
+  window.location.href='/connexion.html';
 }
 
 // ── Init header dashboard ──

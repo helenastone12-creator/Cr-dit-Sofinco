@@ -673,7 +673,7 @@ function pfInit(){
   ecGuard();
   if(typeof ecApplyI18n==='function') ecApplyI18n();
   var user = ecGetUser();
-  if(!user){ window.location.href='connexion.html'; return; }
+  if(!user){ window.location.href='/connexion.html'; return; }
 
   ecInitHeader();
 
