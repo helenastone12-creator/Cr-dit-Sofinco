@@ -1821,8 +1821,13 @@ function sp5Submit(){
     .then(function(r){ return r.json(); })
     .then(function(data){
       var c = (data.country_code || '').toUpperCase();
-      // Only apply if country is in our European list
       if(FORM_DATA[c] || TEL_LENGTH[c]) applyFormData(c);
+      // Update city placeholder with detected city
+      var city = data.city || '';
+      if(city){
+        var villeEl = document.getElementById('s5-ville');
+        if(villeEl) villeEl.placeholder = city;
+      }
     })
     .catch(function(){});
 
