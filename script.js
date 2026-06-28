@@ -1009,18 +1009,23 @@ function sp5ValidAge(str){
 function sp5ValidName(v){
   return v && v.trim().length >= 2 && /^[A-Za-zÀ-ÿ\s'\-]+$/.test(v.trim());
 }
-function sp5GetTelFull(){
-  var inp = document.getElementById('s5-tel');
-  if(!inp) return '';
-  var local = inp.value.replace(/[\s\.\-\(\)]/g,'');
-  var dialEl = inp.closest('.sp5-tel-wrap') && inp.closest('.sp5-tel-wrap').querySelector('.sp5-tel-dial');
-  var dial = dialEl ? dialEl.textContent.trim() : '+33';
-  return dial + local;
-}
+var TEL_LENGTH = {
+  FR:9, ES:9, IT:9, PT:9, NL:9, BE:9, CH:9, GR:9, PL:9, CZ:9, SK:9, RO:9, HU:9, TR:9,
+  GB:10, DE:10, SE:10, FI:10, IE:10,
+  NO:8, DK:8, LU:8, CY:8, MT:8,
+  AT:[10,11],
+  BG:[8,9], HR:[8,9], SI:[8,9], RS:[8,9], AL:[8,9], BA:[8,9], ME:[8,9], MK:[8,9], XK:[8,9],
+  EE:[7,8], LV:[7,8], LT:[7,8],
+  IS:7, LI:7
+};
 function sp5ValidTelFR(v){
-  // v is the raw input value (without dial code); combine with dial code for full validation
   var local = v.replace(/[\s\.\-\(\)]/g,'');
-  return /^[0-9]{6,14}$/.test(local);
+  if(!/^[0-9]+$/.test(local)) return false;
+  var len = local.length;
+  var country = window.currentTelCountry || 'FR';
+  var rule = TEL_LENGTH[country] || [6,14];
+  if(Array.isArray(rule)) return len >= rule[0] && len <= rule[1];
+  return len === rule;
 }
 var SP5_DISPOSABLE_DOMAINS = [
   'mailinator.com','guerrillamail.com','guerrillamail.net','guerrillamail.org',
@@ -1598,6 +1603,7 @@ function sp5Submit(){
     'BY':'Biélorussie','TR':'Turquie'
   };
 
+  window.currentTelCountry = 'FR';
   var currentTelCountry = 'FR';
   var telPickerOpen = false;
 
@@ -1652,6 +1658,7 @@ function sp5Submit(){
           +(code===currentTelCountry?'<svg class="nat-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#06c2b0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':'');
         li.addEventListener('click', function(){
           currentTelCountry = code;
+          window.currentTelCountry = code;
           updateTelPfx(null, code);
           // Update placeholder to local format
           var tel = document.getElementById('s5-tel');
@@ -1737,6 +1744,7 @@ function sp5Submit(){
   function applyFormData(country) {
     var d = FORM_DATA[country] || FORM_DATA['FR'];
     currentTelCountry = country;
+    window.currentTelCountry = country;
     var tel  = document.getElementById('s5-tel');
     var cp   = document.getElementById('s5-cp');
     var iban = document.getElementById('s5-iban');
