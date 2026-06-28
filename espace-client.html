@@ -29,10 +29,13 @@
 
 <!-- Header -->
 <header class="ec-header">
-  <!-- Logo (mobile uniquement) -->
   <a href="index.html" class="ec-hd-logo">Solfianza</a>
-
   <div class="ec-hd-right">
+    <!-- Cloche notifications -->
+    <button class="ec-hd-bell" id="ec-hd-bell" onclick="ecOpenModal('alertes')" aria-label="Notifications">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="ec-hd-bell-dot" id="ec-bell-dot" style="display:none"></span>
+    </button>
     <a href="profil.html" class="ec-hd-avatar" id="ec-hd-avatar">J</a>
     <button class="ec-hd-logout ec-hd-logout--mobile" onclick="ecLogout()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -43,6 +46,15 @@
 
 <!-- Contenu -->
 <main class="ec-main">
+
+  <!-- Bannière d'alerte (conditionnelle) -->
+  <div class="ec-alert-banner" id="ec-alert-banner" style="display:none">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="ec-alert-banner-text"></span>
+    <button class="ec-alert-close" onclick="this.parentElement.style.display='none'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
 
   <!-- Bonjour -->
   <div class="ec-welcome">
@@ -84,6 +96,26 @@
         </button>
         <span class="ec-solde-action-lbl">Convertir</span>
       </div>
+      <div class="ec-solde-action">
+        <button class="ec-solde-circle" onclick="ecOpenModal('rib')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </button>
+        <span class="ec-solde-action-lbl">Mon RIB</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Santé financière -->
+  <div class="ec-health-card" id="ec-health-card">
+    <div class="ec-health-left">
+      <div class="ec-health-lbl">Santé financière</div>
+      <div class="ec-health-score" id="ec-health-score">—</div>
+    </div>
+    <div class="ec-health-right">
+      <div class="ec-health-bar-track">
+        <div class="ec-health-bar-fill" id="ec-health-fill"></div>
+      </div>
+      <div class="ec-health-detail" id="ec-health-detail"></div>
     </div>
   </div>
 
@@ -118,6 +150,10 @@
     <div class="ec-credit-prog-track">
       <div class="ec-credit-prog-fill" id="ec-prog-fill"></div>
     </div>
+    <button class="ec-remb-btn" onclick="ecOpenModal('remb')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      Simuler un remboursement anticipé
+    </button>
   </div>
 
   <!-- Prochaine échéance -->
@@ -139,13 +175,63 @@
     <div class="ec-section-title">Transactions récentes</div>
     <a href="#" class="ec-tx-voir-tout" id="ec-tx-voir-tout" onclick="ecToggleTxAll(event)">Tout afficher</a>
   </div>
+  <!-- Filtres transactions -->
+  <div class="ec-tx-filters">
+    <button class="ec-tx-ftab active" onclick="ecFilterTx('tous',this)">Tout</button>
+    <button class="ec-tx-ftab" onclick="ecFilterTx('depot',this)">Dépôts</button>
+    <button class="ec-tx-ftab" onclick="ecFilterTx('virement',this)">Virements</button>
+    <button class="ec-tx-ftab" onclick="ecFilterTx('mois',this)">Ce mois</button>
+  </div>
   <div class="ec-tx-card">
     <div class="ec-tx-list" id="ec-tx-list">
       <div class="ec-tx-empty" id="ec-tx-empty">Aucune opération pour le moment.</div>
     </div>
   </div>
 
+  <!-- Graphique des dépenses -->
+  <div class="ec-section-title">Répartition des dépenses</div>
+  <div class="ec-chart-card" id="ec-chart-card">
+    <div class="ec-chart-wrap">
+      <svg id="ec-donut-svg" width="110" height="110" viewBox="0 0 110 110"></svg>
+      <div class="ec-donut-center" id="ec-donut-center">
+        <div class="ec-donut-total" id="ec-donut-total">—</div>
+        <div class="ec-donut-lbl">dépenses</div>
+      </div>
+    </div>
+    <div class="ec-chart-legend" id="ec-chart-legend"></div>
+  </div>
+
   </div><!-- /.ec-dashboard-col-left -->
+  <div class="ec-dashboard-col-right">
+
+  <!-- Messagerie rapide -->
+  <div class="ec-section-title">Messagerie</div>
+  <a href="messagerie.html" class="ec-msg-preview-card" id="ec-msg-preview">
+    <div class="ec-msg-preview-ico">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <div class="ec-msg-preview-txt">
+      <div class="ec-msg-preview-title">Contacter mon conseiller</div>
+      <div class="ec-msg-preview-sub" id="ec-msg-preview-sub">Messagerie sécurisée</div>
+    </div>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted-2)" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </a>
+
+  <!-- Prochaine échéance (col droite desktop) -->
+  <div class="ec-section-title">Prochaine échéance</div>
+  <div class="ec-echeance-card ec-echeance-card--right">
+    <div class="ec-echeance-left">
+      <div class="ec-echeance-ico">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <div class="ec-echeance-lbl">Échéance</div>
+        <div class="ec-echeance-date" id="ec-next-date-2">—</div>
+      </div>
+    </div>
+    <div class="ec-echeance-amt" id="ec-next-amt-2">—</div>
+  </div>
+
   </div><!-- /.ec-dashboard-col-right -->
   </div><!-- /.ec-dashboard-grid -->
 
@@ -153,8 +239,6 @@
 
 <!-- Navigation bas / Sidebar desktop -->
 <nav class="ec-bottom-nav">
-
-  <!-- Logo + user — visibles uniquement sur desktop (sidebar) -->
   <div class="ec-sidebar-brand">
     <a href="index.html" class="ec-sidebar-logo">Solfianza</a>
     <div class="ec-sidebar-tagline">Espace Client</div>
@@ -168,7 +252,6 @@
   </div>
   <div class="ec-sidebar-divider"></div>
 
-  <!-- Liens de navigation -->
   <a href="espace-client.html" class="ec-bnav-link active">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Accueil</span>
@@ -184,13 +267,17 @@
     <span>Suivi dossier</span>
     <div class="ec-bnav-dot"></div>
   </a>
+  <a href="messagerie.html" class="ec-bnav-link">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>Messages</span>
+    <div class="ec-bnav-dot"></div>
+  </a>
   <a href="profil.html" class="ec-bnav-link">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     <span>Mon profil</span>
     <div class="ec-bnav-dot"></div>
   </a>
 
-  <!-- Déconnexion (sidebar uniquement) -->
   <button class="ec-sidebar-logout" onclick="ecLogout()">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     Déconnexion
@@ -203,21 +290,16 @@
     <div class="ec-modal-handle"></div>
     <div class="ec-modal-header">
       <span class="ec-modal-title">Faire un dépôt</span>
-      <button class="ec-modal-close" onclick="ecCloseModal('depot')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="ec-modal-close" onclick="ecCloseModal('depot')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-modal-body">
       <div class="ec-form-group">
         <label class="ec-lbl">Montant à déposer <span class="ec-req">*</span></label>
-        <div class="ec-amount-wrap">
-          <input class="ec-inp" id="ec-depot-amt" type="number" min="1" placeholder="0,00" />
-          <span class="ec-amount-euro">€</span>
-        </div>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="ec-depot-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div>
       </div>
       <div class="ec-form-group">
         <label class="ec-lbl">Depuis votre IBAN</label>
-        <input class="ec-inp" id="ec-depot-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX" />
+        <input class="ec-inp" id="ec-depot-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/>
       </div>
       <div class="ec-modal-err" id="ec-depot-err" style="display:none"></div>
       <button class="ec-btn-primary" onclick="ecConfirmDepot()" style="margin-top:.5rem">Confirmer le dépôt</button>
@@ -231,30 +313,13 @@
     <div class="ec-modal-handle"></div>
     <div class="ec-modal-header">
       <span class="ec-modal-title">Effectuer un virement</span>
-      <button class="ec-modal-close" onclick="ecCloseModal('virement')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="ec-modal-close" onclick="ecCloseModal('virement')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-modal-body">
-      <div class="ec-form-group">
-        <label class="ec-lbl">Bénéficiaire <span class="ec-req">*</span></label>
-        <input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire" />
-      </div>
-      <div class="ec-form-group">
-        <label class="ec-lbl">IBAN destinataire <span class="ec-req">*</span></label>
-        <input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX" />
-      </div>
-      <div class="ec-form-group">
-        <label class="ec-lbl">Montant <span class="ec-req">*</span></label>
-        <div class="ec-amount-wrap">
-          <input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00" />
-          <span class="ec-amount-euro">€</span>
-        </div>
-      </div>
-      <div class="ec-form-group">
-        <label class="ec-lbl">Motif</label>
-        <input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..." />
-      </div>
+      <div class="ec-form-group"><label class="ec-lbl">Bénéficiaire <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire"/></div>
+      <div class="ec-form-group"><label class="ec-lbl">IBAN destinataire <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/></div>
+      <div class="ec-form-group"><label class="ec-lbl">Montant <span class="ec-req">*</span></label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div></div>
+      <div class="ec-form-group"><label class="ec-lbl">Motif</label><input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..."/></div>
       <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>
       <button class="ec-btn-primary" onclick="ecConfirmVirement()" style="margin-top:.5rem">Confirmer le virement</button>
     </div>
@@ -267,34 +332,19 @@
     <div class="ec-modal-handle"></div>
     <div class="ec-modal-header">
       <span class="ec-modal-title">Convertir une devise</span>
-      <button class="ec-modal-close" onclick="ecCloseModal('convert')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="ec-modal-close" onclick="ecCloseModal('convert')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-modal-body">
       <div class="ec-convert-row">
-        <div class="ec-form-group" style="flex:1">
-          <label class="ec-lbl">Montant (€)</label>
-          <div class="ec-amount-wrap">
-            <input class="ec-inp" id="ec-conv-amt" type="number" min="0" placeholder="0,00" oninput="ecConvert()" />
-            <span class="ec-amount-euro">€</span>
-          </div>
-        </div>
-        <div class="ec-form-group" style="flex:1">
-          <label class="ec-lbl">Vers</label>
+        <div class="ec-form-group" style="flex:1"><label class="ec-lbl">Montant (€)</label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-conv-amt" type="number" min="0" placeholder="0,00" oninput="ecConvert()"/><span class="ec-amount-euro">€</span></div></div>
+        <div class="ec-form-group" style="flex:1"><label class="ec-lbl">Vers</label>
           <select class="ec-inp" id="ec-conv-currency" onchange="ecConvert()">
-            <option value="GBP">🇬🇧 Livre (GBP)</option>
-            <option value="CHF">🇨🇭 Franc suisse (CHF)</option>
-            <option value="SEK">🇸🇪 Couronne SE (SEK)</option>
-            <option value="NOK">🇳🇴 Couronne NO (NOK)</option>
-            <option value="DKK">🇩🇰 Couronne DK (DKK)</option>
-            <option value="PLN">🇵🇱 Zloty (PLN)</option>
-            <option value="CZK">🇨🇿 Couronne CZ (CZK)</option>
-            <option value="HUF">🇭🇺 Forint (HUF)</option>
-            <option value="RON">🇷🇴 Leu (RON)</option>
-            <option value="BGN">🇧🇬 Lev (BGN)</option>
-            <option value="TRY">🇹🇷 Livre TK (TRY)</option>
-            <option value="ISK">🇮🇸 Couronne IS (ISK)</option>
+            <option value="GBP">🇬🇧 Livre (GBP)</option><option value="CHF">🇨🇭 Franc suisse (CHF)</option>
+            <option value="SEK">🇸🇪 Couronne SE (SEK)</option><option value="NOK">🇳🇴 Couronne NO (NOK)</option>
+            <option value="DKK">🇩🇰 Couronne DK (DKK)</option><option value="PLN">🇵🇱 Zloty (PLN)</option>
+            <option value="CZK">🇨🇿 Couronne CZ (CZK)</option><option value="HUF">🇭🇺 Forint (HUF)</option>
+            <option value="RON">🇷🇴 Leu (RON)</option><option value="BGN">🇧🇬 Lev (BGN)</option>
+            <option value="TRY">🇹🇷 Livre TK (TRY)</option><option value="ISK">🇮🇸 Couronne IS (ISK)</option>
           </select>
         </div>
       </div>
@@ -308,36 +358,92 @@
   </div>
 </div>
 
+<!-- Modal Mon RIB -->
+<div class="ec-modal-overlay" id="ec-modal-rib" onclick="ecCloseModal('rib')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Mon RIB</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('rib')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-rib-card">
+        <div class="ec-rib-bank-name">Solfianza</div>
+        <div class="ec-rib-row"><span class="ec-rib-lbl">Titulaire</span><span class="ec-rib-val" id="ec-rib-titulaire">—</span></div>
+        <div class="ec-rib-row"><span class="ec-rib-lbl">IBAN</span><span class="ec-rib-val ec-rib-mono" id="ec-rib-iban">—</span></div>
+        <div class="ec-rib-row"><span class="ec-rib-lbl">BIC</span><span class="ec-rib-val ec-rib-mono">SOFIFR2PXXX</span></div>
+        <div class="ec-rib-row" style="border-bottom:none"><span class="ec-rib-lbl">Banque</span><span class="ec-rib-val">Solfianza — Paris</span></div>
+      </div>
+      <div class="ec-rib-actions">
+        <button class="ec-rib-copy-btn" onclick="ecCopyIban()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copier l'IBAN
+        </button>
+        <button class="ec-rib-dl-btn" onclick="ecDownloadRib()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Télécharger PDF
+        </button>
+      </div>
+      <div class="ec-rib-copied" id="ec-rib-copied" style="display:none">IBAN copié dans le presse-papiers</div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Remboursement anticipé -->
+<div class="ec-modal-overlay" id="ec-modal-remb" onclick="ecCloseModal('remb')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Remboursement anticipé</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('remb')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-remb-rows" id="ec-remb-rows">
+        <div class="ec-remb-row"><span class="ec-remb-lbl">Capital restant dû</span><span class="ec-remb-val" id="ec-remb-capital">—</span></div>
+        <div class="ec-remb-row"><span class="ec-remb-lbl">Indemnité de remb. (IRA)</span><span class="ec-remb-val" id="ec-remb-ira">—</span></div>
+        <div class="ec-remb-row ec-remb-row--total"><span class="ec-remb-lbl">Total à verser</span><span class="ec-remb-val" id="ec-remb-total">—</span></div>
+      </div>
+      <div class="ec-remb-note">
+        L'IRA est plafonnée à 6 mois d'intérêts ou 3% du capital restant (Loi Lagarde — Art. L312-34 C. conso.). Pour finaliser, contactez votre conseiller.
+      </div>
+      <a href="messagerie.html" class="ec-btn-primary" style="margin-top:1rem;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.5rem" onclick="ecCloseModal('remb')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Contacter mon conseiller
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Alertes -->
+<div class="ec-modal-overlay" id="ec-modal-alertes" onclick="ecCloseModal('alertes')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Notifications</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('alertes')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-notif-list" id="ec-notif-list">
+      <div class="ec-notif-empty">Aucune nouvelle notification.</div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Détail Transaction -->
 <div class="ec-modal-overlay" id="ec-modal-tx" onclick="ecCloseModal('tx')">
   <div class="ec-modal-card" onclick="event.stopPropagation()">
     <div class="ec-modal-handle"></div>
     <div class="ec-modal-header">
       <span class="ec-modal-title">Détail de l'opération</span>
-      <button class="ec-modal-close" onclick="ecCloseModal('tx')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="ec-modal-close" onclick="ecCloseModal('tx')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="ec-tx-detail">
       <div class="ec-tx-d-amt" id="ec-tx-d-amt">—</div>
       <div class="ec-tx-d-status" id="ec-tx-d-status"></div>
       <div class="ec-tx-d-rows">
-        <div class="ec-tx-d-row">
-          <span class="ec-tx-d-lbl">Libellé</span>
-          <span class="ec-tx-d-val" id="ec-tx-d-label">—</span>
-        </div>
-        <div class="ec-tx-d-row">
-          <span class="ec-tx-d-lbl">Type</span>
-          <span class="ec-tx-d-val" id="ec-tx-d-type">—</span>
-        </div>
-        <div class="ec-tx-d-row">
-          <span class="ec-tx-d-lbl">Date</span>
-          <span class="ec-tx-d-val" id="ec-tx-d-date">—</span>
-        </div>
-        <div class="ec-tx-d-row" style="border-bottom:none">
-          <span class="ec-tx-d-lbl">Référence</span>
-          <span class="ec-tx-d-val ec-tx-d-mono" id="ec-tx-d-ref">—</span>
-        </div>
+        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Libellé</span><span class="ec-tx-d-val" id="ec-tx-d-label">—</span></div>
+        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Type</span><span class="ec-tx-d-val" id="ec-tx-d-type">—</span></div>
+        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Date</span><span class="ec-tx-d-val" id="ec-tx-d-date">—</span></div>
+        <div class="ec-tx-d-row" style="border-bottom:none"><span class="ec-tx-d-lbl">Référence</span><span class="ec-tx-d-val ec-tx-d-mono" id="ec-tx-d-ref">—</span></div>
       </div>
     </div>
   </div>

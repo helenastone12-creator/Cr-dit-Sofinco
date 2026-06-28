@@ -998,4 +998,201 @@
   from{opacity:0;transform:translateY(8px)}
   to{opacity:1;transform:translateY(0)}
 }
+
+/* ════════════════════════════
+   ALERTE BANNIÈRE
+════════════════════════════ */
+.ec-alert-banner{
+  background:#FFF8E1;border-bottom:2px solid #F59E0B;
+  padding:.65rem 1.2rem;display:flex;align-items:center;gap:.65rem;
+  font-size:.82rem;color:#92400E;position:relative;z-index:200;
+}
+.ec-alert-banner svg{flex-shrink:0;color:#F59E0B;}
+.ec-alert-close{
+  margin-left:auto;background:none;border:none;cursor:pointer;
+  color:#92400E;opacity:.7;padding:.2rem;line-height:1;font-size:1.1rem;
+}
+.ec-alert-close:hover{opacity:1;}
+
+/* ════════════════════════════
+   CLOCHE NOTIFS
+════════════════════════════ */
+.ec-hd-bell{
+  position:relative;background:none;border:none;cursor:pointer;
+  padding:.4rem;color:rgba(255,255,255,.85);display:flex;align-items:center;
+  border-radius:var(--radius-sm);transition:background .15s;
+}
+.ec-hd-bell:hover{background:rgba(255,255,255,.12);}
+.ec-hd-bell-dot{
+  position:absolute;top:4px;right:4px;width:8px;height:8px;
+  background:var(--coral);border-radius:50%;border:2px solid var(--brand);
+}
+
+/* ════════════════════════════
+   SANTÉ FINANCIÈRE
+════════════════════════════ */
+.ec-health-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.2rem;
+  display:flex;align-items:center;gap:1.2rem;
+  box-shadow:var(--shadow-xs);margin-bottom:1rem;
+}
+.ec-health-left{flex-shrink:0;}
+.ec-health-lbl{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem;}
+.ec-health-score{font-size:1.15rem;font-weight:700;color:var(--navy);}
+.ec-health-score.excellent{color:var(--teal);}
+.ec-health-score.bon{color:#2563EB;}
+.ec-health-score.correct{color:#F59E0B;}
+.ec-health-score.surveiller{color:var(--coral);}
+.ec-health-right{flex:1;}
+.ec-health-bar-track{
+  height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:.4rem;
+}
+.ec-health-bar-fill{
+  height:100%;border-radius:3px;background:var(--teal);
+  transition:width .6s ease;width:0%;
+}
+.ec-health-detail{font-size:.76rem;color:var(--muted);}
+
+/* ════════════════════════════
+   BOUTON REMBOURSEMENT ANTICIPÉ
+════════════════════════════ */
+.ec-remb-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:none;border:1px solid rgba(255,255,255,.45);
+  color:rgba(255,255,255,.9);padding:.38rem .85rem;
+  border-radius:var(--radius-sm);font-size:.78rem;font-weight:500;
+  cursor:pointer;margin-top:.9rem;transition:background .15s,border-color .15s;
+}
+.ec-remb-btn:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.7);}
+
+/* ════════════════════════════
+   FILTRES TRANSACTIONS
+════════════════════════════ */
+.ec-tx-filters{
+  display:flex;gap:.4rem;flex-wrap:wrap;padding:0 1.2rem .8rem;
+}
+.ec-tx-ftab{
+  background:none;border:1px solid var(--border);border-radius:20px;
+  padding:.3rem .85rem;font-size:.78rem;color:var(--muted);cursor:pointer;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.ec-tx-ftab:hover{background:var(--brand-light);border-color:var(--brand);color:var(--brand);}
+.ec-tx-ftab.active{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600;}
+
+/* ════════════════════════════
+   GRAPHIQUE DÉPENSES
+════════════════════════════ */
+.ec-chart-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.2rem;box-shadow:var(--shadow-xs);
+  display:flex;align-items:center;gap:1.4rem;
+}
+.ec-chart-wrap{position:relative;flex-shrink:0;}
+.ec-donut-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;pointer-events:none;
+}
+.ec-donut-total{font-size:.95rem;font-weight:700;color:var(--navy);}
+.ec-donut-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.ec-chart-legend{flex:1;}
+.ec-chart-legend-item{
+  display:flex;align-items:center;gap:.5rem;font-size:.78rem;
+  color:var(--text-2);margin-bottom:.4rem;
+}
+.ec-chart-legend-dot{
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;
+}
+.ec-chart-legend-pct{margin-left:auto;font-weight:600;color:var(--text);}
+
+/* ════════════════════════════
+   APERÇU MESSAGERIE (dashboard)
+════════════════════════════ */
+.ec-msg-preview-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.1rem 1.2rem;box-shadow:var(--shadow-xs);
+  display:flex;align-items:center;gap:1rem;cursor:pointer;
+  text-decoration:none;transition:box-shadow .15s;
+}
+.ec-msg-preview-card:hover{box-shadow:var(--shadow-md);}
+.ec-msg-preview-ico{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--brand-light);display:flex;align-items:center;justify-content:center;
+  color:var(--brand);flex-shrink:0;
+}
+.ec-msg-preview-txt{flex:1;}
+.ec-msg-preview-title{font-size:.88rem;font-weight:600;color:var(--navy);}
+.ec-msg-preview-sub{font-size:.75rem;color:var(--muted);margin-top:.15rem;}
+
+/* ════════════════════════════
+   MODAL RIB
+════════════════════════════ */
+.ec-rib-card{padding:.4rem 0;}
+.ec-rib-bank-name{
+  font-size:1.05rem;font-weight:700;color:var(--brand);
+  margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;
+}
+.ec-rib-row{
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border);padding:.6rem 0;
+}
+.ec-rib-row:last-of-type{border-bottom:none;}
+.ec-rib-lbl{font-size:.75rem;color:var(--muted);font-weight:500;}
+.ec-rib-val{font-size:.88rem;color:var(--text);font-weight:600;}
+.ec-rib-mono{font-family:'Courier New',monospace;letter-spacing:.05em;font-size:.82rem;}
+.ec-rib-actions{display:flex;gap:.7rem;margin-top:1.2rem;}
+.ec-rib-copy-btn,.ec-rib-dl-btn{
+  flex:1;padding:.6rem;border-radius:var(--radius-sm);
+  font-size:.82rem;font-weight:600;cursor:pointer;border:none;
+  display:flex;align-items:center;justify-content:center;gap:.4rem;transition:opacity .15s;
+}
+.ec-rib-copy-btn{background:var(--brand-light);color:var(--brand);}
+.ec-rib-copy-btn:hover{opacity:.8;}
+.ec-rib-dl-btn{background:var(--brand);color:#fff;}
+.ec-rib-dl-btn:hover{opacity:.85;}
+.ec-rib-copied{
+  text-align:center;font-size:.78rem;color:var(--teal);font-weight:600;
+  margin-top:.5rem;min-height:1.1rem;
+}
+
+/* ════════════════════════════
+   MODAL REMBOURSEMENT ANTICIPÉ
+════════════════════════════ */
+.ec-remb-rows{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin:.8rem 0;}
+.ec-remb-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.65rem 1rem;border-bottom:1px solid var(--border);
+}
+.ec-remb-row:last-child{border-bottom:none;}
+.ec-remb-row--total{background:var(--brand-light);}
+.ec-remb-lbl{font-size:.82rem;color:var(--text-2);}
+.ec-remb-val{font-size:.88rem;font-weight:700;color:var(--navy);}
+.ec-remb-row--total .ec-remb-lbl,.ec-remb-row--total .ec-remb-val{color:var(--brand);}
+.ec-remb-note{
+  font-size:.73rem;color:var(--muted);background:var(--bg);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:.6rem .8rem;line-height:1.5;
+}
+
+/* ════════════════════════════
+   MODAL ALERTES / NOTIFS
+════════════════════════════ */
+.ec-notif-list{display:flex;flex-direction:column;gap:.5rem;max-height:300px;overflow-y:auto;}
+.ec-notif-empty{
+  text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;
+}
+.ec-notif-item{
+  display:flex;gap:.75rem;padding:.8rem;
+  background:var(--bg);border-radius:var(--radius-sm);align-items:flex-start;
+}
+.ec-notif-item--warn{border-left:3px solid #F59E0B;}
+.ec-notif-item--info{border-left:3px solid var(--brand);}
+.ec-notif-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;
+}
+.ec-notif-dot--warn{background:#F59E0B;}
+.ec-notif-dot--info{background:var(--brand);}
+.ec-notif-txt{font-size:.82rem;color:var(--text-2);line-height:1.5;}
+.ec-notif-txt strong{color:var(--navy);}
+
 .ec-fade-in{ animation:ecFadeIn .3s ease both; }
