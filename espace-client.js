@@ -439,6 +439,7 @@ function ecInitDashboard(){
 // ── Mes documents ──
 function ecInitDocuments(){
   ecGuard();
+  if(typeof ecApplyI18n==='function') ecApplyI18n();
   ecInitHeader();
   var user = ecGetUser();
   if(!user) return;
@@ -492,6 +493,7 @@ function ecRequestDoc(btn){ btn.textContent='Envoyé !'; btn.disabled=true; }
 // ── Suivi dossier ──
 function ecInitSuivi(){
   ecGuard();
+  if(typeof ecApplyI18n==='function') ecApplyI18n();
   ecInitHeader();
   var user=ecGetUser();
   if(user&&user.ref){

@@ -10,23 +10,7 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/></noscript>
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="espace-client.css"/>
-<script>
-(function(){
-  var supported = ['en','de','es','it','nl','pl','sv'];
-  var page = location.pathname.split('/').pop() || 'index.html';
-  if(!page.endsWith('.html')) page = 'index.html';
-  var stored = localStorage.getItem('lang_choice');
-  if(stored && supported.indexOf(stored) !== -1){
-    location.replace('/' + stored + '/' + page);
-    return;
-  }
-  if(stored) return;
-  var lang = (navigator.language || navigator.userLanguage || 'fr').toLowerCase().split('-')[0];
-  if(supported.indexOf(lang) === -1) return;
-  localStorage.setItem('lang_choice', lang);
-  location.replace('/' + lang + '/' + page);
-})();
-</script>
+  <script src="ec-i18n.js"></script>
 </head>
 <body class="ec-body ec-dash-body">
 
@@ -151,6 +135,10 @@
   </div>
 </main>
 
+<div class="ft-lang-section"><div id="ft-lang-section"></div></div>
+<div class="ft-lang-panel" id="ft-lang-panel"><div class="ft-lang-panel-inner"><div class="ft-lang-search-wrap"><div class="ft-lang-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="ft-lang-search-input" placeholder="Rechercher" autocomplete="off"></div></div><div class="ft-lang-list" id="ft-lang-list"></div></div></div>
 <script src="espace-client.js"></script>
+<script src="script.js"></script>
+<script>(function(){ var self='suivi-dossier.html'; document.querySelectorAll('.ft-lang-list-item').forEach(function(a){ a.href=self; }); })();</script>
 </body>
 </html>
