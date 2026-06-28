@@ -292,20 +292,21 @@
   display:flex;flex-direction:column;align-items:center;gap:.5rem;
 }
 .ec-solde-circle{
-  width:52px;height:52px;border-radius:50%;
+  width:40px;height:40px;border-radius:50%;
   background:var(--teal);border:none;
   color:#fff;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 14px rgba(6,194,176,.3);
+  box-shadow:0 3px 10px rgba(6,194,176,.3);
   transition:background .2s,transform .15s,box-shadow .2s;
 }
+.ec-solde-circle svg{ width:16px;height:16px; }
 .ec-solde-circle:hover{
   background:var(--teal-d);transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(6,194,176,.4);
+  box-shadow:0 5px 16px rgba(6,194,176,.4);
 }
 .ec-solde-circle:active{ transform:scale(.95); }
 .ec-solde-action-lbl{
-  font-size:.78rem;font-weight:700;color:var(--navy);
+  font-size:.75rem;font-weight:700;color:var(--navy);
 }
 
 /* ════════════════════════════
