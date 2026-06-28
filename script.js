@@ -1785,7 +1785,7 @@ function sp5Submit(){
     panel.appendChild(searchWrap);
     panel.appendChild(list);
     wrap.appendChild(trigger);
-    wrap.appendChild(panel);
+    document.body.appendChild(panel);
     sel.parentNode.insertBefore(wrap,sel);
   }
 
