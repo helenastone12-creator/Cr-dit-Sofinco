@@ -122,10 +122,72 @@ function ecInitHeader(){
   if(nm) nm.textContent=user.prenom||'Mon compte';
 }
 
+// ── Solde ──
+function ecGetSolde(){ return parseFloat(localStorage.getItem('ec_solde')||'0'); }
+function ecSetSolde(v){ localStorage.setItem('ec_solde', v.toFixed(2)); }
+function ecFormatAmt(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
+
+function ecRefreshSolde(){
+  var el = document.getElementById('ec-solde-amt');
+  if(el) el.textContent = ecFormatAmt(ecGetSolde());
+}
+
+// ── Modals ──
+function ecOpenModal(name){
+  var el = document.getElementById('ec-modal-'+name);
+  if(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
+}
+function ecCloseModal(name){
+  var el = document.getElementById('ec-modal-'+name);
+  if(el){ el.classList.remove('open'); document.body.style.overflow=''; }
+}
+
+function ecConfirmDepot(){
+  var amt  = parseFloat((document.getElementById('ec-depot-amt')||{}).value||'0');
+  var errEl = document.getElementById('ec-depot-err');
+  if(!amt || amt <= 0){
+    if(errEl){ errEl.textContent='Veuillez saisir un montant valide.'; errEl.style.display='block'; }
+    return;
+  }
+  if(errEl) errEl.style.display='none';
+  var nouveau = ecGetSolde() + amt;
+  ecSetSolde(nouveau);
+  ecRefreshSolde();
+  ecCloseModal('depot');
+  document.getElementById('ec-depot-amt').value='';
+  document.getElementById('ec-success-title').textContent='Dépôt effectué';
+  document.getElementById('ec-success-msg').textContent='+'+ ecFormatAmt(amt)+' ont été crédités sur votre compte. Nouveau solde : '+ecFormatAmt(nouveau);
+  ecOpenModal('success');
+}
+
+function ecConfirmVirement(){
+  var nom   = ((document.getElementById('ec-vir-nom')||{}).value||'').trim();
+  var iban  = ((document.getElementById('ec-vir-iban')||{}).value||'').trim();
+  var amt   = parseFloat((document.getElementById('ec-vir-amt')||{}).value||'0');
+  var errEl = document.getElementById('ec-vir-err');
+  var solde = ecGetSolde();
+
+  if(!nom){ if(errEl){ errEl.textContent='Le nom du bénéficiaire est requis.'; errEl.style.display='block'; } return; }
+  if(!iban){ if(errEl){ errEl.textContent='L\'IBAN destinataire est requis.'; errEl.style.display='block'; } return; }
+  if(!amt || amt <= 0){ if(errEl){ errEl.textContent='Veuillez saisir un montant valide.'; errEl.style.display='block'; } return; }
+  if(amt > solde){ if(errEl){ errEl.textContent='Solde insuffisant ('+ecFormatAmt(solde)+' disponible).'; errEl.style.display='block'; } return; }
+
+  if(errEl) errEl.style.display='none';
+  var nouveau = solde - amt;
+  ecSetSolde(nouveau);
+  ecRefreshSolde();
+  ecCloseModal('virement');
+  ['ec-vir-nom','ec-vir-iban','ec-vir-amt','ec-vir-motif'].forEach(function(id){ var e=document.getElementById(id); if(e)e.value=''; });
+  document.getElementById('ec-success-title').textContent='Virement envoyé';
+  document.getElementById('ec-success-msg').textContent=ecFormatAmt(amt)+' ont été virés à '+nom+'. Nouveau solde : '+ecFormatAmt(nouveau);
+  ecOpenModal('success');
+}
+
 // ── Tableau de bord ──
 function ecInitDashboard(){
   ecGuard();
   ecInitHeader();
+  ecRefreshSolde();
   var user=ecGetUser();
 
   var welcomeEl=document.getElementById('ec-welcome-name');

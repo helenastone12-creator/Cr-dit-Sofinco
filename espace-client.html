@@ -64,6 +64,24 @@
 <!-- Contenu -->
 <main class="ec-main">
 
+  <!-- Solde -->
+  <div class="ec-solde-card">
+    <div class="ec-solde-left">
+      <div class="ec-solde-lbl">Solde disponible</div>
+      <div class="ec-solde-amt" id="ec-solde-amt">0,00 €</div>
+    </div>
+    <div class="ec-solde-actions">
+      <button class="ec-solde-btn" onclick="ecOpenModal('depot')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Dépôt
+      </button>
+      <button class="ec-solde-btn ec-solde-btn--vir" onclick="ecOpenModal('virement')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        Virement
+      </button>
+    </div>
+  </div>
+
   <!-- Bonjour -->
   <div class="ec-welcome">
     <div>
@@ -143,6 +161,80 @@
   </div>
 
 </main>
+
+<!-- Modal Dépôt -->
+<div class="ec-modal-overlay" id="ec-modal-depot" onclick="ecCloseModal('depot')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Faire un dépôt</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('depot')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-form-group">
+        <label class="ec-lbl">Montant à déposer <span class="ec-req">*</span></label>
+        <div class="ec-amount-wrap">
+          <input class="ec-inp" id="ec-depot-amt" type="number" min="1" placeholder="0,00" />
+          <span class="ec-amount-euro">€</span>
+        </div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Depuis votre IBAN</label>
+        <input class="ec-inp" id="ec-depot-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX" />
+      </div>
+      <div class="ec-modal-err" id="ec-depot-err" style="display:none"></div>
+      <button class="ec-btn-primary" onclick="ecConfirmDepot()">Confirmer le dépôt</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Virement -->
+<div class="ec-modal-overlay" id="ec-modal-virement" onclick="ecCloseModal('virement')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Effectuer un virement</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('virement')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-form-group">
+        <label class="ec-lbl">Bénéficiaire <span class="ec-req">*</span></label>
+        <input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire" />
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">IBAN destinataire <span class="ec-req">*</span></label>
+        <input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX" />
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Montant <span class="ec-req">*</span></label>
+        <div class="ec-amount-wrap">
+          <input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00" />
+          <span class="ec-amount-euro">€</span>
+        </div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Motif</label>
+        <input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..." />
+      </div>
+      <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>
+      <button class="ec-btn-primary" onclick="ecConfirmVirement()">Confirmer le virement</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Succès -->
+<div class="ec-modal-overlay" id="ec-modal-success" onclick="ecCloseModal('success')">
+  <div class="ec-modal-card ec-modal-card--sm" onclick="event.stopPropagation()">
+    <div class="ec-success-ico">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="ec-success-title" id="ec-success-title">Opération réussie</div>
+    <div class="ec-success-msg" id="ec-success-msg"></div>
+    <button class="ec-btn-primary" onclick="ecCloseModal('success')" style="margin-top:1.2rem">Fermer</button>
+  </div>
+</div>
 
 <script src="espace-client.js"></script>
 </body>
