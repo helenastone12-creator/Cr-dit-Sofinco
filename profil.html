@@ -140,6 +140,68 @@
   display:flex;align-items:center;justify-content:center;color:var(--ec-muted);
 }
 
+/* Photo avatar */
+.pf-avatar-wrap{ position:relative;display:inline-flex;margin-bottom:.8rem; }
+.pf-avatar{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,#6366F1,#8B5CF6);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:2rem;font-weight:700;
+  box-shadow:0 0 0 3px rgba(99,102,241,.2);
+  overflow:hidden;
+}
+.pf-avatar img{ width:100%;height:100%;object-fit:cover;border-radius:50%; }
+.pf-photo-btn{
+  position:absolute;bottom:2px;right:2px;
+  width:26px;height:26px;border-radius:50%;
+  background:#111;border:2px solid #fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .15s;
+}
+.pf-photo-btn:hover{ background:#333; }
+
+/* Lecture seule — bandeau */
+.pf-readonly-banner{
+  display:flex;align-items:flex-start;gap:.6rem;
+  background:#FFF9EC;border:1px solid rgba(245,158,11,.2);
+  border-radius:10px;padding:.75rem .9rem;
+  font-size:.78rem;color:#92400E;line-height:1.5;
+  margin-bottom:1.2rem;
+}
+.pf-readonly-banner svg{ flex-shrink:0;margin-top:.1rem;stroke:#D97706; }
+
+/* Lignes info */
+.pf-info-list{
+  background:#F9FAFB;border-radius:12px;
+  border:1px solid rgba(0,0,0,.07);
+  overflow:hidden;margin-bottom:1.2rem;
+}
+.pf-info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.75rem 1rem;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  gap:1rem;
+}
+.pf-info-lbl{
+  font-size:.74rem;font-weight:600;color:#9AA3B0;
+  text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;
+}
+.pf-info-val{
+  font-size:.88rem;font-weight:600;color:#111827;
+  text-align:right;word-break:break-all;
+}
+
+/* Bouton modifier via contact */
+.pf-contact-modify{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  width:100%;padding:.82rem;border-radius:12px;
+  background:#F0F3FA;border:1.5px solid rgba(0,0,0,.08);
+  color:#374151;font-size:.88rem;font-weight:600;
+  text-decoration:none;transition:all .18s;
+}
+.pf-contact-modify:hover{ background:#E5E9F2;border-color:rgba(0,0,0,.14); }
+.pf-contact-modify svg{ stroke:#6366F1; }
+
 /* Toast */
 .pf-toast{
   position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
@@ -169,7 +231,13 @@
 
   <!-- Hero -->
   <div class="pf-hero">
-    <div class="pf-avatar" id="pf-avatar">J</div>
+    <div class="pf-avatar-wrap">
+      <div class="pf-avatar" id="pf-avatar">J</div>
+      <label class="pf-photo-btn" for="pf-photo-input" title="Changer la photo">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </label>
+      <input type="file" id="pf-photo-input" accept="image/*" style="display:none" onchange="pfUploadPhoto(this)"/>
+    </div>
     <div class="pf-name" id="pf-name">—</div>
     <div class="pf-email" id="pf-email">—</div>
     <div class="pf-badge">
@@ -355,31 +423,56 @@
 </nav>
 
 <!-- Modals -->
-<!-- Profil -->
+<!-- Profil — lecture seule -->
 <div class="pf-modal-overlay" id="pf-modal-profil" onclick="pfCloseModal('profil')">
   <div class="pf-modal-card" onclick="event.stopPropagation()">
     <div class="pf-modal-handle"></div>
     <div class="pf-modal-header">
-      <span class="pf-modal-title">Votre profil</span>
-      <button class="pf-modal-close" onclick="pfCloseModal('profil')">✕</button>
+      <span class="pf-modal-title">Mes informations</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('profil')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
-    <div class="ec-form-group">
-      <label class="ec-lbl">Prénom</label>
-      <input class="ec-inp" id="pf-edit-prenom" type="text"/>
+
+    <!-- Bandeau info lecture seule -->
+    <div class="pf-readonly-banner">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Ces informations sont celles fournies lors de votre demande de crédit. Elles ne peuvent pas être modifiées directement.
     </div>
-    <div class="ec-form-group">
-      <label class="ec-lbl">Nom</label>
-      <input class="ec-inp" id="pf-edit-nom" type="text"/>
+
+    <!-- Lignes d'info -->
+    <div class="pf-info-list">
+      <div class="pf-info-row">
+        <span class="pf-info-lbl">Prénom</span>
+        <span class="pf-info-val" id="pf-ro-prenom">—</span>
+      </div>
+      <div class="pf-info-row">
+        <span class="pf-info-lbl">Nom</span>
+        <span class="pf-info-val" id="pf-ro-nom">—</span>
+      </div>
+      <div class="pf-info-row">
+        <span class="pf-info-lbl">Email</span>
+        <span class="pf-info-val" id="pf-ro-email">—</span>
+      </div>
+      <div class="pf-info-row">
+        <span class="pf-info-lbl">Téléphone</span>
+        <span class="pf-info-val" id="pf-ro-tel">—</span>
+      </div>
+      <div class="pf-info-row">
+        <span class="pf-info-lbl">N° dossier</span>
+        <span class="pf-info-val" id="pf-ro-ref">—</span>
+      </div>
+      <div class="pf-info-row" style="border-bottom:none">
+        <span class="pf-info-lbl">IBAN</span>
+        <span class="pf-info-val" id="pf-ro-iban">—</span>
+      </div>
     </div>
-    <div class="ec-form-group">
-      <label class="ec-lbl">Téléphone</label>
-      <input class="ec-inp" id="pf-edit-tel" type="tel"/>
-    </div>
-    <div class="ec-form-group">
-      <label class="ec-lbl">Email</label>
-      <input class="ec-inp" id="pf-edit-email" type="email"/>
-    </div>
-    <button class="ec-btn-primary" onclick="pfSaveProfil()" style="margin-top:.5rem">Enregistrer</button>
+
+    <!-- Bouton contact -->
+    <a href="nous-contacter.html" class="pf-contact-modify">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Contacter le service clientèle pour modifier
+    </a>
   </div>
 </div>
 
@@ -575,32 +668,53 @@ function pfInit(){
   ecInitHeader();
   var user = ecGetUser();
   if(!user) return;
-  var initials = (((user.prenom||'')[0]||'').toUpperCase()+(( user.nom||'')[0]||'').toUpperCase())||'U';
-  document.getElementById('pf-avatar').textContent = initials;
-  document.getElementById('pf-name').textContent = (user.prenom||'')+' '+(user.nom||'');
-  document.getElementById('pf-email').textContent = user.email||'';
-  // Pré-remplir formulaire profil
-  document.getElementById('pf-edit-prenom').value = user.prenom||'';
-  document.getElementById('pf-edit-nom').value = user.nom||'';
-  document.getElementById('pf-edit-tel').value = user.tel||'';
-  document.getElementById('pf-edit-email').value = user.email||'';
-  // IBAN
+
+  // Photo ou initiales
+  var avatarEl = document.getElementById('pf-avatar');
+  var photo = localStorage.getItem('ec_photo');
+  if(photo){
+    avatarEl.innerHTML = '<img src="'+photo+'" alt="photo"/>';
+  } else {
+    var initials = (((user.prenom||'')[0]||'').toUpperCase()+((user.nom||'')[0]||'').toUpperCase())||'?';
+    avatarEl.textContent = initials;
+  }
+
+  // Hero
+  document.getElementById('pf-name').textContent = ((user.prenom||'')+' '+(user.nom||'')).trim()||'—';
+  document.getElementById('pf-email').textContent = user.email||'—';
+
+  // Modal lecture seule
+  document.getElementById('pf-ro-prenom').textContent = user.prenom||'—';
+  document.getElementById('pf-ro-nom').textContent    = user.nom||'—';
+  document.getElementById('pf-ro-email').textContent  = user.email||'—';
+  document.getElementById('pf-ro-tel').textContent    = user.tel||'—';
+  document.getElementById('pf-ro-ref').textContent    = user.ref||'—';
   var iban = user.iban||'—';
-  document.getElementById('pf-iban-sub').textContent = iban !== '—' ? iban.substring(0,8)+'••••' : 'Non renseigné';
-  document.getElementById('pf-iban-display').textContent = iban;
+  document.getElementById('pf-ro-iban').textContent   = iban !== '—' ? iban.substring(0,8)+'••••' : '—';
+
+  // IBAN sous-titre et display
+  var ibanSub = document.getElementById('pf-iban-sub');
+  if(ibanSub) ibanSub.textContent = iban !== '—' ? iban.substring(0,8)+'••••' : 'Non renseigné';
+  var ibanDisplay = document.getElementById('pf-iban-display');
+  if(ibanDisplay) ibanDisplay.textContent = iban;
 }
 
-function pfSaveProfil(){
-  var user = ecGetUser();
-  if(!user) return;
-  user.prenom = document.getElementById('pf-edit-prenom').value.trim();
-  user.nom    = document.getElementById('pf-edit-nom').value.trim();
-  user.tel    = document.getElementById('pf-edit-tel').value.trim();
-  user.email  = document.getElementById('pf-edit-email').value.trim().toLowerCase();
-  ecSetUser(user);
-  pfCloseModal('profil');
-  pfToast('✓ Profil mis à jour');
-  pfInit();
+function pfUploadPhoto(input){
+  var file = input.files[0];
+  if(!file) return;
+  if(file.size > 5*1024*1024){ pfToast('Photo trop lourde (max 5 Mo)'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var data = e.target.result;
+    localStorage.setItem('ec_photo', data);
+    var avatarEl = document.getElementById('pf-avatar');
+    avatarEl.innerHTML = '<img src="'+data+'" alt="photo"/>';
+    // Mettre à jour aussi le header
+    var hdAvatar = document.getElementById('ec-hd-avatar');
+    if(hdAvatar){ hdAvatar.innerHTML = '<img src="'+data+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>'; }
+    pfToast('✓ Photo mise à jour');
+  };
+  reader.readAsDataURL(file);
 }
 
 function pfSavePwd(){
