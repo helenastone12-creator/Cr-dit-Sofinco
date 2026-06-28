@@ -192,6 +192,16 @@ function ecTxColor(label){
   var i = label.charCodeAt(0) % EC_AVATAR_COLORS.length;
   return EC_AVATAR_COLORS[i];
 }
+var EC_TX_SHOW_ALL = false;
+
+function ecToggleTxAll(e){
+  if(e) e.preventDefault();
+  EC_TX_SHOW_ALL = !EC_TX_SHOW_ALL;
+  ecRenderTx();
+  var btn = document.getElementById('ec-tx-voir-tout');
+  if(btn) btn.textContent = EC_TX_SHOW_ALL ? 'Réduire' : 'Tout afficher';
+}
+
 function ecRenderTx(){
   var list = ecGetTx();
   var container = document.getElementById('ec-tx-list');
@@ -200,7 +210,8 @@ function ecRenderTx(){
   if(!list.length){ if(empty) empty.style.display=''; return; }
   if(empty) empty.style.display='none';
   var hidden = ecSoldeHidden();
-  var html = list.slice(0,5).map(function(tx){
+  var displayed = EC_TX_SHOW_ALL ? list : list.slice(0,5);
+  var html = displayed.map(function(tx){
     var isOut = tx.type==='virement';
     var isConv = tx.type==='convert';
     var sign = isOut ? '−' : '+';
@@ -219,8 +230,7 @@ function ecRenderTx(){
       +'<div class="ec-tx-amt '+amtCls+'">'+amtDisplay+'</div>'
       +'</div>';
   }).join('');
-  container.innerHTML = html + (empty ? empty.outerHTML : '');
-  if(empty) document.getElementById('ec-tx-empty').style.display='none';
+  container.innerHTML = html;
 }
 
 // ── Modals ──
