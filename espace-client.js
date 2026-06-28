@@ -374,6 +374,10 @@ function ecConfirmVirement(){
 // ── Tableau de bord ──
 function ecInitDashboard(){
   ecGuard();
+  if(typeof ecApplyI18n==='function'){ ecApplyI18n(); ecRenderLangSwitcher('ec-lang-switcher-wrap'); ecRenderLangSwitcher('ec-lang-sidebar'); }
+  var flags={fr:'🇫🇷',en:'🇬🇧',de:'🇩🇪',es:'🇪🇸',it:'🇮🇹',nl:'🇳🇱',pl:'🇵🇱',sv:'🇸🇪'};
+  var cur=document.getElementById('ec-lang-cur'); if(cur) cur.textContent=(flags[EC_LANG]||'🌐')+' '+(EC_LANG||'FR').toUpperCase();
+  document.addEventListener('click',function(e){ var dd=document.getElementById('ec-lang-dropdown'); if(dd&&!dd.contains(e.target)&&e.target.id!=='ec-lang-toggle'&&!e.target.closest('#ec-lang-toggle')) dd.classList.remove('open'); });
   ecInitHeader();
   ecRefreshSolde();
   ecRenderTx();
@@ -566,10 +570,10 @@ function ecInitAlertBanner(){
   var now=new Date();
   var next=new Date(now.getFullYear(), now.getMonth()+1, 1);
   var diff=Math.ceil((next-now)/(24*3600*1000));
-  if(mens>0 && diff<=7) msgs.push('Votre prochaine échéance de '+mens.toLocaleString('fr-FR')+'€ est dans '+diff+' jour'+(diff>1?'s':'')+'.');
+  if(mens>0 && diff<=7) msgs.push(ecT('alert_echeance',{amt:mens.toLocaleString('fr-FR'),n:diff,s:diff>1?'s':''}));
 
   // Solde faible ?
-  if(mens>0 && solde < mens*2) msgs.push('Votre solde est insuffisant pour couvrir 2 mensualités.');
+  if(mens>0 && solde < mens*2) msgs.push(ecT('alert_solde'));
 
   var banner=document.getElementById('ec-alert-banner');
   var txt=document.getElementById('ec-alert-banner-text');
@@ -594,10 +598,10 @@ function ecInitHealthScore(){
 
   var ratio=solde>0 ? mens/solde : 1;
   var score,label,pct,cls;
-  if(ratio<0.2){score='Excellent';pct=95;cls='excellent';}
-  else if(ratio<0.35){score='Bon';pct=70;cls='bon';}
-  else if(ratio<0.5){score='Correct';pct=45;cls='correct';}
-  else{score='À surveiller';pct=20;cls='surveiller';}
+  if(ratio<0.2){score=ecT('health_excellent');pct=95;cls='excellent';}
+  else if(ratio<0.35){score=ecT('health_bon');pct=70;cls='bon';}
+  else if(ratio<0.5){score=ecT('health_correct');pct=45;cls='correct';}
+  else{score=ecT('health_surveiller');pct=20;cls='surveiller';}
 
   var scoreEl=document.getElementById('ec-health-score');
   var fill=document.getElementById('ec-health-fill');
@@ -720,7 +724,7 @@ function ecCopyIban(){
   var iban=ecGenerateIban(user.id||'').replace(/\s/g,'');
   navigator.clipboard.writeText(iban).then(function(){
     var msg=document.getElementById('ec-rib-copied');
-    if(msg){msg.textContent='IBAN copié !';setTimeout(function(){msg.textContent='';},2500);}
+    if(msg){msg.textContent=ecT('rib_copied');setTimeout(function(){msg.textContent='';},2500);}
   });
 }
 function ecDownloadRib(){
@@ -771,13 +775,13 @@ function ecInitNotifs(){
   var now2=new Date();
   var next=new Date(now2.getFullYear(),now2.getMonth()+1,1);
   var diff=Math.ceil((next-now2)/(24*3600*1000));
-  if(mens>0&&diff<=7) notifs.push({type:'warn',txt:'<strong>Échéance proche</strong> — Prélèvement de '+mens.toLocaleString('fr-FR')+'€ dans '+diff+' jour'+(diff>1?'s':'')+'.'});
-  if(mens>0&&solde<mens*2) notifs.push({type:'warn',txt:'<strong>Solde faible</strong> — Votre solde est inférieur à 2 mensualités.'});
+  if(mens>0&&diff<=7) notifs.push({type:'warn',txt:'<strong>'+ecT('notif_echeance_title')+'</strong> — '+ecT('alert_echeance',{amt:mens.toLocaleString('fr-FR'),n:diff,s:diff>1?'s':''})});
+  if(mens>0&&solde<mens*2) notifs.push({type:'warn',txt:'<strong>'+ecT('notif_solde_title')+'</strong> — '+ecT('notif_solde_txt')});
 
   if(!notifs.length){
-    list.innerHTML='<div class="ec-notif-empty">Aucune notification pour le moment.</div>';return;
+    list.innerHTML='<div class="ec-notif-empty">'+ecT('notif_empty')+'</div>';return;
   }
-  notifs.push({type:'info',txt:'<strong>Bienvenue</strong> — Votre espace client Solfianza est actif.'});
+  notifs.push({type:'info',txt:'<strong>'+ecT('notif_welcome_title')+'</strong> — '+ecT('notif_welcome_txt')});
   notifs.forEach(function(n){
     var item=document.createElement('div');
     item.className='ec-notif-item ec-notif-item--'+n.type;
@@ -794,6 +798,7 @@ function ecSaveMessages(msgs){localStorage.setItem('ec_messages',JSON.stringify(
 
 function ecInitMessagerie(){
   ecGuard();
+  if(typeof ecApplyI18n==='function') ecApplyI18n();
   ecInitHeader();
   ecRenderMessages();
 }
@@ -827,7 +832,7 @@ function ecSendMessage(){
   ecRenderMessages();
   setTimeout(function(){
     var m2=ecGetMessages();
-    m2.push({text:'Merci pour votre message. Un conseiller Sofinco vous répondra dans les 24h ouvrées.',date:new Date().toISOString(),fromClient:false});
+    m2.push({text:ecT('msg_auto_reply'),date:new Date().toISOString(),fromClient:false});
     ecSaveMessages(m2);
     ecRenderMessages();
   },1200);

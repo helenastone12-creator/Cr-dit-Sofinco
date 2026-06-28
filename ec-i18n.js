@@ -1,0 +1,456 @@
+/* ═══════════════════════════════════════════
+   ESPACE CLIENT — Traductions (i18n)
+   Langues : fr, en, de, es, it, nl, pl, sv
+════════════════════════════════════════════ */
+
+var EC_LANGS = {
+
+  fr: {
+    /* Navigation */
+    nav_home:'Accueil', nav_documents:'Documents', nav_suivi:'Suivi dossier',
+    nav_messages:'Messages', nav_profil:'Mon profil', nav_logout:'Déconnexion',
+    /* Header */
+    notif_aria:'Notifications',
+    /* Dashboard */
+    welcome_sub:'Bienvenue', solde_lbl:'SOLDE DISPONIBLE',
+    action_depot:'Dépôt', action_virement:'Virement', action_convert:'Convertir', action_rib:'Mon RIB',
+    credit_title:'Crédit en cours', credit_type:'Prêt personnel', credit_badge:'En cours',
+    credit_capital:'Capital', credit_mens:'Mensualité', credit_restant:'Restant dû',
+    credit_remb:'Remboursement', credit_remb_btn:'Simuler un remboursement anticipé',
+    tx_title:'Transactions récentes', tx_all_link:'Tout afficher',
+    filter_tous:'Tout', filter_depot:'Dépôts', filter_virement:'Virements', filter_mois:'Ce mois',
+    chart_title:'Répartition des dépenses', chart_lbl:'dépenses',
+    msg_title:'Messagerie', msg_contact:'Contacter mon conseiller', msg_sub:'Messagerie sécurisée',
+    echeance_title:'Prochaine échéance', echeance_lbl:'Échéance',
+    health_lbl:'Santé financière',
+    /* Alertes */
+    alert_echeance:'Votre prochaine échéance de {amt}€ est dans {n} jour{s}.',
+    alert_solde:'Votre solde est insuffisant pour couvrir 2 mensualités.',
+    notif_echeance_title:'Échéance proche',
+    notif_solde_title:'Solde faible', notif_solde_txt:'Votre solde est inférieur à 2 mensualités.',
+    notif_welcome_title:'Bienvenue', notif_welcome_txt:'Votre espace client Solfianza est actif.',
+    notif_empty:'Aucune notification pour le moment.',
+    /* Modal RIB */
+    rib_title:'Mon RIB', rib_bank:'Solinza', rib_titulaire:'Titulaire',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Banque',
+    rib_copy:'Copier l\'IBAN', rib_dl:'Télécharger le RIB', rib_copied:'IBAN copié !',
+    /* Modal remb */
+    remb_title:'Remboursement anticipé', remb_capital:'Capital restant',
+    remb_ira:'Pénalité IRA', remb_total:'Total à rembourser',
+    remb_note:'L\'indemnité de remboursement anticipé (IRA) est plafonnée au minimum entre 6 mois d\'intérêts et 3% du capital restant (Loi Lagarde, art. L312-34).',
+    /* Modal alertes */
+    alertes_title:'Mes notifications',
+    /* Modal succès */
+    success_title:'Opération réussie', success_msg:'Votre opération a bien été enregistrée.',
+    btn_close:'Fermer', btn_confirm:'Confirmer',
+    /* Dépôt / Virement */
+    depot_title:'Faire un dépôt', depot_lbl:'Montant à déposer', depot_btn:'Déposer',
+    virement_title:'Effectuer un virement', virement_lbl:'Montant à virer', virement_dest:'Bénéficiaire', virement_btn:'Virer',
+    /* Messagerie */
+    msg_page_sub:'Espace client', msg_page_title:'Messagerie sécurisée',
+    msg_empty:'Aucun message pour le moment.\nEnvoyez votre première demande ci-dessous.',
+    msg_placeholder:'Écrivez votre message à votre conseiller…',
+    msg_send:'Envoyer', msg_secure:'Canal sécurisé — Vos messages sont chiffrés et conservés dans votre espace.',
+    msg_sender_you:'Vous', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Merci pour votre message. Un conseiller Sofinco vous répondra dans les 24h ouvrées.',
+    /* Auth */
+    login_title:'Connexion', login_email:'Email', login_pwd:'Mot de passe', login_btn:'Se connecter',
+    login_err_empty:'Veuillez remplir tous les champs.', login_err_blocked:'Votre compte a été bloqué.',
+    login_err_bad:'Email ou mot de passe incorrect.',
+    /* Profil */
+    profil_title:'Mon profil',
+    /* Docs */
+    docs_title:'Mes documents',
+    /* Suivi */
+    suivi_title:'Suivi de dossier',
+    /* Divers */
+    tx_empty:'Aucune transaction.', tx_op:'Opération',
+    health_excellent:'Excellent', health_bon:'Bon', health_correct:'Correct', health_surveiller:'À surveiller',
+    health_detail:'Ratio mensualité/solde : {pct}%',
+  },
+
+  en: {
+    nav_home:'Home', nav_documents:'Documents', nav_suivi:'Application tracking',
+    nav_messages:'Messages', nav_profil:'My profile', nav_logout:'Sign out',
+    notif_aria:'Notifications',
+    welcome_sub:'Welcome', solde_lbl:'AVAILABLE BALANCE',
+    action_depot:'Deposit', action_virement:'Transfer', action_convert:'Convert', action_rib:'My IBAN',
+    credit_title:'Active loan', credit_type:'Personal loan', credit_badge:'Active',
+    credit_capital:'Capital', credit_mens:'Monthly payment', credit_restant:'Remaining',
+    credit_remb:'Repayment', credit_remb_btn:'Simulate early repayment',
+    tx_title:'Recent transactions', tx_all_link:'View all',
+    filter_tous:'All', filter_depot:'Deposits', filter_virement:'Transfers', filter_mois:'This month',
+    chart_title:'Spending breakdown', chart_lbl:'expenses',
+    msg_title:'Messaging', msg_contact:'Contact my advisor', msg_sub:'Secure messaging',
+    echeance_title:'Next payment', echeance_lbl:'Payment',
+    health_lbl:'Financial health',
+    alert_echeance:'Your next payment of {amt}€ is in {n} day{s}.',
+    alert_solde:'Your balance is too low to cover 2 monthly payments.',
+    notif_echeance_title:'Upcoming payment',
+    notif_solde_title:'Low balance', notif_solde_txt:'Your balance is below 2 monthly payments.',
+    notif_welcome_title:'Welcome', notif_welcome_txt:'Your Solfianza client area is active.',
+    notif_empty:'No notifications at the moment.',
+    rib_title:'My IBAN / RIB', rib_bank:'Sofinco', rib_titulaire:'Account holder',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Bank',
+    rib_copy:'Copy IBAN', rib_dl:'Download RIB', rib_copied:'IBAN copied!',
+    remb_title:'Early repayment', remb_capital:'Remaining capital',
+    remb_ira:'Early repayment fee', remb_total:'Total to repay',
+    remb_note:'The early repayment indemnity (IRA) is capped at the minimum of 6 months\' interest or 3% of the remaining capital (Lagarde Act, art. L312-34).',
+    alertes_title:'My notifications',
+    success_title:'Operation successful', success_msg:'Your operation has been recorded.',
+    btn_close:'Close', btn_confirm:'Confirm',
+    depot_title:'Make a deposit', depot_lbl:'Amount to deposit', depot_btn:'Deposit',
+    virement_title:'Make a transfer', virement_lbl:'Amount to transfer', virement_dest:'Recipient', virement_btn:'Transfer',
+    msg_page_sub:'Client area', msg_page_title:'Secure messaging',
+    msg_empty:'No messages yet.\nSend your first request below.',
+    msg_placeholder:'Write your message to your advisor…',
+    msg_send:'Send', msg_secure:'Secure channel — Your messages are encrypted and stored in your space.',
+    msg_sender_you:'You', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Thank you for your message. A Sofinco advisor will respond within 24 working hours.',
+    login_title:'Sign in', login_email:'Email', login_pwd:'Password', login_btn:'Sign in',
+    login_err_empty:'Please fill in all fields.', login_err_blocked:'Your account has been blocked.',
+    login_err_bad:'Incorrect email or password.',
+    profil_title:'My profile', docs_title:'My documents', suivi_title:'Application tracking',
+    tx_empty:'No transactions.', tx_op:'Operation',
+    health_excellent:'Excellent', health_bon:'Good', health_correct:'Fair', health_surveiller:'Watch out',
+    health_detail:'Payment-to-balance ratio: {pct}%',
+  },
+
+  de: {
+    nav_home:'Startseite', nav_documents:'Dokumente', nav_suivi:'Antragsverfolgung',
+    nav_messages:'Nachrichten', nav_profil:'Mein Profil', nav_logout:'Abmelden',
+    notif_aria:'Benachrichtigungen',
+    welcome_sub:'Willkommen', solde_lbl:'VERFÜGBARES GUTHABEN',
+    action_depot:'Einzahlung', action_virement:'Überweisung', action_convert:'Umrechnen', action_rib:'Meine IBAN',
+    credit_title:'Laufender Kredit', credit_type:'Privatkredit', credit_badge:'Aktiv',
+    credit_capital:'Kapital', credit_mens:'Monatliche Rate', credit_restant:'Restschuld',
+    credit_remb:'Rückzahlung', credit_remb_btn:'Vorzeitige Rückzahlung simulieren',
+    tx_title:'Letzte Transaktionen', tx_all_link:'Alle anzeigen',
+    filter_tous:'Alle', filter_depot:'Einzahlungen', filter_virement:'Überweisungen', filter_mois:'Diesen Monat',
+    chart_title:'Ausgabenübersicht', chart_lbl:'Ausgaben',
+    msg_title:'Nachrichten', msg_contact:'Berater kontaktieren', msg_sub:'Sicheres Messaging',
+    echeance_title:'Nächste Zahlung', echeance_lbl:'Zahlung',
+    health_lbl:'Finanzielle Gesundheit',
+    alert_echeance:'Ihre nächste Rate von {amt}€ ist in {n} Tag{s} fällig.',
+    alert_solde:'Ihr Guthaben reicht nicht für 2 Monatsraten.',
+    notif_echeance_title:'Bevorstehende Zahlung',
+    notif_solde_title:'Niedriges Guthaben', notif_solde_txt:'Ihr Guthaben liegt unter 2 Monatsraten.',
+    notif_welcome_title:'Willkommen', notif_welcome_txt:'Ihr Solfianza-Kundenbereich ist aktiv.',
+    notif_empty:'Keine Benachrichtigungen vorhanden.',
+    rib_title:'Meine IBAN', rib_bank:'Sofinco', rib_titulaire:'Kontoinhaber',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Bank',
+    rib_copy:'IBAN kopieren', rib_dl:'RIB herunterladen', rib_copied:'IBAN kopiert!',
+    remb_title:'Vorzeitige Rückzahlung', remb_capital:'Restkapital',
+    remb_ira:'Vorfälligkeitsentschädigung', remb_total:'Gesamtbetrag zur Rückzahlung',
+    remb_note:'Die Vorfälligkeitsentschädigung (IRA) ist auf das Minimum aus 6 Monaten Zinsen oder 3% des Restkapitals begrenzt (Loi Lagarde, Art. L312-34).',
+    alertes_title:'Meine Benachrichtigungen',
+    success_title:'Vorgang erfolgreich', success_msg:'Ihr Vorgang wurde gespeichert.',
+    btn_close:'Schließen', btn_confirm:'Bestätigen',
+    depot_title:'Einzahlung vornehmen', depot_lbl:'Einzahlungsbetrag', depot_btn:'Einzahlen',
+    virement_title:'Überweisung vornehmen', virement_lbl:'Überweisungsbetrag', virement_dest:'Empfänger', virement_btn:'Überweisen',
+    msg_page_sub:'Kundenbereich', msg_page_title:'Sicheres Messaging',
+    msg_empty:'Noch keine Nachrichten.\nSenden Sie unten Ihre erste Anfrage.',
+    msg_placeholder:'Schreiben Sie Ihrem Berater…',
+    msg_send:'Senden', msg_secure:'Sicherer Kanal — Ihre Nachrichten sind verschlüsselt gespeichert.',
+    msg_sender_you:'Sie', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Vielen Dank für Ihre Nachricht. Ein Sofinco-Berater antwortet innerhalb von 24 Arbeitsstunden.',
+    login_title:'Anmelden', login_email:'E-Mail', login_pwd:'Passwort', login_btn:'Anmelden',
+    login_err_empty:'Bitte alle Felder ausfüllen.', login_err_blocked:'Ihr Konto wurde gesperrt.',
+    login_err_bad:'Falsche E-Mail oder falsches Passwort.',
+    profil_title:'Mein Profil', docs_title:'Meine Dokumente', suivi_title:'Antragsverfolgung',
+    tx_empty:'Keine Transaktionen.', tx_op:'Vorgang',
+    health_excellent:'Ausgezeichnet', health_bon:'Gut', health_correct:'Ausreichend', health_surveiller:'Achtung',
+    health_detail:'Raten-/Guthabenverhältnis: {pct}%',
+  },
+
+  es: {
+    nav_home:'Inicio', nav_documents:'Documentos', nav_suivi:'Seguimiento',
+    nav_messages:'Mensajes', nav_profil:'Mi perfil', nav_logout:'Cerrar sesión',
+    notif_aria:'Notificaciones',
+    welcome_sub:'Bienvenido/a', solde_lbl:'SALDO DISPONIBLE',
+    action_depot:'Depósito', action_virement:'Transferencia', action_convert:'Convertir', action_rib:'Mi IBAN',
+    credit_title:'Préstamo activo', credit_type:'Préstamo personal', credit_badge:'Activo',
+    credit_capital:'Capital', credit_mens:'Cuota mensual', credit_restant:'Restante',
+    credit_remb:'Reembolso', credit_remb_btn:'Simular amortización anticipada',
+    tx_title:'Transacciones recientes', tx_all_link:'Ver todo',
+    filter_tous:'Todo', filter_depot:'Depósitos', filter_virement:'Transferencias', filter_mois:'Este mes',
+    chart_title:'Desglose de gastos', chart_lbl:'gastos',
+    msg_title:'Mensajería', msg_contact:'Contactar a mi asesor', msg_sub:'Mensajería segura',
+    echeance_title:'Próximo vencimiento', echeance_lbl:'Vencimiento',
+    health_lbl:'Salud financiera',
+    alert_echeance:'Su próximo pago de {amt}€ vence en {n} día{s}.',
+    alert_solde:'Su saldo es insuficiente para cubrir 2 cuotas.',
+    notif_echeance_title:'Vencimiento próximo',
+    notif_solde_title:'Saldo bajo', notif_solde_txt:'Su saldo es inferior a 2 cuotas mensuales.',
+    notif_welcome_title:'Bienvenido/a', notif_welcome_txt:'Su área de cliente Solfianza está activa.',
+    notif_empty:'Sin notificaciones por el momento.',
+    rib_title:'Mi IBAN', rib_bank:'Sofinco', rib_titulaire:'Titular',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Banco',
+    rib_copy:'Copiar IBAN', rib_dl:'Descargar RIB', rib_copied:'¡IBAN copiado!',
+    remb_title:'Amortización anticipada', remb_capital:'Capital restante',
+    remb_ira:'Penalización por cancelación', remb_total:'Total a reembolsar',
+    remb_note:'La indemnización por reembolso anticipado (IRA) está limitada al mínimo entre 6 meses de intereses o el 3% del capital restante.',
+    alertes_title:'Mis notificaciones',
+    success_title:'Operación exitosa', success_msg:'Su operación ha sido registrada.',
+    btn_close:'Cerrar', btn_confirm:'Confirmar',
+    depot_title:'Realizar un depósito', depot_lbl:'Importe a depositar', depot_btn:'Depositar',
+    virement_title:'Realizar una transferencia', virement_lbl:'Importe a transferir', virement_dest:'Beneficiario', virement_btn:'Transferir',
+    msg_page_sub:'Área de cliente', msg_page_title:'Mensajería segura',
+    msg_empty:'Sin mensajes por el momento.\nEnvíe su primera solicitud abajo.',
+    msg_placeholder:'Escriba su mensaje a su asesor…',
+    msg_send:'Enviar', msg_secure:'Canal seguro — Sus mensajes están cifrados y guardados en su espacio.',
+    msg_sender_you:'Usted', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Gracias por su mensaje. Un asesor de Sofinco le responderá en un plazo de 24 horas hábiles.',
+    login_title:'Iniciar sesión', login_email:'Correo electrónico', login_pwd:'Contraseña', login_btn:'Iniciar sesión',
+    login_err_empty:'Por favor, rellene todos los campos.', login_err_blocked:'Su cuenta ha sido bloqueada.',
+    login_err_bad:'Correo electrónico o contraseña incorrectos.',
+    profil_title:'Mi perfil', docs_title:'Mis documentos', suivi_title:'Seguimiento de solicitud',
+    tx_empty:'Sin transacciones.', tx_op:'Operación',
+    health_excellent:'Excelente', health_bon:'Bueno', health_correct:'Correcto', health_surveiller:'Atención',
+    health_detail:'Ratio cuota/saldo: {pct}%',
+  },
+
+  it: {
+    nav_home:'Home', nav_documents:'Documenti', nav_suivi:'Monitoraggio pratica',
+    nav_messages:'Messaggi', nav_profil:'Il mio profilo', nav_logout:'Disconnettersi',
+    notif_aria:'Notifiche',
+    welcome_sub:'Benvenuto/a', solde_lbl:'SALDO DISPONIBILE',
+    action_depot:'Deposito', action_virement:'Bonifico', action_convert:'Converti', action_rib:'Il mio IBAN',
+    credit_title:'Prestito in corso', credit_type:'Prestito personale', credit_badge:'Attivo',
+    credit_capital:'Capitale', credit_mens:'Rata mensile', credit_restant:'Residuo',
+    credit_remb:'Rimborso', credit_remb_btn:'Simula rimborso anticipato',
+    tx_title:'Transazioni recenti', tx_all_link:'Vedi tutto',
+    filter_tous:'Tutto', filter_depot:'Depositi', filter_virement:'Bonifici', filter_mois:'Questo mese',
+    chart_title:'Ripartizione spese', chart_lbl:'spese',
+    msg_title:'Messaggistica', msg_contact:'Contatta il mio consulente', msg_sub:'Messaggistica sicura',
+    echeance_title:'Prossima scadenza', echeance_lbl:'Scadenza',
+    health_lbl:'Salute finanziaria',
+    alert_echeance:'La prossima rata di {amt}€ scade tra {n} giorno{s}.',
+    alert_solde:'Il saldo non è sufficiente per coprire 2 rate mensili.',
+    notif_echeance_title:'Scadenza imminente',
+    notif_solde_title:'Saldo basso', notif_solde_txt:'Il saldo è inferiore a 2 rate mensili.',
+    notif_welcome_title:'Benvenuto/a', notif_welcome_txt:'La tua area clienti Solfianza è attiva.',
+    notif_empty:'Nessuna notifica al momento.',
+    rib_title:'Il mio IBAN', rib_bank:'Sofinco', rib_titulaire:'Intestatario',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Banca',
+    rib_copy:'Copia IBAN', rib_dl:'Scarica RIB', rib_copied:'IBAN copiato!',
+    remb_title:'Rimborso anticipato', remb_capital:'Capitale residuo',
+    remb_ira:'Penale IRA', remb_total:'Totale da rimborsare',
+    remb_note:'L\'indennità di rimborso anticipato (IRA) è limitata al minimo tra 6 mesi di interessi e il 3% del capitale residuo.',
+    alertes_title:'Le mie notifiche',
+    success_title:'Operazione riuscita', success_msg:'La tua operazione è stata registrata.',
+    btn_close:'Chiudi', btn_confirm:'Conferma',
+    depot_title:'Effettua un deposito', depot_lbl:'Importo da depositare', depot_btn:'Deposita',
+    virement_title:'Effettua un bonifico', virement_lbl:'Importo da trasferire', virement_dest:'Beneficiario', virement_btn:'Trasferisci',
+    msg_page_sub:'Area clienti', msg_page_title:'Messaggistica sicura',
+    msg_empty:'Nessun messaggio per ora.\nInvia la tua prima richiesta qui sotto.',
+    msg_placeholder:'Scrivi un messaggio al tuo consulente…',
+    msg_send:'Invia', msg_secure:'Canale sicuro — I tuoi messaggi sono crittografati e conservati nel tuo spazio.',
+    msg_sender_you:'Tu', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Grazie per il tuo messaggio. Un consulente Sofinco risponderà entro 24 ore lavorative.',
+    login_title:'Accedi', login_email:'Email', login_pwd:'Password', login_btn:'Accedi',
+    login_err_empty:'Compila tutti i campi.', login_err_blocked:'Il tuo account è stato bloccato.',
+    login_err_bad:'Email o password errati.',
+    profil_title:'Il mio profilo', docs_title:'I miei documenti', suivi_title:'Monitoraggio pratica',
+    tx_empty:'Nessuna transazione.', tx_op:'Operazione',
+    health_excellent:'Eccellente', health_bon:'Buono', health_correct:'Sufficiente', health_surveiller:'Attenzione',
+    health_detail:'Rapporto rata/saldo: {pct}%',
+  },
+
+  nl: {
+    nav_home:'Home', nav_documents:'Documenten', nav_suivi:'Dossiervolging',
+    nav_messages:'Berichten', nav_profil:'Mijn profiel', nav_logout:'Uitloggen',
+    notif_aria:'Meldingen',
+    welcome_sub:'Welkom', solde_lbl:'BESCHIKBAAR SALDO',
+    action_depot:'Storting', action_virement:'Overschrijving', action_convert:'Omrekenen', action_rib:'Mijn IBAN',
+    credit_title:'Actieve lening', credit_type:'Persoonlijke lening', credit_badge:'Actief',
+    credit_capital:'Kapitaal', credit_mens:'Maandelijks bedrag', credit_restant:'Resterend',
+    credit_remb:'Terugbetaling', credit_remb_btn:'Vervroegde aflossing simuleren',
+    tx_title:'Recente transacties', tx_all_link:'Alles weergeven',
+    filter_tous:'Alles', filter_depot:'Stortingen', filter_virement:'Overschrijvingen', filter_mois:'Deze maand',
+    chart_title:'Uitgavenverdeling', chart_lbl:'uitgaven',
+    msg_title:'Berichten', msg_contact:'Contact opnemen met adviseur', msg_sub:'Beveiligde berichten',
+    echeance_title:'Volgende betaling', echeance_lbl:'Betaling',
+    health_lbl:'Financiële gezondheid',
+    alert_echeance:'Uw volgende betaling van {amt}€ is over {n} dag{s}.',
+    alert_solde:'Uw saldo is onvoldoende voor 2 maandelijkse betalingen.',
+    notif_echeance_title:'Aankomende betaling',
+    notif_solde_title:'Laag saldo', notif_solde_txt:'Uw saldo is lager dan 2 maandelijkse betalingen.',
+    notif_welcome_title:'Welkom', notif_welcome_txt:'Uw Solfianza klantenzone is actief.',
+    notif_empty:'Geen meldingen op dit moment.',
+    rib_title:'Mijn IBAN', rib_bank:'Sofinco', rib_titulaire:'Rekeninghouder',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Bank',
+    rib_copy:'IBAN kopiëren', rib_dl:'RIB downloaden', rib_copied:'IBAN gekopieerd!',
+    remb_title:'Vervroegde aflossing', remb_capital:'Resterend kapitaal',
+    remb_ira:'Vergoeding vervroegde aflossing', remb_total:'Totaal terug te betalen',
+    remb_note:'De vergoeding voor vervroegde aflossing (IRA) is beperkt tot het minimum van 6 maanden rente of 3% van het resterende kapitaal.',
+    alertes_title:'Mijn meldingen',
+    success_title:'Bewerking geslaagd', success_msg:'Uw bewerking is geregistreerd.',
+    btn_close:'Sluiten', btn_confirm:'Bevestigen',
+    depot_title:'Een storting doen', depot_lbl:'Te storten bedrag', depot_btn:'Storten',
+    virement_title:'Een overschrijving doen', virement_lbl:'Te overschrijven bedrag', virement_dest:'Begunstigde', virement_btn:'Overboeken',
+    msg_page_sub:'Klantenzone', msg_page_title:'Beveiligde berichten',
+    msg_empty:'Nog geen berichten.\nStuur uw eerste verzoek hieronder.',
+    msg_placeholder:'Schrijf een bericht aan uw adviseur…',
+    msg_send:'Verzenden', msg_secure:'Beveiligd kanaal — Uw berichten zijn versleuteld opgeslagen.',
+    msg_sender_you:'U', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Bedankt voor uw bericht. Een Sofinco-adviseur zal binnen 24 werkuren antwoorden.',
+    login_title:'Inloggen', login_email:'E-mail', login_pwd:'Wachtwoord', login_btn:'Inloggen',
+    login_err_empty:'Vul alle velden in.', login_err_blocked:'Uw account is geblokkeerd.',
+    login_err_bad:'Onjuist e-mailadres of wachtwoord.',
+    profil_title:'Mijn profiel', docs_title:'Mijn documenten', suivi_title:'Dossiervolging',
+    tx_empty:'Geen transacties.', tx_op:'Bewerking',
+    health_excellent:'Uitstekend', health_bon:'Goed', health_correct:'Voldoende', health_surveiller:'Let op',
+    health_detail:'Verhouding betaling/saldo: {pct}%',
+  },
+
+  pl: {
+    nav_home:'Strona główna', nav_documents:'Dokumenty', nav_suivi:'Śledzenie wniosku',
+    nav_messages:'Wiadomości', nav_profil:'Mój profil', nav_logout:'Wyloguj się',
+    notif_aria:'Powiadomienia',
+    welcome_sub:'Witaj', solde_lbl:'DOSTĘPNE SALDO',
+    action_depot:'Wpłata', action_virement:'Przelew', action_convert:'Przelicz', action_rib:'Mój IBAN',
+    credit_title:'Aktywna pożyczka', credit_type:'Pożyczka osobista', credit_badge:'Aktywna',
+    credit_capital:'Kapitał', credit_mens:'Miesięczna rata', credit_restant:'Pozostało',
+    credit_remb:'Spłata', credit_remb_btn:'Symuluj wcześniejszą spłatę',
+    tx_title:'Ostatnie transakcje', tx_all_link:'Wyświetl wszystkie',
+    filter_tous:'Wszystkie', filter_depot:'Wpłaty', filter_virement:'Przelewy', filter_mois:'Ten miesiąc',
+    chart_title:'Podział wydatków', chart_lbl:'wydatki',
+    msg_title:'Wiadomości', msg_contact:'Skontaktuj się z doradcą', msg_sub:'Bezpieczna wiadomość',
+    echeance_title:'Następna płatność', echeance_lbl:'Płatność',
+    health_lbl:'Kondycja finansowa',
+    alert_echeance:'Następna rata {amt}€ za {n} dzień/dni.',
+    alert_solde:'Saldo jest niewystarczające na 2 raty miesięczne.',
+    notif_echeance_title:'Nadchodząca płatność',
+    notif_solde_title:'Niskie saldo', notif_solde_txt:'Saldo jest niższe niż 2 raty miesięczne.',
+    notif_welcome_title:'Witaj', notif_welcome_txt:'Twoja strefa klienta Solfianza jest aktywna.',
+    notif_empty:'Brak powiadomień.',
+    rib_title:'Mój IBAN', rib_bank:'Sofinco', rib_titulaire:'Właściciel konta',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Bank',
+    rib_copy:'Kopiuj IBAN', rib_dl:'Pobierz RIB', rib_copied:'IBAN skopiowany!',
+    remb_title:'Wcześniejsza spłata', remb_capital:'Pozostały kapitał',
+    remb_ira:'Opłata za wcześniejszą spłatę', remb_total:'Łącznie do spłaty',
+    remb_note:'Odszkodowanie za wcześniejszą spłatę (IRA) jest ograniczone do minimum 6 miesięcy odsetek lub 3% pozostałego kapitału.',
+    alertes_title:'Moje powiadomienia',
+    success_title:'Operacja zakończona', success_msg:'Twoja operacja została zarejestrowana.',
+    btn_close:'Zamknij', btn_confirm:'Potwierdź',
+    depot_title:'Dokonaj wpłaty', depot_lbl:'Kwota do wpłaty', depot_btn:'Wpłać',
+    virement_title:'Dokonaj przelewu', virement_lbl:'Kwota przelewu', virement_dest:'Odbiorca', virement_btn:'Przelej',
+    msg_page_sub:'Strefa klienta', msg_page_title:'Bezpieczna wiadomość',
+    msg_empty:'Brak wiadomości.\nWyślij pierwsze zapytanie poniżej.',
+    msg_placeholder:'Napisz wiadomość do doradcy…',
+    msg_send:'Wyślij', msg_secure:'Bezpieczny kanał — Twoje wiadomości są zaszyfrowane.',
+    msg_sender_you:'Ty', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Dziękujemy za wiadomość. Doradca Sofinco odpowie w ciągu 24 godzin roboczych.',
+    login_title:'Zaloguj się', login_email:'E-mail', login_pwd:'Hasło', login_btn:'Zaloguj się',
+    login_err_empty:'Wypełnij wszystkie pola.', login_err_blocked:'Twoje konto zostało zablokowane.',
+    login_err_bad:'Nieprawidłowy e-mail lub hasło.',
+    profil_title:'Mój profil', docs_title:'Moje dokumenty', suivi_title:'Śledzenie wniosku',
+    tx_empty:'Brak transakcji.', tx_op:'Operacja',
+    health_excellent:'Doskonały', health_bon:'Dobry', health_correct:'Poprawny', health_surveiller:'Uwaga',
+    health_detail:'Współczynnik rata/saldo: {pct}%',
+  },
+
+  sv: {
+    nav_home:'Hem', nav_documents:'Dokument', nav_suivi:'Ärendespårning',
+    nav_messages:'Meddelanden', nav_profil:'Min profil', nav_logout:'Logga ut',
+    notif_aria:'Aviseringar',
+    welcome_sub:'Välkommen', solde_lbl:'TILLGÄNGLIGT SALDO',
+    action_depot:'Insättning', action_virement:'Överföring', action_convert:'Konvertera', action_rib:'Mitt IBAN',
+    credit_title:'Aktivt lån', credit_type:'Personligt lån', credit_badge:'Aktivt',
+    credit_capital:'Kapital', credit_mens:'Månadsbetalning', credit_restant:'Återstående',
+    credit_remb:'Återbetalning', credit_remb_btn:'Simulera förtidsåterbetalning',
+    tx_title:'Senaste transaktioner', tx_all_link:'Visa alla',
+    filter_tous:'Alla', filter_depot:'Insättningar', filter_virement:'Överföringar', filter_mois:'Denna månad',
+    chart_title:'Utgiftsfördelning', chart_lbl:'utgifter',
+    msg_title:'Meddelanden', msg_contact:'Kontakta min rådgivare', msg_sub:'Säker meddelandetjänst',
+    echeance_title:'Nästa betalning', echeance_lbl:'Betalning',
+    health_lbl:'Finansiell hälsa',
+    alert_echeance:'Din nästa betalning på {amt}€ är om {n} dag{s}.',
+    alert_solde:'Ditt saldo räcker inte till 2 månadsbetalningar.',
+    notif_echeance_title:'Kommande betalning',
+    notif_solde_title:'Lågt saldo', notif_solde_txt:'Ditt saldo understiger 2 månadsbetalningar.',
+    notif_welcome_title:'Välkommen', notif_welcome_txt:'Din Solfianza kundzon är aktiv.',
+    notif_empty:'Inga aviseringar för tillfället.',
+    rib_title:'Mitt IBAN', rib_bank:'Sofinco', rib_titulaire:'Kontoinnehavare',
+    rib_iban:'IBAN', rib_bic:'BIC / SWIFT', rib_banque:'Bank',
+    rib_copy:'Kopiera IBAN', rib_dl:'Ladda ner RIB', rib_copied:'IBAN kopierat!',
+    remb_title:'Förtidsåterbetalning', remb_capital:'Återstående kapital',
+    remb_ira:'Förtidsavgift', remb_total:'Totalt att betala tillbaka',
+    remb_note:'Ersättningen för förtidsåterbetalning (IRA) är begränsad till det lägsta av 6 månaders ränta eller 3% av återstående kapital.',
+    alertes_title:'Mina aviseringar',
+    success_title:'Åtgärd lyckades', success_msg:'Din åtgärd har registrerats.',
+    btn_close:'Stäng', btn_confirm:'Bekräfta',
+    depot_title:'Gör en insättning', depot_lbl:'Belopp att sätta in', depot_btn:'Sätt in',
+    virement_title:'Gör en överföring', virement_lbl:'Belopp att överföra', virement_dest:'Mottagare', virement_btn:'Överför',
+    msg_page_sub:'Kundzon', msg_page_title:'Säker meddelandetjänst',
+    msg_empty:'Inga meddelanden än.\nSkicka din första förfrågan nedan.',
+    msg_placeholder:'Skriv ditt meddelande till din rådgivare…',
+    msg_send:'Skicka', msg_secure:'Säker kanal — Dina meddelanden är krypterade och sparade i ditt utrymme.',
+    msg_sender_you:'Du', msg_sender_bank:'Sofinco',
+    msg_auto_reply:'Tack för ditt meddelande. En Sofinco-rådgivare svarar inom 24 arbetstimmar.',
+    login_title:'Logga in', login_email:'E-post', login_pwd:'Lösenord', login_btn:'Logga in',
+    login_err_empty:'Vänligen fyll i alla fält.', login_err_blocked:'Ditt konto har blockerats.',
+    login_err_bad:'Felaktig e-post eller lösenord.',
+    profil_title:'Min profil', docs_title:'Mina dokument', suivi_title:'Ärendespårning',
+    tx_empty:'Inga transaktioner.', tx_op:'Åtgärd',
+    health_excellent:'Utmärkt', health_bon:'Bra', health_correct:'Tillräcklig', health_surveiller:'Varning',
+    health_detail:'Betalning/saldo-förhållande: {pct}%',
+  }
+
+};
+
+/* ── Moteur i18n ── */
+var EC_LANG = (function(){
+  var supported = Object.keys(EC_LANGS);
+  var stored = localStorage.getItem('lang_choice');
+  if(stored && supported.indexOf(stored) !== -1) return stored;
+  var browser = (navigator.language || 'fr').toLowerCase().split('-')[0];
+  return supported.indexOf(browser) !== -1 ? browser : 'fr';
+})();
+
+function ecT(key, vars){
+  var dict = EC_LANGS[EC_LANG] || EC_LANGS['fr'];
+  var str = dict[key] || EC_LANGS['fr'][key] || key;
+  if(vars){
+    Object.keys(vars).forEach(function(k){
+      str = str.replace(new RegExp('\\{'+k+'\\}','g'), vars[k]);
+    });
+  }
+  return str;
+}
+
+function ecApplyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    el.textContent = ecT(key);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+    el.placeholder = ecT(el.getAttribute('data-i18n-placeholder'));
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+    el.setAttribute('aria-label', ecT(el.getAttribute('data-i18n-aria')));
+  });
+  /* Langue sur <html> */
+  document.documentElement.lang = EC_LANG;
+}
+
+function ecSetLang(lang){
+  localStorage.setItem('lang_choice', lang);
+  location.reload();
+}
+
+/* Sélecteur de langue HTML */
+function ecRenderLangSwitcher(containerId){
+  var el = document.getElementById(containerId);
+  if(!el) return;
+  var flags = {fr:'🇫🇷',en:'🇬🇧',de:'🇩🇪',es:'🇪🇸',it:'🇮🇹',nl:'🇳🇱',pl:'🇵🇱',sv:'🇸🇪'};
+  var names = {fr:'FR',en:'EN',de:'DE',es:'ES',it:'IT',nl:'NL',pl:'PL',sv:'SV'};
+  var html = '<div class="ec-lang-switcher">';
+  Object.keys(EC_LANGS).forEach(function(l){
+    html += '<button class="ec-lang-btn'+(l===EC_LANG?' active':'')+'" onclick="ecSetLang(\''+l+'\')" title="'+names[l]+'">'
+      + flags[l]+' '+names[l]+'</button>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
