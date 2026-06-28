@@ -262,11 +262,25 @@ function ecOpenTxDetail(encoded){
 // ── Modals ──
 function ecOpenModal(name){
   var el = document.getElementById('ec-modal-'+name);
-  if(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
+  if(!el) return;
+  var scrollY = window.scrollY || window.pageYOffset;
+  document.body.dataset.scrollY = scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + scrollY + 'px';
+  document.body.style.width = '100%';
+  document.body.style.overflow = 'hidden';
+  el.classList.add('open');
 }
 function ecCloseModal(name){
   var el = document.getElementById('ec-modal-'+name);
-  if(el){ el.classList.remove('open'); document.body.style.overflow=''; }
+  if(!el) return;
+  el.classList.remove('open');
+  var scrollY = parseInt(document.body.dataset.scrollY || '0');
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  document.body.style.overflow = '';
+  window.scrollTo(0, scrollY);
 }
 
 function ecConfirmDepot(){

@@ -651,6 +651,7 @@
   display:flex;align-items:flex-end;justify-content:center;
   opacity:0;pointer-events:none;transition:opacity .22s;
   backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  overscroll-behavior:contain;
 }
 .ec-modal-overlay.open{ opacity:1;pointer-events:all; }
 .ec-modal-card{
