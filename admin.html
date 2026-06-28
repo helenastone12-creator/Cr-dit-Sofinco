@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — Solfianza</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#0d2748;min-height:100vh}
+
+    /* ── Login ── */
+    #login-screen{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#0d2748 0%,#1a3a5c 100%);
+    }
+    .login-card{
+      background:#fff;border-radius:20px;padding:2.5rem 2rem;
+      width:100%;max-width:380px;box-shadow:0 24px 64px rgba(0,0,0,.3);
+      text-align:center;
+    }
+    .login-logo{font-size:1.8rem;font-weight:800;color:#0d2748;margin-bottom:.2rem}
+    .login-sub{font-size:.75rem;font-weight:700;color:#06c2b0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem}
+    .login-title{font-size:1.2rem;font-weight:800;color:#0d2748;margin-bottom:1.5rem}
+    .login-inp{
+      width:100%;border:1.5px solid #e2e6ed;border-radius:10px;
+      padding:.82rem 1rem;font-size:1rem;outline:none;font-family:inherit;
+      transition:border-color .2s;margin-bottom:.8rem;
+    }
+    .login-inp:focus{border-color:#06c2b0}
+    .login-btn{
+      width:100%;padding:.88rem;border-radius:2rem;
+      background:#0d2748;color:#fff;border:none;
+      font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;
+      transition:background .2s;
+    }
+    .login-btn:hover{background:#1a3a5c}
+    .login-err{
+      background:#fff5f5;border:1.5px solid #f5c6cb;border-radius:8px;
+      padding:.6rem .9rem;font-size:.84rem;color:#c0392b;
+      margin-bottom:.8rem;display:none;
+    }
+
+    /* ── Dashboard ── */
+    #admin-screen{display:none}
+    .adm-header{
+      background:#0d2748;padding:1rem 1.5rem;
+      display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:100;
+    }
+    .adm-logo{font-size:1.2rem;font-weight:800;color:#fff}
+    .adm-badge{
+      background:rgba(6,194,176,.2);color:#06c2b0;
+      border:1px solid rgba(6,194,176,.3);border-radius:2rem;
+      padding:.3rem .8rem;font-size:.72rem;font-weight:800;letter-spacing:.05em;
+    }
+    .adm-logout{
+      background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+      border-radius:2rem;padding:.35rem .8rem;
+      font-size:.76rem;font-weight:600;color:rgba(255,255,255,.7);
+      cursor:pointer;font-family:inherit;transition:all .2s;
+    }
+    .adm-logout:hover{background:rgba(255,255,255,.2);color:#fff}
+
+    .adm-main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+
+    /* Stats */
+    .adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem}
+    .adm-stat{
+      background:#fff;border-radius:14px;padding:1.3rem 1.2rem;
+      border:1px solid #e2e6ed;box-shadow:0 2px 8px rgba(0,0,0,.04);
+    }
+    .adm-stat-lbl{font-size:.72rem;font-weight:700;color:#8a94a6;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+    .adm-stat-val{font-size:1.8rem;font-weight:800;color:#0d2748}
+    .adm-stat-val--teal{color:#06c2b0}
+
+    /* Search */
+    .adm-toolbar{display:flex;gap:.8rem;margin-bottom:1.2rem;flex-wrap:wrap}
+    .adm-search{
+      flex:1;min-width:200px;border:1.5px solid #e2e6ed;border-radius:10px;
+      padding:.7rem 1rem;font-size:.9rem;outline:none;font-family:inherit;
+      transition:border-color .2s;
+    }
+    .adm-search:focus{border-color:#06c2b0}
+    .adm-export{
+      padding:.7rem 1.2rem;border-radius:10px;
+      background:#0d2748;color:#fff;border:none;
+      font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;
+      transition:background .2s;white-space:nowrap;
+    }
+    .adm-export:hover{background:#1a3a5c}
+
+    /* Table */
+    .adm-table-wrap{
+      background:#fff;border-radius:16px;border:1px solid #e2e6ed;
+      overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);
+    }
+    table{width:100%;border-collapse:collapse}
+    thead{background:#f8f9fb}
+    th{
+      padding:.85rem 1rem;text-align:left;
+      font-size:.72rem;font-weight:800;color:#8a94a6;
+      text-transform:uppercase;letter-spacing:.08em;
+      border-bottom:1px solid #e2e6ed;white-space:nowrap;
+    }
+    td{
+      padding:.9rem 1rem;font-size:.88rem;
+      border-bottom:1px solid #f0f2f5;vertical-align:middle;
+    }
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#fafbfc}
+    .td-name{font-weight:700;color:#0d2748}
+    .td-email{color:#555;font-size:.82rem}
+    .td-ref{
+      font-family:monospace;font-size:.82rem;
+      background:#f0f2f5;padding:.2rem .5rem;border-radius:5px;
+      color:#0d2748;font-weight:700;
+    }
+    .td-date{color:#8a94a6;font-size:.8rem}
+    .td-solde{font-weight:800;color:#06c2b0}
+    .td-actions{display:flex;gap:.4rem}
+    .btn-view,.btn-del{
+      padding:.35rem .75rem;border-radius:6px;border:none;
+      font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;
+      transition:all .2s;
+    }
+    .btn-view{background:#e8faf8;color:#049f90}
+    .btn-view:hover{background:#06c2b0;color:#fff}
+    .btn-del{background:#fff5f5;color:#e74c3c}
+    .btn-del:hover{background:#e74c3c;color:#fff}
+
+    /* Empty */
+    .adm-empty{
+      text-align:center;padding:3rem 1rem;color:#8a94a6;font-size:.95rem;
+    }
+
+    /* Detail modal */
+    .adm-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;
+      display:flex;align-items:center;justify-content:center;padding:1rem;
+      opacity:0;pointer-events:none;transition:opacity .2s;
+    }
+    .adm-overlay.open{opacity:1;pointer-events:all}
+    .adm-modal{
+      background:#fff;border-radius:20px;padding:2rem;
+      width:100%;max-width:480px;max-height:90vh;overflow-y:auto;
+      transform:scale(.95);transition:transform .2s;
+    }
+    .adm-overlay.open .adm-modal{transform:scale(1)}
+    .adm-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+    .adm-modal-title{font-size:1.1rem;font-weight:800;color:#0d2748}
+    .adm-modal-close{
+      background:#f0f2f5;border:none;cursor:pointer;
+      width:30px;height:30px;border-radius:50%;font-size:1rem;
+      display:flex;align-items:center;justify-content:center;color:#555;
+    }
+    .adm-field{margin-bottom:1rem}
+    .adm-field-lbl{font-size:.72rem;font-weight:700;color:#8a94a6;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.25rem}
+    .adm-field-val{font-size:.95rem;font-weight:600;color:#0d2748}
+    .adm-divider{border:none;border-top:1px solid #e2e6ed;margin:1.2rem 0}
+
+    /* Confirm delete */
+    .adm-confirm{
+      background:#fff5f5;border:1.5px solid #f5c6cb;border-radius:12px;
+      padding:1rem;margin-top:1rem;display:none;
+    }
+    .adm-confirm p{font-size:.88rem;color:#c0392b;margin-bottom:.8rem}
+    .adm-confirm-btns{display:flex;gap:.6rem}
+    .btn-confirm-del{
+      flex:1;padding:.65rem;border-radius:8px;border:none;
+      background:#e74c3c;color:#fff;font-weight:700;cursor:pointer;font-family:inherit;
+    }
+    .btn-cancel{
+      flex:1;padding:.65rem;border-radius:8px;border:none;
+      background:#f0f2f5;color:#555;font-weight:700;cursor:pointer;font-family:inherit;
+    }
+
+    @media(max-width:600px){
+      .adm-main{padding:1rem}
+      th,td{padding:.7rem .6rem;font-size:.78rem}
+      .adm-stat-val{font-size:1.4rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Solfianza</div>
+    <div class="login-sub">Panel Administrateur</div>
+    <div class="login-title">Connexion sécurisée</div>
+    <div class="login-err" id="login-err">Mot de passe incorrect.</div>
+    <input type="password" class="login-inp" id="adm-pwd" placeholder="Mot de passe admin" onkeydown="if(event.key==='Enter')admLogin()"/>
+    <button class="login-btn" onclick="admLogin()">Accéder au panel</button>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="admin-screen">
+  <header class="adm-header">
+    <div style="display:flex;align-items:center;gap:.8rem">
+      <div class="adm-logo">Solfianza</div>
+      <div class="adm-badge">ADMIN</div>
+    </div>
+    <button class="adm-logout" onclick="admLogout()">Déconnexion</button>
+  </header>
+
+  <div class="adm-main">
+
+    <!-- Stats -->
+    <div class="adm-stats">
+      <div class="adm-stat">
+        <div class="adm-stat-lbl">Comptes clients</div>
+        <div class="adm-stat-val" id="stat-total">0</div>
+      </div>
+      <div class="adm-stat">
+        <div class="adm-stat-lbl">Solde total</div>
+        <div class="adm-stat-val adm-stat-val--teal" id="stat-solde">0,00 €</div>
+      </div>
+      <div class="adm-stat">
+        <div class="adm-stat-lbl">Avec référence</div>
+        <div class="adm-stat-val" id="stat-ref">0</div>
+      </div>
+      <div class="adm-stat">
+        <div class="adm-stat-lbl">Inscriptions aujourd'hui</div>
+        <div class="adm-stat-val" id="stat-today">0</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="adm-toolbar">
+      <input class="adm-search" id="adm-search" type="text" placeholder="Rechercher par nom, email, référence..." oninput="admFilter()"/>
+      <button class="adm-export" onclick="admExportCSV()">⬇ Exporter CSV</button>
+    </div>
+
+    <!-- Table -->
+    <div class="adm-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Référence</th>
+            <th>Solde</th>
+            <th>Inscription</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adm-tbody"></tbody>
+      </table>
+      <div class="adm-empty" id="adm-empty" style="display:none">Aucun client trouvé.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="adm-overlay" id="adm-detail-overlay" onclick="admCloseDetail(event)">
+  <div class="adm-modal" onclick="event.stopPropagation()">
+    <div class="adm-modal-header">
+      <div class="adm-modal-title" id="detail-name">Détail client</div>
+      <button class="adm-modal-close" onclick="admCloseDetail()">✕</button>
+    </div>
+    <div id="detail-body"></div>
+    <div class="adm-confirm" id="adm-confirm">
+      <p>⚠️ Supprimer ce compte ? Cette action est irréversible.</p>
+      <div class="adm-confirm-btns">
+        <button class="btn-cancel" onclick="document.getElementById('adm-confirm').style.display='none'">Annuler</button>
+        <button class="btn-confirm-del" id="btn-confirm-del">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──
+// Change ce mot de passe avant d'héberger !
+var ADMIN_PWD = 'Solfianza2026!';
+var SESSION_KEY = 'adm_auth';
+
+// ── AUTH ──
+function admLogin(){
+  var pwd = document.getElementById('adm-pwd').value;
+  var err = document.getElementById('login-err');
+  if(pwd === ADMIN_PWD){
+    sessionStorage.setItem(SESSION_KEY,'1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-screen').style.display='block';
+    admLoad();
+  } else {
+    err.style.display='block';
+    document.getElementById('adm-pwd').value='';
+  }
+}
+function admLogout(){
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+(function(){
+  if(sessionStorage.getItem(SESSION_KEY)==='1'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-screen').style.display='block';
+    admLoad();
+  }
+})();
+
+// ── DATA ──
+// Récupère tous les comptes depuis localStorage
+// Supporte les clés ec_user, ec_user_*, ou ec_users (tableau)
+function admGetClients(){
+  var clients = [];
+  for(var i=0;i<localStorage.length;i++){
+    var k = localStorage.key(i);
+    if(!k) continue;
+    // Clé exacte ec_user
+    if(k === 'ec_user'){
+      try{
+        var u = JSON.parse(localStorage.getItem(k));
+        if(u && u.email) clients.push({ key:k, user:u, solde: parseFloat(localStorage.getItem('ec_solde')||'0'), tx: tryParse(localStorage.getItem('ec_tx')) });
+      }catch(e){}
+    }
+    // Clés ec_user_xxxxx (multi-compte)
+    else if(k.startsWith('ec_user_')){
+      var uid = k.replace('ec_user_','');
+      try{
+        var u2 = JSON.parse(localStorage.getItem(k));
+        if(u2 && u2.email) clients.push({ key:k, user:u2, solde: parseFloat(localStorage.getItem('ec_solde_'+uid)||'0'), tx: tryParse(localStorage.getItem('ec_tx_'+uid)) });
+      }catch(e){}
+    }
+  }
+  return clients;
+}
+function tryParse(s){ try{ return JSON.parse(s||'[]'); }catch(e){ return []; } }
+function fmtAmt(v){ return (v||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
+function fmtDate(iso){ if(!iso) return '—'; var d=new Date(iso); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }
+
+var ALL_CLIENTS = [];
+
+function admLoad(){
+  ALL_CLIENTS = admGetClients();
+  admRenderStats();
+  admRenderTable(ALL_CLIENTS);
+}
+
+function admRenderStats(){
+  var total = ALL_CLIENTS.length;
+  var soldeTotal = ALL_CLIENTS.reduce(function(s,c){ return s+(c.solde||0); },0);
+  var withRef = ALL_CLIENTS.filter(function(c){ return c.user.ref && c.user.ref.length>2; }).length;
+  var today = new Date().toDateString();
+  var todayCount = ALL_CLIENTS.filter(function(c){
+    return c.user.createdAt && new Date(c.user.createdAt).toDateString()===today;
+  }).length;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-solde').textContent = fmtAmt(soldeTotal);
+  document.getElementById('stat-ref').textContent = withRef;
+  document.getElementById('stat-today').textContent = todayCount;
+}
+
+function admRenderTable(clients){
+  var tbody = document.getElementById('adm-tbody');
+  var empty = document.getElementById('adm-empty');
+  if(!clients.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  tbody.innerHTML = clients.map(function(c,i){
+    var u = c.user;
+    return '<tr>'
+      +'<td><div class="td-name">'+(u.prenom||'')+' '+(u.nom||'')+'</div></td>'
+      +'<td><div class="td-email">'+(u.email||'—')+'</div></td>'
+      +'<td>'+(u.tel||'—')+'</td>'
+      +'<td>'+(u.ref ? '<span class="td-ref">'+u.ref+'</span>' : '—')+'</td>'
+      +'<td class="td-solde">'+fmtAmt(c.solde)+'</td>'
+      +'<td class="td-date">'+fmtDate(u.createdAt)+'</td>'
+      +'<td><div class="td-actions">'
+      +'<button class="btn-view" onclick="admDetail('+i+')">Voir</button>'
+      +'<button class="btn-del" onclick="admDelete(\''+c.key+'\')">Suppr.</button>'
+      +'</div></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function admFilter(){
+  var q = document.getElementById('adm-search').value.toLowerCase().trim();
+  if(!q){ admRenderTable(ALL_CLIENTS); return; }
+  var filtered = ALL_CLIENTS.filter(function(c){
+    var u = c.user;
+    return (u.prenom+' '+u.nom+' '+u.email+' '+(u.ref||'')+' '+(u.tel||'')).toLowerCase().indexOf(q)!==-1;
+  });
+  admRenderTable(filtered);
+}
+
+function admDetail(idx){
+  var c = ALL_CLIENTS[idx];
+  if(!c) return;
+  var u = c.user;
+  var tx = c.tx || [];
+  document.getElementById('detail-name').textContent = (u.prenom||'')+' '+(u.nom||'');
+  var html = '';
+  var fields = [
+    ['Prénom',u.prenom],['Nom',u.nom],['Email',u.email],
+    ['Téléphone',u.tel],['Référence dossier',u.ref||'—'],
+    ['Solde',fmtAmt(c.solde)],['Inscription',fmtDate(u.createdAt)]
+  ];
+  fields.forEach(function(f){
+    html += '<div class="adm-field"><div class="adm-field-lbl">'+f[0]+'</div><div class="adm-field-val">'+(f[1]||'—')+'</div></div>';
+  });
+  if(tx.length){
+    html += '<hr class="adm-divider"/><div class="adm-field-lbl" style="margin-bottom:.6rem">Dernières opérations</div>';
+    html += tx.slice(0,5).map(function(t){
+      var isOut = t.type==='virement';
+      var color = isOut?'#e74c3c':'#27ae60';
+      var sign = isOut?'-':'+';
+      return '<div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid #f0f2f5;font-size:.85rem">'
+        +'<span>'+t.label+' <span style="color:#8a94a6;font-size:.75rem">'+t.date+'</span></span>'
+        +'<span style="font-weight:800;color:'+color+'">'+sign+fmtAmt(t.amt)+'</span>'
+        +'</div>';
+    }).join('');
+  }
+  html += '<hr class="adm-divider"/>';
+  html += '<button class="btn-del" style="width:100%;padding:.7rem;border-radius:8px;font-size:.88rem" onclick="admShowConfirm(\''+c.key+'\')">Supprimer ce compte</button>';
+  document.getElementById('detail-body').innerHTML = html;
+  document.getElementById('adm-confirm').style.display='none';
+  document.getElementById('adm-detail-overlay').classList.add('open');
+}
+
+function admShowConfirm(key){
+  var conf = document.getElementById('adm-confirm');
+  conf.style.display='block';
+  document.getElementById('btn-confirm-del').onclick = function(){ admDeleteConfirm(key); };
+}
+
+function admCloseDetail(e){
+  if(e && e.target !== document.getElementById('adm-detail-overlay')) return;
+  document.getElementById('adm-detail-overlay').classList.remove('open');
+}
+
+function admDelete(key){
+  if(!confirm('Supprimer ce compte ?')) return;
+  admDeleteConfirm(key);
+}
+
+function admDeleteConfirm(key){
+  var uid = key.replace('ec_user_','');
+  localStorage.removeItem(key);
+  if(key==='ec_user'){
+    localStorage.removeItem('ec_solde');
+    localStorage.removeItem('ec_tx');
+    localStorage.removeItem('ec_session');
+  } else {
+    localStorage.removeItem('ec_solde_'+uid);
+    localStorage.removeItem('ec_tx_'+uid);
+  }
+  document.getElementById('adm-detail-overlay').classList.remove('open');
+  admLoad();
+}
+
+function admExportCSV(){
+  if(!ALL_CLIENTS.length){ alert('Aucun client à exporter.'); return; }
+  var rows = [['Prénom','Nom','Email','Téléphone','Référence','Solde (€)','Inscription']];
+  ALL_CLIENTS.forEach(function(c){
+    var u = c.user;
+    rows.push([u.prenom||'',u.nom||'',u.email||'',u.tel||'',u.ref||'',c.solde.toFixed(2),u.createdAt||'']);
+  });
+  var csv = rows.map(function(r){ return r.map(function(v){ return '"'+(v+'').replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var blob = new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'clients_solfianza_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+</script>
+</body>
+</html>
