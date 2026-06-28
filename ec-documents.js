@@ -11,8 +11,9 @@ function ecDocStyles(){
   return `<style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Arial',sans-serif;font-size:11pt;color:#1a1a1a;background:#fff;padding:0}
-    .page{max-width:210mm;margin:0 auto;padding:18mm 18mm 22mm;min-height:297mm;position:relative}
-    @media print{.page{padding:15mm 15mm 18mm}.no-print{display:none!important}@page{size:A4;margin:0}}
+    .page{max-width:900px;margin:0 auto;padding:20px 16px 40px;position:relative}
+    @media(min-width:600px){.page{padding:32px 40px 50px}}
+    @media print{.page{max-width:210mm;padding:15mm 15mm 18mm}.no-print{display:none!important}@page{size:A4;margin:0}}
     .no-print{position:fixed;bottom:24px;right:24px;z-index:99;display:flex;gap:10px}
     .btn-dl{background:#0B1D3A;color:#fff;border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.2)}
     .btn-close{background:#f0f2f5;color:#333;border:none;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
