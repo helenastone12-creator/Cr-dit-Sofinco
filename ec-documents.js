@@ -15,7 +15,7 @@ function ecDocStyles(){
     @media(min-width:600px){.page{padding:32px 40px 50px}}
     @media print{.page{max-width:210mm;padding:15mm 15mm 18mm}.no-print{display:none!important}@page{size:A4;margin:0}}
     .no-print{position:fixed;bottom:24px;right:24px;z-index:99;display:flex;gap:10px}
-    .btn-dl{background:#0B1D3A;color:#fff;border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+    .btn-dl{background:#ff6b5c;color:#fff;border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(255,107,92,.3)}
     .btn-close{background:#f0f2f5;color:#333;border:none;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
     .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2.5px solid #0B1D3A;padding-bottom:14px;margin-bottom:20px}
     .brand{font-size:20pt;font-weight:900;color:#0B1D3A;letter-spacing:-1px}

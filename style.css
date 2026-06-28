@@ -14,8 +14,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   --orange:#06c2b0;
   --navy:#111;
   --navy-d:#000;
-  --teal:#06c2b0;        /* bouton "Simuler un projet" */
-  --teal-d:#049f90;
+  --teal:#ff6b5c;
+  --teal-d:#e85545;
   --sky:#3ab5e5;
   --sky-l:#62c9ef;
   --text:#333;

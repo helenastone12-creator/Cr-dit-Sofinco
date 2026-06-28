@@ -4,8 +4,8 @@
 ════════════════════════════════════════════ */
 
 :root{
-  --teal:#0B9E8A;
-  --teal-light:#E6F7F5;
+  --teal:#ff6b5c;
+  --teal-light:#fff0ee;
   --navy:#0B1D3A;
   --navy-2:#152E56;
   --bg:#F7F8FA;
@@ -115,12 +115,12 @@
 }
 .ec-btn-primary{
   display:block;width:100%;padding:.85rem;border-radius:12px;
-  background:var(--navy);color:#fff;border:none;
+  background:var(--teal);color:#fff;border:none;
   font-size:.95rem;font-weight:600;font-family:inherit;
   cursor:pointer;transition:background .2s,transform .12s,box-shadow .2s;
   text-align:center;text-decoration:none;letter-spacing:-.01em;
 }
-.ec-btn-primary:hover{ background:var(--navy-2);box-shadow:0 4px 16px rgba(11,29,58,.2); }
+.ec-btn-primary:hover{ background:#e85545;box-shadow:0 4px 16px rgba(255,107,92,.3); }
 .ec-btn-primary:active{ transform:scale(.98); }
 .ec-btn-secondary{
   display:block;width:100%;padding:.82rem;border-radius:12px;
