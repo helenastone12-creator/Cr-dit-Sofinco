@@ -65,20 +65,22 @@
 <main class="ec-main">
 
   <!-- Solde -->
-  <div class="ec-solde-card">
-    <div class="ec-solde-left">
-      <div class="ec-solde-lbl">Solde disponible</div>
-      <div class="ec-solde-amt" id="ec-solde-amt">0,00 €</div>
-    </div>
+  <div class="ec-solde-block">
+    <div class="ec-solde-lbl">Solde actuel</div>
+    <div class="ec-solde-amt" id="ec-solde-amt">0,00 €</div>
     <div class="ec-solde-actions">
-      <button class="ec-solde-btn" onclick="ecOpenModal('depot')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Dépôt
-      </button>
-      <button class="ec-solde-btn ec-solde-btn--vir" onclick="ecOpenModal('virement')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        Virement
-      </button>
+      <div class="ec-solde-action">
+        <button class="ec-solde-circle" onclick="ecOpenModal('depot')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <span class="ec-solde-action-lbl">Dépôt</span>
+      </div>
+      <div class="ec-solde-action">
+        <button class="ec-solde-circle" onclick="ecOpenModal('virement')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <span class="ec-solde-action-lbl">Virement</span>
+      </div>
     </div>
   </div>
 
