@@ -683,8 +683,7 @@ function pfInit(){
   if(photo){
     avatarEl.innerHTML = '<img src="'+photo+'" alt="photo"/>';
   } else {
-    var initials = (((user.prenom||'')[0]||'').toUpperCase()+((user.nom||'')[0]||'').toUpperCase())||'?';
-    avatarEl.textContent = initials;
+    avatarEl.innerHTML = '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
   }
 
   // Générer un ID si l'ancien compte n'en a pas
