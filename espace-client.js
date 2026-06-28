@@ -566,12 +566,6 @@ function ecInitAlertBanner(){
   var solde=parseFloat(localStorage.getItem('ec_solde')||'0');
   var msgs=[];
 
-  // Prochaine échéance dans <7 jours ?
-  var now=new Date();
-  var next=new Date(now.getFullYear(), now.getMonth()+1, 1);
-  var diff=Math.ceil((next-now)/(24*3600*1000));
-  if(mens>0 && diff<=7) msgs.push(ecT('alert_echeance',{amt:mens.toLocaleString('fr-FR'),n:diff,s:diff>1?'s':''}));
-
   // Solde faible ?
   if(mens>0 && solde < mens*2) msgs.push(ecT('alert_solde'));
 
@@ -772,10 +766,6 @@ function ecInitNotifs(){
   list.innerHTML='';
   var notifs=[];
 
-  var now2=new Date();
-  var next=new Date(now2.getFullYear(),now2.getMonth()+1,1);
-  var diff=Math.ceil((next-now2)/(24*3600*1000));
-  if(mens>0&&diff<=7) notifs.push({type:'warn',txt:'<strong>'+ecT('notif_echeance_title')+'</strong> — '+ecT('alert_echeance',{amt:mens.toLocaleString('fr-FR'),n:diff,s:diff>1?'s':''})});
   if(mens>0&&solde<mens*2) notifs.push({type:'warn',txt:'<strong>'+ecT('notif_solde_title')+'</strong> — '+ecT('notif_solde_txt')});
 
   if(!notifs.length){
