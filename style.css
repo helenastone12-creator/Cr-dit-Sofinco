@@ -2250,7 +2250,7 @@ body.pg-inner .editorial{background:none}
 .nat-panel.open{display:flex}
 .nat-inner{
   background:#fff;border-radius:1.1rem;
-  width:100%;max-width:420px;max-height:80vh;
+  width:100%;max-width:420px;
   display:flex;flex-direction:column;overflow:hidden;
   box-shadow:0 8px 40px rgba(0,0,0,.18);
 }
@@ -2261,7 +2261,8 @@ body.pg-inner .editorial{background:none}
 }
 .nat-list{
   list-style:none;margin:0;padding:.4rem 0;
-  overflow-y:auto;flex:1;
+  overflow-y:auto;
+  max-height:calc(10 * 52px);
 }
 .nat-trigger{
   width:100%;box-sizing:border-box;display:flex;align-items:center;gap:.55rem;
