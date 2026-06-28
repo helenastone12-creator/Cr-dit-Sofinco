@@ -1641,22 +1641,16 @@ function sp5Submit(){
   var otherLabel  = {fr:'Autre',en:'Other',de:'Andere',es:'Otro',it:'Altro',nl:'Andere',pl:'Inne',sv:'Annan'};
   var lang = (typeof LANG !== 'undefined' ? LANG : 'fr');
 
-  // Twemoji flag SVGs — code ISO 2 lettres → unicode regional indicator
-  var twemoji = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/';
+  // Circle-flags — drapeaux parfaitement ronds
   function flagUrl(code){
     if(!code || code==='AUTRE') return '';
-    var c = code.toUpperCase();
-    // Convert each letter to regional indicator unicode point
-    var a = (0x1F1E6 - 65 + c.charCodeAt(0)).toString(16);
-    var b = (0x1F1E6 - 65 + c.charCodeAt(1)).toString(16);
-    return twemoji + a + '-' + b + '.svg';
+    return 'https://hatscripts.github.io/circle-flags/flags/' + code.toLowerCase() + '.svg';
   }
-  var GLOBE_SVG = '<svg class="nat-globe" width="22" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>';
+  var GLOBE_SVG = '<svg class="nat-globe" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>';
 
   function flagImg(code){
     if(!code || code==='AUTRE') return GLOBE_SVG;
-    var url = flagUrl(code);
-    return '<img class="nat-flag" src="'+url+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
+    return '<img class="nat-flag" src="'+flagUrl(code)+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
   }
 
   function initNatDropdown(){
