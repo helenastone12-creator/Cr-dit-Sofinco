@@ -133,7 +133,7 @@ function ecGenContrat(){
       <tr><td>Montant de chaque mensualité</td><td><strong>${ecDocMoney(mens)}</strong></td></tr>
       <tr><td>Montant total dû par l'emprunteur</td><td><strong>${ecDocMoney(total)}</strong></td></tr>
       <tr><td>Coût total du crédit (intérêts + frais)</td><td>${ecDocMoney(coutTotal)}</td></tr>
-      <tr><td>Frais de dossier</td><td>0,00 €</td></tr>
+      <tr><td>Frais de dossier</td><td>Des frais de dossier peuvent s'appliquer. Leur montant sera communiqué avant la souscription.</td></tr>
       <tr><td>Assurance emprunteur (facultative)</td><td>Incluse — voir attestation jointe</td></tr>
     </table>
 
