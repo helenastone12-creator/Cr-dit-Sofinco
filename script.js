@@ -1552,15 +1552,59 @@ function sp5Submit(){
     'HR': { tel:'+385 9X XXX XXXX', cp:'10000',   ibanPfx:'HR12 XXXX XXXX XXXX XXXX X',             cpLen:5 },
   };
 
+  var DIAL_CODES = {
+    'FR':'+33','MC':'+377','LU':'+352','DE':'+49','AT':'+43','CH':'+41','LI':'+423',
+    'GB':'+44','IE':'+353','ES':'+34','IT':'+39','NL':'+31','BE':'+32','PL':'+48',
+    'SE':'+46','FI':'+358','DK':'+45','NO':'+47','PT':'+351','GR':'+30','CZ':'+420',
+    'SK':'+421','HU':'+36','RO':'+40','BG':'+359','HR':'+385','SI':'+386','EE':'+372',
+    'LV':'+371','LT':'+370','MT':'+356','CY':'+357','IS':'+354','AL':'+355',
+    'BA':'+387','RS':'+381','ME':'+382','MK':'+389','UA':'+380','MD':'+373','BY':'+375','TR':'+90'
+  };
+
+  var currentTelCountry = 'FR';
+
+  function initTelPrefix(){
+    var tel = document.getElementById('s5-tel');
+    if(!tel || tel.dataset.pfxDone) return;
+    tel.dataset.pfxDone = '1';
+    var wrap = document.createElement('div');
+    wrap.className = 'sp5-tel-wrap';
+    tel.parentNode.insertBefore(wrap, tel);
+    wrap.appendChild(tel);
+    var pfx = document.createElement('button');
+    pfx.type = 'button';
+    pfx.id = 's5-tel-pfx';
+    pfx.className = 'sp5-tel-pfx';
+    updateTelPfx(pfx, currentTelCountry);
+    wrap.insertBefore(pfx, tel);
+    tel.classList.add('sp5-inp--tel');
+  }
+
+  function updateTelPfx(btn, country){
+    if(!btn) btn = document.getElementById('s5-tel-pfx');
+    if(!btn) return;
+    var code = DIAL_CODES[country] || DIAL_CODES['FR'];
+    var flagUrl = 'https://hatscripts.github.io/circle-flags/flags/' + country.toLowerCase() + '.svg';
+    btn.innerHTML =
+      '<img class="sp5-tel-flag" src="'+flagUrl+'" alt="'+country+'">'
+      +'<svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg>'
+      +'<span class="sp5-tel-code">'+code+'</span>';
+  }
+
   function applyFormData(country) {
     var d = FORM_DATA[country] || FORM_DATA['FR'];
+    currentTelCountry = country;
     var tel  = document.getElementById('s5-tel');
     var cp   = document.getElementById('s5-cp');
     var iban = document.getElementById('s5-iban');
     if(tel)  tel.placeholder  = d.tel;
     if(cp)   { cp.placeholder = d.cp; cp.maxLength = d.cpLen + 2; }
     if(iban) iban.placeholder  = d.ibanPfx;
+    updateTelPfx(null, country);
   }
+
+  document.addEventListener('DOMContentLoaded', function(){ initTelPrefix(); });
+  document.addEventListener('click', function(){ setTimeout(initTelPrefix, 100); });
 
   function getPagePath() {
     var path = location.pathname;
