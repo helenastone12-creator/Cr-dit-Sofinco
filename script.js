@@ -1741,16 +1741,61 @@ function sp5Submit(){
       +'<span class="sp5-tel-dial">'+dial+'</span>';
   }
 
+  var BANK_EXAMPLES = {
+    FR:'Ex : Crédit Agricole, BNP Paribas...',
+    GB:'Ex : Barclays, HSBC, Lloyds...',
+    DE:'Ex : Deutsche Bank, Commerzbank...',
+    ES:'Ex : Santander, BBVA, CaixaBank...',
+    IT:'Ex : Intesa Sanpaolo, UniCredit...',
+    NL:'Ex : ING, ABN AMRO, Rabobank...',
+    BE:'Ex : BNP Paribas Fortis, KBC...',
+    PT:'Ex : Caixa Geral, Millennium BCP...',
+    CH:'Ex : UBS, Credit Suisse, PostFinance...',
+    AT:'Ex : Raiffeisen, Erste Bank, BAWAG...',
+    PL:'Ex : PKO BP, Pekao, mBank...',
+    SE:'Ex : Swedbank, SEB, Nordea...',
+    DK:'Ex : Danske Bank, Nordea, Jyske Bank...',
+    NO:'Ex : DNB, Nordea, SpareBank...',
+    FI:'Ex : OP Financial, Nordea, Danske Bank...',
+    IE:'Ex : AIB, Bank of Ireland, Ulster Bank...',
+    GR:'Ex : National Bank, Piraeus Bank...',
+    CZ:'Ex : Česká spořitelna, ČSOB, KB...',
+    SK:'Ex : Slovenská sporiteľňa, VÚB...',
+    HU:'Ex : OTP Bank, K&H, MKB...',
+    RO:'Ex : BCR, BRD, Transilvania...',
+    BG:'Ex : UniCredit Bulbank, DSK Bank...',
+    HR:'Ex : Zagrebačka banka, Erste...',
+    SI:'Ex : NLB, Nova KBM, SKB...',
+    EE:'Ex : Swedbank, SEB, LHV...',
+    LV:'Ex : Swedbank, SEB, Citadele...',
+    LT:'Ex : Swedbank, SEB, Luminor...',
+    LU:'Ex : BGL BNP Paribas, Spuerkeess...',
+    MT:'Ex : Bank of Valletta, HSBC Malta...',
+    CY:'Ex : Bank of Cyprus, Hellenic Bank...',
+    RS:'Ex : Banca Intesa, UniCredit...',
+    AL:'Ex : Raiffeisen Bank, BKT...',
+    BA:'Ex : UniCredit, Raiffeisen, NLB...',
+    ME:'Ex : CKB, NLB, Erste Bank...',
+    MK:'Ex : Stopanska Banka, NLB...',
+    UA:'Ex : PrivatBank, Oschadbank...',
+    TR:'Ex : İş Bankası, Garanti BBVA, Ziraat...',
+    IS:'Ex : Arion Bank, Landsbankinn...',
+    LI:'Ex : LGT Bank, VP Bank...',
+    MC:'Ex : CFM, BNP Paribas Monaco...'
+  };
+
   function applyFormData(country) {
     var d = FORM_DATA[country] || FORM_DATA['FR'];
     currentTelCountry = country;
     window.currentTelCountry = country;
-    var tel  = document.getElementById('s5-tel');
-    var cp   = document.getElementById('s5-cp');
-    var iban = document.getElementById('s5-iban');
-    if(tel)  tel.placeholder = TEL_LOCAL[country] || d.tel;
-    if(cp)   { cp.placeholder = d.cp; cp.maxLength = d.cpLen + 2; }
-    if(iban) iban.placeholder  = d.ibanPfx;
+    var tel    = document.getElementById('s5-tel');
+    var cp     = document.getElementById('s5-cp');
+    var iban   = document.getElementById('s5-iban');
+    var banque = document.getElementById('s5-banque');
+    if(tel)    tel.placeholder = TEL_LOCAL[country] || d.tel;
+    if(cp)     { cp.placeholder = d.cp; cp.maxLength = d.cpLen + 2; }
+    if(iban)   iban.placeholder = d.ibanPfx;
+    if(banque) banque.placeholder = BANK_EXAMPLES[country] || BANK_EXAMPLES['FR'];
     updateTelPfx(null, country);
   }
 
