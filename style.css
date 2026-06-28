@@ -1464,7 +1464,7 @@ body.pg-inner .editorial{background:none}
   transition:border-color .2s;outline:none;
 }
 .sp5-tel-wrap{
-  display:flex;align-items:stretch;
+  display:flex;align-items:center;
   border:1.5px solid #ddd;border-radius:10px;
   overflow:hidden;background:#fff;
   transition:border-color .2s;
@@ -1478,17 +1478,19 @@ body.pg-inner .editorial{background:none}
 }
 .sp5-tel-pfx:hover{background:#f8f8f8}
 .sp5-tel-flag{width:26px;height:26px;display:block;flex-shrink:0}
-.sp5-tel-sep{width:1.5px;background:#e8e8e8;align-self:stretch;flex-shrink:0;margin:.6rem 0}
+.sp5-tel-sep{width:1.5px;background:#e8e8e8;align-self:center;height:60%;flex-shrink:0}
 .sp5-tel-dial{
+  display:flex;align-items:center;
   font-size:.95rem;color:#0d2748;font-weight:600;
-  white-space:nowrap;padding:.72rem .4rem .72rem .7rem;
-  flex-shrink:0;
+  white-space:nowrap;padding:0 .4rem 0 .7rem;
+  flex-shrink:0;align-self:center;
 }
 .sp5-inp--tel{
   border:none!important;border-radius:0!important;outline:none!important;
   flex:1;width:auto;min-width:0;
-  padding-left:.3rem;font-size:.95rem;
+  padding:.72rem .3rem;font-size:.95rem;
   background:transparent;color:#0d2748;
+  align-self:center;
 }
 @media(min-width:760px){
   .sp5-inp,.sp5-sel{font-size:1rem;padding:.85rem 1rem}
