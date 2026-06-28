@@ -140,7 +140,7 @@ function ecRefreshSolde(){
   var el = document.getElementById('ec-solde-amt');
   if(!el) return;
   if(ecSoldeHidden()){
-    el.textContent = '•••• ••';
+    el.textContent = '* * * * * *';
   } else {
     el.textContent = ecFormatAmt(ecGetSolde());
   }
@@ -161,10 +161,12 @@ function ecToggleSolde(){
     el.style.opacity = '0';
     setTimeout(function(){
       ecRefreshSolde();
+      ecRenderTx();
       el.style.opacity = '1';
     }, 180);
   } else {
     ecRefreshSolde();
+    ecRenderTx();
   }
 }
 
@@ -197,6 +199,7 @@ function ecRenderTx(){
   if(!container) return;
   if(!list.length){ if(empty) empty.style.display=''; return; }
   if(empty) empty.style.display='none';
+  var hidden = ecSoldeHidden();
   var html = list.slice(0,5).map(function(tx){
     var isOut = tx.type==='virement';
     var isConv = tx.type==='convert';
@@ -206,13 +209,14 @@ function ecRenderTx(){
     var initials = ecTxInitials(tx.label);
     var colors = ecTxColor(tx.label);
     var avatarStyle = 'background:'+colors[0]+';color:'+colors[1]+';';
+    var amtDisplay = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">* * * *</span>' : sign+ecFormatAmt(tx.amt);
     return '<div class="ec-tx-item">'
       +'<div class="ec-tx-ico '+icoCls+'" style="'+avatarStyle+'">'+initials+'</div>'
       +'<div class="ec-tx-info">'
       +'<div class="ec-tx-name">'+tx.label+'</div>'
       +'<div class="ec-tx-date">'+tx.date+'</div>'
       +'</div>'
-      +'<div class="ec-tx-amt '+amtCls+'">'+sign+ecFormatAmt(tx.amt)+'</div>'
+      +'<div class="ec-tx-amt '+amtCls+'">'+amtDisplay+'</div>'
       +'</div>';
   }).join('');
   container.innerHTML = html + (empty ? empty.outerHTML : '');
