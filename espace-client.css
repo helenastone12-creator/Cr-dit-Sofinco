@@ -174,7 +174,9 @@
 .ec-hd-logo{
   font-size:1.2rem;font-weight:800;color:var(--navy);
   text-decoration:none;letter-spacing:-.04em;
+  display:flex;align-items:center;
 }
+.ec-hd-logo-icon{ width:36px;height:36px;display:block; }
 .ec-hd-right{ display:flex;align-items:center;gap:.6rem; }
 .ec-hd-avatar{
   width:34px;height:34px;border-radius:50%;
