@@ -2250,6 +2250,7 @@ body.pg-inner .editorial{background:none}
 .nat-header{
   display:flex;align-items:center;justify-content:center;
   padding:1.1rem 1rem .9rem;background:#f2f2f7;
+  padding-top:calc(env(safe-area-inset-top, 44px) + 1.1rem);
   position:relative;flex-shrink:0;
 }
 .nat-close-btn{

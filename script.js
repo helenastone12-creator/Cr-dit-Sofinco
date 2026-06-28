@@ -1658,14 +1658,12 @@ function sp5Submit(){
     if(!sel || sel.dataset.customized) return;
     sel.dataset.customized = '1';
 
-    // Collect options
+    // Collect options (AUTRE already in HTML, don't add again)
     var opts = [];
     for(var i=0;i<sel.options.length;i++){
       var o = sel.options[i];
       if(o.value) opts.push({value:o.value, label:o.text});
     }
-    // Add "Autres" at end
-    opts.push({value:'AUTRE', label: otherLabel[lang]||'Other'});
 
     // Hide native select
     sel.style.display='none';
