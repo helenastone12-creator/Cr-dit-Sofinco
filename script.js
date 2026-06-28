@@ -1692,17 +1692,17 @@ function sp5Submit(){
     panel.className='nat-panel';
 
     // Header
-    var header = document.createElement('div');
-    header.className='nat-header';
-    var closeBtn = document.createElement('button');
-    closeBtn.type='button';
-    closeBtn.className='nat-close-btn';
-    closeBtn.innerHTML='<svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 1l6 7 6-7" stroke="#555" stroke-width="2" stroke-linecap="round"/></svg>';
+    var natHeader = document.createElement('div');
+    natHeader.className='nat-header';
+    var natCloseBtn = document.createElement('button');
+    natCloseBtn.type='button';
+    natCloseBtn.className='nat-close-btn';
+    natCloseBtn.innerHTML='<svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 1l6 7 6-7" stroke="#555" stroke-width="2" stroke-linecap="round"/></svg>';
     var titleEl = document.createElement('span');
     titleEl.className='nat-title';
     titleEl.textContent = titleLabel[lang]||'Choose nationality';
-    header.appendChild(closeBtn);
-    header.appendChild(titleEl);
+    natHeader.appendChild(natCloseBtn);
+    natHeader.appendChild(titleEl);
 
     // Search
     var searchWrap = document.createElement('div');
@@ -1783,13 +1783,13 @@ function sp5Submit(){
       if(e.target===panel) closePanel();
     });
 
-    closeBtn.addEventListener('click',function(){ closePanel(); });
+    natCloseBtn.addEventListener('click',function(){ closePanel(); });
 
     searchInp.addEventListener('input',function(){
       renderList(this.value);
     });
 
-    panel.appendChild(header);
+    panel.appendChild(natHeader);
     panel.appendChild(searchWrap);
     panel.appendChild(list);
     wrap.appendChild(trigger);
