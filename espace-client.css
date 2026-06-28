@@ -833,6 +833,116 @@
 .ec-pwd-field .ec-eye-btn:hover{ opacity:1; }
 
 /* ════════════════════════════
+   DESKTOP / TABLETTE ≥ 768px
+════════════════════════════ */
+@media(min-width:768px){
+
+  /* Sidebar fixe à gauche */
+  .ec-bottom-nav{
+    left:0;top:0;bottom:0;right:auto;
+    width:220px;height:100vh;
+    flex-direction:column;justify-content:flex-start;
+    padding:4.5rem .75rem 2rem;
+    border-top:none;border-right:1px solid var(--border);
+    gap:.2rem;
+    background:rgba(255,255,255,.98);
+  }
+  .ec-bnav-link{
+    flex:none;flex-direction:row;justify-content:flex-start;
+    width:100%;padding:.72rem 1rem;border-radius:12px;
+    font-size:.82rem;text-transform:none;letter-spacing:0;gap:.75rem;
+  }
+  .ec-bnav-link svg{ width:20px;height:20px; }
+  .ec-bnav-link.active::before{
+    inset:0;width:100%;height:100%;border-radius:12px;top:0;
+  }
+
+  /* Header — décalé pour laisser place à la sidebar */
+  .ec-header{
+    left:220px;
+    padding:0 2rem;
+  }
+
+  /* Main — décalé sidebar + header */
+  .ec-dash-body{ padding-bottom:0; }
+  .ec-main{
+    margin-left:220px;
+    max-width:none;
+    padding:calc(58px + 2rem) 2.5rem 2.5rem;
+  }
+
+  /* Layout 2 colonnes sur le dashboard */
+  .ec-dashboard-grid{
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:1.8rem;
+    align-items:start;
+  }
+  .ec-dashboard-col-left{ min-width:0; }
+  .ec-dashboard-col-right{
+    min-width:0;
+    position:sticky;top:calc(58px + 1.5rem);
+  }
+
+  /* Solde plus grand */
+  .ec-solde-amt{ font-size:3.5rem; }
+  .ec-solde-block{ padding:2.2rem 1rem 2rem; }
+
+  /* Carte crédit pleine largeur */
+  .ec-credit-card{ border-radius:24px; }
+
+  /* Transactions — plus larges */
+  .ec-tx-item{ padding:1rem 1.2rem; }
+  .ec-tx-ico{ width:46px;height:46px;font-size:.88rem; }
+  .ec-tx-name{ font-size:.93rem; }
+
+  /* Accès rapide 4 colonnes */
+  .ec-quick-grid{ grid-template-columns:repeat(4,1fr); }
+
+  /* Documents — 2 colonnes */
+  .ec-doc-list{ display:grid;grid-template-columns:1fr 1fr;gap:.75rem; }
+  .ec-doc-item{ flex-direction:column;align-items:flex-start;gap:.6rem; }
+  .ec-doc-info{ width:100%; }
+  .ec-doc-dl{ margin-left:auto; }
+
+  /* Profil — centré et plus large */
+  .pf-main{ max-width:720px;padding:0 2rem 2.5rem; }
+  .pf-hero{ padding:calc(58px + 2rem) 2rem 2.5rem; }
+
+  /* Welcome */
+  .ec-welcome-title{ font-size:1.75rem; }
+
+  /* Modals — centrés, pas en bottom sheet */
+  .ec-modal-overlay{ align-items:center; }
+  .ec-modal-card{
+    border-radius:20px;
+    transform:scale(.95);
+    max-width:480px;
+    padding:2rem 2rem 2.5rem;
+  }
+  .ec-modal-overlay.open .ec-modal-card{ transform:scale(1); }
+  .ec-modal-handle{ display:none; }
+
+  .pf-modal-overlay{ align-items:center; }
+  .pf-modal-card{
+    border-radius:20px;
+    transform:scale(.95);
+    max-width:480px;
+    padding:2rem 2rem 2.5rem;
+  }
+  .pf-modal-overlay.open .pf-modal-card{ transform:scale(1); }
+  .pf-modal-handle{ display:none; }
+
+  /* Toast au-dessus de la sidebar */
+  .pf-toast{ bottom:2rem; }
+}
+
+@media(min-width:1100px){
+  .ec-main{ padding:calc(58px + 2.5rem) 3rem 3rem; }
+  .ec-dashboard-grid{ grid-template-columns:1fr 400px;gap:2rem; }
+}
+
+/* ════════════════════════════
    ANIMATIONS
 ════════════════════════════ */
 @keyframes ecShake{
