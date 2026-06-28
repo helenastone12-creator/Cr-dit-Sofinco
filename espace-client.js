@@ -221,16 +221,42 @@ function ecRenderTx(){
     var colors = ecTxColor(tx.label);
     var avatarStyle = 'background:'+colors[0]+';color:'+colors[1]+';';
     var amtDisplay = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">* * * *</span>' : sign+ecFormatAmt(tx.amt);
-    return '<div class="ec-tx-item">'
+    var txJson = encodeURIComponent(JSON.stringify(tx));
+    return '<div class="ec-tx-item ec-tx-item--clickable" onclick="ecOpenTxDetail(\''+txJson+'\')">'
       +'<div class="ec-tx-ico '+icoCls+'" style="'+avatarStyle+'">'+initials+'</div>'
       +'<div class="ec-tx-info">'
       +'<div class="ec-tx-name">'+tx.label+'</div>'
       +'<div class="ec-tx-date">'+tx.date+'</div>'
       +'</div>'
       +'<div class="ec-tx-amt '+amtCls+'">'+amtDisplay+'</div>'
+      +'<svg class="ec-tx-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>'
       +'</div>';
   }).join('');
   container.innerHTML = html;
+}
+
+// ── Détail transaction ──
+function ecOpenTxDetail(encoded){
+  var tx;
+  try{ tx = JSON.parse(decodeURIComponent(encoded)); } catch(e){ return; }
+  var isOut = tx.type==='virement';
+  var isConv = tx.type==='convert';
+  var sign = isOut ? '−' : '+';
+  var typeLabel = isOut ? 'Virement sortant' : (isConv ? 'Conversion de devises' : 'Dépôt entrant');
+  var typeColor = isOut ? 'var(--text)' : 'var(--green)';
+  var statusHtml = '<span style="display:inline-flex;align-items:center;gap:.35rem;background:var(--green-light);color:var(--green);border:1px solid rgba(5,150,105,.2);border-radius:6px;padding:.22rem .65rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em">'
+    +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Validée</span>';
+
+  var el = document.getElementById('ec-modal-tx');
+  if(!el) return;
+  el.querySelector('#ec-tx-d-label').textContent  = tx.label;
+  el.querySelector('#ec-tx-d-type').textContent   = typeLabel;
+  el.querySelector('#ec-tx-d-date').textContent   = tx.date;
+  el.querySelector('#ec-tx-d-amt').textContent    = sign + ecFormatAmt(tx.amt);
+  el.querySelector('#ec-tx-d-amt').style.color    = typeColor;
+  el.querySelector('#ec-tx-d-status').innerHTML   = statusHtml;
+  el.querySelector('#ec-tx-d-ref').textContent    = 'TXN-'+(tx.date||'').replace(/\s/g,'').slice(-6).toUpperCase()+Math.floor(Math.random()*9000+1000);
+  ecOpenModal('tx');
 }
 
 // ── Modals ──

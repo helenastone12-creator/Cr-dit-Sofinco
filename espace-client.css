@@ -462,6 +462,32 @@
   border:1px solid var(--border);
   overflow:hidden;box-shadow:var(--shadow-sm);
 }
+.ec-tx-item--clickable{ cursor:pointer; }
+.ec-tx-item--clickable:active{ background:#F0F2F5; }
+.ec-tx-chevron{ flex-shrink:0;margin-left:auto; }
+
+/* Modal détail transaction */
+.ec-tx-detail{ display:flex;flex-direction:column;align-items:center;gap:1rem; }
+.ec-tx-d-amt{
+  font-size:2.2rem;font-weight:700;color:var(--text);
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+}
+.ec-tx-d-status{ margin-bottom:.4rem; }
+.ec-tx-d-rows{
+  width:100%;background:#F9FAFB;border-radius:14px;
+  border:1px solid var(--border);overflow:hidden;
+}
+.ec-tx-d-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.75rem 1rem;border-bottom:1px solid var(--border);gap:1rem;
+}
+.ec-tx-d-lbl{
+  font-size:.72rem;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;
+}
+.ec-tx-d-val{ font-size:.88rem;font-weight:600;color:var(--text);text-align:right; }
+.ec-tx-d-mono{ font-family:monospace;font-size:.82rem;color:var(--muted); }
+
 .ec-tx-empty{
   text-align:center;padding:2.2rem 1rem;
   font-size:.86rem;color:var(--muted);

@@ -297,6 +297,41 @@
   </div>
 </div>
 
+<!-- Modal Détail Transaction -->
+<div class="ec-modal-overlay" id="ec-modal-tx" onclick="ecCloseModal('tx')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Détail de l'opération</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('tx')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ec-tx-detail">
+      <div class="ec-tx-d-amt" id="ec-tx-d-amt">—</div>
+      <div class="ec-tx-d-status" id="ec-tx-d-status"></div>
+      <div class="ec-tx-d-rows">
+        <div class="ec-tx-d-row">
+          <span class="ec-tx-d-lbl">Libellé</span>
+          <span class="ec-tx-d-val" id="ec-tx-d-label">—</span>
+        </div>
+        <div class="ec-tx-d-row">
+          <span class="ec-tx-d-lbl">Type</span>
+          <span class="ec-tx-d-val" id="ec-tx-d-type">—</span>
+        </div>
+        <div class="ec-tx-d-row">
+          <span class="ec-tx-d-lbl">Date</span>
+          <span class="ec-tx-d-val" id="ec-tx-d-date">—</span>
+        </div>
+        <div class="ec-tx-d-row" style="border-bottom:none">
+          <span class="ec-tx-d-lbl">Référence</span>
+          <span class="ec-tx-d-val ec-tx-d-mono" id="ec-tx-d-ref">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Succès -->
 <div class="ec-modal-overlay" id="ec-modal-success" onclick="ecCloseModal('success')">
   <div class="ec-modal-card ec-modal-card--sm" onclick="event.stopPropagation()">
