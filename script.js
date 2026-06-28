@@ -1695,23 +1695,21 @@ function sp5Submit(){
     var wrap = document.createElement('div');
     wrap.className = 'sp5-tel-wrap';
     tel.parentNode.insertBefore(wrap, tel);
-    // Flag button (left)
+    // Flag button (left) — contains flag + dial code + chevron
     var pfx = document.createElement('button');
     pfx.type = 'button';
     pfx.id = 's5-tel-pfx';
     pfx.className = 'sp5-tel-pfx';
     pfx.addEventListener('click', function(e){ e.stopPropagation(); openTelPicker(); });
-    // Dial code span (inside input area)
+    // Dial code span (inside the button)
     var dialSpan = document.createElement('span');
     dialSpan.id = 's5-tel-dial';
     dialSpan.className = 'sp5-tel-dial';
     dialSpan.textContent = DIAL_CODES[currentTelCountry]||'+33';
-    // Separator
+    // Separator (hidden via CSS but kept for structure)
     var sep = document.createElement('span');
     sep.className = 'sp5-tel-sep';
     wrap.appendChild(pfx);
-    wrap.appendChild(sep);
-    wrap.appendChild(dialSpan);
     wrap.appendChild(tel);
     updateTelPfx(pfx, currentTelCountry);
     tel.classList.add('sp5-inp--tel');
@@ -1722,11 +1720,11 @@ function sp5Submit(){
     if(!btn) btn = document.getElementById('s5-tel-pfx');
     if(!btn) return;
     var flagUrl = 'https://hatscripts.github.io/circle-flags/flags/' + country.toLowerCase() + '.svg';
+    var dial = DIAL_CODES[country]||'+33';
     btn.innerHTML =
       '<img class="sp5-tel-flag" src="'+flagUrl+'" alt="'+country+'">'
+      +'<span class="sp5-tel-dial">'+dial+'</span>'
       +'<svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>';
-    var dialSpan = document.getElementById('s5-tel-dial');
-    if(dialSpan) dialSpan.textContent = DIAL_CODES[country]||'+33';
   }
 
   function applyFormData(country) {
