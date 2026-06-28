@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon profil — Espace client Solfianza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=optional" as="style" onload="this.onload=null;this.rel='stylesheet'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=optional" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="espace-client.css"/>
+<script>
+(function(){
+  var supported = ['en','de','es','it','nl','pl','sv'];
+  var page = location.pathname.split('/').pop() || 'index.html';
+  if(!page.endsWith('.html')) page = 'index.html';
+  var stored = localStorage.getItem('lang_choice');
+  if(stored && supported.indexOf(stored) !== -1){ location.replace('/' + stored + '/' + page); return; }
+  if(stored) return;
+  var lang = (navigator.language || navigator.userLanguage || 'fr').toLowerCase().split('-')[0];
+  if(supported.indexOf(lang) === -1) return;
+  localStorage.setItem('lang_choice', lang);
+  location.replace('/' + lang + '/' + page);
+})();
+</script>
+<style>
+.pf-main{ max-width:600px;margin:0 auto;padding:calc(60px + 1.2rem) 1.2rem 5rem; }
+
+/* Avatar hero */
+.pf-hero{
+  display:flex;flex-direction:column;align-items:center;
+  padding:1.5rem 1rem 1.8rem;
+  background:#fff;border-radius:20px;
+  border:1px solid var(--ec-border);
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+  margin-bottom:1.4rem;
+}
+.pf-avatar{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--teal);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;font-weight:800;
+  box-shadow:0 6px 20px rgba(6,194,176,.3);
+  margin-bottom:.8rem;
+}
+.pf-name{ font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:.2rem; }
+.pf-email{ font-size:.82rem;color:var(--ec-muted); }
+.pf-badge{
+  margin-top:.7rem;
+  background:#f0fff4;color:#27ae60;
+  border:1.5px solid rgba(39,174,96,.2);
+  border-radius:2rem;padding:.28rem .85rem;
+  font-size:.72rem;font-weight:800;letter-spacing:.04em;
+  display:flex;align-items:center;gap:.35rem;
+}
+.pf-badge svg{ width:12px;height:12px;stroke:#27ae60; }
+
+/* Section groups */
+.pf-section-lbl{
+  font-size:.68rem;font-weight:800;color:var(--ec-muted);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin:1.4rem 0 .5rem 0.2rem;
+}
+.pf-group{
+  background:#fff;border-radius:16px;
+  border:1px solid var(--ec-border);
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.pf-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.1rem;
+  border-bottom:1px solid #f0f2f5;
+  text-decoration:none;color:var(--navy);
+  cursor:pointer;transition:background .15s;
+  background:none;border-left:none;border-right:none;border-top:none;
+  width:100%;font-family:inherit;font-size:1rem;text-align:left;
+}
+.pf-item:last-child{ border-bottom:none; }
+.pf-item:hover{ background:#f8f9fb; }
+.pf-item-ico{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.pf-item-ico--teal{ background:#e8faf8; }
+.pf-item-ico--red{ background:#fff5f5; }
+.pf-item-ico--blue{ background:#f0f4ff; }
+.pf-item-ico--orange{ background:#fff8f0; }
+.pf-item-ico--gray{ background:#f4f6f9; }
+.pf-item-body{ flex:1;min-width:0; }
+.pf-item-label{ font-size:.92rem;font-weight:700;color:var(--navy); }
+.pf-item-sub{ font-size:.75rem;color:var(--ec-muted);margin-top:.1rem; }
+.pf-item-right{ display:flex;align-items:center;gap:.5rem; }
+.pf-tag{
+  font-size:.7rem;font-weight:800;padding:.22rem .6rem;border-radius:2rem;
+}
+.pf-tag--green{ background:#f0fff4;color:#27ae60;border:1px solid rgba(39,174,96,.2); }
+.pf-tag--orange{ background:#fff8f0;color:#e67e22;border:1px solid rgba(230,126,34,.2); }
+.pf-chevron{ color:#ccc; }
+
+/* Logout */
+.pf-logout{
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+  width:100%;margin-top:1.5rem;padding:1rem;
+  background:#fff;border-radius:14px;
+  border:1.5px solid #f5c6cb;color:#e74c3c;
+  font-size:.95rem;font-weight:700;font-family:inherit;
+  cursor:pointer;transition:all .2s;
+}
+.pf-logout:hover{ background:#fff5f5; }
+
+/* Modal profil edit */
+.pf-modal-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.5);
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.pf-modal-overlay.open{ opacity:1;pointer-events:all; }
+.pf-modal-card{
+  background:#fff;border-radius:24px 24px 0 0;
+  width:100%;max-width:540px;
+  padding:1.5rem 1.5rem 2.8rem;
+  transform:translateY(50px);transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.pf-modal-overlay.open .pf-modal-card{ transform:translateY(0); }
+.pf-modal-handle{
+  width:36px;height:4px;border-radius:2px;
+  background:#e2e6ed;margin:0 auto 1.3rem;
+}
+.pf-modal-header{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;
+}
+.pf-modal-title{ font-size:1.1rem;font-weight:800;color:var(--navy); }
+.pf-modal-close{
+  background:#f4f6f9;border:none;cursor:pointer;
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:var(--ec-muted);
+}
+
+/* Toast */
+.pf-toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--navy);color:#fff;
+  padding:.7rem 1.4rem;border-radius:2rem;
+  font-size:.85rem;font-weight:700;
+  opacity:0;transition:all .3s;z-index:600;white-space:nowrap;
+  pointer-events:none;
+}
+.pf-toast.show{ opacity:1;transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body class="ec-body ec-dash-body">
+
+<!-- Header -->
+<header class="ec-header">
+  <a href="index.html" class="ec-hd-logo">Solfianza</a>
+  <div class="ec-hd-right">
+    <div class="ec-hd-user">
+      <div class="ec-hd-avatar" id="ec-hd-avatar">J</div>
+      <span class="ec-hd-name" id="ec-hd-name">Mon compte</span>
+    </div>
+    <button class="ec-hd-logout" onclick="ecLogout()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnexion
+    </button>
+  </div>
+</header>
+
+<main class="pf-main">
+
+  <!-- Hero -->
+  <div class="pf-hero">
+    <div class="pf-avatar" id="pf-avatar">J</div>
+    <div class="pf-name" id="pf-name">—</div>
+    <div class="pf-email" id="pf-email">—</div>
+    <div class="pf-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Compte vérifié
+    </div>
+  </div>
+
+  <!-- COMPTE -->
+  <div class="pf-section-lbl">Compte</div>
+  <div class="pf-group">
+    <button class="pf-item" onclick="pfOpenModal('profil')">
+      <div class="pf-item-ico pf-item-ico--teal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Votre profil</div>
+        <div class="pf-item-sub">Nom, prénom, téléphone</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+    <button class="pf-item" onclick="pfOpenModal('verif')">
+      <div class="pf-item-ico pf-item-ico--teal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Vérification du compte</div>
+      </div>
+      <div class="pf-item-right">
+        <span class="pf-tag pf-tag--green">Vérifié</span>
+      </div>
+    </button>
+    <button class="pf-item" onclick="pfOpenModal('notif')">
+      <div class="pf-item-ico pf-item-ico--blue">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Notifications</div>
+        <div class="pf-item-sub">Email, alertes de compte</div>
+      </div>
+      <div class="pf-item-right">
+        <span class="pf-tag pf-tag--green">Activées</span>
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- FINANCES -->
+  <div class="pf-section-lbl">Finances</div>
+  <div class="pf-group">
+    <button class="pf-item" onclick="pfOpenModal('limites')">
+      <div class="pf-item-ico pf-item-ico--orange">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Limites de transaction</div>
+        <div class="pf-item-sub">Dépôt max. 10 000 € / Virement max. 5 000 €</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+    <button class="pf-item" onclick="pfOpenModal('iban')">
+      <div class="pf-item-ico pf-item-ico--teal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Mon IBAN</div>
+        <div class="pf-item-sub" id="pf-iban-sub">—</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- SÉCURITÉ -->
+  <div class="pf-section-lbl">Sécurité</div>
+  <div class="pf-group">
+    <button class="pf-item" onclick="pfOpenModal('pwd')">
+      <div class="pf-item-ico pf-item-ico--blue">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Changer le mot de passe</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+    <button class="pf-item" onclick="pfOpenModal('2fa')">
+      <div class="pf-item-ico pf-item-ico--blue">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Authentification à deux facteurs</div>
+      </div>
+      <div class="pf-item-right">
+        <span class="pf-tag pf-tag--orange">Inactif</span>
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+    <button class="pf-item" onclick="pfOpenModal('sessions')">
+      <div class="pf-item-ico pf-item-ico--gray">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Appareils et sessions</div>
+        <div class="pf-item-sub">1 session active</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- AUTRES -->
+  <div class="pf-section-lbl">Autres</div>
+  <div class="pf-group">
+    <a href="nous-contacter.html" class="pf-item">
+      <div class="pf-item-ico pf-item-ico--teal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Contacter le support</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </a>
+    <a href="mentions-legales.html" class="pf-item">
+      <div class="pf-item-ico pf-item-ico--gray">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Mentions légales</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </a>
+    <a href="politique-donnees.html" class="pf-item">
+      <div class="pf-item-ico pf-item-ico--gray">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="pf-item-body">
+        <div class="pf-item-label">Politique de confidentialité</div>
+      </div>
+      <div class="pf-item-right">
+        <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <!-- Déconnexion -->
+  <button class="pf-logout" onclick="ecLogout()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Se déconnecter
+  </button>
+
+</main>
+
+<!-- Nav bas -->
+<nav class="ec-bottom-nav">
+  <a href="espace-client.html" class="ec-bnav-link">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil<div class="ec-bnav-dot"></div>
+  </a>
+  <a href="mes-documents.html" class="ec-bnav-link">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Documents<div class="ec-bnav-dot"></div>
+  </a>
+  <a href="suivi-dossier.html" class="ec-bnav-link">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Suivi<div class="ec-bnav-dot"></div>
+  </a>
+  <a href="profil.html" class="ec-bnav-link active">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    Plus<div class="ec-bnav-dot"></div>
+  </a>
+</nav>
+
+<!-- Modals -->
+<!-- Profil -->
+<div class="pf-modal-overlay" id="pf-modal-profil" onclick="pfCloseModal('profil')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Votre profil</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('profil')">✕</button>
+    </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl">Prénom</label>
+      <input class="ec-inp" id="pf-edit-prenom" type="text"/>
+    </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl">Nom</label>
+      <input class="ec-inp" id="pf-edit-nom" type="text"/>
+    </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl">Téléphone</label>
+      <input class="ec-inp" id="pf-edit-tel" type="tel"/>
+    </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl">Email</label>
+      <input class="ec-inp" id="pf-edit-email" type="email"/>
+    </div>
+    <button class="ec-btn-primary" onclick="pfSaveProfil()" style="margin-top:.5rem">Enregistrer</button>
+  </div>
+</div>
+
+<!-- Mot de passe -->
+<div class="pf-modal-overlay" id="pf-modal-pwd" onclick="pfCloseModal('pwd')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Changer le mot de passe</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('pwd')">✕</button>
+    </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl">Mot de passe actuel</label>
+      <div class="ec-pwd-wrap">
+        <input class="ec-inp" id="pf-pwd-old" type="password" placeholder="••••••••"/>
+        <button class="ec-eye-btn" type="button" onclick="ecTogglePwd('pf-pwd-old',this)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl">Nouveau mot de passe</label>
+      <div class="ec-pwd-wrap">
+        <input class="ec-inp" id="pf-pwd-new" type="password" placeholder="••••••••"/>
+        <button class="ec-eye-btn" type="button" onclick="ecTogglePwd('pf-pwd-new',this)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="ec-form-group">
+      <label class="ec-lbl">Confirmer</label>
+      <input class="ec-inp" id="pf-pwd-confirm" type="password" placeholder="••••••••"/>
+    </div>
+    <div class="ec-form-err" id="pf-pwd-err" style="display:none"></div>
+    <button class="ec-btn-primary" onclick="pfSavePwd()" style="margin-top:.5rem">Mettre à jour</button>
+  </div>
+</div>
+
+<!-- Limites -->
+<div class="pf-modal-overlay" id="pf-modal-limites" onclick="pfCloseModal('limites')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Limites de transaction</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('limites')">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.8rem;margin-bottom:1rem">
+      <div style="background:#f8f9fb;border-radius:12px;padding:1rem 1.1rem;display:flex;justify-content:space-between">
+        <div>
+          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem">Dépôt maximum</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--navy)">10 000 € / opération</div>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div style="background:#f8f9fb;border-radius:12px;padding:1rem 1.1rem;display:flex;justify-content:space-between">
+        <div>
+          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem">Virement maximum</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--navy)">5 000 € / opération</div>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div style="background:#f8f9fb;border-radius:12px;padding:1rem 1.1rem;display:flex;justify-content:space-between">
+        <div>
+          <div style="font-size:.75rem;color:var(--ec-muted);font-weight:700;margin-bottom:.2rem">Mensuel cumulé</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--navy)">50 000 € / mois</div>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+    </div>
+    <p style="font-size:.78rem;color:var(--ec-muted);text-align:center;line-height:1.5">Pour augmenter vos limites, contactez notre équipe.</p>
+  </div>
+</div>
+
+<!-- Sessions -->
+<div class="pf-modal-overlay" id="pf-modal-sessions" onclick="pfCloseModal('sessions')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Appareils et sessions</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('sessions')">✕</button>
+    </div>
+    <div style="background:#f0fff4;border:1.5px solid rgba(39,174,96,.2);border-radius:12px;padding:1rem 1.1rem;display:flex;gap:.8rem;align-items:center;margin-bottom:1rem">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <div>
+        <div style="font-size:.88rem;font-weight:700;color:var(--navy)">Session actuelle</div>
+        <div style="font-size:.75rem;color:var(--ec-muted)" id="pf-session-info">Ce navigateur · Actif maintenant</div>
+      </div>
+      <span style="margin-left:auto;font-size:.7rem;font-weight:800;background:#f0fff4;color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:2rem;padding:.2rem .6rem">Actif</span>
+    </div>
+    <button class="pf-logout" onclick="ecLogout()" style="margin-top:0">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnecter toutes les sessions
+    </button>
+  </div>
+</div>
+
+<!-- Generic modals (verif, notif, 2fa, iban) -->
+<div class="pf-modal-overlay" id="pf-modal-verif" onclick="pfCloseModal('verif')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Vérification du compte</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('verif')">✕</button>
+    </div>
+    <div style="text-align:center;padding:1.5rem 0">
+      <div style="width:60px;height:60px;border-radius:50%;background:#f0fff4;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div style="font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem">Identité vérifiée</div>
+      <div style="font-size:.85rem;color:var(--ec-muted);line-height:1.5">Votre compte est vérifié et sécurisé.<br/>Aucune action requise.</div>
+    </div>
+  </div>
+</div>
+
+<div class="pf-modal-overlay" id="pf-modal-notif" onclick="pfCloseModal('notif')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Notifications</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('notif')">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid #f0f2f5">
+        <span style="font-size:.9rem;font-weight:600;color:var(--navy)">Alertes de compte</span>
+        <span style="font-size:.75rem;font-weight:800;color:#27ae60">Activées</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid #f0f2f5">
+        <span style="font-size:.9rem;font-weight:600;color:var(--navy)">Confirmations email</span>
+        <span style="font-size:.75rem;font-weight:800;color:#27ae60">Activées</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.8rem 0">
+        <span style="font-size:.9rem;font-weight:600;color:var(--navy)">Rappels échéances</span>
+        <span style="font-size:.75rem;font-weight:800;color:#27ae60">Activées</span>
+      </div>
+    </div>
+    <p style="font-size:.76rem;color:var(--ec-muted);margin-top:1rem;line-height:1.5;text-align:center">La gestion avancée des notifications sera disponible prochainement.</p>
+  </div>
+</div>
+
+<div class="pf-modal-overlay" id="pf-modal-2fa" onclick="pfCloseModal('2fa')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Authentification à deux facteurs</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('2fa')">✕</button>
+    </div>
+    <div style="text-align:center;padding:1rem 0">
+      <div style="width:60px;height:60px;border-radius:50%;background:#f0f4ff;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div style="font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem">2FA bientôt disponible</div>
+      <div style="font-size:.85rem;color:var(--ec-muted);line-height:1.5">Cette fonctionnalité sera activée prochainement pour renforcer la sécurité de votre compte.</div>
+    </div>
+  </div>
+</div>
+
+<div class="pf-modal-overlay" id="pf-modal-iban" onclick="pfCloseModal('iban')">
+  <div class="pf-modal-card" onclick="event.stopPropagation()">
+    <div class="pf-modal-handle"></div>
+    <div class="pf-modal-header">
+      <span class="pf-modal-title">Mon IBAN</span>
+      <button class="pf-modal-close" onclick="pfCloseModal('iban')">✕</button>
+    </div>
+    <div style="background:#f8f9fb;border-radius:14px;padding:1.2rem;text-align:center;margin-bottom:1rem">
+      <div style="font-size:.72rem;font-weight:700;color:var(--ec-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">IBAN enregistré</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--navy);letter-spacing:.04em;word-break:break-all" id="pf-iban-display">—</div>
+    </div>
+    <button class="ec-btn-primary" onclick="pfCopyIban()">Copier l'IBAN</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="pf-toast" id="pf-toast"></div>
+
+<script src="espace-client.js"></script>
+<script>
+function pfOpenModal(name){
+  var el = document.getElementById('pf-modal-'+name);
+  if(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
+}
+function pfCloseModal(name){
+  var el = document.getElementById('pf-modal-'+name);
+  if(el){ el.classList.remove('open'); document.body.style.overflow=''; }
+}
+function pfToast(msg){
+  var t = document.getElementById('pf-toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+function pfInit(){
+  ecGuard();
+  ecInitHeader();
+  var user = ecGetUser();
+  if(!user) return;
+  var initials = (((user.prenom||'')[0]||'').toUpperCase()+(( user.nom||'')[0]||'').toUpperCase())||'U';
+  document.getElementById('pf-avatar').textContent = initials;
+  document.getElementById('pf-name').textContent = (user.prenom||'')+' '+(user.nom||'');
+  document.getElementById('pf-email').textContent = user.email||'';
+  // Pré-remplir formulaire profil
+  document.getElementById('pf-edit-prenom').value = user.prenom||'';
+  document.getElementById('pf-edit-nom').value = user.nom||'';
+  document.getElementById('pf-edit-tel').value = user.tel||'';
+  document.getElementById('pf-edit-email').value = user.email||'';
+  // IBAN
+  var iban = user.iban||'—';
+  document.getElementById('pf-iban-sub').textContent = iban !== '—' ? iban.substring(0,8)+'••••' : 'Non renseigné';
+  document.getElementById('pf-iban-display').textContent = iban;
+}
+
+function pfSaveProfil(){
+  var user = ecGetUser();
+  if(!user) return;
+  user.prenom = document.getElementById('pf-edit-prenom').value.trim();
+  user.nom    = document.getElementById('pf-edit-nom').value.trim();
+  user.tel    = document.getElementById('pf-edit-tel').value.trim();
+  user.email  = document.getElementById('pf-edit-email').value.trim().toLowerCase();
+  ecSetUser(user);
+  pfCloseModal('profil');
+  pfToast('✓ Profil mis à jour');
+  pfInit();
+}
+
+function pfSavePwd(){
+  var user    = ecGetUser();
+  var old     = document.getElementById('pf-pwd-old').value;
+  var nw      = document.getElementById('pf-pwd-new').value;
+  var confirm = document.getElementById('pf-pwd-confirm').value;
+  var err     = document.getElementById('pf-pwd-err');
+  if(!user || user.pwd !== old){
+    err.textContent='Mot de passe actuel incorrect.'; err.style.display='block'; return;
+  }
+  if(nw.length < 8){
+    err.textContent='Le nouveau mot de passe doit contenir au moins 8 caractères.'; err.style.display='block'; return;
+  }
+  if(nw !== confirm){
+    err.textContent='Les mots de passe ne correspondent pas.'; err.style.display='block'; return;
+  }
+  err.style.display='none';
+  user.pwd = nw; ecSetUser(user);
+  ['pf-pwd-old','pf-pwd-new','pf-pwd-confirm'].forEach(function(id){ document.getElementById(id).value=''; });
+  pfCloseModal('pwd');
+  pfToast('✓ Mot de passe mis à jour');
+}
+
+function pfCopyIban(){
+  var iban = document.getElementById('pf-iban-display').textContent;
+  if(navigator.clipboard && iban !== '—') navigator.clipboard.writeText(iban);
+  pfToast('✓ IBAN copié');
+}
+
+pfInit();
+</script>
+</body>
+</html>
