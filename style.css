@@ -14,8 +14,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   --orange:#06c2b0;
   --navy:#111;
   --navy-d:#000;
-  --teal:#ff6b5c;
-  --teal-d:#e85545;
+  --teal:#06c2b0;
+  --teal-d:#049f90;
+  --coral:#ff6b5c;
+  --coral-d:#e85545;
   --sky:#3ab5e5;
   --sky-l:#62c9ef;
   --text:#333;
@@ -187,10 +189,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .mob-cta-connect{
   display:flex;align-items:center;justify-content:center;gap:.5rem;
-  padding:.85rem 1rem;background:var(--teal);border:none;border-radius:2rem;
+  padding:.85rem 1rem;background:var(--coral);border:none;border-radius:2rem;
   font-size:.93rem;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;
 }
-.mob-cta-connect:hover{background:var(--teal-d)}
+.mob-cta-connect:hover{background:var(--coral-d)}
 /* Bouton fixe "Simuler un projet" mobile */
 .mob-sim-bar{
   display:block;position:fixed;bottom:0;left:0;right:0;
@@ -203,13 +205,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .mob-sim-bar.visible{transform:translateY(0)}
 .mob-sim-btn{
-  display:block;width:100%;background:var(--teal);color:#fff;
+  display:block;width:100%;background:var(--coral);color:#fff;
   border:none;border-radius:2rem;padding:.85rem 1.5rem;
   font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;
   text-align:center;transition:background .15s;
   box-shadow:0 4px 16px rgba(6,194,176,.35);
 }
-.mob-sim-btn:hover{background:var(--teal-d)}
+.mob-sim-btn:hover{background:var(--coral-d)}
 @media(min-width:960px){
   .mob-sim-bar{display:none}
   .mobile-menu{display:none!important}
@@ -353,14 +355,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sim-select:focus,.sim-input:focus{border-color:var(--teal)}
 .btn-teal{
   display:block;width:100%;text-align:center;
-  background:var(--teal);color:#fff;
+  background:var(--coral);color:#fff;
   border-radius:2rem;padding:.75rem 1.4rem;
   font-size:.95rem;font-weight:700;border:none;
   font-family:inherit;cursor:pointer;
   white-space:nowrap;
   transition:background .2s;
 }
-.btn-teal:hover{background:var(--teal-d)}
+.btn-teal:hover{background:var(--coral-d)}
 
 /* Colonne texte — cachée sur mobile */
 .hero-text-col{display:none}
@@ -422,11 +424,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .hpc-rate sup{font-size:1.3rem;font-weight:700;vertical-align:super}
   .hpc-sub{font-size:.71rem;color:#999;line-height:1.5;margin-bottom:1.2rem}
   .hpc-btn{
-    display:block;background:var(--teal);color:#fff;text-align:center;
+    display:block;background:var(--coral);color:#fff;text-align:center;
     border-radius:2rem;padding:.65rem 1rem;font-size:.88rem;font-weight:700;
     transition:background .15s;
   }
-  .hpc-btn:hover{background:var(--teal-d)}
+  .hpc-btn:hover{background:var(--coral-d)}
   .hero-sim-card{
     flex:1;background:#fff;border-radius:12px;
     padding:1.6rem 2rem;box-shadow:0 8px 32px rgba(0,0,0,.15);
@@ -546,7 +548,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   border-radius:2rem;padding:.65rem 1.8rem;
   font-size:.92rem;font-weight:700;transition:background .2s;
 }
-.btn-orange:hover{background:var(--teal-d);color:#fff}
+.btn-orange:hover{background:var(--coral-d);color:#fff}
 
 /* ═══════════════════════════
    AVANTAGES
@@ -920,11 +922,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sim-btn-outline{display:block;width:100%;border:1.5px solid #bbb;border-radius:2rem;padding:.75rem 1rem;font-size:.9rem;font-weight:600;color:var(--navy);background:#fff;text-align:center;margin-bottom:.6rem;cursor:pointer;font-family:inherit;text-decoration:none;transition:border-color .15s}
 .sim-btn-outline:hover{border-color:var(--navy)}
 .sim-cta-big{display:block;width:100%;background:var(--orange);color:#fff;border-radius:2rem;padding:.85rem;font-size:.95rem;font-weight:700;text-align:center;margin-bottom:.7rem;transition:background .2s;border:none;cursor:pointer;font-family:inherit}
-.sim-cta-big:hover{background:var(--teal-d)}
+.sim-cta-big:hover{background:var(--coral-d)}
 .sim-restart{width:100%;background:none;border:2px solid #ddd;border-radius:2rem;padding:.65rem;font-size:.88rem;font-weight:600;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
 .sim-restart:hover{border-color:var(--navy);color:var(--navy)}
 /* Common : trust + legal */
-.sim-tagline{font-size:.84rem;color:var(--teal-d);font-weight:600;text-align:center;margin-bottom:1.5rem;padding:.7rem 1rem;background:linear-gradient(to right,#edfaf9,#eaf7ff);border-radius:8px;line-height:1.4}
+.sim-tagline{font-size:.84rem;color:var(--coral-d);font-weight:600;text-align:center;margin-bottom:1.5rem;padding:.7rem 1rem;background:linear-gradient(to right,#edfaf9,#eaf7ff);border-radius:8px;line-height:1.4}
 .sim-trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;margin-bottom:1.8rem}
 @media(min-width:760px){.sim-trust-grid{grid-template-columns:repeat(4,1fr)}}
 .sim-trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.4rem}
@@ -943,10 +945,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sim-bb-back{font-size:.88rem;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;padding:.5rem .2rem;min-width:55px;text-align:left}
 .sim-bb-back:disabled{color:#ccc;cursor:default}
 .sim-bb-prog{font-size:.8rem;color:#888;font-weight:600;flex:1;text-align:center;white-space:nowrap}
-.sim-bb-next{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:.62rem 1.2rem;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;min-width:80px;white-space:nowrap}
-.sim-bb-next:hover{background:var(--teal-d)}
-.sim-bb-next.bb-teal{background:var(--teal)}
-.sim-bb-next.bb-teal:hover{background:var(--teal-d)}
+.sim-bb-next{background:var(--coral);color:#fff;border:none;border-radius:2rem;padding:.62rem 1.2rem;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;min-width:80px;white-space:nowrap}
+.sim-bb-next:hover{background:var(--coral-d)}
+.sim-bb-next.bb-teal{background:var(--coral)}
+.sim-bb-next.bb-teal:hover{background:var(--coral-d)}
 
 /* Step 5 : Formulaire de demande */
 .sim-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
@@ -1011,8 +1013,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .sp4-back-btn{background:none;border:1.5px solid #ddd;border-radius:2rem;padding:.62rem 1.5rem;font-size:.88rem;font-weight:600;color:var(--navy);cursor:pointer;font-family:inherit;white-space:nowrap;transition:border-color .15s}
   .sp4-back-btn:hover{border-color:var(--navy)}
   .sp4-action-note{flex:1;text-align:center;font-size:.78rem;color:#888;font-style:italic}
-  .sp4-cta{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:.72rem 2rem;font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
-  .sp4-cta:hover{background:var(--teal-d)}
+  .sp4-cta{background:var(--coral);color:#fff;border:none;border-radius:2rem;padding:.72rem 2rem;font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
+  .sp4-cta:hover{background:var(--coral-d)}
 }
 
 
@@ -1119,7 +1121,7 @@ body.pg-inner .editorial{background:none}
 .prod-cta{background:#fff;padding:3.5rem 1.5rem;text-align:center}
 .prod-cta h2{font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:.8rem}
 .prod-cta p{color:#555;margin-bottom:1.5rem;line-height:1.6}
-.prod-cta .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.5rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.prod-cta .btn-prim{background:var(--coral);color:#fff;border:none;border-radius:2rem;padding:1rem 2.5rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
 .prod-cta-note{font-size:.74rem;color:#999;margin-top:1rem}
 /* Titres sections produit */
 .editorial h2,.prod-avantages h2{font-size:1.35rem;font-weight:800;color:var(--navy);margin-bottom:1rem}
@@ -1206,8 +1208,8 @@ body.pg-inner .editorial{background:none}
   .prod-hero-img{height:340px;}
   .prod-hero-rate{max-width:320px;}
 }
-.prod-hero .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3);display:inline-block;margin-top:.2rem}
-.prod-hero .btn-prim:hover{background:var(--teal-d)}
+.prod-hero .btn-prim{background:var(--coral);color:#fff;border:none;border-radius:2rem;padding:1rem 2.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;box-shadow:0 4px 14px rgba(6,194,176,.3);display:inline-block;margin-top:.2rem}
+.prod-hero .btn-prim:hover{background:var(--coral-d)}
 .prod-hero-note{font-size:.74rem;color:#999;margin-top:.7rem}
 .prod-hero-avis{display:flex;align-items:center;gap:.5rem;margin-top:1rem}
 .prod-hero-avis-stars{color:#f5a623;font-size:1rem;letter-spacing:.05em}
@@ -1275,8 +1277,8 @@ body.pg-inner .editorial{background:none}
 .prod-cta::before{display:none}
 .prod-cta h2{font-size:2.2rem;font-weight:800;color:var(--navy);margin-bottom:.8rem}
 .prod-cta p{font-size:1.05rem;color:#555;margin-bottom:2.5rem;line-height:1.6}
-.prod-cta .btn-prim{background:var(--teal);color:#fff;border:none;border-radius:2rem;padding:1.2rem 3rem;font-size:1.1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 6px 24px rgba(6,194,176,.35)}
-.prod-cta .btn-prim:hover{background:var(--teal-d);transform:translateY(-2px)}
+.prod-cta .btn-prim{background:var(--coral);color:#fff;border:none;border-radius:2rem;padding:1.2rem 3rem;font-size:1.1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 6px 24px rgba(6,194,176,.35)}
+.prod-cta .btn-prim:hover{background:var(--coral-d);transform:translateY(-2px)}
 .prod-cta-note{font-size:.78rem;color:#999;margin-top:1.2rem}
 @media(min-width:700px){
   .prod-cta{
@@ -1648,11 +1650,11 @@ body.pg-inner .editorial{background:none}
 .sp5-back-btn:hover{ background:var(--navy);color:#fff; }
 .sp5-cont-btn{
   flex:1;padding:.78rem 1.6rem;border-radius:2rem;
-  background:var(--teal);color:#fff;border:none;
+  background:var(--coral);color:#fff;border:none;
   font-size:.9rem;font-weight:700;font-family:inherit;
   cursor:pointer;transition:background .2s;white-space:nowrap;
 }
-.sp5-cont-btn:hover{ background:var(--teal-d); }
+.sp5-cont-btn:hover{ background:var(--coral-d); }
 /* Desktop: bouton fixe en bas centré (style Sofinco) */
 @media(min-width:760px){
   .sp5-nav{
@@ -1668,12 +1670,12 @@ body.pg-inner .editorial{background:none}
 }
 .sp5-send-btn{
   padding:.82rem 1.6rem;border-radius:2rem;
-  background:var(--teal);color:#fff;border:none;
+  background:var(--coral);color:#fff;border:none;
   font-size:.95rem;font-weight:800;font-family:inherit;
   cursor:pointer;transition:background .2s;white-space:nowrap;
   letter-spacing:.01em;
 }
-.sp5-send-btn:hover{ background:var(--teal-d); }
+.sp5-send-btn:hover{ background:var(--coral-d); }
 .sp5-arr{ font-size:1.1rem; }
 .sp5-arr-l{ font-size:1.1rem; }
 
