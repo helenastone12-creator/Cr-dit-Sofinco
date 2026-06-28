@@ -85,8 +85,8 @@ function ecGenContrat(){
   var montant  = loan.montant    || 0;
   var mens     = loan.mensualite || 0;
   var duree    = loan.duree      || 60;
-  var taux     = loan.taux       || 5.9;
-  var taeg     = (taux + 0.8).toFixed(2);
+  var taux     = loan.taux       || 3.5;
+  var taeg     = taux.toFixed(2);
   var dateSign = ecDocFmt(u.createdAt);
   var dateExp  = new Date(u.createdAt||Date.now()); dateExp.setDate(dateExp.getDate()+14);
   var total    = (mens * duree).toFixed(2);
@@ -190,7 +190,7 @@ function ecGenAmortissement(){
   var capital  = loan.montant    || 0;
   var mens     = loan.mensualite || 0;
   var duree    = loan.duree      || 60;
-  var taux     = loan.taux       || 5.9;
+  var taux     = loan.taux       || 3.5;
   var tauxM    = taux / 100 / 12;
   var dateDebut= new Date(u.createdAt||Date.now());
   var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
@@ -243,7 +243,7 @@ function ecGenAmortissement(){
         <td><strong>0,00 €</strong></td></tr></tfoot>
     </table>
 
-    <div class="highlight-box" style="margin-top:16px"><p>Ce tableau est fourni à titre informatif conformément à l'article L312-28 du Code de la consommation. Les montants sont calculés sur la base d'un taux fixe de ${taux} % l'an (TAEG ${(taux+0.8).toFixed(2)} %). Coût total des intérêts : ${ecDocMoney(totalInt)}.</p></div>
+    <div class="highlight-box" style="margin-top:16px"><p>Ce tableau est fourni à titre informatif conformément à l'article L312-28 du Code de la consommation. Les montants sont calculés sur la base d'un taux fixe de ${taux} % l'an (TAEG ${taux.toFixed(2)} %). Coût total des intérêts : ${ecDocMoney(totalInt)}.</p></div>
 
     <div class="footer">SOLFIANZA SAS — SIREN 123 456 789 — Document généré le ${ecDocFmt(new Date().toISOString())} — Réf. ${u.ref||'—'}</div>
   </div></body></html>`;
