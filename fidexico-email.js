@@ -796,7 +796,7 @@ function emailBienvenue(prenom, nom, email, fdxNum, lang){
     '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Activation de votre espace client</p>'
     +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:22px;color:#0B2140;font-weight:700">Bienvenue chez Fidexico,<br>'+prenom+' '+nom+'.</h1>'
     +_divider()
-    +_body('Votre demande a bien été enregistrée. Pour accéder à votre Espace Client, vous devez finaliser votre inscription en cliquant sur le bouton ci-dessous.')
+    +_body('Bienvenue ! Votre demande a bien été enregistrée et votre Espace Client est maintenant actif. Vous pouvez vous connecter dès maintenant avec votre adresse email et le mot de passe que vous avez choisi.')
     +_section('Vos informations de connexion')
     +_tbl([
       ['Titulaire', prenom+' '+nom],
@@ -804,8 +804,8 @@ function emailBienvenue(prenom, nom, email, fdxNum, lang){
       ['Numéro de contrat', '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:700;color:#0B5E8A">'+fdxNum+'</span>'],
       ['Date d\'inscription', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
     ])
-    +_alertBox('#1a5a8a','#f0f6fb','Conservez votre numéro de contrat','Vous aurez besoin de votre numéro de contrat (<strong>'+fdxNum+'</strong>) et de votre adresse email pour finaliser votre inscription et accéder à votre espace client.')
-    +_btn('Finaliser mon inscription', FIDEXICO_CONFIG.SITE_URL+'/inscription.html')
+    +_alertBox('#1a5a8a','#f0f6fb','Conservez votre numéro de contrat','Votre numéro de contrat est <strong>'+fdxNum+'</strong>. Conservez-le précieusement pour tout contact avec notre service client.')
+    +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
     +_sign()
     +_note('Si vous n\'êtes pas à l\'origine de cette inscription, ignorez cet email ou contactez-nous via <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a>.'),
   'fr', {ref:fdxNum});
