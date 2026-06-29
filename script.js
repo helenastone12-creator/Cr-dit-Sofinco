@@ -1811,7 +1811,7 @@ function sp5Submit(){
         if(filter && name.toLowerCase().indexOf(filter.toLowerCase())<0 && dial.indexOf(filter)<0) return;
         var li = document.createElement('li');
         li.className='nat-item'+(code===currentTelCountry?' nat-sel':'');
-        li.innerHTML='<span class="nat-flag-emoji">'+flagEmoji(code)+'</span>'
+        li.innerHTML='<img class="nat-flag" src="https://flagcdn.com/24x18/'+code.toLowerCase()+'.png" loading="lazy" alt="'+code+'">'
           +'<span class="nat-item-label">'+name+'</span>'
           +'<span style="color:#888;font-size:.9rem">'+dial+'</span>'
           +(code===currentTelCountry?'<svg class="nat-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#06c2b0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':'');
@@ -1885,7 +1885,7 @@ function sp5Submit(){
     if(!btn) return;
     var dial = DIAL_CODES[country]||'+33';
     btn.innerHTML =
-      '<span class="nat-flag-emoji sp5-tel-flag">'+flagEmoji(country)+'</span>'
+      '<img class="nat-flag sp5-tel-flag" src="https://flagcdn.com/24x18/'+country.toLowerCase()+'.png" alt="'+country+'">'
       +'<span class="sp5-tel-dial">'+dial+'</span>';
   }
 
@@ -2035,15 +2035,11 @@ function sp5Submit(){
   var otherLabel  = {fr:'Autre',en:'Other',de:'Andere',es:'Otro',it:'Altro',nl:'Andere',pl:'Inne',sv:'Annan'};
   var lang = (typeof LANG !== 'undefined' ? LANG : 'fr');
 
-  function flagEmoji(code){
-    if(!code || code==='AUTRE') return '🌍';
-    return Array.from(code.toUpperCase()).map(function(c){
-      return String.fromCodePoint(0x1F1E0 + c.charCodeAt(0) - 65);
-    }).join('');
-  }
+  var GLOBE_SVG = '<svg class="nat-globe" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>';
 
   function flagImg(code){
-    return '<span class="nat-flag-emoji">'+flagEmoji(code)+'</span>';
+    if(!code || code==='AUTRE') return GLOBE_SVG;
+    return '<img class="nat-flag" src="https://flagcdn.com/24x18/'+code.toLowerCase()+'.png" loading="lazy" alt="'+code+'" onerror="this.style.display=\'none\'">';
   }
 
   function initNatDropdown(){
