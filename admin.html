@@ -770,7 +770,7 @@ function opDeposit(){
   admLoad();
   /* email virement entrant au client */
   if(typeof FidEmail !== 'undefined' && c.user.email){
-    var ref='FID'+Date.now().toString(36).toUpperCase();
+    var ref='DEP-'+new Date().getFullYear()+'-'+String(Math.floor(100000+Math.random()*900000));
     FidEmail.virementEntrant(c.user.prenom||c.user.nom, c.user.email, fmtAmt(amt), 'Fidexico', ref);
   }
   showMsg('dep-ok','dep-err','Dépôt de '+fmtAmt(amt)+' effectué sur '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);

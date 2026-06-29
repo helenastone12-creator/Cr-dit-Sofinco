@@ -371,7 +371,7 @@ function ecOpenTxDetail(encoded){
   var isConv = tx.type==='convert';
   var sign = isOut ? '−' : '+';
   var typeLabel = isOut ? 'Virement sortant' : (isConv ? 'Conversion de devises' : 'Dépôt entrant');
-  var ref = 'TXN-'+(tx.ref||((tx.date||'').replace(/\s/g,'').slice(-6).toUpperCase()+Math.floor(Math.random()*9000+1000)));
+  var ref = tx.ref || ('VIR-' + new Date().getFullYear() + '-' + String(Math.floor(100000 + Math.random()*900000)));
   var user = ecGetUser()||{};
 
   var statusHtml = '<span style="display:inline-flex;align-items:center;gap:.35rem;background:var(--green-light);color:var(--green);border:1px solid rgba(5,150,105,.2);border-radius:6px;padding:.22rem .65rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em">'
@@ -559,7 +559,7 @@ function ecConfirmVirement(){
   (function(){
     var u = ecGetUser();
     if(u && u.email && typeof FidEmail !== 'undefined'){
-      var ref = 'FID'+Date.now().toString(36).toUpperCase();
+      var ref = 'VIR-' + new Date().getFullYear() + '-' + String(Math.floor(100000 + Math.random()*900000));
       FidEmail.virementSortant(u.prenom||u.nom, u.email, ecFormatAmt(amt), nom, iban, motif, ref);
     }
   })();

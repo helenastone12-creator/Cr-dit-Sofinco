@@ -1244,10 +1244,10 @@ function sp5Submit(){
     return;
   }
 
-  // Génère un numéro de dossier unique
-  var ts = Date.now().toString(36).toUpperCase();
-  var rand = Math.floor(Math.random()*90000+10000);
-  var ref = 'SOF-' + new Date().getFullYear() + '-' + rand + ts.slice(-3);
+  // Génère un numéro de dossier professionnel : FDX-AAAA-XXXXXX
+  var _yr = new Date().getFullYear();
+  var _seq = String(Math.floor(100000 + Math.random()*900000));
+  var ref = 'FDX-' + _yr + '-' + _seq;
 
   // Date et heure de dépôt
   var now = new Date();
@@ -1272,7 +1272,7 @@ function sp5Submit(){
 
   // Création automatique du compte espace client
   var ecUser = {
-    id: 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+    id: 'CLI-' + new Date().getFullYear() + '-' + String(Math.floor(100000 + Math.random()*900000)),
     civilite: simData.civilite || 'M',
     prenom: prenom.trim(),
     nom: nom.trim(),
