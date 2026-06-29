@@ -2293,6 +2293,8 @@ body.pg-inner .editorial{background:none}
   display:none;position:fixed;inset:0;z-index:9990;
   flex-direction:column;
   background:#f2f2f7;
+  height:100%;
+  height:-webkit-fill-available;
 }
 .nat-panel.open{display:flex}
 .nat-header{
@@ -2323,8 +2325,8 @@ body.pg-inner .editorial{background:none}
   font-family:inherit;color:#0d2748;background:transparent;
 }
 .nat-list{
-  list-style:none;margin:0;padding:0;
-  overflow-y:auto;flex:1;
+  list-style:none;padding:0;
+  overflow-y:scroll;flex:1;min-height:0;
   background:#fff;border-radius:14px;margin:0 1rem 1rem;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior:contain;
