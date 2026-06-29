@@ -678,25 +678,19 @@ function emailBase(content, lang, opts){
   var dateLine = '<td style="font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;padding:0">'+new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})+'</td>';
 
   return '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fidexico</title></head>'
-  +'<body style="margin:0;padding:0;background-color:#edf0f5;font-family:Arial,Helvetica,sans-serif">'
-  +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#edf0f5;padding:32px 0">'
+  +'<body style="margin:0;padding:0;background-color:#ddeef7;font-family:Arial,Helvetica,sans-serif">'
+  +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(180deg,#c5e8f5 0%,#ddeef7 100%);padding:32px 0">'
   +'<tr><td align="center">'
   +'<table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%">'
 
-  /* ── EN-TÊTE INSTITUTION ── */
-  +'<tr><td style="background:#0B2140;border-radius:6px 6px 0 0;padding:28px 40px">'
-  +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
-  +'<td style="font-family:Arial,sans-serif">'
-  +'<div style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase">FIDEXICO</div>'
-  +'<div style="font-size:11px;color:#8aafd4;letter-spacing:2px;text-transform:uppercase;margin-top:3px">Établissement de Crédit · Espace Client Sécurisé</div>'
-  +'</td>'
-  +'<td align="right"><div style="width:36px;height:36px;border:2px solid rgba(255,255,255,.15);border-radius:50%;display:inline-block;text-align:center;line-height:32px">'
-  +'<span style="color:#8aafd4;font-size:16px">&#128274;</span></div></td>'
-  +'</tr></table>'
+  /* ── EN-TÊTE — fond dégradé bleu clair hero ── */
+  +'<tr><td style="background:linear-gradient(135deg,#a8d8ec 0%,#c5e8f5 100%);border-radius:8px 8px 0 0;padding:32px 40px 28px;text-align:center">'
+  +'<div style="font-family:Arial,sans-serif;font-size:26px;font-weight:800;color:#0B2140;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">FIDEXICO</div>'
+  +'<div style="font-family:Arial,sans-serif;font-size:10px;color:#1a5a7a;letter-spacing:2.5px;text-transform:uppercase">Établissement de Crédit · Espace Client Sécurisé</div>'
   +'</td></tr>'
 
-  /* ── BARRE OR ── */
-  +'<tr><td style="background:#C4A84A;height:3px;font-size:0;line-height:0">&nbsp;</td></tr>'
+  /* ── BARRE ACCENT ── */
+  +'<tr><td style="background:#ff6b5c;height:3px;font-size:0;line-height:0">&nbsp;</td></tr>'
 
   /* ── MÉTA DATE / REF ── */
   +'<tr><td style="background:#f5f7fa;padding:10px 40px;border-left:1px solid #dde3ec;border-right:1px solid #dde3ec">'
@@ -711,31 +705,31 @@ function emailBase(content, lang, opts){
   /* ── AVERTISSEMENT SÉCURITÉ ── */
   +'<tr><td style="background:#f0f4fa;padding:16px 40px;border:1px solid #dde3ec;border-top:none">'
   +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
-  +'<td width="22" valign="top" style="padding-right:10px;padding-top:1px"><span style="color:#C4A84A;font-size:14px;font-weight:700">&#9888;</span></td>'
+  +'<td width="22" valign="top" style="padding-right:10px;padding-top:1px"><span style="color:#ff6b5c;font-size:15px;font-weight:700">&#9888;</span></td>'
   +'<td style="font-family:Arial,sans-serif;font-size:11.5px;color:#4a5a6e;line-height:1.6">'
-  +'<strong style="color:#2c3e50">Avertissement de sécurité :</strong> Fidexico ne vous demandera <strong>jamais</strong> vos codes d\'accès, mots de passe ou informations bancaires complètes par email ou téléphone. '
-  +'En cas de doute, ne cliquez sur aucun lien et contactez-nous directement au <strong>+33 (0)1 00 00 00 00</strong>.'
+  +'<strong style="color:#0B2140">Avertissement de sécurité :</strong> Fidexico ne vous demandera <strong>jamais</strong> vos codes d\'accès, mots de passe ou informations bancaires complètes par email. '
+  +'En cas de doute, ne cliquez sur aucun lien et contactez-nous uniquement à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A;font-weight:700">contact@fidexico.eu</a>.'
   +'</td></tr></table>'
   +'</td></tr>'
 
-  /* ── PIED DE PAGE LÉGAL ── */
-  +'<tr><td style="background:#0B2140;padding:24px 40px;border-radius:0 0 6px 6px">'
-  +'<p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:11px;color:#8aafd4;line-height:1.7">'
+  /* ── PIED DE PAGE LÉGAL — fond dégradé bleu clair hero ── */
+  +'<tr><td style="background:linear-gradient(135deg,#a8d8ec 0%,#c5e8f5 100%);padding:24px 40px;border-radius:0 0 8px 8px">'
+  +'<p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:11px;color:#1a4a6a;line-height:1.7">'
   +'Cet email a été envoyé à l\'adresse associée à votre espace client Fidexico. Il est strictement confidentiel et destiné uniquement à son destinataire. '
   +'Toute utilisation, divulgation ou reproduction non autorisée est interdite.'
   +'</p>'
-  +'<p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:11px;color:#8aafd4;line-height:1.7">'
+  +'<p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:11px;color:#1a4a6a;line-height:1.7">'
   +'Conformément au Règlement (UE) 2016/679 (RGPD), vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles. '
-  +'Pour exercer ces droits : <a href="mailto:contact@fidexico.eu" style="color:#C4A84A;text-decoration:none">contact@fidexico.eu</a>'
+  +'Pour exercer ces droits : <a href="mailto:contact@fidexico.eu" style="color:#0B2140;font-weight:700;text-decoration:none">contact@fidexico.eu</a>'
   +'</p>'
-  +'<hr style="border:none;border-top:1px solid rgba(255,255,255,.08);margin:14px 0">'
+  +'<hr style="border:none;border-top:1px solid rgba(11,33,64,.15);margin:14px 0">'
   +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
-  +'<td style="font-family:Arial,sans-serif;font-size:10.5px;color:#5a7a9a">'
-  +'<strong style="color:#7a9abf">FIDEXICO</strong> · Société par Actions Simplifiée<br>'
+  +'<td style="font-family:Arial,sans-serif;font-size:10.5px;color:#1a4a6a">'
+  +'<strong style="color:#0B2140">FIDEXICO</strong> · Société par Actions Simplifiée<br>'
   +'Siège social : 12 Rue de la Finance, 75008 Paris · SIREN 123 456 789<br>'
-  +'Immatriculée à l\'ORIAS sous le n° 22 003 456 · <a href="https://fidexico.eu" style="color:#C4A84A;text-decoration:none">fidexico.eu</a>'
+  +'Immatriculée à l\'ORIAS sous le n° 22 003 456 · <a href="https://fidexico.eu" style="color:#0B2140;text-decoration:none">fidexico.eu</a>'
   +'</td>'
-  +'<td align="right" style="font-family:Arial,sans-serif;font-size:10.5px;color:#5a7a9a">© '+new Date().getFullYear()+' Fidexico<br>Tous droits réservés</td>'
+  +'<td align="right" style="font-family:Arial,sans-serif;font-size:10.5px;color:#1a4a6a">© '+new Date().getFullYear()+' Fidexico<br>Tous droits réservés</td>'
   +'</tr></table>'
   +'</td></tr>'
 
@@ -746,9 +740,9 @@ function emailBase(content, lang, opts){
 
 /* ── Helpers internes ── */
 function _btn(label, url){
-  return '<table cellpadding="0" cellspacing="0" border="0" style="margin:24px 0"><tr>'
-    +'<td style="background:#0B5E8A;border-radius:4px">'
-    +'<a href="'+url+'" style="display:inline-block;padding:13px 36px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;letter-spacing:.3px">'+label+'</a>'
+  return '<table cellpadding="0" cellspacing="0" border="0" style="margin:24px auto"><tr>'
+    +'<td align="center" style="background:#ff6b5c;border-radius:50px">'
+    +'<a href="'+url+'" style="display:inline-block;padding:13px 40px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;letter-spacing:.3px">'+label+'</a>'
     +'</td></tr></table>';
 }
 function _tbl(rows){
@@ -782,7 +776,7 @@ function _sign(){
   return '<p style="margin:24px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#3d4f63;line-height:1.6">'
     +'Nous restons à votre disposition pour toute question.<br>'
     +'<strong style="color:#1a2b3c">Votre Conseiller Fidexico</strong><br>'
-    +'<span style="color:#8a9ab0;font-size:12px">Service Relations Clients · <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A;text-decoration:none">contact@fidexico.eu</a></span>'
+    +'<span style="color:#8a9ab0;font-size:12px">Service Relations Clients · <a href="mailto:contact@fidexico.eu" style="color:#ff6b5c;text-decoration:none">contact@fidexico.eu</a></span>'
     +'</p>';
 }
 function _alertBox(color, bgColor, title, text){
@@ -831,7 +825,7 @@ function emailConnexion(prenom, date, lang){
       ['Type d\'opération', 'Authentification réussie'],
       ['Référence sécurité', ref]
     ])
-    +_alertBox('#c0392b','#fff8f8','Action requise si vous n\'êtes pas à l\'origine de cette connexion','Votre compte pourrait être compromis. Modifiez immédiatement votre mot de passe depuis votre Espace Client et contactez notre service sécurité au <strong>+33 (0)1 00 00 00 00</strong>.')
+    +_alertBox('#c0392b','#fff8f8','Action requise si vous n\'êtes pas à l\'origine de cette connexion','Votre compte pourrait être compromis. Modifiez immédiatement votre mot de passe depuis votre Espace Client et contactez notre service sécurité à <a href="mailto:contact@fidexico.eu" style="color:#c0392b;font-weight:700">contact@fidexico.eu</a>.')
     +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
     +_sign()
     +_note('Cet email de sécurité est généré automatiquement à chaque connexion. Si cette connexion provient bien de vous, aucune action n\'est nécessaire.'),
@@ -929,7 +923,7 @@ function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
     +_btn('Suivre mon dossier', FIDEXICO_CONFIG.SITE_URL+'/suivi-dossier.html')
     +_alertBox('#1a5a8a','#f0f6fb','Information légale','Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Taux Annuel Effectif Global (TAEG) communiqué dans votre offre de prêt.')
     +_sign()
-    +_note('Référence dossier : <strong>'+ref+'</strong>. Conservez ce numéro pour tout suivi de votre dossier. Notre équipe peut vous contacter par email ou téléphone dans le cadre du traitement de votre demande.'),
+    +_note('Référence dossier : <strong>'+ref+'</strong>. Conservez ce numéro pour tout suivi de votre dossier. Notre équipe peut vous contacter par email dans le cadre du traitement de votre demande.'),
   'fr', {ref:ref});
 }
 
