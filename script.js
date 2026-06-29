@@ -1058,7 +1058,7 @@ function sp5ValidEmail(v){
   return SP5_DISPOSABLE_DOMAINS.indexOf(domain) === -1;
 }
 function sp5ValidCP(v){
-  return /^(0[1-9]|[1-8][0-9]|9[0-5]|97[1-6])[0-9]{3}$/.test((v||'').trim());
+  return (v||'').trim().length >= 3;
 }
 function sp5Field(id, errId, testFn, errMsg){
   var el = document.getElementById(id);
@@ -1109,7 +1109,7 @@ function sp5Validate(step){
 
   } else if(step===3){
     check('s5-adresse', 's5-adresse-err', function(v){ return v && v.trim().length >= 5; }, 'Adresse incomplète (5 car. min.)');
-    check('s5-cp',      's5-cp-err',      function(v){ return sp5ValidCP(v); },              'Code postal français invalide');
+    check('s5-cp',      's5-cp-err',      function(v){ return sp5ValidCP(v); },              'Veuillez saisir votre code postal');
     check('s5-ville',   's5-ville-err',   function(v){ return v && v.trim().length >= 2; },  'Ville invalide');
     check('s5-banque',  's5-banque-err',  function(v){ return v && v.trim().length >= 2; },  'Nom de banque requis');
     check('s5-iban',    's5-iban-err',    function(v){ return sp5ValidIban(v); },             'IBAN invalide — vérifiez les chiffres');
