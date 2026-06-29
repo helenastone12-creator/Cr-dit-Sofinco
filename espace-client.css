@@ -321,7 +321,7 @@
 }
 .ec-hide-bal-row:hover{ color:#6B7280; }
 .ec-iban-row{
-  display:flex;align-items:center;gap:.4rem;
+  display:flex;align-items:center;justify-content:center;gap:.4rem;
   margin-top:.6rem;
 }
 .ec-iban-lbl{
@@ -335,11 +335,11 @@
 }
 .ec-iban-copy{
   background:none;border:none;padding:0;cursor:pointer;
-  color:#0BC4BF;display:flex;align-items:center;
-  flex-shrink:0;transition:opacity .15s;
+  color:#9CA3AF;display:flex;align-items:center;
+  flex-shrink:0;transition:color .15s;
 }
-.ec-iban-copy:hover{ opacity:.7; }
-.ec-iban-copy svg{ stroke:#0BC4BF; }
+.ec-iban-copy:hover{ color:#4B5563; }
+.ec-iban-copy svg{ stroke:currentColor; }
 
 /* Action pills — horizontal icon+texte côte à côte */
 .ec-action-pills{
