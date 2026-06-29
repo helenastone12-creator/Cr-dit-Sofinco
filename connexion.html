@@ -16,13 +16,18 @@
 
 <div class="ec-auth-wrap">
 
-  <a href="index.html" class="ec-auth-logo">Fidexico</a>
-  <p class="ec-auth-sub" data-i18n="nav_espace">Espace client</p>
-
   <!-- Étape 1 : email + mot de passe -->
   <div id="ec-auth-step1" class="ec-auth-card">
-    <h1 class="ec-auth-title" data-i18n="login_title">Connexion</h1>
-    <p class="ec-auth-hint" data-i18n="login_hint">Accédez à vos crédits et documents en toute sécurité.</p>
+
+    <!-- Logo dans la carte -->
+    <div class="ec-auth-card-logo">
+      <a href="index.html" class="ec-auth-logo-inner">Fidexico</a>
+      <span class="ec-auth-logo-sub">ESPACE CLIENT SÉCURISÉ</span>
+    </div>
+
+    <div class="ec-auth-divider-top"></div>
+
+    <h1 class="ec-auth-title">ACCÉDER À MON<br>ESPACE SÉCURISÉ</h1>
 
     <div id="ec-login-err" class="ec-form-err" style="display:none">
       <span data-i18n="login_err">Identifiants incorrects. Vérifiez votre email et mot de passe.</span>
@@ -37,13 +42,20 @@
       <label class="ec-lbl" for="ec-pwd" data-i18n="login_pwd_lbl">Mot de passe</label>
       <div class="ec-pwd-wrap">
         <input type="password" id="ec-pwd" class="ec-inp" placeholder="••••••••" autocomplete="current-password"/>
-        <button type="button" class="ec-eye-btn" onclick="ecTogglePwd('ec-pwd',this)" data-i18n-aria="login_show_pwd" aria-label="Afficher le mot de passe">
-          <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <button type="button" class="ec-eye-btn" onclick="ecTogglePwd('ec-pwd',this)" aria-label="Afficher le mot de passe">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
       </div>
     </div>
 
-    <a href="mot-de-passe-oublie.html" class="ec-forgot" data-i18n="login_forgot">Mot de passe oublié ?</a>
+    <div class="ec-auth-row-between">
+      <label class="ec-remember-toggle">
+        <input type="checkbox" id="ec-remember" autocomplete="off"/>
+        <span class="ec-toggle-track"><span class="ec-toggle-thumb"></span></span>
+        <span class="ec-remember-lbl">Se souvenir de moi</span>
+      </label>
+      <a href="mot-de-passe-oublie.html" class="ec-forgot" data-i18n="login_forgot">Mot de passe oublié ?</a>
+    </div>
 
     <button class="ec-btn-primary" onclick="ecLogin()" data-i18n="login_btn">Se connecter</button>
 
@@ -54,12 +66,17 @@
 
   <!-- Étape 2 : code Google Authenticator -->
   <div id="ec-auth-step2" class="ec-auth-card" style="display:none">
+    <div class="ec-auth-card-logo">
+      <a href="index.html" class="ec-auth-logo-inner">Fidexico</a>
+      <span class="ec-auth-logo-sub">ESPACE CLIENT SÉCURISÉ</span>
+    </div>
+    <div class="ec-auth-divider-top"></div>
     <div style="text-align:center;margin-bottom:1.4rem">
-      <div style="width:56px;height:56px;border-radius:50%;background:#f0f4ff;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      <div style="width:52px;height:52px;border-radius:50%;background:#EEF5FA;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </div>
-      <h1 class="ec-auth-title" style="margin-bottom:.3rem">Vérification 2FA</h1>
-      <p class="ec-auth-hint">Ouvrez Google Authenticator et saisissez le code à 6 chiffres.</p>
+      <h1 class="ec-auth-title" style="font-size:1.1rem;margin-bottom:.3rem">VÉRIFICATION EN DEUX ÉTAPES</h1>
+      <p class="ec-auth-hint">Saisissez le code à 6 chiffres affiché dans votre application d'authentification.</p>
     </div>
 
     <div id="ec-2fa-err" class="ec-form-err" style="display:none"></div>
@@ -72,19 +89,41 @@
         onkeydown="if(event.key==='Enter') ecVerify2FA()"/>
     </div>
 
-    <button id="ec-2fa-btn" class="ec-btn-primary" onclick="ecVerify2FA()">Vérifier</button>
+    <button id="ec-2fa-btn" class="ec-btn-primary" onclick="ecVerify2FA()">Vérifier le code</button>
 
-    <button type="button" style="display:block;width:100%;margin-top:.6rem;padding:.7rem;background:none;border:none;color:var(--ec-muted);font-size:.85rem;cursor:pointer;font-family:inherit"
+    <button type="button" class="ec-auth-back-btn"
       onclick="document.getElementById('ec-auth-step1').style.display='block';document.getElementById('ec-auth-step2').style.display='none'">
       ← Retour à la connexion
     </button>
   </div>
 
-  <p class="ec-auth-legal">
-    <span data-i18n="login_rgpd">Vos données sont protégées conformément au RGPD.</span><br/>
-    <a href="politique-donnees.html" data-i18n="login_privacy">Politique de confidentialité</a>
-  </p>
+  <!-- Banner vigilance fraudes -->
+  <div class="ec-auth-fraud-banner">
+    <div class="ec-auth-fraud-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div class="ec-auth-fraud-text">
+      <strong>VIGILANCE FRAUDES</strong><br>
+      Fidexico ne vous demandera jamais vos identifiants, mots de passe ou coordonnées bancaires par email ou téléphone. En cas de doute, ne cliquez sur aucun lien et contactez-nous directement via <a href="nous-contacter.html">notre formulaire</a>.
+    </div>
+  </div>
 
+  <!-- Footer liens -->
+  <div class="ec-auth-footer-links">
+    <a href="nous-contacter.html">Nous contacter</a>
+    <span>|</span>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <span>|</span>
+    <a href="politique-donnees.html">Politique de confidentialité</a>
+    <span>|</span>
+    <a href="cookies.html">Cookies</a>
+  </div>
+
+</div>
+
+<!-- Mention légale crédit (sticky bas) -->
+<div class="ec-credit-legal-bar">
+  Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
 </div>
 
 <script src="fidexico-db.js"></script>

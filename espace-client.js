@@ -99,9 +99,26 @@ function ecVerify2FA(){
   });
 }
 
+function ecInitLoginPage(){
+  var remembered = localStorage.getItem('ec_remember_email');
+  if(remembered){
+    var emailEl = document.getElementById('ec-email');
+    var chk = document.getElementById('ec-remember');
+    if(emailEl) emailEl.value = remembered;
+    if(chk) chk.checked = true;
+  }
+}
+if(document.getElementById('ec-email')) ecInitLoginPage();
+
 function ecLogin(){
   var email = (document.getElementById('ec-email')||{}).value||'';
   var pwd   = (document.getElementById('ec-pwd')||{}).value||'';
+  var rememberChk = document.getElementById('ec-remember');
+  if(rememberChk && rememberChk.checked){
+    localStorage.setItem('ec_remember_email', email.trim().toLowerCase());
+  } else {
+    localStorage.removeItem('ec_remember_email');
+  }
   var errEl = document.getElementById('ec-login-err');
   var btn   = document.querySelector('.ec-btn-primary');
 
