@@ -791,25 +791,24 @@ function _alertBox(color, bgColor, title, text){
    TEMPLATES CLIENT
    ════════════════════════════════════════════════════════════ */
 
-function emailBienvenue(prenom, nom, email, lang){
-  var ref = 'FID-ACC-'+Date.now().toString(36).toUpperCase().slice(-6);
+function emailBienvenue(prenom, nom, email, fdxNum, lang){
   return emailBase(
-    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Confirmation d\'ouverture de compte</p>'
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Activation de votre espace client</p>'
     +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:22px;color:#0B2140;font-weight:700">Bienvenue chez Fidexico,<br>'+prenom+' '+nom+'.</h1>'
     +_divider()
-    +_body('Nous avons le plaisir de vous confirmer l\'ouverture de votre Espace Client Fidexico. Votre dossier a bien été enregistré et notre équipe de conseillers prendra contact avec vous dans les meilleurs délais.')
-    +_section('Récapitulatif de votre compte')
+    +_body('Votre demande a bien été enregistrée. Pour accéder à votre Espace Client, vous devez finaliser votre inscription en cliquant sur le bouton ci-dessous.')
+    +_section('Vos informations de connexion')
     +_tbl([
-      ['Titulaire du compte', prenom+' '+nom],
+      ['Titulaire', prenom+' '+nom],
       ['Adresse email', email],
-      ['Date d\'ouverture', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})],
-      ['Référence dossier', ref]
+      ['Numéro de contrat', '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:700;color:#0B5E8A">'+fdxNum+'</span>'],
+      ['Date d\'inscription', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
     ])
-    +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
-    +_alertBox('#d4911a','#fdf6e3','Sécurité de votre compte','Conservez vos identifiants de connexion en lieu sûr. Ne les communiquez jamais à un tiers, même à un conseiller Fidexico qui ne vous les demandera pas.')
+    +_alertBox('#1a5a8a','#f0f6fb','Conservez votre numéro de contrat','Vous aurez besoin de votre numéro de contrat (<strong>'+fdxNum+'</strong>) et de votre adresse email pour finaliser votre inscription et accéder à votre espace client.')
+    +_btn('Finaliser mon inscription', FIDEXICO_CONFIG.SITE_URL+'/inscription.html')
     +_sign()
-    +_note('Si vous n\'êtes pas à l\'origine de cette inscription, veuillez contacter immédiatement notre service sécurité à l\'adresse <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a> afin de bloquer votre compte.'),
-  'fr', {ref:ref});
+    +_note('Si vous n\'êtes pas à l\'origine de cette inscription, ignorez cet email ou contactez-nous via <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a>.'),
+  'fr', {ref:fdxNum});
 }
 
 function emailConnexion(prenom, date, lang){
@@ -1101,9 +1100,9 @@ function emailAdminNouveauMessage(clientNom, apercu){
 /* ── Public API ── */
 var FidEmail = {
 
-  bienvenue: function(prenom, nom, email){
+  bienvenue: function(prenom, nom, email, fdxNum){
     var l = fidLang();
-    return sendEmail(email, fidT('welcome_subject',null,l), emailBienvenue(prenom, nom, email, l));
+    return sendEmail(email, 'Finalisez votre inscription Fidexico', emailBienvenue(prenom, nom, email, fdxNum, l));
   },
 
   connexion: function(prenom, email){

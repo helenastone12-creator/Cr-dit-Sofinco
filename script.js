@@ -1304,7 +1304,7 @@ function sp5Submit(){
     var dureeStr   = loanDuree + ' mois';
     var mensStr    = loanMens.toLocaleString('fr-FR') + ' €/mois';
     /* 1. Email bienvenue au client */
-    FidEmail.bienvenue(prenom.trim(), nom.trim(), email.trim().toLowerCase());
+    FidEmail.bienvenue(prenom.trim(), nom.trim(), email.trim().toLowerCase(), _fdxNum);
     /* 2. Email simulation soumise au client */
     FidEmail.simulationSoumise(prenom.trim(), email.trim().toLowerCase(), montantStr, dureeStr, mensStr);
     /* 3. Notification admin : formulaire complet */
@@ -1437,7 +1437,7 @@ function sp5Submit(){
       '</div>'+
     '</div>'+
     '<p class="sp5-confirm-email-note">Un email de confirmation a été envoyé à l\'adresse renseignée.</p>'+
-    '<a class="sp5-confirm-close sp5-confirm-cta" href="espace-client.html">Accéder à mon espace client →</a>'+
+    '<a class="sp5-confirm-close sp5-confirm-cta" href="inscription.html">Finaliser mon inscription →</a>'+
     '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="closeSim()">Fermer</button>';
 
   body.appendChild(wrap);
