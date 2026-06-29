@@ -123,12 +123,22 @@ var FidDB = {
   /* ── Login ── */
 
   login: function(email, pwd){
-    return FidDB.getClientByEmail(email).then(function(client){
-      if(!client) return null;
-      if(client.pwd === null || client.pwd === undefined || client.status === 'pending') return {__pending: true};
-      if(client.pwd !== pwd) return {__wrongpwd: true};
-      return client;
-    });
+    // Chercher tous les comptes avec cet email
+    return sbQ('clients?email=eq.'+encodeURIComponent(email.toLowerCase().trim())+'&select=*')
+      .then(function(rows){
+        if(!rows || rows.length === 0) return null;
+        // Chercher d'abord un compte actif avec le bon mot de passe
+        var match = null;
+        for(var i=0;i<rows.length;i++){
+          if(rows[i].status === 'active' && rows[i].pwd === pwd){ match = rows[i]; break; }
+        }
+        if(match) return match;
+        // Vérifier s'il y a un compte en attente d'activation
+        var pending = rows.find(function(r){ return r.status === 'pending' || !r.pwd; });
+        if(pending) return {__pending: true};
+        // Compte actif mais mauvais mot de passe
+        return {__wrongpwd: true};
+      });
   },
 
   /* ── Sync localStorage → Supabase (migration) ── */
