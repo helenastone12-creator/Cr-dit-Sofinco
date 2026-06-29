@@ -996,24 +996,7 @@
     display:flex;flex-direction:column;gap:0;
   }
 
-  /* ── Carte solde desktop ── */
-  .ec-solde-block{
-    border-radius:16px;
-    padding:1.8rem 1.6rem 1.4rem;
-    margin-bottom:1rem;
-  }
-  .ec-solde-cols{ margin-bottom:1rem; }
-  .ec-solde-lbl{ font-size:.6rem;letter-spacing:.14em; }
-  .ec-solde-amt{ font-size:1.55rem;font-weight:500; }
-  .ec-hide-bal-row{ font-size:.8rem;margin-bottom:1rem; }
-  .ec-iban-lbl{ font-size:.74rem; }
-  .ec-iban-val{ font-size:.76rem; }
-
-  /* ── Carte crédit desktop ── */
-  .ec-credit-card-inner{ padding:1.6rem 1.6rem 1.3rem; }
-  .ec-credit-label{ font-size:1rem; }
-  .ec-cs-val{ font-size:1rem; }
-  .ec-credit-prog-wrap{ padding:1.1rem 1.6rem 1.5rem; }
+  /* ── Cartes : même style que mobile ── */
 
   /* ── Section titles ── */
   .ec-section-title{
