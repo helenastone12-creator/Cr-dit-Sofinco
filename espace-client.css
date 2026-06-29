@@ -380,61 +380,71 @@
 .ec-eye-circle{ display:none; }
 
 /* ════════════════════════════
-   CARTE CRÉDIT — épurée
+   CARTE CRÉDIT — premium
 ════════════════════════════ */
 .ec-credit-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:1.25rem 1.3rem 1.1rem;
+  background:linear-gradient(145deg,#0d2137 0%,#0B5E8A 100%);
+  border:none;
+  border-radius:18px;
+  padding:1.5rem 1.4rem 1.3rem;
   margin-bottom:1rem;
-  box-shadow:var(--shadow-sm);
+  box-shadow:0 8px 32px rgba(11,94,138,.35);
   position:relative;
   overflow:hidden;
+  color:#fff;
 }
 .ec-credit-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--brand) 0%,var(--teal) 100%);
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.05);pointer-events:none;
+}
+.ec-credit-card::after{
+  content:'';position:absolute;bottom:-80px;left:-40px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,.04);pointer-events:none;
 }
 .ec-credit-card-top{
   display:flex;justify-content:space-between;align-items:flex-start;
-  margin-bottom:1.1rem;
+  margin-bottom:1.25rem;position:relative;z-index:1;
 }
 .ec-credit-type{
-  font-size:.6rem;font-weight:700;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.11em;margin-bottom:.28rem;
+  font-size:.6rem;font-weight:600;color:rgba(255,255,255,.55);
+  text-transform:uppercase;letter-spacing:.13em;margin-bottom:.3rem;
 }
-.ec-credit-label{ font-size:.9rem;font-weight:700;color:var(--navy); }
+.ec-credit-label{ font-size:.95rem;font-weight:700;color:#fff;letter-spacing:-.01em; }
 .ec-credit-badge{
-  background:var(--teal-light);color:var(--teal);
-  border:1px solid rgba(11,158,138,.2);border-radius:4px;
-  padding:.22rem .55rem;font-size:.62rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.05em;
+  background:rgba(255,255,255,.15);color:#fff;
+  border:1px solid rgba(255,255,255,.25);border-radius:20px;
+  padding:.25rem .75rem;font-size:.62rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;backdrop-filter:blur(4px);
 }
 .ec-credit-stats{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:.5rem;margin-bottom:1rem;
-  padding:.9rem 0;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
+  gap:.5rem;margin-bottom:1.1rem;
+  padding:1rem 0;
+  border-top:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  position:relative;z-index:1;
 }
-.ec-credit-stat{ display:flex;flex-direction:column;gap:.18rem; }
+.ec-credit-stat{ display:flex;flex-direction:column;gap:.22rem; }
 .ec-cs-lbl{
-  font-size:.58rem;color:var(--muted);font-weight:600;
-  text-transform:uppercase;letter-spacing:.08em;
+  font-size:.57rem;color:rgba(255,255,255,.55);font-weight:600;
+  text-transform:uppercase;letter-spacing:.09em;
 }
-.ec-cs-val{ font-size:.9rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums; }
+.ec-cs-val{ font-size:.9rem;font-weight:700;color:#fff;font-variant-numeric:tabular-nums; }
 .ec-credit-prog-lbl{
   display:flex;justify-content:space-between;
-  font-size:.63rem;color:var(--muted);font-weight:500;
-  margin-bottom:.4rem;
+  font-size:.63rem;color:rgba(255,255,255,.6);font-weight:500;
+  margin-bottom:.5rem;position:relative;z-index:1;
 }
 .ec-credit-prog-track{
-  height:4px;background:var(--border);border-radius:4px;
-  overflow:hidden;
+  height:5px;background:rgba(255,255,255,.15);border-radius:4px;
+  overflow:hidden;position:relative;z-index:1;
 }
 .ec-credit-prog-fill{
-  height:100%;background:var(--teal);border-radius:4px;
+  height:100%;
+  background:linear-gradient(90deg,#2DD4BF,#34D399);
+  border-radius:4px;
   transition:width .8s cubic-bezier(.22,1,.36,1);width:0%;
 }
 
