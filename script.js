@@ -971,17 +971,7 @@ function sp5UpdateProg(step){
 // ── Helpers de validation ──
 function sp5ValidIban(raw){
   var v = raw.replace(/\s/g,'').toUpperCase();
-  if(!/^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,}$/.test(v)) return false;
-  // Reorder + convert letters to digits then mod-97
-  var rearranged = v.slice(4) + v.slice(0,4);
-  var digits = rearranged.split('').map(function(c){
-    var n = c.charCodeAt(0);
-    return n >= 65 ? (n - 55).toString() : c;
-  }).join('');
-  var remainder = digits.match(/.{1,9}/g).reduce(function(rem, chunk){
-    return parseInt(String(rem) + chunk, 10) % 97;
-  }, 0);
-  return remainder === 1;
+  return /^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,29}$/.test(v);
 }
 function sp5ValidDate(str){
   var m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str);
