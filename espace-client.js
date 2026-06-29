@@ -639,6 +639,21 @@ function ecInitDashboard(){
   ecInitHeader();
   ecRefreshSolde();
   ecRenderTx();
+  // Sync solde + transactions depuis Supabase à chaque chargement
+  var _u = ecGetUser();
+  if(typeof FidDB !== 'undefined' && _u && _u.id){
+    FidDB.getSolde(_u.id).then(function(s){
+      localStorage.setItem('ec_solde', s.toFixed(2));
+      ecRefreshSolde();
+    }).catch(function(){});
+    FidDB.getTx(_u.id).then(function(rows){
+      if(rows && rows.length){
+        var mapped = rows.map(function(r){ return {label:r.label||'',amt:parseFloat(r.amt)||0,type:r.type||'credit',date:r.date||'',iban:r.iban||'',motif:r.motif||''}; });
+        localStorage.setItem('ec_tx', JSON.stringify(mapped));
+        ecRenderTx();
+      }
+    }).catch(function(){});
+  }
   var user=ecGetUser();
 
   var welcomeEl=document.getElementById('ec-welcome-name');
