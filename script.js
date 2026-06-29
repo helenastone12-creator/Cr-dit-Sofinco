@@ -2100,8 +2100,7 @@ function sp5Submit(){
 
     var scrollY = 0;
     function preventScroll(e){
-      // Allow scroll inside the list, block everywhere else
-      if(inner.contains(e.target)) return;
+      if(list.contains(e.target)) return;
       e.preventDefault();
     }
     function openPanel(){
