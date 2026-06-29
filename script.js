@@ -598,7 +598,6 @@ function unlockScroll(){
     var startStep = (projet && !montant) ? 2 : 1;
     if(projet && montant){ startStep=3; }
     document.getElementById('sim-page').classList.add('open');
-    lockScroll();
     if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='none';
     showStep(startStep);
   }
@@ -608,7 +607,6 @@ function unlockScroll(){
     page.classList.add('closing');
     setTimeout(function(){
       page.classList.remove('open','closing');
-      unlockScroll();
       if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
     }, 280);
   }
