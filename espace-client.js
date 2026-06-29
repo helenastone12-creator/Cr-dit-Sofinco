@@ -222,7 +222,7 @@ function ecToggleTxAll(e){
 function ecTxSubLabel(type){
   if(type==='virement') return {lbl:'TRANSFERT SORTANT',cls:'ec-tx-type--out'};
   if(type==='convert')  return {lbl:'CONVERSION DE FONDS',cls:'ec-tx-type--conv'};
-  return {lbl:'CRÉDIT ENTRANT',cls:'ec-tx-type--in'};
+  return {lbl:'TRANSFERT ENTRANT',cls:'ec-tx-type--in'};
 }
 
 function ecFmtTxDate(dateStr){
