@@ -2044,20 +2044,15 @@ function sp5Submit(){
     return '<img class="nat-flag" src="'+flagUrl(code)+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
   }
 
-  // Sur mobile/touch : laisser le <select> natif (iOS ouvre sa roue native)
-  var isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
   function initNatDropdown(){
     var sel = document.getElementById('s5-nat');
     if(!sel || sel.dataset.customized) return;
     sel.dataset.customized = '1';
 
-    // Mobile : select natif, pas de picker custom
-    if(isMobile){
-      sel.style.display = '';
-      sel.classList.add('sp5-sel', 'sp5-nat-native');
-      return;
-    }
+    // Select natif sur tous les appareils
+    sel.style.display = '';
+    sel.classList.add('sp5-nat-native');
+    return;
 
     // Collect options (AUTRE already in HTML, don't add again)
     var opts = [];
