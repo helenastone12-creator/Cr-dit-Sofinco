@@ -847,7 +847,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   overflow-y:scroll;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior:contain;
-  max-width:500px;margin:0 auto;padding:1.5rem 1.2rem 8rem;
+  max-width:500px;margin:0 auto;padding:1.5rem 1.2rem 2rem;
   width:100%;box-sizing:border-box;
 }
 @media(min-width:760px){
@@ -966,8 +966,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .sim-foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0 2.5rem;padding-top:.8rem}
   .sim-foot-links a{display:inline;border-bottom:none;padding:.3rem 0}
 }
-/* Bottom bar fixe */
-.sim-bottombar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;align-items:center;padding:.9rem 1.2rem;z-index:60;gap:.5rem}
+/* Bottom bar — enfant flex de sim-page */
+.sim-bottombar{position:relative;flex-shrink:0;background:#fff;border-top:1px solid #ddd;display:flex;align-items:center;padding:.9rem 1.2rem;z-index:60;gap:.5rem}
 .sim-bb-back{font-size:.88rem;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;padding:.5rem .2rem;min-width:55px;text-align:left}
 .sim-bb-back:disabled{color:#ccc;cursor:default}
 .sim-bb-prog{font-size:.8rem;color:#888;font-weight:600;flex:1;text-align:center;white-space:nowrap}
