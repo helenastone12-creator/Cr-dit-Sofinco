@@ -243,13 +243,10 @@ function ecFmtTxDate(dateStr){
 }
 
 function ecTxDisplayName(tx){
-  /* Pour les virements : retire le préfixe "Virement — " si présent */
   var label = tx.label||'';
+  /* Pour les virements : retire le préfixe "Virement — " si présent (anciennes données) */
   if(tx.type==='virement') label = label.replace(/^virement\s*[-—]\s*/i,'');
-  /* Limite à 2 mots si le nom est long (3 mots ou plus) */
-  var words = label.trim().split(/\s+/);
-  if(words.length>2) label = words.slice(0,2).join(' ')+'…';
-  return label||'—';
+  return label.trim()||'—';
 }
 
 function ecRenderTx(){

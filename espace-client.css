@@ -508,8 +508,8 @@
 .ec-tx-info{ flex:1;min-width:0; }
 .ec-tx-name{
   font-size:.87rem;font-weight:500;color:#1C1C2E;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   margin-bottom:.18rem;
+  word-break:break-word;
 }
 .ec-tx-type{
   font-size:.62rem;font-weight:700;text-transform:uppercase;
