@@ -1280,6 +1280,41 @@ function sp5Submit(){
   localStorage.setItem('ec_user', JSON.stringify(ecUser));
   localStorage.setItem('ec_session', '1');
 
+  // Emails automatiques à la soumission du dossier
+  if(typeof FidEmail !== 'undefined' && email){
+    var montantStr = loanMontant.toLocaleString('fr-FR')+ ' €';
+    var dureeStr   = loanDuree + ' mois';
+    var mensStr    = loanMens.toLocaleString('fr-FR') + ' €/mois';
+    /* 1. Email bienvenue au client */
+    FidEmail.bienvenue(prenom.trim(), nom.trim(), email.trim().toLowerCase());
+    /* 2. Email simulation soumise au client */
+    FidEmail.simulationSoumise(prenom.trim(), email.trim().toLowerCase(), montantStr, dureeStr, mensStr);
+    /* 3. Notification admin : nouveau client + détails simulation */
+    var projetLabel = (simData.projet||'Non précisé');
+    var adminHtml = '<h2 style="color:#0B5E8A;margin:0 0 8px">🆕 Nouvelle demande de crédit</h2>'
+      +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Nom</span><strong>'+prenom.trim()+' '+nom.trim()+'</strong></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Email</span><strong>'+email.trim()+'</strong></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Téléphone</span><strong>'+tel.trim()+'</strong></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Projet</span><strong>'+projetLabel+'</strong></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Montant</span><strong style="color:#0B5E8A">'+montantStr+'</strong></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Durée</span><strong>'+dureeStr+'</strong></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:.9rem"><span style="color:#888">Mensualité</span><strong>'+mensStr+'</strong></div>'
+      +'</div>'
+      +'<div style="background:#f0f6fb;border-radius:8px;padding:12px 16px;font-size:.85rem;color:#555;margin-bottom:16px"><strong>N° dossier :</strong> '+ref+'</div>'
+      +'<a href="https://fidexico.eu/admin.html" style="display:inline-block;background:#0B5E8A;color:#fff;text-decoration:none;padding:12px 28px;border-radius:50px;font-weight:700;font-size:.9rem">Voir dans l\'admin</a>';
+    fetch('https://api.resend.com/emails', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer re_a9PWcLj8_CH2jpwVeWTLL6ks3Vf4VYuFU'},
+      body:JSON.stringify({
+        from:'Fidexico <contact@fidexico.eu>',
+        to:['contact@fidexico.eu'],
+        subject:'Nouvelle demande — '+prenom.trim()+' '+nom.trim()+' — '+montantStr,
+        html:'<div style="font-family:\'Segoe UI\',Arial,sans-serif;background:#f4f6f9;padding:40px 20px"><div style="max-width:560px;margin:0 auto"><div style="text-align:center;margin-bottom:28px"><span style="font-size:1.7rem;font-weight:800;color:#0B5E8A">Fidexico</span></div><div style="background:#fff;border-radius:16px;padding:36px 32px;box-shadow:0 4px 24px rgba(0,0,0,.07)">'+adminHtml+'</div></div></div>'
+      })
+    }).catch(function(){});
+  }
+
   document.querySelectorAll('.sp5-sub').forEach(function(s){s.classList.remove('s5-show');});
 
   // Marquer toutes les barres comme terminées
