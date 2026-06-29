@@ -991,8 +991,8 @@
   /* 2 colonnes dashboard */
   .ec-dashboard-grid{
     display:grid;
-    grid-template-columns:1fr 320px;
-    gap:1.6rem;
+    grid-template-columns:1fr 300px;
+    gap:1.4rem;
     align-items:start;
   }
   .ec-dashboard-col-left{ min-width:0; }
@@ -1001,8 +1001,11 @@
     position:sticky;top:calc(56px + 1.25rem);
   }
 
-  /* Solde */
+  /* Carte solde — layout horizontal sur desktop */
+  .ec-solde-block{ margin-bottom:.85rem; }
+  .ec-solde-cols{ margin-bottom:.85rem; }
   .ec-solde-amt{ font-size:1.3rem; }
+  .ec-solde-lbl{ font-size:.57rem; }
 
   /* Transactions */
   .ec-tx-item{ padding:.9rem 1.1rem; }
@@ -1010,6 +1013,13 @@
 
   /* Accès rapide 4 colonnes */
   .ec-quick-grid{ grid-template-columns:repeat(2,1fr); }
+
+  /* Welcome compact */
+  .ec-welcome{ margin-bottom:1rem; }
+  .ec-welcome-title{ font-size:1.4rem; }
+
+  /* Section titles desktop */
+  .ec-section-title--lg{ font-size:.88rem; }
 
   /* Documents */
   .ec-doc-list{ display:grid;grid-template-columns:1fr 1fr;gap:.6rem; }
@@ -1223,6 +1233,29 @@
 .ec-msg-preview-txt{flex:1;}
 .ec-msg-preview-title{font-size:.88rem;font-weight:600;color:var(--navy);}
 .ec-msg-preview-sub{font-size:.75rem;color:var(--muted);margin-top:.15rem;}
+
+/* Actions rapides colonne droite desktop */
+.ec-quick-actions{
+  display:none; /* caché sur mobile */
+  flex-direction:column;gap:.5rem;
+  margin-bottom:1rem;
+}
+.ec-quick-action-btn{
+  display:flex;align-items:center;gap:.85rem;
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  padding:.8rem 1rem;cursor:pointer;font-family:inherit;
+  font-size:.83rem;font-weight:500;color:var(--text);
+  transition:border-color .15s,box-shadow .15s;text-align:left;width:100%;
+  box-shadow:var(--shadow-xs);
+}
+.ec-quick-action-btn:hover{ border-color:var(--brand);box-shadow:var(--shadow-sm); }
+.ec-qa-ico{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+@media(min-width:768px){
+  .ec-quick-actions{ display:flex; }
+}
 
 /* ════════════════════════════
    MODAL RIB

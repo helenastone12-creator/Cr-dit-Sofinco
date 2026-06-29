@@ -12,7 +12,7 @@ var EC_LANGS = {
     /* Header */
     notif_aria:'Notifications',
     /* Dashboard */
-    welcome_sub:'Bienvenue', solde_lbl:'SOLDE DISPONIBLE', solde_comptable_lbl:'SOLDE COMPTABLE', solde_masquer:'Masquer le solde', solde_afficher:'Afficher le solde',
+    welcome_sub:'Bienvenue', solde_lbl:'SOLDE DISPONIBLE', solde_comptable_lbl:'SOLDE COMPTABLE', solde_masquer:'Masquer le solde', solde_afficher:'Afficher le solde', actions_title:'Actions rapides',
     action_depot:'Dépôt', action_virement:'Virement', action_convert:'Convertir', action_rib:'Mon RIB',
     credit_title:'Crédit en cours', credit_type:'Prêt personnel', credit_badge:'En cours',
     credit_capital:'Capital', credit_mens:'Mensualité', credit_restant:'Restant dû',
