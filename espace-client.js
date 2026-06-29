@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   ESPACE CLIENT — logique (localStorage)
+   ESPACE CLIENT — logique (Supabase + localStorage cache)
 ════════════════════════════════════════════ */
 
 // ── Utilitaires session ──
@@ -7,12 +7,20 @@ function ecGetUser(){
   try{ return JSON.parse(localStorage.getItem('ec_user')||'null'); }
   catch(e){ return null; }
 }
-function ecSetUser(u){ localStorage.setItem('ec_user', JSON.stringify(u)); }
+function ecSetUser(u){
+  localStorage.setItem('ec_user', JSON.stringify(u));
+  if(typeof FidDB !== 'undefined' && u && u.id){
+    FidDB.updateClient(u.id, {
+      prenom: u.prenom, nom: u.nom, email: u.email,
+      tel: u.tel, ref: u.ref, civilite: u.civilite||'M',
+      blocked: u.blocked||false, loan: u.loan||null
+    }).catch(function(){});
+  }
+}
 
-// Vraie session séparée des données utilisateur
 function ecIsLoggedIn(){ return localStorage.getItem('ec_session')==='1'; }
-function ecSetSession(){ localStorage.setItem('ec_session','1'); }
-function ecClearSession(){ localStorage.removeItem('ec_session'); }
+function ecSetSession(v){ localStorage.setItem('ec_session', v||'1'); }
+function ecClearSession(){ localStorage.removeItem('ec_session'); localStorage.removeItem('ec_user'); }
 
 function ecGuard(){
   if(!ecIsLoggedIn()) window.location.href='/connexion.html';
@@ -34,40 +42,52 @@ function ecLogin(){
   var errEl = document.getElementById('ec-login-err');
   var btn   = document.querySelector('.ec-btn-primary');
 
-  // Validation basique
   if(!email.trim() || !pwd){
     if(errEl){ errEl.textContent='Veuillez remplir tous les champs.'; errEl.style.display='block'; }
     return;
   }
-
-  var user = ecGetUser();
-
-  // Aucun compte créé
-  if(!user){
-    if(errEl){ errEl.innerHTML='Aucun compte trouvé. <a href="inscription.html">Créez votre compte</a>.'; errEl.style.display='block'; }
-    return;
-  }
-
-  // Vérification des identifiants
-  if(user.email !== email.trim().toLowerCase() || user.pwd !== pwd){
-    if(errEl){ errEl.textContent='Email ou mot de passe incorrect.'; errEl.style.display='block'; }
-    // Shake animation
-    var card = document.querySelector('.ec-auth-card');
-    if(card){ card.style.animation='none'; setTimeout(function(){ card.style.animation='ecShake .4s ease'; },10); }
-    return;
-  }
-
   if(errEl) errEl.style.display='none';
   if(btn){ btn.textContent='Connexion…'; btn.disabled=true; }
 
-  // Email alerte connexion
-  if(typeof FidEmail !== 'undefined' && user.email){
-    FidEmail.connexion(user.prenom||user.nom, user.email);
+  function doLogin(user){
+    if(!user){
+      if(errEl){ errEl.innerHTML='Aucun compte trouvé. <a href="inscription.html">Créez votre compte</a>.'; errEl.style.display='block'; }
+      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
+      return;
+    }
+    if(user.email !== email.trim().toLowerCase() || user.pwd !== pwd){
+      if(errEl){ errEl.textContent='Email ou mot de passe incorrect.'; errEl.style.display='block'; }
+      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
+      var card = document.querySelector('.ec-auth-card');
+      if(card){ card.style.animation='none'; setTimeout(function(){ card.style.animation='ecShake .4s ease'; },10); }
+      return;
+    }
+    // Sync solde et tx depuis Supabase vers localStorage
+    if(typeof FidDB !== 'undefined'){
+      FidDB.getSolde(user.id).then(function(s){ localStorage.setItem('ec_solde', s.toFixed(2)); }).catch(function(){});
+      FidDB.getTx(user.id).then(function(txList){
+        var mapped = txList.map(function(r){ return {type:r.type,label:r.label,amt:parseFloat(r.amt)||0,iban:r.iban,motif:r.motif,date:r.date}; });
+        localStorage.setItem('ec_tx', JSON.stringify(mapped));
+      }).catch(function(){});
+    }
+    // Normalise user pour localStorage
+    var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt};
+    localStorage.setItem('ec_user', JSON.stringify(norm));
+    if(typeof FidEmail !== 'undefined' && user.email){
+      FidEmail.connexion(user.prenom||user.nom, user.email);
+    }
+    ecSetSession('1');
+    setTimeout(function(){ window.location.href='/espace-client.html'; }, 400);
   }
 
-  // Ouvre la session
-  ecSetSession();
-  setTimeout(function(){ window.location.href='/espace-client.html'; }, 300);
+  if(typeof FidDB !== 'undefined'){
+    FidDB.login(email.trim().toLowerCase(), pwd).then(doLogin).catch(function(){
+      // Fallback localStorage
+      doLogin(ecGetUser());
+    });
+  } else {
+    doLogin(ecGetUser());
+  }
 }
 
 // ── Inscription ──
@@ -107,8 +127,13 @@ function ecRegister(){
     ref:ref.trim().toUpperCase(), pwd:pwd,
     createdAt:new Date().toISOString()
   };
-  ecSetUser(user);
+  // Persist to localStorage immediately
+  localStorage.setItem('ec_user', JSON.stringify(user));
   ecSetSession();
+  // Persist to Supabase
+  if(typeof FidDB !== 'undefined'){
+    FidDB.createClient(user).catch(function(){});
+  }
   // Email bienvenue + notification admin
   if(typeof FidEmail !== 'undefined'){
     FidEmail.bienvenue(user.prenom, user.nom, user.email);
@@ -151,7 +176,13 @@ function ecInitHeader(){
 
 // ── Solde ──
 function ecGetSolde(){ return parseFloat(localStorage.getItem('ec_solde')||'0'); }
-function ecSetSolde(v){ localStorage.setItem('ec_solde', v.toFixed(2)); }
+function ecSetSolde(v){
+  localStorage.setItem('ec_solde', v.toFixed(2));
+  var u=ecGetUser();
+  if(typeof FidDB !== 'undefined' && u && u.id){
+    FidDB.setSolde(u.id, v).catch(function(){});
+  }
+}
 function ecFormatAmt(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
 
 function ecSoldeHidden(){ return localStorage.getItem('ec_solde_hidden')==='1'; }
@@ -204,6 +235,10 @@ function ecAddTx(tx){
   list.unshift(tx);
   if(list.length > 30) list = list.slice(0,30);
   localStorage.setItem('ec_tx', JSON.stringify(list));
+  var u=ecGetUser();
+  if(typeof FidDB !== 'undefined' && u && u.id){
+    FidDB.addTx(u.id, tx).catch(function(){});
+  }
 }
 function ecTxInitials(label){
   var words = label.replace(/—/g,' ').trim().split(/\s+/);
@@ -982,7 +1017,16 @@ function ecInitMessagerie(){
   ecGuard();
   if(typeof ecApplyI18n==='function') ecApplyI18n();
   ecInitHeader();
-  ecRenderMessages();
+  var u=ecGetUser();
+  if(typeof FidDB !== 'undefined' && u && u.id){
+    FidDB.getMessages(u.id).then(function(rows){
+      var msgs=rows.map(function(r){ return {text:r.text,date:r.created_at,fromClient:r.from_client}; });
+      ecSaveMessages(msgs);
+      ecRenderMessages();
+    }).catch(function(){ ecRenderMessages(); });
+  } else {
+    ecRenderMessages();
+  }
 }
 function ecRenderMessages(){
   var msgs=ecGetMessages();
@@ -1007,25 +1051,18 @@ function ecSendMessage(){
   if(!inp||!inp.value.trim()) return;
   var msgs=ecGetMessages();
   var msgText=inp.value.trim();
+  var u=ecGetUser();
   msgs.push({text:msgText,date:new Date().toISOString(),fromClient:true});
-  // Notification email à l'admin
-  (function(){
-    var u=ecGetUser();
-    if(u && typeof FidEmail!=='undefined'){
-      FidEmail.adminNouveauMessage((u.prenom||'')+' '+(u.nom||''), msgText.slice(0,120));
-    }
-  })();
-  // Auto-réponse simulée après 1s
-  var clientMsg=msgText;
   ecSaveMessages(msgs);
+  if(typeof FidDB !== 'undefined' && u && u.id){
+    FidDB.addMessage(u.id, msgText, true).catch(function(){});
+  }
+  // Notification email à l'admin
+  if(u && typeof FidEmail!=='undefined'){
+    FidEmail.adminNouveauMessage((u.prenom||'')+' '+(u.nom||''), msgText.slice(0,120));
+  }
   inp.value='';
   ecRenderMessages();
-  setTimeout(function(){
-    var m2=ecGetMessages();
-    m2.push({text:ecT('msg_auto_reply'),date:new Date().toISOString(),fromClient:false});
-    ecSaveMessages(m2);
-    ecRenderMessages();
-  },1200);
 }
 
 // ── Auto-init selon la page ──

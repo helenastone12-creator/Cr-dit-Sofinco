@@ -4,6 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin — Fidexico</title>
+  <script src="fidexico-db.js"></script>
   <script src="fidexico-email.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -536,7 +537,7 @@ function admTab(sec, btn){
 }
 
 /* ── DATA ── */
-function admGetClients(){
+function admGetClientsFromLS(){
   var clients=[];
   for(var i=0;i<localStorage.length;i++){
     var k=localStorage.key(i); if(!k) continue;
@@ -546,10 +547,10 @@ function admGetClients(){
         if(u&&u.email) clients.push({key:k,user:u,solde:parseFloat(localStorage.getItem('ec_solde')||'0'),tx:tryParse(localStorage.getItem('ec_tx'))});
       }catch(e){}
     } else if(k.startsWith('ec_user_')){
-      var uid=k.replace('ec_user_','');
+      var uid2=k.replace('ec_user_','');
       try{
         var u2=JSON.parse(localStorage.getItem(k));
-        if(u2&&u2.email) clients.push({key:k,user:u2,solde:parseFloat(localStorage.getItem('ec_solde_'+uid)||'0'),tx:tryParse(localStorage.getItem('ec_tx_'+uid))});
+        if(u2&&u2.email) clients.push({key:k,user:u2,solde:parseFloat(localStorage.getItem('ec_solde_'+uid2)||'0'),tx:tryParse(localStorage.getItem('ec_tx_'+uid2))});
       }catch(e){}
     }
   }
@@ -558,22 +559,36 @@ function admGetClients(){
 
 function findClientByUID(uid){
   uid = uid.trim().toUpperCase();
-  var clients = admGetClients();
-  return clients.find(function(c){ return (c.user.id||'').toUpperCase() === uid; }) || null;
+  return ALL_CLIENTS.find(function(c){ return (c.user.id||'').toUpperCase() === uid; }) || null;
 }
 
 function saveUser(c){
-  localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(c.key) localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(typeof FidDB !== 'undefined' && c.user && c.user.id){
+    FidDB.updateClient(c.user.id, {prenom:c.user.prenom,nom:c.user.nom,email:c.user.email,tel:c.user.tel,ref:c.user.ref,blocked:c.user.blocked||false,loan:c.user.loan||null}).catch(function(){});
+  }
 }
 function saveSolde(c, solde){
-  var uid = c.key.replace('ec_user_','');
-  if(c.key==='ec_user') localStorage.setItem('ec_solde', solde.toFixed(2));
-  else localStorage.setItem('ec_solde_'+uid, solde.toFixed(2));
+  if(c.key){
+    var uid2 = c.key.replace('ec_user_','');
+    if(c.key==='ec_user') localStorage.setItem('ec_solde', solde.toFixed(2));
+    else localStorage.setItem('ec_solde_'+uid2, solde.toFixed(2));
+  }
+  c.solde = solde;
+  if(typeof FidDB !== 'undefined' && c.user && c.user.id){
+    FidDB.setSolde(c.user.id, solde).catch(function(){});
+  }
 }
-function saveTx(c, tx){
-  var uid = c.key.replace('ec_user_','');
-  if(c.key==='ec_user') localStorage.setItem('ec_tx', JSON.stringify(tx));
-  else localStorage.setItem('ec_tx_'+uid, JSON.stringify(tx));
+function saveTx(c, txArr){
+  if(c.key){
+    var uid2 = c.key.replace('ec_user_','');
+    if(c.key==='ec_user') localStorage.setItem('ec_tx', JSON.stringify(txArr));
+    else localStorage.setItem('ec_tx_'+uid2, JSON.stringify(txArr));
+  }
+  // Write only the newest tx to Supabase (first in array since unshifted)
+  if(typeof FidDB !== 'undefined' && c.user && c.user.id && txArr && txArr[0]){
+    FidDB.addTx(c.user.id, txArr[0]).catch(function(){});
+  }
 }
 
 function tryParse(s){ try{return JSON.parse(s||'[]');}catch(e){return[];} }
@@ -584,10 +599,35 @@ function fmtDateShort(iso){ if(!iso) return '—'; return new Date(iso).toLocale
 var ALL_CLIENTS=[];
 
 function admLoad(){
-  ALL_CLIENTS=admGetClients();
-  admRenderStats();
-  admRenderTable(ALL_CLIENTS);
-  admRenderOpStats();
+  if(typeof FidDB !== 'undefined'){
+    FidDB.getAllClients().then(function(rows){
+      if(rows && rows.length){
+        ALL_CLIENTS = rows.map(function(r){
+          return {
+            key: null,
+            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,createdAt:r.created_at||r.createdAt},
+            solde: parseFloat(r.solde)||0,
+            tx: []
+          };
+        });
+      } else {
+        ALL_CLIENTS = admGetClientsFromLS();
+      }
+      admRenderStats();
+      admRenderTable(ALL_CLIENTS);
+      admRenderOpStats();
+    }).catch(function(){
+      ALL_CLIENTS = admGetClientsFromLS();
+      admRenderStats();
+      admRenderTable(ALL_CLIENTS);
+      admRenderOpStats();
+    });
+  } else {
+    ALL_CLIENTS = admGetClientsFromLS();
+    admRenderStats();
+    admRenderTable(ALL_CLIENTS);
+    admRenderOpStats();
+  }
 }
 function admRefresh(){ admLoad(); }
 
@@ -644,7 +684,7 @@ function admRenderTable(clients){
       +'<button class="btn-sm btn-view" onclick="admDetail('+i+')">Voir</button>'
       +'<button class="btn-sm btn-deposit" onclick="quickDepositFor(\''+((u.id)||'')+'\')">Dépôt</button>'
       +'<button class="btn-sm btn-action" onclick="quickPretFor(\''+((u.id)||'')+'\')">Prêt</button>'
-      +'<button class="btn-sm btn-del" onclick="admConfirmDelete(\''+c.key+'\',\''+((u.prenom||'')+' '+(u.nom||'')).trim()+'\')">✕</button>'
+      +'<button class="btn-sm btn-del" onclick="admDeleteByIdx('+i+',\''+((u.prenom||'')+' '+(u.nom||'')).trim()+'\')">✕</button>'
       +'</div></td>'
       +'</tr>';
   }).join('');
@@ -663,6 +703,14 @@ function admFilter(){
 function admDetail(idx){
   var c=ALL_CLIENTS[idx]; if(!c) return;
   var u=c.user; var tx=c.tx||[];
+  // Load tx from Supabase if not already loaded
+  if(!tx.length && typeof FidDB !== 'undefined' && u.id){
+    FidDB.getTx(u.id).then(function(rows){
+      c.tx = rows.map(function(r){ return {label:r.label,amt:parseFloat(r.amt)||0,type:r.type,date:r.date}; });
+      admDetail(idx);
+    }).catch(function(){});
+    if(!c.tx.length) return; // will re-render when promise resolves
+  }
   var loan=u.loan||{};
   document.getElementById('detail-name').textContent=(u.prenom||'')+' '+(u.nom||'');
   var html='';
@@ -820,10 +868,14 @@ function opDelete(){
   if(!c){document.getElementById('del-err').style.display='block';document.getElementById('del-err').textContent='✗ Client introuvable.';return;}
   var name=((c.user.prenom||'')+' '+(c.user.nom||'')).trim();
   if(!confirm('Supprimer définitivement le compte de '+name+' ('+uid+') ?')) return;
-  var sk=c.key; var suid=sk.replace('ec_user_','');
-  localStorage.removeItem(sk);
-  if(sk==='ec_user'){localStorage.removeItem('ec_solde');localStorage.removeItem('ec_tx');localStorage.removeItem('ec_session');}
-  else{localStorage.removeItem('ec_solde_'+suid);localStorage.removeItem('ec_tx_'+suid);}
+  var sk=c.key; if(sk){ var suid=sk.replace('ec_user_','');
+    localStorage.removeItem(sk);
+    if(sk==='ec_user'){localStorage.removeItem('ec_solde');localStorage.removeItem('ec_tx');localStorage.removeItem('ec_session');}
+    else{localStorage.removeItem('ec_solde_'+suid);localStorage.removeItem('ec_tx_'+suid);}
+  }
+  if(typeof FidDB !== 'undefined' && c.user && c.user.id){
+    FidDB.deleteClient(c.user.id).catch(function(){});
+  }
   admLog('suppr', uid, 'Suppression compte '+name, 0);
   admLoad();
   document.getElementById('del-id').value='';
@@ -855,12 +907,22 @@ function quickDeposit(){ var uid=getQuickUID(); if(uid) quickDepositFor(uid); }
 function quickRetrait(){ var uid=getQuickUID(); if(uid){document.getElementById('ret-id').value=uid;admTab('operations',document.querySelectorAll('.adm-tab')[1]);setTimeout(function(){document.getElementById('ret-amt').focus();},200);} }
 function quickPret(){ var uid=getQuickUID(); if(uid) quickPretFor(uid); }
 
-function admConfirmDelete(key, name){
+function admDeleteByIdx(idx, name){
+  var c=ALL_CLIENTS[idx]; if(!c) return;
+  admConfirmDelete(c.key, name, c);
+}
+function admConfirmDelete(key, name, clientObj){
   if(!confirm('Supprimer le compte de '+name+' ?')) return;
-  var uid=key.replace('ec_user_','');
-  localStorage.removeItem(key);
-  if(key==='ec_user'){localStorage.removeItem('ec_solde');localStorage.removeItem('ec_tx');localStorage.removeItem('ec_session');}
-  else{localStorage.removeItem('ec_solde_'+uid);localStorage.removeItem('ec_tx_'+uid);}
+  var c = clientObj || ALL_CLIENTS.find(function(cl){ return cl.key===key; });
+  if(key){
+    var uid2=key.replace('ec_user_','');
+    localStorage.removeItem(key);
+    if(key==='ec_user'){localStorage.removeItem('ec_solde');localStorage.removeItem('ec_tx');localStorage.removeItem('ec_session');}
+    else{localStorage.removeItem('ec_solde_'+uid2);localStorage.removeItem('ec_tx_'+uid2);}
+  }
+  if(typeof FidDB !== 'undefined' && c && c.user && c.user.id){
+    FidDB.deleteClient(c.user.id).catch(function(){});
+  }
   admLoad();
 }
 
