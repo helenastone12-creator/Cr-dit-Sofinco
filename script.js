@@ -2100,28 +2100,16 @@ function sp5Submit(){
       });
     }
 
-    var scrollY = 0;
-    function preventScroll(e){
-      if(list.contains(e.target)) return;
-      e.preventDefault();
-    }
     function openPanel(){
       searchInp.value='';
       renderList('');
-      scrollY = window.scrollY;
-      document.body.style.position='fixed';
-      document.body.style.top='-'+scrollY+'px';
-      document.body.style.width='100%';
-      document.addEventListener('touchmove', preventScroll, {passive:false});
+      document.body.style.overflow='hidden';
       panel.classList.add('open');
+      setTimeout(function(){ searchInp.focus(); }, 100);
     }
     function closePanel(){
       panel.classList.remove('open');
-      document.removeEventListener('touchmove', preventScroll);
-      document.body.style.position='';
-      document.body.style.top='';
-      document.body.style.width='';
-      window.scrollTo(0, scrollY);
+      document.body.style.overflow='';
     }
 
     trigger.addEventListener('click',function(e){
