@@ -1271,6 +1271,7 @@ function sp5Submit(){
 
   // Création automatique du compte espace client
   var ecUser = {
+    id: 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7),
     civilite: simData.civilite || 'M',
     prenom: prenom.trim(),
     nom: nom.trim(),
@@ -1289,6 +1290,10 @@ function sp5Submit(){
   };
   localStorage.setItem('ec_user', JSON.stringify(ecUser));
   localStorage.setItem('ec_session', '1');
+  // Sauvegarder dans Supabase
+  if(typeof FidDB !== 'undefined'){
+    FidDB.createClient(ecUser).catch(function(e){ console.error('[sp5] Supabase createClient failed:', e); });
+  }
 
   // Emails automatiques à la soumission du dossier
   if(typeof FidEmail !== 'undefined' && email){
