@@ -599,6 +599,7 @@ function unlockScroll(){
     if(projet && montant){ startStep=3; }
     document.getElementById('sim-page').classList.add('open');
     lockScroll();
+    fixSimHeight();
     if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='none';
     showStep(startStep);
   }
@@ -608,9 +609,23 @@ function unlockScroll(){
     page.classList.add('closing');
     setTimeout(function(){
       page.classList.remove('open','closing');
+      page.style.height='';
       unlockScroll();
       if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
     }, 280);
+  }
+
+  // Corrige la hauteur de sim-page quand le clavier iOS apparaît/disparaît
+  function fixSimHeight(){
+    var sp = document.getElementById('sim-page');
+    if(!sp) return;
+    var h = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+    sp.style.height = h + 'px';
+  }
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', fixSimHeight);
+  } else {
+    window.addEventListener('resize', fixSimHeight);
   }
 
   var simPhQuit=document.getElementById('sim-ph-quit');
