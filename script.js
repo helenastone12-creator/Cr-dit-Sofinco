@@ -1231,7 +1231,17 @@ function sp5FileChosen(slot, inp){
 }
 
 function sp5Submit(){
-  if(!sp5Validate(4)) return;
+  if(!sp5Validate(4)){
+    // Scroll to first visible error so user can see what's missing
+    var sub = document.getElementById('sp5d');
+    var err = sub && sub.querySelector('.sp5-err.show, .sp5-err-msg.show, [class*="err"].show');
+    if(err){ err.scrollIntoView({behavior:'smooth', block:'center'}); }
+    else {
+      var simPage = document.getElementById('sim-page');
+      if(simPage) simPage.scrollTo({top:0, behavior:'smooth'});
+    }
+    return;
+  }
 
   // Génère un numéro de dossier unique
   var ts = Date.now().toString(36).toUpperCase();
