@@ -2276,6 +2276,18 @@ body.pg-inner .editorial{background:none}
 .ft-lang-list-item--active .ft-lang-list-check{display:flex}
 .mob-lang-opt-name{flex:1}
 
+/* Select natif nationalité sur mobile */
+.sp5-nat-native{
+  width:100%;border:1.5px solid #ddd;border-radius:10px;
+  padding:.72rem .9rem;font-size:.95rem;font-family:inherit;
+  color:#111;background:#fff;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .9rem center;
+  padding-right:2.2rem;
+}
+.sp5-nat-native:focus{border-color:#06c2b0;outline:none}
+
 /* ── Searchable nationality dropdown ── */
 .nat-wrap{position:relative;width:100%}
 .nat-trigger{
