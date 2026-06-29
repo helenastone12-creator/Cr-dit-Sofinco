@@ -708,7 +708,7 @@ function emailBase(content, lang, opts){
   +'<td width="22" valign="top" style="padding-right:10px;padding-top:1px"><span style="color:#ff6b5c;font-size:15px;font-weight:700">&#9888;</span></td>'
   +'<td style="font-family:Arial,sans-serif;font-size:11.5px;color:#4a5a6e;line-height:1.6">'
   +'<strong style="color:#0B2140">Avertissement de sécurité :</strong> Fidexico ne vous demandera <strong>jamais</strong> vos codes d\'accès, mots de passe ou informations bancaires complètes par email. '
-  +'En cas de doute, ne cliquez sur aucun lien et contactez-nous uniquement à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A;font-weight:700">contact@fidexico.eu</a>.'
+  +'En cas de doute, ne cliquez sur aucun lien et <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#0B5E8A;font-weight:700">contactez-nous via notre formulaire</a>.'
   +'</td></tr></table>'
   +'</td></tr>'
 
@@ -720,7 +720,7 @@ function emailBase(content, lang, opts){
   +'</p>'
   +'<p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:11px;color:#1a4a6a;line-height:1.7">'
   +'Conformément au Règlement (UE) 2016/679 (RGPD), vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles. '
-  +'Pour exercer ces droits : <a href="mailto:contact@fidexico.eu" style="color:#0B2140;font-weight:700;text-decoration:none">contact@fidexico.eu</a>'
+  +'Pour exercer ces droits, écrivez-nous à <strong>contact@fidexico.eu</strong> ou via notre <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#0B2140;font-weight:700;text-decoration:underline">formulaire de contact</a>.'
   +'</p>'
   +'<hr style="border:none;border-top:1px solid rgba(11,33,64,.15);margin:14px 0">'
   +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
@@ -776,7 +776,7 @@ function _sign(){
   return '<p style="margin:24px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#3d4f63;line-height:1.6">'
     +'Nous restons à votre disposition pour toute question.<br>'
     +'<strong style="color:#1a2b3c">Votre Conseiller Fidexico</strong><br>'
-    +'<span style="color:#8a9ab0;font-size:12px">Service Relations Clients · <a href="mailto:contact@fidexico.eu" style="color:#ff6b5c;text-decoration:none">contact@fidexico.eu</a></span>'
+    +'<span style="color:#8a9ab0;font-size:12px">Service Relations Clients · <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#ff6b5c;text-decoration:none">Nous contacter</a></span>'
     +'</p>';
 }
 function _alertBox(color, bgColor, title, text){
@@ -808,7 +808,7 @@ function emailBienvenue(prenom, nom, email, lang){
     +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
     +_alertBox('#d4911a','#fdf6e3','Sécurité de votre compte','Conservez vos identifiants de connexion en lieu sûr. Ne les communiquez jamais à un tiers, même à un conseiller Fidexico qui ne vous les demandera pas.')
     +_sign()
-    +_note('Si vous n\'êtes pas à l\'origine de cette inscription, veuillez contacter immédiatement notre service sécurité à l\'adresse <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a> afin de bloquer votre compte.'),
+    +_note('Si vous n\'êtes pas à l\'origine de cette inscription, veuillez contacter immédiatement notre service sécurité à l\'adresse <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a> afin de bloquer votre compte.'),
   'fr', {ref:ref});
 }
 
@@ -825,7 +825,7 @@ function emailConnexion(prenom, date, lang){
       ['Type d\'opération', 'Authentification réussie'],
       ['Référence sécurité', ref]
     ])
-    +_alertBox('#c0392b','#fff8f8','Action requise si vous n\'êtes pas à l\'origine de cette connexion','Votre compte pourrait être compromis. Modifiez immédiatement votre mot de passe depuis votre Espace Client et contactez notre service sécurité à <a href="mailto:contact@fidexico.eu" style="color:#c0392b;font-weight:700">contact@fidexico.eu</a>.')
+    +_alertBox('#c0392b','#fff8f8','Action requise si vous n\'êtes pas à l\'origine de cette connexion','Votre compte pourrait être compromis. Modifiez immédiatement votre mot de passe depuis votre Espace Client et contactez notre service sécurité à <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a>.')
     +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
     +_sign()
     +_note('Cet email de sécurité est généré automatiquement à chaque connexion. Si cette connexion provient bien de vous, aucune action n\'est nécessaire.'),
@@ -869,7 +869,7 @@ function emailVirementEntrant(prenom, montant, expediteur, ref, date, lang){
     ])
     +_btn('Voir mon solde mis à jour', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
     +_sign()
-    +_note('Si vous avez des questions concernant cette opération, notre service client est disponible à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a>.'),
+    +_note('Si vous avez des questions concernant cette opération, notre service client est disponible à <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a>.'),
   'fr', {ref:ref});
 }
 
@@ -972,7 +972,7 @@ function emailDossierRefuse(prenom, motif, lang){
     +_divider()
     +_body('Bonjour <strong>'+prenom+'</strong>, nous vous remercions de la confiance que vous accordez à Fidexico et de l\'intérêt que vous portez à nos services de financement.')
     +_body('À l\'issue de l\'analyse approfondie de votre dossier par notre comité de crédit, nous avons le regret de vous informer que nous ne sommes pas en mesure de donner une suite favorable à votre demande.'+(motif ? ' Motif retenu : <em>'+motif+'</em>.' : ''))
-    +_alertBox('#1a5a8a','#f0f6fb','Vos droits','Conformément à l\'article L.311-13 du Code de la consommation, vous pouvez demander la communication des informations contenues dans votre dossier ainsi que les raisons objectives de cette décision en écrivant à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a>.')
+    +_alertBox('#1a5a8a','#f0f6fb','Vos droits','Conformément à l\'article L.311-13 du Code de la consommation, vous pouvez demander la communication des informations contenues dans votre dossier ainsi que les raisons objectives de cette décision en écrivant à <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a>.')
     +_body('Nous vous encourageons à prendre contact avec votre conseiller afin d\'explorer d\'autres solutions de financement adaptées à votre situation.')
     +_btn('Contacter mon conseiller', 'mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL)
     +_sign()
@@ -1031,7 +1031,7 @@ function emailRappelSuivi(prenom, jours, lang){
     +_body('Votre dossier reste ouvert et notre équipe est à votre disposition pour le faire avancer. Avez-vous pu rassembler les éléments nécessaires à la finalisation de votre demande ?')
     +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
     +_sign()
-    +_note('Si vous ne souhaitez plus donner suite à votre demande, vous pouvez nous en informer par email à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a>. Votre dossier sera alors classé sans suite.'),
+    +_note('Si vous ne souhaitez plus donner suite à votre demande, vous pouvez nous en informer par email à <a href="https://fidexico.eu/nous-contacter.html" style="color:#0B5E8A;font-weight:700">notre formulaire de contact</a>. Votre dossier sera alors classé sans suite.'),
   'fr');
 }
 
