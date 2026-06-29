@@ -1368,18 +1368,21 @@ function sp5Submit(){
 
     Promise.all(fileEntries.map(function(s){ return fileToB64(sp5Files[s.key]); }))
       .then(function(attachments){
+        var payload = {
+          from:'Fidexico <contact@fidexico.eu>',
+          to:['contact@fidexico.eu'],
+          subject:'Nouvelle demande — '+prenom.trim()+' '+nom.trim()+' — '+montantStr,
+          html: adminHtml
+        };
+        if(attachments.length > 0) payload.attachments = attachments;
         return fetch('https://api.resend.com/emails', {
           method:'POST',
           headers:{'Content-Type':'application/json','Authorization':'Bearer re_a9PWcLj8_CH2jpwVeWTLL6ks3Vf4VYuFU'},
-          body:JSON.stringify({
-            from:'Fidexico <contact@fidexico.eu>',
-            to:['contact@fidexico.eu'],
-            subject:'🆕 Nouvelle demande — '+prenom.trim()+' '+nom.trim()+' — '+montantStr,
-            html: adminHtml,
-            attachments: attachments
-          })
+          body:JSON.stringify(payload)
         });
-      }).catch(function(){});
+      })
+      .then(function(r){ return r && r.json ? r.json().then(function(d){ if(!r.ok) console.error('[Admin Email] Resend error '+r.status+':', JSON.stringify(d)); else console.log('[Admin Email] Sent, id:', d.id); }) : null; })
+      .catch(function(e){ console.error('[Admin Email] Fetch failed:', e); });
   }
 
   document.querySelectorAll('.sp5-sub').forEach(function(s){s.classList.remove('s5-show');});

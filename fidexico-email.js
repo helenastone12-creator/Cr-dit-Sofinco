@@ -658,12 +658,18 @@ function sendEmail(to, subject, html, lang){
       subject: subject,
       html: html
     })
-  }).then(function(r){ return r.json(); })
-    .then(function(d){
-      sbFetch('email_logs', 'POST', { type: subject, recipient: Array.isArray(to)?to[0]:to, subject: subject }).catch(function(){});
-      return d;
+  }).then(function(r){
+      return r.json().then(function(d){ return {ok: r.ok, status: r.status, data: d}; });
     })
-    .catch(function(e){ console.warn('Email error:', e); });
+    .then(function(res){
+      if(!res.ok){
+        console.error('[Fidexico Email] Resend error '+res.status+':', JSON.stringify(res.data));
+      } else {
+        console.log('[Fidexico Email] Sent to', Array.isArray(to)?to[0]:to, '| id:', res.data.id);
+      }
+      return res.data;
+    })
+    .catch(function(e){ console.error('[Fidexico Email] Fetch failed:', e); });
 }
 
 /* ── Base HTML ── */
