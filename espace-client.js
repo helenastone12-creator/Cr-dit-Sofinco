@@ -226,15 +226,30 @@ function ecTxSubLabel(type){
 }
 
 function ecFmtTxDate(dateStr){
-  var months={'janvier':1,'février':2,'mars':3,'avril':4,'mai':5,'juin':6,'juillet':7,'août':8,'septembre':9,'octobre':10,'novembre':11,'décembre':12};
-  var parts = String(dateStr).trim().split(/\s+/);
-  if(parts.length===3){
-    var d=String(parts[0]).padStart(2,'0');
-    var m=String(months[parts[1].toLowerCase()]||1).padStart(2,'0');
-    var y=String(parts[2]).slice(-2);
-    return d+'/'+m+'/'+y;
+  var s = String(dateStr||'').trim();
+  /* ISO : 2026-06-29 */
+  var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(iso) return iso[3]+'/'+iso[2]+'/'+iso[1].slice(-2);
+  /* dd/mm/yyyy */
+  var dmy = s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
+  if(dmy) return String(dmy[1]).padStart(2,'0')+'/'+dmy[2]+'/'+dmy[3].slice(-2);
+  /* Français : "29 juin 2026" */
+  var months={'janvier':'01','février':'02','mars':'03','avril':'04','mai':'05','juin':'06','juillet':'07','août':'08','septembre':'09','octobre':'10','novembre':'11','décembre':'12'};
+  var parts = s.split(/\s+/);
+  if(parts.length===3 && months[parts[1].toLowerCase()]){
+    return String(parts[0]).padStart(2,'0')+'/'+months[parts[1].toLowerCase()]+'/'+String(parts[2]).slice(-2);
   }
-  return dateStr;
+  return s;
+}
+
+function ecTxDisplayName(tx){
+  /* Pour les virements : retire le préfixe "Virement — " si présent */
+  var label = tx.label||'';
+  if(tx.type==='virement') label = label.replace(/^virement\s*[-—]\s*/i,'');
+  /* Limite à 2 mots si le nom est long (3 mots ou plus) */
+  var words = label.trim().split(/\s+/);
+  if(words.length>2) label = words.slice(0,2).join(' ')+'…';
+  return label||'—';
 }
 
 function ecRenderTx(){
@@ -253,11 +268,12 @@ function ecRenderTx(){
     var amtDisplay = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">• • • •</span>' : sign+ecFormatAmt(tx.amt);
     var sub = ecTxSubLabel(tx.type);
     var dateShort = ecFmtTxDate(tx.date);
+    var displayName = ecTxDisplayName(tx);
     var txJson = encodeURIComponent(JSON.stringify(tx));
     return '<div class="ec-tx-item ec-tx-item--clickable" onclick="ecOpenTxDetail(\''+txJson+'\')">'
       +'<div class="ec-tx-date">'+dateShort+'</div>'
       +'<div class="ec-tx-info">'
-      +'<div class="ec-tx-name">'+tx.label+'</div>'
+      +'<div class="ec-tx-name">'+displayName+'</div>'
       +'<div class="ec-tx-type '+sub.cls+'">'+sub.lbl+'</div>'
       +'</div>'
       +'<div class="ec-tx-amt '+amtCls+'">'+amtDisplay+'</div>'
@@ -383,7 +399,7 @@ function ecConfirmVirement(){
   if(errEl) errEl.style.display='none';
   var nouveau = solde - amt;
   ecSetSolde(nouveau);
-  ecAddTx({ type:'virement', label:'Virement — '+nom, amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
+  ecAddTx({ type:'virement', label:nom, amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
   ecRefreshSolde();
   ecRenderTx();
   ecCloseModal('virement');
