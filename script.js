@@ -1057,8 +1057,40 @@ function sp5ValidEmail(v){
   var domain = val.split('@')[1];
   return SP5_DISPOSABLE_DOMAINS.indexOf(domain) === -1;
 }
+var CP_REGEX = {
+  'FR': /^(0[1-9]|[1-8]\d|9[0-5]|97[1-6])\d{3}$/,
+  'MC': /^\d{5}$/,
+  'DE': /^\d{5}$/,
+  'AT': /^\d{4}$/,
+  'CH': /^\d{4}$/,
+  'LI': /^\d{4}$/,
+  'LU': /^\d{4}$/,
+  'BE': /^\d{4}$/,
+  'NL': /^\d{4}\s?[A-Z]{2}$/i,
+  'GB': /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i,
+  'IE': /^[A-Z]\d{2}\s?[A-Z0-9]{4}$/i,
+  'ES': /^\d{5}$/,
+  'IT': /^\d{5}$/,
+  'PT': /^\d{4}-?\d{3}$/,
+  'PL': /^\d{2}-?\d{3}$/,
+  'SE': /^\d{3}\s?\d{2}$/,
+  'FI': /^\d{5}$/,
+  'DK': /^\d{4}$/,
+  'NO': /^\d{4}$/,
+  'GR': /^\d{5}$/,
+  'CZ': /^\d{3}\s?\d{2}$/,
+  'SK': /^\d{3}\s?\d{2}$/,
+  'HU': /^\d{4}$/,
+  'RO': /^\d{6}$/,
+  'BG': /^\d{4}$/,
+  'HR': /^\d{5}$/
+};
 function sp5ValidCP(v){
-  return (v||'').trim().length >= 3;
+  v = (v||'').trim();
+  var country = (window.currentTelCountry || 'FR').toUpperCase();
+  var rx = CP_REGEX[country];
+  if(rx) return rx.test(v);
+  return v.length >= 3;
 }
 function sp5Field(id, errId, testFn, errMsg){
   var el = document.getElementById(id);
@@ -1109,7 +1141,7 @@ function sp5Validate(step){
 
   } else if(step===3){
     check('s5-adresse', 's5-adresse-err', function(v){ return v && v.trim().length >= 5; }, 'Adresse incomplète (5 car. min.)');
-    check('s5-cp',      's5-cp-err',      function(v){ return sp5ValidCP(v); },              'Veuillez saisir votre code postal');
+    check('s5-cp',      's5-cp-err',      function(v){ return sp5ValidCP(v); },              (function(){ var country=(window.currentTelCountry||'FR').toUpperCase(); var d=FORM_DATA&&FORM_DATA[country]; return 'Code postal invalide (ex : '+(d?d.cp:'00000')+')'; })());
     check('s5-ville',   's5-ville-err',   function(v){ return v && v.trim().length >= 2; },  'Ville invalide');
     check('s5-banque',  's5-banque-err',  function(v){ return v && v.trim().length >= 2; },  'Nom de banque requis');
     check('s5-iban',    's5-iban-err',    function(v){ return sp5ValidIban(v); },             'IBAN invalide — vérifiez les chiffres');
