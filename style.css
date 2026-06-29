@@ -2288,81 +2288,9 @@ body.pg-inner .editorial{background:none}
 }
 .sp5-nat-native:focus{border-color:#06c2b0;outline:none}
 
-/* ── Searchable nationality dropdown ── */
+/* ── Nationality picker — desktop modal centré ── */
 .nat-wrap{position:relative;width:100%}
-.nat-trigger{
-  width:100%;box-sizing:border-box;text-align:left;
-  border:1.5px solid #ddd;border-radius:10px;
-  padding:.72rem .9rem;font-size:.95rem;font-family:inherit;
-  color:#aaa;background:#fff;cursor:pointer;
-  transition:border-color .2s;outline:none;
-  -webkit-appearance:none;appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right .9rem center;
-}
-.nat-trigger.nat-has-val{color:#0d2748}
-.nat-trigger:focus,.nat-trigger:hover{border-color:#06c2b0}
-/* Nationality — bottom sheet full screen */
-.nat-panel{
-  display:none;position:fixed;inset:0;z-index:9990;
-  flex-direction:column;
-  background:#f2f2f7;
-  height:100%;
-  height:-webkit-fill-available;
-}
-.nat-panel.open{display:flex}
-.nat-header{
-  display:flex;align-items:center;justify-content:center;
-  padding:1.1rem 1rem .9rem;background:#f2f2f7;
-  padding-top:calc(env(safe-area-inset-top, 44px) + 1.1rem);
-  position:relative;flex-shrink:0;
-}
-.nat-close-btn{
-  position:absolute;left:1rem;
-  width:36px;height:36px;border-radius:50%;border:none;
-  background:#e5e5ea;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  color:#555;font-size:1.1rem;
-}
-.nat-title{font-size:1rem;font-weight:700;color:#0d2748}
-.nat-search-wrap{
-  padding:.6rem 1rem .8rem;background:#f2f2f7;flex-shrink:0;
-}
-.nat-search-box{
-  display:flex;align-items:center;gap:.55rem;
-  background:#fff;border-radius:12px;padding:.65rem .9rem;
-  border:1px solid #e0e0e0;
-}
-.nat-search-box svg{color:#9ca3af;flex-shrink:0}
-.nat-search{
-  flex:1;border:none;outline:none;font-size:.95rem;
-  font-family:inherit;color:#0d2748;background:transparent;
-}
-.nat-list{
-  list-style:none;padding:0;
-  overflow-y:scroll;flex:1;min-height:0;
-  background:#fff;border-radius:14px;margin:0 1rem 1rem;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-}
-.nat-item{
-  padding:.85rem 1rem;font-size:.95rem;color:#0d2748;
-  cursor:pointer;
-  display:flex;align-items:center;gap:.85rem;
-  border-bottom:1px solid #f0f0f0;
-}
-.nat-item:last-child{border-bottom:none}
-.nat-item:active{background:#f5f5f5}
-.nat-item.nat-sel{background:#edfaf9;font-weight:600;color:#06c2b0}
-.nat-item-label{flex:1}
-.nat-check{flex-shrink:0}
-/* Round flags */
-.nat-flag{
-  width:38px;height:38px;
-  flex-shrink:0;display:block;
-}
-.nat-globe{flex-shrink:0;display:block}
-/* Trigger button */
+/* Bouton déclencheur */
 .nat-trigger{
   width:100%;box-sizing:border-box;display:flex;align-items:center;gap:.55rem;
   border:1.5px solid #ddd;border-radius:10px;
@@ -2374,6 +2302,61 @@ body.pg-inner .editorial{background:none}
 .nat-trigger-label{flex:1;text-align:left;color:#aaa}
 .nat-trigger.nat-has-val .nat-trigger-label{color:#0d2748}
 .nat-chev{flex-shrink:0}
-/* Small flag in trigger */
 .nat-trigger .nat-flag{width:22px;height:22px;border-radius:50%}
 .nat-trigger .nat-globe{width:22px;height:15px}
+/* Backdrop */
+.nat-backdrop{
+  display:none;position:fixed;inset:0;z-index:9990;
+  background:rgba(0,0,0,.45);
+  align-items:center;justify-content:center;
+}
+.nat-backdrop.open{display:flex}
+/* Modal centré */
+.nat-modal{
+  background:#fff;border-radius:16px;
+  width:min(440px,92vw);
+  max-height:72vh;
+  display:flex;flex-direction:column;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  overflow:hidden;
+}
+.nat-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 1rem .75rem;border-bottom:1px solid #f0f0f0;flex-shrink:0;
+}
+.nat-title{font-size:1rem;font-weight:700;color:#0d2748}
+.nat-close-btn{
+  width:30px;height:30px;border-radius:50%;border:none;
+  background:#f0f0f0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#555;font-size:1.25rem;line-height:1;font-weight:300;
+}
+.nat-close-btn:hover{background:#e0e0e0}
+.nat-search-wrap{padding:.7rem 1rem .6rem;flex-shrink:0}
+.nat-search-box{
+  display:flex;align-items:center;gap:.55rem;
+  background:#f5f5f5;border-radius:10px;padding:.6rem .9rem;
+}
+.nat-search-box svg{color:#9ca3af;flex-shrink:0}
+.nat-search{
+  flex:1;border:none;outline:none;font-size:.95rem;
+  font-family:inherit;color:#0d2748;background:transparent;
+}
+.nat-list{
+  list-style:none;padding:0 0 .5rem;
+  overflow-y:auto;flex:1;min-height:0;
+}
+.nat-item{
+  padding:.75rem 1rem;font-size:.95rem;color:#0d2748;
+  cursor:pointer;
+  display:flex;align-items:center;gap:.75rem;
+  border-bottom:1px solid #f5f5f5;
+}
+.nat-item:last-child{border-bottom:none}
+.nat-item:hover{background:#f9f9f9}
+.nat-item.nat-sel{background:#edfaf9;font-weight:600;color:#06c2b0}
+.nat-item-label{flex:1}
+.nat-check{flex-shrink:0}
+/* Flags */
+.nat-flag{width:28px;height:28px;flex-shrink:0;display:block;border-radius:50%}
+.nat-globe{flex-shrink:0;display:block}
