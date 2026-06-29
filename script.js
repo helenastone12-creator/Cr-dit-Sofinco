@@ -2100,20 +2100,30 @@ function sp5Submit(){
       });
     }
 
+    var _simScrollTop = 0;
     function openPanel(){
       searchInp.value='';
       renderList('');
-      // Bloquer le scroll du sim-page (contexte scroll actif sur iOS)
       var simPage = document.getElementById('sim-page');
-      if(simPage) simPage.style.overflow='hidden';
-      document.body.style.overflow='hidden';
+      if(simPage){
+        _simScrollTop = simPage.scrollTop;
+        simPage.style.overflow='hidden';
+        simPage.style.position='fixed';
+        simPage.style.top='-'+_simScrollTop+'px';
+        simPage.style.width='100%';
+      }
       panel.classList.add('open');
     }
     function closePanel(){
       panel.classList.remove('open');
       var simPage = document.getElementById('sim-page');
-      if(simPage) simPage.style.overflow='';
-      document.body.style.overflow='';
+      if(simPage){
+        simPage.style.overflow='';
+        simPage.style.position='';
+        simPage.style.top='';
+        simPage.style.width='';
+        simPage.scrollTop=_simScrollTop;
+      }
     }
 
     trigger.addEventListener('click',function(e){
