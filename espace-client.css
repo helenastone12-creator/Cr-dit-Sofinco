@@ -42,8 +42,145 @@
 .ec-dash-body{ padding-bottom:80px; }
 
 /* ════════════════════════════
-   AUTH PAGES
+   AUTH PAGES — style Franfinance
 ════════════════════════════ */
+.ec-login-body{
+  background:#f0f2f5;min-height:100vh;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  color:#1a2433;-webkit-font-smoothing:antialiased;
+  padding-bottom:52px;
+}
+.ec-login-wrap{
+  max-width:480px;margin:0 auto;padding:2.5rem 1rem 2rem;
+  display:flex;flex-direction:column;gap:1rem;
+}
+/* Carte principale */
+.ec-login-card{
+  background:#fff;border-radius:12px;
+  padding:2.2rem 1.8rem 2rem;
+  box-shadow:0 2px 16px rgba(0,0,0,.08);
+}
+/* Logo dans la carte */
+.ec-login-brand{
+  margin-bottom:1.8rem;
+}
+.ec-login-brand-name{
+  font-size:1.7rem;font-weight:900;color:#0f1f35;
+  text-decoration:none;letter-spacing:.04em;
+  display:inline-block;
+}
+/* Titre uppercase bold */
+.ec-login-title{
+  font-size:1.45rem;font-weight:900;color:#0f1f35;
+  line-height:1.2;margin:0 0 1.8rem;letter-spacing:-.01em;
+}
+/* Champs */
+.ec-login-field-wrap{
+  position:relative;margin-bottom:1rem;
+}
+.ec-login-inp{
+  width:100%;border:1.5px solid #cdd3da;border-radius:6px;
+  padding:.9rem 1rem;font-size:1rem;font-family:inherit;
+  color:#1a2433;background:#fff;outline:none;
+  transition:border-color .18s,box-shadow .18s;
+}
+.ec-login-inp::placeholder{ color:#a8b2be; }
+.ec-login-inp:focus{ border-color:#0B5E8A;box-shadow:0 0 0 3px rgba(11,94,138,.1); }
+.ec-login-eye{
+  position:absolute;right:.9rem;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;color:#a8b2be;
+  padding:0;display:flex;align-items:center;transition:color .15s;
+}
+.ec-login-eye:hover{ color:#1a2433; }
+/* Lien oublié */
+.ec-login-forgot-row{
+  text-align:right;margin:-.3rem 0 .8rem;
+}
+.ec-login-forgot{
+  font-size:.84rem;color:#1a2433;text-decoration:underline;
+  text-underline-offset:2px;
+}
+/* Toggle souvenir */
+.ec-login-remember-row{
+  margin-bottom:1.4rem;
+}
+/* Bouton principal */
+.ec-login-btn{
+  display:block;width:100%;padding:.95rem;border-radius:6px;
+  background:var(--coral);color:#fff;border:none;
+  font-size:1rem;font-weight:700;font-family:inherit;
+  cursor:pointer;transition:background .2s,transform .12s;
+  text-align:center;text-decoration:none;letter-spacing:.01em;
+}
+.ec-login-btn:hover{ background:var(--coral-d); }
+.ec-login-btn:active{ transform:scale(.98); }
+/* Bouton outline */
+.ec-login-btn-outline{
+  display:block;width:100%;padding:.9rem;border-radius:6px;
+  background:#fff;color:#0f1f35;border:1.5px solid #cdd3da;
+  font-size:1rem;font-weight:600;font-family:inherit;
+  cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;
+  margin-top:.1rem;
+}
+.ec-login-btn-outline:hover{ border-color:#0f1f35;background:#f8f9fa; }
+/* Séparateur ou */
+.ec-auth-sep{
+  display:flex;align-items:center;gap:.8rem;
+  margin:1.3rem 0;color:#a8b2be;font-size:.82rem;
+}
+.ec-auth-sep::before,.ec-auth-sep::after{ content:'';flex:1;height:1px;background:#e2e6ea; }
+/* Bouton retour 2FA */
+.ec-auth-back-btn{
+  display:block;width:100%;margin:.6rem 0 0;
+  padding:.7rem;background:none;border:none;
+  color:#6b7a8d;font-size:.83rem;cursor:pointer;
+  font-family:inherit;text-align:center;
+}
+.ec-auth-back-btn:hover{ color:#0f1f35; }
+
+/* Banner fraudes pleine largeur */
+.ec-login-fraud{
+  background:#2d1f5e;border-radius:10px;overflow:hidden;
+}
+.ec-login-fraud-inner{
+  padding:1.4rem 1.4rem;
+}
+.ec-login-fraud-head{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.95rem;font-weight:900;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin-bottom:.8rem;
+}
+.ec-login-fraud-body{
+  font-size:.8rem;color:rgba(255,255,255,.75);
+  line-height:1.6;margin:0 0 .4rem;
+}
+.ec-login-fraud-body:last-child{ margin-bottom:0; }
+.ec-login-fraud-body strong{ color:#fff; }
+.ec-login-fraud-body a{ color:rgba(255,255,255,.9);text-decoration:underline; }
+
+/* Footer liens */
+.ec-login-footer-links{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  align-items:center;gap:.3rem .4rem;
+  font-size:.74rem;padding:.5rem 0;
+}
+.ec-login-footer-links a{
+  color:var(--coral);text-decoration:none;
+}
+.ec-login-footer-links a:hover{ text-decoration:underline; }
+.ec-login-footer-links span{ color:#cdd3da; }
+
+/* Mention légale crédit sticky */
+.ec-credit-legal-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:999;
+  background:#e8eaed;border-top:1px solid #d0d4d9;
+  color:#5a6473;font-size:.72rem;
+  text-align:center;padding:.65rem 1.5rem;
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.4;
+}
+
+/* ── Héritage pour pages qui utilisent encore ec-auth-* ── */
 .ec-auth-wrap{
   min-height:calc(100vh - 44px);display:flex;flex-direction:column;
   align-items:center;justify-content:center;
@@ -68,8 +205,6 @@
   margin:0 0 .3rem;letter-spacing:-.02em;
 }
 .ec-auth-hint{ font-size:.84rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.55; }
-
-/* Row entre toggle et forgot */
 .ec-auth-row-between{
   display:flex;align-items:center;justify-content:space-between;
   margin:-.1rem 0 1rem;gap:.5rem;
