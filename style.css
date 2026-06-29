@@ -2,7 +2,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden;max-width:100%;-webkit-text-size-adjust:100%;font-family:'Sarabun',Arial,sans-serif;background:#fff}
 /* Masquer le contenu de fond quand le simulateur est ouvert (clavier iOS semi-transparent) */
-body.sim-open > *:not(.sim-page) { visibility:hidden; }
+body.sim-open > *:not(.sim-page):not(.nat-panel) { visibility:hidden; }
 body{font-family:'Sarabun',Arial,sans-serif;font-size:16px;color:#222;background:#fff;line-height:1.5;overflow-x:hidden;max-width:100%;width:100%}
 *{box-sizing:border-box}
 /* Empêche le zoom automatique iOS sur tous les champs (font-size < 16px = zoom) */
