@@ -17,8 +17,11 @@ function sbQ(path, method, body, extra){
     body: body ? JSON.stringify(body) : undefined
   }).then(function(r){
     if(r.status === 204) return null;
-    return r.json();
-  });
+    return r.json().then(function(d){
+      if(!r.ok) console.error('[FidDB] '+method+' /'+path+' → '+r.status+':', JSON.stringify(d));
+      return d;
+    });
+  }).catch(function(e){ console.error('[FidDB] fetch error on '+path+':', e); throw e; });
 }
 
 var FidDB = {
