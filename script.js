@@ -389,7 +389,7 @@ function unlockScroll(){
     simData.step=n;
     document.querySelectorAll('.sim-pane').forEach(function(p){p.classList.remove('s-show');});
     document.getElementById('sp'+n).classList.add('s-show');
-    document.getElementById('sim-page').scrollTop=0;
+    document.querySelector('.sim-body').scrollTop=0;
     document.querySelector('.sim-body').classList.toggle('sp4-open', n===4);
     document.getElementById('sim-page').classList.toggle('sp4-open', n===4);
     document.getElementById('sim-bb-prog').textContent=t.progress+' : '+(PROG[n]||'90%');
@@ -614,8 +614,8 @@ function unlockScroll(){
   }
 
   window.addEventListener('popstate', function(){
-    // Fermer nat panel si ouvert
-    var natPanel = document.querySelector('.nat-panel.open');
+    // Fermer nat/tel panel si ouvert (sans repousser d'état)
+    var natPanel = document.querySelector('.nat-panel.open, .nat-backdrop.open');
     if(natPanel){ natPanel.classList.remove('open'); history.pushState({sim:true},''); return; }
     // Fermer simulateur si ouvert
     var page = document.getElementById('sim-page');
@@ -1254,9 +1254,8 @@ function sp5Go(toStep){
   sp5Current = toStep;
   sp5UpdateProg(toStep);
   var sp5El = document.getElementById('sp5');
-  if(sp5El) sp5El.scrollIntoView({behavior:'smooth',block:'start'});
-  var simPage = document.getElementById('sim-page');
-  if(simPage) simPage.scrollTop=0;
+  var simBody = document.querySelector('.sim-body');
+  if(simBody) simBody.scrollTop=0;
 }
 
 function sp5DocTab(mode, btn){
@@ -1299,11 +1298,9 @@ function sp5Submit(){
     // Scroll to first visible error so user can see what's missing
     var sub = document.getElementById('sp5d');
     var err = sub && sub.querySelector('.sp5-err.show, .sp5-err-msg.show, [class*="err"].show');
-    if(err){ err.scrollIntoView({behavior:'smooth', block:'center'}); }
-    else {
-      var simPage = document.getElementById('sim-page');
-      if(simPage) simPage.scrollTo({top:0, behavior:'smooth'});
-    }
+    var simBody = document.querySelector('.sim-body');
+    if(err && simBody){ simBody.scrollTop = err.offsetTop - 80; }
+    else if(simBody){ simBody.scrollTop = 0; }
     return;
   }
 
@@ -1497,10 +1494,11 @@ function sp5Submit(){
     '</div>'+
     '<p class="sp5-confirm-email-note">Un email de confirmation a été envoyé à l\'adresse renseignée.</p>'+
     '<a class="sp5-confirm-close sp5-confirm-cta" href="connexion.html">Accéder à mon espace client →</a>'+
-    '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="closeSim()">Fermer</button>';
+    '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="history.back()">Fermer</button>';
 
   body.appendChild(wrap);
-  document.getElementById('sim-page').scrollTop=0;
+  var sb = document.querySelector('.sim-body');
+  if(sb) sb.scrollTop=0;
 }
 
 
