@@ -982,12 +982,9 @@
     padding:.35rem .85rem;font-size:.78rem;font-weight:500;
   }
 
-  /* ── Dashboard grid 2 colonnes ── */
+  /* ── Dashboard grid 1 colonne ── */
   .ec-dashboard-grid{
-    display:grid;
-    grid-template-columns:1fr 280px;
-    gap:1.5rem;
-    align-items:start;
+    display:block;
   }
   .ec-dashboard-col-left{ min-width:0; }
   .ec-dashboard-col-right{
@@ -1050,7 +1047,6 @@
 ════════════════════════════ */
 @media(min-width:1100px){
   .ec-main{ padding:calc(56px + 2.5rem) 3rem 3rem; }
-  .ec-dashboard-grid{ grid-template-columns:1fr 320px;gap:2rem; }
   .ec-welcome-title{ font-size:1.8rem; }
 
   /* Sidebar plus large */
