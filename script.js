@@ -587,6 +587,7 @@ function unlockScroll(){
   }
 
   function openSim(projet, montant){
+    history.pushState({sim:true}, '');
     simData={step:1,projet:projet||null,montant:montant||null,choix:'mensualite',duree:null};
     document.querySelectorAll('.sim-proj-card').forEach(function(b){
       b.classList.toggle('sp-sel', !!projet && b.dataset.val===projet);
@@ -609,7 +610,19 @@ function unlockScroll(){
       page.classList.remove('open','closing');
       if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
     }, 280);
+    if(history.state && history.state.sim) history.back();
   }
+
+  window.addEventListener('popstate', function(e){
+    var page = document.getElementById('sim-page');
+    if(page && page.classList.contains('open')){
+      page.classList.add('closing');
+      setTimeout(function(){
+        page.classList.remove('open','closing');
+        if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
+      }, 280);
+    }
+  });
 
   // Débloque le scroll de sim-body après fermeture du clavier iOS
   document.addEventListener('focusout', function(e){
