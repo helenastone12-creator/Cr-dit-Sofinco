@@ -305,9 +305,10 @@
   text-transform:uppercase;letter-spacing:.12em;
 }
 .ec-solde-amt{
-  font-size:1.75rem;font-weight:700;color:#111827;
-  letter-spacing:-.03em;font-variant-numeric:tabular-nums;
-  transition:opacity .18s;line-height:1.1;
+  font-size:clamp(1.1rem,4.5vw,1.45rem);font-weight:700;color:#111827;
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+  transition:opacity .18s;line-height:1.15;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .ec-hide-bal-row{
   display:flex;align-items:center;justify-content:center;gap:.45rem;
@@ -341,24 +342,27 @@
 
 /* Action pills — horizontal icon+texte côte à côte */
 .ec-action-pills{
-  display:flex;gap:.55rem;
+  display:flex;gap:.5rem;
   margin-bottom:1.2rem;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;padding-bottom:2px;
 }
+.ec-action-pills::-webkit-scrollbar{ display:none; }
 .ec-pill-btn{
-  display:flex;flex-direction:row;align-items:center;gap:.6rem;
+  display:flex;flex-direction:row;align-items:center;gap:.5rem;
   background:#2D2D2D;
   border:none;border-radius:14px;
-  padding:.75rem .9rem;
+  padding:.65rem .8rem;
   color:#fff;cursor:pointer;
-  font-size:.8rem;font-weight:600;font-family:inherit;
-  flex:1;min-width:0;
+  font-size:.76rem;font-weight:600;font-family:inherit;
+  flex:1;min-width:max-content;
   transition:background .18s,transform .12s;
   white-space:nowrap;
 }
 .ec-pill-btn:hover{ background:#3D3D3D; }
 .ec-pill-btn:active{ transform:scale(.96); }
 .ec-pill-ico{
-  width:34px;height:34px;border-radius:50%;
+  width:30px;height:30px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
 .ec-pill-ico--green{ background:rgba(52,211,153,.2); }
