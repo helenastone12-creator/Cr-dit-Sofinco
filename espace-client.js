@@ -148,17 +148,24 @@ function ecSoldeHidden(){ return localStorage.getItem('ec_solde_hidden')==='1'; 
 
 function ecRefreshSolde(){
   var el = document.getElementById('ec-solde-amt');
-  if(!el) return;
-  if(ecSoldeHidden()){
-    el.textContent = '* * * * * *';
-  } else {
-    el.textContent = ecFormatAmt(ecGetSolde());
+  var el2 = document.getElementById('ec-solde-comptable');
+  var hidden = ecSoldeHidden();
+  var solde = ecGetSolde();
+  var mask = '• • • • • •';
+  if(el) el.textContent = hidden ? mask : ecFormatAmt(solde);
+  if(el2) el2.textContent = hidden ? mask : ecFormatAmt(solde);
+  var lbl = document.getElementById('ec-hide-bal-lbl');
+  var ico = document.getElementById('ec-eye-icon');
+  if(lbl) lbl.textContent = ecT(hidden ? 'solde_afficher' : 'solde_masquer') || (hidden ? 'Afficher le solde' : 'Masquer le solde');
+  if(ico){
+    ico.outerHTML = hidden
+      ? '<svg id="ec-eye-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+      : '<svg id="ec-eye-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
   }
-  var eyeBtn = document.getElementById('ec-eye-toggle');
-  if(eyeBtn){
-    eyeBtn.innerHTML = ecSoldeHidden()
-      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
-      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var ibanEl = document.getElementById('ec-iban-val');
+  if(ibanEl){
+    var user=ecGetUser();
+    if(user){ var iban=ecGenerateIban(user.id||''); ibanEl.textContent = hidden ? 'FR76 •••• •••• •••• •••• •••• •••' : iban; }
   }
 }
 
@@ -720,6 +727,12 @@ function ecCopyIban(){
   navigator.clipboard.writeText(iban).then(function(){
     var msg=document.getElementById('ec-rib-copied');
     if(msg){msg.textContent=ecT('rib_copied');setTimeout(function(){msg.textContent='';},2500);}
+    var copyBtn=document.querySelector('.ec-iban-copy');
+    if(copyBtn){
+      var orig=copyBtn.innerHTML;
+      copyBtn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A7F5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      setTimeout(function(){copyBtn.innerHTML=orig;},1800);
+    }
   });
 }
 function ecDownloadRib(){

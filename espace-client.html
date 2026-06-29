@@ -51,39 +51,56 @@
 
   <!-- Solde -->
   <div class="ec-solde-block ec-fade-in">
-    <div class="ec-solde-lbl" data-i18n="solde_lbl">SOLDE DISPONIBLE</div>
-    <div class="ec-solde-amt-row">
-      <div class="ec-solde-amt" id="ec-solde-amt">0,00 €</div>
-      <button class="ec-eye-circle" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Afficher/masquer le solde">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    <div class="ec-solde-cols">
+      <div class="ec-solde-col">
+        <div class="ec-solde-lbl" data-i18n="solde_lbl">SOLDE DISPONIBLE</div>
+        <div class="ec-solde-amt" id="ec-solde-amt">0,00 €</div>
+      </div>
+      <div class="ec-solde-divider"></div>
+      <div class="ec-solde-col">
+        <div class="ec-solde-lbl" data-i18n="solde_comptable_lbl">SOLDE COMPTABLE</div>
+        <div class="ec-solde-amt" id="ec-solde-comptable">0,00 €</div>
+      </div>
+    </div>
+    <button class="ec-hide-bal-row" id="ec-eye-toggle" onclick="ecToggleSolde()">
+      <svg id="ec-eye-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span id="ec-hide-bal-lbl" data-i18n="solde_masquer">Masquer le solde</span>
+    </button>
+    <div class="ec-iban-row" id="ec-iban-row">
+      <span class="ec-iban-lbl">IBAN</span>
+      <span class="ec-iban-val" id="ec-iban-val">FR76 ···· ···· ···· ···· ···· ···</span>
+      <button class="ec-iban-copy" onclick="ecCopyIban()" aria-label="Copier l'IBAN">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
       </button>
     </div>
-    <div class="ec-solde-actions">
-      <div class="ec-solde-action">
-        <button class="ec-solde-circle" onclick="ecOpenModal('depot')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <span class="ec-solde-action-lbl" data-i18n="action_depot">Dépôt</span>
-      </div>
-      <div class="ec-solde-action">
-        <button class="ec-solde-circle" onclick="ecOpenModal('virement')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
-        <span class="ec-solde-action-lbl" data-i18n="action_virement">Virement</span>
-      </div>
-      <div class="ec-solde-action">
-        <button class="ec-solde-circle" onclick="ecOpenModal('convert')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-        </button>
-        <span class="ec-solde-action-lbl" data-i18n="action_convert">Convertir</span>
-      </div>
-      <div class="ec-solde-action">
-        <button class="ec-solde-circle" onclick="ecOpenModal('rib')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        </button>
-        <span class="ec-solde-action-lbl" data-i18n="action_rib">Mon RIB</span>
-      </div>
-    </div>
+  </div>
+
+  <!-- Actions rapides (pill buttons) -->
+  <div class="ec-action-pills ec-fade-in">
+    <button class="ec-pill-btn" onclick="ecOpenModal('depot')">
+      <span class="ec-pill-ico ec-pill-ico--green">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </span>
+      <span data-i18n="action_depot">Dépôt</span>
+    </button>
+    <button class="ec-pill-btn" onclick="ecOpenModal('virement')">
+      <span class="ec-pill-ico ec-pill-ico--blue">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+      <span data-i18n="action_virement">Virement</span>
+    </button>
+    <button class="ec-pill-btn" onclick="ecOpenModal('convert')">
+      <span class="ec-pill-ico ec-pill-ico--teal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      </span>
+      <span data-i18n="action_convert">Convertir</span>
+    </button>
+    <button class="ec-pill-btn" onclick="ecOpenModal('rib')">
+      <span class="ec-pill-ico ec-pill-ico--orange">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </span>
+      <span data-i18n="action_rib">Mon RIB</span>
+    </button>
   </div>
 
 
@@ -142,8 +159,8 @@
 
   <!-- Transactions récentes -->
   <div class="ec-tx-header">
-    <div class="ec-section-title" data-i18n="tx_title">Transactions récentes</div>
-    <a href="#" class="ec-tx-voir-tout" id="ec-tx-voir-tout" onclick="ecToggleTxAll(event)" data-i18n="tx_all_link">Tout afficher</a>
+    <div class="ec-section-title ec-section-title--lg" data-i18n="tx_title">Transactions récentes</div>
+    <a href="#" class="ec-tx-voir-tout ec-tx-voir-tout--lg" id="ec-tx-voir-tout" onclick="ecToggleTxAll(event)" data-i18n="tx_all_link">Tout afficher ›</a>
   </div>
   <!-- Filtres transactions -->
   <div class="ec-tx-filters">
