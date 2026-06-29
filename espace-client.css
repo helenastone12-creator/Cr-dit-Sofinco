@@ -50,50 +50,29 @@
   padding:2rem 1.2rem 1rem;
   background:linear-gradient(150deg,#071325 0%,#0B1D3A 55%,#0E2847 100%);
 }
+.ec-auth-logo{
+  font-size:1.9rem;font-weight:800;color:#fff;
+  text-decoration:none;margin-bottom:.25rem;letter-spacing:-.04em;
+}
+.ec-auth-sub{
+  font-size:.7rem;font-weight:600;color:rgba(255,255,255,.35);
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:2.4rem;
+}
 .ec-auth-card{
   width:100%;max-width:420px;background:#fff;
-  border-radius:16px;padding:0 0 2rem;
+  border-radius:16px;padding:2.4rem 2rem;
   box-shadow:0 24px 70px rgba(0,0,0,.35);
-  overflow:hidden;
 }
-/* Logo block en haut de la carte */
-.ec-auth-card-logo{
-  display:flex;flex-direction:column;align-items:center;
-  padding:2rem 2rem 1.6rem;
-  background:linear-gradient(150deg,#071325 0%,#0B1D3A 100%);
-}
-.ec-auth-logo-inner{
-  font-size:2rem;font-weight:800;color:#fff;
-  text-decoration:none;letter-spacing:-.04em;line-height:1;
-}
-.ec-auth-logo-sub{
-  font-size:.62rem;font-weight:600;color:rgba(255,255,255,.4);
-  letter-spacing:.18em;text-transform:uppercase;margin-top:.4rem;
-}
-.ec-auth-divider-top{
-  height:3px;
-  background:linear-gradient(90deg,var(--coral) 0%,#ff9a8b 100%);
-}
-/* Titre uppercase */
 .ec-auth-title{
-  font-size:1.1rem;font-weight:800;color:var(--navy);
-  margin:1.6rem 2rem .2rem;letter-spacing:.01em;
-  text-transform:uppercase;line-height:1.25;
+  font-size:1.35rem;font-weight:700;color:var(--navy);
+  margin:0 0 .3rem;letter-spacing:-.02em;
 }
-.ec-auth-hint{ font-size:.84rem;color:var(--muted);margin:.4rem 2rem 1.4rem;line-height:1.55; }
-
-/* Champs dans la carte avec padding latéral */
-.ec-auth-card .ec-form-group{ margin:0 2rem 1rem; }
-.ec-auth-card .ec-form-err{ margin:0 2rem .9rem; }
-.ec-auth-card .ec-btn-primary{ margin:1rem 2rem 0;width:calc(100% - 4rem); }
-.ec-auth-card .ec-btn-secondary{ margin:.8rem 2rem 0;width:calc(100% - 4rem); }
-.ec-auth-card .ec-auth-sep{ margin:1.3rem 2rem; }
-.ec-auth-card .ec-forgot{ margin:0; }
+.ec-auth-hint{ font-size:.84rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.55; }
 
 /* Row entre toggle et forgot */
 .ec-auth-row-between{
   display:flex;align-items:center;justify-content:space-between;
-  margin:-.1rem 2rem 1rem;gap:.5rem;
+  margin:-.1rem 0 1rem;gap:.5rem;
 }
 /* Toggle "Se souvenir de moi" */
 .ec-remember-toggle{
