@@ -2100,16 +2100,22 @@ function sp5Submit(){
       });
     }
 
+    // Bloquer le scroll du fond sans toucher body — géré au niveau du panel
+    panel.addEventListener('touchmove', function(e){
+      e.preventDefault();
+    }, {passive: false});
+    // Laisser la liste défiler librement
+    list.addEventListener('touchmove', function(e){
+      e.stopPropagation();
+    }, {passive: true});
+
     function openPanel(){
       searchInp.value='';
       renderList('');
-      document.body.style.overflow='hidden';
       panel.classList.add('open');
-      setTimeout(function(){ searchInp.focus(); }, 100);
     }
     function closePanel(){
       panel.classList.remove('open');
-      document.body.style.overflow='';
     }
 
     trigger.addEventListener('click',function(e){
