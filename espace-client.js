@@ -3,21 +3,22 @@
 ════════════════════════════════════════════ */
 
 // ── Formatage affichage IDs ──
-function ecFmtId(id){
-  if(!id) return '—';
-  if(/^CLI-\d{4}-\d{6}$/.test(id)) return id;
-  // Legacy ID → format professionnel dérivé
+function _ecNumFromId(id){
   var hash = 0;
   for(var i=0;i<id.length;i++) hash = (hash*31 + id.charCodeAt(i)) & 0x7fffffff;
-  return 'CLI-' + new Date().getFullYear() + '-' + String(100000 + (hash % 900000));
+  return String(100000 + (hash % 900000));
 }
-function ecFmtRef(ref){
-  if(!ref) return '—';
-  if(/^FDX-\d{4}-\d{6}$/.test(ref)) return ref;
-  // Legacy ref → format professionnel dérivé
-  var hash = 0;
-  for(var i=0;i<ref.length;i++) hash = (hash*31 + ref.charCodeAt(i)) & 0x7fffffff;
-  return 'FDX-' + new Date().getFullYear() + '-' + String(100000 + (hash % 900000));
+function ecFmtId(id){
+  if(!id) return '—';
+  if(/^FDX-\d{4}-\d{6}$/.test(id)) return id;
+  return 'FDX-' + new Date().getFullYear() + '-' + _ecNumFromId(id);
+}
+function ecFmtRef(ref, userId){
+  // Toujours dériver du même identifiant client pour avoir le même numéro
+  var base = userId || ref;
+  if(!base) return '—';
+  if(/^FDX-\d{4}-\d{6}$/.test(base)) return base;
+  return 'FDX-' + new Date().getFullYear() + '-' + _ecNumFromId(base);
 }
 
 // ── Utilitaires session ──
@@ -693,7 +694,7 @@ function ecInitDashboard(){
   var pct        = capital > 0 ? Math.round((moisPasses / duree) * 100) : 0;
 
   var refEl=document.getElementById('ec-credit-ref');
-  if(refEl) refEl.textContent=ecFmtRef(user.ref);
+  if(refEl) refEl.textContent=ecFmtRef(user.ref, user.id);
 
   var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
 

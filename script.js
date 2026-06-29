@@ -1244,10 +1244,10 @@ function sp5Submit(){
     return;
   }
 
-  // Génère un numéro de dossier professionnel : FDX-AAAA-XXXXXX
+  // Génère un numéro unique partagé par l'ID client et le dossier
   var _yr = new Date().getFullYear();
-  var _seq = String(Math.floor(100000 + Math.random()*900000));
-  var ref = 'FDX-' + _yr + '-' + _seq;
+  var _fdxNum = 'FDX-' + _yr + '-' + String(Math.floor(100000 + Math.random()*900000));
+  var ref = _fdxNum;
 
   // Date et heure de dépôt
   var now = new Date();
@@ -1272,7 +1272,7 @@ function sp5Submit(){
 
   // Création automatique du compte espace client
   var ecUser = {
-    id: 'CLI-' + new Date().getFullYear() + '-' + String(Math.floor(100000 + Math.random()*900000)),
+    id: _fdxNum,
     civilite: simData.civilite || 'M',
     prenom: prenom.trim(),
     nom: nom.trim(),
