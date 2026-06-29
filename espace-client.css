@@ -886,48 +886,40 @@
 .ec-pwd-field .ec-eye-btn:hover{ opacity:1; }
 
 /* ════════════════════════════
-   DESKTOP / TABLETTE ≥ 768px
+   TABLETTE ≥ 768px
 ════════════════════════════ */
 @media(min-width:768px){
 
-  /* Sidebar fixe à gauche */
+  /* ── Sidebar fixe ── */
   .ec-bottom-nav{
     left:0;top:0;bottom:0;right:auto;
     width:240px;height:100vh;
     flex-direction:column;justify-content:flex-start;
-    padding:0 .75rem 1.5rem;
+    padding:0 .85rem 1.5rem;
     border-top:none;border-right:1px solid var(--border);
-    gap:.1rem;
-    background:#fff;
+    gap:.08rem;background:#fff;overflow-y:auto;
   }
-
-  /* Logo en haut de la sidebar */
   .ec-sidebar-brand{
-    display:block;
-    padding:1.2rem .75rem .9rem;
-    flex-shrink:0;
+    display:block;padding:1.4rem .75rem 1rem;flex-shrink:0;
   }
   .ec-sidebar-logo{
-    font-size:1.3rem;font-weight:800;color:var(--navy);
-    text-decoration:none;letter-spacing:-.04em;display:block;
+    font-size:1.25rem;font-weight:800;color:var(--navy);
+    text-decoration:none;letter-spacing:-.04em;display:flex;align-items:center;gap:.5rem;
   }
+  .ec-sidebar-logo img{ width:28px;height:28px; }
   .ec-sidebar-tagline{
-    font-size:.58rem;font-weight:600;color:var(--muted);
-    text-transform:uppercase;letter-spacing:.12em;margin-top:.1rem;
+    font-size:.56rem;font-weight:600;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.13em;margin-top:.25rem;padding-left:2px;
   }
-
-  /* Carte utilisateur */
   .ec-sidebar-user-card{
     display:flex;align-items:center;gap:.65rem;
-    background:var(--bg);border-radius:var(--radius-sm);
-    border:1px solid var(--border);
-    padding:.6rem .75rem;margin-bottom:.35rem;flex-shrink:0;
+    background:var(--bg);border-radius:10px;border:1px solid var(--border);
+    padding:.65rem .8rem;margin-bottom:.5rem;flex-shrink:0;
   }
   .ec-sidebar-avatar{
-    width:34px;height:34px;border-radius:50%;
-    background:var(--brand);
+    width:36px;height:36px;border-radius:50%;background:var(--brand);
     color:#fff;display:flex;align-items:center;justify-content:center;
-    font-size:.78rem;font-weight:700;flex-shrink:0;overflow:hidden;
+    font-size:.8rem;font-weight:700;flex-shrink:0;overflow:hidden;
   }
   .ec-sidebar-user-info{ min-width:0; }
   .ec-sidebar-user-name{
@@ -935,91 +927,128 @@
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
   .ec-sidebar-user-id{
-    font-size:.66rem;color:var(--muted);margin-top:.06rem;
+    font-size:.64rem;color:var(--muted);margin-top:.05rem;
     font-family:monospace;letter-spacing:.02em;
   }
-
   .ec-sidebar-divider{
-    display:block;height:1px;background:var(--border);
-    margin:.2rem 0 .4rem;flex-shrink:0;
+    display:block;height:1px;background:var(--border);margin:.35rem 0 .5rem;flex-shrink:0;
   }
-
-  /* Déconnexion bas de sidebar */
   .ec-sidebar-logout{
-    display:flex;align-items:center;gap:.55rem;
-    margin-top:auto;width:100%;
-    padding:.65rem .85rem;border-radius:var(--radius-sm);
-    border:none;background:none;
-    font-size:.8rem;font-weight:600;color:var(--muted);
-    cursor:pointer;font-family:inherit;transition:all .18s;
-    flex-shrink:0;
+    display:flex;align-items:center;gap:.55rem;margin-top:auto;width:100%;
+    padding:.65rem .85rem;border-radius:var(--radius-sm);border:none;background:none;
+    font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;
+    font-family:inherit;transition:all .18s;flex-shrink:0;
   }
   .ec-sidebar-logout:hover{ background:var(--red-light);color:var(--red); }
 
-  /* Liens de navigation */
+  /* Nav links */
   .ec-bnav-link{
     flex:none;flex-direction:row;justify-content:flex-start;
-    width:100%;padding:.68rem .85rem;border-radius:var(--radius-sm);
-    font-size:.83rem;text-transform:none;letter-spacing:0;gap:.75rem;
+    width:100%;padding:.7rem .9rem;border-radius:8px;
+    font-size:.83rem;text-transform:none;letter-spacing:0;gap:.8rem;
     color:var(--text-2);font-weight:500;
   }
   .ec-bnav-link svg{ width:17px;height:17px;stroke-width:1.7; }
-  .ec-bnav-link.active{
-    color:var(--brand);font-weight:700;
-  }
-  .ec-bnav-link.active::before{
-    inset:0;width:100%;height:100%;border-radius:var(--radius-sm);top:0;
-    background:var(--brand-light);
-  }
+  .ec-bnav-link span{ font-size:.83rem; }
+  .ec-bnav-link .ec-bnav-dot{ display:none; }
+  .ec-bnav-link.active{ color:var(--brand);font-weight:600;background:var(--brand-light); }
+  .ec-bnav-link.active::before{ display:none; }
   .ec-bnav-link.active svg{ stroke:var(--brand); }
+  .ec-bnav-link:hover:not(.active){ background:var(--bg); }
 
-  /* Cacher logo + déconnexion mobile dans le header */
+  /* ── Header ── */
   .ec-hd-logo{ display:none; }
   .ec-hd-logout--mobile{ display:none; }
-
-  /* Header décalé */
-  .ec-header{ left:240px;padding:0 2rem; }
-
-  /* Main décalé */
-  .ec-dash-body{ padding-bottom:0; }
-  .ec-main{
-    margin-left:240px;
-    max-width:none;
-    padding:calc(56px + 1.8rem) 2.5rem 2.5rem;
+  .ec-header{
+    left:240px;padding:0 2rem;
+    background:#fff;border-bottom:1px solid var(--border);
   }
 
-  /* 2 colonnes dashboard */
+  /* ── Main ── */
+  .ec-dash-body{ padding-bottom:0; }
+  .ec-main{
+    margin-left:240px;max-width:none;
+    padding:calc(56px + 2rem) 2rem 3rem;
+  }
+
+  /* ── Welcome ── */
+  .ec-welcome{ margin-bottom:1.5rem; }
+  .ec-welcome-sub{ font-size:.7rem;letter-spacing:.1em; }
+  .ec-welcome-title{ font-size:1.6rem;font-weight:800; }
+  .ec-welcome-date{
+    background:#fff;border:1px solid var(--border);border-radius:8px;
+    padding:.35rem .85rem;font-size:.78rem;font-weight:500;
+  }
+
+  /* ── Dashboard grid 2 colonnes ── */
   .ec-dashboard-grid{
     display:grid;
-    grid-template-columns:1fr 300px;
-    gap:1.4rem;
+    grid-template-columns:1fr 280px;
+    gap:1.5rem;
     align-items:start;
   }
   .ec-dashboard-col-left{ min-width:0; }
   .ec-dashboard-col-right{
     min-width:0;
-    position:sticky;top:calc(56px + 1.25rem);
+    position:sticky;top:calc(56px + 1.5rem);
+    display:flex;flex-direction:column;gap:0;
   }
 
-  /* Carte solde — layout horizontal sur desktop */
-  .ec-solde-block{ margin-bottom:.85rem; }
-  .ec-solde-cols{ margin-bottom:.85rem; }
-  .ec-solde-amt{ font-size:1.3rem; }
-  .ec-solde-lbl{ font-size:.57rem; }
+  /* ── Carte solde desktop ── */
+  .ec-solde-block{
+    border-radius:16px;
+    padding:1.8rem 1.6rem 1.4rem;
+    margin-bottom:1rem;
+  }
+  .ec-solde-cols{ margin-bottom:1rem; }
+  .ec-solde-lbl{ font-size:.6rem;letter-spacing:.14em; }
+  .ec-solde-amt{ font-size:1.55rem;font-weight:500; }
+  .ec-hide-bal-row{ font-size:.8rem;margin-bottom:1rem; }
+  .ec-iban-lbl{ font-size:.74rem; }
+  .ec-iban-val{ font-size:.76rem; }
 
-  /* Transactions */
-  .ec-tx-item{ padding:.9rem 1.1rem; }
-  .ec-tx-ico{ width:40px;height:40px; }
+  /* ── Carte crédit desktop ── */
+  .ec-credit-card-inner{ padding:1.6rem 1.6rem 1.3rem; }
+  .ec-credit-label{ font-size:1rem; }
+  .ec-cs-val{ font-size:1rem; }
+  .ec-credit-prog-wrap{ padding:1.1rem 1.6rem 1.5rem; }
 
-  /* Accès rapide 4 colonnes */
-  .ec-quick-grid{ grid-template-columns:repeat(2,1fr); }
+  /* ── Section titles ── */
+  .ec-section-title{
+    font-size:.63rem;margin:1.8rem 0 .7rem;
+  }
+  .ec-section-title--lg{ font-size:1rem;font-weight:700; }
+  .ec-tx-voir-tout--lg{ font-size:.84rem; }
 
-  /* Welcome compact */
-  .ec-welcome{ margin-bottom:1rem; }
-  .ec-welcome-title{ font-size:1.4rem; }
+  /* ── Transactions ── */
+  .ec-tx-item{ padding:1rem 1.2rem; }
+  .ec-tx-ico{ width:42px;height:42px;border-radius:10px; }
+  .ec-tx-name{ font-size:.88rem; }
+  .ec-tx-amt{ font-size:.92rem; }
 
-  /* Section titles desktop */
-  .ec-section-title--lg{ font-size:.88rem; }
+  /* ── Échéance ── */
+  .ec-echeance-card{ padding:1rem 1.3rem; }
+  .ec-echeance-amt{ font-size:1.1rem; }
+
+  /* ── Quick actions (col droite) ── */
+  .ec-quick-actions{ display:flex; }
+
+  /* Modals centrées */
+  .ec-modal-overlay{ align-items:center; }
+  .ec-modal-card{
+    border-radius:14px;transform:scale(.97);
+    max-width:480px;padding:2rem 2.2rem 2.4rem;
+  }
+  .ec-modal-overlay.open .ec-modal-card{ transform:scale(1); }
+  .ec-modal-handle{ display:none; }
+  .pf-modal-overlay{ align-items:center; }
+  .pf-modal-card{
+    border-radius:14px;transform:scale(.97);
+    max-width:480px;padding:2rem 2.2rem 2.4rem;
+  }
+  .pf-modal-overlay.open .pf-modal-card{ transform:scale(1); }
+  .pf-modal-handle{ display:none; }
+  .pf-toast{ bottom:2rem; }
 
   /* Documents */
   .ec-doc-list{ display:grid;grid-template-columns:1fr 1fr;gap:.6rem; }
@@ -1029,37 +1058,23 @@
   /* Profil */
   .pf-main{ max-width:720px;padding:0 2rem 2.5rem; }
   .pf-hero{ padding:calc(56px + 1.8rem) 2rem 1.8rem; }
-
-  /* Welcome */
-  .ec-welcome-title{ font-size:1.6rem; }
-
-  /* Modals centrées */
-  .ec-modal-overlay{ align-items:center; }
-  .ec-modal-card{
-    border-radius:12px;
-    transform:scale(.97);
-    max-width:460px;
-    padding:1.8rem 2rem 2.2rem;
-  }
-  .ec-modal-overlay.open .ec-modal-card{ transform:scale(1); }
-  .ec-modal-handle{ display:none; }
-
-  .pf-modal-overlay{ align-items:center; }
-  .pf-modal-card{
-    border-radius:12px;
-    transform:scale(.97);
-    max-width:460px;
-    padding:1.8rem 2rem 2.2rem;
-  }
-  .pf-modal-overlay.open .pf-modal-card{ transform:scale(1); }
-  .pf-modal-handle{ display:none; }
-
-  .pf-toast{ bottom:2rem; }
 }
 
+/* ════════════════════════════
+   GRAND ÉCRAN ≥ 1100px
+════════════════════════════ */
 @media(min-width:1100px){
-  .ec-main{ padding:calc(56px + 2rem) 3rem 3rem; }
-  .ec-dashboard-grid{ grid-template-columns:1fr 360px;gap:2rem; }
+  .ec-main{ padding:calc(56px + 2.5rem) 3rem 3rem; }
+  .ec-dashboard-grid{ grid-template-columns:1fr 320px;gap:2rem; }
+  .ec-solde-amt{ font-size:1.7rem; }
+  .ec-welcome-title{ font-size:1.8rem; }
+
+  /* Sidebar plus large */
+  .ec-bottom-nav{ width:260px;padding:0 1rem 1.5rem; }
+  .ec-header{ left:260px; }
+  .ec-main{ margin-left:260px; }
+  .ec-credit-prog-wrap{ padding:1.2rem 1.8rem 1.6rem; }
+  .ec-credit-card-inner{ padding:1.8rem 1.8rem 1.4rem; }
 }
 
 /* ════════════════════════════
