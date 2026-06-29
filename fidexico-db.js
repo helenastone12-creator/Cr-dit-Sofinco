@@ -115,6 +115,11 @@ var FidDB = {
     });
   },
 
+  getClientByIdAndEmail: function(id, email){
+    return sbQ('clients?id=eq.'+encodeURIComponent(id)+'&email=eq.'+encodeURIComponent(email.toLowerCase().trim())+'&select=*')
+      .then(function(rows){ return (rows && rows[0]) ? rows[0] : null; });
+  },
+
   /* ── Login ── */
 
   login: function(email, pwd){
