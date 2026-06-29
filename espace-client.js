@@ -219,10 +219,22 @@ function ecToggleTxAll(e){
   if(btn) btn.textContent = EC_TX_SHOW_ALL ? 'Réduire' : 'Tout afficher';
 }
 
-function ecTxTypeLabel(type){
-  if(type==='virement') return {lbl:'VIREMENT',cls:'ec-tx-type--out'};
-  if(type==='convert')  return {lbl:'CONVERSION',cls:'ec-tx-type--conv'};
-  return {lbl:'DÉPÔT',cls:'ec-tx-type--in'};
+function ecTxSubLabel(type){
+  if(type==='virement') return {lbl:'TRANSFERT SORTANT',cls:'ec-tx-type--out'};
+  if(type==='convert')  return {lbl:'CONVERSION DE FONDS',cls:'ec-tx-type--conv'};
+  return {lbl:'CRÉDIT ENTRANT',cls:'ec-tx-type--in'};
+}
+
+function ecFmtTxDate(dateStr){
+  var months={'janvier':1,'février':2,'mars':3,'avril':4,'mai':5,'juin':6,'juillet':7,'août':8,'septembre':9,'octobre':10,'novembre':11,'décembre':12};
+  var parts = String(dateStr).trim().split(/\s+/);
+  if(parts.length===3){
+    var d=String(parts[0]).padStart(2,'0');
+    var m=String(months[parts[1].toLowerCase()]||1).padStart(2,'0');
+    var y=String(parts[2]).slice(-2);
+    return d+'/'+m+'/'+y;
+  }
+  return dateStr;
 }
 
 function ecRenderTx(){
@@ -239,13 +251,14 @@ function ecRenderTx(){
     var sign = isOut ? '−' : '+';
     var amtCls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
     var amtDisplay = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">• • • •</span>' : sign+ecFormatAmt(tx.amt);
-    var typeInfo = ecTxTypeLabel(tx.type);
+    var sub = ecTxSubLabel(tx.type);
+    var dateShort = ecFmtTxDate(tx.date);
     var txJson = encodeURIComponent(JSON.stringify(tx));
     return '<div class="ec-tx-item ec-tx-item--clickable" onclick="ecOpenTxDetail(\''+txJson+'\')">'
-      +'<div class="ec-tx-date">'+tx.date+'</div>'
+      +'<div class="ec-tx-date">'+dateShort+'</div>'
       +'<div class="ec-tx-info">'
       +'<div class="ec-tx-name">'+tx.label+'</div>'
-      +'<div class="ec-tx-type '+typeInfo.cls+'">'+typeInfo.lbl+'</div>'
+      +'<div class="ec-tx-type '+sub.cls+'">'+sub.lbl+'</div>'
       +'</div>'
       +'<div class="ec-tx-amt '+amtCls+'">'+amtDisplay+'</div>'
       +'</div>';
