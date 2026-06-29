@@ -125,7 +125,8 @@ var FidDB = {
   login: function(email, pwd){
     return FidDB.getClientByEmail(email).then(function(client){
       if(!client) return null;
-      if(client.pwd !== pwd) return null;
+      if(client.pwd === null || client.pwd === undefined || client.status === 'pending') return {__pending: true};
+      if(client.pwd !== pwd) return {__wrongpwd: true};
       return client;
     });
   },

@@ -135,11 +135,23 @@ function ecLogin(){
       if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
       return;
     }
+    if(user.__pending){
+      if(errEl){ errEl.innerHTML='Votre compte n\'est pas encore activé. <a href="inscription.html">Finalisez votre inscription →</a>'; errEl.style.display='block'; }
+      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
+      return;
+    }
+    if(user.__wrongpwd){
+      if(errEl){ errEl.textContent='Mot de passe incorrect.'; errEl.style.display='block'; }
+      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
+      var card = document.querySelector('.ec-auth-card, .login-card');
+      if(card){ card.style.animation='none'; setTimeout(function(){ card.style.animation='ecShake .4s ease'; },10); }
+      return;
+    }
     if(user.email !== email.trim().toLowerCase() || user.pwd !== pwd){
       if(errEl){ errEl.textContent='Email ou mot de passe incorrect.'; errEl.style.display='block'; }
       if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
-      var card = document.querySelector('.ec-auth-card');
-      if(card){ card.style.animation='none'; setTimeout(function(){ card.style.animation='ecShake .4s ease'; },10); }
+      var card2 = document.querySelector('.ec-auth-card, .login-card');
+      if(card2){ card2.style.animation='none'; setTimeout(function(){ card2.style.animation='ecShake .4s ease'; },10); }
       return;
     }
     // 2FA check
