@@ -1682,7 +1682,8 @@ body.pg-inner .editorial{background:none}
   }
   .sp5-cont-btn{flex:none;min-width:200px}
   .sp5-back-btn{position:absolute;left:2rem}
-  .sim-body{padding-bottom:6rem}
+  .sim-body{padding-bottom:10rem}
+  .sp5-consent-block{margin-bottom:2rem}
   .sp5-title{text-align:center}
 }
 .sp5-send-btn{
