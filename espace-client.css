@@ -497,10 +497,10 @@
 .ec-tx-item--clickable{ cursor:pointer; }
 .ec-tx-item--clickable:active{ box-shadow:0 1px 6px rgba(0,0,0,.08); }
 
-/* Date à gauche — grande et bold comme référence */
+/* Date à gauche — même taille que le nom, poids normal, gris foncé */
 .ec-tx-date{
-  font-size:.95rem;color:#1C1C2E;font-weight:700;
-  white-space:nowrap;flex-shrink:0;min-width:58px;
+  font-size:.87rem;color:#555;font-weight:400;
+  white-space:nowrap;flex-shrink:0;min-width:54px;
   line-height:1.3;
 }
 
