@@ -280,99 +280,97 @@
    SOLDE — style bancaire sobre
 ════════════════════════════ */
 .ec-solde-block{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:1.5rem 1.4rem 1.2rem;
-  margin-bottom:.75rem;
-  box-shadow:0 2px 16px rgba(0,0,0,.07);
+  background:#fff;
+  border:none;
+  border-radius:18px;
+  padding:1.6rem 1.4rem 1.3rem;
+  margin-bottom:1rem;
+  box-shadow:0 2px 20px rgba(0,0,0,.08);
 }
 .ec-solde-cols{
-  display:flex;align-items:stretch;gap:0;
-  margin-bottom:1rem;
+  display:flex;align-items:flex-start;gap:0;
+  margin-bottom:1.1rem;
 }
 .ec-solde-col{
   flex:1;
-  display:flex;flex-direction:column;gap:.45rem;
+  display:flex;flex-direction:column;gap:.5rem;
 }
-.ec-solde-col:last-child{ padding-left:1.1rem; }
+.ec-solde-col:last-child{ padding-left:1.2rem; }
 .ec-solde-divider{
-  width:1px;background:var(--border);
-  margin:0 .6rem;flex-shrink:0;
+  width:1px;background:#E5E7EB;
+  margin:0;flex-shrink:0;align-self:stretch;
 }
 .ec-solde-lbl{
-  font-size:.6rem;font-weight:700;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.13em;
+  font-size:.65rem;font-weight:600;color:#9CA3AF;
+  text-transform:uppercase;letter-spacing:.12em;
 }
 .ec-solde-amt{
-  font-size:1.6rem;font-weight:700;color:var(--navy);
-  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
-  transition:opacity .18s;line-height:1;
+  font-size:1.75rem;font-weight:700;color:#111827;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+  transition:opacity .18s;line-height:1.1;
 }
 .ec-hide-bal-row{
-  display:flex;align-items:center;gap:.4rem;
+  display:flex;align-items:center;justify-content:center;gap:.45rem;
+  width:100%;
   background:none;border:none;padding:0;
-  color:var(--muted);font-size:.75rem;font-weight:500;
+  color:#6B7280;font-size:.82rem;font-weight:500;
   cursor:pointer;font-family:inherit;
-  margin-bottom:.9rem;transition:color .15s;
+  margin-bottom:1rem;transition:color .15s;
 }
-.ec-hide-bal-row:hover{ color:var(--brand); }
+.ec-hide-bal-row:hover{ color:#374151; }
 .ec-iban-row{
   display:flex;align-items:center;gap:.5rem;
-  background:var(--bg);border-radius:8px;
-  padding:.55rem .8rem;
+  border-top:1px solid #F3F4F6;
+  padding-top:.85rem;
 }
 .ec-iban-lbl{
-  font-size:.63rem;font-weight:700;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.1em;flex-shrink:0;
+  font-size:.75rem;font-weight:600;color:#9CA3AF;
+  flex-shrink:0;
 }
 .ec-iban-val{
-  font-size:.78rem;font-weight:500;color:var(--text-2);
+  font-size:.78rem;font-weight:500;color:#374151;
   flex:1;font-variant-numeric:tabular-nums;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .ec-iban-copy{
   background:none;border:none;padding:0;cursor:pointer;
-  color:var(--muted);display:flex;align-items:center;
+  color:#9CA3AF;display:flex;align-items:center;
   flex-shrink:0;transition:color .15s;
 }
 .ec-iban-copy:hover{ color:var(--brand); }
 
-/* Action pills */
+/* Action pills — horizontal icon+texte côte à côte */
 .ec-action-pills{
-  display:flex;gap:.6rem;
+  display:flex;gap:.55rem;
   margin-bottom:1.2rem;
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
 }
-.ec-action-pills::-webkit-scrollbar{ display:none; }
 .ec-pill-btn{
-  display:flex;flex-direction:column;align-items:center;gap:.4rem;
-  background:#1C2333;
+  display:flex;flex-direction:row;align-items:center;gap:.6rem;
+  background:#2D2D2D;
   border:none;border-radius:14px;
-  padding:.75rem .6rem .65rem;
+  padding:.75rem .9rem;
   color:#fff;cursor:pointer;
-  font-size:.68rem;font-weight:600;font-family:inherit;
+  font-size:.8rem;font-weight:600;font-family:inherit;
   flex:1;min-width:0;
   transition:background .18s,transform .12s;
   white-space:nowrap;
 }
-.ec-pill-btn:hover{ background:#252d42; }
-.ec-pill-btn:active{ transform:scale(.95); }
+.ec-pill-btn:hover{ background:#3D3D3D; }
+.ec-pill-btn:active{ transform:scale(.96); }
 .ec-pill-ico{
-  width:32px;height:32px;border-radius:50%;
+  width:34px;height:34px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.ec-pill-ico--green{ background:rgba(26,127,90,.25); color:#2ecc8f; }
-.ec-pill-ico--green svg{ stroke:#2ecc8f; }
-.ec-pill-ico--blue{ background:rgba(11,94,138,.25); color:#4fc3f7; }
-.ec-pill-ico--blue svg{ stroke:#4fc3f7; }
-.ec-pill-ico--teal{ background:rgba(11,158,138,.25); color:#26d7c2; }
-.ec-pill-ico--teal svg{ stroke:#26d7c2; }
-.ec-pill-ico--orange{ background:rgba(230,126,34,.25); color:#f39c12; }
-.ec-pill-ico--orange svg{ stroke:#f39c12; }
+.ec-pill-ico--green{ background:rgba(52,211,153,.2); }
+.ec-pill-ico--green svg{ stroke:#34D399; }
+.ec-pill-ico--blue{ background:rgba(96,165,250,.2); }
+.ec-pill-ico--blue svg{ stroke:#60A5FA; }
+.ec-pill-ico--teal{ background:rgba(45,212,191,.2); }
+.ec-pill-ico--teal svg{ stroke:#2DD4BF; }
+.ec-pill-ico--orange{ background:rgba(251,191,36,.2); }
+.ec-pill-ico--orange svg{ stroke:#FBBF24; }
 
-/* Legacy — keep for any remaining references */
+/* Legacy */
 .ec-solde-actions{ display:none; }
 .ec-eye-circle{ display:none; }
 
