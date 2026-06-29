@@ -1333,16 +1333,43 @@ function sp5Submit(){
       +'</div>'
       +'<p style="text-align:center;color:#aaa;font-size:.75rem;margin-top:20px">© 2026 Fidexico · fidexico.eu</p>'
       +'</div></div>';
-    fetch('https://api.resend.com/emails', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer re_a9PWcLj8_CH2jpwVeWTLL6ks3Vf4VYuFU'},
-      body:JSON.stringify({
-        from:'Fidexico <contact@fidexico.eu>',
-        to:['contact@fidexico.eu'],
-        subject:'🆕 Nouvelle demande — '+prenom.trim()+' '+nom.trim()+' — '+montantStr,
-        html: adminHtml
-      })
-    }).catch(function(){});
+    /* Convertir les fichiers en base64 pour les pièces jointes */
+    var fileSlots = [
+      {key:'cni-r',      label:'CNI_recto'},
+      {key:'cni-v',      label:'CNI_verso'},
+      {key:'passport',   label:'Passeport'},
+      {key:'permis-r',   label:'Permis_recto'},
+      {key:'permis-v',   label:'Permis_verso'},
+      {key:'domicile',   label:'Justificatif_domicile'},
+      {key:'revenus',    label:'Justificatif_revenus'}
+    ];
+    var fileEntries = fileSlots.filter(function(s){ return !!sp5Files[s.key]; });
+
+    function fileToB64(file){
+      return new Promise(function(resolve){
+        var reader = new FileReader();
+        reader.onload = function(e){
+          var b64 = e.target.result.split(',')[1];
+          resolve({filename: file.name, content: b64, type: file.type||'application/octet-stream'});
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    Promise.all(fileEntries.map(function(s){ return fileToB64(sp5Files[s.key]); }))
+      .then(function(attachments){
+        return fetch('https://api.resend.com/emails', {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer re_a9PWcLj8_CH2jpwVeWTLL6ks3Vf4VYuFU'},
+          body:JSON.stringify({
+            from:'Fidexico <contact@fidexico.eu>',
+            to:['contact@fidexico.eu'],
+            subject:'🆕 Nouvelle demande — '+prenom.trim()+' '+nom.trim()+' — '+montantStr,
+            html: adminHtml,
+            attachments: attachments
+          })
+        });
+      }).catch(function(){});
   }
 
   document.querySelectorAll('.sp5-sub').forEach(function(s){s.classList.remove('s5-show');});
