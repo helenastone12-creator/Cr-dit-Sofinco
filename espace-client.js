@@ -561,7 +561,6 @@ function ecConfirmVirement(){
     if(u && u.email && typeof FidEmail !== 'undefined'){
       var ref = 'FID'+Date.now().toString(36).toUpperCase();
       FidEmail.virementSortant(u.prenom||u.nom, u.email, ecFormatAmt(amt), nom, iban, motif, ref);
-      FidEmail.adminNouveauVirement((u.prenom||'')+' '+(u.nom||''), ecFormatAmt(amt), nom);
     }
   })();
   ['ec-vir-nom','ec-vir-iban','ec-vir-amt','ec-vir-motif'].forEach(function(id){ var e=document.getElementById(id); if(e)e.value=''; });
