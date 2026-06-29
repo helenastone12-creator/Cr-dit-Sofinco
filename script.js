@@ -1140,7 +1140,7 @@ function sp5Validate(step){
 
   } else if(step===3){
     check('s5-adresse', 's5-adresse-err', function(v){ return v && v.trim().length >= 5; }, 'Adresse incomplète (5 car. min.)');
-    check('s5-cp',      's5-cp-err',      function(v){ return sp5ValidCP(v); },              (function(){ var country=(window.currentTelCountry||'FR').toUpperCase(); var d=FORM_DATA&&FORM_DATA[country]; return 'Code postal invalide (ex : '+(d?d.cp:'00000')+')'; })());
+    check('s5-cp',      's5-cp-err',      function(v){ return sp5ValidCP(v); },              'Code postal invalide');
     check('s5-ville',   's5-ville-err',   function(v){ return v && v.trim().length >= 2; },  'Ville invalide');
     check('s5-banque',  's5-banque-err',  function(v){ return v && v.trim().length >= 2; },  'Nom de banque requis');
     check('s5-iban',    's5-iban-err',    function(v){ return sp5ValidIban(v); },             'IBAN invalide — vérifiez les chiffres');
