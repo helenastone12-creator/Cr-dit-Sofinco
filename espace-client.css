@@ -305,9 +305,9 @@
   text-transform:uppercase;letter-spacing:.12em;
 }
 .ec-solde-amt{
-  font-size:clamp(1.1rem,4.5vw,1.45rem);font-weight:700;color:#111827;
-  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
-  transition:opacity .18s;line-height:1.15;
+  font-size:clamp(1.05rem,4vw,1.35rem);font-weight:600;color:#1a1a2e;
+  letter-spacing:-.01em;font-variant-numeric:tabular-nums;
+  transition:opacity .18s;line-height:1.2;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .ec-hide-bal-row{
