@@ -62,7 +62,7 @@
 }
 /* Logo dans la carte */
 .ec-login-brand{
-  margin-bottom:2.4rem;
+  margin-bottom:2.4rem;text-align:center;
 }
 .ec-login-brand-name{
   font-size:2rem;font-weight:900;color:#0f1f35;
