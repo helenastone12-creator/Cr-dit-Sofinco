@@ -605,24 +605,24 @@ function unlockScroll(){
 
   function closeSim(){
     var page = document.getElementById('sim-page');
+    if(!page) return;
     page.classList.add('closing');
     setTimeout(function(){
       page.classList.remove('open','closing');
       if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
     }, 280);
-    if(history.state && history.state.sim) history.back();
   }
 
-  window.addEventListener('popstate', function(e){
+  window.addEventListener('popstate', function(){
+    // Fermer nat panel si ouvert
+    var natPanel = document.querySelector('.nat-panel.open');
+    if(natPanel){ natPanel.classList.remove('open'); history.pushState({sim:true},''); return; }
+    // Fermer simulateur si ouvert
     var page = document.getElementById('sim-page');
-    if(page && page.classList.contains('open')){
-      page.classList.add('closing');
-      setTimeout(function(){
-        page.classList.remove('open','closing');
-        if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
-      }, 280);
-    }
+    if(page && page.classList.contains('open')){ closeSim(); return; }
   });
+
+  // Les boutons Quitter/logo utilisent history.back() → déclenche popstate → closeSim
 
   // Débloque le scroll de sim-body après fermeture du clavier iOS
   document.addEventListener('focusout', function(e){
@@ -641,9 +641,9 @@ function unlockScroll(){
   });
 
   var simPhQuit=document.getElementById('sim-ph-quit');
-  if(simPhQuit) simPhQuit.addEventListener('click',closeSim);
+  if(simPhQuit) simPhQuit.addEventListener('click',function(){ history.back(); });
   var simPhLogo=document.getElementById('sim-ph-logo');
-  if(simPhLogo) simPhLogo.addEventListener('click',closeSim);
+  if(simPhLogo) simPhLogo.addEventListener('click',function(){ history.back(); });
 
   // Validation temps réel montant simulateur
   var simAmtInput = document.getElementById('sim-amount-input');
