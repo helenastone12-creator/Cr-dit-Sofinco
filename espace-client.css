@@ -57,34 +57,34 @@
 /* Carte principale */
 .ec-login-card{
   background:#fff;border-radius:12px;
-  padding:2.2rem 1.8rem 2rem;
-  box-shadow:0 2px 16px rgba(0,0,0,.08);
+  padding:2.6rem 2rem 2.4rem;
+  box-shadow:0 2px 20px rgba(0,0,0,.09);
 }
 /* Logo dans la carte */
 .ec-login-brand{
-  margin-bottom:1.8rem;
+  margin-bottom:2.4rem;
 }
 .ec-login-brand-name{
-  font-size:1.7rem;font-weight:900;color:#0f1f35;
-  text-decoration:none;letter-spacing:.04em;
+  font-size:2rem;font-weight:900;color:#0f1f35;
+  text-decoration:none;letter-spacing:.05em;
   display:inline-block;
 }
 /* Titre uppercase bold */
 .ec-login-title{
-  font-size:1.45rem;font-weight:900;color:#0f1f35;
-  line-height:1.2;margin:0 0 1.8rem;letter-spacing:-.01em;
+  font-size:1.7rem;font-weight:900;color:#0f1f35;
+  line-height:1.15;margin:0 0 2rem;letter-spacing:-.01em;
 }
 /* Champs */
 .ec-login-field-wrap{
-  position:relative;margin-bottom:1rem;
+  position:relative;margin-bottom:1.1rem;
 }
 .ec-login-inp{
   width:100%;border:1.5px solid #cdd3da;border-radius:6px;
-  padding:.9rem 1rem;font-size:1rem;font-family:inherit;
+  padding:1.05rem 1.1rem;font-size:1.05rem;font-family:inherit;
   color:#1a2433;background:#fff;outline:none;
   transition:border-color .18s,box-shadow .18s;
 }
-.ec-login-inp::placeholder{ color:#a8b2be; }
+.ec-login-inp::placeholder{ color:#a8b2be;font-size:1rem; }
 .ec-login-inp:focus{ border-color:#0B5E8A;box-shadow:0 0 0 3px rgba(11,94,138,.1); }
 .ec-login-eye{
   position:absolute;right:.9rem;top:50%;transform:translateY(-50%);
@@ -94,21 +94,21 @@
 .ec-login-eye:hover{ color:#1a2433; }
 /* Lien oublié */
 .ec-login-forgot-row{
-  text-align:right;margin:-.3rem 0 .8rem;
+  text-align:right;margin:-.3rem 0 1rem;
 }
 .ec-login-forgot{
-  font-size:.84rem;color:#1a2433;text-decoration:underline;
-  text-underline-offset:2px;
+  font-size:.88rem;color:#1a2433;text-decoration:underline;
+  text-underline-offset:3px;
 }
 /* Toggle souvenir */
 .ec-login-remember-row{
-  margin-bottom:1.4rem;
+  margin-bottom:1.6rem;
 }
 /* Bouton principal */
 .ec-login-btn{
-  display:block;width:100%;padding:.95rem;border-radius:6px;
+  display:block;width:100%;padding:1.05rem;border-radius:6px;
   background:var(--coral);color:#fff;border:none;
-  font-size:1rem;font-weight:700;font-family:inherit;
+  font-size:1.05rem;font-weight:700;font-family:inherit;
   cursor:pointer;transition:background .2s,transform .12s;
   text-align:center;text-decoration:none;letter-spacing:.01em;
 }
@@ -116,9 +116,9 @@
 .ec-login-btn:active{ transform:scale(.98); }
 /* Bouton outline */
 .ec-login-btn-outline{
-  display:block;width:100%;padding:.9rem;border-radius:6px;
+  display:block;width:100%;padding:1rem;border-radius:6px;
   background:#fff;color:#0f1f35;border:1.5px solid #cdd3da;
-  font-size:1rem;font-weight:600;font-family:inherit;
+  font-size:1.05rem;font-weight:700;font-family:inherit;
   cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;
   margin-top:.1rem;
 }
