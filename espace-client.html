@@ -81,38 +81,42 @@
   <!-- Crédit en cours -->
   <div class="ec-section-title" data-i18n="credit_title">Crédit en cours</div>
   <div class="ec-credit-card">
-    <div class="ec-credit-card-top">
-      <div>
-        <div class="ec-credit-type" data-i18n="credit_type">Prêt personnel</div>
-        <div class="ec-credit-label"><span data-i18n="credit_ref">Réf.</span> <span id="ec-credit-ref">SOF-2026-—</span></div>
+    <div class="ec-credit-card-inner">
+      <div class="ec-credit-card-top">
+        <div>
+          <div class="ec-credit-type" data-i18n="credit_type">Prêt personnel</div>
+          <div class="ec-credit-label"><span data-i18n="credit_ref">Réf.</span> <span id="ec-credit-ref">SOF-2026-—</span></div>
+        </div>
+        <div class="ec-credit-badge" data-i18n="credit_badge">En cours</div>
       </div>
-      <div class="ec-credit-badge" data-i18n="credit_badge">En cours</div>
-    </div>
-    <div class="ec-credit-stats">
-      <div class="ec-credit-stat">
-        <span class="ec-cs-lbl" data-i18n="credit_capital">Capital</span>
-        <span class="ec-cs-val" id="ec-stat-capital">—</span>
+      <div class="ec-credit-stats">
+        <div class="ec-credit-stat">
+          <span class="ec-cs-lbl" data-i18n="credit_capital">Capital</span>
+          <span class="ec-cs-val" id="ec-stat-capital">—</span>
+        </div>
+        <div class="ec-credit-stat">
+          <span class="ec-cs-lbl" data-i18n="credit_mens">Mensualité</span>
+          <span class="ec-cs-val" id="ec-stat-mens">—</span>
+        </div>
+        <div class="ec-credit-stat">
+          <span class="ec-cs-lbl" data-i18n="credit_restant">Restant dû</span>
+          <span class="ec-cs-val" id="ec-stat-restant">—</span>
+        </div>
       </div>
-      <div class="ec-credit-stat">
-        <span class="ec-cs-lbl" data-i18n="credit_mens">Mensualité</span>
-        <span class="ec-cs-val" id="ec-stat-mens">—</span>
+    </div>
+    <div class="ec-credit-prog-wrap">
+      <div class="ec-credit-prog-lbl">
+        <span data-i18n="credit_remb">Remboursement</span>
+        <span id="ec-prog-pct">0%</span>
       </div>
-      <div class="ec-credit-stat">
-        <span class="ec-cs-lbl" data-i18n="credit_restant">Restant dû</span>
-        <span class="ec-cs-val" id="ec-stat-restant">—</span>
+      <div class="ec-credit-prog-track">
+        <div class="ec-credit-prog-fill" id="ec-prog-fill"></div>
       </div>
+      <button class="ec-remb-btn" onclick="ecOpenModal('remb')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        <span data-i18n="credit_remb_btn">Simuler un remboursement anticipé</span>
+      </button>
     </div>
-    <div class="ec-credit-prog-lbl">
-      <span data-i18n="credit_remb">Remboursement</span>
-      <span id="ec-prog-pct">0%</span>
-    </div>
-    <div class="ec-credit-prog-track">
-      <div class="ec-credit-prog-fill" id="ec-prog-fill"></div>
-    </div>
-    <button class="ec-remb-btn" onclick="ecOpenModal('remb')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-      <span data-i18n="credit_remb_btn">Simuler un remboursement anticipé</span>
-    </button>
   </div>
 
   <!-- Prochaine échéance -->
