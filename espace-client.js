@@ -476,10 +476,41 @@ function ecConfirmVirement(){
   ecOpenModal('success');
 }
 
+// ── Détection IP → pays → format IBAN ──
+var EC_IBAN_FORMATS = {
+  FR:'FR76 XXXX XXXX XXXX XXXX XXX',DE:'DE89 XXXX XXXX XXXX XXXX XX',
+  IT:'IT60 X000 0000 0000 0000 000 00',ES:'ES91 2100 0418 4502 0005 1332',
+  BE:'BE68 5390 0754 7034',NL:'NL91 ABNA 0417 1643 00',PT:'PT50 0002 0123 1234 5678 901 45',
+  CH:'CH93 0076 2011 6238 5295 7',AT:'AT61 1904 3002 3457 3201',PL:'PL61 1090 1014 0000 0712 1981 2874',
+  GB:'GB29 NWBK 6016 1331 9268 19',SE:'SE45 5000 0000 0583 9825 7466',NO:'NO93 8601 1117 947',
+  DK:'DK50 0040 0440 1162 43',FI:'FI21 1234 5600 0007 85',IE:'IE29 AIBK 9311 5212 3456 78',
+  LU:'LU28 0019 4006 4475 0000',LT:'LT12 1000 0111 0100 1000',LV:'LV80 BANK 0000 4351 9500 1',
+  EE:'EE38 2200 2210 2014 5685',SK:'SK31 1200 0000 1987 4263 7541',CZ:'CZ65 0800 0000 1920 0014 5399',
+  HU:'HU42 1177 3016 1111 1018 0000 0000',RO:'RO49 AAAA 1B31 0075 9384 0000',
+  HR:'HR12 1001 0051 8630 0016 0',SI:'SI56 2633 0001 2039 086',BG:'BG80 BNBG 9661 1020 3456 78',
+  GR:'GR16 0110 1250 0000 0001 2300 695',CY:'CY17 0020 0128 0000 0012 0052 7600',MT:'MT84 MALT 0110 0001 2345 MTLC AST0 01S',
+  MC:'MC58 1273 9000 7000 1111 3000 h79',LI:'LI21 0881 0000 2324 013A A',
+  MA:'MA64 0115 1900 0001 2050 0053',TN:'TN59 1000 6035 1835 9847 8831',
+  DZ:'DZ58 0002 1000 0111 3000 000 320',CM:'CM21 1000 2000 3002 7790 0141 2',
+  SN:'SN08 K001 0015 2000 0405 2009 5462',CI:"CI77 A060 2001 0640 0000 0000 000"
+};
+
+function ecDetectIpCountry(){
+  fetch('https://ipapi.co/json/')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var code = (d.country_code||'').toUpperCase();
+      var fmt = EC_IBAN_FORMATS[code];
+      var inp = document.getElementById('ec-vir-iban');
+      if(inp && fmt) inp.placeholder = fmt;
+    }).catch(function(){});
+}
+
 // ── Tableau de bord ──
 function ecInitDashboard(){
   ecGuard();
   if(typeof ecApplyI18n==='function') ecApplyI18n();
+  ecDetectIpCountry();
   document.addEventListener('click',function(e){ var dd=document.getElementById('ec-lang-dropdown'); if(dd&&!dd.contains(e.target)&&e.target.id!=='ec-lang-toggle'&&!e.target.closest('#ec-lang-toggle')) dd.classList.remove('open'); });
   ecInitHeader();
   ecRefreshSolde();
