@@ -931,20 +931,6 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  // Mot de passe — barre de force
-  var pwdInp = document.getElementById('s5-pwd');
-  var pwdBar = document.getElementById('s5-pwd-strength');
-  if(pwdInp && pwdBar){
-    pwdInp.addEventListener('input', function(){
-      var v = this.value;
-      pwdBar.className = 'sp5-pwd-strength';
-      pwdBar.innerHTML = '<span></span><span></span><span></span>';
-      if(!v) return;
-      if(v.length >= 10 && /[A-Z]/.test(v) && /[0-9]/.test(v)) pwdBar.classList.add('strong');
-      else if(v.length >= 8) pwdBar.classList.add('medium');
-      else pwdBar.classList.add('weak');
-    });
-  }
 });
 
 function sp5TogglePwd(id, btn){
@@ -1160,23 +1146,6 @@ function sp5Validate(step){
     if(revEr) revEr.classList.toggle('show', !hasRev);
     if(!hasRev) ok=false;
 
-    // mot de passe espace client
-    var pwd  = (document.getElementById('s5-pwd')||{}).value||'';
-    var pwd2 = (document.getElementById('s5-pwd2')||{}).value||'';
-    var pwdEl  = document.getElementById('s5-pwd');
-    var pwd2El = document.getElementById('s5-pwd2');
-    var pwdEr  = document.getElementById('s5-pwd-err');
-    var pwd2Er = document.getElementById('s5-pwd2-err');
-    var pwdOk = pwd.length >= 8;
-    if(pwdEl)  pwdEl.classList.toggle('err', !pwdOk);
-    var pwdErrMsg={'fr':'Le mot de passe doit contenir au moins 8 caractères','en':'Password must be at least 8 characters','de':'Passwort muss mindestens 8 Zeichen haben','es':'La contraseña debe tener al menos 8 caracteres','it':'La password deve contenere almeno 8 caratteri','nl':'Wachtwoord moet minimaal 8 tekens bevatten','pl':'Hasło musi mieć co najmniej 8 znaków','sv':'Lösenordet måste ha minst 8 tecken'};
-    var pwdMatchMsg={'fr':'Les mots de passe ne correspondent pas','en':'Passwords do not match','de':'Passwörter stimmen nicht überein','es':'Las contraseñas no coinciden','it':'Le password non corrispondono','nl':'Wachtwoorden komen niet overeen','pl':'Hasła nie są zgodne','sv':'Lösenorden stämmer inte överens'};
-    if(pwdEr){ pwdEr.classList.toggle('show', !pwdOk); if(!pwdOk) pwdEr.textContent=pwdErrMsg[LANG]||pwdErrMsg.fr; }
-    if(!pwdOk) ok = false;
-    var matchOk = pwd2 === pwd && pwd2.length > 0;
-    if(pwd2El) pwd2El.classList.toggle('err', !matchOk);
-    if(pwd2Er){ pwd2Er.classList.toggle('show', !matchOk); if(!matchOk) pwd2Er.textContent=pwdMatchMsg[LANG]||pwdMatchMsg.fr; }
-    if(!matchOk) ok = false;
   }
   return ok;
 }
@@ -1263,7 +1232,6 @@ function sp5Submit(){
   var nom    = (document.getElementById('s5-nom')||{}).value || '';
   var email  = (document.getElementById('s5-email')||{}).value || '';
   var tel    = (document.getElementById('s5-tel')||{}).value || '';
-  var pwd    = (document.getElementById('s5-pwd')||{}).value || '';
   var nomAffiche = (prenom+' '+nom).trim() || 'Monsieur/Madame';
 
   // Calcule la mensualité réelle depuis simData
@@ -1283,7 +1251,8 @@ function sp5Submit(){
     email: email.trim().toLowerCase(),
     tel: tel.trim(),
     ref: ref,
-    pwd: pwd,
+    pwd: null,
+    status: 'pending',
     createdAt: new Date().toISOString(),
     loan: {
       montant:    loanMontant,
@@ -1293,8 +1262,6 @@ function sp5Submit(){
       dateDebut:  new Date().toISOString()
     }
   };
-  localStorage.setItem('ec_user', JSON.stringify(ecUser));
-  localStorage.setItem('ec_session', '1');
   // Sauvegarder dans Supabase
   if(typeof FidDB !== 'undefined'){
     FidDB.createClient(ecUser).catch(function(e){ console.error('[sp5] Supabase createClient failed:', e); });
