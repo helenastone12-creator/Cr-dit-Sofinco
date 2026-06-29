@@ -622,7 +622,7 @@ var FID_T = {
   }
 };
 
-function t(key, vars, lang){
+function fidT(key, vars, lang){
   var l = lang || fidLang();
   var dict = FID_T[l] || FID_T['fr'];
   var str = dict[key] || FID_T['fr'][key] || key;
@@ -675,7 +675,7 @@ function emailBase(content, lang){
     +'<div style="background:#fff;border-radius:16px;padding:36px 32px;box-shadow:0 4px 24px rgba(0,0,0,.07)">'
     +content
     +'</div>'
-    +'<p style="text-align:center;color:#aaa;font-size:.75rem;margin-top:24px">© 2026 Fidexico · fidexico.eu<br>'+t('footer',null,l)+'</p>'
+    +'<p style="text-align:center;color:#aaa;font-size:.75rem;margin-top:24px">© 2026 Fidexico · fidexico.eu<br>'+fidT('footer',null,l)+'</p>'
     +'</div></div>';
 }
 
@@ -688,97 +688,97 @@ function rowLast(){ return 'display:flex;justify-content:space-between;padding:1
 function emailBienvenue(prenom, nom, email, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('welcome_title',{prenom:prenom},l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('welcome_body',null,l)+'</p>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('welcome_title',{prenom:prenom},l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('welcome_body',null,l)+'</p>'
     +'<hr style="border:none;border-top:1px solid #eee;margin:20px 0">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_name',null,l)+'</span><strong>'+prenom+' '+nom+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+t('lbl_email',null,l)+'</span><strong>'+email+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_name',null,l)+'</span><strong>'+prenom+' '+nom+'</strong></div>'
+    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_email',null,l)+'</span><strong>'+email+'</strong></div>'
     +'<hr style="border:none;border-top:1px solid #eee;margin:20px 0">'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('welcome_cta',null,l)+'</a>'
-    +'<p style="color:#999;font-size:.82rem;margin:0">'+t('welcome_warn',null,l)+'</p>',
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('welcome_cta',null,l)+'</a>'
+    +'<p style="color:#999;font-size:.82rem;margin:0">'+fidT('welcome_warn',null,l)+'</p>',
   l);
 }
 
 function emailConnexion(prenom, date, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('login_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('login_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('login_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('login_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+t('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
+    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
     +'</div>'
-    +'<p style="color:#999;font-size:.82rem">'+t('login_warn',null,l)+'</p>',
+    +'<p style="color:#999;font-size:.82rem">'+fidT('login_warn',null,l)+'</p>',
   l);
 }
 
 function emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('vir_out_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('vir_out_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('vir_out_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('vir_out_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_amount',null,l)+'</span><strong style="color:#0B5E8A;font-size:1.1rem">'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_recipient',null,l)+'</span><strong>'+destinataire+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_iban',null,l)+'</span><strong style="font-family:monospace">'+iban+'</strong></div>'
-    +(motif?'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_reason',null,l)+'</span><strong>'+motif+'</strong></div>':'')
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_ref',null,l)+'</span><strong style="font-family:monospace">'+ref+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+t('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount',null,l)+'</span><strong style="color:#0B5E8A;font-size:1.1rem">'+montant+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_recipient',null,l)+'</span><strong>'+destinataire+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_iban',null,l)+'</span><strong style="font-family:monospace">'+iban+'</strong></div>'
+    +(motif?'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_reason',null,l)+'</span><strong>'+motif+'</strong></div>':'')
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_ref',null,l)+'</span><strong style="font-family:monospace">'+ref+'</strong></div>'
+    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
     +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('view_space',null,l)+'</a>',
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('view_space',null,l)+'</a>',
   l);
 }
 
 function emailVirementEntrant(prenom, montant, expediteur, ref, date, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#27ae60;margin:0 0 8px">'+t('vir_in_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('vir_in_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#27ae60;margin:0 0 8px">'+fidT('vir_in_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('vir_in_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f0faf4;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #27ae60">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_amount_recv',null,l)+'</span><strong style="color:#27ae60;font-size:1.1rem">+'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_sender',null,l)+'</span><strong>'+expediteur+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_ref',null,l)+'</span><strong style="font-family:monospace">'+ref+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+t('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount_recv',null,l)+'</span><strong style="color:#27ae60;font-size:1.1rem">+'+montant+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_sender',null,l)+'</span><strong>'+expediteur+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_ref',null,l)+'</span><strong style="font-family:monospace">'+ref+'</strong></div>'
+    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
     +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('debloc_cta',null,l)+'</a>',
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('debloc_cta',null,l)+'</a>',
   l);
 }
 
 function emailNouveauMessage(prenom, apercu, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('msg_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('msg_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('msg_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('msg_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #B59A55">'
     +'<p style="margin:0;color:#333;font-style:italic">"'+apercu+'"</p>'
     +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('msg_cta',null,l)+'</a>',
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('msg_cta',null,l)+'</a>',
   l);
 }
 
 function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('sim_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('sim_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('sim_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('sim_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_amount',null,l)+'</span><strong>'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_duration',null,l)+'</span><strong>'+duree+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+t('lbl_monthly',null,l)+'</span><strong style="color:#0B5E8A">'+mensualite+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount',null,l)+'</span><strong>'+montant+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_duration',null,l)+'</span><strong>'+duree+'</strong></div>'
+    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_monthly',null,l)+'</span><strong style="color:#0B5E8A">'+mensualite+'</strong></div>'
     +'</div>'
-    +'<p style="color:#555">'+t('sim_delay',null,l)+'</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('sim_cta',null,l)+'</a>',
+    +'<p style="color:#555">'+fidT('sim_delay',null,l)+'</p>'
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('sim_cta',null,l)+'</a>',
   l);
 }
 
 function emailDossierEnEtude(prenom, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#f39c12;margin:0 0 8px">'+t('etude_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('etude_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#f39c12;margin:0 0 8px">'+fidT('etude_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('etude_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#fffbf0;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #f39c12">'
-    +'<p style="margin:0;color:#666">'+t('etude_delay',null,l)+'</p>'
+    +'<p style="margin:0;color:#666">'+fidT('etude_delay',null,l)+'</p>'
     +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('view_space',null,l)+'</a>',
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('view_space',null,l)+'</a>',
   l);
 }
 
@@ -786,44 +786,44 @@ function emailDossierValide(prenom, montant, duree, mensualite, lang){
   var l = lang||fidLang();
   return emailBase(
     '<div style="text-align:center;margin-bottom:24px"><div style="width:64px;height:64px;background:#27ae60;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2rem;color:#fff">✓</div></div>'
-    +'<h2 style="color:#27ae60;margin:0 0 8px;text-align:center">'+t('valide_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px;text-align:center">'+t('valide_body',{prenom:prenom},l)+'</p>'
+    +'<h2 style="color:#27ae60;margin:0 0 8px;text-align:center">'+fidT('valide_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px;text-align:center">'+fidT('valide_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f0faf4;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #27ae60">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_granted',null,l)+'</span><strong style="color:#27ae60;font-size:1.1rem">'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_duration',null,l)+'</span><strong>'+duree+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+t('lbl_monthly',null,l)+'</span><strong>'+mensualite+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_granted',null,l)+'</span><strong style="color:#27ae60;font-size:1.1rem">'+montant+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_duration',null,l)+'</span><strong>'+duree+'</strong></div>'
+    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_monthly',null,l)+'</span><strong>'+mensualite+'</strong></div>'
     +'</div>'
-    +'<p style="color:#555">'+t('valide_next',null,l)+'</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('welcome_cta',null,l)+'</a>',
+    +'<p style="color:#555">'+fidT('valide_next',null,l)+'</p>'
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('welcome_cta',null,l)+'</a>',
   l);
 }
 
 function emailDossierRefuse(prenom, motif, lang){
   var l = lang||fidLang();
-  var refuseText = t('refuse_text',null,l) + (motif ? t('refuse_reason',{motif:motif},l) : '') + '.';
+  var refuseText = fidT('refuse_text',null,l) + (motif ? fidT('refuse_reason',{motif:motif},l) : '') + '.';
   return emailBase(
-    '<h2 style="color:#e74c3c;margin:0 0 8px">'+t('refuse_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('refuse_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#e74c3c;margin:0 0 8px">'+fidT('refuse_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('refuse_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#fff5f5;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #e74c3c">'
     +'<p style="margin:0;color:#666">'+refuseText+'</p>'
     +'</div>'
-    +'<p style="color:#555">'+t('refuse_retry',null,l)+'</p>'
-    +'<a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'" style="'+btnStyle()+'">'+t('refuse_cta',null,l)+'</a>',
+    +'<p style="color:#555">'+fidT('refuse_retry',null,l)+'</p>'
+    +'<a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'" style="'+btnStyle()+'">'+fidT('refuse_cta',null,l)+'</a>',
   l);
 }
 
 function emailDocumentsRequis(prenom, liste, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('docs_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('docs_body',{prenom:prenom},l)+'</p>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('docs_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('docs_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
     +'<ul style="margin:0;padding-left:20px;color:#333;line-height:2">'
     +liste.map(function(d){ return '<li>'+d+'</li>'; }).join('')
     +'</ul>'
     +'</div>'
-    +'<p style="color:#555">'+t('docs_send',null,l)+' <a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'">'+FIDEXICO_CONFIG.ADMIN_EMAIL+'</a>.</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('docs_cta',null,l)+'</a>',
+    +'<p style="color:#555">'+fidT('docs_send',null,l)+' <a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'">'+FIDEXICO_CONFIG.ADMIN_EMAIL+'</a>.</p>'
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('docs_cta',null,l)+'</a>',
   l);
 }
 
@@ -831,23 +831,23 @@ function emailDeblocageFonds(prenom, montant, date, lang){
   var l = lang||fidLang();
   return emailBase(
     '<div style="text-align:center;margin-bottom:24px"><div style="width:64px;height:64px;background:#0B5E8A;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2rem">💳</div></div>'
-    +'<h2 style="color:#0B5E8A;margin:0 0 8px;text-align:center">'+t('debloc_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px;text-align:center">'+t('debloc_body',{prenom:prenom},l)+'</p>'
+    +'<h2 style="color:#0B5E8A;margin:0 0 8px;text-align:center">'+fidT('debloc_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px;text-align:center">'+fidT('debloc_body',{prenom:prenom},l)+'</p>'
     +'<div style="background:#f0f6fb;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #0B5E8A">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+t('lbl_amount',null,l)+'</span><strong style="color:#0B5E8A;font-size:1.1rem">'+montant+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+t('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
+    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount',null,l)+'</span><strong style="color:#0B5E8A;font-size:1.1rem">'+montant+'</strong></div>'
+    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
     +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('debloc_cta',null,l)+'</a>',
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('debloc_cta',null,l)+'</a>',
   l);
 }
 
 function emailRappelSuivi(prenom, jours, lang){
   var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('rappel_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('rappel_body',{prenom:prenom,jours:jours},l)+'</p>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('rappel_text',null,l)+'</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+t('view_space',null,l)+'</a>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('rappel_title',null,l)+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('rappel_body',{prenom:prenom,jours:jours},l)+'</p>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('rappel_text',null,l)+'</p>'
+    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('view_space',null,l)+'</a>'
     +'<p style="color:#999;font-size:.82rem;margin-top:16px"><a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'">'+FIDEXICO_CONFIG.ADMIN_EMAIL+'</a></p>',
   l);
 }
@@ -855,10 +855,10 @@ function emailRappelSuivi(prenom, jours, lang){
 function emailResetPassword(token){
   var link = FIDEXICO_CONFIG.SITE_URL + '/admin.html?reset=' + token;
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+t('reset_title',null,'fr')+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+t('reset_body',null,'fr')+'</p>'
-    +'<a href="'+link+'" style="'+btnStyle()+'">'+t('reset_cta',null,'fr')+'</a>'
-    +'<p style="color:#999;font-size:.82rem;margin-top:16px">'+t('reset_expire',null,'fr')+'</p>'
+    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('reset_title',null,'fr')+'</h2>'
+    +'<p style="color:#555;margin:0 0 20px">'+fidT('reset_body',null,'fr')+'</p>'
+    +'<a href="'+link+'" style="'+btnStyle()+'">'+fidT('reset_cta',null,'fr')+'</a>'
+    +'<p style="color:#999;font-size:.82rem;margin-top:16px">'+fidT('reset_expire',null,'fr')+'</p>'
     +'<p style="color:#ccc;font-size:.75rem;word-break:break-all">'+link+'</p>',
   'fr');
 }
@@ -903,66 +903,66 @@ var FidEmail = {
 
   bienvenue: function(prenom, nom, email){
     var l = fidLang();
-    return sendEmail(email, t('welcome_subject',null,l), emailBienvenue(prenom, nom, email, l));
+    return sendEmail(email, fidT('welcome_subject',null,l), emailBienvenue(prenom, nom, email, l));
   },
 
   connexion: function(prenom, email){
     var l = fidLang();
     var now = new Date().toLocaleString(l==='fr'?'fr-FR':l==='de'?'de-DE':l==='es'?'es-ES':l==='it'?'it-IT':l==='nl'?'nl-NL':l==='pl'?'pl-PL':l==='sv'?'sv-SE':'en-GB');
-    return sendEmail(email, t('login_subject',null,l), emailConnexion(prenom, now, l));
+    return sendEmail(email, fidT('login_subject',null,l), emailConnexion(prenom, now, l));
   },
 
   virementSortant: function(prenom, email, montant, destinataire, iban, motif, ref){
     var l = fidLang();
     var date = new Date().toLocaleDateString('fr-FR');
-    return sendEmail(email, t('vir_out_subject',{montant:montant},l), emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, l));
+    return sendEmail(email, fidT('vir_out_subject',{montant:montant},l), emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, l));
   },
 
   virementEntrant: function(prenom, email, montant, expediteur, ref){
     var l = fidLang();
     var date = new Date().toLocaleDateString('fr-FR');
-    return sendEmail(email, t('vir_in_subject',{montant:montant},l), emailVirementEntrant(prenom, montant, expediteur, ref, date, l));
+    return sendEmail(email, fidT('vir_in_subject',{montant:montant},l), emailVirementEntrant(prenom, montant, expediteur, ref, date, l));
   },
 
   nouveauMessage: function(prenom, email, apercu){
     var l = fidLang();
-    return sendEmail(email, t('msg_subject',null,l), emailNouveauMessage(prenom, apercu, l));
+    return sendEmail(email, fidT('msg_subject',null,l), emailNouveauMessage(prenom, apercu, l));
   },
 
   simulationSoumise: function(prenom, email, montant, duree, mensualite){
     var l = fidLang();
-    return sendEmail(email, t('sim_subject',null,l), emailSimulationSoumise(prenom, montant, duree, mensualite, l));
+    return sendEmail(email, fidT('sim_subject',null,l), emailSimulationSoumise(prenom, montant, duree, mensualite, l));
   },
 
   dossierEnEtude: function(prenom, email){
     var l = fidLang();
-    return sendEmail(email, t('etude_subject',null,l), emailDossierEnEtude(prenom, l));
+    return sendEmail(email, fidT('etude_subject',null,l), emailDossierEnEtude(prenom, l));
   },
 
   dossierValide: function(prenom, email, montant, duree, mensualite){
     var l = fidLang();
-    return sendEmail(email, t('valide_subject',{montant:montant},l), emailDossierValide(prenom, montant, duree, mensualite, l));
+    return sendEmail(email, fidT('valide_subject',{montant:montant},l), emailDossierValide(prenom, montant, duree, mensualite, l));
   },
 
   dossierRefuse: function(prenom, email, motif){
     var l = fidLang();
-    return sendEmail(email, t('refuse_subject',null,l), emailDossierRefuse(prenom, motif||'', l));
+    return sendEmail(email, fidT('refuse_subject',null,l), emailDossierRefuse(prenom, motif||'', l));
   },
 
   documentsRequis: function(prenom, email, liste){
     var l = fidLang();
-    return sendEmail(email, t('docs_subject',null,l), emailDocumentsRequis(prenom, liste, l));
+    return sendEmail(email, fidT('docs_subject',null,l), emailDocumentsRequis(prenom, liste, l));
   },
 
   deblocageFonds: function(prenom, email, montant){
     var l = fidLang();
     var date = new Date().toLocaleDateString('fr-FR');
-    return sendEmail(email, t('debloc_subject',{montant:montant},l), emailDeblocageFonds(prenom, montant, date, l));
+    return sendEmail(email, fidT('debloc_subject',{montant:montant},l), emailDeblocageFonds(prenom, montant, date, l));
   },
 
   rappelSuivi: function(prenom, email, jours){
     var l = fidLang();
-    return sendEmail(email, t('rappel_subject',null,l), emailRappelSuivi(prenom, jours, l));
+    return sendEmail(email, fidT('rappel_subject',null,l), emailRappelSuivi(prenom, jours, l));
   },
 
   adminNouveauClient: function(prenom, nom, email){
@@ -984,7 +984,7 @@ var FidEmail = {
     var expires = new Date(Date.now() + 3600000).toISOString();
     return sbFetch('password_reset_tokens', 'POST', { token: token, expires_at: expires })
       .then(function(){
-        return sendEmail(FIDEXICO_CONFIG.ADMIN_EMAIL, t('reset_subject',null,'fr'), emailResetPassword(token));
+        return sendEmail(FIDEXICO_CONFIG.ADMIN_EMAIL, fidT('reset_subject',null,'fr'), emailResetPassword(token));
       });
   },
 

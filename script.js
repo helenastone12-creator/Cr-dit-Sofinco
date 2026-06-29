@@ -911,7 +911,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if(!this.value.trim()) return;
       var valid = sp5ValidTelFR(this.value);
       tel.classList.toggle('err', !valid);
-      if(telErr){ telErr.classList.toggle('show', !valid); if(!valid) telErr.textContent=(pageInfo&&pageInfo.lang)?({'fr':'Numéro invalide','en':'Invalid phone number','de':'Ungültige Telefonnummer','es':'Número inválido','it':'Numero non valido','nl':'Ongeldig telefoonnummer','pl':'Nieprawidłowy numer','sv':'Ogiltigt telefonnummer'}[pageInfo.lang]||'Invalid number'):'Numéro invalide'; }
+      if(telErr){ telErr.classList.toggle('show', !valid); if(!valid) telErr.textContent=({'fr':'Numéro invalide','en':'Invalid phone number','de':'Ungültige Telefonnummer','es':'Número inválido','it':'Numero non valido','nl':'Ongeldig telefoonnummer','pl':'Nieprawidłowy numer','sv':'Ogiltigt telefonnummer'}[LANG]||'Numéro invalide'); }
     });
   }
 
