@@ -2,6 +2,24 @@
    ESPACE CLIENT — logique (Supabase + localStorage cache)
 ════════════════════════════════════════════ */
 
+// ── Formatage affichage IDs ──
+function ecFmtId(id){
+  if(!id) return '—';
+  if(/^CLI-\d{4}-\d{6}$/.test(id)) return id;
+  // Legacy ID → format professionnel dérivé
+  var hash = 0;
+  for(var i=0;i<id.length;i++) hash = (hash*31 + id.charCodeAt(i)) & 0x7fffffff;
+  return 'CLI-' + new Date().getFullYear() + '-' + String(100000 + (hash % 900000));
+}
+function ecFmtRef(ref){
+  if(!ref) return '—';
+  if(/^FDX-\d{4}-\d{6}$/.test(ref)) return ref;
+  // Legacy ref → format professionnel dérivé
+  var hash = 0;
+  for(var i=0;i<ref.length;i++) hash = (hash*31 + ref.charCodeAt(i)) & 0x7fffffff;
+  return 'FDX-' + new Date().getFullYear() + '-' + String(100000 + (hash % 900000));
+}
+
 // ── Utilitaires session ──
 function ecGetUser(){
   try{ return JSON.parse(localStorage.getItem('ec_user')||'null'); }
@@ -210,7 +228,7 @@ function ecInitHeader(){
   var sid=document.getElementById('ec-sidebar-user-id');
   if(sav){ if(photo) sav.innerHTML='<img src="'+photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>'; else sav.innerHTML=personIcon; }
   if(snm) snm.textContent=(user.prenom||'')+' '+(user.nom||'');
-  if(sid) sid.textContent=user.id||'—';
+  if(sid) sid.textContent=ecFmtId(user.id);
 }
 
 // ── Solde ──
@@ -245,7 +263,7 @@ function ecRefreshSolde(){
   var idEl = document.getElementById('ec-iban-val');
   if(idEl){
     var user=ecGetUser();
-    if(user){ idEl.textContent = hidden ? '••••••••••••••' : (user.id||'—'); }
+    if(user){ idEl.textContent = hidden ? '••••••••••••••' : ecFmtId(user.id); }
   }
 }
 
@@ -422,7 +440,7 @@ function ecDownloadVirementPdf(tx, ref, user){
     +'<h1>Virement exécuté</h1><p class="sub">Confirmation de votre opération de virement.</p>'
     +'<div class="section-lbl">Donneur d\'ordre</div>'
     +'<table class="table"><tr><td>Nom</td><td>'+nom.trim()+'</td></tr>'
-    +'<tr><td>Identifiant</td><td>'+(user.id||'—')+'</td></tr></table>'
+    +'<tr><td>Identifiant</td><td>'+ecFmtId(user.id)+'</td></tr></table>'
     +'<div class="section-lbl">Bénéficiaire</div>'
     +'<table class="table"><tr><td>Nom</td><td>'+(tx.label||'—')+'</td></tr>'
     +'<tr><td>IBAN</td><td>'+(tx.iban||'—')+'</td></tr></table>'
@@ -675,7 +693,7 @@ function ecInitDashboard(){
   var pct        = capital > 0 ? Math.round((moisPasses / duree) * 100) : 0;
 
   var refEl=document.getElementById('ec-credit-ref');
-  if(refEl) refEl.textContent=user.ref||'—';
+  if(refEl) refEl.textContent=ecFmtRef(user.ref);
 
   var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
 
