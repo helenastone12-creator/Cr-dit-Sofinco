@@ -1842,11 +1842,6 @@ function sp5Submit(){
   function openTelPicker(){
     var panel = document.getElementById('tel-picker-panel') || buildTelPicker();
     panel._renderList('');
-    var scrollY = window.scrollY;
-    document.body.style.position='fixed';
-    document.body.style.top='-'+scrollY+'px';
-    document.body.style.width='100%';
-    panel._scrollY = scrollY;
     panel.classList.add('open');
     telPickerOpen = true;
   }
@@ -1854,11 +1849,6 @@ function sp5Submit(){
   function closeTelPicker(){
     var panel = document.getElementById('tel-picker-panel');
     if(panel){ panel.classList.remove('open'); }
-    var sy = panel && panel._scrollY || 0;
-    document.body.style.position='';
-    document.body.style.top='';
-    document.body.style.width='';
-    window.scrollTo(0, sy);
     telPickerOpen = false;
   }
 

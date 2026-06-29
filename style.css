@@ -2313,6 +2313,12 @@ body.pg-inner .editorial{background:none}
 .nat-chev{flex-shrink:0}
 .nat-trigger .nat-flag{width:22px;height:22px;border-radius:50%}
 .nat-trigger .nat-globe{width:22px;height:15px}
+/* Panel plein écran — tel picker mobile */
+.nat-panel{
+  display:none;position:fixed;inset:0;z-index:9990;
+  flex-direction:column;background:#f2f2f7;
+}
+.nat-panel.open{display:flex}
 /* Backdrop */
 .nat-backdrop{
   display:none;position:fixed;inset:0;z-index:9990;
