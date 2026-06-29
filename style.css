@@ -817,6 +817,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 ═══════════════════════════ */
 .sim-page{
   display:none;position:fixed;inset:0;background:#fff;z-index:3000;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
   opacity:0;transform:translateY(40px);
 }
 .sim-page.open{
