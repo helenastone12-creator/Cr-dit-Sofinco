@@ -287,9 +287,18 @@ function ecOpenTxDetail(encoded){
   var isConv = tx.type==='convert';
   var sign = isOut ? '−' : '+';
   var typeLabel = isOut ? 'Virement sortant' : (isConv ? 'Conversion de devises' : 'Dépôt entrant');
-  var typeColor = isOut ? 'var(--text)' : 'var(--green)';
+  var ref = 'TXN-'+(tx.ref||((tx.date||'').replace(/\s/g,'').slice(-6).toUpperCase()+Math.floor(Math.random()*9000+1000)));
+  var user = ecGetUser()||{};
+
   var statusHtml = '<span style="display:inline-flex;align-items:center;gap:.35rem;background:var(--green-light);color:var(--green);border:1px solid rgba(5,150,105,.2);border-radius:6px;padding:.22rem .65rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em">'
     +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Validée</span>';
+
+  /* Lignes IBAN destinataire + Motif pour virements */
+  var extraRows = '';
+  if(isOut){
+    if(tx.iban) extraRows += '<div class="ec-tx-d-row"><span class="ec-tx-d-lbl">IBAN destinataire</span><span class="ec-tx-d-val ec-tx-d-mono" style="font-size:.72rem">'+tx.iban+'</span></div>';
+    extraRows += '<div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Motif</span><span class="ec-tx-d-val">'+(tx.motif||'—')+'</span></div>';
+  }
 
   var el = document.getElementById('ec-modal-tx');
   if(!el) return;
@@ -297,10 +306,56 @@ function ecOpenTxDetail(encoded){
   el.querySelector('#ec-tx-d-type').textContent   = typeLabel;
   el.querySelector('#ec-tx-d-date').textContent   = tx.date;
   el.querySelector('#ec-tx-d-amt').textContent    = sign + ecFormatAmt(tx.amt);
-  el.querySelector('#ec-tx-d-amt').style.color    = typeColor;
+  el.querySelector('#ec-tx-d-amt').style.color    = isOut ? 'var(--text)' : 'var(--green)';
   el.querySelector('#ec-tx-d-status').innerHTML   = statusHtml;
-  el.querySelector('#ec-tx-d-ref').textContent    = 'TXN-'+(tx.date||'').replace(/\s/g,'').slice(-6).toUpperCase()+Math.floor(Math.random()*9000+1000);
+  el.querySelector('#ec-tx-d-ref').textContent    = ref;
+  var extraEl = el.querySelector('#ec-tx-d-extra');
+  if(extraEl) extraEl.innerHTML = extraRows;
+
+  /* Bouton PDF */
+  var pdfBtn = el.querySelector('#ec-tx-pdf-btn');
+  if(pdfBtn){
+    pdfBtn.style.display = isOut ? '' : 'none';
+    pdfBtn.onclick = function(){ ecDownloadVirementPdf(tx, ref, user); };
+  }
+
   ecOpenModal('tx');
+}
+
+function ecDownloadVirementPdf(tx, ref, user){
+  var nom = (user.prenom||'')+' '+(user.nom||'');
+  var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Confirmation de virement</title>'
+    +'<style>body{font-family:Arial,sans-serif;max-width:680px;margin:40px auto;padding:0 20px;color:#222}'
+    +'h1{font-size:1.3rem;margin-bottom:.3rem}p.sub{color:#666;font-size:.9rem;margin-bottom:2rem}'
+    +'.section-lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;color:#888;text-transform:uppercase;margin:1.5rem 0 .5rem}'
+    +'.table{width:100%;border-collapse:collapse;background:#f8f8f8;border-radius:8px;overflow:hidden}'
+    +'.table td{padding:.7rem 1rem;font-size:.88rem;border-bottom:1px solid #eee}'
+    +'.table td:first-child{color:#666}.table td:last-child{text-align:right;font-weight:600}'
+    +'.table tr:last-child td{border-bottom:none}'
+    +'.status{display:inline-block;background:#DCFCE7;color:#16A34A;border-radius:5px;padding:.2rem .7rem;font-size:.75rem;font-weight:700;text-transform:uppercase;margin-bottom:1.5rem}'
+    +'footer{margin-top:3rem;font-size:.75rem;color:#aaa;text-align:center}'
+    +'</style></head><body>'
+    +'<h1>Virement exécuté</h1><p class="sub">Confirmation de votre opération de virement.</p>'
+    +'<div class="section-lbl">Donneur d\'ordre</div>'
+    +'<table class="table"><tr><td>Nom</td><td>'+nom.trim()+'</td></tr>'
+    +'<tr><td>Identifiant</td><td>'+(user.id||'—')+'</td></tr></table>'
+    +'<div class="section-lbl">Bénéficiaire</div>'
+    +'<table class="table"><tr><td>Nom</td><td>'+(tx.label||'—')+'</td></tr>'
+    +'<tr><td>IBAN</td><td>'+(tx.iban||'—')+'</td></tr></table>'
+    +'<div class="section-lbl">Détails de l\'opération</div>'
+    +'<table class="table">'
+    +'<tr><td>Montant</td><td>'+ecFormatAmt(tx.amt)+'</td></tr>'
+    +'<tr><td>Motif</td><td>'+(tx.motif||'—')+'</td></tr>'
+    +'<tr><td>Date</td><td>'+(tx.date||'—')+'</td></tr>'
+    +'<tr><td>Référence</td><td>'+ref+'</td></tr>'
+    +'<tr><td>Statut</td><td>EXÉCUTÉ</td></tr></table>'
+    +'<footer>Solfianza — solfianza.eu</footer>'
+    +'</body></html>';
+  var blob = new Blob([html],{type:'text/html'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'virement-'+ref+'.html'; a.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
 }
 
 // ── Modals ──
@@ -396,7 +451,8 @@ function ecConfirmVirement(){
   if(errEl) errEl.style.display='none';
   var nouveau = solde - amt;
   ecSetSolde(nouveau);
-  ecAddTx({ type:'virement', label:nom, amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
+  var motif = ((document.getElementById('ec-vir-motif')||{}).value||'').trim();
+  ecAddTx({ type:'virement', label:nom, iban:iban, motif:motif, amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
   ecRefreshSolde();
   ecRenderTx();
   ecCloseModal('virement');
