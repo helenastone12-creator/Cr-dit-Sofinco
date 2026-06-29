@@ -383,12 +383,12 @@
    CARTE CRÉDIT — clean professional
 ════════════════════════════ */
 .ec-credit-card{
-  background:#fff;
+  background:linear-gradient(135deg,#a8d8ec 0%,#c5e8f5 100%);
   border:none;
   border-radius:18px;
   padding:0;
   margin-bottom:1rem;
-  box-shadow:0 2px 20px rgba(0,0,0,.08);
+  box-shadow:0 4px 24px rgba(168,216,236,.4);
   overflow:hidden;
 }
 .ec-credit-card-inner{
@@ -401,52 +401,52 @@
   margin-bottom:1.2rem;
 }
 .ec-credit-type{
-  font-size:.58rem;font-weight:600;color:#9CA3AF;
+  font-size:.58rem;font-weight:600;color:rgba(10,50,80,.55);
   text-transform:uppercase;letter-spacing:.13em;margin-bottom:.3rem;
 }
 .ec-credit-label{
-  font-size:.95rem;font-weight:700;color:#111827;letter-spacing:-.01em;
+  font-size:.95rem;font-weight:700;color:#0a2a3f;letter-spacing:-.01em;
 }
 .ec-credit-badge{
-  background:#EFF6FF;color:#2563EB;
+  background:rgba(255,255,255,.6);color:#0B5E8A;
   border:none;border-radius:20px;
   padding:.28rem .85rem;font-size:.62rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.06em;
-  white-space:nowrap;
+  white-space:nowrap;backdrop-filter:blur(4px);
 }
 .ec-credit-stats{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:0;margin-bottom:0;
   padding:1.1rem 0;
-  border-top:1px solid #F3F4F6;
-  border-bottom:1px solid #F3F4F6;
+  border-top:1px solid rgba(255,255,255,.45);
+  border-bottom:1px solid rgba(255,255,255,.45);
 }
 .ec-credit-stat{
   display:flex;flex-direction:column;gap:.3rem;
   padding:0 .5rem;
-  border-right:1px solid #F3F4F6;
+  border-right:1px solid rgba(255,255,255,.45);
 }
 .ec-credit-stat:first-child{ padding-left:0; }
 .ec-credit-stat:last-child{ border-right:none; }
 .ec-cs-lbl{
-  font-size:.57rem;color:#9CA3AF;font-weight:600;
+  font-size:.57rem;color:rgba(10,50,80,.55);font-weight:600;
   text-transform:uppercase;letter-spacing:.09em;
 }
 .ec-cs-val{
-  font-size:.95rem;font-weight:700;color:#111827;
+  font-size:.95rem;font-weight:700;color:#0a2a3f;
   font-variant-numeric:tabular-nums;
 }
 .ec-credit-prog-wrap{
   padding:1.1rem 1.4rem 1.4rem;
-  border-top:1px solid #F3F4F6;
+  border-top:1px solid rgba(255,255,255,.45);
 }
 .ec-credit-prog-lbl{
   display:flex;justify-content:space-between;
-  font-size:.63rem;color:#9CA3AF;font-weight:500;
+  font-size:.63rem;color:rgba(10,50,80,.6);font-weight:500;
   margin-bottom:.5rem;
 }
 .ec-credit-prog-track{
-  height:4px;background:#F3F4F6;border-radius:4px;
+  height:4px;background:rgba(255,255,255,.4);border-radius:4px;
   overflow:hidden;
 }
 .ec-credit-prog-fill{
@@ -1157,13 +1157,14 @@
 .ec-remb-btn{
   display:flex;align-items:center;justify-content:center;gap:.5rem;
   width:100%;
-  background:none;border:1px solid #E5E7EB;
-  color:#374151;padding:.7rem 1rem;
+  background:rgba(255,255,255,.55);border:none;
+  color:#0a2a3f;padding:.7rem 1rem;
   border-radius:10px;font-size:.8rem;font-weight:500;font-family:inherit;
-  cursor:pointer;margin-top:1rem;transition:background .15s,border-color .15s;
+  cursor:pointer;margin-top:1rem;
+  transition:background .15s;backdrop-filter:blur(4px);
 }
-.ec-remb-btn svg{ stroke:#9CA3AF; }
-.ec-remb-btn:hover{ background:#F9FAFB;border-color:#D1D5DB; }
+.ec-remb-btn svg{ stroke:#0B5E8A; }
+.ec-remb-btn:hover{ background:rgba(255,255,255,.75); }
 
 /* ════════════════════════════
    FILTRES TRANSACTIONS
