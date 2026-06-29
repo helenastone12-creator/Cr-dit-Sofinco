@@ -60,6 +60,11 @@ function ecLogin(){
   if(errEl) errEl.style.display='none';
   if(btn){ btn.textContent='Connexion…'; btn.disabled=true; }
 
+  // Email alerte connexion
+  if(typeof FidEmail !== 'undefined' && user.email){
+    FidEmail.connexion(user.prenom||user.nom, user.email);
+  }
+
   // Ouvre la session
   ecSetSession();
   setTimeout(function(){ window.location.href='/espace-client.html'; }, 300);
@@ -104,6 +109,11 @@ function ecRegister(){
   };
   ecSetUser(user);
   ecSetSession();
+  // Email bienvenue + notification admin
+  if(typeof FidEmail !== 'undefined'){
+    FidEmail.bienvenue(user.prenom, user.nom, user.email);
+    FidEmail.adminNouveauClient(user.prenom, user.nom, user.email);
+  }
   setTimeout(function(){ window.location.href='/espace-client.html'; }, 300);
 }
 
@@ -466,10 +476,20 @@ function ecConfirmVirement(){
   var nouveau = solde - amt;
   ecSetSolde(nouveau);
   var motif = ((document.getElementById('ec-vir-motif')||{}).value||'').trim();
-  ecAddTx({ type:'virement', label:nom, iban:iban, motif:motif, amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
+  var txDate = new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  ecAddTx({ type:'virement', label:nom, iban:iban, motif:motif, amt:amt, date: txDate });
   ecRefreshSolde();
   ecRenderTx();
   ecCloseModal('virement');
+  /* email confirmation virement */
+  (function(){
+    var u = ecGetUser();
+    if(u && u.email && typeof FidEmail !== 'undefined'){
+      var ref = 'FID'+Date.now().toString(36).toUpperCase();
+      FidEmail.virementSortant(u.prenom||u.nom, u.email, ecFormatAmt(amt), nom, iban, motif, ref);
+      FidEmail.adminNouveauVirement((u.prenom||'')+' '+(u.nom||''), ecFormatAmt(amt), nom);
+    }
+  })();
   ['ec-vir-nom','ec-vir-iban','ec-vir-amt','ec-vir-motif'].forEach(function(id){ var e=document.getElementById(id); if(e)e.value=''; });
   document.getElementById('ec-success-title').textContent='Virement envoyé';
   document.getElementById('ec-success-msg').textContent=ecFormatAmt(amt)+' virés à '+nom+'. Nouveau solde : '+ecFormatAmt(nouveau);
@@ -986,9 +1006,17 @@ function ecSendMessage(){
   var inp=document.getElementById('ec-msg-input');
   if(!inp||!inp.value.trim()) return;
   var msgs=ecGetMessages();
-  msgs.push({text:inp.value.trim(),date:new Date().toISOString(),fromClient:true});
+  var msgText=inp.value.trim();
+  msgs.push({text:msgText,date:new Date().toISOString(),fromClient:true});
+  // Notification email à l'admin
+  (function(){
+    var u=ecGetUser();
+    if(u && typeof FidEmail!=='undefined'){
+      FidEmail.adminNouveauMessage((u.prenom||'')+' '+(u.nom||''), msgText.slice(0,120));
+    }
+  })();
   // Auto-réponse simulée après 1s
-  var clientMsg=inp.value.trim();
+  var clientMsg=msgText;
   ecSaveMessages(msgs);
   inp.value='';
   ecRenderMessages();

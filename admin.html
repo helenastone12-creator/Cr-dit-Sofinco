@@ -4,6 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin — Fidexico</title>
+  <script src="fidexico-email.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#0d2748;min-height:100vh}
@@ -82,6 +83,8 @@
     .btn-del{background:#fff5f5;color:#e74c3c}
     .btn-del:hover{background:#e74c3c;color:#fff}
     .adm-empty{text-align:center;padding:3rem 1rem;color:#8a94a6;font-size:.95rem}
+    .adm-input{width:100%;border:1.5px solid #e2e6ed;border-radius:10px;padding:.72rem 1rem;font-size:.9rem;outline:none;font-family:inherit;transition:border-color .2s;background:#fff;color:#0d2748}
+    .adm-input:focus{border-color:#06c2b0}
 
     /* ── Status badge ── */
     .status-badge{display:inline-block;padding:.2rem .6rem;border-radius:20px;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
@@ -142,8 +145,27 @@
     <div class="login-sub">Panel Administrateur</div>
     <div style="font-size:1.1rem;font-weight:800;color:#0d2748;margin-bottom:1.5rem">Connexion sécurisée</div>
     <div class="login-err" id="login-err">Mot de passe incorrect.</div>
-    <input type="password" class="login-inp" id="adm-pwd" placeholder="Mot de passe admin" onkeydown="if(event.key==='Enter')admLogin()"/>
-    <button class="login-btn" onclick="admLogin()">Accéder au panel</button>
+    <div id="login-reset-ok" style="background:#f0faf4;border:1.5px solid #27ae60;border-radius:8px;padding:.6rem .9rem;font-size:.84rem;color:#27ae60;margin-bottom:.8rem;display:none">Email envoyé ! Vérifiez votre boîte mail.</div>
+    <!-- Écran connexion -->
+    <div id="login-form-area">
+      <input type="password" class="login-inp" id="adm-pwd" placeholder="Mot de passe admin" onkeydown="if(event.key==='Enter')admLogin()"/>
+      <button class="login-btn" onclick="admLogin()">Accéder au panel</button>
+      <p style="margin-top:1rem"><a href="#" onclick="admShowReset();return false" style="color:#8a94a6;font-size:.82rem;text-decoration:none">Mot de passe oublié ?</a></p>
+    </div>
+    <!-- Écran reset -->
+    <div id="login-reset-area" style="display:none">
+      <p style="color:#555;font-size:.88rem;margin-bottom:1rem">Un lien de réinitialisation sera envoyé à <strong>contact@fidexico.eu</strong></p>
+      <button class="login-btn" id="reset-btn" onclick="admSendReset()">Envoyer le lien</button>
+      <p style="margin-top:1rem"><a href="#" onclick="admShowLogin();return false" style="color:#8a94a6;font-size:.82rem;text-decoration:none">← Retour à la connexion</a></p>
+    </div>
+    <!-- Écran nouveau mot de passe -->
+    <div id="login-newpwd-area" style="display:none">
+      <p style="color:#555;font-size:.88rem;margin-bottom:1rem">Choisissez un nouveau mot de passe.</p>
+      <input type="password" class="login-inp" id="adm-newpwd1" placeholder="Nouveau mot de passe"/>
+      <input type="password" class="login-inp" id="adm-newpwd2" placeholder="Confirmer le mot de passe"/>
+      <div class="login-err" id="newpwd-err" style="display:none">Les mots de passe ne correspondent pas.</div>
+      <button class="login-btn" onclick="admSaveNewPassword()">Enregistrer</button>
+    </div>
   </div>
 </div>
 
@@ -160,6 +182,7 @@
   <nav class="adm-nav">
     <button class="adm-tab active" onclick="admTab('clients',this)">👥 Clients</button>
     <button class="adm-tab" onclick="admTab('operations',this)">💳 Opérations</button>
+    <button class="adm-tab" onclick="admTab('notifications',this)">📧 Notifications</button>
     <button class="adm-tab" onclick="admTab('journal',this)">📋 Journal</button>
   </nav>
 
@@ -316,6 +339,64 @@
     </div>
 
     <!-- ── JOURNAL ── -->
+    <!-- ── NOTIFICATIONS ── -->
+    <div class="adm-section" id="sec-notifications">
+      <div style="max-width:700px">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1.2rem;color:#0d2748">Envoyer une notification email au client</h3>
+
+        <div style="background:#fff;border-radius:14px;padding:1.5rem;border:1px solid #e2e6ed;margin-bottom:1.2rem">
+          <label style="font-size:.8rem;font-weight:700;color:#8a94a6;text-transform:uppercase;display:block;margin-bottom:.4rem">Identifiant client</label>
+          <input class="adm-input" id="notif-uid" placeholder="USR-XXXX" style="margin-bottom:.8rem"/>
+
+          <label style="font-size:.8rem;font-weight:700;color:#8a94a6;text-transform:uppercase;display:block;margin-bottom:.4rem">Type de notification</label>
+          <select class="adm-input" id="notif-type" onchange="admNotifTypeChange()" style="margin-bottom:.8rem">
+            <option value="">— Choisir —</option>
+            <option value="dossier_etude">Dossier en cours d'étude</option>
+            <option value="dossier_valide">Dossier validé ✅</option>
+            <option value="dossier_refuse">Dossier refusé ❌</option>
+            <option value="documents">Documents complémentaires requis</option>
+            <option value="deblocage">Déblocage des fonds 💳</option>
+            <option value="rappel">Rappel de suivi</option>
+            <option value="message">Message personnalisé</option>
+          </select>
+
+          <!-- Champs dynamiques -->
+          <div id="notif-fields-valide" style="display:none">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-bottom:.8rem">
+              <div><label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Montant</label><input class="adm-input" id="notif-montant" placeholder="25 000 €"/></div>
+              <div><label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Durée</label><input class="adm-input" id="notif-duree" placeholder="60 mois"/></div>
+              <div><label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Mensualité</label><input class="adm-input" id="notif-mensualite" placeholder="450 €"/></div>
+            </div>
+          </div>
+          <div id="notif-fields-refuse" style="display:none;margin-bottom:.8rem">
+            <label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Motif (optionnel)</label>
+            <input class="adm-input" id="notif-motif-refus" placeholder="ex: dossier incomplet"/>
+          </div>
+          <div id="notif-fields-docs" style="display:none;margin-bottom:.8rem">
+            <label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Documents requis (un par ligne)</label>
+            <textarea class="adm-input" id="notif-docs" rows="4" placeholder="Justificatif de domicile&#10;3 derniers bulletins de salaire&#10;Relevé bancaire" style="resize:vertical"></textarea>
+          </div>
+          <div id="notif-fields-deblocage" style="display:none;margin-bottom:.8rem">
+            <label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Montant débloqué</label>
+            <input class="adm-input" id="notif-deblocage-amt" placeholder="25 000 €"/>
+          </div>
+          <div id="notif-fields-rappel" style="display:none;margin-bottom:.8rem">
+            <label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Nombre de jours</label>
+            <input class="adm-input" id="notif-jours" type="number" value="3"/>
+          </div>
+          <div id="notif-fields-message" style="display:none;margin-bottom:.8rem">
+            <label style="font-size:.75rem;color:#8a94a6;display:block;margin-bottom:.3rem">Message</label>
+            <textarea class="adm-input" id="notif-message-txt" rows="4" placeholder="Votre message au client…" style="resize:vertical"></textarea>
+          </div>
+
+          <div id="notif-ok" style="display:none;background:#f0faf4;border:1px solid #27ae60;border-radius:8px;padding:.6rem .9rem;font-size:.84rem;color:#27ae60;margin-bottom:.8rem"></div>
+          <div id="notif-err" style="display:none;background:#fff5f5;border:1px solid #f5c6cb;border-radius:8px;padding:.6rem .9rem;font-size:.84rem;color:#c0392b;margin-bottom:.8rem"></div>
+
+          <button class="adm-btn" style="background:#0d2748;color:#fff;padding:.75rem 2rem;border-radius:2rem;font-weight:700" onclick="admSendNotif()">Envoyer la notification</button>
+        </div>
+      </div>
+    </div>
+
     <div class="adm-section" id="sec-journal">
       <div class="adm-toolbar" style="margin-bottom:1.2rem">
         <span style="font-weight:700;font-size:.95rem">Journal des actions admin</span>
@@ -341,21 +422,99 @@
 </div>
 
 <script>
-var ADMIN_PWD = 'Fidexico2026!';
 var SESSION_KEY = 'adm_auth';
 var LOG_KEY = 'adm_log';
+var ADM_RESET_TOKEN_ID = null;
+
+/* ── RESET UI ── */
+function admShowReset(){
+  document.getElementById('login-form-area').style.display='none';
+  document.getElementById('login-reset-area').style.display='block';
+  document.getElementById('login-err').style.display='none';
+}
+function admShowLogin(){
+  document.getElementById('login-reset-area').style.display='none';
+  document.getElementById('login-newpwd-area').style.display='none';
+  document.getElementById('login-form-area').style.display='block';
+}
+
+/* ── SEND RESET EMAIL ── */
+function admSendReset(){
+  var btn = document.getElementById('reset-btn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+  FidEmail.sendResetLink().then(function(){
+    document.getElementById('login-reset-ok').style.display='block';
+    document.getElementById('login-reset-area').style.display='none';
+    document.getElementById('login-form-area').style.display='block';
+    btn.disabled = false;
+    btn.textContent = 'Envoyer le lien';
+  }).catch(function(){
+    btn.disabled = false;
+    btn.textContent = 'Envoyer le lien';
+  });
+}
+
+/* ── CHECK RESET TOKEN IN URL ── */
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('reset');
+  if(token){
+    FidEmail.validateResetToken(token).then(function(id){
+      if(id){
+        ADM_RESET_TOKEN_ID = id;
+        document.getElementById('login-form-area').style.display='none';
+        document.getElementById('login-newpwd-area').style.display='block';
+      } else {
+        document.getElementById('login-err').textContent = 'Lien expiré ou déjà utilisé.';
+        document.getElementById('login-err').style.display='block';
+      }
+    });
+  }
+})();
+
+/* ── SAVE NEW PASSWORD ── */
+function admSaveNewPassword(){
+  var p1 = document.getElementById('adm-newpwd1').value;
+  var p2 = document.getElementById('adm-newpwd2').value;
+  if(p1 !== p2 || p1.length < 6){
+    document.getElementById('newpwd-err').style.display='block';
+    document.getElementById('newpwd-err').textContent = p1 !== p2 ? 'Les mots de passe ne correspondent pas.' : 'Minimum 6 caractères.';
+    return;
+  }
+  FidEmail.setAdminPassword(p1).then(function(){
+    FidEmail.consumeResetToken(ADM_RESET_TOKEN_ID);
+    localStorage.setItem('adm_custom_pwd', p1);
+    history.replaceState({}, '', 'admin.html');
+    document.getElementById('login-newpwd-area').style.display='none';
+    document.getElementById('login-form-area').style.display='block';
+    document.getElementById('login-reset-ok').textContent = 'Mot de passe mis à jour ! Connectez-vous.';
+    document.getElementById('login-reset-ok').style.display='block';
+  });
+}
 
 /* ── AUTH ── */
 function admLogin(){
   var pwd = document.getElementById('adm-pwd').value;
-  if(pwd === ADMIN_PWD){
-    sessionStorage.setItem(SESSION_KEY,'1');
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('admin-screen').style.display='block';
-    admLoad();
+  var customPwd = localStorage.getItem('adm_custom_pwd');
+  var checkPwd = function(storedPwd){
+    if(pwd === storedPwd){
+      sessionStorage.setItem(SESSION_KEY,'1');
+      document.getElementById('login-screen').style.display='none';
+      document.getElementById('admin-screen').style.display='block';
+      admLoad();
+    } else {
+      document.getElementById('login-err').textContent = 'Mot de passe incorrect.';
+      document.getElementById('login-err').style.display='block';
+      document.getElementById('adm-pwd').value='';
+    }
+  };
+  if(customPwd){
+    checkPwd(customPwd);
   } else {
-    document.getElementById('login-err').style.display='block';
-    document.getElementById('adm-pwd').value='';
+    FidEmail.getAdminPassword().then(checkPwd).catch(function(){
+      checkPwd('Fidexico2026!');
+    });
   }
 }
 function admLogout(){ sessionStorage.removeItem(SESSION_KEY); location.reload(); }
@@ -560,6 +719,11 @@ function opDeposit(){
   saveTx(c,tx);
   admLog('depot', uid, label, amt);
   admLoad();
+  /* email virement entrant au client */
+  if(typeof FidEmail !== 'undefined' && c.user.email){
+    var ref='FID'+Date.now().toString(36).toUpperCase();
+    FidEmail.virementEntrant(c.user.prenom||c.user.nom, c.user.email, fmtAmt(amt), 'Fidexico', ref);
+  }
   showMsg('dep-ok','dep-err','Dépôt de '+fmtAmt(amt)+' effectué sur '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
   document.getElementById('dep-id').value='';
   document.getElementById('dep-amt').value='';
@@ -601,6 +765,10 @@ function opModPret(){
   saveUser(c);
   admLog('modif', uid, 'Modification prêt '+fmtAmt(montant), 0);
   admLoad();
+  /* email dossier validé au client */
+  if(typeof FidEmail !== 'undefined' && c.user.email){
+    FidEmail.dossierValide(c.user.prenom||c.user.nom, c.user.email, fmtAmt(montant), (duree||60)+' mois', fmtAmt(mens||0));
+  }
   showMsg('pret-ok','pret-err','Prêt mis à jour pour '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
 }
 
@@ -722,6 +890,74 @@ function admClearLog(){
   if(!confirm('Effacer tout le journal ?')) return;
   localStorage.removeItem(LOG_KEY);
   admRenderLog();
+}
+
+/* ── NOTIFICATIONS ── */
+function admNotifTypeChange(){
+  var t=document.getElementById('notif-type').value;
+  var all=['valide','refuse','docs','deblocage','rappel','message'];
+  all.forEach(function(s){ document.getElementById('notif-fields-'+s).style.display='none'; });
+  if(t==='dossier_valide') document.getElementById('notif-fields-valide').style.display='block';
+  if(t==='dossier_refuse') document.getElementById('notif-fields-refuse').style.display='block';
+  if(t==='documents')      document.getElementById('notif-fields-docs').style.display='block';
+  if(t==='deblocage')      document.getElementById('notif-fields-deblocage').style.display='block';
+  if(t==='rappel')         document.getElementById('notif-fields-rappel').style.display='block';
+  if(t==='message')        document.getElementById('notif-fields-message').style.display='block';
+}
+
+function admSendNotif(){
+  var uid=document.getElementById('notif-uid').value.trim();
+  var type=document.getElementById('notif-type').value;
+  var okEl=document.getElementById('notif-ok');
+  var errEl=document.getElementById('notif-err');
+  okEl.style.display='none'; errEl.style.display='none';
+
+  if(!uid){ errEl.textContent='Identifiant client requis.'; errEl.style.display='block'; return; }
+  if(!type){ errEl.textContent='Choisissez un type de notification.'; errEl.style.display='block'; return; }
+
+  var c=findClientByUID(uid);
+  if(!c){ errEl.textContent='Client introuvable.'; errEl.style.display='block'; return; }
+  var u=c.user;
+  if(!u.email){ errEl.textContent='Ce client n\'a pas d\'email enregistré.'; errEl.style.display='block'; return; }
+
+  var prenom=u.prenom||u.nom;
+  var p;
+
+  if(type==='dossier_etude'){
+    p=FidEmail.dossierEnEtude(prenom, u.email);
+  } else if(type==='dossier_valide'){
+    var m=document.getElementById('notif-montant').value||'—';
+    var d=document.getElementById('notif-duree').value||'—';
+    var mens=document.getElementById('notif-mensualite').value||'—';
+    p=FidEmail.dossierValide(prenom, u.email, m, d, mens);
+  } else if(type==='dossier_refuse'){
+    var motif=document.getElementById('notif-motif-refus').value||'';
+    p=FidEmail.dossierRefuse(prenom, u.email, motif);
+  } else if(type==='documents'){
+    var raw=document.getElementById('notif-docs').value||'';
+    var liste=raw.split('\n').map(function(s){return s.trim();}).filter(Boolean);
+    if(!liste.length){ errEl.textContent='Ajoutez au moins un document.'; errEl.style.display='block'; return; }
+    p=FidEmail.documentsRequis(prenom, u.email, liste);
+  } else if(type==='deblocage'){
+    var amt=document.getElementById('notif-deblocage-amt').value||'—';
+    p=FidEmail.deblocageFonds(prenom, u.email, amt);
+  } else if(type==='rappel'){
+    var j=parseInt(document.getElementById('notif-jours').value)||3;
+    p=FidEmail.rappelSuivi(prenom, u.email, j);
+  } else if(type==='message'){
+    var txt=document.getElementById('notif-message-txt').value.trim();
+    if(!txt){ errEl.textContent='Rédigez un message.'; errEl.style.display='block'; return; }
+    p=FidEmail.nouveauMessage(prenom, u.email, txt);
+  }
+
+  if(p) p.then(function(){
+    okEl.textContent='✓ Email envoyé à '+u.email;
+    okEl.style.display='block';
+    admLog('notif', uid, 'Notification: '+type, 0);
+  }).catch(function(){
+    errEl.textContent='Erreur lors de l\'envoi.';
+    errEl.style.display='block';
+  });
 }
 
 /* ── CSV ── */
