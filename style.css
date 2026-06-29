@@ -815,8 +815,25 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* ═══════════════════════════
    SIMULATEUR PLEINE PAGE
 ═══════════════════════════ */
-.sim-page{display:none;position:fixed;inset:0;background:#fff;z-index:3000;overflow-y:auto}
-.sim-page.open{display:block}
+.sim-page{
+  display:none;position:fixed;inset:0;background:#fff;z-index:3000;overflow-y:auto;
+  opacity:0;transform:translateY(40px);
+}
+.sim-page.open{
+  display:block;
+  animation:simSlideIn .38s cubic-bezier(.22,1,.36,1) forwards;
+}
+.sim-page.closing{
+  animation:simSlideOut .28s cubic-bezier(.4,0,1,1) forwards;
+}
+@keyframes simSlideIn{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes simSlideOut{
+  from{opacity:1;transform:translateY(0);}
+  to{opacity:0;transform:translateY(30px);}
+}
 /* Header sticky */
 .sim-ph{position:sticky;top:var(--tb);background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
 .sim-ph-logo{font-size:1.25rem;font-weight:800;letter-spacing:-.5px;border:none;cursor:pointer;font-family:inherit;padding:0;background:linear-gradient(135deg,#06c2b0 0%,#0d2748 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}

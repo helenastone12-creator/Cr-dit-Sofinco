@@ -604,9 +604,13 @@ function unlockScroll(){
   }
 
   function closeSim(){
-    document.getElementById('sim-page').classList.remove('open');
-    unlockScroll();
-    if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
+    var page = document.getElementById('sim-page');
+    page.classList.add('closing');
+    setTimeout(function(){
+      page.classList.remove('open','closing');
+      unlockScroll();
+      if(document.getElementById('mob-sim-bar')) document.getElementById('mob-sim-bar').style.display='';
+    }, 280);
   }
 
   var simPhQuit=document.getElementById('sim-ph-quit');
