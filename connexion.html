@@ -19,7 +19,8 @@
   <a href="index.html" class="ec-auth-logo">Fidexico</a>
   <p class="ec-auth-sub" data-i18n="nav_espace">Espace client</p>
 
-  <div class="ec-auth-card">
+  <!-- Étape 1 : email + mot de passe -->
+  <div id="ec-auth-step1" class="ec-auth-card">
     <h1 class="ec-auth-title" data-i18n="login_title">Connexion</h1>
     <p class="ec-auth-hint" data-i18n="login_hint">Accédez à vos crédits et documents en toute sécurité.</p>
 
@@ -51,6 +52,34 @@
     <a href="index.html" class="ec-btn-secondary" data-i18n="login_simulate">Faire une simulation</a>
   </div>
 
+  <!-- Étape 2 : code Google Authenticator -->
+  <div id="ec-auth-step2" class="ec-auth-card" style="display:none">
+    <div style="text-align:center;margin-bottom:1.4rem">
+      <div style="width:56px;height:56px;border-radius:50%;background:#f0f4ff;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <h1 class="ec-auth-title" style="margin-bottom:.3rem">Vérification 2FA</h1>
+      <p class="ec-auth-hint">Ouvrez Google Authenticator et saisissez le code à 6 chiffres.</p>
+    </div>
+
+    <div id="ec-2fa-err" class="ec-form-err" style="display:none"></div>
+
+    <div class="ec-form-group">
+      <label class="ec-lbl">Code de vérification</label>
+      <input type="text" id="ec-2fa-code" class="ec-inp" placeholder="000 000"
+        inputmode="numeric" autocomplete="one-time-code" maxlength="7"
+        style="text-align:center;font-size:1.5rem;font-weight:800;letter-spacing:.3em"
+        onkeydown="if(event.key==='Enter') ecVerify2FA()"/>
+    </div>
+
+    <button id="ec-2fa-btn" class="ec-btn-primary" onclick="ecVerify2FA()">Vérifier</button>
+
+    <button type="button" style="display:block;width:100%;margin-top:.6rem;padding:.7rem;background:none;border:none;color:var(--ec-muted);font-size:.85rem;cursor:pointer;font-family:inherit"
+      onclick="document.getElementById('ec-auth-step1').style.display='block';document.getElementById('ec-auth-step2').style.display='none'">
+      ← Retour à la connexion
+    </button>
+  </div>
+
   <p class="ec-auth-legal">
     <span data-i18n="login_rgpd">Vos données sont protégées conformément au RGPD.</span><br/>
     <a href="politique-donnees.html" data-i18n="login_privacy">Politique de confidentialité</a>
@@ -60,6 +89,7 @@
 
 <script src="fidexico-db.js"></script>
 <script src="fidexico-email.js"></script>
+<script src="fidexico-2fa.js"></script>
 <script src="espace-client.js"></script>
 <script>if(typeof ecApplyI18n==='function') ecApplyI18n();</script>
 </body>

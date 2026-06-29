@@ -36,6 +36,50 @@ function ecTogglePwd(inputId, btn){
 }
 
 // ── Connexion ──
+var EC_PENDING_USER = null; // user awaiting 2FA verification
+
+function ecCompleteLogin(user){
+  if(typeof FidDB !== 'undefined'){
+    FidDB.getSolde(user.id).then(function(s){ localStorage.setItem('ec_solde', s.toFixed(2)); }).catch(function(){});
+    FidDB.getTx(user.id).then(function(txList){
+      var mapped = txList.map(function(r){ return {type:r.type,label:r.label,amt:parseFloat(r.amt)||0,iban:r.iban,motif:r.motif,date:r.date}; });
+      localStorage.setItem('ec_tx', JSON.stringify(mapped));
+    }).catch(function(){});
+  }
+  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null};
+  localStorage.setItem('ec_user', JSON.stringify(norm));
+  if(typeof FidEmail !== 'undefined' && user.email){
+    FidEmail.connexion(user.prenom||user.nom, user.email);
+  }
+  ecSetSession('1');
+  setTimeout(function(){ window.location.href='/espace-client.html'; }, 400);
+}
+
+function ecVerify2FA(){
+  var code  = ((document.getElementById('ec-2fa-code')||{}).value||'').replace(/\s/g,'');
+  var errEl = document.getElementById('ec-2fa-err');
+  var btn   = document.getElementById('ec-2fa-btn');
+  if(!EC_PENDING_USER || !code){
+    if(errEl){ errEl.textContent='Saisissez le code à 6 chiffres.'; errEl.style.display='block'; }
+    return;
+  }
+  if(btn){ btn.textContent='Vérification…'; btn.disabled=true; }
+  FID2FA.verify(EC_PENDING_USER.totp_secret, code).then(function(ok){
+    if(ok){
+      var u = EC_PENDING_USER; EC_PENDING_USER = null;
+      ecCompleteLogin(u);
+    } else {
+      if(errEl){ errEl.textContent='Code incorrect. Réessayez.'; errEl.style.display='block'; }
+      if(btn){ btn.textContent='Vérifier'; btn.disabled=false; }
+      var inp = document.getElementById('ec-2fa-code');
+      if(inp){ inp.value=''; inp.focus(); }
+    }
+  }).catch(function(){
+    if(errEl){ errEl.textContent='Erreur de vérification.'; errEl.style.display='block'; }
+    if(btn){ btn.textContent='Vérifier'; btn.disabled=false; }
+  });
+}
+
 function ecLogin(){
   var email = (document.getElementById('ec-email')||{}).value||'';
   var pwd   = (document.getElementById('ec-pwd')||{}).value||'';
@@ -62,27 +106,22 @@ function ecLogin(){
       if(card){ card.style.animation='none'; setTimeout(function(){ card.style.animation='ecShake .4s ease'; },10); }
       return;
     }
-    // Sync solde et tx depuis Supabase vers localStorage
-    if(typeof FidDB !== 'undefined'){
-      FidDB.getSolde(user.id).then(function(s){ localStorage.setItem('ec_solde', s.toFixed(2)); }).catch(function(){});
-      FidDB.getTx(user.id).then(function(txList){
-        var mapped = txList.map(function(r){ return {type:r.type,label:r.label,amt:parseFloat(r.amt)||0,iban:r.iban,motif:r.motif,date:r.date}; });
-        localStorage.setItem('ec_tx', JSON.stringify(mapped));
-      }).catch(function(){});
+    // 2FA check
+    if(user.totp_secret && typeof FID2FA !== 'undefined'){
+      EC_PENDING_USER = user;
+      var step1 = document.getElementById('ec-auth-step1');
+      var step2 = document.getElementById('ec-auth-step2');
+      if(step1) step1.style.display='none';
+      if(step2) step2.style.display='block';
+      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
+      setTimeout(function(){ var c=document.getElementById('ec-2fa-code'); if(c) c.focus(); }, 200);
+      return;
     }
-    // Normalise user pour localStorage
-    var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt};
-    localStorage.setItem('ec_user', JSON.stringify(norm));
-    if(typeof FidEmail !== 'undefined' && user.email){
-      FidEmail.connexion(user.prenom||user.nom, user.email);
-    }
-    ecSetSession('1');
-    setTimeout(function(){ window.location.href='/espace-client.html'; }, 400);
+    ecCompleteLogin(user);
   }
 
   if(typeof FidDB !== 'undefined'){
     FidDB.login(email.trim().toLowerCase(), pwd).then(doLogin).catch(function(){
-      // Fallback localStorage
       doLogin(ecGetUser());
     });
   } else {
