@@ -669,235 +669,438 @@ function sendEmail(to, subject, html, lang){
     .catch(function(e){ console.error('[Fidexico Email] Fetch failed:', e); });
 }
 
-/* ── Base HTML ── */
-function emailBase(content, lang){
-  var l = lang || fidLang();
-  return '<div style="font-family:\'Segoe UI\',Arial,sans-serif;background:#f4f6f9;padding:40px 20px;min-height:100vh">'
-    +'<div style="max-width:560px;margin:0 auto">'
-    +'<div style="text-align:center;margin-bottom:28px"><span style="font-size:1.7rem;font-weight:800;color:#0B5E8A">Fidexico</span></div>'
-    +'<div style="background:#fff;border-radius:16px;padding:36px 32px;box-shadow:0 4px 24px rgba(0,0,0,.07)">'
-    +content
-    +'</div>'
-    +'<p style="text-align:center;color:#aaa;font-size:.75rem;margin-top:24px">© 2026 Fidexico · fidexico.eu<br>'+fidT('footer',null,l)+'</p>'
-    +'</div></div>';
+/* ════════════════════════════════════════════════════════════
+   BASE LAYOUT — design premium style grande banque
+   ════════════════════════════════════════════════════════════ */
+function emailBase(content, lang, opts){
+  opts = opts || {};
+  var refLine = opts.ref ? '<td style="font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-align:right;padding:0">Réf. : <span style="font-family:\'Courier New\',monospace;color:#5a7a9a">'+opts.ref+'</span></td>' : '<td></td>';
+  var dateLine = '<td style="font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;padding:0">'+new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})+'</td>';
+
+  return '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fidexico</title></head>'
+  +'<body style="margin:0;padding:0;background-color:#edf0f5;font-family:Arial,Helvetica,sans-serif">'
+  +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#edf0f5;padding:32px 0">'
+  +'<tr><td align="center">'
+  +'<table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%">'
+
+  /* ── EN-TÊTE INSTITUTION ── */
+  +'<tr><td style="background:#0B2140;border-radius:6px 6px 0 0;padding:28px 40px">'
+  +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+  +'<td style="font-family:Arial,sans-serif">'
+  +'<div style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase">FIDEXICO</div>'
+  +'<div style="font-size:11px;color:#8aafd4;letter-spacing:2px;text-transform:uppercase;margin-top:3px">Établissement de Crédit · Espace Client Sécurisé</div>'
+  +'</td>'
+  +'<td align="right"><div style="width:36px;height:36px;border:2px solid rgba(255,255,255,.15);border-radius:50%;display:inline-block;text-align:center;line-height:32px">'
+  +'<span style="color:#8aafd4;font-size:16px">&#128274;</span></div></td>'
+  +'</tr></table>'
+  +'</td></tr>'
+
+  /* ── BARRE OR ── */
+  +'<tr><td style="background:#C4A84A;height:3px;font-size:0;line-height:0">&nbsp;</td></tr>'
+
+  /* ── MÉTA DATE / REF ── */
+  +'<tr><td style="background:#f5f7fa;padding:10px 40px;border-left:1px solid #dde3ec;border-right:1px solid #dde3ec">'
+  +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'+dateLine+refLine+'</tr></table>'
+  +'</td></tr>'
+
+  /* ── CORPS ── */
+  +'<tr><td style="background:#ffffff;padding:36px 40px;border-left:1px solid #dde3ec;border-right:1px solid #dde3ec">'
+  +content
+  +'</td></tr>'
+
+  /* ── AVERTISSEMENT SÉCURITÉ ── */
+  +'<tr><td style="background:#f0f4fa;padding:16px 40px;border:1px solid #dde3ec;border-top:none">'
+  +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+  +'<td width="22" valign="top" style="padding-right:10px;padding-top:1px"><span style="color:#C4A84A;font-size:14px;font-weight:700">&#9888;</span></td>'
+  +'<td style="font-family:Arial,sans-serif;font-size:11.5px;color:#4a5a6e;line-height:1.6">'
+  +'<strong style="color:#2c3e50">Avertissement de sécurité :</strong> Fidexico ne vous demandera <strong>jamais</strong> vos codes d\'accès, mots de passe ou informations bancaires complètes par email ou téléphone. '
+  +'En cas de doute, ne cliquez sur aucun lien et contactez-nous directement au <strong>+33 (0)1 00 00 00 00</strong>.'
+  +'</td></tr></table>'
+  +'</td></tr>'
+
+  /* ── PIED DE PAGE LÉGAL ── */
+  +'<tr><td style="background:#0B2140;padding:24px 40px;border-radius:0 0 6px 6px">'
+  +'<p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:11px;color:#8aafd4;line-height:1.7">'
+  +'Cet email a été envoyé à l\'adresse associée à votre espace client Fidexico. Il est strictement confidentiel et destiné uniquement à son destinataire. '
+  +'Toute utilisation, divulgation ou reproduction non autorisée est interdite.'
+  +'</p>'
+  +'<p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:11px;color:#8aafd4;line-height:1.7">'
+  +'Conformément au Règlement (UE) 2016/679 (RGPD), vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles. '
+  +'Pour exercer ces droits : <a href="mailto:contact@fidexico.eu" style="color:#C4A84A;text-decoration:none">contact@fidexico.eu</a>'
+  +'</p>'
+  +'<hr style="border:none;border-top:1px solid rgba(255,255,255,.08);margin:14px 0">'
+  +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+  +'<td style="font-family:Arial,sans-serif;font-size:10.5px;color:#5a7a9a">'
+  +'<strong style="color:#7a9abf">FIDEXICO</strong> · Société par Actions Simplifiée<br>'
+  +'Siège social : 12 Rue de la Finance, 75008 Paris · SIREN 123 456 789<br>'
+  +'Immatriculée à l\'ORIAS sous le n° 22 003 456 · <a href="https://fidexico.eu" style="color:#C4A84A;text-decoration:none">fidexico.eu</a>'
+  +'</td>'
+  +'<td align="right" style="font-family:Arial,sans-serif;font-size:10.5px;color:#5a7a9a">© '+new Date().getFullYear()+' Fidexico<br>Tous droits réservés</td>'
+  +'</tr></table>'
+  +'</td></tr>'
+
+  +'</table>'
+  +'</td></tr></table>'
+  +'</body></html>';
 }
 
-function btnStyle(){ return 'display:inline-block;background:#0B5E8A;color:#fff;text-decoration:none;padding:13px 32px;border-radius:50px;font-weight:700;font-size:.95rem;margin:20px 0'; }
-function rowStyle(){ return 'display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:.9rem'; }
-function rowLast(){ return 'display:flex;justify-content:space-between;padding:10px 0;font-size:.9rem'; }
+/* ── Helpers internes ── */
+function _btn(label, url){
+  return '<table cellpadding="0" cellspacing="0" border="0" style="margin:24px 0"><tr>'
+    +'<td style="background:#0B5E8A;border-radius:4px">'
+    +'<a href="'+url+'" style="display:inline-block;padding:13px 36px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;letter-spacing:.3px">'+label+'</a>'
+    +'</td></tr></table>';
+}
+function _tbl(rows){
+  return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;border:1px solid #dde3ec;border-radius:4px;overflow:hidden;margin:20px 0">'
+    +rows.map(function(r,i){
+      var bg = i%2===0 ? '#f8fafc' : '#ffffff';
+      return '<tr style="background:'+bg+'">'
+        +'<td style="padding:11px 16px;font-family:Arial,sans-serif;font-size:13px;color:#6b7a8d;border-bottom:1px solid #edf0f5;width:42%">'+r[0]+'</td>'
+        +'<td style="padding:11px 16px;font-family:Arial,sans-serif;font-size:13px;color:#1a2b3c;font-weight:600;border-bottom:1px solid #edf0f5">'+r[1]+'</td>'
+        +'</tr>';
+    }).join('')
+    +'</table>';
+}
+function _section(title){
+  return '<p style="margin:24px 0 4px;font-family:Arial,sans-serif;font-size:10px;font-weight:700;color:#C4A84A;letter-spacing:2px;text-transform:uppercase">'+title+'</p>';
+}
+function _divider(){
+  return '<hr style="border:none;border-top:1px solid #edf0f5;margin:20px 0">';
+}
+function _salut(prenom){
+  return '<p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:13px;color:#6b7a8d;text-transform:uppercase;letter-spacing:1px">Madame, Monsieur,</p>'
+    +'<p style="margin:0 0 20px;font-family:Arial,sans-serif;font-size:15px;color:#1a2b3c;font-weight:700">'+prenom+',</p>';
+}
+function _body(text){
+  return '<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:14px;color:#3d4f63;line-height:1.7">'+text+'</p>';
+}
+function _note(text){
+  return '<p style="margin:16px 0 0;font-family:Arial,sans-serif;font-size:12px;color:#8a9ab0;line-height:1.6;border-top:1px solid #edf0f5;padding-top:16px">'+text+'</p>';
+}
+function _sign(){
+  return '<p style="margin:24px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#3d4f63;line-height:1.6">'
+    +'Nous restons à votre disposition pour toute question.<br>'
+    +'<strong style="color:#1a2b3c">Votre Conseiller Fidexico</strong><br>'
+    +'<span style="color:#8a9ab0;font-size:12px">Service Relations Clients · <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A;text-decoration:none">contact@fidexico.eu</a></span>'
+    +'</p>';
+}
+function _alertBox(color, bgColor, title, text){
+  return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:20px 0;border-left:4px solid '+color+';background:'+bgColor+';border-radius:0 4px 4px 0"><tr>'
+    +'<td style="padding:14px 18px;font-family:Arial,sans-serif">'
+    +'<p style="margin:0 0 4px;font-size:12px;font-weight:700;color:'+color+';text-transform:uppercase;letter-spacing:.5px">'+title+'</p>'
+    +'<p style="margin:0;font-size:13px;color:#3d4f63;line-height:1.6">'+text+'</p>'
+    +'</td></tr></table>';
+}
 
-/* ── Templates ── */
+/* ════════════════════════════════════════════════════════════
+   TEMPLATES CLIENT
+   ════════════════════════════════════════════════════════════ */
 
 function emailBienvenue(prenom, nom, email, lang){
-  var l = lang||fidLang();
+  var ref = 'FID-ACC-'+Date.now().toString(36).toUpperCase().slice(-6);
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('welcome_title',{prenom:prenom},l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('welcome_body',null,l)+'</p>'
-    +'<hr style="border:none;border-top:1px solid #eee;margin:20px 0">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_name',null,l)+'</span><strong>'+prenom+' '+nom+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_email',null,l)+'</span><strong>'+email+'</strong></div>'
-    +'<hr style="border:none;border-top:1px solid #eee;margin:20px 0">'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('welcome_cta',null,l)+'</a>'
-    +'<p style="color:#999;font-size:.82rem;margin:0">'+fidT('welcome_warn',null,l)+'</p>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Confirmation d\'ouverture de compte</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:22px;color:#0B2140;font-weight:700">Bienvenue chez Fidexico,<br>'+prenom+' '+nom+'.</h1>'
+    +_divider()
+    +_body('Nous avons le plaisir de vous confirmer l\'ouverture de votre Espace Client Fidexico. Votre dossier a bien été enregistré et notre équipe de conseillers prendra contact avec vous dans les meilleurs délais.')
+    +_section('Récapitulatif de votre compte')
+    +_tbl([
+      ['Titulaire du compte', prenom+' '+nom],
+      ['Adresse email', email],
+      ['Date d\'ouverture', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})],
+      ['Référence dossier', ref]
+    ])
+    +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_alertBox('#d4911a','#fdf6e3','Sécurité de votre compte','Conservez vos identifiants de connexion en lieu sûr. Ne les communiquez jamais à un tiers, même à un conseiller Fidexico qui ne vous les demandera pas.')
+    +_sign()
+    +_note('Si vous n\'êtes pas à l\'origine de cette inscription, veuillez contacter immédiatement notre service sécurité à l\'adresse <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a> afin de bloquer votre compte.'),
+  'fr', {ref:ref});
 }
 
 function emailConnexion(prenom, date, lang){
-  var l = lang||fidLang();
+  var ref = 'SEC-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('login_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('login_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
-    +'</div>'
-    +'<p style="color:#999;font-size:.82rem">'+fidT('login_warn',null,l)+'</p>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Alerte de connexion</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Nouvelle connexion détectée sur votre compte</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, une connexion a été enregistrée sur votre Espace Client Fidexico. Voici le détail de cette opération.')
+    +_section('Détails de la connexion')
+    +_tbl([
+      ['Date et heure', date],
+      ['Type d\'opération', 'Authentification réussie'],
+      ['Référence sécurité', ref]
+    ])
+    +_alertBox('#c0392b','#fff8f8','Action requise si vous n\'êtes pas à l\'origine de cette connexion','Votre compte pourrait être compromis. Modifiez immédiatement votre mot de passe depuis votre Espace Client et contactez notre service sécurité au <strong>+33 (0)1 00 00 00 00</strong>.')
+    +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_sign()
+    +_note('Cet email de sécurité est généré automatiquement à chaque connexion. Si cette connexion provient bien de vous, aucune action n\'est nécessaire.'),
+  'fr', {ref:ref});
 }
 
 function emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, lang){
-  var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('vir_out_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('vir_out_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount',null,l)+'</span><strong style="color:#0B5E8A;font-size:1.1rem">'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_recipient',null,l)+'</span><strong>'+destinataire+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_iban',null,l)+'</span><strong style="font-family:monospace">'+iban+'</strong></div>'
-    +(motif?'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_reason',null,l)+'</span><strong>'+motif+'</strong></div>':'')
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_ref',null,l)+'</span><strong style="font-family:monospace">'+ref+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('view_space',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Confirmation de virement</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Votre virement a été exécuté</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, nous vous confirmons que votre ordre de virement a été traité avec succès. Veuillez conserver ce justificatif.')
+    +_section('Détails de l\'opération')
+    +_tbl([
+      ['Montant débité', '<span style="color:#c0392b;font-size:15px;font-weight:700">− '+montant+'</span>'],
+      ['Bénéficiaire', destinataire],
+      ['IBAN bénéficiaire', '<span style="font-family:\'Courier New\',monospace;font-size:12px">'+iban+'</span>'],
+      motif ? ['Motif du virement', motif] : null,
+      ['Date d\'exécution', date],
+      ['Référence opération', '<span style="font-family:\'Courier New\',monospace;font-size:12px">'+ref+'</span>']
+    ].filter(Boolean))
+    +_btn('Consulter mon espace', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_alertBox('#d4911a','#fdf6e3','Conseil','Si vous n\'avez pas initié ce virement, contactez immédiatement notre service client. Les virements vers des tiers sont irréversibles une fois traités.')
+    +_sign()
+    +_note('Conservez cet email comme preuve de votre opération. Référence : <strong>'+ref+'</strong>. Ce document peut vous être demandé en cas de litige.'),
+  'fr', {ref:ref});
 }
 
 function emailVirementEntrant(prenom, montant, expediteur, ref, date, lang){
-  var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#27ae60;margin:0 0 8px">'+fidT('vir_in_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('vir_in_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f0faf4;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #27ae60">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount_recv',null,l)+'</span><strong style="color:#27ae60;font-size:1.1rem">+'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_sender',null,l)+'</span><strong>'+expediteur+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_ref',null,l)+'</span><strong style="font-family:monospace">'+ref+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('debloc_cta',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Avis de crédit</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Un virement a été crédité sur votre compte</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, nous vous informons qu\'une opération de crédit a été enregistrée sur votre Espace Client Fidexico.')
+    +_section('Détails de l\'opération')
+    +_tbl([
+      ['Montant crédité', '<span style="color:#1a7a3c;font-size:15px;font-weight:700">+ '+montant+'</span>'],
+      ['Expéditeur', expediteur],
+      ['Date de valeur', date],
+      ['Référence opération', '<span style="font-family:\'Courier New\',monospace;font-size:12px">'+ref+'</span>']
+    ])
+    +_btn('Voir mon solde mis à jour', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_sign()
+    +_note('Si vous avez des questions concernant cette opération, notre service client est disponible à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a>.'),
+  'fr', {ref:ref});
 }
 
 function emailNouveauMessage(prenom, apercu, lang){
-  var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('msg_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('msg_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #B59A55">'
-    +'<p style="margin:0;color:#333;font-style:italic">"'+apercu+'"</p>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('msg_cta',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Messagerie sécurisée</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Vous avez reçu un message de votre conseiller</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, votre conseiller Fidexico vous a adressé un nouveau message via votre messagerie sécurisée.')
+    +_section('Aperçu du message')
+    +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:16px 0;border-left:4px solid #C4A84A;background:#fdf9f0"><tr>'
+    +'<td style="padding:16px 20px;font-family:Arial,sans-serif;font-size:14px;color:#3d4f63;line-height:1.7;font-style:italic">'+apercu+'...'
+    +'</td></tr></table>'
+    +_btn('Lire le message complet', FIDEXICO_CONFIG.SITE_URL+'/messagerie.html')
+    +_alertBox('#1a5a8a','#f0f6fb','Rappel','Toutes les communications officielles Fidexico transitent exclusivement par votre messagerie sécurisée. Méfiez-vous de tout email vous demandant de cliquer sur un lien externe.')
+    +_sign(),
+  'fr');
 }
 
 function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
-  var l = lang||fidLang();
+  var ref = 'DOS-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('sim_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('sim_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount',null,l)+'</span><strong>'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_duration',null,l)+'</span><strong>'+duree+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_monthly',null,l)+'</span><strong style="color:#0B5E8A">'+mensualite+'</strong></div>'
-    +'</div>'
-    +'<p style="color:#555">'+fidT('sim_delay',null,l)+'</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('sim_cta',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Accusé de réception — Demande de crédit</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Votre demande de crédit a bien été reçue</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, nous accusons réception de votre demande de financement. Votre dossier a été enregistré et transmis à notre équipe d\'analyse crédit.')
+    +_section('Récapitulatif de votre demande')
+    +_tbl([
+      ['Montant sollicité', montant],
+      ['Durée de remboursement', duree],
+      ['Mensualité estimée', mensualite],
+      ['Référence dossier', ref],
+      ['Date de dépôt', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
+    ])
+    +_section('Prochaines étapes')
+    +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:12px 0">'
+    +[
+      ['1','Analyse de votre dossier','Sous 24 à 48h ouvrées'],
+      ['2','Contact par votre conseiller','Prise de rendez-vous téléphonique'],
+      ['3','Validation et signature','Contrat de prêt dématérialisé'],
+      ['4','Déblocage des fonds','Virement sur votre compte']
+    ].map(function(s){
+      return '<tr><td width="32" valign="top" style="padding:8px 0">'
+        +'<div style="width:24px;height:24px;background:#0B5E8A;border-radius:50%;text-align:center;line-height:24px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;color:#fff">'+s[0]+'</div>'
+        +'</td><td style="padding:8px 0 8px 8px;font-family:Arial,sans-serif;border-bottom:1px solid #edf0f5">'
+        +'<p style="margin:0;font-size:13px;font-weight:700;color:#1a2b3c">'+s[1]+'</p>'
+        +'<p style="margin:2px 0 0;font-size:12px;color:#8a9ab0">'+s[2]+'</p>'
+        +'</td></tr>';
+    }).join('')
+    +'</table>'
+    +_btn('Suivre mon dossier', FIDEXICO_CONFIG.SITE_URL+'/suivi-dossier.html')
+    +_alertBox('#1a5a8a','#f0f6fb','Information légale','Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Taux Annuel Effectif Global (TAEG) communiqué dans votre offre de prêt.')
+    +_sign()
+    +_note('Référence dossier : <strong>'+ref+'</strong>. Conservez ce numéro pour tout suivi de votre dossier. Notre équipe peut vous contacter par email ou téléphone dans le cadre du traitement de votre demande.'),
+  'fr', {ref:ref});
 }
 
 function emailDossierEnEtude(prenom, lang){
-  var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#f39c12;margin:0 0 8px">'+fidT('etude_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('etude_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#fffbf0;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #f39c12">'
-    +'<p style="margin:0;color:#666">'+fidT('etude_delay',null,l)+'</p>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('view_space',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Mise à jour de votre dossier</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Votre dossier est en cours d\'analyse</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, nous vous informons que votre dossier de financement est actuellement soumis à l\'analyse approfondie de notre comité de crédit.')
+    +_alertBox('#d4911a','#fdf6e3','Statut actuel','En cours d\'étude — Notre équipe d\'analystes crédit examine l\'ensemble des éléments de votre dossier. Cette étape est nécessaire pour vous proposer les meilleures conditions de financement.')
+    +_section('Ce que cela implique')
+    +_body('Notre comité de crédit procède à l\'évaluation de votre solvabilité, à la vérification de vos justificatifs et à l\'analyse de votre capacité de remboursement. Ce processus garantit la protection de vos intérêts.')
+    +_body('Délai estimé : <strong>24 à 48 heures ouvrées</strong> à compter de la réception de votre dossier complet.')
+    +_btn('Consulter mon espace', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_sign()
+    +_note('Aucune action n\'est requise de votre part à ce stade. En cas de pièces manquantes, votre conseiller vous contactera directement.'),
+  'fr');
 }
 
 function emailDossierValide(prenom, montant, duree, mensualite, lang){
-  var l = lang||fidLang();
+  var ref = 'CTR-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
-    '<div style="text-align:center;margin-bottom:24px"><div style="width:64px;height:64px;background:#27ae60;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2rem;color:#fff">✓</div></div>'
-    +'<h2 style="color:#27ae60;margin:0 0 8px;text-align:center">'+fidT('valide_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px;text-align:center">'+fidT('valide_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f0faf4;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #27ae60">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_granted',null,l)+'</span><strong style="color:#27ae60;font-size:1.1rem">'+montant+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_duration',null,l)+'</span><strong>'+duree+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_monthly',null,l)+'</span><strong>'+mensualite+'</strong></div>'
-    +'</div>'
-    +'<p style="color:#555">'+fidT('valide_next',null,l)+'</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('welcome_cta',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#1a7a3c;text-transform:uppercase;letter-spacing:1.5px;font-weight:700">Décision favorable — Dossier validé</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Votre demande de crédit a été accordée</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, nous avons le plaisir de vous informer que votre demande de financement a reçu un avis favorable de notre comité de crédit. Félicitations !')
+    +_section('Conditions de votre prêt accordé')
+    +_tbl([
+      ['Montant accordé', '<span style="color:#1a7a3c;font-size:15px;font-weight:700">'+montant+'</span>'],
+      ['Durée de remboursement', duree],
+      ['Mensualité', mensualite],
+      ['Référence contrat', ref],
+      ['Date de décision', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
+    ])
+    +_alertBox('#1a7a3c','#f0faf4','Prochaine étape — Signature du contrat','Votre conseiller va vous transmettre votre offre de prêt pour signature électronique. Vous disposez d\'un délai légal de réflexion de <strong>14 jours calendaires</strong> à compter de la réception de l\'offre.')
+    +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_sign()
+    +_note('Conformément à la loi Lagarde, vous bénéficiez d\'un délai légal de réflexion de 14 jours avant d\'accepter l\'offre. Le déblocage des fonds interviendra après signature et expiration du délai de rétractation. Réf. contrat : <strong>'+ref+'</strong>.'),
+  'fr', {ref:ref});
 }
 
 function emailDossierRefuse(prenom, motif, lang){
-  var l = lang||fidLang();
-  var refuseText = fidT('refuse_text',null,l) + (motif ? fidT('refuse_reason',{motif:motif},l) : '') + '.';
   return emailBase(
-    '<h2 style="color:#e74c3c;margin:0 0 8px">'+fidT('refuse_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('refuse_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#fff5f5;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #e74c3c">'
-    +'<p style="margin:0;color:#666">'+refuseText+'</p>'
-    +'</div>'
-    +'<p style="color:#555">'+fidT('refuse_retry',null,l)+'</p>'
-    +'<a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'" style="'+btnStyle()+'">'+fidT('refuse_cta',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Décision de notre comité de crédit</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Suite donnée à votre demande de financement</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, nous vous remercions de la confiance que vous accordez à Fidexico et de l\'intérêt que vous portez à nos services de financement.')
+    +_body('À l\'issue de l\'analyse approfondie de votre dossier par notre comité de crédit, nous avons le regret de vous informer que nous ne sommes pas en mesure de donner une suite favorable à votre demande.'+(motif ? ' Motif retenu : <em>'+motif+'</em>.' : ''))
+    +_alertBox('#1a5a8a','#f0f6fb','Vos droits','Conformément à l\'article L.311-13 du Code de la consommation, vous pouvez demander la communication des informations contenues dans votre dossier ainsi que les raisons objectives de cette décision en écrivant à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a>.')
+    +_body('Nous vous encourageons à prendre contact avec votre conseiller afin d\'explorer d\'autres solutions de financement adaptées à votre situation.')
+    +_btn('Contacter mon conseiller', 'mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL)
+    +_sign()
+    +_note('Cette décision ne constitue pas un jugement sur votre situation personnelle et peut évoluer dans le temps. Nos équipes restent disponibles pour vous accompagner dans vos projets futurs.'),
+  'fr');
 }
 
 function emailDocumentsRequis(prenom, liste, lang){
-  var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('docs_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('docs_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<ul style="margin:0;padding-left:20px;color:#333;line-height:2">'
-    +liste.map(function(d){ return '<li>'+d+'</li>'; }).join('')
-    +'</ul>'
-    +'</div>'
-    +'<p style="color:#555">'+fidT('docs_send',null,l)+' <a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'">'+FIDEXICO_CONFIG.ADMIN_EMAIL+'</a>.</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('docs_cta',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Action requise — Compléter votre dossier</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Des documents complémentaires sont nécessaires</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, afin de finaliser l\'instruction de votre dossier dans les meilleurs délais, notre service d\'analyse crédit a besoin des documents suivants :')
+    +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:16px 0;border:1px solid #dde3ec;border-radius:4px;overflow:hidden">'
+    +liste.map(function(d,i){
+      return '<tr style="background:'+(i%2===0?'#f8fafc':'#fff')+'">'
+        +'<td width="36" style="padding:12px 14px;vertical-align:middle"><div style="width:20px;height:20px;border:2px solid #dde3ec;border-radius:50%;text-align:center;line-height:18px;font-family:Arial,sans-serif;font-size:10px;font-weight:700;color:#0B5E8A">'+(i+1)+'</div></td>'
+        +'<td style="padding:12px 14px;font-family:Arial,sans-serif;font-size:13px;color:#1a2b3c;border-bottom:1px solid #edf0f5">'+d+'</td>'
+        +'</tr>';
+    }).join('')
+    +'</table>'
+    +_body('Veuillez transmettre ces documents à l\'adresse suivante : <a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'" style="color:#0B5E8A;font-weight:700">'+FIDEXICO_CONFIG.ADMIN_EMAIL+'</a>')
+    +_alertBox('#d4911a','#fdf6e3','Important','L\'instruction de votre dossier est suspendue dans l\'attente de ces pièces. Plus tôt vous nous les transmettrez, plus rapidement nous pourrons vous communiquer notre décision.')
+    +_btn('Accéder à mon espace', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_sign(),
+  'fr');
 }
 
 function emailDeblocageFonds(prenom, montant, date, lang){
-  var l = lang||fidLang();
+  var ref = 'DBL-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
-    '<div style="text-align:center;margin-bottom:24px"><div style="width:64px;height:64px;background:#0B5E8A;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2rem">💳</div></div>'
-    +'<h2 style="color:#0B5E8A;margin:0 0 8px;text-align:center">'+fidT('debloc_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px;text-align:center">'+fidT('debloc_body',{prenom:prenom},l)+'</p>'
-    +'<div style="background:#f0f6fb;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #0B5E8A">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">'+fidT('lbl_amount',null,l)+'</span><strong style="color:#0B5E8A;font-size:1.1rem">'+montant+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">'+fidT('lbl_date',null,l)+'</span><strong>'+date+'</strong></div>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('debloc_cta',null,l)+'</a>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#1a7a3c;text-transform:uppercase;letter-spacing:1.5px;font-weight:700">Avis de déblocage de fonds</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Vos fonds ont été débloqués et crédités</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, nous vous confirmons que le déblocage des fonds correspondant à votre financement Fidexico a été effectué.')
+    +_section('Détails du déblocage')
+    +_tbl([
+      ['Montant débloqué', '<span style="color:#1a7a3c;font-size:15px;font-weight:700">'+montant+'</span>'],
+      ['Date de crédit', date],
+      ['Référence opération', ref]
+    ])
+    +_body('Les fonds sont désormais disponibles sur votre Espace Client. Votre premier remboursement interviendra conformément aux modalités définies dans votre contrat de prêt.')
+    +_alertBox('#1a5a8a','#f0f6fb','Rappel contractuel','Vos mensualités seront prélevées automatiquement à la date définie dans votre contrat. Assurez-vous que votre compte présente la provision suffisante pour éviter tout incident de paiement.')
+    +_btn('Consulter mon espace', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_sign()
+    +_note('En cas de difficulté de remboursement, contactez votre conseiller <strong>avant</strong> toute échéance impayée. Des solutions amiables peuvent être envisagées. Réf. : <strong>'+ref+'</strong>.'),
+  'fr', {ref:ref});
 }
 
 function emailRappelSuivi(prenom, jours, lang){
-  var l = lang||fidLang();
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('rappel_title',null,l)+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('rappel_body',{prenom:prenom,jours:jours},l)+'</p>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('rappel_text',null,l)+'</p>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/espace-client.html" style="'+btnStyle()+'">'+fidT('view_space',null,l)+'</a>'
-    +'<p style="color:#999;font-size:.82rem;margin-top:16px"><a href="mailto:'+FIDEXICO_CONFIG.ADMIN_EMAIL+'">'+FIDEXICO_CONFIG.ADMIN_EMAIL+'</a></p>',
-  l);
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Rappel — Suivi de dossier</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Point de situation sur votre dossier</h1>'
+    +_divider()
+    +_body('Bonjour <strong>'+prenom+'</strong>, votre conseiller Fidexico revient vers vous suite à notre dernier échange il y a <strong>'+jours+' jours</strong>.')
+    +_body('Votre dossier reste ouvert et notre équipe est à votre disposition pour le faire avancer. Avez-vous pu rassembler les éléments nécessaires à la finalisation de votre demande ?')
+    +_btn('Accéder à mon Espace Client', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_sign()
+    +_note('Si vous ne souhaitez plus donner suite à votre demande, vous pouvez nous en informer par email à <a href="mailto:contact@fidexico.eu" style="color:#0B5E8A">contact@fidexico.eu</a>. Votre dossier sera alors classé sans suite.'),
+  'fr');
 }
 
 function emailResetPassword(token){
   var link = FIDEXICO_CONFIG.SITE_URL + '/admin.html?reset=' + token;
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">'+fidT('reset_title',null,'fr')+'</h2>'
-    +'<p style="color:#555;margin:0 0 20px">'+fidT('reset_body',null,'fr')+'</p>'
-    +'<a href="'+link+'" style="'+btnStyle()+'">'+fidT('reset_cta',null,'fr')+'</a>'
-    +'<p style="color:#999;font-size:.82rem;margin-top:16px">'+fidT('reset_expire',null,'fr')+'</p>'
-    +'<p style="color:#ccc;font-size:.75rem;word-break:break-all">'+link+'</p>',
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Sécurité — Réinitialisation d\'accès</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Demande de réinitialisation de mot de passe</h1>'
+    +_divider()
+    +_body('Vous avez demandé la réinitialisation du mot de passe administrateur Fidexico. Cliquez sur le bouton ci-dessous pour définir un nouveau mot de passe.')
+    +_btn('Réinitialiser mon mot de passe', link)
+    +_alertBox('#c0392b','#fff8f8','Ce lien expire dans 1 heure','Pour des raisons de sécurité, ce lien n\'est valable qu\'une seule fois et pendant 60 minutes. Si vous n\'avez pas demandé cette réinitialisation, ignorez cet email.')
+    +_note('Lien de réinitialisation : <span style="font-family:\'Courier New\',monospace;font-size:11px;word-break:break-all">'+link+'</span>'),
   'fr');
 }
 
-/* ── Admin templates (always French) ── */
+/* ════════════════════════════════════════════════════════════
+   TEMPLATES ADMIN (toujours en français)
+   ════════════════════════════════════════════════════════════ */
+
 function emailAdminNouveauClient(prenom, nom, email){
+  var date = new Date().toLocaleString('fr-FR');
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">🆕 Nouveau client inscrit</h2>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">Nom</span><strong>'+prenom+' '+nom+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">Email</span><strong>'+email+'</strong></div>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/admin.html" style="'+btnStyle()+'">Voir le panel admin</a>',
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Notification interne — Nouveau client</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Un nouveau client vient de s\'inscrire</h1>'
+    +_divider()
+    +_tbl([
+      ['Prénom', prenom],
+      ['Nom', nom],
+      ['Email', email],
+      ['Date d\'inscription', date]
+    ])
+    +_btn('Voir le dossier dans l\'admin', FIDEXICO_CONFIG.SITE_URL+'/admin.html'),
   'fr');
 }
 
 function emailAdminNouveauVirement(clientNom, montant, destinataire){
+  var date = new Date().toLocaleString('fr-FR');
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">💸 Nouveau virement</h2>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">Client</span><strong>'+clientNom+'</strong></div>'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">Montant</span><strong>'+montant+'</strong></div>'
-    +'<div style="'+rowLast()+'"><span style="color:#888">Destinataire</span><strong>'+destinataire+'</strong></div>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/admin.html" style="'+btnStyle()+'">Voir le panel admin</a>',
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Notification interne — Virement client</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Nouveau virement initié par un client</h1>'
+    +_divider()
+    +_tbl([
+      ['Client', clientNom],
+      ['Montant', montant],
+      ['Bénéficiaire', destinataire],
+      ['Date', date]
+    ])
+    +_btn('Voir dans l\'admin', FIDEXICO_CONFIG.SITE_URL+'/admin.html'),
   'fr');
 }
 
 function emailAdminNouveauMessage(clientNom, apercu){
+  var date = new Date().toLocaleString('fr-FR');
   return emailBase(
-    '<h2 style="color:#0B5E8A;margin:0 0 8px">✉️ Nouveau message client</h2>'
-    +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-    +'<div style="'+rowStyle()+'"><span style="color:#888">Client</span><strong>'+clientNom+'</strong></div>'
-    +'<div style="padding:10px 0;color:#555;font-style:italic">"'+apercu+'"</div>'
-    +'</div>'
-    +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/admin.html" style="'+btnStyle()+'">Répondre dans l\'admin</a>',
+    '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Notification interne — Message client</p>'
+    +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Un client vous a envoyé un message</h1>'
+    +_divider()
+    +_tbl([['Client', clientNom],['Reçu le', date]])
+    +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:16px 0;border-left:4px solid #C4A84A;background:#fdf9f0"><tr>'
+    +'<td style="padding:14px 18px;font-family:Arial,sans-serif;font-size:14px;color:#3d4f63;line-height:1.7;font-style:italic">'+apercu+'...</td>'
+    +'</tr></table>'
+    +_btn('Répondre dans l\'admin', FIDEXICO_CONFIG.SITE_URL+'/admin.html'),
   'fr');
 }
 
