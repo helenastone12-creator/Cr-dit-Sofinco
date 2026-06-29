@@ -48,7 +48,7 @@
   background:#f2f2f2;min-height:100vh;
   font-family:'Inter',system-ui,-apple-system,sans-serif;
   color:#111;-webkit-font-smoothing:antialiased;
-  padding-bottom:52px;
+  padding-top:38px;
 }
 .ec-login-wrap{
   max-width:480px;margin:0 auto;padding:2.5rem 1rem 2rem;
@@ -170,12 +170,12 @@
 .ec-login-footer-links a:hover{ text-decoration:underline; }
 .ec-login-footer-links span{ color:#cdd3da; }
 
-/* Mention légale crédit sticky */
+/* Mention légale crédit sticky en haut */
 .ec-credit-legal-bar{
-  position:fixed;bottom:0;left:0;right:0;z-index:999;
-  background:#e8eaed;border-top:1px solid #d0d4d9;
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:#e8eaed;border-bottom:1px solid #d0d4d9;
   color:#5a6473;font-size:.72rem;
-  text-align:center;padding:.65rem 1.5rem;
+  text-align:center;padding:.55rem 1.5rem;
   font-family:'Inter',system-ui,sans-serif;
   line-height:1.4;
 }
