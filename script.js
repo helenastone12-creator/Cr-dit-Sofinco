@@ -1824,7 +1824,7 @@ function sp5Submit(){
         if(filter && name.toLowerCase().indexOf(filter.toLowerCase())<0 && dial.indexOf(filter)<0) return;
         var li = document.createElement('li');
         li.className='nat-item'+(code===currentTelCountry?' nat-sel':'');
-        li.innerHTML='<img class="nat-flag" src="https://flagcdn.com/24x18/'+code.toLowerCase()+'.png" alt="'+code+'" onerror="this.style.visibility=\'hidden\'">'
+        li.innerHTML='<img class="nat-flag" src="https://flagcdn.com/h40/'+code.toLowerCase()+'.png" alt="'+code+'" onerror="this.style.visibility=\'hidden\'">'
           +'<span class="nat-item-label">'+name+'</span>'
           +'<span style="color:#888;font-size:.9rem">'+dial+'</span>'
           +(code===currentTelCountry?'<svg class="nat-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#06c2b0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':'');
@@ -1898,7 +1898,7 @@ function sp5Submit(){
     if(!btn) return;
     var dial = DIAL_CODES[country]||'+33';
     btn.innerHTML =
-      '<img class="nat-flag sp5-tel-flag" src="https://flagcdn.com/24x18/'+country.toLowerCase()+'.png" alt="'+country+'">'
+      '<img class="nat-flag sp5-tel-flag" src="https://flagcdn.com/h40/'+country.toLowerCase()+'.png" alt="'+country+'">'
       +'<span class="sp5-tel-dial">'+dial+'</span>';
   }
 
@@ -2054,7 +2054,7 @@ function sp5Submit(){
 
   function flagImg(code){
     if(!code || code==='AUTRE') return GLOBE_SVG;
-    return '<img class="nat-flag" src="https://flagcdn.com/24x18/'+code.toLowerCase()+'.png" alt="'+code+'" onerror="window._natFlagFallback(this)">';
+    return '<img class="nat-flag" src="https://flagcdn.com/h40/'+code.toLowerCase()+'.png" alt="'+code+'" onerror="window._natFlagFallback(this)">';
   }
 
   function initNatDropdown(){
