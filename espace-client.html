@@ -245,13 +245,7 @@
     </div>
     <div class="ec-modal-body">
       <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_beneficiaire">Bénéficiaire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire"/></div>
-      <div class="ec-form-group">
-        <label class="ec-lbl"><span data-i18n="vir_iban_dest">IBAN destinataire</span> <span class="ec-req">*</span></label>
-        <div style="position:relative">
-          <input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX" oninput="ecDetectIbanCountry(this.value)" style="padding-right:8rem"/>
-          <span id="ec-iban-country" style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);font-size:.8rem;font-weight:600;color:var(--brand);pointer-events:none;display:none"></span>
-        </div>
-      </div>
+      <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_iban_dest">IBAN destinataire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/></div>
       <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_montant">Montant</span> <span class="ec-req">*</span></label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div></div>
       <div class="ec-form-group"><label class="ec-lbl" data-i18n="vir_motif">Motif</label><input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..."/></div>
       <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>

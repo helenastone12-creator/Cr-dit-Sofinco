@@ -436,37 +436,6 @@ function ecConvert(){
   }
 }
 
-var EC_IBAN_COUNTRIES = {
-  AD:'🇦🇩 Andorre',AE:'🇦🇪 Émirats arabes',AL:'🇦🇱 Albanie',AT:'🇦🇹 Autriche',AZ:'🇦🇿 Azerbaïdjan',
-  BA:'🇧🇦 Bosnie',BE:'🇧🇪 Belgique',BG:'🇧🇬 Bulgarie',BH:'🇧🇭 Bahreïn',BR:'🇧🇷 Brésil',
-  BY:'🇧🇾 Biélorussie',CH:'🇨🇭 Suisse',CR:'🇨🇷 Costa Rica',CY:'🇨🇾 Chypre',CZ:'🇨🇿 Rép. Tchèque',
-  DE:'🇩🇪 Allemagne',DJ:'🇩🇯 Djibouti',DK:'🇩🇰 Danemark',DO:'🇩🇴 Rép. Dominicaine',EE:'🇪🇪 Estonie',
-  EG:'🇪🇬 Égypte',ES:'🇪🇸 Espagne',FI:'🇫🇮 Finlande',FR:'🇫🇷 France',GB:'🇬🇧 Royaume-Uni',
-  GE:'🇬🇪 Géorgie',GI:'🇬🇮 Gibraltar',GL:'🇬🇱 Groenland',GR:'🇬🇷 Grèce',GT:'🇬🇹 Guatemala',
-  HR:'🇭🇷 Croatie',HU:'🇭🇺 Hongrie',IE:'🇮🇪 Irlande',IL:'🇮🇱 Israël',IQ:'🇮🇶 Irak',
-  IS:'🇮🇸 Islande',IT:'🇮🇹 Italie',JO:'🇯🇴 Jordanie',KW:'🇰🇼 Koweït',KZ:'🇰🇿 Kazakhstan',
-  LB:'🇱🇧 Liban',LI:'🇱🇮 Liechtenstein',LT:'🇱🇹 Lituanie',LU:'🇱🇺 Luxembourg',LV:'🇱🇻 Lettonie',
-  LY:'🇱🇾 Libye',MC:'🇲🇨 Monaco',MD:'🇲🇩 Moldavie',ME:'🇲🇪 Monténégro',MK:'🇲🇰 Macédoine',
-  MR:'🇲🇷 Mauritanie',MT:'🇲🇹 Malte',MU:'🇲🇺 Maurice',MZ:'🇲🇿 Mozambique',NL:'🇳🇱 Pays-Bas',
-  NO:'🇳🇴 Norvège',PK:'🇵🇰 Pakistan',PL:'🇵🇱 Pologne',PS:'🇵🇸 Palestine',PT:'🇵🇹 Portugal',
-  QA:'🇶🇦 Qatar',RO:'🇷🇴 Roumanie',RS:'🇷🇸 Serbie',SA:'🇸🇦 Arabie Saoudite',SE:'🇸🇪 Suède',
-  SI:'🇸🇮 Slovénie',SK:'🇸🇰 Slovaquie',SM:'🇸🇲 Saint-Marin',TN:'🇹🇳 Tunisie',TR:'🇹🇷 Turquie',
-  UA:'🇺🇦 Ukraine',VA:'🇻🇦 Vatican',VG:'🇻🇬 Îles Vierges',XK:'🇽🇰 Kosovo'
-};
-
-function ecDetectIbanCountry(val){
-  var el = document.getElementById('ec-iban-country');
-  if(!el) return;
-  var code = val.replace(/\s/g,'').toUpperCase().slice(0,2);
-  var country = EC_IBAN_COUNTRIES[code];
-  if(val.length >= 2 && country){
-    el.textContent = country;
-    el.style.display = '';
-  } else {
-    el.style.display = 'none';
-  }
-}
-
 function ecValidateIban(raw){
   var iban = raw.replace(/\s+/g,'').toUpperCase();
   if(!/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/.test(iban)) return false;
