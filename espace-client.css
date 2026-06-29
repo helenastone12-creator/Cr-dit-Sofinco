@@ -330,8 +330,8 @@
 }
 .ec-iban-val{
   font-size:.72rem;font-weight:400;color:#4B5563;
-  flex:1;font-variant-numeric:tabular-nums;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
 }
 .ec-iban-copy{
   background:none;border:none;padding:0;cursor:pointer;
