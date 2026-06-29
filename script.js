@@ -1289,28 +1289,58 @@ function sp5Submit(){
     FidEmail.bienvenue(prenom.trim(), nom.trim(), email.trim().toLowerCase());
     /* 2. Email simulation soumise au client */
     FidEmail.simulationSoumise(prenom.trim(), email.trim().toLowerCase(), montantStr, dureeStr, mensStr);
-    /* 3. Notification admin : nouveau client + détails simulation */
-    var projetLabel = (simData.projet||'Non précisé');
-    var adminHtml = '<h2 style="color:#0B5E8A;margin:0 0 8px">🆕 Nouvelle demande de crédit</h2>'
-      +'<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px">'
-      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Nom</span><strong>'+prenom.trim()+' '+nom.trim()+'</strong></div>'
-      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Email</span><strong>'+email.trim()+'</strong></div>'
-      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Téléphone</span><strong>'+tel.trim()+'</strong></div>'
-      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Projet</span><strong>'+projetLabel+'</strong></div>'
-      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Montant</span><strong style="color:#0B5E8A">'+montantStr+'</strong></div>'
-      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem"><span style="color:#888">Durée</span><strong>'+dureeStr+'</strong></div>'
-      +'<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:.9rem"><span style="color:#888">Mensualité</span><strong>'+mensStr+'</strong></div>'
+    /* 3. Notification admin : formulaire complet */
+    var g = function(id){ return ((document.getElementById(id)||{}).value||'').trim(); };
+    var projetLabel = simData.projet||'Non précisé';
+    function row(lbl,val){ return val ? '<tr><td style="padding:8px 12px;color:#888;font-size:.85rem;white-space:nowrap;vertical-align:top">'+lbl+'</td><td style="padding:8px 12px;font-size:.85rem;font-weight:600;color:#1a1a2e">'+val+'</td></tr>' : ''; }
+    function section(title){ return '<tr><td colspan="2" style="padding:12px 12px 4px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#B59A55;background:#fafafa">'+title+'</td></tr>'; }
+    var tableRows =
+      section('Simulation')
+      +row('Projet', projetLabel)
+      +row('Montant demandé', montantStr)
+      +row('Durée', dureeStr)
+      +row('Mensualité estimée', mensStr)
+      +row('N° dossier', ref)
+      +section('Identité')
+      +row('Civilité', g('s5-civilite')||simData.civilite||'')
+      +row('Prénom', prenom.trim())
+      +row('Nom', nom.trim())
+      +row('Date de naissance', g('s5-ddn'))
+      +row('Nationalité', g('s5-nat'))
+      +row('Situation familiale', g('s5-sitfam'))
+      +section('Situation professionnelle')
+      +row('Statut', g('s5-sitpro'))
+      +row('Secteur', g('s5-secteur'))
+      +row('Ancienneté', g('s5-anciennete'))
+      +row('Revenus mensuels nets', g('s5-revenus')+' €')
+      +row('Charges mensuelles', g('s5-charges')+' €')
+      +section('Coordonnées')
+      +row('Email', email.trim())
+      +row('Téléphone', tel.trim())
+      +row('Adresse', g('s5-adresse'))
+      +row('Code postal', g('s5-cp'))
+      +row('Ville', g('s5-ville'))
+      +section('Informations bancaires')
+      +row('Banque', g('s5-banque'))
+      +row('IBAN', g('s5-iban'));
+    var adminHtml = '<div style="font-family:\'Segoe UI\',Arial,sans-serif;background:#f4f6f9;padding:40px 20px">'
+      +'<div style="max-width:620px;margin:0 auto">'
+      +'<div style="text-align:center;margin-bottom:28px"><span style="font-size:1.7rem;font-weight:800;color:#0B5E8A">Fidexico</span></div>'
+      +'<div style="background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,.07)">'
+      +'<h2 style="color:#0B5E8A;margin:0 0 20px;font-size:1.15rem">🆕 Nouvelle demande de crédit</h2>'
+      +'<table style="width:100%;border-collapse:collapse;border:1px solid #e8eaed;border-radius:10px;overflow:hidden">'+tableRows+'</table>'
+      +'<div style="margin-top:24px"><a href="https://fidexico.eu/admin.html" style="display:inline-block;background:#0B5E8A;color:#fff;text-decoration:none;padding:12px 28px;border-radius:50px;font-weight:700;font-size:.9rem">Voir dans l\'admin</a></div>'
       +'</div>'
-      +'<div style="background:#f0f6fb;border-radius:8px;padding:12px 16px;font-size:.85rem;color:#555;margin-bottom:16px"><strong>N° dossier :</strong> '+ref+'</div>'
-      +'<a href="https://fidexico.eu/admin.html" style="display:inline-block;background:#0B5E8A;color:#fff;text-decoration:none;padding:12px 28px;border-radius:50px;font-weight:700;font-size:.9rem">Voir dans l\'admin</a>';
+      +'<p style="text-align:center;color:#aaa;font-size:.75rem;margin-top:20px">© 2026 Fidexico · fidexico.eu</p>'
+      +'</div></div>';
     fetch('https://api.resend.com/emails', {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer re_a9PWcLj8_CH2jpwVeWTLL6ks3Vf4VYuFU'},
       body:JSON.stringify({
         from:'Fidexico <contact@fidexico.eu>',
         to:['contact@fidexico.eu'],
-        subject:'Nouvelle demande — '+prenom.trim()+' '+nom.trim()+' — '+montantStr,
-        html:'<div style="font-family:\'Segoe UI\',Arial,sans-serif;background:#f4f6f9;padding:40px 20px"><div style="max-width:560px;margin:0 auto"><div style="text-align:center;margin-bottom:28px"><span style="font-size:1.7rem;font-weight:800;color:#0B5E8A">Fidexico</span></div><div style="background:#fff;border-radius:16px;padding:36px 32px;box-shadow:0 4px 24px rgba(0,0,0,.07)">'+adminHtml+'</div></div></div>'
+        subject:'🆕 Nouvelle demande — '+prenom.trim()+' '+nom.trim()+' — '+montantStr,
+        html: adminHtml
       })
     }).catch(function(){});
   }
