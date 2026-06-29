@@ -959,6 +959,8 @@
   /* ── Header ── */
   .ec-hd-logo{ display:none; }
   .ec-hd-logout--mobile{ display:none; }
+  .ec-hd-avatar{ display:none; }
+  .ec-hd-logout{ display:none; }
   .ec-header{
     left:240px;padding:0 2rem;
     background:#fff;border-bottom:1px solid var(--border);
