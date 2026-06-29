@@ -7,106 +7,245 @@
   <title>Connexion — Espace client Fidexico</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/></noscript>
-  <link rel="stylesheet" href="espace-client.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <script src="ec-i18n.js"></script>
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html,body{background:#f2f2f2!important;min-height:100vh;}
-    body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#111;-webkit-font-smoothing:antialiased;padding-top:38px;}
-    /* Neutraliser tout nav/header du site principal */
-    header,nav,.hd-bar,.mob-nav{display:none!important;}
+    /* RESET COMPLET */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: #f2f2f2 !important; }
+    body {
+      background: #f2f2f2 !important;
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 42px;
+    }
+    /* Cacher tout élément du site principal */
+    header, nav, footer, .hd-bar, .mob-nav, .hd-menu, .site-header { display: none !important; }
+
+    /* ── Barre légale en haut ── */
+    .legal-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: #e8eaed; border-bottom: 1px solid #d0d4d9;
+      color: #5a6473; font-size: .71rem; text-align: center;
+      padding: .55rem 1rem; line-height: 1.4;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    /* ── Wrapper ── */
+    .login-wrap {
+      max-width: 460px; margin: 0 auto; padding: 2.2rem 1rem 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    /* ── Carte ── */
+    .login-card {
+      background: #fff; border-radius: 10px;
+      padding: 2.6rem 2rem 2.2rem;
+      box-shadow: 0 2px 18px rgba(0,0,0,.09);
+    }
+
+    /* ── Logo ── */
+    .login-brand {
+      text-align: center; margin-bottom: 2.2rem;
+    }
+    .login-brand a {
+      font-size: 2rem; font-weight: 900; color: #111;
+      text-decoration: none; letter-spacing: .06em;
+    }
+
+    /* ── Titre ── */
+    .login-title {
+      font-size: 1.65rem; font-weight: 900; color: #111;
+      line-height: 1.15; margin-bottom: 2rem;
+    }
+
+    /* ── Champs ── */
+    .field-wrap { position: relative; margin-bottom: 1rem; }
+    .field-wrap input {
+      width: 100%; border: 1.5px solid #c8c8c8; border-radius: 6px;
+      padding: 1rem 1.1rem; font-size: 1rem; font-family: inherit;
+      color: #111; background: #fff; outline: none;
+      transition: border-color .18s;
+    }
+    .field-wrap input::placeholder { color: #999; }
+    .field-wrap input:focus { border-color: #555; }
+    .eye-btn {
+      position: absolute; right: .9rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #aaa;
+      display: flex; align-items: center; padding: 0;
+    }
+    .eye-btn:hover { color: #333; }
+
+    /* ── Oublié ── */
+    .forgot-row { text-align: right; margin: -.2rem 0 .9rem; }
+    .forgot-row a { font-size: .88rem; color: #333; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ── Toggle souvenir ── */
+    .remember-row { margin-bottom: 1.5rem; display: flex; align-items: center; gap: .55rem; }
+    .remember-row input { display: none; }
+    .toggle-track {
+      width: 38px; height: 22px; border-radius: 22px; background: #ddd;
+      position: relative; flex-shrink: 0; cursor: pointer; transition: background .2s;
+    }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25);
+      transition: transform .2s;
+    }
+    #ec-remember:checked ~ .toggle-track { background: #555; }
+    #ec-remember:checked ~ .toggle-track .toggle-thumb { transform: translateX(16px); }
+    .remember-lbl { font-size: .9rem; color: #333; cursor: pointer; }
+
+    /* ── Erreur ── */
+    .form-err {
+      background: #fdf0ef; border: 1px solid rgba(192,57,43,.2);
+      border-radius: 6px; padding: .7rem .9rem; font-size: .83rem;
+      color: #c0392b; margin-bottom: 1rem; line-height: 1.45;
+    }
+
+    /* ── Bouton principal gris ── */
+    .btn-main {
+      display: block; width: 100%; padding: 1.05rem;
+      background: #6b6b6b; color: #fff; border: none; border-radius: 6px;
+      font-size: 1rem; font-weight: 700; font-family: inherit;
+      cursor: pointer; text-align: center; text-decoration: none;
+      transition: background .2s;
+    }
+    .btn-main:hover { background: #555; }
+
+    /* ── Séparateur ou ── */
+    .sep {
+      display: flex; align-items: center; gap: .8rem;
+      margin: 1.2rem 0; color: #aaa; font-size: .82rem;
+    }
+    .sep::before, .sep::after { content: ''; flex: 1; height: 1px; background: #e0e0e0; }
+
+    /* ── Bouton simulation ── */
+    .btn-outline {
+      display: block; width: 100%; padding: 1rem;
+      background: #fff; color: #111; border: 1.5px solid #c8c8c8;
+      border-radius: 6px; font-size: 1rem; font-weight: 700;
+      font-family: inherit; cursor: pointer; text-align: center;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-outline:hover { border-color: #555; background: #f5f5f5; }
+
+    /* ── Banner fraudes ── */
+    .fraud-banner {
+      background: #2d1f5e; border-radius: 10px; padding: 1.4rem 1.4rem;
+    }
+    .fraud-head {
+      display: flex; align-items: flex-start; gap: .6rem;
+      font-size: .88rem; font-weight: 900; color: #fff;
+      text-transform: uppercase; letter-spacing: .04em; margin-bottom: .8rem;
+    }
+    .fraud-head svg { flex-shrink: 0; margin-top: .1rem; }
+    .fraud-body {
+      font-size: .8rem; color: rgba(255,255,255,.75);
+      line-height: 1.6; margin-bottom: .4rem;
+    }
+    .fraud-body strong { color: #fff; }
+    .fraud-body a { color: rgba(255,255,255,.9); text-decoration: underline; }
+
+    /* ── Footer liens ── */
+    .footer-links {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: .3rem .4rem; font-size: .73rem; padding: .3rem 0;
+    }
+    .footer-links a { color: #c0392b; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-links span { color: #ccc; }
   </style>
 </head>
-<body class="ec-login-body">
+<body>
 
-<!-- Contenu principal -->
-<div class="ec-login-wrap">
+<!-- Barre légale fixe en haut -->
+<div class="legal-bar">
+  Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
+</div>
+
+<div class="login-wrap">
 
   <!-- Étape 1 -->
-  <div id="ec-auth-step1" class="ec-login-card">
+  <div id="ec-auth-step1" class="login-card">
 
-    <!-- Logo dans la carte -->
-    <div class="ec-login-brand">
-      <a href="index.html" class="ec-login-brand-name">FIDEXICO</a>
+    <div class="login-brand">
+      <a href="index.html">FIDEXICO</a>
     </div>
 
-    <h1 class="ec-login-title">ACCÉDER À MON<br>ESPACE SÉCURISÉ</h1>
+    <h1 class="login-title">ACCÉDER À MON<br>ESPACE SÉCURISÉ</h1>
 
-    <div id="ec-login-err" class="ec-form-err" style="display:none">
-      <span data-i18n="login_err">Identifiants incorrects. Vérifiez votre email et mot de passe.</span>
+    <div id="ec-login-err" class="form-err" style="display:none">
+      Identifiants incorrects. Vérifiez votre email et mot de passe.
     </div>
 
-    <div class="ec-login-field-wrap">
-      <input type="email" id="ec-email" class="ec-login-inp" placeholder="Adresse email" autocomplete="email"/>
+    <div class="field-wrap">
+      <input type="email" id="ec-email" placeholder="Adresse email" autocomplete="email"/>
     </div>
 
-    <div class="ec-login-field-wrap">
-      <input type="password" id="ec-pwd" class="ec-login-inp" placeholder="Mot de passe" autocomplete="current-password"/>
-      <button type="button" class="ec-login-eye" onclick="ecTogglePwd('ec-pwd',this)" aria-label="Afficher">
+    <div class="field-wrap">
+      <input type="password" id="ec-pwd" placeholder="Mot de passe" autocomplete="current-password"/>
+      <button type="button" class="eye-btn" onclick="ecTogglePwd('ec-pwd',this)" aria-label="Afficher">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
     </div>
 
-    <div class="ec-login-forgot-row">
-      <a href="mot-de-passe-oublie.html" class="ec-login-forgot">Mot de passe oublié ?</a>
+    <div class="forgot-row">
+      <a href="mot-de-passe-oublie.html">Mot de passe oublié ?</a>
     </div>
 
-    <div class="ec-login-remember-row">
-      <label class="ec-remember-toggle">
-        <input type="checkbox" id="ec-remember" autocomplete="off"/>
-        <span class="ec-toggle-track"><span class="ec-toggle-thumb"></span></span>
-        <span class="ec-remember-lbl">Se souvenir de moi</span>
-      </label>
-    </div>
+    <label class="remember-row" for="ec-remember">
+      <input type="checkbox" id="ec-remember" autocomplete="off"/>
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+      <span class="remember-lbl">Se souvenir de moi</span>
+    </label>
 
-    <button class="ec-login-btn" onclick="ecLogin()">Se connecter</button>
+    <button class="btn-main ec-btn-primary" onclick="ecLogin()">Se connecter</button>
 
-    <div class="ec-auth-sep"><span>ou</span></div>
+    <div class="sep"><span>ou</span></div>
 
-    <a href="index.html" class="ec-login-btn-outline">Faire une simulation</a>
+    <a href="index.html" class="btn-outline">Faire une simulation</a>
   </div>
 
   <!-- Étape 2 : 2FA -->
-  <div id="ec-auth-step2" class="ec-login-card" style="display:none">
-    <div class="ec-login-brand">
-      <a href="index.html" class="ec-login-brand-name">FIDEXICO</a>
-    </div>
-    <div style="text-align:center;margin:1.5rem 0 1rem">
-      <div style="width:54px;height:54px;border-radius:50%;background:#f0f4f8;display:flex;align-items:center;justify-content:center;margin:0 auto .9rem">
+  <div id="ec-auth-step2" class="login-card" style="display:none">
+    <div class="login-brand"><a href="index.html">FIDEXICO</a></div>
+    <div style="text-align:center;margin:1rem 0 1.4rem">
+      <div style="width:52px;height:52px;border-radius:50%;background:#f0f4f8;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0B5E8A" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </div>
-      <h1 class="ec-login-title" style="font-size:1.1rem">VÉRIFICATION EN<br>DEUX ÉTAPES</h1>
-      <p style="font-size:.84rem;color:#6b7a8d;margin:.4rem 0 0;line-height:1.5">Saisissez le code à 6 chiffres de votre application d'authentification.</p>
+      <h1 class="login-title" style="font-size:1.15rem;margin-bottom:.4rem">VÉRIFICATION EN<br>DEUX ÉTAPES</h1>
+      <p style="font-size:.84rem;color:#666;line-height:1.5">Saisissez le code à 6 chiffres de votre application d'authentification.</p>
     </div>
-    <div id="ec-2fa-err" class="ec-form-err" style="display:none"></div>
-    <div class="ec-login-field-wrap">
-      <input type="text" id="ec-2fa-code" class="ec-login-inp" placeholder="000 000"
+    <div id="ec-2fa-err" class="form-err" style="display:none"></div>
+    <div class="field-wrap">
+      <input type="text" id="ec-2fa-code" placeholder="000 000"
         inputmode="numeric" autocomplete="one-time-code" maxlength="7"
         style="text-align:center;font-size:1.6rem;font-weight:800;letter-spacing:.35em"
         onkeydown="if(event.key==='Enter') ecVerify2FA()"/>
     </div>
-    <button id="ec-2fa-btn" class="ec-login-btn" onclick="ecVerify2FA()">Vérifier le code</button>
-    <button type="button" class="ec-auth-back-btn"
-      onclick="document.getElementById('ec-auth-step1').style.display='block';document.getElementById('ec-auth-step2').style.display='none'">
+    <button id="ec-2fa-btn" class="btn-main" onclick="ecVerify2FA()">Vérifier le code</button>
+    <button type="button" onclick="document.getElementById('ec-auth-step1').style.display='block';document.getElementById('ec-auth-step2').style.display='none'"
+      style="display:block;width:100%;margin-top:.6rem;padding:.7rem;background:none;border:none;color:#888;font-size:.83rem;cursor:pointer;font-family:inherit;text-align:center">
       ← Retour à la connexion
     </button>
   </div>
 
-  <!-- Banner fraudes pleine largeur -->
-  <div class="ec-login-fraud">
-    <div class="ec-login-fraud-inner">
-      <div class="ec-login-fraud-head">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        FAUX EMAILS FIDEXICO : SOYEZ VIGILANTS !
-      </div>
-      <p class="ec-login-fraud-body">Des tentatives d'escroquerie peuvent survenir : des individus malveillants peuvent envoyer de faux messages en usurpant l'identité de Fidexico. Nous vous invitons à <strong>vérifier attentivement l'expéditeur</strong> avant d'ouvrir ou de répondre à tout email.</p>
-      <p class="ec-login-fraud-body">En cas de doute, ne cliquez sur aucun lien et contactez-nous via <a href="nous-contacter.html">notre formulaire de contact</a>.</p>
+  <!-- Banner fraudes -->
+  <div class="fraud-banner">
+    <div class="fraud-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      FAUX EMAILS FIDEXICO : SOYEZ VIGILANTS !
     </div>
+    <p class="fraud-body">Des tentatives d'escroquerie peuvent survenir : des individus malveillants peuvent envoyer de faux messages en usurpant l'identité de Fidexico. Nous vous invitons à <strong>vérifier attentivement l'expéditeur</strong> avant d'ouvrir ou de répondre à tout email.</p>
+    <p class="fraud-body">En cas de doute, ne cliquez sur aucun lien et contactez-nous via <a href="nous-contacter.html">notre formulaire de contact</a>.</p>
   </div>
 
   <!-- Footer liens -->
-  <div class="ec-login-footer-links">
+  <div class="footer-links">
     <a href="nous-contacter.html">Nous contacter</a>
     <span>|</span>
     <a href="mentions-legales.html">Mentions légales</a>
@@ -120,15 +259,14 @@
 
 </div>
 
-<!-- Mention légale crédit sticky -->
-<div class="ec-credit-legal-bar">
-  Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
-</div>
-
 <script src="fidexico-db.js"></script>
 <script src="fidexico-email.js"></script>
 <script src="fidexico-2fa.js"></script>
 <script src="espace-client.js"></script>
-<script>if(typeof ecApplyI18n==='function') ecApplyI18n();</script>
+<script>
+// Relier les nouvelles classes aux fonctions existantes
+function ecGetLoginErr(){ return document.getElementById('ec-login-err'); }
+if(typeof ecApplyI18n==='function') ecApplyI18n();
+</script>
 </body>
 </html>
