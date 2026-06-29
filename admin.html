@@ -592,6 +592,7 @@ function saveTx(c, txArr){
 }
 
 function tryParse(s){ try{return JSON.parse(s||'[]');}catch(e){return[];} }
+function getTxKey(c){ if(!c.key) return 'ec_tx_'+(c.user.id||''); if(c.key==='ec_user') return 'ec_tx'; return 'ec_tx_'+c.key.replace('ec_user_',''); }
 function fmtAmt(v){ return (v||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
 function fmtDate(iso){ if(!iso) return '—'; var d=new Date(iso); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }
 function fmtDateShort(iso){ if(!iso) return '—'; return new Date(iso).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
@@ -762,7 +763,7 @@ function opDeposit(){
   if(!c) return showMsg('dep-ok','dep-err','Client introuvable.',false);
   var newSolde=(c.solde||0)+amt;
   saveSolde(c, newSolde);
-  var tx=tryParse(localStorage.getItem(c.key==='ec_user'?'ec_tx':'ec_tx_'+c.key.replace('ec_user_','')));
+  var tx=tryParse(localStorage.getItem(getTxKey(c)));
   tx.unshift({label:label,amt:amt,type:'credit',date:new Date().toLocaleDateString('fr-FR')});
   saveTx(c,tx);
   admLog('depot', uid, label, amt);
@@ -788,7 +789,7 @@ function opRetrait(){
   if(!c) return showMsg('ret-ok','ret-err','Client introuvable.',false);
   var newSolde=(c.solde||0)-amt;
   saveSolde(c, newSolde);
-  var tx=tryParse(localStorage.getItem(c.key==='ec_user'?'ec_tx':'ec_tx_'+c.key.replace('ec_user_','')));
+  var tx=tryParse(localStorage.getItem(getTxKey(c)));
   tx.unshift({label:label,amt:amt,type:'virement',date:new Date().toLocaleDateString('fr-FR')});
   saveTx(c,tx);
   admLog('retrait', uid, label, amt);
