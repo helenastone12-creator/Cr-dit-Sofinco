@@ -485,43 +485,50 @@
 .ec-tx-list{ display:flex;flex-direction:column; }
 .ec-tx-item{
   background:var(--card);
-  padding:.8rem 1rem;
-  display:flex;align-items:center;gap:.85rem;
-  border-bottom:1px solid var(--border);
+  padding:.95rem 1.1rem;
+  display:flex;align-items:center;gap:1rem;
+  border-bottom:1px solid #F0F2F5;
   transition:background .12s;
 }
 .ec-tx-item:first-child{ border-radius:var(--radius) var(--radius) 0 0; }
 .ec-tx-item:last-child{ border-radius:0 0 var(--radius) var(--radius);border-bottom:none; }
 .ec-tx-item:only-child{ border-radius:var(--radius);border-bottom:none; }
 .ec-tx-item:hover{ background:#F8F9FB; }
+.ec-tx-item--clickable{ cursor:pointer; }
+.ec-tx-item--clickable:active{ background:#F0F3F6; }
 
-.ec-tx-ico{
-  width:38px;height:38px;border-radius:var(--radius-sm);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:700;flex-shrink:0;
+/* Date à gauche */
+.ec-tx-date{
+  font-size:.68rem;color:var(--muted);font-weight:400;
+  white-space:nowrap;flex-shrink:0;min-width:52px;
+  line-height:1.3;
 }
-.ec-tx-ico--out{ background:#F0F2F5;color:var(--text-2); }
-.ec-tx-ico--in{ background:var(--green-light);color:var(--green); }
-.ec-tx-ico--conv{ background:var(--brand-light);color:var(--brand); }
 
+/* Nom + type au centre */
 .ec-tx-info{ flex:1;min-width:0; }
 .ec-tx-name{
-  font-size:.86rem;font-weight:600;color:var(--text);
+  font-size:.88rem;font-weight:600;color:#1C1C2E;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-bottom:.18rem;
 }
-.ec-tx-date{ font-size:.7rem;color:var(--muted);margin-top:.08rem; }
-.ec-tx-amt{ font-size:.88rem;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums; }
-.ec-tx-amt--out{ color:var(--text); }
-.ec-tx-amt--in{ color:var(--green); }
+.ec-tx-type{
+  font-size:.63rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;
+}
+.ec-tx-type--in{ color:#059669; }
+.ec-tx-type--out{ color:var(--brand); }
+.ec-tx-type--conv{ color:var(--teal); }
+
+/* Montant à droite */
+.ec-tx-amt{ font-size:.92rem;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0; }
+.ec-tx-amt--out{ color:#1C1C2E; }
+.ec-tx-amt--in{ color:#059669; }
 
 .ec-tx-card{
   background:var(--card);border-radius:var(--radius);
   border:1px solid var(--border);
   overflow:hidden;box-shadow:var(--shadow-sm);
 }
-.ec-tx-item--clickable{ cursor:pointer; }
-.ec-tx-item--clickable:active{ background:#F0F3F6; }
-.ec-tx-chevron{ flex-shrink:0;margin-left:auto;color:var(--muted-2); }
 
 .ec-tx-detail{ display:flex;flex-direction:column;align-items:center;gap:1rem; }
 .ec-tx-d-amt{
@@ -561,11 +568,11 @@
   text-decoration:none;
 }
 .ec-section-title--lg{
-  font-size:.92rem;font-weight:700;color:var(--navy);
+  font-size:1.25rem;font-weight:700;color:#1C1C2E;
   text-transform:none;letter-spacing:-.01em;
 }
 .ec-tx-voir-tout--lg{
-  font-size:.82rem;color:var(--muted);font-weight:500;
+  font-size:.88rem;color:var(--teal);font-weight:600;
 }
 
 /* ════════════════════════════

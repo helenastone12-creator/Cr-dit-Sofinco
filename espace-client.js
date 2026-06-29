@@ -219,6 +219,12 @@ function ecToggleTxAll(e){
   if(btn) btn.textContent = EC_TX_SHOW_ALL ? 'Réduire' : 'Tout afficher';
 }
 
+function ecTxTypeLabel(type){
+  if(type==='virement') return {lbl:'VIREMENT',cls:'ec-tx-type--out'};
+  if(type==='convert')  return {lbl:'CONVERSION',cls:'ec-tx-type--conv'};
+  return {lbl:'DÉPÔT',cls:'ec-tx-type--in'};
+}
+
 function ecRenderTx(){
   var list = ecGetTx();
   var container = document.getElementById('ec-tx-list');
@@ -230,23 +236,18 @@ function ecRenderTx(){
   var displayed = EC_TX_SHOW_ALL ? list : list.slice(0,5);
   var html = displayed.map(function(tx){
     var isOut = tx.type==='virement';
-    var isConv = tx.type==='convert';
     var sign = isOut ? '−' : '+';
     var amtCls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
-    var icoCls = isConv ? 'ec-tx-ico--conv' : (isOut ? 'ec-tx-ico--out' : 'ec-tx-ico--in');
-    var initials = ecTxInitials(tx.label);
-    var colors = ecTxColor(tx.label);
-    var avatarStyle = 'background:'+colors[0]+';color:'+colors[1]+';';
-    var amtDisplay = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">* * * *</span>' : sign+ecFormatAmt(tx.amt);
+    var amtDisplay = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">• • • •</span>' : sign+ecFormatAmt(tx.amt);
+    var typeInfo = ecTxTypeLabel(tx.type);
     var txJson = encodeURIComponent(JSON.stringify(tx));
     return '<div class="ec-tx-item ec-tx-item--clickable" onclick="ecOpenTxDetail(\''+txJson+'\')">'
-      +'<div class="ec-tx-ico '+icoCls+'" style="'+avatarStyle+'">'+initials+'</div>'
+      +'<div class="ec-tx-date">'+tx.date+'</div>'
       +'<div class="ec-tx-info">'
       +'<div class="ec-tx-name">'+tx.label+'</div>'
-      +'<div class="ec-tx-date">'+tx.date+'</div>'
+      +'<div class="ec-tx-type '+typeInfo.cls+'">'+typeInfo.lbl+'</div>'
       +'</div>'
       +'<div class="ec-tx-amt '+amtCls+'">'+amtDisplay+'</div>'
-      +'<svg class="ec-tx-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>'
       +'</div>';
   }).join('');
   container.innerHTML = html;
