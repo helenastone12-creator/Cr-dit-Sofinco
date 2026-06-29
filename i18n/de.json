@@ -3,44 +3,44 @@
   "dir": "ltr",
   "pages": {
     "index": {
-      "title": "Solfianza Kredit: Privat-, Auto- und Konsumkredite sowie Kreditrechner",
-      "description": "Berechnen Sie Ihren Solfianza-Kredit online mit unserem Kreditrechner. Schnell, sicher und unverbindlich."
+      "title": "Fidexico Kredit: Privat-, Auto- und Konsumkredite sowie Kreditrechner",
+      "description": "Berechnen Sie Ihren Fidexico-Kredit online mit unserem Kreditrechner. Schnell, sicher und unverbindlich."
     },
     "pret-personnel": {
-      "title": "Privatkredit — Solfianza",
-      "description": "Finanzieren Sie Ihre persönlichen Projekte mit einem Solfianza-Privatkredit. Schnelle Online-Simulation, unverbindlich."
+      "title": "Privatkredit — Fidexico",
+      "description": "Finanzieren Sie Ihre persönlichen Projekte mit einem Fidexico-Privatkredit. Schnelle Online-Simulation, unverbindlich."
     },
     "credit-auto": {
-      "title": "Autokredit — Solfianza",
-      "description": "Finanzieren Sie Ihr neues oder gebrauchtes Fahrzeug mit einem Solfianza-Autokredit."
+      "title": "Autokredit — Fidexico",
+      "description": "Finanzieren Sie Ihr neues oder gebrauchtes Fahrzeug mit einem Fidexico-Autokredit."
     },
     "credit-moto": {
-      "title": "Motorradkredit — Solfianza",
-      "description": "Finanzieren Sie Ihr Motorrad mit einem Solfianza-Kredit."
+      "title": "Motorradkredit — Fidexico",
+      "description": "Finanzieren Sie Ihr Motorrad mit einem Fidexico-Kredit."
     },
     "credit-travaux": {
-      "title": "Renovierungskredit — Solfianza",
-      "description": "Finanzieren Sie Ihre Renovierungsarbeiten mit einem Solfianza-Kredit."
+      "title": "Renovierungskredit — Fidexico",
+      "description": "Finanzieren Sie Ihre Renovierungsarbeiten mit einem Fidexico-Kredit."
     },
     "credit-renouvelable": {
-      "title": "Revolving-Kredit — Solfianza",
-      "description": "Verwalten Sie Ihr Budget mit einer Solfianza-Kreditlinie."
+      "title": "Revolving-Kredit — Fidexico",
+      "description": "Verwalten Sie Ihr Budget mit einer Fidexico-Kreditlinie."
     },
     "rachat-de-credits": {
-      "title": "Kreditablösung — Solfianza",
-      "description": "Bündeln Sie Ihre Kredite in einer einzigen reduzierten Monatsrate mit Solfianza."
+      "title": "Kreditablösung — Fidexico",
+      "description": "Bündeln Sie Ihre Kredite in einer einzigen reduzierten Monatsrate mit Fidexico."
     },
     "assurances": {
-      "title": "Kreditversicherung — Solfianza",
-      "description": "Schützen Sie Ihren Kredit mit der Solfianza-Kreditversicherung."
+      "title": "Kreditversicherung — Fidexico",
+      "description": "Schützen Sie Ihren Kredit mit der Fidexico-Kreditversicherung."
     },
     "nous-decouvrir": {
-      "title": "Über uns — Solfianza",
-      "description": "Entdecken Sie Solfianza, eine Tochtergesellschaft von Crédit Agricole Consumer Finance."
+      "title": "Über uns — Fidexico",
+      "description": "Entdecken Sie Fidexico, eine Tochtergesellschaft von Crédit Agricole Consumer Finance."
     },
     "nous-contacter": {
-      "title": "Kontakt — Solfianza",
-      "description": "Kontaktieren Sie das Solfianza-Team bei Fragen zu Ihren Krediten."
+      "title": "Kontakt — Fidexico",
+      "description": "Kontaktieren Sie das Fidexico-Team bei Fragen zu Ihren Krediten."
     }
   },
   "strings": {
@@ -62,7 +62,7 @@
     "nav_works": "Renovierungskredit",
     "mob_sim_btn": "Projekt simulieren",
     "cookie_skip": "Ohne Zustimmung fortfahren →",
-    "cookie_p1": "Im Rahmen Ihres Besuchs verwenden Solfianza und seine Partner funktionale und analytische Cookies, um den ordnungsgemäßen Betrieb, die Sicherheit der Website und die Verbesserung Ihrer Erfahrung durch das Speichern Ihrer Einstellungen zu gewährleisten.",
+    "cookie_p1": "Im Rahmen Ihres Besuchs verwenden Fidexico und seine Partner funktionale und analytische Cookies, um den ordnungsgemäßen Betrieb, die Sicherheit der Website und die Verbesserung Ihrer Erfahrung durch das Speichern Ihrer Einstellungen zu gewährleisten.",
     "cookie_p2": "Mit Ausnahme analytischer Cookies, die anonyme statistische Daten erzeugen und gegen die Sie ein Widerspruchsrecht haben, sind diese Cookies für den Betrieb unserer Website unerlässlich und erfordern keine Einwilligung.",
     "cookie_p3_pre": "Mit Ihrer Einwilligung setzen wir auch Marketing-Cookies ein, um die Website-Performance zu analysieren und unsere Inhalte zu personalisieren. Durch Klicken auf «Akzeptieren &amp; Schließen» stimmen Sie der Verwendung aller Marketing-Cookies zu. Sie können Ihre Einstellungen jederzeit anpassen, indem Sie unsere",
     "cookie_charter": "Cookie-Richtlinie",
@@ -89,7 +89,7 @@
     "hpc_from": "Ab",
     "hpc_note": "Fester effektiver Jahreszins. Indikatives Angebot, vorbehaltlich Antragsgenehmigung.",
     "hpc_btn": "Meinen Kredit berechnen",
-    "hsc_title": "Finanzieren Sie Ihre Projekte mit Solfianza Konsumkredit&nbsp;!",
+    "hsc_title": "Finanzieren Sie Ihre Projekte mit Fidexico Konsumkredit&nbsp;!",
     "hsc_sub": "Berechnen Sie, beantragen Sie in 5 Minuten und erhalten Sie eine sofortige Entscheidung&nbsp;!",
     "hsc_sel_default": "Ihr Vorhaben",
     "hsc_sel_auto": "Auto / Motorrad",
@@ -109,11 +109,11 @@
     "prod_revolving": "Revolving-Kredit",
     "prod_consolidation": "Kreditablösung",
     "prod_insurance": "Versicherung",
-    "editorial_h2": "Solfianza, Ihr vertrauenswürdiger Partner für Ihre Finanzierung",
-    "editorial_p1": "Solfianza unterstützt Privatpersonen bei der Realisierung ihrer Projekte durch einfache, zugängliche und maßgeschneiderte Konsumkreditlösungen. Als Tochtergesellschaft von <strong>Crédit Agricole Consumer Finance</strong> nutzt das Unternehmen die Expertise und finanzielle Stärke einer führenden Bankengruppe, um zuverlässige und wettbewerbsfähige Finanzierungslösungen anzubieten.",
-    "editorial_p2": "Ob Sie ein Fahrzeug kaufen, Renovierungsarbeiten durchführen, eine Reise planen oder ein anderes persönliches Vorhaben verfolgen – Solfianza bietet Ihnen Kreditlösungen, die auf Ihre Situation und Ziele zugeschnitten sind. Durch einen vollständig digitalen Prozess sind Ihre Schritte vereinfacht, schnell und sicher, mit einer Entscheidung innerhalb weniger Minuten.",
-    "editorial_p3": "Bekannt für die Qualität seiner Begleitung und sein Engagement gegenüber seinen Kunden, stellt Solfianza Transparenz und Kundennähe in den Mittelpunkt seines Ansatzes. Von der Kreditberechnung bis zur elektronischen Unterzeichnung Ihres Vertrags ist jeder Schritt darauf ausgerichtet, Ihnen eine reibungslose, klare und beruhigende Erfahrung zu bieten.",
-    "editorial_p4": "<strong>Mit Solfianza verwirklichen Sie Ihre Projekte mit vollem Vertrauen.</strong>",
+    "editorial_h2": "Fidexico, Ihr vertrauenswürdiger Partner für Ihre Finanzierung",
+    "editorial_p1": "Fidexico unterstützt Privatpersonen bei der Realisierung ihrer Projekte durch einfache, zugängliche und maßgeschneiderte Konsumkreditlösungen. Als Tochtergesellschaft von <strong>Crédit Agricole Consumer Finance</strong> nutzt das Unternehmen die Expertise und finanzielle Stärke einer führenden Bankengruppe, um zuverlässige und wettbewerbsfähige Finanzierungslösungen anzubieten.",
+    "editorial_p2": "Ob Sie ein Fahrzeug kaufen, Renovierungsarbeiten durchführen, eine Reise planen oder ein anderes persönliches Vorhaben verfolgen – Fidexico bietet Ihnen Kreditlösungen, die auf Ihre Situation und Ziele zugeschnitten sind. Durch einen vollständig digitalen Prozess sind Ihre Schritte vereinfacht, schnell und sicher, mit einer Entscheidung innerhalb weniger Minuten.",
+    "editorial_p3": "Bekannt für die Qualität seiner Begleitung und sein Engagement gegenüber seinen Kunden, stellt Fidexico Transparenz und Kundennähe in den Mittelpunkt seines Ansatzes. Von der Kreditberechnung bis zur elektronischen Unterzeichnung Ihres Vertrags ist jeder Schritt darauf ausgerichtet, Ihnen eine reibungslose, klare und beruhigende Erfahrung zu bieten.",
+    "editorial_p4": "<strong>Mit Fidexico verwirklichen Sie Ihre Projekte mit vollem Vertrauen.</strong>",
     "steps_h2": "Wie erhalten Sie Ihren Privatkredit?",
     "step1_title": "Kredit berechnen",
     "step1_desc": "Wählen Sie den Betrag und die Laufzeit, die zu Ihrem Vorhaben passen.",
@@ -124,8 +124,8 @@
     "step4_title": "Geld erhalten",
     "step4_desc": "Nach Genehmigung wird Ihr Betrag schnell auf Ihr Konto überwiesen.",
     "faq_h2": "Ihre Fragen zum Konsumkredit",
-    "faq1_q": "Welche Kreditarten bietet Solfianza an?",
-    "faq1_a": "Solfianza bietet Privatkredite (Auto, Renovierung, Freizeit…), Revolving-Kredite mit oder ohne Karte sowie Kreditablösungen an, um Ihre Darlehen in einer einzigen reduzierten Monatsrate zu bündeln.",
+    "faq1_q": "Welche Kreditarten bietet Fidexico an?",
+    "faq1_a": "Fidexico bietet Privatkredite (Auto, Renovierung, Freizeit…), Revolving-Kredite mit oder ohne Karte sowie Kreditablösungen an, um Ihre Darlehen in einer einzigen reduzierten Monatsrate zu bündeln.",
     "faq2_q": "Wie lange dauert es nach der Kreditgenehmigung bis zur Auszahlung?",
     "faq2_a": "Nach der elektronischen Unterzeichnung Ihres Vertrags gilt eine gesetzliche Widerrufsfrist von 14 Kalendertagen. Nach Ablauf dieser Frist werden die Mittel in der Regel innerhalb von 1 bis 3 Werktagen überwiesen.",
     "faq3_q": "Wie beantrage ich einen Konsumkredit?",
@@ -133,7 +133,7 @@
     "faq4_q": "Welche Unterlagen muss ich bei der Kreditbeantragung vorlegen?",
     "faq4_a": "In der Regel werden folgende Dokumente benötigt: ein gültiger Personalausweis oder Reisepass, ein aktueller Wohnungsnachweis, Ihre letzten Gehaltsabrechnungen oder Einkommensnachweise sowie Ihre Bankdaten (IBAN).",
     "faq5_q": "Gibt es ein Höchstalter für einen Kredit?",
-    "faq5_a": "Es gibt kein gesetzliches Höchstalter für die Aufnahme eines Konsumkredits. Solfianza prüft jeden Antrag anhand der Rückzahlungsfähigkeit des Antragstellers. Kreditversicherungen können jedoch spezifische Altersbedingungen enthalten.",
+    "faq5_a": "Es gibt kein gesetzliches Höchstalter für die Aufnahme eines Konsumkredits. Fidexico prüft jeden Antrag anhand der Rückzahlungsfähigkeit des Antragstellers. Kreditversicherungen können jedoch spezifische Altersbedingungen enthalten.",
     "faq_more": "Alle häufig gestellten Fragen anzeigen →",
     "sim_quit": "Beenden",
     "sim_step1_title": "Was ist Ihr Vorhaben?",
@@ -180,7 +180,7 @@
     "ft_link_security": "Sicherheit",
     "ft_link_accessibility": "Barrierefreiheit",
     "ft_link_complaints": "Beschwerden",
-    "ft_mention": "Solfianza ist eine Marke von CA Consumer Finance SA · Kapital 559.250.313 € · RCS Nanterre B 542 097 522 · ORIAS 07 008 079 · © CA Consumer Finance 2026",
+    "ft_mention": "Fidexico ist eine Marke von CA Consumer Finance SA · Kapital 559.250.313 € · RCS Nanterre B 542 097 522 · ORIAS 07 008 079 · © CA Consumer Finance 2026",
     "lang_switcher_label": "Sprache",
     "lang_fr": "Français",
     "lang_en": "English",

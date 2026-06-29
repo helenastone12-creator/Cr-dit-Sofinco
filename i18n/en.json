@@ -3,44 +3,44 @@
   "dir": "ltr",
   "pages": {
     "index": {
-      "title": "Solfianza Credit: personal loans, auto loans and credit simulation",
-      "description": "Simulate your Solfianza loan online with our instant credit calculator. Fast, secure and commitment-free."
+      "title": "Fidexico Credit: personal loans, auto loans and credit simulation",
+      "description": "Simulate your Fidexico loan online with our instant credit calculator. Fast, secure and commitment-free."
     },
     "pret-personnel": {
-      "title": "Personal Loan — Solfianza",
-      "description": "Finance your personal projects with a Solfianza personal loan. Fast online simulation, no commitment."
+      "title": "Personal Loan — Fidexico",
+      "description": "Finance your personal projects with a Fidexico personal loan. Fast online simulation, no commitment."
     },
     "credit-auto": {
-      "title": "Auto Loan — Solfianza",
-      "description": "Finance your new or used car with a Solfianza auto loan. Instant online simulation."
+      "title": "Auto Loan — Fidexico",
+      "description": "Finance your new or used car with a Fidexico auto loan. Instant online simulation."
     },
     "credit-moto": {
-      "title": "Motorcycle Loan — Solfianza",
-      "description": "Finance your motorcycle with a Solfianza loan."
+      "title": "Motorcycle Loan — Fidexico",
+      "description": "Finance your motorcycle with a Fidexico loan."
     },
     "credit-travaux": {
-      "title": "Home Improvement Loan — Solfianza",
-      "description": "Finance your renovation projects with a Solfianza home improvement loan."
+      "title": "Home Improvement Loan — Fidexico",
+      "description": "Finance your renovation projects with a Fidexico home improvement loan."
     },
     "credit-renouvelable": {
-      "title": "Revolving Credit — Solfianza",
-      "description": "Manage your budget with a Solfianza revolving credit line."
+      "title": "Revolving Credit — Fidexico",
+      "description": "Manage your budget with a Fidexico revolving credit line."
     },
     "rachat-de-credits": {
-      "title": "Debt Consolidation — Solfianza",
-      "description": "Consolidate your loans into a single reduced monthly payment with Solfianza."
+      "title": "Debt Consolidation — Fidexico",
+      "description": "Consolidate your loans into a single reduced monthly payment with Fidexico."
     },
     "assurances": {
-      "title": "Borrower Insurance — Solfianza",
-      "description": "Protect your loan with Solfianza borrower insurance."
+      "title": "Borrower Insurance — Fidexico",
+      "description": "Protect your loan with Fidexico borrower insurance."
     },
     "nous-decouvrir": {
-      "title": "About Us — Solfianza",
-      "description": "Discover Solfianza, a subsidiary of Crédit Agricole Consumer Finance."
+      "title": "About Us — Fidexico",
+      "description": "Discover Fidexico, a subsidiary of Crédit Agricole Consumer Finance."
     },
     "nous-contacter": {
-      "title": "Contact Us — Solfianza",
-      "description": "Contact the Solfianza team for any questions about your loans."
+      "title": "Contact Us — Fidexico",
+      "description": "Contact the Fidexico team for any questions about your loans."
     }
   },
   "strings": {
@@ -62,7 +62,7 @@
     "nav_works": "Home improvement loan",
     "mob_sim_btn": "Simulate a project",
     "cookie_skip": "Continue without accepting →",
-    "cookie_p1": "During your browsing, Solfianza and its partners use functional and analytical cookies to ensure the proper functioning, security of the site and improvement of your experience by remembering your preferences.",
+    "cookie_p1": "During your browsing, Fidexico and its partners use functional and analytical cookies to ensure the proper functioning, security of the site and improvement of your experience by remembering your preferences.",
     "cookie_p2": "With the exception of analytical cookies generating anonymous statistical data, to which you have a right to object, these cookies are essential to the operation of our site and do not require your consent.",
     "cookie_p3_pre": "With your consent, we also place marketing cookies to analyse site performance and personalise our content. By clicking \"Accept &amp; Close\", you consent to the use of all marketing cookies. You may, at any time, manage your choices by consulting our",
     "cookie_charter": "cookie policy",
@@ -89,7 +89,7 @@
     "hpc_from": "From",
     "hpc_note": "Fixed APR. Indicative offer, subject to application approval.",
     "hpc_btn": "Simulate my loan",
-    "hsc_title": "Finance your projects with Solfianza consumer credit&nbsp;!",
+    "hsc_title": "Finance your projects with Fidexico consumer credit&nbsp;!",
     "hsc_sub": "Simulate, apply in 5 minutes and get an instant decision&nbsp;!",
     "hsc_sel_default": "Your project",
     "hsc_sel_auto": "Auto / Moto",
@@ -109,11 +109,11 @@
     "prod_revolving": "Revolving credit",
     "prod_consolidation": "Debt consolidation",
     "prod_insurance": "Insurance",
-    "editorial_h2": "Solfianza, your trusted partner for financing your projects",
-    "editorial_p1": "Solfianza supports individuals in realising their projects through simple, accessible and tailored consumer credit solutions. A subsidiary of <strong>Crédit Agricole Consumer Finance</strong>, the company draws on the expertise and financial strength of a leading banking group to offer reliable and competitive financing solutions.",
-    "editorial_p2": "Whether you are planning to purchase a vehicle, carry out renovations, organise a trip or any other personal project, Solfianza offers credit solutions designed to adapt to your situation and your goals. Through a fully digital process, your application is simplified, fast and secure, with a decision in principle obtained within minutes.",
-    "editorial_p3": "Recognised for the quality of its support and its commitment to its clients, Solfianza places transparency and proximity at the heart of its approach. From simulating your financing to electronically signing your contract, every step is designed to provide you with a smooth, clear and reassuring experience.",
-    "editorial_p4": "<strong>With Solfianza, bring your projects to life with complete confidence.</strong>",
+    "editorial_h2": "Fidexico, your trusted partner for financing your projects",
+    "editorial_p1": "Fidexico supports individuals in realising their projects through simple, accessible and tailored consumer credit solutions. A subsidiary of <strong>Crédit Agricole Consumer Finance</strong>, the company draws on the expertise and financial strength of a leading banking group to offer reliable and competitive financing solutions.",
+    "editorial_p2": "Whether you are planning to purchase a vehicle, carry out renovations, organise a trip or any other personal project, Fidexico offers credit solutions designed to adapt to your situation and your goals. Through a fully digital process, your application is simplified, fast and secure, with a decision in principle obtained within minutes.",
+    "editorial_p3": "Recognised for the quality of its support and its commitment to its clients, Fidexico places transparency and proximity at the heart of its approach. From simulating your financing to electronically signing your contract, every step is designed to provide you with a smooth, clear and reassuring experience.",
+    "editorial_p4": "<strong>With Fidexico, bring your projects to life with complete confidence.</strong>",
     "steps_h2": "How to obtain your personal loan?",
     "step1_title": "Simulate your loan",
     "step1_desc": "Choose the amount and term that match your project.",
@@ -124,8 +124,8 @@
     "step4_title": "Receive your funds",
     "step4_desc": "After approval, your funds are transferred quickly to your account.",
     "faq_h2": "Your questions about consumer credit",
-    "faq1_q": "What types of loans does Solfianza offer?",
-    "faq1_a": "Solfianza offers personal loans (auto, home works, leisure…), revolving credit with or without a card, as well as debt consolidation to group your loans into a single reduced monthly payment.",
+    "faq1_q": "What types of loans does Fidexico offer?",
+    "faq1_a": "Fidexico offers personal loans (auto, home works, leisure…), revolving credit with or without a card, as well as debt consolidation to group your loans into a single reduced monthly payment.",
     "faq2_q": "How long does it take to receive funds after loan approval?",
     "faq2_a": "After electronically signing your contract, a legal 14-calendar-day withdrawal period applies. Once this period has elapsed, funds are generally transferred within 1 to 3 business days.",
     "faq3_q": "How do I apply for a consumer loan?",
@@ -133,7 +133,7 @@
     "faq4_q": "What documents do I need to provide when applying for a loan?",
     "faq4_a": "Generally, you will be asked for: a valid identity document, a recent proof of address, your latest payslips or proof of income, and your bank account details (IBAN).",
     "faq5_q": "Is there a maximum age for borrowing?",
-    "faq5_a": "There is no legal maximum age for taking out a consumer loan. Solfianza reviews each application based on the borrower's repayment capacity. However, borrower insurance policies may include specific age conditions.",
+    "faq5_a": "There is no legal maximum age for taking out a consumer loan. Fidexico reviews each application based on the borrower's repayment capacity. However, borrower insurance policies may include specific age conditions.",
     "faq_more": "View all frequently asked questions →",
     "sim_quit": "Exit",
     "sim_step1_title": "What is your project?",
@@ -180,7 +180,7 @@
     "ft_link_security": "Security",
     "ft_link_accessibility": "Accessibility",
     "ft_link_complaints": "Complaints",
-    "ft_mention": "Solfianza is a brand of CA Consumer Finance SA · Capital €559,250,313 · RCS Nanterre B 542 097 522 · ORIAS 07 008 079 · © CA Consumer Finance 2026",
+    "ft_mention": "Fidexico is a brand of CA Consumer Finance SA · Capital €559,250,313 · RCS Nanterre B 542 097 522 · ORIAS 07 008 079 · © CA Consumer Finance 2026",
     "lang_switcher_label": "Language",
     "lang_fr": "Français",
     "lang_en": "English",

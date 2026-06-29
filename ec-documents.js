@@ -98,7 +98,7 @@ function ecGenContrat(){
   ${ecDocButtons()}
   <div class="page">
     <div class="header">
-      <div><div class="brand">Solfianza</div><div class="brand-sub">Établissement de crédit · SIREN 123 456 789</div></div>
+      <div><div class="brand">Fidexico</div><div class="brand-sub">Établissement de crédit · SIREN 123 456 789</div></div>
       <div class="doc-title"><h1>Contrat de crédit personnel</h1><p>Réf. <span class="ref-tag">${u.ref||'—'}</span> &nbsp;·&nbsp; ${dateSign}</p></div>
     </div>
 
@@ -143,7 +143,7 @@ function ecGenContrat(){
     <p>Les fonds seront versés sur le compte bancaire désigné par l'Emprunteur dans un délai de <strong>48 heures ouvrées</strong> à compter de l'expiration du délai de rétractation légal de 14 jours calendaires, sauf renonciation expresse de l'Emprunteur à ce délai conformément à l'article L312-25 du Code de la consommation.</p>
 
     <h2>Article 4 — Droit de rétractation (art. L312-19 C. conso.)</h2>
-    <div class="warn-box"><p>📋 <strong>Vous disposez d'un délai de 14 jours calendaires pour vous rétracter</strong>, sans motif ni pénalité, à compter du lendemain de la date de signature du présent contrat, soit jusqu'au <strong>${ecDocFmt(dateExp.toISOString())}</strong>. Pour exercer ce droit, vous devez retourner le formulaire de rétractation joint à ce contrat à l'adresse : SOLFIANZA SAS — Service Rétractation — 12 rue de la Finance, 75008 Paris, ou par email : retractation@solfianza.eu</p></div>
+    <div class="warn-box"><p>📋 <strong>Vous disposez d'un délai de 14 jours calendaires pour vous rétracter</strong>, sans motif ni pénalité, à compter du lendemain de la date de signature du présent contrat, soit jusqu'au <strong>${ecDocFmt(dateExp.toISOString())}</strong>. Pour exercer ce droit, vous devez retourner le formulaire de rétractation joint à ce contrat à l'adresse : SOLFIANZA SAS — Service Rétractation — 12 rue de la Finance, 75008 Paris, ou par email : retractation@fidexico.eu</p></div>
 
     <h2>Article 5 — Remboursement anticipé (art. L312-34 C. conso.)</h2>
     <p>L'Emprunteur peut, à tout moment, rembourser par anticipation tout ou partie du crédit sans justification. Pour les remboursements anticipés supérieurs à 10 000 € sur une période de 12 mois consécutifs, une indemnité de remboursement anticipé peut être perçue dans la limite de :</p>
@@ -154,7 +154,7 @@ function ecGenContrat(){
     <p>En cas de défaut de paiement d'une ou plusieurs mensualités, le Prêteur se réserve le droit, après mise en demeure restée infructueuse pendant 30 jours, de prononcer la déchéance du terme conformément à l'article L312-39 du Code de la consommation. Des intérêts de retard au taux légal majoré de 5 points seront appliqués.</p>
 
     <h2>Article 7 — Protection des données (RGPD)</h2>
-    <p>Les données personnelles de l'Emprunteur sont traitées par SOLFIANZA SAS en qualité de responsable de traitement, conformément au Règlement (UE) 2016/679 (RGPD) et à la Loi Informatique et Libertés n° 78-17 du 6 janvier 1978 modifiée. Finalité : gestion du crédit, prévention de la fraude, obligations légales. Durée de conservation : 5 ans après fin du contrat. Droits : accès, rectification, effacement, opposition — dpo@solfianza.eu.</p>
+    <p>Les données personnelles de l'Emprunteur sont traitées par SOLFIANZA SAS en qualité de responsable de traitement, conformément au Règlement (UE) 2016/679 (RGPD) et à la Loi Informatique et Libertés n° 78-17 du 6 janvier 1978 modifiée. Finalité : gestion du crédit, prévention de la fraude, obligations légales. Durée de conservation : 5 ans après fin du contrat. Droits : accès, rectification, effacement, opposition — dpo@fidexico.eu.</p>
 
     <h2>Article 8 — Droit applicable et juridiction</h2>
     <p>Le présent contrat est soumis au droit français. Tout litige sera soumis, après tentative de résolution amiable, au médiateur bancaire désigné par l'ACPR, puis aux juridictions françaises compétentes.</p>
@@ -222,7 +222,7 @@ function ecGenAmortissement(){
   ${ecDocButtons()}
   <div class="page">
     <div class="header">
-      <div><div class="brand">Solfianza</div><div class="brand-sub">Établissement de crédit</div></div>
+      <div><div class="brand">Fidexico</div><div class="brand-sub">Établissement de crédit</div></div>
       <div class="doc-title"><h1>Tableau d'amortissement</h1><p>Réf. <span class="ref-tag">${u.ref||'—'}</span> &nbsp;·&nbsp; ${fullName}</p></div>
     </div>
 
@@ -276,7 +276,7 @@ function ecGenReleve(moisOffset){
   ${ecDocButtons()}
   <div class="page">
     <div class="header">
-      <div><div class="brand">Solfianza</div><div class="brand-sub">Établissement de crédit</div></div>
+      <div><div class="brand">Fidexico</div><div class="brand-sub">Établissement de crédit</div></div>
       <div class="doc-title"><h1>Relevé de compte</h1><p>Période : ${moisLabel}</p></div>
     </div>
 
@@ -306,7 +306,7 @@ function ecGenReleve(moisOffset){
     <h2>Informations réglementaires</h2>
     <p>Ce relevé est émis conformément à l'article L312-1-1 du Code monétaire et financier. Toute réclamation concernant ce relevé doit être adressée au service client dans un délai de <strong>60 jours</strong> suivant la date d'émission.</p>
     <p>En l'absence de contestation dans ce délai, les opérations figurant sur ce relevé seront considérées comme approuvées par le titulaire du compte.</p>
-    <div class="highlight-box"><p>📞 Service client : contact@solfianza.eu — Médiateur bancaire : mediateur@solfianza.eu — ACPR : 4 place de Budapest, 75436 Paris Cedex 09</p></div>
+    <div class="highlight-box"><p>📞 Service client : contact@fidexico.eu — Médiateur bancaire : mediateur@fidexico.eu — ACPR : 4 place de Budapest, 75436 Paris Cedex 09</p></div>
 
     <div class="footer">SOLFIANZA SAS — SIREN 123 456 789 — Relevé établi le ${ecDocFmt(new Date().toISOString())} — Ce document tient lieu de relevé de compte officiel conformément à la réglementation bancaire en vigueur.</div>
   </div></body></html>`;
@@ -329,7 +329,7 @@ function ecGenAttestationAssurance(){
   ${ecDocButtons()}
   <div class="page">
     <div class="header">
-      <div><div class="brand">Solfianza</div><div class="brand-sub">Établissement de crédit</div></div>
+      <div><div class="brand">Fidexico</div><div class="brand-sub">Établissement de crédit</div></div>
       <div class="doc-title"><h1>Attestation d'assurance emprunteur</h1><p>N° <span class="ref-tag">${numAtt}</span></p></div>
     </div>
 
@@ -366,7 +366,7 @@ function ecGenAttestationAssurance(){
     <h2>Base légale</h2>
     <p>Cette assurance est soumise aux dispositions de la Loi n° 2010-737 du 1er juillet 2010 (art. L312-8 C. conso.), de la Loi Lagarde, de la Loi n° 2014-344 du 17 mars 2014 (Loi Hamon) et de la Loi n° 2017-203 du 21 février 2017 (Amendement Bourquin). L'emprunteur dispose du droit de résiliation annuelle à chaque date anniversaire.</p>
 
-    <div class="warn-box"><p>⚠️ Cette attestation est délivrée à la seule fin de justifier de la souscription d'une assurance emprunteur. Elle ne remplace pas le contrat d'assurance complet. En cas de sinistre, contacter sinistres@solfianza.eu dans les plus brefs délais.</p></div>
+    <div class="warn-box"><p>⚠️ Cette attestation est délivrée à la seule fin de justifier de la souscription d'une assurance emprunteur. Elle ne remplace pas le contrat d'assurance complet. En cas de sinistre, contacter sinistres@fidexico.eu dans les plus brefs délais.</p></div>
 
     <div class="sign-block">
       <div class="sign-area">
@@ -402,7 +402,7 @@ function ecGenAttestationRA(){
   ${ecDocButtons()}
   <div class="page">
     <div class="header">
-      <div><div class="brand">Solfianza</div><div class="brand-sub">Établissement de crédit</div></div>
+      <div><div class="brand">Fidexico</div><div class="brand-sub">Établissement de crédit</div></div>
       <div class="doc-title"><h1>Attestation de remboursement anticipé</h1><p>N° <span class="ref-tag">${numAtt}</span></p></div>
     </div>
 
@@ -428,13 +428,13 @@ function ecGenAttestationRA(){
 
     <h2>Procédure à suivre</h2>
     <ul>
-      <li>Adresser un courrier recommandé avec accusé de réception ou un email à remboursement@solfianza.eu</li>
+      <li>Adresser un courrier recommandé avec accusé de réception ou un email à remboursement@fidexico.eu</li>
       <li>Préciser la date souhaitée de remboursement (minimum 10 jours ouvrés à l'avance)</li>
       <li>Joindre un RIB du compte débité</li>
       <li>Le capital restant dû sera recalculé à la date effective de remboursement</li>
     </ul>
 
-    <div class="highlight-box"><p>ℹ️ <strong>Calcul du montant exact :</strong> Le capital restant dû sera précisément calculé à la date de remboursement. Contactez notre service au contact@solfianza.eu pour obtenir le solde exact avant toute opération.</p></div>
+    <div class="highlight-box"><p>ℹ️ <strong>Calcul du montant exact :</strong> Le capital restant dû sera précisément calculé à la date de remboursement. Contactez notre service au contact@fidexico.eu pour obtenir le solde exact avant toute opération.</p></div>
 
     <h2>Effets du remboursement anticipé</h2>
     <p>À réception du remboursement total et effectif du solde, le contrat de crédit référencé <span class="ref-tag">${u.ref||'—'}</span> sera clôturé. Une attestation de fin de crédit sera émise dans les 15 jours ouvrés suivant le remboursement effectif, conformément à l'article L312-36 du Code de la consommation.</p>

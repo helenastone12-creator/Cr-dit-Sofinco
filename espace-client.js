@@ -349,7 +349,7 @@ function ecDownloadVirementPdf(tx, ref, user){
     +'<tr><td>Date</td><td>'+(tx.date||'—')+'</td></tr>'
     +'<tr><td>Référence</td><td>'+ref+'</td></tr>'
     +'<tr><td>Statut</td><td>EXÉCUTÉ</td></tr></table>'
-    +'<footer>Solfianza — solfianza.eu</footer>'
+    +'<footer>Fidexico — fidexico.eu</footer>'
     +'</body></html>';
   var blob = new Blob([html],{type:'text/html'});
   var url = URL.createObjectURL(blob);
@@ -897,9 +897,9 @@ function ecDownloadRib(){
   var user=ecGetUser();
   if(!user) return;
   var iban=ecGenerateIban(user.id||'');
-  var content='RIB — Solfianza\n\nTitulaire : '+(user.prenom||'')+' '+(user.nom||'')+'\nIBAN      : '+iban+'\nBIC       : SOFIFR2PXXX\nBanque    : Sofinco\n\nDocument généré le '+new Date().toLocaleDateString('fr-FR');
+  var content='RIB — Fidexico\n\nTitulaire : '+(user.prenom||'')+' '+(user.nom||'')+'\nIBAN      : '+iban+'\nBIC       : SOFIFR2PXXX\nBanque    : Sofinco\n\nDocument généré le '+new Date().toLocaleDateString('fr-FR');
   var blob=new Blob([content],{type:'text/plain'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='RIB_Solfianza.txt';a.click();
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='RIB_Fidexico.txt';a.click();
 }
 
 // ── Remboursement anticipé ──

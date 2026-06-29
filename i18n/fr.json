@@ -3,44 +3,44 @@
   "dir": "ltr",
   "pages": {
     "index": {
-      "title": "Crédit Solfianza : crédits auto, conso, perso, rachat et simulation de prêt",
-      "description": "Simulez en ligne votre prêt Solfianza avec notre simulateur de crédit."
+      "title": "Crédit Fidexico : crédits auto, conso, perso, rachat et simulation de prêt",
+      "description": "Simulez en ligne votre prêt Fidexico avec notre simulateur de crédit."
     },
     "pret-personnel": {
-      "title": "Prêt personnel — Solfianza",
-      "description": "Financez vos projets personnels avec le prêt Solfianza. Simulation en ligne rapide et sans engagement."
+      "title": "Prêt personnel — Fidexico",
+      "description": "Financez vos projets personnels avec le prêt Fidexico. Simulation en ligne rapide et sans engagement."
     },
     "credit-auto": {
-      "title": "Crédit auto — Solfianza",
-      "description": "Financez votre voiture neuve ou d'occasion avec le crédit auto Solfianza. Simulation en ligne immédiate."
+      "title": "Crédit auto — Fidexico",
+      "description": "Financez votre voiture neuve ou d'occasion avec le crédit auto Fidexico. Simulation en ligne immédiate."
     },
     "credit-moto": {
-      "title": "Crédit moto — Solfianza",
-      "description": "Financez votre deux-roues avec le crédit moto Solfianza."
+      "title": "Crédit moto — Fidexico",
+      "description": "Financez votre deux-roues avec le crédit moto Fidexico."
     },
     "credit-travaux": {
-      "title": "Crédit travaux — Solfianza",
-      "description": "Financez vos travaux de rénovation avec le crédit travaux Solfianza."
+      "title": "Crédit travaux — Fidexico",
+      "description": "Financez vos travaux de rénovation avec le crédit travaux Fidexico."
     },
     "credit-renouvelable": {
-      "title": "Crédit renouvelable — Solfianza",
-      "description": "Gérez votre budget avec la réserve d'argent Solfianza."
+      "title": "Crédit renouvelable — Fidexico",
+      "description": "Gérez votre budget avec la réserve d'argent Fidexico."
     },
     "rachat-de-credits": {
-      "title": "Rachat de crédits — Solfianza",
-      "description": "Regroupez vos crédits en une seule mensualité réduite avec Solfianza."
+      "title": "Rachat de crédits — Fidexico",
+      "description": "Regroupez vos crédits en une seule mensualité réduite avec Fidexico."
     },
     "assurances": {
-      "title": "Assurances emprunteur — Solfianza",
-      "description": "Protégez votre crédit avec les assurances emprunteur Solfianza."
+      "title": "Assurances emprunteur — Fidexico",
+      "description": "Protégez votre crédit avec les assurances emprunteur Fidexico."
     },
     "nous-decouvrir": {
-      "title": "Qui sommes-nous — Solfianza",
-      "description": "Découvrez Solfianza, filiale de Crédit Agricole Consumer Finance."
+      "title": "Qui sommes-nous — Fidexico",
+      "description": "Découvrez Fidexico, filiale de Crédit Agricole Consumer Finance."
     },
     "nous-contacter": {
-      "title": "Nous contacter — Solfianza",
-      "description": "Contactez les équipes Solfianza pour toute question sur vos crédits."
+      "title": "Nous contacter — Fidexico",
+      "description": "Contactez les équipes Fidexico pour toute question sur vos crédits."
     }
   },
   "strings": {
@@ -62,7 +62,7 @@
     "nav_works": "Crédit travaux",
     "mob_sim_btn": "Simuler un projet",
     "cookie_skip": "Continuer sans accepter →",
-    "cookie_p1": "Dans le cadre de votre navigation, Solfianza et ses partenaires utilisent des cookies fonctionnels et analytiques pour garantir le bon fonctionnement, la sécurité du site et l'amélioration de votre expérience en mémorisant vos préférences.",
+    "cookie_p1": "Dans le cadre de votre navigation, Fidexico et ses partenaires utilisent des cookies fonctionnels et analytiques pour garantir le bon fonctionnement, la sécurité du site et l'amélioration de votre expérience en mémorisant vos préférences.",
     "cookie_p2": "À l'exception des cookies analytiques produisant des données statistiques anonymes, auxquels vous disposez d'un droit d'opposition, ces cookies sont indispensables au fonctionnement de notre site et ne nécessitent pas l'obtention de votre consentement.",
     "cookie_p3_pre": "Avec votre consentement, nous déposons également des cookies marketing pour analyser les performances du site et personnaliser nos contenus. En cliquant sur « Accepter &amp; Fermer », vous consentez à l'utilisation de tous les cookies marketing. Vous pouvez, à tout moment, paramétrer votre choix en consultant notre",
     "cookie_charter": "charte cookies",
@@ -89,7 +89,7 @@
     "hpc_from": "À partir de",
     "hpc_note": "TAEG fixe. Offre indicative, sous réserve d'acceptation du dossier.",
     "hpc_btn": "Simuler mon crédit",
-    "hsc_title": "Financez vos projets avec le crédit conso Solfianza&nbsp;!",
+    "hsc_title": "Financez vos projets avec le crédit conso Fidexico&nbsp;!",
     "hsc_sub": "Simulez, faites votre demande en 5 minutes et obtenez une réponse immédiate&nbsp;!",
     "hsc_sel_default": "Votre projet",
     "hsc_sel_auto": "Auto / Moto",
@@ -109,11 +109,11 @@
     "prod_revolving": "Le crédit renouvelable",
     "prod_consolidation": "Le rachat de crédits",
     "prod_insurance": "Les assurances",
-    "editorial_h2": "Solfianza, votre partenaire de confiance pour financer vos projets",
-    "editorial_p1": "Solfianza accompagne les particuliers dans la réalisation de leurs projets grâce à des solutions de crédit à la consommation simples, accessibles et adaptées à leurs besoins. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, l'entreprise s'appuie sur l'expertise et la solidité d'un groupe bancaire de premier plan pour offrir des solutions de financement fiables et performantes.",
-    "editorial_p2": "Que vous envisagiez l'achat d'un véhicule, la réalisation de travaux, l'organisation d'un voyage ou tout autre projet personnel, Solfianza vous propose des offres de crédit conçues pour s'adapter à votre situation et à vos objectifs. Grâce à un parcours entièrement digital, les démarches sont simplifiées, rapides et sécurisées, avec une réponse de principe obtenue en quelques minutes.",
-    "editorial_p3": "Reconnue pour la qualité de son accompagnement et son engagement envers ses clients, Solfianza place la transparence et la proximité au cœur de son approche. De la simulation de votre financement jusqu'à la signature électronique de votre contrat, chaque étape est pensée pour vous offrir une expérience fluide, claire et sereine.",
-    "editorial_p4": "<strong>Avec Solfianza, donnez vie à vos projets en toute confiance.</strong>",
+    "editorial_h2": "Fidexico, votre partenaire de confiance pour financer vos projets",
+    "editorial_p1": "Fidexico accompagne les particuliers dans la réalisation de leurs projets grâce à des solutions de crédit à la consommation simples, accessibles et adaptées à leurs besoins. Filiale de <strong>Crédit Agricole Consumer Finance</strong>, l'entreprise s'appuie sur l'expertise et la solidité d'un groupe bancaire de premier plan pour offrir des solutions de financement fiables et performantes.",
+    "editorial_p2": "Que vous envisagiez l'achat d'un véhicule, la réalisation de travaux, l'organisation d'un voyage ou tout autre projet personnel, Fidexico vous propose des offres de crédit conçues pour s'adapter à votre situation et à vos objectifs. Grâce à un parcours entièrement digital, les démarches sont simplifiées, rapides et sécurisées, avec une réponse de principe obtenue en quelques minutes.",
+    "editorial_p3": "Reconnue pour la qualité de son accompagnement et son engagement envers ses clients, Fidexico place la transparence et la proximité au cœur de son approche. De la simulation de votre financement jusqu'à la signature électronique de votre contrat, chaque étape est pensée pour vous offrir une expérience fluide, claire et sereine.",
+    "editorial_p4": "<strong>Avec Fidexico, donnez vie à vos projets en toute confiance.</strong>",
     "steps_h2": "Comment obtenir votre prêt personnel&nbsp;?",
     "step1_title": "Simulez votre prêt",
     "step1_desc": "Choisissez le montant et la durée qui correspondent à votre projet.",
@@ -124,8 +124,8 @@
     "step4_title": "Obtenez vos fonds",
     "step4_desc": "Après validation, vos fonds sont versés rapidement sur votre compte.",
     "faq_h2": "Vos questions sur le crédit conso",
-    "faq1_q": "Quels types de prêts propose Solfianza&nbsp;?",
-    "faq1_a": "Solfianza propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.",
+    "faq1_q": "Quels types de prêts propose Fidexico&nbsp;?",
+    "faq1_a": "Fidexico propose des prêts personnels (auto, travaux, loisirs…), des crédits renouvelables avec ou sans carte, ainsi que des rachats de crédits pour regrouper vos emprunts en une seule mensualité allégée.",
     "faq2_q": "Quel délai entre l'acceptation de l'offre de prêt et le déblocage des fonds&nbsp;?",
     "faq2_a": "Après signature électronique de votre contrat, un délai légal de rétractation de 14 jours calendaires s'applique. Une fois ce délai écoulé, les fonds sont généralement versés dans un délai de 1 à 3 jours ouvrés.",
     "faq3_q": "Comment effectuer ma demande de crédit conso&nbsp;?",
@@ -133,7 +133,7 @@
     "faq4_q": "Quels documents dois-je fournir lors de ma demande de crédit&nbsp;?",
     "faq4_a": "En général, il vous sera demandé&nbsp;: une pièce d'identité en cours de validité, un justificatif de domicile récent, vos derniers bulletins de salaire ou justificatifs de revenus, et un relevé d'identité bancaire (RIB).",
     "faq5_q": "Jusqu'à quel âge peut-on emprunter&nbsp;?",
-    "faq5_a": "Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Solfianza étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.",
+    "faq5_a": "Il n'existe pas d'âge maximum légal pour souscrire un crédit conso. Fidexico étudie chaque dossier selon la capacité de remboursement de l'emprunteur. Des assurances emprunteur peuvent toutefois comporter des conditions d'âge spécifiques.",
     "faq_more": "Consulter toutes nos questions fréquentes →",
     "sim_quit": "Quitter",
     "sim_step1_title": "Quel est votre projet ?",
@@ -180,7 +180,7 @@
     "ft_link_security": "Sécurité",
     "ft_link_accessibility": "Accessibilité",
     "ft_link_complaints": "Réclamations",
-    "ft_mention": "Solfianza est une marque de CA Consumer Finance SA · Capital 559 250 313 € · RCS Nanterre B 542 097 522 · ORIAS 07 008 079 · © CA Consumer Finance 2026",
+    "ft_mention": "Fidexico est une marque de CA Consumer Finance SA · Capital 559 250 313 € · RCS Nanterre B 542 097 522 · ORIAS 07 008 079 · © CA Consumer Finance 2026",
     "lang_switcher_label": "Langue",
     "lang_fr": "Français",
     "lang_en": "English",
