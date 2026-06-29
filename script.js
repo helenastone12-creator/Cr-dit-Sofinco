@@ -2053,16 +2053,6 @@ function sp5Submit(){
     if(!sel || sel.dataset.customized) return;
     sel.dataset.customized = '1';
 
-    var isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-    // Mobile/iOS : sélecteur natif (roue native iOS centrée en bas, Android natif)
-    if(isMobile){
-      sel.style.display = '';
-      sel.classList.add('sp5-nat-native');
-      return;
-    }
-
-    // Desktop : modal centré sur l'écran
     var opts = [];
     for(var i=0;i<sel.options.length;i++){
       var o = sel.options[i];
@@ -2080,27 +2070,22 @@ function sp5Submit(){
     trigger.innerHTML = '<span class="nat-trigger-label">Choisir...</span><svg class="nat-chev" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="#999" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>';
 
     var titleLabel = {fr:'Nationalité',en:'Nationality',de:'Staatsangehörigkeit',es:'Nacionalidad',it:'Nazionalità',nl:'Nationaliteit',pl:'Narodowość',sv:'Nationalitet'};
-    var searchPlLabel = {fr:'Rechercher un pays...',en:'Search a country...',de:'Land suchen...',es:'Buscar un país...',it:'Cerca un paese...',nl:'Zoek een land...',pl:'Szukaj kraju...',sv:'Sök ett land...'};
+    var searchPlLabel = {fr:'Rechercher un pays...',en:'Search a country...',de:'Land suchen...',es:'Buscar un pays...',it:'Cerca un paese...',nl:'Zoek een land...',pl:'Szukaj kraju...',sv:'Sök ett land...'};
 
-    // Overlay backdrop
-    var backdrop = document.createElement('div');
-    backdrop.className='nat-backdrop';
-
-    // Centered modal card
-    var modal = document.createElement('div');
-    modal.className='nat-modal';
+    var panel = document.createElement('div');
+    panel.className='nat-panel';
 
     var natHeader = document.createElement('div');
     natHeader.className='nat-header';
-    var titleEl = document.createElement('span');
-    titleEl.className='nat-title';
-    titleEl.textContent = titleLabel[lang]||'Nationality';
     var natCloseBtn = document.createElement('button');
     natCloseBtn.type='button';
     natCloseBtn.className='nat-close-btn';
     natCloseBtn.innerHTML='&times;';
-    natHeader.appendChild(titleEl);
+    var titleEl = document.createElement('span');
+    titleEl.className='nat-title';
+    titleEl.textContent = titleLabel[lang]||'Nationality';
     natHeader.appendChild(natCloseBtn);
+    natHeader.appendChild(titleEl);
 
     var searchWrap = document.createElement('div');
     searchWrap.className='nat-search-wrap';
@@ -2138,48 +2123,33 @@ function sp5Submit(){
             + '<span class="nat-trigger-label">'+o.label+'</span>'
             + '<svg class="nat-chev" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="#999" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>';
           trigger.classList.toggle('nat-has-val',!!o.value);
-          closeModal();
+          panel.classList.remove('open');
           sel.dispatchEvent(new Event('change'));
         });
         list.appendChild(li);
       });
     }
 
-    function openModal(){
-      searchInp.value='';
-      renderList('');
-      backdrop.classList.add('open');
-      setTimeout(function(){ searchInp.focus(); },50);
-    }
-    function closeModal(){
-      backdrop.classList.remove('open');
-    }
-
     trigger.addEventListener('click',function(e){
       e.stopPropagation();
-      backdrop.classList.contains('open') ? closeModal() : openModal();
+      if(panel.classList.contains('open')){
+        panel.classList.remove('open');
+      } else {
+        searchInp.value='';
+        renderList('');
+        panel.classList.add('open');
+      }
     });
 
-    backdrop.addEventListener('click',function(e){
-      if(e.target===backdrop) closeModal();
-    });
+    natCloseBtn.addEventListener('click',function(){ panel.classList.remove('open'); });
+    searchInp.addEventListener('input',function(){ renderList(this.value); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') panel.classList.remove('open'); });
 
-    natCloseBtn.addEventListener('click',function(){ closeModal(); });
-
-    searchInp.addEventListener('input',function(){
-      renderList(this.value);
-    });
-
-    document.addEventListener('keydown',function(e){
-      if(e.key==='Escape') closeModal();
-    });
-
-    modal.appendChild(natHeader);
-    modal.appendChild(searchWrap);
-    modal.appendChild(list);
-    backdrop.appendChild(modal);
+    panel.appendChild(natHeader);
+    panel.appendChild(searchWrap);
+    panel.appendChild(list);
     wrap.appendChild(trigger);
-    document.body.appendChild(backdrop);
+    document.body.appendChild(panel);
     sel.parentNode.insertBefore(wrap,sel);
   }
 
