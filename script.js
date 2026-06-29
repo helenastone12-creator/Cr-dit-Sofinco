@@ -2100,22 +2100,20 @@ function sp5Submit(){
       });
     }
 
-    // Bloquer le scroll du fond sans toucher body — géré au niveau du panel
-    panel.addEventListener('touchmove', function(e){
-      e.preventDefault();
-    }, {passive: false});
-    // Laisser la liste défiler librement
-    list.addEventListener('touchmove', function(e){
-      e.stopPropagation();
-    }, {passive: true});
-
     function openPanel(){
       searchInp.value='';
       renderList('');
+      // Bloquer le scroll du sim-page (contexte scroll actif sur iOS)
+      var simPage = document.getElementById('sim-page');
+      if(simPage) simPage.style.overflow='hidden';
+      document.body.style.overflow='hidden';
       panel.classList.add('open');
     }
     function closePanel(){
       panel.classList.remove('open');
+      var simPage = document.getElementById('sim-page');
+      if(simPage) simPage.style.overflow='';
+      document.body.style.overflow='';
     }
 
     trigger.addEventListener('click',function(e){
