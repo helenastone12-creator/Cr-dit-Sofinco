@@ -615,7 +615,8 @@ function unlockScroll(){
   if(simPhLogo) simPhLogo.addEventListener('click',closeSim);
 
   // Validation temps réel montant simulateur
-  document.getElementById('sim-amount-input').addEventListener('input',function(){
+  var simAmtInput = document.getElementById('sim-amount-input');
+  if(simAmtInput) simAmtInput.addEventListener('input',function(){
     var v=parseInt(this.value)||0;
     var err=document.getElementById('sim-amount-err');
     var ok=!this.value||(v>=3000&&v<=200000);
