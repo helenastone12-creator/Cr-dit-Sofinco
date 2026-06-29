@@ -2050,9 +2050,11 @@ function sp5Submit(){
 
   var GLOBE_SVG = '<svg class="nat-globe" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>';
 
+  window._natFlagFallback = function(img){ img.outerHTML = GLOBE_SVG; };
+
   function flagImg(code){
     if(!code || code==='AUTRE') return GLOBE_SVG;
-    return '<img class="nat-flag" src="https://flagcdn.com/24x18/'+code.toLowerCase()+'.png" alt="'+code+'" onerror="this.outerHTML=\''+GLOBE_SVG.replace(/'/g,"\\'")+'\'">';
+    return '<img class="nat-flag" src="https://flagcdn.com/24x18/'+code.toLowerCase()+'.png" alt="'+code+'" onerror="window._natFlagFallback(this)">';
   }
 
   function initNatDropdown(){
