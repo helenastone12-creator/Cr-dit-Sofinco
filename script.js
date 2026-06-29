@@ -1380,9 +1380,9 @@ function sp5Submit(){
           html: adminHtml
         };
         if(attachments.length > 0) payload.attachments = attachments;
-        return fetch('https://api.resend.com/emails', {
+        return fetch('/send-email.php', {
           method:'POST',
-          headers:{'Content-Type':'application/json','Authorization':'Bearer re_a9PWcLj8_CH2jpwVeWTLL6ks3Vf4VYuFU'},
+          headers:{'Content-Type':'application/json'},
           body:JSON.stringify(payload)
         });
       })

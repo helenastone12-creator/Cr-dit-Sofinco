@@ -644,14 +644,11 @@ function sbFetch(path, method, body){
   }).then(function(r){ return r.json(); });
 }
 
-/* ── Resend email sender ── */
+/* ── Resend email sender (via PHP proxy to avoid CORS) ── */
 function sendEmail(to, subject, html, lang){
-  return fetch('https://api.resend.com/emails', {
+  return fetch('/send-email.php', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + FIDEXICO_CONFIG.RESEND_KEY
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: FIDEXICO_CONFIG.FROM_EMAIL,
       to: Array.isArray(to) ? to : [to],
