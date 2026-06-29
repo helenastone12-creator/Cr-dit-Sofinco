@@ -497,10 +497,10 @@
 .ec-tx-item--clickable{ cursor:pointer; }
 .ec-tx-item--clickable:active{ box-shadow:0 1px 6px rgba(0,0,0,.08); }
 
-/* Date à gauche — grise et légère comme référence */
+/* Date à gauche — grande et bold comme référence */
 .ec-tx-date{
-  font-size:.7rem;color:#9CA3AF;font-weight:400;
-  white-space:nowrap;flex-shrink:0;min-width:48px;
+  font-size:.95rem;color:#1C1C2E;font-weight:700;
+  white-space:nowrap;flex-shrink:0;min-width:58px;
   line-height:1.3;
 }
 
@@ -519,10 +519,10 @@
 .ec-tx-type--out{ color:#B59A55; }
 .ec-tx-type--conv{ color:var(--teal); }
 
-/* Montant à droite — grand et très bold comme référence */
-.ec-tx-amt{ font-size:1.05rem;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;color:#1C1C2E;letter-spacing:-.01em; }
-.ec-tx-amt--out{ color:#1C1C2E; }
-.ec-tx-amt--in{ color:#1C1C2E; }
+/* Montant à droite — grand, bold, GRIS comme référence */
+.ec-tx-amt{ font-size:1.05rem;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;color:#6B7280;letter-spacing:-.01em; }
+.ec-tx-amt--out{ color:#6B7280; }
+.ec-tx-amt--in{ color:#6B7280; }
 
 .ec-tx-card{
   background:transparent;border-radius:0;
