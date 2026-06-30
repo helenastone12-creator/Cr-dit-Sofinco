@@ -1856,3 +1856,147 @@
 .ec-sidebar-logout {
   display: none !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   NOUVEAU DASHBOARD — Style app bancaire moderne
+════════════════════════════════════════════════════════════════ */
+
+/* Ajuste le main pour ne plus avoir de padding-top (pas de header fixe) */
+.ec-main {
+  padding-top: 1.5rem !important;
+  max-width: 480px !important;
+  margin: 0 auto !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+  padding-bottom: 90px !important;
+}
+
+/* ── En-tête page ── */
+.ec-home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+}
+
+.ec-home-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
+  letter-spacing: -.03em;
+}
+
+.ec-home-header-icons {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+
+.ec-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  padding: .3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background .15s;
+}
+.ec-icon-btn:hover { background: #f0f0f0; }
+
+.ec-header-sep {
+  width: 1px;
+  height: 20px;
+  background: #D1D5DB;
+  margin: 0 .15rem;
+}
+
+/* ── Bloc solde ── */
+.ec-balance-block {
+  margin-bottom: 2rem;
+}
+
+.ec-balance-amt {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -.04em;
+  line-height: 1.05;
+  margin-bottom: .5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ec-balance-label-row {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+.ec-balance-eye {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.ec-balance-lbl {
+  font-size: .85rem;
+  color: #888;
+  font-weight: 400;
+}
+
+/* ── Actions rapides ── */
+.ec-quick-actions {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.ec-qa-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  flex: 1;
+}
+
+.ec-qa-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s, box-shadow .15s;
+}
+.ec-qa-btn:active { transform: scale(.93); }
+
+.ec-qa-btn--primary {
+  background: #3FBFA0;
+  color: #fff;
+}
+.ec-qa-btn--primary:hover { background: #35a88c; }
+
+.ec-qa-btn--secondary {
+  background: #F2F2F2;
+  color: #333;
+}
+.ec-qa-btn--secondary:hover { background: #E5E5E5; }
+
+.ec-qa-lbl {
+  font-size: .72rem;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
