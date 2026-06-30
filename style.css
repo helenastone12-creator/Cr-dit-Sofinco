@@ -1338,9 +1338,10 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    FAQ PRODUIT
 ════════════════════════ */
-.prod-faq{padding-top:1.5rem;padding-bottom:1.5rem}
+.prod-faq{padding-top:2rem;padding-bottom:2rem}
 .prod-faq .wrap{max-width:800px;margin:0 auto;padding:0 1.5rem}
-.prod-faq-hd{margin-bottom:2.5rem}
+.prod-faq h2{text-align:left;text-transform:uppercase;color:var(--navy);font-size:1.25rem;font-weight:900;letter-spacing:.02em;margin-bottom:1.2rem}
+.prod-faq-hd{margin-bottom:2rem}
 .prod-faq-hd h2{font-size:2rem;font-weight:800;color:var(--navy)}
 .prod-faq-hd p{font-size:1rem;color:#666;margin-top:.5rem}
 /* ── Modale cookies (style Franfinance) ── */
