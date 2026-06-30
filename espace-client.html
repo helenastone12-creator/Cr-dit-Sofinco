@@ -116,6 +116,10 @@
       </div>
       <span class="fd-badge-live">● Disponible immédiatement</span>
     </div>
+    <div class="fd-hero-verified">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Entreprise vérifiée
+    </div>
   </div>
 
   <!-- ── CTA ROW ── -->
@@ -187,6 +191,62 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- ── DOCUMENTS + NOTIFICATIONS (desktop only) ── -->
+  <div class="fd-bottom-grid">
+    <div class="fd-card fd-card--docs">
+      <div class="fd-card-header">
+        <span class="fd-card-title">Documents</span>
+        <a href="mes-documents.html" class="fd-card-link">Voir tous →</a>
+      </div>
+      <ul class="fd-docs-list">
+        <li class="fd-doc-item">
+          <span class="fd-doc-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+          <span class="fd-doc-name">Contrat de prêt</span>
+          <span class="fd-doc-badge">PDF</span>
+        </li>
+        <li class="fd-doc-item">
+          <span class="fd-doc-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+          <span class="fd-doc-name">Tableau d'amortissement</span>
+          <span class="fd-doc-badge">PDF</span>
+        </li>
+        <li class="fd-doc-item">
+          <span class="fd-doc-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+          <span class="fd-doc-name">Attestation de financement</span>
+          <span class="fd-doc-badge">PDF</span>
+        </li>
+      </ul>
+    </div>
+    <div class="fd-card fd-card--notifs">
+      <div class="fd-card-header">
+        <span class="fd-card-title">Notifications</span>
+        <button class="fd-card-link" onclick="ecOpenModal('alertes')">Gérer →</button>
+      </div>
+      <ul class="fd-notif-list">
+        <li class="fd-notif-item fd-notif-item--green">
+          <span class="fd-notif-dot"></span>
+          <div>
+            <div class="fd-notif-title">Financement disponible</div>
+            <div class="fd-notif-sub">Votre ligne de crédit est active</div>
+          </div>
+        </li>
+        <li class="fd-notif-item">
+          <span class="fd-notif-dot fd-notif-dot--grey"></span>
+          <div>
+            <div class="fd-notif-title">Prochaine échéance</div>
+            <div class="fd-notif-sub" id="fd-notif-echeance-sub">Rappel configuré</div>
+          </div>
+        </li>
+        <li class="fd-notif-item">
+          <span class="fd-notif-dot fd-notif-dot--grey"></span>
+          <div>
+            <div class="fd-notif-title">Relevé mensuel</div>
+            <div class="fd-notif-sub">Envoi par e-mail</div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </main>
