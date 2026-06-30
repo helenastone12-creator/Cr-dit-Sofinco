@@ -4560,47 +4560,49 @@ body.ec-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: .65rem .25rem .35rem;
-  font-size: .75rem;
+  padding: .9rem .1rem .4rem;
+  font-size: .78rem;
   font-weight: 500;
-  color: var(--p-ink-3);
+  color: #6b7280;
 }
 
 .rfd-date-lbl { letter-spacing: .01em; }
-.rfd-date-net { font-weight: 600; }
+.rfd-date-net { font-weight: 500; color: #6b7280; }
 
 .rfd-group-card {
-  background: var(--p-surface);
-  border-radius: 14px;
-  border: 1px solid var(--p-border);
+  background: #fff;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.05);
   overflow: hidden;
-  margin-bottom: .75rem;
+  margin-bottom: 1rem;
 }
 
 .rfd-item {
   display: flex;
   align-items: center;
-  gap: .9rem;
-  padding: .9rem 1rem;
+  gap: 1rem;
+  padding: 1.1rem 1.1rem;
 }
 
 .rfd-sep {
   height: 1px;
-  background: var(--p-border);
-  margin: 0 1rem;
+  background: #f3f4f6;
+  margin: 0;
 }
 
 .rfd-avatar {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: #e8eaed;
+  background: #fff;
+  border: 1.5px solid #d1d5db;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: .78rem;
+  font-size: .8rem;
   font-weight: 700;
-  color: #3c4043;
+  color: #374151;
   flex-shrink: 0;
   letter-spacing: .02em;
 }
@@ -4608,15 +4610,6 @@ body.ec-body {
 .rfd-info {
   flex: 1;
   min-width: 0;
-}
-
-.rfd-name {
-  font-size: .88rem;
-  font-weight: 600;
-  color: #1a56db;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .rfd-sub {
@@ -4629,11 +4622,21 @@ body.ec-body {
 }
 
 .rfd-amt {
-  font-size: .9rem;
-  font-weight: 700;
+  font-size: .95rem;
+  font-weight: 800;
   white-space: nowrap;
   flex-shrink: 0;
+  letter-spacing: -.01em;
 }
 
-.rfd-amt--in  { color: #059669; }
+.rfd-amt--in  { color: #15803d; }
 .rfd-amt--out { color: #dc2626; }
+
+.rfd-name {
+  font-size: .9rem;
+  font-weight: 600;
+  color: #1a3a8f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
