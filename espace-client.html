@@ -200,6 +200,18 @@
   </div>
 </div>
 
+<!-- Modal Toutes les transactions -->
+<div class="ec-modal-overlay ec-modal-overlay--fullscreen" id="ec-modal-all-tx" onclick="ecCloseModal('all-tx')">
+  <div class="ec-modal-card ec-modal-card--fullscreen" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Toutes les opérations</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('all-tx')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-all-tx-body" id="ec-all-tx-list"></div>
+  </div>
+</div>
+
 <!-- Modal Détails du crédit -->
 <div class="ec-modal-overlay" id="ec-modal-credit-detail" onclick="ecCloseModal('credit-detail')">
   <div class="ec-modal-card" onclick="event.stopPropagation()">
