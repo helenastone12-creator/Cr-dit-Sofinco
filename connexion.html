@@ -233,6 +233,28 @@
       <a href="numero-dossier-oublie.html" class="forgot-link">Numéro de dossier oublié ?</a>
     </div>
 
+    <!-- Étape 2FA TOTP -->
+    <div id="mob-step-totp" style="display:none">
+      <div style="text-align:center;margin-bottom:1.2rem">
+        <div style="width:48px;height:48px;border-radius:50%;background:#f0f4f8;display:flex;align-items:center;justify-content:center;margin:0 auto .7rem">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B5E8A" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div style="font-size:.92rem;font-weight:800;color:#111;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem">Vérification 2FA</div>
+        <p style="font-size:.82rem;color:#666;line-height:1.5">Saisissez le code à 6 chiffres<br>de votre application Google Authenticator</p>
+      </div>
+      <div id="mob-err-totp" class="form-err" style="display:none"></div>
+      <div class="field-wrap" style="margin-bottom:.8rem">
+        <input type="text" id="mob-totp" placeholder="000 000" class="otp-input"
+          inputmode="numeric" maxlength="7"
+          onkeydown="if(event.key==='Enter') conStepTOTP('mob')"/>
+      </div>
+      <button class="btn-main" id="mob-btn-totp" onclick="conStepTOTP('mob')">Se connecter</button>
+      <button type="button" onclick="conGoBack('mob')"
+        style="display:block;width:100%;margin-top:.5rem;padding:.6rem;background:none;border:none;color:#888;font-size:.82rem;cursor:pointer;font-family:inherit;text-align:center">
+        ← Retour
+      </button>
+    </div>
+
     <!-- Étape 2 -->
     <div id="mob-step2" style="display:none">
       <div style="text-align:center;margin-bottom:1.2rem">
@@ -314,6 +336,28 @@
         <a href="numero-dossier-oublie.html" class="forgot-link">Numéro de dossier oublié ?</a>
       </div>
 
+      <!-- Étape 2FA TOTP -->
+      <div id="desk-step-totp" class="desk-card" style="display:none">
+        <div style="text-align:center;margin-bottom:1.2rem">
+          <div style="width:48px;height:48px;border-radius:50%;background:#f0f4f8;display:flex;align-items:center;justify-content:center;margin:0 auto .7rem">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B5E8A" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <div style="font-size:.92rem;font-weight:800;color:#111;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem">Vérification 2FA</div>
+          <p style="font-size:.82rem;color:#666;line-height:1.5">Saisissez le code à 6 chiffres<br>de votre application Google Authenticator</p>
+        </div>
+        <div id="desk-err-totp" class="form-err" style="display:none"></div>
+        <div class="field-wrap" style="margin-bottom:.8rem">
+          <input type="text" id="desk-totp" placeholder="000 000" class="otp-input"
+            inputmode="numeric" maxlength="7"
+            onkeydown="if(event.key==='Enter') conStepTOTP('desk')"/>
+        </div>
+        <button class="btn-main" id="desk-btn-totp" onclick="conStepTOTP('desk')">Se connecter</button>
+        <button type="button" onclick="conGoBack('desk')"
+          style="display:block;width:100%;margin-top:.5rem;padding:.6rem;background:none;border:none;color:#888;font-size:.82rem;cursor:pointer;font-family:inherit;text-align:center">
+          ← Retour
+        </button>
+      </div>
+
       <!-- Étape 2 -->
       <div id="desk-step2" class="desk-card" style="display:none">
         <div style="text-align:center;margin-bottom:1.2rem">
@@ -389,6 +433,7 @@
 
 <script src="fidexico-db.js"></script>
 <script src="fidexico-email.js"></script>
+<script src="fidexico-2fa.js"></script>
 <script src="espace-client.js"></script>
 <script>
 var _conClient = null;
@@ -413,9 +458,12 @@ function _conGenOTP(){ return String(Math.floor(100000 + Math.random() * 900000)
 
 function conGoBack(p){
   document.getElementById(p+'-step2').style.display = 'none';
+  document.getElementById(p+'-step-totp').style.display = 'none';
   document.getElementById(p+'-step1').style.display = 'block';
-  document.getElementById(p+'-otp').value = '';
+  var otp = document.getElementById(p+'-otp'); if(otp) otp.value = '';
+  var totp = document.getElementById(p+'-totp'); if(totp) totp.value = '';
   _conErr(p, '2', '');
+  var et = document.getElementById(p+'-err-totp'); if(et){ et.textContent=''; et.style.display='none'; }
 }
 
 function conStep1(p){
@@ -438,6 +486,17 @@ function conStep1(p){
         _conBusy(p, '1', false); return;
       }
       _conClient = client;
+
+      /* Si 2FA activée → demander le code TOTP (pas d'email OTP) */
+      if(client.totp_secret){
+        document.getElementById(p+'-step1').style.display = 'none';
+        document.getElementById(p+'-step-totp').style.display = 'block';
+        _conBusy(p, '1', false);
+        setTimeout(function(){ var i = document.getElementById(p+'-totp'); if(i) i.focus(); }, 200);
+        return;
+      }
+
+      /* Sinon → envoyer OTP par email */
       _conOTP    = _conGenOTP();
       _conOTPExp = Date.now() + 10 * 60 * 1000;
       return FidEmail.sendLoginOTP(email, client.prenom || 'Client', _conOTP, fdx)
@@ -455,6 +514,25 @@ function conStep1(p){
       _conErr(p, '1', 'Une erreur est survenue. Réessayez.');
       _conBusy(p, '1', false);
     });
+}
+
+function conStepTOTP(p){
+  var code = document.getElementById(p+'-totp').value.replace(/\s/g, '');
+  var errEl = document.getElementById(p+'-err-totp');
+  if(errEl){ errEl.textContent=''; errEl.style.display='none'; }
+  if(!code || code.length < 6){
+    if(errEl){ errEl.textContent='Saisissez le code à 6 chiffres.'; errEl.style.display='block'; } return;
+  }
+  var btn = document.getElementById(p+'-btn-totp');
+  if(btn){ btn.disabled=true; btn.textContent='Chargement…'; }
+  FID2FA.verify(_conClient.totp_secret, code).then(function(ok){
+    if(!ok){
+      if(errEl){ errEl.textContent='Code incorrect. Vérifiez votre application et réessayez.'; errEl.style.display='block'; }
+      if(btn){ btn.disabled=false; btn.textContent='Se connecter'; }
+      return;
+    }
+    ecCompleteLogin(_conClient);
+  });
 }
 
 function conResend(p){
