@@ -282,7 +282,7 @@ function ecRenderTx(){
   if(!list.length){ if(empty) empty.style.display=''; return; }
   if(empty) empty.style.display='none';
   var hidden = ecSoldeHidden();
-  var displayed = EC_TX_SHOW_ALL ? list : list.slice(0,10);
+  var displayed = EC_TX_SHOW_ALL ? list : list.slice(0,5);
 
   /* Group by date */
   var groups = [];
@@ -324,7 +324,12 @@ function ecRenderTx(){
     return sepHtml + itemsHtml;
   }).join('');
 
-  container.innerHTML = html;
+  // Bouton "Voir plus" si transactions restantes
+  var hasMore = !EC_TX_SHOW_ALL && list.length > 5;
+  var moreBtn = hasMore
+    ? '<button id="ec-tx-voir-tout" onclick="ecToggleTxAll(event)" style="display:block;width:calc(100% - 2.6rem);margin:0 1.3rem 1rem;background:none;border:1px solid #E5E7EB;border-radius:12px;padding:.7rem 1rem;font-size:.83rem;font-weight:600;color:#3FBFA0;font-family:inherit;cursor:pointer;">Voir toutes les opérations ('+(list.length-5)+' de plus)</button>'
+    : (EC_TX_SHOW_ALL && list.length > 5 ? '<button id="ec-tx-voir-tout" onclick="ecToggleTxAll(event)" style="display:block;width:calc(100% - 2.6rem);margin:0 1.3rem 1rem;background:none;border:1px solid #E5E7EB;border-radius:12px;padding:.7rem 1rem;font-size:.83rem;font-weight:600;color:#999;font-family:inherit;cursor:pointer;">Réduire</button>' : '');
+  container.innerHTML = html + moreBtn;
 }
 
 // ── Détail transaction ──
