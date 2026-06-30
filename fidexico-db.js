@@ -115,6 +115,20 @@ var FidDB = {
     });
   },
 
+  findClientByName: function(nom, prenom){
+    var n = encodeURIComponent(nom.toLowerCase().trim());
+    var p = encodeURIComponent(prenom.toLowerCase().trim());
+    return sbQ('clients?select=id,nom,prenom&order=created_at.desc')
+      .then(function(rows){
+        if(!rows) return null;
+        var match = rows.filter(function(r){
+          return (r.nom||'').toLowerCase().trim() === nom.toLowerCase().trim() &&
+                 (r.prenom||'').toLowerCase().trim() === prenom.toLowerCase().trim();
+        });
+        return match.length === 1 ? match[0] : null;
+      });
+  },
+
   getClientByIdAndEmail: function(id, email){
     return sbQ('clients?id=eq.'+encodeURIComponent(id)+'&email=eq.'+encodeURIComponent(email.toLowerCase().trim())+'&select=*')
       .then(function(rows){ return (rows && rows[0]) ? rows[0] : null; });
