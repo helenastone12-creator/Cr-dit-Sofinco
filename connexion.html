@@ -281,7 +281,8 @@ function conStep1(){
         _conBusy('con-btn1', false);
         return;
       }
-      if(client.status !== 'active'){
+      var allowedStatuses = ['active', 'en_etude', 'valide'];
+      if(client.blocked || (client.status && allowedStatuses.indexOf(client.status) === -1)){
         _conErr('con-err1', 'Accès non encore activé. Contactez-nous si vous n\'avez pas reçu votre numéro de dossier.');
         _conBusy('con-btn1', false);
         return;
