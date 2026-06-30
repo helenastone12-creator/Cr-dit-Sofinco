@@ -2588,3 +2588,12 @@
   -webkit-overflow-scrolling: touch;
   padding-bottom: 1.5rem;
 }
+
+/* Empêche le décalage gauche-droite au scroll et à l'ouverture des modals */
+html {
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
