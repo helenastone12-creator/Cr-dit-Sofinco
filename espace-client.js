@@ -189,10 +189,8 @@ var EC_TX_SHOW_ALL = false;
 
 function ecToggleTxAll(e){
   if(e) e.preventDefault();
-  EC_TX_SHOW_ALL = !EC_TX_SHOW_ALL;
-  ecRenderTx();
-  var btn = document.getElementById('ec-tx-voir-tout');
-  if(btn) btn.textContent = EC_TX_SHOW_ALL ? 'Réduire' : 'Tout afficher';
+  ecOpenAllTx();
+}
 }
 
 function ecTxSubLabel(type){
@@ -342,6 +340,44 @@ function ecRenderTx(){
     ? '<button id="ec-tx-voir-tout" onclick="ecToggleTxAll(event)" style="display:block;width:calc(100% - 2.6rem);margin:0 1.3rem 1rem;background:none;border:1px solid #E5E7EB;border-radius:12px;padding:.7rem 1rem;font-size:.83rem;font-weight:600;color:#3FBFA0;font-family:inherit;cursor:pointer;">Voir toutes les opérations ('+(list.length-5)+' de plus)</button>'
     : (EC_TX_SHOW_ALL && list.length > 5 ? '<button id="ec-tx-voir-tout" onclick="ecToggleTxAll(event)" style="display:block;width:calc(100% - 2.6rem);margin:0 1.3rem 1rem;background:none;border:1px solid #E5E7EB;border-radius:12px;padding:.7rem 1rem;font-size:.83rem;font-weight:600;color:#999;font-family:inherit;cursor:pointer;">Réduire</button>' : '');
   container.innerHTML = html + moreBtn;
+}
+
+// ── Toutes les transactions (modal scrollable) ──
+function ecOpenAllTx(){
+  var list = ecGetTx();
+  var hidden = ecSoldeHidden();
+  var modal = document.getElementById('ec-modal-all-tx');
+  if(!modal) return;
+  var todayKey = new Date().toISOString().slice(0,10);
+  // Group by normalized date
+  var groups = [], groupMap = {};
+  list.forEach(function(tx){
+    var key = ecNormDateKey(tx.date);
+    if(!groupMap[key]){ groupMap[key]={date:key,items:[]}; groups.push(groupMap[key]); }
+    groupMap[key].items.push(tx);
+  });
+  var html = groups.map(function(g){
+    var label = ecTxDateLabel(g.date);
+    var sep = '<div class="ec-n26-date-label">'+label+'</div>';
+    var items = g.items.map(function(tx){
+      var isOut = tx.type==='virement';
+      var sign = isOut ? '-' : '';
+      var fmtAmt = tx.amt.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+      var rawAmt = hidden ? '• • • •' : sign+fmtAmt;
+      var amtCls = isOut ? 'ec-n26-tx-amt' : 'ec-n26-tx-amt ec-n26-tx-amt--in';
+      var icon = ecTxCategoryIcon(tx.type);
+      var name = ecTxDisplayName(tx);
+      var dateDisp = ecFmtTxDateFull(tx.date);
+      var txJson = encodeURIComponent(JSON.stringify(tx));
+      return '<div class="ec-n26-tx-item" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
+        '<div class="ec-n26-tx-icon">'+icon+'</div>'+
+        '<div class="ec-n26-tx-info"><div class="ec-n26-tx-name">'+name+'</div><div class="ec-n26-tx-date">'+dateDisp+'</div></div>'+
+        '<div class="'+amtCls+'">'+rawAmt+'</div></div>';
+    }).join('');
+    return sep + items;
+  }).join('');
+  document.getElementById('ec-all-tx-list').innerHTML = html || '<div class="ec-n26-tx-empty">Aucune opération.</div>';
+  ecOpenModal('all-tx');
 }
 
 // ── Détail transaction ──
