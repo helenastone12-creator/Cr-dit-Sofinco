@@ -823,13 +823,20 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   var sBadge = document.getElementById('fd-status-badge');
   if(sBadge){ sBadge.textContent = si.label; sBadge.className = 'fd-status-badge ' + si.cls; }
 
-  // Also refresh disponible after Supabase solde loads
+  // Also refresh disponible after Supabase solde loads (cancel any running countUp first)
   var _origRefresh = window.ecRefreshSolde;
   ecRefreshSolde = function(){
     if(_origRefresh) _origRefresh();
     var s2 = parseFloat(localStorage.getItem('ec_solde')) || 0;
+    // Cancel running counter then animate to new value
+    if(_v3CountUpTimers && _v3CountUpTimers['fd-disponible-amt']){
+      clearInterval(_v3CountUpTimers['fd-disponible-amt']);
+      delete _v3CountUpTimers['fd-disponible-amt'];
+    }
     set('fd-disponible-amt', fmtEur(s2));
     set('fd-kpi-disponible', fmtEur(s2));
+    // Re-animate if value changed
+    setTimeout(function(){ v3CountUp('fd-disponible-amt', s2); }, 50);
   };
 }
 
@@ -869,21 +876,25 @@ function fdRenderActivity(){
 }
 
 // ── V4: Counter animation ──
+var _v3CountUpTimers = {};
 function v3CountUp(id, finalVal){
   var el = document.getElementById(id);
   if(!el || !finalVal || finalVal <= 0) return;
+  // Cancel any running animation for this element
+  if(_v3CountUpTimers[id]) clearInterval(_v3CountUpTimers[id]);
   var duration = 900;
   var steps = 40;
   var interval = duration / steps;
   var step = 0;
-  var timer = setInterval(function(){
+  _v3CountUpTimers[id] = setInterval(function(){
     step++;
     var progress = step / steps;
     var ease = 1 - Math.pow(1 - progress, 3);
     var current = Math.round(finalVal * ease);
     el.textContent = current.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
     if(step >= steps){
-      clearInterval(timer);
+      clearInterval(_v3CountUpTimers[id]);
+      delete _v3CountUpTimers[id];
       el.textContent = finalVal.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
     }
   }, interval);
