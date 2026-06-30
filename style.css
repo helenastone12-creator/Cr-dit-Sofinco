@@ -705,14 +705,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    FAQ ACCORDION
 ═══════════════════════════ */
 .faq{padding:2.5rem 0}
-.faq h2{text-align:center;}
+.faq h2{text-align:left;text-transform:uppercase;color:var(--navy);font-size:1.6rem;font-weight:900;letter-spacing:.02em;margin-bottom:1.5rem;}
 .faq .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .faq>div>h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
   margin-bottom:1.5rem;line-height:1.3;
 }
 .faq-list{margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.75rem}
-.faq-item{background:#f0f0f0;border-radius:12px;overflow:hidden;border:none}
+.faq-item{background:#f0f0f0;border-radius:12px;overflow:hidden;border:none;transition:background .2s}
+.faq-item.open{background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.08)}
 .faq-question{
   width:100%;display:flex;align-items:center;justify-content:space-between;
   padding:1.1rem 1.2rem;font-size:.97rem;font-weight:400;color:#222;
@@ -732,11 +733,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .faq-icon::before{
   content:'›';display:block;
-  font-size:1.3rem;line-height:1;color:#666;
+  font-size:1.5rem;line-height:1;color:#666;font-weight:300;
   border:none;
   transition:transform .3s ease;
 }
-.faq-item.open .faq-icon::before{transform:rotate(90deg)}
+.faq-item.open .faq-icon::before{content:"∨";transform:none;font-size:1.1rem;}
 .faq-answer{
   display:block;max-height:0;overflow:hidden;
   padding-bottom:0;
