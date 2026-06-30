@@ -4553,3 +4553,87 @@ body.ec-body {
   .sgp-search { width: 120px; }
   .sgp-day-grid { grid-template-columns: repeat(7, 1fr); gap: .3rem; }
 }
+
+/* ── RFD: Référence transaction style (grouped by date) ──────────────────── */
+
+.rfd-date-hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .65rem .25rem .35rem;
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--p-ink-3);
+}
+
+.rfd-date-lbl { letter-spacing: .01em; }
+.rfd-date-net { font-weight: 600; }
+
+.rfd-group-card {
+  background: var(--p-surface);
+  border-radius: 14px;
+  border: 1px solid var(--p-border);
+  overflow: hidden;
+  margin-bottom: .75rem;
+}
+
+.rfd-item {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: .9rem 1rem;
+}
+
+.rfd-sep {
+  height: 1px;
+  background: var(--p-border);
+  margin: 0 1rem;
+}
+
+.rfd-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e8eaed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .78rem;
+  font-weight: 700;
+  color: #3c4043;
+  flex-shrink: 0;
+  letter-spacing: .02em;
+}
+
+.rfd-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.rfd-name {
+  font-size: .88rem;
+  font-weight: 600;
+  color: #1a56db;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rfd-sub {
+  font-size: .75rem;
+  color: var(--p-ink-3);
+  margin-top: .1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rfd-amt {
+  font-size: .9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rfd-amt--in  { color: #059669; }
+.rfd-amt--out { color: #dc2626; }
