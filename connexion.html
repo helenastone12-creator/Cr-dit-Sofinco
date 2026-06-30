@@ -32,15 +32,14 @@
     /* ── Page wrapper ── */
     .page {
       flex: 1; display: flex; flex-direction: column;
-      max-width: 860px; margin: 0 auto; width: 100%;
+      max-width: 1200px; margin: 0 auto; width: 100%;
       padding: 2.5rem 2.5rem 2rem;
     }
 
     /* ── Logo ── */
     .page-logo {
       display: flex; align-items: center; gap: .7rem;
-      margin-bottom: 2rem;
-      text-decoration: none;
+      margin-bottom: 2rem; text-decoration: none;
     }
     .page-logo-text {
       font-size: 1.5rem; font-weight: 900; color: #06c2b0;
@@ -54,16 +53,19 @@
       text-transform: uppercase; text-align: center;
     }
 
-    /* ── Formulaire centré ── */
-    .content-row { display: flex; flex-direction: column; }
-    .login-wrap { width: 100%; max-width: 460px; margin: 0 auto; }
+    /* ── Layout deux colonnes ── */
+    .content-row {
+      display: flex; flex-direction: column; gap: 1.5rem; flex: 1;
+    }
     @media (min-width: 860px) {
       .page { justify-content: center; }
       .page-title { font-size: 2.2rem; }
-      .login-card { padding: 2.8rem 2.6rem; }
+      .content-row { flex-direction: row; align-items: flex-start; gap: 3rem; }
+      .content-left { flex: 1; }
+      .content-right { width: 400px; flex-shrink: 0; }
     }
 
-    /* ── Bannière fraudes (gauche) ── */
+    /* ── Bannière fraude (gauche) ── */
     .fraud-banner {
       background: linear-gradient(150deg, #1a3a8c 0%, #2a5298 60%, #1e4fc2 100%);
       border-radius: 14px; padding: 2.2rem 2.4rem;
@@ -93,7 +95,7 @@
     .fraud-body strong { color: #fff; }
     .fraud-body a { color: #90cce4; text-decoration: underline; }
 
-    /* ── Section droite ── */
+    /* ── Formulaire (droite) ── */
     .form-section-title {
       font-size: .78rem; font-weight: 800; color: #555;
       text-transform: uppercase; letter-spacing: .12em;
@@ -176,18 +178,22 @@
   <!-- Titre -->
   <h1 class="page-title">ACCÉDER À MON ESPACE SÉCURISÉ</h1>
 
-  <!-- Bannière fraude sous le titre -->
-  <div class="fraud-banner" style="margin-bottom:2rem">
-    <div class="fraud-head">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span>FAUX EMAILS FIDEXICO : SOYEZ VIGILANTS !</span>
-    </div>
-    <p class="fraud-body">Des tentatives d'escroquerie peuvent survenir : des individus malveillants peuvent envoyer de faux messages en usurpant l'identité de Fidexico. Nous vous invitons à <strong>vérifier attentivement l'expéditeur</strong> avant d'ouvrir ou de répondre à tout email.</p>
-    <p class="fraud-body">En cas de doute, ne cliquez sur aucun lien et contactez-nous via <a href="nous-contacter.html">notre formulaire de contact</a>.</p>
-  </div>
-
   <div class="content-row">
-    <div class="login-wrap">
+
+    <!-- Colonne gauche : bannière fraude -->
+    <div class="content-left">
+      <div class="fraud-banner">
+        <div class="fraud-head">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>FAUX EMAILS FIDEXICO : SOYEZ VIGILANTS !</span>
+        </div>
+        <p class="fraud-body">Des tentatives d'escroquerie peuvent survenir : des individus malveillants peuvent envoyer de faux messages en usurpant l'identité de Fidexico. Nous vous invitons à <strong>vérifier attentivement l'expéditeur</strong> avant d'ouvrir ou de répondre à tout email.</p>
+        <p class="fraud-body">En cas de doute, ne cliquez sur aucun lien et contactez-nous via <a href="nous-contacter.html">notre formulaire de contact</a>.</p>
+      </div>
+    </div>
+
+    <!-- Colonne droite : formulaire -->
+    <div class="content-right">
 
       <div class="form-section-title">ME CONNECTER</div>
 
@@ -260,7 +266,7 @@
         <a href="accessibilite.html">Accessibilité</a>
       </div>
 
-    </div><!-- /login-wrap -->
+    </div><!-- /content-right -->
 
   </div><!-- /content-row -->
 
