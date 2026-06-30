@@ -120,7 +120,7 @@ function ecRefreshSolde(){
   var hidden = ecSoldeHidden();
   var solde = ecGetSolde();
   var mask = '• • • • • •';
-  if(el) el.textContent = hidden ? mask : ecFormatAmt(solde);
+  if(el) el.textContent = hidden ? mask : ecFormatAmt(solde).replace(' €',' EUR');
   if(el2) el2.textContent = hidden ? mask : ecFormatAmt(solde);
   var lbl = document.getElementById('ec-hide-bal-lbl');
   var ico = document.getElementById('ec-eye-icon');
