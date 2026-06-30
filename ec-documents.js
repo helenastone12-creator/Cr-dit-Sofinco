@@ -56,6 +56,12 @@ function ecDocStyles(){
   </style>`;
 }
 
+function ecDocField(u, docKey, fieldName, defaultVal){
+  var fields=((u&&u.doc_overrides)||{})[docKey+'_fields']||{};
+  var v=fields[fieldName];
+  return (v!==undefined&&v!=='') ? v : defaultVal;
+}
+
 function ecDocCustomClause(u, docKey){
   var overrides = (u && u.doc_overrides) || {};
   var text = overrides[docKey];
@@ -89,16 +95,18 @@ function ecDocButtons(){
 function ecGenContrat(){
   var u = ecDocGetUser() || {};
   var loan = u.loan || {};
-  var montant  = loan.montant    || 0;
-  var mens     = loan.mensualite || 0;
-  var duree    = loan.duree      || 60;
-  var taux     = loan.taux       || 3.5;
+  var montant  = Number(ecDocField(u,'doc_contrat','montant', loan.montant    || 0));
+  var mens     = Number(ecDocField(u,'doc_contrat','mensualite', loan.mensualite || 0));
+  var duree    = Number(ecDocField(u,'doc_contrat','duree',    loan.duree      || 60));
+  var taux     = Number(ecDocField(u,'doc_contrat','taux',     loan.taux       || 3.5));
   var taeg     = taux.toFixed(2);
-  var dateSign = ecDocFmt(u.createdAt);
-  var dateExp  = new Date(u.createdAt||Date.now()); dateExp.setDate(dateExp.getDate()+14);
+  var dateSignRaw = ecDocField(u,'doc_contrat','date_sign', u.createdAt||null);
+  var dateSign = ecDocFmt(dateSignRaw);
+  var dateExp  = new Date(dateSignRaw||Date.now()); dateExp.setDate(dateExp.getDate()+14);
   var total    = (mens * duree).toFixed(2);
   var coutTotal= (total - montant).toFixed(2);
-  var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
+  var fullName = ecDocField(u,'doc_contrat','nom', ((u.prenom||'')+' '+(u.nom||'')).trim());
+  var fraisText = ecDocField(u,'doc_contrat','frais', null);
 
   var html = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
   <title>Contrat de crédit — ${u.ref||'—'}</title>${ecDocStyles()}</head><body>
@@ -140,7 +148,7 @@ function ecGenContrat(){
       <tr><td>Montant de chaque mensualité</td><td><strong>${ecDocMoney(mens)}</strong></td></tr>
       <tr><td>Montant total dû par l'emprunteur</td><td><strong>${ecDocMoney(total)}</strong></td></tr>
       <tr><td>Coût total du crédit (intérêts + frais)</td><td>${ecDocMoney(coutTotal)}</td></tr>
-      <tr><td>Frais de dossier</td><td>Des frais de dossier peuvent s'appliquer. Leur montant sera communiqué avant la souscription.</td></tr>
+      <tr><td>Frais de dossier</td><td>${fraisText||'Des frais de dossier peuvent s\'appliquer. Leur montant sera communiqué avant la souscription.'}</td></tr>
       <tr><td>Assurance emprunteur (facultative)</td><td>Incluse — voir attestation jointe</td></tr>
     </table>
 
@@ -196,13 +204,13 @@ function ecGenContrat(){
 function ecGenAmortissement(){
   var u = ecDocGetUser() || {};
   var loan = u.loan || {};
-  var capital  = loan.montant    || 0;
-  var mens     = loan.mensualite || 0;
-  var duree    = loan.duree      || 60;
-  var taux     = loan.taux       || 3.5;
+  var capital  = Number(ecDocField(u,'doc_amort','montant',    loan.montant    || 0));
+  var mens     = Number(ecDocField(u,'doc_amort','mensualite', loan.mensualite || 0));
+  var duree    = Number(ecDocField(u,'doc_amort','duree',      loan.duree      || 60));
+  var taux     = Number(ecDocField(u,'doc_amort','taux',       loan.taux       || 3.5));
   var tauxM    = taux / 100 / 12;
   var dateDebut= new Date(u.createdAt||Date.now());
-  var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
+  var fullName = ecDocField(u,'doc_amort','nom', ((u.prenom||'')+' '+(u.nom||'')).trim());
 
   /* Calcul échéance par échéance */
   var rows = ''; var restant = capital; var totalInt = 0; var totalCap = 0;
@@ -338,11 +346,13 @@ function ecGenReleve(moisOffset, refDate){
 ────────────────────────────────*/
 function ecGenAttestationAssurance(){
   var u = ecDocGetUser() || {};
-  var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
+  var fullName = ecDocField(u,'doc_attest_ass','nom',((u.prenom||'')+' '+(u.nom||'')).trim());
   var loan = u.loan || {};
-  var dateDebut = ecDocFmt(u.createdAt);
-  var dateFin = new Date(u.createdAt||Date.now()); dateFin.setFullYear(dateFin.getFullYear()+1);
-  var numAtt = 'ATT-ASS-'+(u.ref||'SOF').slice(-8)+'-2026';
+  var dateDebutRaw = ecDocField(u,'doc_attest_ass','date_sign', u.createdAt||null);
+  var dateDebut = ecDocFmt(dateDebutRaw);
+  var dateFin = new Date(dateDebutRaw||Date.now()); dateFin.setFullYear(dateFin.getFullYear()+1);
+  var numAtt = ecDocField(u,'doc_attest_ass','num_att','ATT-ASS-'+(u.ref||'SOF').slice(-8)+'-2026');
+  var montantAssure = Number(ecDocField(u,'doc_attest_ass','montant', loan.montant||0));
 
   var html = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
   <title>Attestation d'assurance — ${numAtt}</title>${ecDocStyles()}</head><body>
@@ -367,7 +377,7 @@ function ecGenAttestationAssurance(){
       <tr><td>Numéro de contrat d'assurance</td><td>${numAtt}</td></tr>
       <tr><td>Date d'effet</td><td>${dateDebut}</td></tr>
       <tr><td>Date d'échéance annuelle</td><td>${ecDocFmt(dateFin.toISOString())}</td></tr>
-      <tr><td>Capital assuré</td><td>${ecDocMoney(loan.montant||0)}</td></tr>
+      <tr><td>Capital assuré</td><td>${ecDocMoney(montantAssure)}</td></tr>
       <tr><td>Assureur délégué</td><td>SOLFIANZA ASSURANCES — SIREN 987 654 321</td></tr>
     </table>
 
@@ -415,8 +425,10 @@ function ecGenAttestationAssurance(){
 ────────────────────────────────*/
 function ecGenAttestationRA(){
   var u = ecDocGetUser() || {};
-  var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
+  var fullName = ecDocField(u,'doc_attest_ra','nom',((u.prenom||'')+' '+(u.nom||'')).trim());
   var loan = u.loan || {};
+  var capitalRestant = Number(ecDocField(u,'doc_attest_ra','montant', loan.montant||0));
+  var iraText = ecDocField(u,'doc_attest_ra','ira','0,00 € — Exonéré (montant &lt; 10 000 €/12 mois)');
   var numAtt = 'ATT-RA-'+(u.ref||'SOF').slice(-8)+'-'+new Date().getFullYear();
 
   var html = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
@@ -441,8 +453,8 @@ function ecGenAttestationRA(){
       <thead><tr><th>Condition</th><th>Application</th></tr></thead>
       <tbody>
         <tr><td>Droit au remboursement anticipé</td><td>Oui — à tout moment, sans conditions</td></tr>
-        <tr><td>Capital restant dû</td><td>${ecDocMoney(loan.montant||0)} (à la date de la demande)</td></tr>
-        <tr><td>Indemnité de remboursement anticipé (IRA)</td><td>0,00 € — Exonéré (montant &lt; 10 000 €/12 mois)</td></tr>
+        <tr><td>Capital restant dû</td><td>${ecDocMoney(capitalRestant)} (à la date de la demande)</td></tr>
+        <tr><td>Indemnité de remboursement anticipé (IRA)</td><td>${iraText}</td></tr>
         <tr><td>Frais administratifs</td><td>0,00 €</td></tr>
         <tr><td>Délai de traitement</td><td>5 jours ouvrés</td></tr>
       </tbody>

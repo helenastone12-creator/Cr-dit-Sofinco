@@ -1406,7 +1406,7 @@
                 <span>🔍</span> Prévisualiser &amp; modifier un document
               </div>
               <div class="op-card-body">
-                <div class="adm-modal-note">Prévisualisez le document d'un client, ajoutez des clauses personnalisées, puis approuvez-le pour le rendre visible dans son espace.</div>
+                <div class="adm-modal-note">Modifiez les champs du document, ajoutez des clauses, puis approuvez-le pour le rendre visible dans l'espace client.</div>
                 <div class="adm-field">
                   <label class="adm-field-lbl">Identifiant client</label>
                   <input class="adm-field-inp" id="docprev-id" placeholder="USR-XXXX..." onchange="admLoadDocCustom()"/>
@@ -1420,15 +1420,22 @@
                     <option value="doc_attest_ra">Attestation de remboursement anticipé</option>
                   </select>
                 </div>
-                <button class="adm-btn" style="width:100%;background:#0B1D3A;color:#fff;margin-bottom:.5rem" onclick="admPreviewDoc()">👁 Prévisualiser le document</button>
-                <div class="adm-field" style="margin-top:.8rem">
-                  <label class="adm-field-lbl">Clauses / mentions personnalisées (ajoutées au document)</label>
-                  <textarea id="docprev-custom" rows="4" style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:.5rem .75rem;font-size:.85rem;resize:vertical" placeholder="Ex : Clause particulière convenue entre les parties..."></textarea>
+
+                <div style="border:1px solid #e5e7eb;border-radius:8px;padding:.75rem;margin:.6rem 0;background:#f9fafb">
+                  <div style="font-size:.78rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">✏️ Modifier les champs du document</div>
+                  <div id="docprev-fields-panel" style="display:flex;flex-direction:column;gap:.45rem"></div>
                 </div>
+
+                <div class="adm-field" style="margin-top:.6rem">
+                  <label class="adm-field-lbl">Clauses / mentions personnalisées (section ajoutée en bas)</label>
+                  <textarea id="docprev-custom" rows="3" style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:.5rem .75rem;font-size:.85rem;resize:vertical" placeholder="Ex : Clause particulière convenue entre les parties..."></textarea>
+                </div>
+
                 <div class="adm-modal-success" id="docprev-ok">✓ Document mis à jour.</div>
                 <div class="adm-modal-err" id="docprev-err"></div>
-                <div style="display:flex;gap:.5rem;margin-top:.4rem">
-                  <button class="adm-btn" style="flex:1;background:#6b7280;color:#fff" onclick="admSaveDocCustom(false)">💾 Enregistrer les modifications</button>
+                <button class="adm-btn" style="width:100%;background:#0B1D3A;color:#fff;margin:.5rem 0" onclick="admPreviewDoc()">👁 Prévisualiser le document</button>
+                <div style="display:flex;gap:.5rem">
+                  <button class="adm-btn" style="flex:1;background:#6b7280;color:#fff" onclick="admSaveDocCustom(false)">💾 Enregistrer</button>
                   <button class="adm-btn adm-btn--green" style="flex:1" onclick="admSaveDocCustom(true)">✅ Enregistrer &amp; Approuver</button>
                 </div>
               </div>
@@ -2089,16 +2096,67 @@ function opSetDocs(){
   showMsg('docs-ok','docs-err',auth.length+' document(s) autorisé(s) pour '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
 }
 
+function admDocFieldDef(docType, c){
+  var loan=(c&&c.user&&c.user.loan)||{};
+  var u=c&&c.user||{};
+  var defaultNom=((u.prenom||'')+' '+(u.nom||'')).trim();
+  var defaultDate=(u.createdAt||'').slice(0,10);
+  var fields=[
+    {id:'nom',label:'Nom complet',type:'text',def:defaultNom}
+  ];
+  if(docType==='doc_contrat'||docType==='doc_amort'){
+    fields.push({id:'montant',label:'Montant du crédit (€)',type:'number',def:loan.montant||''});
+    fields.push({id:'mensualite',label:'Mensualité (€)',type:'number',def:loan.mensualite||''});
+    fields.push({id:'taux',label:'Taux annuel (%)',type:'number',def:loan.taux||''});
+    fields.push({id:'duree',label:'Durée (mois)',type:'number',def:loan.duree||''});
+  }
+  if(docType==='doc_contrat'){
+    fields.push({id:'frais',label:'Frais de dossier',type:'text',def:''});
+    fields.push({id:'date_sign',label:'Date de signature',type:'date',def:defaultDate});
+  }
+  if(docType==='doc_attest_ass'){
+    fields.push({id:'montant',label:'Capital assuré (€)',type:'number',def:loan.montant||''});
+    fields.push({id:'date_sign',label:"Date d'effet",type:'date',def:defaultDate});
+    fields.push({id:'num_att',label:'N° attestation (optionnel)',type:'text',def:''});
+  }
+  if(docType==='doc_attest_ra'){
+    fields.push({id:'montant',label:'Capital restant dû (€)',type:'number',def:loan.montant||''});
+    fields.push({id:'ira',label:'Indemnité remboursement anticipé',type:'text',def:'0,00 €'});
+  }
+  return fields;
+}
+
+function admRenderDocFields(c, docType, saved){
+  var panel=document.getElementById('docprev-fields-panel');
+  var fields=admDocFieldDef(docType,c);
+  panel.innerHTML=fields.map(function(f){
+    var val=saved&&saved[f.id]!==undefined?saved[f.id]:f.def;
+    return '<div style="display:flex;flex-direction:column;gap:2px">'
+      +'<label style="font-size:.75rem;font-weight:600;color:#6b7280">'+f.label+'</label>'
+      +'<input class="adm-field-inp" type="'+f.type+'" id="docf-'+f.id+'" value="'+val+'" style="padding:.35rem .6rem;font-size:.85rem"/>'
+      +'</div>';
+  }).join('');
+}
+
+function admGetDocFields(docType){
+  var f={};
+  var ids=['nom','montant','mensualite','taux','duree','frais','date_sign','num_att','ira'];
+  ids.forEach(function(id){
+    var el=document.getElementById('docf-'+id);
+    if(el&&el.value.trim()) f[id]=el.value.trim();
+  });
+  return f;
+}
+
 function admLoadDocCustom(){
   var uid=document.getElementById('docprev-id').value.trim();
   var docType=document.getElementById('docprev-type').value;
-  var ta=document.getElementById('docprev-custom');
-  ta.value='';
-  if(!uid) return;
-  var c=findClientByUID(uid);
+  document.getElementById('docprev-custom').value='';
+  var c=uid?findClientByUID(uid):null;
+  admRenderDocFields(c||{user:{loan:{}}},docType,(c&&c.user&&c.user.doc_overrides&&c.user.doc_overrides[docType+'_fields'])||{});
   if(!c) return;
   var overrides=c.user.doc_overrides||{};
-  ta.value=overrides[docType]||'';
+  document.getElementById('docprev-custom').value=overrides[docType]||'';
 }
 
 function admPreviewDoc(){
@@ -2108,9 +2166,12 @@ function admPreviewDoc(){
   if(!c) return showMsg('docprev-ok','docprev-err','Client introuvable.',false);
   var docType=document.getElementById('docprev-type').value;
   var customText=document.getElementById('docprev-custom').value.trim();
+  var fields=admGetDocFields(docType);
   var prevUser=localStorage.getItem('ec_user');
-  var previewClient=Object.assign({},c.user,{doc_overrides:Object.assign({},c.user.doc_overrides||{})});
-  if(customText) previewClient.doc_overrides[docType]=customText;
+  var overrides=Object.assign({},c.user.doc_overrides||{});
+  overrides[docType+'_fields']=fields;
+  if(customText) overrides[docType]=customText; else delete overrides[docType];
+  var previewClient=Object.assign({},c.user,{doc_overrides:overrides});
   localStorage.setItem('ec_user',JSON.stringify(previewClient));
   if(docType==='doc_contrat') ecGenContrat();
   else if(docType==='doc_amort') ecGenAmortissement();
@@ -2127,9 +2188,10 @@ function admSaveDocCustom(andApprove){
   if(!c) return showMsg('docprev-ok','docprev-err','Client introuvable.',false);
   var docType=document.getElementById('docprev-type').value;
   var customText=document.getElementById('docprev-custom').value.trim();
+  var fields=admGetDocFields(docType);
   var overrides=Object.assign({},c.user.doc_overrides||{});
-  if(customText) overrides[docType]=customText;
-  else delete overrides[docType];
+  overrides[docType+'_fields']=fields;
+  if(customText) overrides[docType]=customText; else delete overrides[docType];
   c.user.doc_overrides=overrides;
   var updates={doc_overrides:overrides};
   if(andApprove){
