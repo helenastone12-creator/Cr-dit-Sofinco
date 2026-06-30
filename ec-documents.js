@@ -56,6 +56,13 @@ function ecDocStyles(){
   </style>`;
 }
 
+function ecDocCustomClause(u, docKey){
+  var overrides = (u && u.doc_overrides) || {};
+  var text = overrides[docKey];
+  if(!text) return '';
+  return `<h2 style="margin-top:22px">Clauses particulières</h2><div style="border:1px solid #e5e7eb;border-radius:8px;padding:12px 16px;background:#fafafa;font-size:9pt;line-height:1.7;white-space:pre-wrap;color:#333">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+}
+
 function ecDocOpen(html){
   var w = window.open('','_blank');
   if(w){
@@ -174,6 +181,8 @@ function ecGenContrat(){
       </div>
     </div>
 
+    ${ecDocCustomClause(u,'doc_contrat')}
+
     <div class="footer">
       SOLFIANZA SAS — SAS au capital de 2 000 000 € — SIREN 123 456 789 — APE 6492Z — Siège : 12 rue de la Finance, 75008 Paris — Établissement de crédit agréé par l'ACPR (Autorité de Contrôle Prudentiel et de Résolution), 4 place de Budapest, 75436 Paris Cedex 09 — Immatriculé à l'ORIAS sous le n° 24 000 123 (www.orias.fr) — Adhérent à la FBF (Fédération Bancaire Française) — Document généré le ${ecDocFmt(new Date().toISOString())} — Réf. ${u.ref||'—'}
     </div>
@@ -244,6 +253,8 @@ function ecGenAmortissement(){
     </table>
 
     <div class="highlight-box" style="margin-top:16px"><p>Ce tableau est fourni à titre informatif conformément à l'article L312-28 du Code de la consommation. Les montants sont calculés sur la base d'un taux fixe de ${taux} % l'an (TAEG ${taux.toFixed(2)} %). Coût total des intérêts : ${ecDocMoney(totalInt)}.</p></div>
+
+    ${ecDocCustomClause(u,'doc_amort')}
 
     <div class="footer">SOLFIANZA SAS — SIREN 123 456 789 — Document généré le ${ecDocFmt(new Date().toISOString())} — Réf. ${u.ref||'—'}</div>
   </div></body></html>`;
@@ -377,6 +388,8 @@ function ecGenAttestationAssurance(){
 
     <div class="warn-box"><p>⚠️ Cette attestation est délivrée à la seule fin de justifier de la souscription d'une assurance emprunteur. Elle ne remplace pas le contrat d'assurance complet. En cas de sinistre, contacter sinistres@fidexico.eu dans les plus brefs délais.</p></div>
 
+    ${ecDocCustomClause(u,'doc_attest_ass')}
+
     <div class="sign-block">
       <div class="sign-area">
         <div class="sign-lbl">Pour SOLFIANZA ASSURANCES</div>
@@ -444,6 +457,8 @@ function ecGenAttestationRA(){
     </ul>
 
     <div class="highlight-box"><p>ℹ️ <strong>Calcul du montant exact :</strong> Le capital restant dû sera précisément calculé à la date de remboursement. Contactez notre service au contact@fidexico.eu pour obtenir le solde exact avant toute opération.</p></div>
+
+    ${ecDocCustomClause(u,'doc_attest_ra')}
 
     <h2>Effets du remboursement anticipé</h2>
     <p>À réception du remboursement total et effectif du solde, le contrat de crédit référencé <span class="ref-tag">${u.ref||'—'}</span> sera clôturé. Une attestation de fin de crédit sera émise dans les 15 jours ouvrés suivant le remboursement effectif, conformément à l'article L312-36 du Code de la consommation.</p>

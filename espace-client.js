@@ -59,7 +59,7 @@ function ecCompleteLogin(user){
       localStorage.setItem('ec_tx', JSON.stringify(mapped));
     }).catch(function(){});
   }
-  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0};
+  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0};
   localStorage.setItem('ec_user', JSON.stringify(norm));
   if(typeof FidEmail !== 'undefined' && user.email){
     FidEmail.connexion(user.prenom||user.nom, user.email);
