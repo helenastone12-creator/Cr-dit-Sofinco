@@ -59,40 +59,64 @@
     <span id="fd-kpi-disponible" style="display:none"></span>
     <span id="fd-kpi-limite-sub" style="display:none"></span>
 
+    <!-- Eye button — always top-right -->
+    <button class="v2-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
+      <svg id="ec-eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+
+    <!-- Decorative circle -->
+    <div class="v2-hero-deco" aria-hidden="true"></div>
+
     <div class="v2-hero-body">
+      <!-- Left: amount info -->
       <div class="v2-hero-left">
-        <div class="v2-hero-greeting">Bonjour, <span id="fd-greeting-name">—</span></div>
-        <div class="v2-hero-label">Financement disponible</div>
+        <div class="v2-hero-greeting" id="fd-greeting-name">—</div>
+        <div class="v2-hero-label">FINANCEMENT DISPONIBLE</div>
         <div class="v2-hero-amount" id="fd-disponible-amt">— €</div>
         <div id="ec-solde-comptable" style="display:none"></div>
         <div class="v2-hero-tags">
-          <span class="v2-tag-live">● Disponible immédiatement</span>
+          <span class="v2-tag-live">
+            <span class="v2-tag-dot"></span>Disponible immédiatement
+          </span>
           <span class="v2-tag-verified">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
             Entreprise vérifiée
           </span>
         </div>
         <div class="v2-hero-limit">Limite approuvée : <strong id="fd-limite-amt">—</strong></div>
       </div>
+
+      <!-- Right (desktop): actions column -->
       <div class="v2-hero-right">
-        <button class="v2-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
-          <svg id="ec-eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <button class="v2-ha v2-ha--primary" onclick="ecOpenModal('virement')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Demander un virement
         </button>
-        <div class="v2-hero-actions">
-          <button class="v2-hero-act v2-hero-act--primary" onclick="ecOpenModal('virement')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Demander un virement
-          </button>
-          <button class="v2-hero-act" onclick="ecOpenModal('remb')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-            Rembourser
-          </button>
-          <button class="v2-hero-act" onclick="location.href='mes-documents.html'">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Documents
-          </button>
-        </div>
+        <button class="v2-ha" onclick="ecOpenModal('remb')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Rembourser
+        </button>
+        <button class="v2-ha" onclick="location.href='mes-documents.html'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Documents
+        </button>
       </div>
+    </div>
+
+    <!-- Bottom (mobile): action pills row -->
+    <div class="v2-hero-pills">
+      <button class="v2-pill v2-pill--primary" onclick="ecOpenModal('virement')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Virement
+      </button>
+      <button class="v2-pill" onclick="ecOpenModal('remb')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Rembourser
+      </button>
+      <button class="v2-pill" onclick="location.href='mes-documents.html'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Documents
+      </button>
     </div>
   </section>
 
