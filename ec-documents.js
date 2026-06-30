@@ -106,7 +106,8 @@ function ecGenContrat(){
   var total    = (mens * duree).toFixed(2);
   var coutTotal= (total - montant).toFixed(2);
   var fullName = ecDocField(u,'doc_contrat','nom', ((u.prenom||'')+' '+(u.nom||'')).trim());
-  var fraisText = ecDocField(u,'doc_contrat','frais', null);
+  var fraisRaw = ecDocField(u,'doc_contrat','frais', null);
+  var fraisText = fraisRaw ? (fraisRaw.indexOf('€')===-1 ? fraisRaw+' €' : fraisRaw) : null;
 
   var html = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
   <title>Contrat de crédit — ${u.ref||'—'}</title>${ecDocStyles()}</head><body>
