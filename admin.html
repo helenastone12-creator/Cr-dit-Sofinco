@@ -1276,6 +1276,117 @@
               </div>
             </div>
 
+            <div class="op-card">
+              <div class="op-card-header op-card-header--blue">
+                <span>🔑</span> Réinitialiser mot de passe
+              </div>
+              <div class="op-card-body">
+                <div class="adm-modal-note">Efface le mot de passe du client et le force à en choisir un nouveau à la prochaine connexion.</div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="rpwd-id" placeholder="USR-XXXX..."/>
+                </div>
+                <div class="adm-modal-success" id="rpwd-ok">✓ Mot de passe réinitialisé.</div>
+                <div class="adm-modal-err" id="rpwd-err"></div>
+                <button class="adm-btn" style="width:100%" onclick="opResetPwd()">Réinitialiser le mot de passe</button>
+              </div>
+            </div>
+
+            <div class="op-card">
+              <div class="op-card-header op-card-header--purple">
+                <span>🔐</span> Désactiver l'authentification 2FA
+              </div>
+              <div class="op-card-body">
+                <div class="adm-modal-note">Supprime la clé TOTP du client. Il devra reconfigurer Google Authenticator s'il souhaite réactiver le 2FA.</div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="dis2fa-id" placeholder="USR-XXXX..."/>
+                </div>
+                <div class="adm-modal-success" id="dis2fa-ok">✓ 2FA désactivé.</div>
+                <div class="adm-modal-err" id="dis2fa-err"></div>
+                <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opDisable2FA()">Désactiver le 2FA</button>
+              </div>
+            </div>
+
+            <div class="op-card">
+              <div class="op-card-header op-card-header--blue">
+                <span>📋</span> Changer le statut du dossier
+              </div>
+              <div class="op-card-body">
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="stat-id" placeholder="USR-XXXX..."/>
+                </div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Nouveau statut</label>
+                  <select class="adm-field-inp" id="stat-val">
+                    <option value="en_etude">En cours d'étude</option>
+                    <option value="valide">Validé</option>
+                    <option value="active">Actif</option>
+                    <option value="refuse">Refusé</option>
+                    <option value="suspendu">Suspendu</option>
+                  </select>
+                </div>
+                <div class="adm-modal-success" id="stat-ok">✓ Statut mis à jour.</div>
+                <div class="adm-modal-err" id="stat-err"></div>
+                <button class="adm-btn" style="width:100%" onclick="opChangeStatut()">Enregistrer le statut</button>
+              </div>
+            </div>
+
+            <div class="op-card">
+              <div class="op-card-header op-card-header--red">
+                <span>🚪</span> Forcer la déconnexion
+              </div>
+              <div class="op-card-body">
+                <div class="adm-modal-note">Le client sera déconnecté automatiquement à la prochaine vérification de session.</div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="flog-id" placeholder="USR-XXXX..."/>
+                </div>
+                <div class="adm-modal-success" id="flog-ok">✓ Déconnexion forcée.</div>
+                <div class="adm-modal-err" id="flog-err"></div>
+                <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opForceLogout()">Forcer la déconnexion</button>
+              </div>
+            </div>
+
+            <div class="op-card">
+              <div class="op-card-header op-card-header--yellow">
+                <span>💳</span> Limite de virement
+              </div>
+              <div class="op-card-body">
+                <div class="adm-modal-note">Définit un montant maximum par virement pour ce client. Mettre 0 pour supprimer la limite.</div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="vlim-id" placeholder="USR-XXXX..."/>
+                </div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Limite (€) — 0 = aucune limite</label>
+                  <input class="adm-field-inp" id="vlim-amt" type="number" min="0" placeholder="Ex : 5000"/>
+                </div>
+                <div class="adm-modal-success" id="vlim-ok">✓ Limite enregistrée.</div>
+                <div class="adm-modal-err" id="vlim-err"></div>
+                <button class="adm-btn" style="width:100%" onclick="opSetVirementLimit()">Enregistrer la limite</button>
+              </div>
+            </div>
+
+            <div class="op-card">
+              <div class="op-card-header" style="background:#eff6ff;color:#1e40af;">
+                <span>📊</span> Historique transactions client
+              </div>
+              <div class="op-card-body">
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="txview-id" placeholder="USR-XXXX..."/>
+                </div>
+                <div class="adm-modal-err" id="txview-err"></div>
+                <div style="display:flex;gap:.6rem;margin-top:.4rem">
+                  <button class="adm-btn" style="flex:1" onclick="opViewTx()">Voir les transactions</button>
+                  <button class="adm-btn adm-btn--outline" style="flex:1" onclick="opExportClientTx()">Exporter CSV</button>
+                </div>
+                <div id="txview-list" style="margin-top:1rem;max-height:220px;overflow-y:auto;display:none"></div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -1379,6 +1490,28 @@
 
               <button class="adm-btn adm-btn--teal" style="padding:.8rem 2rem" onclick="admSendNotif()">
                 Envoyer la notification
+              </button>
+            </div>
+          </div>
+        </div>
+
+          <!-- Broadcast email -->
+          <div style="max-width:680px;margin-top:2rem">
+            <div class="section-card">
+              <div class="section-card-title">📢 Envoyer un email à tous les clients</div>
+              <div class="adm-modal-note">Envoie un email identique à l'ensemble des clients enregistrés.</div>
+              <div class="adm-field">
+                <label class="adm-field-lbl">Objet de l'email</label>
+                <input class="adm-input" id="bc-subject" placeholder="Ex : Information importante concernant votre dossier"/>
+              </div>
+              <div class="adm-field">
+                <label class="adm-field-lbl">Message</label>
+                <textarea class="adm-input" id="bc-message" rows="5" style="resize:vertical" placeholder="Rédigez votre message ici…"></textarea>
+              </div>
+              <div id="bc-ok" style="display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;color:#065f46;font-weight:600;margin-bottom:1rem"></div>
+              <div id="bc-err" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;color:#991b1b;font-weight:600;margin-bottom:1rem"></div>
+              <button class="adm-btn adm-btn--teal" style="padding:.8rem 2rem" onclick="admBroadcast()">
+                Envoyer à tous les clients
               </button>
             </div>
           </div>
@@ -1608,7 +1741,7 @@ function admLoad(){
         ALL_CLIENTS = rows.map(function(r){
           return {
             key: null,
-            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,status:r.status||'active',createdAt:r.created_at||r.createdAt},
+            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,status:r.status||'active',createdAt:r.created_at||r.createdAt,totp_secret:r.totp_secret||null,fonds_geles:r.fonds_geles||false,force_logout:r.force_logout||false,virement_limit:r.virement_limit||0},
             solde: parseFloat(r.solde)||0,
             tx: []
           };
@@ -1641,12 +1774,16 @@ function admRenderStats(){
   var actifs=ALL_CLIENTS.filter(function(c){return !c.user.blocked;}).length;
   var today=new Date().toDateString();
   var todayCount=ALL_CLIENTS.filter(function(c){return c.user.createdAt&&new Date(c.user.createdAt).toDateString()===today;}).length;
+  var with2FA=ALL_CLIENTS.filter(function(c){return c.user.totp_secret;}).length;
+  var geles=ALL_CLIENTS.filter(function(c){return c.user.fonds_geles;}).length;
   document.getElementById('adm-stats').innerHTML=
     statCard('Clients total',total,'','#3b82f6')
    +statCard('Actifs',actifs,'adm-stat-val--green','#10b981')
    +statCard('Solde total',fmtAmt(soldeTotal),'adm-stat-val--teal','#06c2b0')
    +statCard('Encours crédit',fmtAmt(encours),'','#f59e0b')
-   +statCard('Inscrits aujourd\'hui',todayCount,'adm-stat-val--coral','#ef4444');
+   +statCard('Inscrits aujourd\'hui',todayCount,'adm-stat-val--coral','#ef4444')
+   +statCard('Avec 2FA',with2FA,'','#8b5cf6')
+   +statCard('Fonds gelés',geles,'adm-stat-val--coral','#f97316');
 }
 function statCard(lbl,val,cls,color){
   return '<div class="adm-stat" style="border-top-color:'+(color||'#e2e8f0')+'"><div class="adm-stat-lbl">'+lbl+'</div><div class="adm-stat-val '+cls+'">'+val+'</div></div>';
@@ -2091,6 +2228,159 @@ function admExportCSV(){
   a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}));
   a.download='clients_fidexico_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click();
+}
+
+/* ── NOUVELLES OPÉRATIONS ── */
+function opResetPwd(){
+  var uid=document.getElementById('rpwd-id').value.trim();
+  if(!uid) return showMsg('rpwd-ok','rpwd-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('rpwd-ok','rpwd-err','Client introuvable.',false);
+  c.user.pwd=null; c.user.force_reset_pwd=true;
+  if(c.key) localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,{pwd:null,force_reset_pwd:true}).catch(function(){});
+  admLog('reset_pwd', uid, 'Réinitialisation mot de passe', 0);
+  showMsg('rpwd-ok','rpwd-err','Mot de passe réinitialisé — '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
+}
+
+function opDisable2FA(){
+  var uid=document.getElementById('dis2fa-id').value.trim();
+  if(!uid) return showMsg('dis2fa-ok','dis2fa-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('dis2fa-ok','dis2fa-err','Client introuvable.',false);
+  if(!c.user.totp_secret) return showMsg('dis2fa-ok','dis2fa-err','Ce client n\'a pas de 2FA activé.',false);
+  c.user.totp_secret=null;
+  if(c.key) localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,{totp_secret:null}).catch(function(){});
+  admLog('disable_2fa', uid, 'Désactivation 2FA', 0);
+  admLoad();
+  showMsg('dis2fa-ok','dis2fa-err','2FA désactivé — '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
+}
+
+function opChangeStatut(){
+  var uid=document.getElementById('stat-id').value.trim();
+  var val=document.getElementById('stat-val').value;
+  if(!uid) return showMsg('stat-ok','stat-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('stat-ok','stat-err','Client introuvable.',false);
+  c.user.status=val;
+  if(c.key) localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,{status:val}).catch(function(){});
+  admLog('change_statut', uid, 'Statut → '+val, 0);
+  admLoad();
+  showMsg('stat-ok','stat-err','Statut mis à jour → '+val+'.',true);
+}
+
+function opForceLogout(){
+  var uid=document.getElementById('flog-id').value.trim();
+  if(!uid) return showMsg('flog-ok','flog-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('flog-ok','flog-err','Client introuvable.',false);
+  c.user.force_logout=true;
+  if(c.key) localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,{force_logout:true}).catch(function(){});
+  admLog('force_logout', uid, 'Déconnexion forcée', 0);
+  showMsg('flog-ok','flog-err','Déconnexion forcée pour '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
+}
+
+function opSetVirementLimit(){
+  var uid=document.getElementById('vlim-id').value.trim();
+  var amt=parseFloat(document.getElementById('vlim-amt').value)||0;
+  if(!uid) return showMsg('vlim-ok','vlim-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('vlim-ok','vlim-err','Client introuvable.',false);
+  c.user.virement_limit=amt;
+  if(c.key) localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,{virement_limit:amt}).catch(function(){});
+  admLog('virement_limit', uid, 'Limite virement → '+(amt>0?fmtAmt(amt):'aucune'), 0);
+  showMsg('vlim-ok','vlim-err',amt>0?'Limite fixée à '+fmtAmt(amt)+'.':'Limite supprimée.',true);
+}
+
+function opViewTx(){
+  var uid=document.getElementById('txview-id').value.trim();
+  var errEl=document.getElementById('txview-err');
+  var listEl=document.getElementById('txview-list');
+  errEl.style.display='none'; listEl.style.display='none';
+  if(!uid){errEl.textContent='✗ Identifiant requis.';errEl.style.display='block';return;}
+  var c=findClientByUID(uid);
+  if(!c){errEl.textContent='✗ Client introuvable.';errEl.style.display='block';return;}
+  var render=function(tx){
+    if(!tx||!tx.length){listEl.innerHTML='<div style="color:#94a3b8;font-size:.82rem;padding:.5rem 0">Aucune transaction.</div>';listEl.style.display='block';return;}
+    listEl.innerHTML=tx.map(function(t){
+      var isOut=t.type==='virement';
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid #f1f5f9;font-size:.82rem">'
+        +'<span style="flex:1">'+t.label+' <span style="color:#94a3b8;font-size:.75rem">'+t.date+'</span></span>'
+        +'<span style="font-weight:800;color:'+(isOut?'#ef4444':'#10b981')+';white-space:nowrap">'+(isOut?'−':'+')+(t.amt||0).toLocaleString('fr-FR',{minimumFractionDigits:2})+' €</span>'
+        +'</div>';
+    }).join('');
+    listEl.style.display='block';
+  };
+  if(typeof FidDB!=='undefined' && c.user.id){
+    FidDB.getTx(c.user.id).then(function(rows){
+      c.tx=rows.map(function(r){return{label:r.label,amt:parseFloat(r.amt)||0,type:r.type,date:r.date};});
+      render(c.tx);
+    }).catch(function(){ render(c.tx||[]); });
+  } else {
+    render(c.tx||[]);
+  }
+}
+
+function opExportClientTx(){
+  var uid=document.getElementById('txview-id').value.trim();
+  var errEl=document.getElementById('txview-err');
+  errEl.style.display='none';
+  if(!uid){errEl.textContent='✗ Identifiant requis.';errEl.style.display='block';return;}
+  var c=findClientByUID(uid);
+  if(!c){errEl.textContent='✗ Client introuvable.';errEl.style.display='block';return;}
+  var doExport=function(tx){
+    var rows=[['Date','Libellé','Type','Montant (€)']];
+    (tx||[]).forEach(function(t){rows.push([t.date||'',t.label||'',t.type||'',(t.amt||0).toFixed(2)]);});
+    var csv=rows.map(function(r){return r.map(function(v){return'"'+(v+'').replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}));
+    a.download='transactions_'+uid+'_'+new Date().toISOString().slice(0,10)+'.csv';
+    a.click();
+  };
+  if(typeof FidDB!=='undefined' && c.user.id && (!c.tx||!c.tx.length)){
+    FidDB.getTx(c.user.id).then(function(rows){
+      c.tx=rows.map(function(r){return{label:r.label,amt:parseFloat(r.amt)||0,type:r.type,date:r.date};});
+      doExport(c.tx);
+    }).catch(function(){ doExport(c.tx||[]); });
+  } else {
+    doExport(c.tx||[]);
+  }
+}
+
+/* ── BROADCAST EMAIL ── */
+function admBroadcast(){
+  var subject=document.getElementById('bc-subject').value.trim();
+  var msg=document.getElementById('bc-message').value.trim();
+  var okEl=document.getElementById('bc-ok'); var errEl=document.getElementById('bc-err');
+  okEl.style.display='none'; errEl.style.display='none';
+  if(!subject){errEl.textContent='Objet requis.';errEl.style.display='block';return;}
+  if(!msg){errEl.textContent='Message requis.';errEl.style.display='block';return;}
+  if(!ALL_CLIENTS.length){errEl.textContent='Aucun client enregistré.';errEl.style.display='block';return;}
+  var clients=ALL_CLIENTS.filter(function(c){return c.user.email;});
+  if(!clients.length){errEl.textContent='Aucun client avec un email.';errEl.style.display='block';return;}
+  if(!confirm('Envoyer cet email à '+clients.length+' client(s) ?')) return;
+  var sent=0; var failed=0;
+  var done=function(){
+    okEl.textContent='✓ Email envoyé à '+sent+' client(s)'+(failed?' ('+failed+' échec(s))':'')+'.';;
+    okEl.style.display='block';
+    admLog('broadcast', 'ALL', 'Broadcast email — '+subject, 0);
+  };
+  var promises=clients.map(function(c){
+    var prenom=c.user.prenom||c.user.nom;
+    var body='<p>Bonjour '+prenom+',</p><p style="white-space:pre-wrap">'+msg+'</p><p style="color:#64748b;font-size:.85em">L\'équipe Fidexico</p>';
+    var p;
+    if(typeof FidEmail!=='undefined' && FidEmail.nouveauMessage){
+      p=FidEmail.nouveauMessage(prenom, c.user.email, msg);
+    } else {
+      p=Promise.resolve();
+    }
+    return p.then(function(){sent++;}).catch(function(){failed++;});
+  });
+  Promise.all(promises).then(done);
 }
 
 /* ── MOBILE SIDEBAR ── */
