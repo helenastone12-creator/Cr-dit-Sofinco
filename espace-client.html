@@ -17,10 +17,10 @@
 <!-- Header legacy masqué -->
 <header class="ec-header" style="display:none"></header>
 
-<!-- Contenu -->
-<main class="fd-main">
+<!-- V2 Dashboard -->
+<main class="v2-main">
 
-  <!-- Alert banner (keep as-is) -->
+  <!-- Alert banner -->
   <div class="ec-alert-banner" id="ec-alert-banner" style="display:none">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <span id="ec-alert-banner-text"></span>
@@ -29,267 +29,252 @@
     </button>
   </div>
 
-  <!-- ── MOBILE HEADER ── -->
-  <div class="fd-mobile-header">
-    <div class="fd-mobile-header-left">
-      <div class="fd-greeting" id="fd-greeting-name">Bonjour</div>
-      <div class="fd-greeting-sub">Fidexico</div>
+  <!-- ── TOP BAR (mobile header + desktop top-right) ── -->
+  <div class="v2-topbar">
+    <div class="v2-topbar-brand">
+      <a href="espace-client.html" class="v2-topbar-logo">
+        <img src="favicon.svg" alt="" width="22" height="22"/> <span>Fidexico</span>
+      </a>
     </div>
-    <div class="fd-mobile-header-right">
-      <button class="fd-icon-btn" onclick="ecOpenModal('alertes')" aria-label="Notifications">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <div class="v2-topbar-title">Tableau de bord</div>
+    <div class="v2-topbar-right">
+      <button class="v2-topbar-ghost" onclick="ecOpenModal('alertes')" aria-label="Notifications">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span>Notifications</span>
       </button>
-      <a href="profil.html" class="fd-icon-btn" id="ec-hd-avatar" aria-label="Profil">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <button class="v2-topbar-primary" onclick="ecOpenModal('virement')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Virement</span>
+      </button>
+      <a href="profil.html" class="v2-topbar-avatar" id="ec-hd-avatar" aria-label="Profil">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       </a>
     </div>
   </div>
 
-  <!-- ── DESKTOP PAGE HEADER ── -->
-  <div class="fd-desk-header">
-    <div>
-      <h1 class="fd-desk-title">Tableau de bord</h1>
-      <p class="fd-desk-sub">Bienvenue, <span id="fd-greeting-desk">—</span></p>
-    </div>
-    <div class="fd-desk-header-actions">
-      <button class="fd-btn-ghost" onclick="ecOpenModal('alertes')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        Notifications
-      </button>
-      <button class="fd-btn-primary-sm" onclick="ecOpenModal('virement')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Nouveau virement
-      </button>
-    </div>
-  </div>
+  <!-- ── HERO BANNER ── -->
+  <section class="v2-hero">
+    <!-- Hidden compat IDs for JS -->
+    <span id="fd-greeting-desk" style="display:none"></span>
+    <span id="fd-kpi-disponible" style="display:none"></span>
+    <span id="fd-kpi-limite-sub" style="display:none"></span>
 
-  <!-- ── KPI CARDS (desktop) ── -->
-  <div class="fd-kpi-grid">
-    <div class="fd-kpi-card fd-kpi-card--green">
-      <div class="fd-kpi-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-      </div>
-      <div class="fd-kpi-lbl">Financement disponible</div>
-      <div class="fd-kpi-val" id="fd-kpi-disponible">—</div>
-      <div class="fd-kpi-sub" id="fd-kpi-limite-sub">Limite : —</div>
-    </div>
-    <div class="fd-kpi-card">
-      <div class="fd-kpi-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-      </div>
-      <div class="fd-kpi-lbl">Capital restant dû</div>
-      <div class="fd-kpi-val" id="fd-kpi-restant">—</div>
-      <div class="fd-kpi-sub">Sur le prêt actif</div>
-    </div>
-    <div class="fd-kpi-card">
-      <div class="fd-kpi-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      </div>
-      <div class="fd-kpi-lbl">Mensualité</div>
-      <div class="fd-kpi-val" id="fd-kpi-mens">—</div>
-      <div class="fd-kpi-sub">Prélèvement mensuel</div>
-    </div>
-    <div class="fd-kpi-card">
-      <div class="fd-kpi-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      </div>
-      <div class="fd-kpi-lbl">Prochaine échéance</div>
-      <div class="fd-kpi-val fd-kpi-val--sm" id="fd-kpi-echeance">—</div>
-      <div class="fd-kpi-sub" id="fd-kpi-echeance-sub">—</div>
-    </div>
-  </div>
-
-  <!-- ── HERO CARD (mobile) ── -->
-  <div class="fd-hero-card">
-    <div class="fd-hero-top">
-      <span class="fd-hero-lbl">Financement disponible</span>
-      <button class="fd-hero-eye" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer">
-        <svg id="ec-eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
-    </div>
-    <div class="fd-hero-amount" id="fd-disponible-amt">— €</div>
-    <div id="ec-solde-comptable" style="display:none"></div>
-    <div class="fd-hero-meta">
-      <div class="fd-hero-meta-item">
-        <span class="fd-hero-meta-lbl">Limite approuvée</span>
-        <span class="fd-hero-meta-val" id="fd-limite-amt">—</span>
-      </div>
-      <span class="fd-badge-live">● Disponible immédiatement</span>
-    </div>
-    <div class="fd-hero-verified">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      Entreprise vérifiée
-    </div>
-  </div>
-
-  <!-- ── CTA ROW ── -->
-  <div class="fd-cta-row">
-    <button class="fd-cta-btn" onclick="ecOpenModal('virement')">
-      <span class="fd-cta-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </span>
-      <span>Demander<br>un virement</span>
-    </button>
-    <button class="fd-cta-btn" onclick="ecOpenModal('remb')">
-      <span class="fd-cta-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-      </span>
-      <span>Effectuer un<br>remboursement</span>
-    </button>
-    <button class="fd-cta-btn" onclick="location.href='mes-documents.html'">
-      <span class="fd-cta-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      </span>
-      <span>Télécharger<br>un document</span>
-    </button>
-  </div>
-
-  <!-- ── MAIN GRID ── -->
-  <div class="fd-grid">
-
-    <!-- Prêt actif -->
-    <div class="fd-card">
-      <div class="fd-card-header">
-        <span class="fd-card-title">Prêt actif</span>
-        <button class="fd-card-link" onclick="ecOpenModal('credit-detail')">Voir les détails →</button>
-      </div>
-      <div class="fd-loan-stats">
-        <div class="fd-loan-stat">
-          <div class="fd-loan-stat-lbl">Montant restant</div>
-          <div class="fd-loan-stat-val" id="fd-restant-amt">—</div>
+    <div class="v2-hero-body">
+      <div class="v2-hero-left">
+        <div class="v2-hero-greeting">Bonjour, <span id="fd-greeting-name">—</span></div>
+        <div class="v2-hero-label">Financement disponible</div>
+        <div class="v2-hero-amount" id="fd-disponible-amt">— €</div>
+        <div id="ec-solde-comptable" style="display:none"></div>
+        <div class="v2-hero-tags">
+          <span class="v2-tag-live">● Disponible immédiatement</span>
+          <span class="v2-tag-verified">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Entreprise vérifiée
+          </span>
         </div>
-        <div class="fd-loan-stat">
-          <div class="fd-loan-stat-lbl">Mensualité</div>
-          <div class="fd-loan-stat-val" id="fd-mensualite-amt">—</div>
-        </div>
-        <div class="fd-loan-stat fd-loan-stat--full">
-          <div class="fd-loan-stat-lbl">Prochaine échéance</div>
-          <div class="fd-loan-stat-val fd-loan-stat-val--date" id="fd-echeance-date">—</div>
+        <div class="v2-hero-limit">Limite approuvée : <strong id="fd-limite-amt">—</strong></div>
+      </div>
+      <div class="v2-hero-right">
+        <button class="v2-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
+          <svg id="ec-eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+        <div class="v2-hero-actions">
+          <button class="v2-hero-act v2-hero-act--primary" onclick="ecOpenModal('virement')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Demander un virement
+          </button>
+          <button class="v2-hero-act" onclick="ecOpenModal('remb')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Rembourser
+          </button>
+          <button class="v2-hero-act" onclick="location.href='mes-documents.html'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Documents
+          </button>
         </div>
       </div>
-      <div class="fd-prog-wrap">
-        <div class="fd-prog-header">
-          <span class="fd-prog-lbl">Remboursé</span>
-          <span class="fd-prog-pct" id="fd-loan-prog-pct">0%</span>
-        </div>
-        <div class="fd-prog-bar"><div class="fd-prog-fill" id="fd-loan-prog-fill"></div></div>
-      </div>
-      <div class="fd-loan-footer">
-        <span class="fd-status-badge" id="fd-status-badge">—</span>
-        <button class="fd-text-link" onclick="ecOpenModal('remb')">Simuler un remboursement anticipé</button>
-      </div>
     </div>
+  </section>
 
-    <!-- Activité récente -->
-    <div class="fd-card fd-card--activity">
-      <div class="fd-card-header">
-        <span class="fd-card-title">Activité récente</span>
-        <button class="fd-card-link" onclick="ecOpenAllTx()">Tout afficher →</button>
-      </div>
-      <div id="fd-activity-list">
-        <div class="fd-activity-empty">Aucune opération pour le moment.</div>
-      </div>
+  <!-- ── KPI STRIP (3 métriques secondaires) ── -->
+  <div class="v2-kpi-strip">
+    <div class="v2-kpi-card">
+      <div class="v2-kpi-lbl">Capital restant dû</div>
+      <div class="v2-kpi-val" id="fd-kpi-restant">—</div>
+      <div class="v2-kpi-sub">Sur le prêt actif</div>
     </div>
-
+    <div class="v2-kpi-card">
+      <div class="v2-kpi-lbl">Mensualité</div>
+      <div class="v2-kpi-val" id="fd-kpi-mens">—</div>
+      <div class="v2-kpi-sub">Prélèvement mensuel</div>
+    </div>
+    <div class="v2-kpi-card">
+      <div class="v2-kpi-lbl">Prochaine échéance</div>
+      <div class="v2-kpi-val v2-kpi-val--date" id="fd-kpi-echeance">—</div>
+      <div class="v2-kpi-sub" id="fd-kpi-echeance-sub">—</div>
+    </div>
   </div>
 
-  <!-- ── DOCUMENTS + NOTIFICATIONS (desktop only) ── -->
-  <div class="fd-bottom-grid">
-    <div class="fd-card fd-card--docs">
-      <div class="fd-card-header">
-        <span class="fd-card-title">Documents</span>
-        <a href="mes-documents.html" class="fd-card-link">Voir tous →</a>
-      </div>
-      <ul class="fd-docs-list">
-        <li class="fd-doc-item">
-          <span class="fd-doc-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-          <span class="fd-doc-name">Contrat de prêt</span>
-          <span class="fd-doc-badge">PDF</span>
-        </li>
-        <li class="fd-doc-item">
-          <span class="fd-doc-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-          <span class="fd-doc-name">Tableau d'amortissement</span>
-          <span class="fd-doc-badge">PDF</span>
-        </li>
-        <li class="fd-doc-item">
-          <span class="fd-doc-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-          <span class="fd-doc-name">Attestation de financement</span>
-          <span class="fd-doc-badge">PDF</span>
-        </li>
-      </ul>
-    </div>
-    <div class="fd-card fd-card--notifs">
-      <div class="fd-card-header">
-        <span class="fd-card-title">Notifications</span>
-        <button class="fd-card-link" onclick="ecOpenModal('alertes')">Gérer →</button>
-      </div>
-      <ul class="fd-notif-list">
-        <li class="fd-notif-item fd-notif-item--green">
-          <span class="fd-notif-dot"></span>
-          <div>
-            <div class="fd-notif-title">Financement disponible</div>
-            <div class="fd-notif-sub">Votre ligne de crédit est active</div>
+  <!-- ── CONTENT GRID ── -->
+  <div class="v2-grid">
+
+    <!-- Colonne gauche : Prêt + Timeline -->
+    <div class="v2-col-left">
+
+      <div class="v2-card">
+        <div class="v2-card-hd">
+          <span class="v2-card-title">Prêt actif</span>
+          <div class="v2-card-hd-r">
+            <span class="fd-status-badge" id="fd-status-badge">—</span>
+            <button class="v2-link-btn" onclick="ecOpenModal('credit-detail')">Détails →</button>
           </div>
-        </li>
-        <li class="fd-notif-item">
-          <span class="fd-notif-dot fd-notif-dot--grey"></span>
-          <div>
-            <div class="fd-notif-title">Prochaine échéance</div>
-            <div class="fd-notif-sub" id="fd-notif-echeance-sub">Rappel configuré</div>
+        </div>
+        <div class="v2-loan-row">
+          <div class="v2-ls">
+            <div class="v2-ls-lbl">Montant restant</div>
+            <div class="v2-ls-val" id="fd-restant-amt">—</div>
           </div>
-        </li>
-        <li class="fd-notif-item">
-          <span class="fd-notif-dot fd-notif-dot--grey"></span>
-          <div>
-            <div class="fd-notif-title">Relevé mensuel</div>
-            <div class="fd-notif-sub">Envoi par e-mail</div>
+          <div class="v2-ls">
+            <div class="v2-ls-lbl">Mensualité</div>
+            <div class="v2-ls-val" id="fd-mensualite-amt">—</div>
           </div>
-        </li>
-      </ul>
+          <div class="v2-ls">
+            <div class="v2-ls-lbl">Prochaine échéance</div>
+            <div class="v2-ls-val v2-ls-val--date" id="fd-echeance-date">—</div>
+          </div>
+        </div>
+        <div class="v2-prog-wrap">
+          <div class="v2-prog-hd">
+            <span class="v2-prog-lbl">Remboursé</span>
+            <span class="v2-prog-pct" id="fd-loan-prog-pct">0%</span>
+          </div>
+          <div class="v2-prog-track"><div class="v2-prog-fill" id="fd-loan-prog-fill"></div></div>
+        </div>
+        <button class="v2-text-link" onclick="ecOpenModal('remb')">Simuler un remboursement anticipé →</button>
+      </div>
+
+      <div class="v2-card v2-card--tl">
+        <div class="v2-card-hd">
+          <span class="v2-card-title">Suivi de dossier</span>
+        </div>
+        <ol class="v2-tl">
+          <li class="v2-tl-item v2-tl-done">
+            <span class="v2-tl-dot"></span>
+            <div class="v2-tl-body"><span class="v2-tl-step">Vérification identité</span><span class="v2-tl-tag v2-tl-tag--done">Complété</span></div>
+          </li>
+          <li class="v2-tl-item v2-tl-done">
+            <span class="v2-tl-dot"></span>
+            <div class="v2-tl-body"><span class="v2-tl-step">Contrat signé</span><span class="v2-tl-tag v2-tl-tag--done">Complété</span></div>
+          </li>
+          <li class="v2-tl-item v2-tl-active">
+            <span class="v2-tl-dot"></span>
+            <div class="v2-tl-body"><span class="v2-tl-step">Prêt actif</span><span class="v2-tl-tag v2-tl-tag--active">En cours</span></div>
+          </li>
+          <li class="v2-tl-item v2-tl-pending">
+            <span class="v2-tl-dot"></span>
+            <div class="v2-tl-body"><span class="v2-tl-step">Clôture</span><span class="v2-tl-tag v2-tl-tag--pending">À venir</span></div>
+          </li>
+        </ol>
+      </div>
+
     </div>
+
+    <!-- Colonne droite : Activité + Documents -->
+    <div class="v2-col-right">
+
+      <div class="v2-card v2-card--activity">
+        <div class="v2-card-hd">
+          <span class="v2-card-title">Activité récente</span>
+          <button class="v2-link-btn" onclick="ecOpenAllTx()">Tout afficher →</button>
+        </div>
+        <div id="fd-activity-list">
+          <div class="fd-activity-empty">Aucune opération pour le moment.</div>
+        </div>
+      </div>
+
+      <div class="v2-card v2-card--docs">
+        <div class="v2-card-hd">
+          <span class="v2-card-title">Documents</span>
+          <a href="mes-documents.html" class="v2-link-btn">Voir tous →</a>
+        </div>
+        <ul class="v2-docs">
+          <li class="v2-doc">
+            <span class="v2-doc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            <span class="v2-doc-name">Contrat de prêt</span>
+            <span class="v2-doc-tag">PDF</span>
+          </li>
+          <li class="v2-doc">
+            <span class="v2-doc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            <span class="v2-doc-name">Tableau d'amortissement</span>
+            <span class="v2-doc-tag">PDF</span>
+          </li>
+          <li class="v2-doc">
+            <span class="v2-doc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            <span class="v2-doc-name">Attestation de financement</span>
+            <span class="v2-doc-tag">PDF</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
   </div>
 
 </main>
 
-<!-- Navigation bas (mobile) / Sidebar (PC) -->
-<nav class="ec-bottom-nav">
-  <!-- visibles uniquement sur PC (sidebar) -->
-  <div class="ec-sidebar-brand">
-    <a href="espace-client.html" class="ec-sidebar-logo"><img src="favicon.svg" alt=""/> Fidexico</a>
-    <div class="ec-sidebar-tagline">Espace client</div>
-  </div>
-  <div class="ec-sidebar-user-card" id="ec-sidebar-user-card"><div class="ec-sidebar-avatar" id="ec-sidebar-avatar"></div><div class="ec-sidebar-user-info"><div id="ec-sidebar-user-name"></div><div id="ec-sidebar-user-id"></div></div></div>
-  <div class="ec-sidebar-divider"></div>
+<!-- ── SIDEBAR (PC) / BOTTOM NAV (mobile) ── -->
+<nav class="v2-nav">
 
-  <a href="espace-client.html" class="ec-bnav-link active" aria-label="Dashboard">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  <!-- Sidebar top: brand + user (desktop) -->
+  <div class="v2-sidebar-brand" id="ec-sidebar-user-card">
+    <div class="v2-sidebar-logo-row">
+      <img src="favicon.svg" alt="Fidexico" width="28" height="28" class="v2-sidebar-favicon"/>
+      <div>
+        <div class="v2-sidebar-name">Fidexico</div>
+        <div class="v2-sidebar-tagline">Espace client</div>
+      </div>
+    </div>
+    <div class="v2-sidebar-user-row">
+      <div class="v2-sidebar-avatar" id="ec-sidebar-avatar"></div>
+      <div class="v2-sidebar-user-info">
+        <div id="ec-sidebar-user-name" class="v2-sidebar-uname"></div>
+        <div id="ec-sidebar-user-id" class="v2-sidebar-uid"></div>
+      </div>
+    </div>
+  </div>
+  <div class="v2-sidebar-sep"></div>
+
+  <!-- Nav links -->
+  <a href="espace-client.html" class="v2-nav-link v2-nav-link--active" aria-label="Dashboard">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
     <span>Dashboard</span>
   </a>
-  <button class="ec-bnav-link" onclick="ecOpenModal('credit-detail')" aria-label="Prêts">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+  <button class="v2-nav-link" onclick="ecOpenModal('credit-detail')" aria-label="Prêts">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
     <span>Prêts</span>
   </button>
-  <button class="ec-bnav-center" onclick="ecOpenModal('virement')" aria-label="Virement">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-  </button>
-  <a href="mes-documents.html" class="ec-bnav-link" aria-label="Documents">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+  <a href="mes-documents.html" class="v2-nav-link" aria-label="Documents">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
     <span>Documents</span>
   </a>
-  <a href="messagerie.html" class="ec-bnav-link" aria-label="Messages">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <a href="messagerie.html" class="v2-nav-link" aria-label="Messages">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     <span>Messages</span>
   </a>
 
-  <a href="profil.html" class="ec-bnav-link ec-bnav-link--sidebar-only" aria-label="Paramètres">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  <!-- Desktop only -->
+  <a href="profil.html" class="v2-nav-link v2-nav-desktop-only" aria-label="Paramètres">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     <span>Paramètres</span>
   </a>
 
-  <button class="ec-sidebar-logout" onclick="ecLogout()">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+  <div class="v2-sidebar-spacer"></div>
+
+  <button class="v2-sidebar-logout v2-nav-desktop-only" onclick="ecLogout()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     <span>Déconnexion</span>
   </button>
+
 </nav>
 
 <!-- Modal Dépôt -->
