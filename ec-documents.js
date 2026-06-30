@@ -253,11 +253,20 @@ function ecGenAmortissement(){
 /* ──────────────────────────────
    3. RELEVÉ DE COMPTE
 ────────────────────────────────*/
-function ecGenReleve(moisOffset){
+/* Appelé depuis les items auto-générés (année + mois 0-indexé) */
+function ecGenReleveMonth(year, month){
+  var d = new Date(year, month, 1);
+  var now = new Date();
+  var offset = (now.getFullYear()-year)*12 + (now.getMonth()-month) - 1;
+  ecGenReleve(offset < 0 ? 0 : offset, d);
+}
+
+function ecGenReleve(moisOffset, refDate){
   moisOffset = moisOffset || 0;
   var u = ecDocGetUser() || {};
   var fullName = ((u.prenom||'')+' '+(u.nom||'')).trim();
-  var d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - moisOffset);
+  var d = refDate ? new Date(refDate.getFullYear(), refDate.getMonth(), 1) : new Date();
+  if(!refDate){ d.setDate(1); d.setMonth(d.getMonth() - moisOffset); }
   var moisLabel = d.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
   var dFin = new Date(d); dFin.setMonth(dFin.getMonth()+1); dFin.setDate(0);
   var txAll = [];

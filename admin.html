@@ -1386,9 +1386,7 @@
                   <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
                     <input type="checkbox" id="docs-cb-amort" style="width:16px;height:16px;accent-color:#06c2b0"/> Tableau d'amortissement
                   </label>
-                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
-                    <input type="checkbox" id="docs-cb-releve" style="width:16px;height:16px;accent-color:#06c2b0"/> Relevés de compte
-                  </label>
+                  <div style="font-size:.78rem;color:#94a3b8;font-style:italic;padding:.2rem 0">✓ Relevés de compte — générés automatiquement chaque mois</div>
                   <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
                     <input type="checkbox" id="docs-cb-attest-ass" style="width:16px;height:16px;accent-color:#06c2b0"/> Attestation d'assurance emprunteur
                   </label>
@@ -2036,7 +2034,6 @@ function admPrefillDocs(){
   var auth=c.user.docs_autorises||[];
   document.getElementById('docs-cb-contrat').checked=auth.indexOf('doc_contrat')!==-1;
   document.getElementById('docs-cb-amort').checked=auth.indexOf('doc_amort')!==-1;
-  document.getElementById('docs-cb-releve').checked=auth.indexOf('doc_releve')!==-1;
   document.getElementById('docs-cb-attest-ass').checked=auth.indexOf('doc_attest_ass')!==-1;
   document.getElementById('docs-cb-attest-ra').checked=auth.indexOf('doc_attest_ra')!==-1;
 }
@@ -2049,7 +2046,6 @@ function opSetDocs(){
   var auth=[];
   if(document.getElementById('docs-cb-contrat').checked) auth.push('doc_contrat');
   if(document.getElementById('docs-cb-amort').checked) auth.push('doc_amort');
-  if(document.getElementById('docs-cb-releve').checked) auth.push('doc_releve');
   if(document.getElementById('docs-cb-attest-ass').checked) auth.push('doc_attest_ass');
   if(document.getElementById('docs-cb-attest-ra').checked) auth.push('doc_attest_ra');
   c.user.docs_autorises=auth;
