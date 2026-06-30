@@ -1558,7 +1558,7 @@ function admLoad(){
         ALL_CLIENTS = rows.map(function(r){
           return {
             key: null,
-            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,createdAt:r.created_at||r.createdAt},
+            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,status:r.status||'active',createdAt:r.created_at||r.createdAt},
             solde: parseFloat(r.solde)||0,
             tx: []
           };
