@@ -1370,6 +1370,39 @@
             </div>
 
             <div class="op-card">
+              <div class="op-card-header" style="background:#f0fdf4;color:#166534;">
+                <span>📄</span> Autoriser les documents client
+              </div>
+              <div class="op-card-body">
+                <div class="adm-modal-note">Choisissez les documents accessibles par ce client dans son espace. Par défaut aucun document n'est visible.</div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="docs-id" placeholder="USR-XXXX..." onchange="admPrefillDocs()"/>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:.5rem;margin:.6rem 0">
+                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                    <input type="checkbox" id="docs-cb-contrat" style="width:16px;height:16px;accent-color:#06c2b0"/> Contrat de crédit personnel
+                  </label>
+                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                    <input type="checkbox" id="docs-cb-amort" style="width:16px;height:16px;accent-color:#06c2b0"/> Tableau d'amortissement
+                  </label>
+                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                    <input type="checkbox" id="docs-cb-releve" style="width:16px;height:16px;accent-color:#06c2b0"/> Relevés de compte
+                  </label>
+                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                    <input type="checkbox" id="docs-cb-attest-ass" style="width:16px;height:16px;accent-color:#06c2b0"/> Attestation d'assurance emprunteur
+                  </label>
+                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                    <input type="checkbox" id="docs-cb-attest-ra" style="width:16px;height:16px;accent-color:#06c2b0"/> Attestation de remboursement anticipé
+                  </label>
+                </div>
+                <div class="adm-modal-success" id="docs-ok">✓ Documents mis à jour.</div>
+                <div class="adm-modal-err" id="docs-err"></div>
+                <button class="adm-btn adm-btn--green" style="width:100%" onclick="opSetDocs()">Enregistrer les autorisations</button>
+              </div>
+            </div>
+
+            <div class="op-card">
               <div class="op-card-header" style="background:#eff6ff;color:#1e40af;">
                 <span>📊</span> Historique transactions client
               </div>
@@ -1741,7 +1774,7 @@ function admLoad(){
         ALL_CLIENTS = rows.map(function(r){
           return {
             key: null,
-            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,status:r.status||'active',createdAt:r.created_at||r.createdAt,totp_secret:r.totp_secret||null,fonds_geles:r.fonds_geles||false,force_logout:r.force_logout||false,virement_limit:r.virement_limit||0},
+            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,status:r.status||'active',createdAt:r.created_at||r.createdAt,totp_secret:r.totp_secret||null,fonds_geles:r.fonds_geles||false,force_logout:r.force_logout||false,virement_limit:r.virement_limit||0,docs_autorises:r.docs_autorises||[]},
             solde: parseFloat(r.solde)||0,
             tx: []
           };
@@ -1995,6 +2028,35 @@ function admPrefill(){
   document.getElementById('edit-email').value=c.user.email||'';
   document.getElementById('edit-tel').value=c.user.tel||'';
   document.getElementById('edit-ref').value=c.user.ref||'';
+}
+
+function admPrefillDocs(){
+  var uid=document.getElementById('docs-id').value.trim();
+  var c=findClientByUID(uid); if(!c) return;
+  var auth=c.user.docs_autorises||[];
+  document.getElementById('docs-cb-contrat').checked=auth.indexOf('doc_contrat')!==-1;
+  document.getElementById('docs-cb-amort').checked=auth.indexOf('doc_amort')!==-1;
+  document.getElementById('docs-cb-releve').checked=auth.indexOf('doc_releve')!==-1;
+  document.getElementById('docs-cb-attest-ass').checked=auth.indexOf('doc_attest_ass')!==-1;
+  document.getElementById('docs-cb-attest-ra').checked=auth.indexOf('doc_attest_ra')!==-1;
+}
+
+function opSetDocs(){
+  var uid=document.getElementById('docs-id').value.trim();
+  if(!uid) return showMsg('docs-ok','docs-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('docs-ok','docs-err','Client introuvable.',false);
+  var auth=[];
+  if(document.getElementById('docs-cb-contrat').checked) auth.push('doc_contrat');
+  if(document.getElementById('docs-cb-amort').checked) auth.push('doc_amort');
+  if(document.getElementById('docs-cb-releve').checked) auth.push('doc_releve');
+  if(document.getElementById('docs-cb-attest-ass').checked) auth.push('doc_attest_ass');
+  if(document.getElementById('docs-cb-attest-ra').checked) auth.push('doc_attest_ra');
+  c.user.docs_autorises=auth;
+  if(c.key) localStorage.setItem(c.key, JSON.stringify(c.user));
+  if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,{docs_autorises:auth}).catch(function(){});
+  admLog('docs', uid, 'Documents autorisés: '+(auth.length?auth.join(', '):'aucun'), 0);
+  showMsg('docs-ok','docs-err',auth.length+' document(s) autorisé(s) pour '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
 }
 
 function opEditUser(){
