@@ -702,6 +702,7 @@ function ecInitDashboard(){
         var mapped = rows.map(function(r){ return {label:r.label||'',amt:parseFloat(r.amt)||0,type:r.type||'credit',date:r.date||'',iban:r.iban||'',motif:r.motif||''}; });
         localStorage.setItem('ec_tx', JSON.stringify(mapped));
         ecRenderTx();
+        fdRenderActivity();
         // Rafraîchir l'historique des paiements avec les vraies données
         var u2=ecGetUser(); var l2=u2.loan||{}; var c2=l2.montant||0; var me2=l2.mensualite||0; var du2=l2.duree||60;
         var dd2=l2.dateDebut?new Date(l2.dateDebut):new Date();
@@ -768,6 +769,95 @@ function ecInitDashboard(){
   ecCalcRemb();
   ecInitNotifs();
   ecInitLoanSections(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct);
+  // ── Fidexico Premium: populate new dashboard elements ──
+  fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct);
+  fdRenderActivity();
+}
+
+function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct){
+  function set(id, v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+  function fmtEur(n){ return n>0 ? n.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0})+' €' : '—'; }
+
+  var greet = document.getElementById('fd-greeting-name');
+  if(greet) greet.textContent = 'Bonjour, ' + (user.prenom || user.nom || 'Client') + ' 👋';
+  set('fd-greeting-desk', (user.prenom||'') + ' ' + (user.nom||''));
+
+  var solde = parseFloat(localStorage.getItem('ec_solde')) || 0;
+  set('fd-disponible-amt', fmtEur(solde));
+  set('fd-limite-amt', fmtEur(capital));
+  set('fd-kpi-disponible', fmtEur(solde));
+  set('fd-kpi-limite-sub', 'Limite approuvée : ' + fmtEur(capital));
+  set('fd-kpi-restant', fmtEur(restant));
+  set('fd-kpi-mens', fmtEur(mens));
+  set('fd-restant-amt', fmtEur(restant));
+  set('fd-mensualite-amt', fmtEur(mens));
+
+  var nextDate = new Date(dateDebut);
+  nextDate.setMonth(nextDate.getMonth() + moisPasses + 1);
+  var nextDateFull = nextDate.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'});
+  var nextDateShort = nextDate.toLocaleDateString('fr-FR', {day:'numeric', month:'short'});
+  set('fd-echeance-date', nextDateFull);
+  set('fd-kpi-echeance', nextDateShort);
+  set('fd-kpi-echeance-sub', nextDate.getFullYear().toString());
+
+  var progFill = document.getElementById('fd-loan-prog-fill');
+  if(progFill) setTimeout(function(){ progFill.style.width = pct + '%'; }, 300);
+  set('fd-loan-prog-pct', pct + '%');
+
+  var statusMap = {
+    'pending':  { label:'En traitement', cls:'fd-status--pending' },
+    'approved': { label:'Approuvé',      cls:'fd-status--approved' },
+    'active':   { label:'Actif',          cls:'fd-status--active' },
+    'closed':   { label:'Clôturé',        cls:'fd-status--closed' }
+  };
+  var status = (loan && loan.statut) || (capital > 0 ? 'active' : 'pending');
+  var si = statusMap[status] || statusMap['active'];
+  var sBadge = document.getElementById('fd-status-badge');
+  if(sBadge){ sBadge.textContent = si.label; sBadge.className = 'fd-status-badge ' + si.cls; }
+
+  // Also refresh disponible after Supabase solde loads
+  var _origRefresh = window.ecRefreshSolde;
+  ecRefreshSolde = function(){
+    if(_origRefresh) _origRefresh();
+    var s2 = parseFloat(localStorage.getItem('ec_solde')) || 0;
+    set('fd-disponible-amt', fmtEur(s2));
+    set('fd-kpi-disponible', fmtEur(s2));
+  };
+}
+
+function fdRenderActivity(){
+  var el = document.getElementById('fd-activity-list');
+  if(!el) return;
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem('ec_tx') || '[]'); } catch(e){}
+  if(!list.length){
+    el.innerHTML = '<div class="fd-activity-empty">Aucune opération pour le moment.</div>';
+    return;
+  }
+  var recent = list.slice(0, 7);
+  var iconIn = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
+  var iconOut = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  var html = '';
+  recent.forEach(function(tx){
+    var isIn = tx.type === 'credit';
+    var amt = Math.abs(parseFloat(tx.amt) || 0);
+    var sign = isIn ? '+' : '−';
+    var amtFmt = sign + amt.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
+    var dateFmt = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
+    var iconHtml = isIn ? iconIn : iconOut;
+    var iconCls = isIn ? 'fd-tx-icon--in' : 'fd-tx-icon--out';
+    var amtCls = isIn ? 'fd-tx-amt--in' : 'fd-tx-amt--out';
+    var label = tx.label || (isIn ? 'Crédit' : 'Débit');
+    html += '<div class="fd-tx-item">';
+    html += '<div class="fd-tx-icon ' + iconCls + '">' + iconHtml + '</div>';
+    html += '<div class="fd-tx-info"><div class="fd-tx-name">' + label + '</div><div class="fd-tx-date">' + dateFmt + '</div></div>';
+    html += '<div class="fd-tx-right"><div class="fd-tx-amt ' + amtCls + '">' + amtFmt + '</div><div class="fd-tx-status">Validé</div></div>';
+    html += '</div>';
+  });
+  if(list.length > 7){
+    html += '<button class="fd-see-all" onclick="ecOpenAllTx()">Voir toutes les opérations (' + list.length + ') →</button>';
+  }
+  el.innerHTML = html;
 }
 
 // ── Sections prêt dashboard ──
