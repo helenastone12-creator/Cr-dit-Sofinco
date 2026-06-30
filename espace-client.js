@@ -821,20 +821,13 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   var sBadge = document.getElementById('fd-status-badge');
   if(sBadge){ sBadge.textContent = si.label; sBadge.className = 'fd-status-badge ' + si.cls; }
 
-  // Also refresh disponible after Supabase solde loads (cancel any running countUp first)
+  // Also refresh disponible after Supabase solde loads
   var _origRefresh = window.ecRefreshSolde;
   ecRefreshSolde = function(){
     if(_origRefresh) _origRefresh();
     var s2 = parseFloat(localStorage.getItem('ec_solde')) || 0;
-    // Cancel running counter then animate to new value
-    if(_v3CountUpTimers && _v3CountUpTimers['fd-disponible-amt']){
-      clearInterval(_v3CountUpTimers['fd-disponible-amt']);
-      delete _v3CountUpTimers['fd-disponible-amt'];
-    }
     set('fd-disponible-amt', fmtEur(s2));
     set('fd-kpi-disponible', fmtEur(s2));
-    // Re-animate if value changed
-    setTimeout(function(){ v3CountUp('fd-disponible-amt', s2); }, 50);
   };
 }
 
