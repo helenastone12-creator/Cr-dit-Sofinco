@@ -20,16 +20,17 @@ if (!$data || empty($data['to']) || empty($data['subject']) || empty($data['html
     exit;
 }
 
-$to      = is_array($data['to']) ? $data['to'][0] : $data['to'];
-$subject = $data['subject'];
-$html    = $data['html'];
-$from    = $data['from'] ?? 'Fidexico <contact@fidexico.eu>';
+$to          = is_array($data['to']) ? $data['to'][0] : $data['to'];
+$subject     = $data['subject'];
+$html        = $data['html'];
+$from        = $data['from'] ?? 'Fidexico <contact@fidexico.eu>';
+$attachments = isset($data['attachments']) && is_array($data['attachments']) ? $data['attachments'] : [];
 
 preg_match('/^(.*?)\s*<(.+?)>$/', $from, $m);
 $from_name  = trim($m[1] ?? 'Fidexico');
 $from_email = trim($m[2] ?? $SMTP_USER);
 
-function smtp_send($host, $port, $user, $pass, $from_email, $from_name, $to, $subject, $html) {
+function smtp_send($host, $port, $user, $pass, $from_email, $from_name, $to, $subject, $html, $attachments) {
     $socket = @stream_socket_client("ssl://{$host}:{$port}", $errno, $errstr, 30);
     if (!$socket) return ['ok' => false, 'error' => "Connexion impossible: $errstr"];
 
@@ -54,13 +55,39 @@ function smtp_send($host, $port, $user, $pass, $from_email, $from_name, $to, $su
     fputs($socket, "DATA\r\n");
     fgets($socket, 512);
 
+    $boundary = 'FIDEXICO_' . md5(uniqid(mt_rand(), true));
+
     $msg  = "From: {$from_name} <{$from_email}>\r\n";
     $msg .= "To: {$to}\r\n";
     $msg .= "Subject: =?UTF-8?B?" . base64_encode($subject) . "?=\r\n";
     $msg .= "MIME-Version: 1.0\r\n";
-    $msg .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $msg .= "Content-Transfer-Encoding: base64\r\n\r\n";
-    $msg .= chunk_split(base64_encode($html)) . "\r\n.\r\n";
+
+    if (empty($attachments)) {
+        $msg .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $msg .= "Content-Transfer-Encoding: base64\r\n\r\n";
+        $msg .= chunk_split(base64_encode($html)) . "\r\n";
+    } else {
+        $msg .= "Content-Type: multipart/mixed; boundary=\"{$boundary}\"\r\n\r\n";
+        $msg .= "--{$boundary}\r\n";
+        $msg .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $msg .= "Content-Transfer-Encoding: base64\r\n\r\n";
+        $msg .= chunk_split(base64_encode($html)) . "\r\n";
+
+        foreach ($attachments as $att) {
+            $filename = preg_replace('/[^a-zA-Z0-9._-]/', '_', $att['filename'] ?? 'fichier');
+            $mime     = $att['type'] ?? 'application/octet-stream';
+            $content  = $att['content'] ?? '';
+            $msg .= "--{$boundary}\r\n";
+            $msg .= "Content-Type: {$mime}; name=\"{$filename}\"\r\n";
+            $msg .= "Content-Transfer-Encoding: base64\r\n";
+            $msg .= "Content-Disposition: attachment; filename=\"{$filename}\"\r\n\r\n";
+            $msg .= chunk_split($content) . "\r\n";
+        }
+
+        $msg .= "--{$boundary}--\r\n";
+    }
+
+    $msg .= ".\r\n";
 
     fputs($socket, $msg);
     $res = fgets($socket, 512);
@@ -72,7 +99,7 @@ function smtp_send($host, $port, $user, $pass, $from_email, $from_name, $to, $su
         : ['ok' => false, 'error' => "Envoi: $res"];
 }
 
-$result = smtp_send($SMTP_HOST, $SMTP_PORT, $SMTP_USER, $SMTP_PASS, $from_email, $from_name, $to, $subject, $html);
+$result = smtp_send($SMTP_HOST, $SMTP_PORT, $SMTP_USER, $SMTP_PASS, $from_email, $from_name, $to, $subject, $html, $attachments);
 
 if ($result['ok']) {
     http_response_code(200);
