@@ -57,11 +57,12 @@
     .content-row {
       display: flex; flex-direction: column; gap: 1.5rem; flex: 1;
     }
+    .content-left { display: none; }
     @media (min-width: 860px) {
       .page { justify-content: center; }
       .page-title { font-size: 2.2rem; }
       .content-row { flex-direction: row; align-items: flex-start; gap: 3rem; }
-      .content-left { flex: 1; }
+      .content-left { display: block; flex: 1; }
       .content-right { width: 400px; flex-shrink: 0; }
     }
 
