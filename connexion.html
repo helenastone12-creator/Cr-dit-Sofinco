@@ -21,9 +21,9 @@
     }
     header, nav, footer, .hd-bar, .mob-nav, .hd-menu, .site-header { display: none !important; }
 
-    /* ── Barre légale bas de page ── */
+    /* ── Barre légale haut de page ── */
     .legal-bar {
-      background: #e4e6e9; border-top: 1px solid #d0d3d8;
+      background: #e4e6e9; border-bottom: 1px solid #d0d3d8;
       color: #555; font-size: .8rem; font-weight: 500;
       text-align: center; padding: .7rem 1.2rem; line-height: 1.5;
       font-family: 'Inter', system-ui, sans-serif;
@@ -32,14 +32,14 @@
     /* ── Page wrapper ── */
     .page {
       flex: 1; display: flex; flex-direction: column;
-      max-width: 1260px; margin: 0 auto; width: 100%;
+      max-width: 860px; margin: 0 auto; width: 100%;
       padding: 2.5rem 2.5rem 2rem;
     }
 
     /* ── Logo ── */
     .page-logo {
       display: flex; align-items: center; gap: .7rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       text-decoration: none;
     }
     .page-logo-text {
@@ -50,24 +50,17 @@
     /* ── Titre principal ── */
     .page-title {
       font-size: 1.85rem; font-weight: 900; color: #111;
-      line-height: 1.15; margin-bottom: 2.5rem;
+      line-height: 1.15; margin-bottom: 2rem;
       text-transform: uppercase; text-align: center;
     }
 
-    /* ── Layout desktop : gauche + droite ── */
-    .content-row {
-      display: flex; flex-direction: column; gap: 1.5rem; flex: 1;
-    }
+    /* ── Formulaire centré ── */
+    .content-row { display: flex; flex-direction: column; }
+    .login-wrap { width: 100%; max-width: 460px; margin: 0 auto; }
     @media (min-width: 860px) {
       .page { justify-content: center; }
-      .page-logo { margin-bottom: 2rem; }
-      .page-title { font-size: 2.2rem; margin-bottom: 3rem; }
-      .content-row {
-        flex-direction: row; align-items: stretch; gap: 4rem;
-      }
-      .content-left  { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-      .content-right { width: 420px; flex-shrink: 0; display: flex; flex-direction: column; }
-      .login-card { flex: 1; }
+      .page-title { font-size: 2.2rem; }
+      .login-card { padding: 2.8rem 2.6rem; }
     }
 
     /* ── Bannière fraudes (gauche) ── */
@@ -174,9 +167,22 @@
 </head>
 <body>
 
+<div class="legal-bar">
+  Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
+</div>
+
 <div class="page">
 
-  <!-- Logo -->
+  <!-- Bannière fraude en haut -->
+  <div class="fraud-banner" style="margin-bottom:2rem">
+    <div class="fraud-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>FAUX EMAILS FIDEXICO : SOYEZ VIGILANTS !</span>
+    </div>
+    <p class="fraud-body">Des tentatives d'escroquerie peuvent survenir : des individus malveillants peuvent envoyer de faux messages en usurpant l'identité de Fidexico. Nous vous invitons à <strong>vérifier attentivement l'expéditeur</strong> avant d'ouvrir ou de répondre à tout email.</p>
+    <p class="fraud-body">En cas de doute, ne cliquez sur aucun lien et contactez-nous via <a href="nous-contacter.html">notre formulaire de contact</a>.</p>
+  </div>
+
   <a href="index.html" class="page-logo">
     <span class="page-logo-text">FIDEXICO</span>
   </a>
@@ -185,21 +191,7 @@
   <h1 class="page-title">ACCÉDER À MON ESPACE SÉCURISÉ</h1>
 
   <div class="content-row">
-
-    <!-- Colonne gauche : bannière fraude -->
-    <div class="content-left">
-      <div class="fraud-banner">
-        <div class="fraud-head">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <span>FAUX EMAILS FIDEXICO : SOYEZ VIGILANTS !</span>
-        </div>
-        <p class="fraud-body">Des tentatives d'escroquerie peuvent survenir : des individus malveillants peuvent envoyer de faux messages en usurpant l'identité de Fidexico. Nous vous invitons à <strong>vérifier attentivement l'expéditeur</strong> avant d'ouvrir ou de répondre à tout email.</p>
-        <p class="fraud-body">En cas de doute, ne cliquez sur aucun lien et contactez-nous via <a href="nous-contacter.html">notre formulaire de contact</a>.</p>
-      </div>
-    </div>
-
-    <!-- Colonne droite : formulaire -->
-    <div class="content-right">
+    <div class="login-wrap">
 
       <div class="form-section-title">ME CONNECTER</div>
 
@@ -272,15 +264,11 @@
         <a href="accessibilite.html">Accessibilité</a>
       </div>
 
-    </div><!-- /content-right -->
+    </div><!-- /login-wrap -->
 
   </div><!-- /content-row -->
 
 </div><!-- /page -->
-
-<div class="legal-bar">
-  Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
-</div>
 
 <script src="fidexico-db.js"></script>
 <script src="fidexico-email.js"></script>
