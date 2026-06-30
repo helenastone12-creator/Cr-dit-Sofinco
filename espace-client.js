@@ -191,7 +191,6 @@ function ecToggleTxAll(e){
   if(e) e.preventDefault();
   ecOpenAllTx();
 }
-}
 
 function ecTxSubLabel(type){
   if(type==='virement') return {lbl:'TRANSFERT SORTANT',cls:'ec-tx-type--out'};
