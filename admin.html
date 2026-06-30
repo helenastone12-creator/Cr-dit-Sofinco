@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <script src="fidexico-db.js"></script>
   <script src="fidexico-email.js"></script>
+  <script src="ec-documents.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -1401,6 +1402,39 @@
             </div>
 
             <div class="op-card">
+              <div class="op-card-header" style="background:#fefce8;color:#854d0e;">
+                <span>🔍</span> Prévisualiser &amp; modifier un document
+              </div>
+              <div class="op-card-body">
+                <div class="adm-modal-note">Prévisualisez le document d'un client, ajoutez des clauses personnalisées, puis approuvez-le pour le rendre visible dans son espace.</div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="docprev-id" placeholder="USR-XXXX..." onchange="admLoadDocCustom()"/>
+                </div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Document</label>
+                  <select class="adm-field-inp" id="docprev-type" onchange="admLoadDocCustom()">
+                    <option value="doc_contrat">Contrat de crédit personnel</option>
+                    <option value="doc_amort">Tableau d'amortissement</option>
+                    <option value="doc_attest_ass">Attestation d'assurance emprunteur</option>
+                    <option value="doc_attest_ra">Attestation de remboursement anticipé</option>
+                  </select>
+                </div>
+                <button class="adm-btn" style="width:100%;background:#0B1D3A;color:#fff;margin-bottom:.5rem" onclick="admPreviewDoc()">👁 Prévisualiser le document</button>
+                <div class="adm-field" style="margin-top:.8rem">
+                  <label class="adm-field-lbl">Clauses / mentions personnalisées (ajoutées au document)</label>
+                  <textarea id="docprev-custom" rows="4" style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:.5rem .75rem;font-size:.85rem;resize:vertical" placeholder="Ex : Clause particulière convenue entre les parties..."></textarea>
+                </div>
+                <div class="adm-modal-success" id="docprev-ok">✓ Document mis à jour.</div>
+                <div class="adm-modal-err" id="docprev-err"></div>
+                <div style="display:flex;gap:.5rem;margin-top:.4rem">
+                  <button class="adm-btn" style="flex:1;background:#6b7280;color:#fff" onclick="admSaveDocCustom(false)">💾 Enregistrer les modifications</button>
+                  <button class="adm-btn adm-btn--green" style="flex:1" onclick="admSaveDocCustom(true)">✅ Enregistrer &amp; Approuver</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="op-card">
               <div class="op-card-header" style="background:#eff6ff;color:#1e40af;">
                 <span>📊</span> Historique transactions client
               </div>
@@ -1772,7 +1806,7 @@ function admLoad(){
         ALL_CLIENTS = rows.map(function(r){
           return {
             key: null,
-            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,status:r.status||'active',createdAt:r.created_at||r.createdAt,totp_secret:r.totp_secret||null,fonds_geles:r.fonds_geles||false,force_logout:r.force_logout||false,virement_limit:r.virement_limit||0,docs_autorises:r.docs_autorises||[]},
+            user: {id:r.id,prenom:r.prenom,nom:r.nom,email:r.email,tel:r.tel,ref:r.ref,pwd:r.pwd,civilite:r.civilite||'M',blocked:r.blocked||false,loan:r.loan||null,status:r.status||'active',createdAt:r.created_at||r.createdAt,totp_secret:r.totp_secret||null,fonds_geles:r.fonds_geles||false,force_logout:r.force_logout||false,virement_limit:r.virement_limit||0,docs_autorises:r.docs_autorises||[],doc_overrides:r.doc_overrides||{}},
             solde: parseFloat(r.solde)||0,
             tx: []
           };
@@ -2053,6 +2087,60 @@ function opSetDocs(){
   if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,{docs_autorises:auth}).catch(function(){});
   admLog('docs', uid, 'Documents autorisés: '+(auth.length?auth.join(', '):'aucun'), 0);
   showMsg('docs-ok','docs-err',auth.length+' document(s) autorisé(s) pour '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
+}
+
+function admLoadDocCustom(){
+  var uid=document.getElementById('docprev-id').value.trim();
+  var docType=document.getElementById('docprev-type').value;
+  var ta=document.getElementById('docprev-custom');
+  ta.value='';
+  if(!uid) return;
+  var c=findClientByUID(uid);
+  if(!c) return;
+  var overrides=c.user.doc_overrides||{};
+  ta.value=overrides[docType]||'';
+}
+
+function admPreviewDoc(){
+  var uid=document.getElementById('docprev-id').value.trim();
+  if(!uid) return showMsg('docprev-ok','docprev-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('docprev-ok','docprev-err','Client introuvable.',false);
+  var docType=document.getElementById('docprev-type').value;
+  var customText=document.getElementById('docprev-custom').value.trim();
+  var prevUser=localStorage.getItem('ec_user');
+  var previewClient=Object.assign({},c.user,{doc_overrides:Object.assign({},c.user.doc_overrides||{})});
+  if(customText) previewClient.doc_overrides[docType]=customText;
+  localStorage.setItem('ec_user',JSON.stringify(previewClient));
+  if(docType==='doc_contrat') ecGenContrat();
+  else if(docType==='doc_amort') ecGenAmortissement();
+  else if(docType==='doc_attest_ass') ecGenAttestationAssurance();
+  else if(docType==='doc_attest_ra') ecGenAttestationRA();
+  if(prevUser) localStorage.setItem('ec_user',prevUser);
+  else localStorage.removeItem('ec_user');
+}
+
+function admSaveDocCustom(andApprove){
+  var uid=document.getElementById('docprev-id').value.trim();
+  if(!uid) return showMsg('docprev-ok','docprev-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('docprev-ok','docprev-err','Client introuvable.',false);
+  var docType=document.getElementById('docprev-type').value;
+  var customText=document.getElementById('docprev-custom').value.trim();
+  var overrides=Object.assign({},c.user.doc_overrides||{});
+  if(customText) overrides[docType]=customText;
+  else delete overrides[docType];
+  c.user.doc_overrides=overrides;
+  var updates={doc_overrides:overrides};
+  if(andApprove){
+    var auth=c.user.docs_autorises||[];
+    if(auth.indexOf(docType)===-1){ auth=auth.concat([docType]); c.user.docs_autorises=auth; }
+    updates.docs_autorises=auth;
+  }
+  if(c.key) localStorage.setItem(c.key,JSON.stringify(c.user));
+  if(typeof FidDB!=='undefined') FidDB.updateClient(c.user.id,updates).catch(function(){});
+  var msg=andApprove?'Document modifié et approuvé pour '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.':'Modifications enregistrées.';
+  showMsg('docprev-ok','docprev-err',msg,true);
 }
 
 function opEditUser(){
