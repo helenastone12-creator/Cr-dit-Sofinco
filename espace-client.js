@@ -423,6 +423,8 @@ function ecConfirmVirement(){
   var errEl = document.getElementById('ec-vir-err');
   var solde = ecGetSolde();
 
+  var _u = ecGetUser();
+  if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent='Vos fonds sont temporairement gelés suite à un litige en cours. Veuillez contacter Fidexico pour plus d\'informations.'; errEl.style.display='block'; } return; }
   if(!nom){ if(errEl){ errEl.textContent='Le nom du bénéficiaire est requis.'; errEl.style.display='block'; } return; }
   if(!iban){ if(errEl){ errEl.textContent='L\'IBAN destinataire est requis.'; errEl.style.display='block'; } return; }
   if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent='IBAN invalide. Veuillez vérifier le numéro saisi.'; errEl.style.display='block'; } return; }
