@@ -240,13 +240,20 @@ function ecTxDateLabel(dateStr){
   if(iso) d = new Date(parseInt(iso[1]), parseInt(iso[2])-1, parseInt(iso[3]));
   var dmy = !d && s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
   if(dmy) d = new Date(parseInt(dmy[3]), parseInt(dmy[2])-1, parseInt(dmy[1]));
-  if(d){
+  // Format français "29 juin 2026"
+  if(!d){
+    var months={'janvier':0,'février':1,'mars':2,'avril':3,'mai':4,'juin':5,'juillet':6,'août':7,'septembre':8,'octobre':9,'novembre':10,'décembre':11};
+    var parts = s.split(/\s+/);
+    if(parts.length===3 && months[parts[1].toLowerCase()]!==undefined)
+      d = new Date(parseInt(parts[2]), months[parts[1].toLowerCase()], parseInt(parts[0]));
+  }
+  if(d && !isNaN(d.getTime())){
     d.setHours(0,0,0,0);
     if(d.getTime()===today.getTime()) return "Aujourd'hui";
     if(d.getTime()===yesterday.getTime()) return 'Hier';
     return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});
   }
-  return s;
+  return "Aujourd'hui";
 }
 
 function ecRenderTx(){
@@ -262,8 +269,9 @@ function ecRenderTx(){
   /* Group by date */
   var groups = [];
   var groupMap = {};
+  var todayKey = new Date().toISOString().slice(0,10);
   displayed.forEach(function(tx){
-    var key = String(tx.date||'');
+    var key = String(tx.date||'') || todayKey;
     if(!groupMap[key]){
       groupMap[key] = {date: key, items: []};
       groups.push(groupMap[key]);
