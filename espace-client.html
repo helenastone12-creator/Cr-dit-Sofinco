@@ -47,6 +47,23 @@
     </button>
     <div class="ec-n26-balance-amt" id="ec-solde-amt">0,00 €</div>
     <div id="ec-solde-comptable" style="display:none"></div>
+
+    <!-- Actions rapides (PC) -->
+    <div class="ec-n26-quick-actions">
+      <button onclick="ecOpenModal('virement')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Virement
+      </button>
+      <button onclick="location.href='mes-documents.html'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Documents
+      </button>
+      <button onclick="ecOpenModal('credit-detail')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Crédit
+      </button>
+    </div>
+
     <!-- Onglets -->
     <div class="ec-n26-tabs">
       <button class="ec-n26-tab" onclick="location.href='mes-documents.html'">Documents</button>
