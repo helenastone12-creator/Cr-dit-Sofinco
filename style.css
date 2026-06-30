@@ -435,7 +435,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     flex:1;background:#fff;border-radius:12px;
     padding:1.6rem 2rem;box-shadow:0 8px 32px rgba(0,0,0,.15);
   }
-  .hsc-title{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.35rem}
+  .hsc-title{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;text-align:center}
   .hsc-sub{font-size:.83rem;color:#666;margin-bottom:1rem;line-height:1.5}
   .hsc-form{display:flex;gap:.65rem;align-items:center;flex-wrap:wrap}
   .hsc-sel,.hsc-inp{flex:1;min-width:130px;height:46px}
@@ -461,7 +461,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .prod-group-hd{padding:0 .25rem;margin-bottom:1.2rem}
 .prod-group-hd h2{
   font-size:1.6rem;font-weight:800;color:var(--navy);
-  margin-bottom:.35rem;line-height:1.25;
+  margin-bottom:.35rem;line-height:1.25;text-align:center;
 }
 .prod-group-hd p{
   font-size:.93rem;color:#666;line-height:1.55;
@@ -559,7 +559,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .avantages .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
 .avantages h2{
   font-size:1.4rem;font-weight:800;color:var(--navy);
-  margin-bottom:1.5rem;
+  margin-bottom:1.5rem;text-align:center;
 }
 .av-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;list-style:none;padding:0;margin:0}
 .av-item{
@@ -587,7 +587,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .award{padding:2.5rem 0}
 .award .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
 .award-inner{display:flex;flex-direction:column;gap:1.5rem;align-items:center;text-align:center}
-.award-inner h2{font-size:1.25rem;font-weight:800;color:var(--navy);line-height:1.35}
+.award-inner h2{font-size:1.25rem;font-weight:800;color:var(--navy);line-height:1.35;text-align:center}
 .award-inner p{font-size:.88rem;color:#666;line-height:1.6}
 .award-inner img{width:130px;border-radius:8px}
 @media(min-width:700px){
@@ -690,6 +690,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    EDITORIAL
 ═══════════════════════════ */
 .editorial{padding-top:2.5rem;padding-bottom:2.5rem}
+.editorial h2{text-align:center;}
 .editorial .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .editorial h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
@@ -704,6 +705,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    FAQ ACCORDION
 ═══════════════════════════ */
 .faq{padding:2.5rem 0}
+.faq h2{text-align:center;}
 .faq .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .faq>div>h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
@@ -786,7 +788,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .besoin-inner>h2{
   font-size:1.25rem;font-weight:800;color:var(--navy);
-  margin-bottom:.8rem;
+  margin-bottom:.8rem;text-align:center;
 }
 .besoin-main-link{
   display:inline-block;font-size:1rem;font-weight:700;
@@ -2030,7 +2032,7 @@ body.pg-inner .editorial{background:none}
   max-width:880px;margin:0 auto;
   display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start;
 }
-.cta-strip h2{color:#fff;font-size:1.35rem;font-weight:800;line-height:1.3}
+.cta-strip h2{color:#fff;font-size:1.35rem;font-weight:800;line-height:1.3;text-align:center}
 .cta-strip p{color:rgba(255,255,255,.72);font-size:.95rem;line-height:1.7;margin-top:.4rem}
 .cta-strip-btn{
   display:inline-block;width:auto;
