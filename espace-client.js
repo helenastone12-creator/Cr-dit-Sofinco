@@ -167,10 +167,14 @@ function ecAddTx(tx){
     FidDB.addTx(u.id, tx).catch(function(){});
   }
 }
-function ecTxInitials(label){
-  var words = label.replace(/—/g,' ').trim().split(/\s+/);
-  if(words.length >= 2) return (words[0][0]+(words[1][0]||'')).toUpperCase();
-  return label.substring(0,2).toUpperCase();
+function ecTxInitials(tx){
+  if(tx.nom){
+    var words = tx.nom.replace(/—/g,' ').trim().split(/\s+/).filter(Boolean);
+    if(words.length >= 2) return (words[0][0]+(words[1][0]||'')).toUpperCase();
+    if(words.length === 1) return words[0].substring(0,2).toUpperCase();
+  }
+  var lbl = (tx.label||'?').trim().toUpperCase();
+  return lbl.substring(0,2);
 }
 var EC_AVATAR_COLORS = [
   ['#DBEAFE','#1D4ED8'],['#D1FAE5','#065F46'],
@@ -230,24 +234,55 @@ function ecRenderTx(){
   if(empty) empty.style.display='none';
   var hidden = ecSoldeHidden();
   var displayed = EC_TX_SHOW_ALL ? list : list.slice(0,5);
-  var html = displayed.map(function(tx){
-    var isOut = tx.type==='virement';
-    var sign = isOut ? '−' : '+';
-    var amtCls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
-    var amtDisplay = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">• • • •</span>' : sign+ecFormatAmt(tx.amt);
-    var sub = ecTxSubLabel(tx.type);
-    var dateShort = ecFmtTxDate(tx.date);
-    var displayName = ecTxDisplayName(tx);
-    var txJson = encodeURIComponent(JSON.stringify(tx));
-    return '<div class="ec-tx-item ec-tx-item--clickable" onclick="ecOpenTxDetail(\''+txJson+'\')">'
-      +'<div class="ec-tx-date">'+dateShort+'</div>'
-      +'<div class="ec-tx-info">'
-      +'<div class="ec-tx-name">'+displayName+'</div>'
-      +'<div class="ec-tx-type '+sub.cls+'">'+sub.lbl+'</div>'
-      +'</div>'
-      +'<div class="ec-tx-amt '+amtCls+'">'+amtDisplay+'</div>'
-      +'</div>';
+
+  /* Group by date */
+  var groups = [];
+  var groupMap = {};
+  displayed.forEach(function(tx){
+    var key = String(tx.date||'');
+    if(!groupMap[key]){
+      groupMap[key] = {date: key, items: []};
+      groups.push(groupMap[key]);
+    }
+    groupMap[key].items.push(tx);
+  });
+
+  var html = groups.map(function(g){
+    /* Date separator — format dd.mm.yyyy */
+    var dateLabel = (function(){
+      var s = String(g.date||'').trim();
+      var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if(iso) return iso[3]+'.'+iso[2]+'.'+iso[1];
+      var dmy = s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
+      if(dmy) return String(dmy[1]).padStart(2,'0')+'.'+dmy[2]+'.'+dmy[3];
+      return s;
+    })();
+
+    var sepHtml = '<div class="ec-tx-date-sep"><span>'+dateLabel+'</span></div>';
+
+    var itemsHtml = g.items.map(function(tx){
+      var isOut = tx.type==='virement';
+      var sign = isOut ? '−' : '+';
+      var amtCls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
+      var rawAmt = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">• • • •</span>'
+        : sign + ecFormatAmt(tx.amt).replace(' €',' EUR');
+      var sub = ecTxSubLabel(tx.type);
+      var displayName = ecTxDisplayName(tx);
+      var initials = ecTxInitials(tx);
+      var txJson = encodeURIComponent(JSON.stringify(tx));
+      return '<div class="ec-tx-item ec-tx-item--clickable" onclick="ecOpenTxDetail(\''+txJson+'\')">'
+        +'<div class="ec-tx-avatar">'+initials+'</div>'
+        +'<div class="ec-tx-info" style="flex:1;min-width:0">'
+        +'<div class="ec-tx-name">'+displayName+'</div>'
+        +'<div class="ec-tx-sub">'+sub.lbl+'</div>'
+        +'</div>'
+        +'<div class="ec-tx-amt '+amtCls+'">'+rawAmt+'</div>'
+        +'</div>';
+    }).join('');
+
+    return sepHtml + '<div class="ec-tx-group">'+itemsHtml+'</div>';
   }).join('');
+
   container.innerHTML = html;
 }
 

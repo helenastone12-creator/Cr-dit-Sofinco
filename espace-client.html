@@ -40,10 +40,12 @@
   <!-- Bonjour -->
   <div class="ec-welcome">
     <div>
-      <p class="ec-welcome-sub" data-i18n="welcome_sub">Bienvenue</p>
+      <p class="ec-welcome-sub" data-i18n="welcome_sub">Aperçu de vos finances</p>
       <h1 class="ec-welcome-title" id="ec-welcome-name">Bonjour !</h1>
     </div>
-    <div class="ec-welcome-date" id="ec-welcome-date"></div>
+    <button id="ec-notif-bell" onclick="ecOpenModal('alertes')" aria-label="Notifications">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
   </div>
 
   <div class="ec-dashboard-grid">
@@ -187,22 +189,23 @@
 
   <a href="espace-client.html" class="ec-bnav-link active">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span data-i18n="nav_home">Accueil</span>
+    <span>Accueil</span>
     <div class="ec-bnav-dot"></div>
   </a>
-  <a href="#" class="ec-bnav-link" onclick="ecOpenModal('virement');return false;">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    <span data-i18n="action_virement">Virement</span>
+  <a href="mes-documents.html" class="ec-bnav-link">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    <span>Documents</span>
     <div class="ec-bnav-dot"></div>
   </a>
-  <a href="suivi-dossier.html" class="ec-bnav-link">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    <span data-i18n="nav_suivi">Suivi</span>
+  <button class="ec-bnav-center" onclick="ecOpenModal('virement')" aria-label="Virement">€</button>
+  <a href="messagerie.html" class="ec-bnav-link">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>Messages</span>
     <div class="ec-bnav-dot"></div>
   </a>
   <a href="profil.html" class="ec-bnav-link">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-    <span data-i18n="nav_plus">Plus</span>
+    <span>Profil</span>
     <div class="ec-bnav-dot"></div>
   </a>
 
