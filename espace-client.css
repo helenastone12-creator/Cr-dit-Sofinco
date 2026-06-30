@@ -1959,6 +1959,7 @@
 /* ── Section transactions ── */
 .ec-n26-tx-section {
   padding: 0;
+  margin-top: 1.5rem;
 }
 
 /* Groupe de date */
