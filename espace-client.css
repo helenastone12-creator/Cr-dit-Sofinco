@@ -2998,13 +2998,15 @@ body.ec-body {
   z-index: 1;
   padding-left: .75rem;
 }
-.v2-hero-greeting {
-  font-size: .8rem;
-  font-weight: 500;
-  color: var(--p-muted);
-  margin-bottom: .5rem;
-  padding-right: 2.5rem;
+/* Greeting above hero card */
+.v2-hero-greeting-above {
+  padding: .6rem 1rem .1rem;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--p-ink-2);
+  letter-spacing: -.01em;
 }
+.v2-hero-greeting { display: none; }
 .v2-hero-label {
   font-size: .58rem;
   font-weight: 700;
@@ -3709,9 +3711,15 @@ body.ec-body {
   .v2-topbar-primary { display: inline-flex; }
   .v2-topbar-avatar { display: none; }
 
+  /* ── Greeting above hero ── */
+  .v2-hero-greeting-above {
+    padding: 1.75rem 2rem .5rem;
+    font-size: .95rem;
+  }
+
   /* ── Hero desktop ── */
   .v2-hero {
-    margin: 1.75rem 2rem 0;
+    margin: 0 2rem 0;
     padding: 2rem 2rem 1.6rem 2.75rem;
   }
   .v2-hero-body {
@@ -3797,7 +3805,8 @@ body.ec-body {
    WIDE ≥ 1440px
 ══════════════════════════════════════════ */
 @media (min-width: 1440px) {
-  .v2-hero { margin: 2rem 2.5rem 0; padding: 2.25rem 2.5rem 1.75rem 3rem; }
+  .v2-hero-greeting-above { padding: 2rem 2.5rem .5rem; font-size: 1rem; }
+  .v2-hero { margin: 0 2.5rem 0; padding: 2.25rem 2.5rem 1.75rem 3rem; }
   .v2-kpi-strip { padding: 1.4rem 2.5rem 1.25rem; gap: 1.25rem; }
   .v2-grid { padding: 0 2.5rem 3rem; gap: 1.5rem; }
   .v2-topbar { padding: .9rem 2.75rem; }
