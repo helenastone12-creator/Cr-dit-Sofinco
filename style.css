@@ -2010,15 +2010,15 @@ body.pg-inner .editorial{background:none}
   .prod-avantages h2,
   .prod-faq h2{font-size:1.65rem;margin-bottom:1.5rem}
   .editorial p{font-size:1rem;line-height:1.9}
-  .prod-caract-wrap{padding:3rem}
+  .prod-caract-wrap{padding:1.5rem}
   .caract-table td{padding:.9rem 1.2rem;font-size:1rem}
   .prod-avantages{padding-top:2rem;padding-bottom:2rem}
 }
 .sp5-confirm-secondary:hover{ color:var(--navy); }
 
 /* ── Steps section ── */
-.steps-section{background:#f7fafc;padding:4rem 1.5rem}
-.steps-title{text-align:center;font-size:1.55rem;font-weight:800;color:var(--navy);margin-bottom:2.5rem}
+.steps-section{background:#f7fafc;padding:2rem 1.5rem}
+.steps-title{text-align:center;font-size:1.55rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem}
 .steps-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;max-width:960px;margin:0 auto}
 .step-item{background:#fff;border-radius:16px;padding:2rem 1.5rem;box-shadow:0 2px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:center;text-align:center;gap:.75rem}
 .step-num{width:48px;height:48px;border-radius:50%;background:var(--teal);color:#fff;font-size:1.3rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
