@@ -46,10 +46,10 @@ var FidDB = {
       email:     (user.email||'').toLowerCase().trim(),
       tel:       user.tel||'',
       ref:       user.ref||'',
-      pwd:       user.pwd||'',
       civilite:  user.civilite||user.civility||'M',
       solde:     0,
       blocked:   false,
+      status:    user.status || 'active',
       loan:      user.loan||null,
       created_at: user.createdAt||new Date().toISOString()
     };
