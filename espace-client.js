@@ -618,37 +618,116 @@ function ecInitDashboard(){
   var refEl=document.getElementById('ec-credit-ref');
   if(refEl) refEl.textContent=ecFmtRef(user.ref, user.id);
 
-  var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-
-  if(capital > 0){
-    set('ec-stat-capital', capital.toLocaleString('fr-FR')+'€');
-    set('ec-stat-mens',    mens.toLocaleString('fr-FR')+'€ / mois');
-    set('ec-stat-restant', restant.toLocaleString('fr-FR')+'€');
-    set('ec-prog-pct',     pct+'%');
-    set('ec-next-amt',     mens.toLocaleString('fr-FR')+'€');
-  } else {
-    set('ec-stat-capital', 'En attente');
-    set('ec-stat-mens',    '—');
-    set('ec-stat-restant', '—');
-    set('ec-prog-pct',     '0%');
-    set('ec-next-amt',     '—');
-  }
-
-  var fill=document.getElementById('ec-prog-fill');
-  if(fill) setTimeout(function(){fill.style.width=pct+'%';},200);
-
-  var next=new Date(); next.setDate(1); next.setMonth(next.getMonth()+1);
-  var nextStr='1er '+next.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-  set('ec-next-date',nextStr);
-  set('ec-next-date-2',nextStr);
-  set('ec-next-amt-2',mens>0?mens.toLocaleString('fr-FR')+'€':'—');
-
   ecInitAlertBanner();
   ecInitHealthScore();
   ecInitSpendingChart();
   ecInitRib();
   ecCalcRemb();
   ecInitNotifs();
+  ecInitLoanSections(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct);
+}
+
+// ── Sections prêt dashboard ──
+function ecInitLoanSections(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct){
+  var set = function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+  var fmt = function(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; };
+
+  // ── Statut du dossier
+  var badge = document.getElementById('ec-ds-badge-statut');
+  var refEl2 = document.getElementById('ec-ds-ref');
+  var status = (loan && loan.statut) || (capital > 0 ? 'active' : 'pending');
+  var statusMap = {
+    'pending':  { label: 'En traitement', cls: 'ec-ds-badge--pending' },
+    'approved': { label: 'Approuvé',       cls: 'ec-ds-badge--approved' },
+    'active':   { label: 'Actif',           cls: 'ec-ds-badge--active' },
+    'closed':   { label: 'Clôturé',         cls: 'ec-ds-badge--closed' }
+  };
+  var statusInfo = statusMap[status] || statusMap['active'];
+  if(badge){ badge.textContent = statusInfo.label; badge.className = 'ec-ds-badge ' + statusInfo.cls; }
+  if(refEl2) refEl2.textContent = 'Réf. ' + (user.ref || user.id || '—');
+
+  // ── Crédit en cours
+  if(capital > 0){
+    set('ec-stat-capital', fmt(capital));
+    set('ec-stat-mens',    fmt(mens));
+    set('ec-stat-restant', fmt(restant));
+    set('ec-prog-pct',     pct + '%');
+  } else {
+    set('ec-stat-capital', 'En attente');
+    set('ec-stat-mens',    '—');
+    set('ec-stat-restant', '—');
+    set('ec-prog-pct',     '0%');
+  }
+  var fill = document.getElementById('ec-prog-fill');
+  if(fill) setTimeout(function(){ fill.style.width = pct + '%'; }, 200);
+
+  // ── Prochaine échéance
+  var next = new Date(); next.setDate(1); next.setMonth(next.getMonth()+1);
+  var nextStr = '1er ' + next.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  set('ec-next-date', nextStr);
+  set('ec-next-amt', mens > 0 ? fmt(mens) : '—');
+  var daysLeft = Math.ceil((next - new Date()) / (1000*60*60*24));
+  var countEl = document.getElementById('ec-ds-countdown');
+  if(countEl && mens > 0) countEl.textContent = 'Dans ' + daysLeft + ' jour' + (daysLeft > 1 ? 's' : '');
+
+  // ── Score de remboursement
+  set('ec-score-pct', pct + '%');
+  var ringFill = document.getElementById('ec-score-ring-fill');
+  if(ringFill){
+    var circ = 175.9;
+    setTimeout(function(){ ringFill.style.strokeDashoffset = circ * (1 - pct/100); }, 200);
+  }
+
+  // ── Historique paiements (depuis transactions de type mensualite/remboursement)
+  var histList = document.getElementById('ec-hist-list');
+  if(histList){
+    var txRaw = localStorage.getItem('ec_tx');
+    var txArr = txRaw ? JSON.parse(txRaw) : [];
+    var payments = txArr.filter(function(t){ return t.type === 'mensualite' || t.type === 'remboursement' || (t.label && /mensualit|remboursement|échéance/i.test(t.label)); });
+    if(payments.length === 0 && capital > 0 && moisPasses > 0){
+      // Générer les mois passés synthétiques
+      for(var m = 0; m < Math.min(moisPasses, 5); m++){
+        var d = new Date(dateDebut);
+        d.setDate(1);
+        d.setMonth(d.getMonth() + m + 1);
+        payments.push({ date: d.toISOString().slice(0,10), amt: mens, label: 'Mensualité' });
+      }
+    }
+    if(payments.length > 0){
+      histList.innerHTML = '';
+      payments.slice(-5).reverse().forEach(function(p){
+        var dStr = p.date ? new Date(p.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}) : '—';
+        var row = document.createElement('div');
+        row.className = 'ec-ds-hist-item';
+        row.innerHTML = '<span class="ec-ds-hist-date">' + dStr + '</span>'
+          + '<span class="ec-ds-hist-amt">' + fmt(Math.abs(p.amt)) + '</span>'
+          + '<span class="ec-ds-hist-ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1A9478" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>';
+        histList.appendChild(row);
+      });
+    }
+  }
+
+  // ── Alertes
+  var alertCard = document.getElementById('ec-ds-alert-card');
+  var alertList = document.getElementById('ec-ds-alert-list');
+  var alerts = [];
+  if(mens > 0 && daysLeft <= 10){
+    alerts.push({ type:'warn', text: 'Votre prochaine échéance est dans ' + daysLeft + ' jour' + (daysLeft>1?'s':'') + ' (' + fmt(mens) + ').' });
+  }
+  if(pct >= 80){
+    alerts.push({ type:'info', text: 'Félicitations ! Vous avez remboursé ' + pct + '% de votre prêt.' });
+  }
+  if(alerts.length > 0 && alertCard && alertList){
+    alertCard.style.display = '';
+    alertList.innerHTML = '';
+    alerts.forEach(function(a){
+      var item = document.createElement('div');
+      item.className = 'ec-ds-alert-item' + (a.type==='info' ? ' ec-ds-alert-item--info' : '');
+      item.innerHTML = '<span class="ec-ds-alert-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>'
+        + '<span class="ec-ds-alert-txt">' + a.text + '</span>';
+      alertList.appendChild(item);
+    });
+  }
 }
 
 // ── Mes documents ──

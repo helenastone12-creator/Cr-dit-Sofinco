@@ -2105,3 +2105,383 @@
 .ec-sidebar-logout {
   display: none !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DASHBOARD SECTIONS — Prêt en ligne
+════════════════════════════════════════════════════════════════ */
+
+.ec-ds-sections {
+  padding: .5rem 1rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+
+.ec-ds-card {
+  background: #fff;
+  border: 1px solid #F0F1F3;
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+.ec-ds-card-title {
+  font-size: .82rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .75rem;
+}
+
+.ec-ds-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .35rem;
+}
+
+.ec-ds-ref {
+  font-size: .8rem;
+  color: #bbb;
+}
+
+/* Badge statut */
+.ec-ds-badge {
+  font-size: .75rem;
+  font-weight: 700;
+  padding: .25rem .7rem;
+  border-radius: 20px;
+  background: #E6F7F3;
+  color: #1A9478;
+}
+.ec-ds-badge--pending { background: #FFF8E1; color: #F59E0B; }
+.ec-ds-badge--approved { background: #E6F7F3; color: #1A9478; }
+.ec-ds-badge--active { background: #E6F0FF; color: #4F6EF7; }
+.ec-ds-badge--closed { background: #F3F4F6; color: #999; }
+
+/* Stats crédit */
+.ec-ds-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+  margin-bottom: .9rem;
+}
+
+.ec-ds-stat {
+  text-align: center;
+}
+
+.ec-ds-stat-val {
+  font-size: .95rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.ec-ds-stat-lbl {
+  font-size: .7rem;
+  color: #999;
+  margin-top: .15rem;
+}
+
+/* Barre progression */
+.ec-ds-prog-wrap {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.ec-ds-prog-bar {
+  flex: 1;
+  height: 6px;
+  background: #F3F4F6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ec-ds-prog-fill {
+  height: 100%;
+  background: #3FBFA0;
+  border-radius: 10px;
+  width: 0;
+  transition: width .6s ease;
+}
+
+.ec-ds-prog-pct {
+  font-size: .8rem;
+  font-weight: 700;
+  color: #3FBFA0;
+  flex-shrink: 0;
+}
+
+/* Prochaine échéance */
+.ec-ds-echea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ec-ds-echea-date {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.ec-ds-countdown {
+  font-size: .78rem;
+  color: #3FBFA0;
+  margin-top: .2rem;
+}
+
+.ec-ds-echea-amt {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Score ring */
+.ec-ds-score-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto .5rem;
+}
+
+.ec-ds-score-ring {
+  width: 100%;
+  height: 100%;
+}
+
+.ec-ds-score-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-ds-score-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111;
+  line-height: 1;
+}
+
+.ec-ds-score-sub {
+  font-size: .65rem;
+  color: #999;
+  margin-top: .15rem;
+}
+
+/* Historique paiements */
+.ec-ds-hist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ec-ds-hist-empty {
+  font-size: .82rem;
+  color: #bbb;
+  text-align: center;
+  padding: .5rem 0;
+}
+
+.ec-ds-hist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .6rem 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+.ec-ds-hist-item:last-child { border-bottom: none; }
+
+.ec-ds-hist-date {
+  font-size: .82rem;
+  color: #555;
+}
+
+.ec-ds-hist-amt {
+  font-size: .85rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.ec-ds-hist-ok {
+  width: 18px;
+  height: 18px;
+  background: #E6F7F3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Alertes */
+.ec-ds-alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.ec-ds-alert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+  padding: .65rem .75rem;
+  background: #FFF8E1;
+  border-radius: 10px;
+}
+
+.ec-ds-alert-item--info { background: #E6F0FF; }
+
+.ec-ds-alert-ico {
+  flex-shrink: 0;
+  color: #F59E0B;
+}
+.ec-ds-alert-item--info .ec-ds-alert-ico { color: #4F6EF7; }
+
+.ec-ds-alert-txt {
+  font-size: .82rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Conseiller */
+.ec-ds-advisor {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+}
+
+.ec-ds-advisor-avatar {
+  width: 40px;
+  height: 40px;
+  background: #3FBFA0;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.ec-ds-advisor-info { flex: 1; }
+
+.ec-ds-advisor-name {
+  font-size: .9rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.ec-ds-advisor-role {
+  font-size: .75rem;
+  color: #999;
+  margin-top: .1rem;
+}
+
+.ec-ds-advisor-btn {
+  background: #3FBFA0;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: .4rem .9rem;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Documents */
+.ec-ds-doc-link {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem 0;
+  text-decoration: none;
+  color: #111;
+  font-size: .88rem;
+  font-weight: 500;
+}
+.ec-ds-doc-link span { flex: 1; }
+
+/* Offres */
+.ec-ds-offers {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.ec-ds-offer {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: .65rem 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+.ec-ds-offer:last-child { border-bottom: none; }
+
+.ec-ds-offer-icon {
+  width: 38px;
+  height: 38px;
+  background: #E6F7F3;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ec-ds-offer-info { flex: 1; }
+
+.ec-ds-offer-name {
+  font-size: .88rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.ec-ds-offer-desc {
+  font-size: .75rem;
+  color: #999;
+  margin-top: .1rem;
+}
+
+.ec-ds-offer-btn {
+  background: #F3F4F6;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  padding: .38rem .85rem;
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Simulateur */
+.ec-ds-sim-desc {
+  font-size: .83rem;
+  color: #666;
+  margin-bottom: .9rem;
+  line-height: 1.5;
+}
+
+.ec-ds-sim-btn {
+  width: 100%;
+  background: #3FBFA0;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: .8rem 1rem;
+  font-size: .88rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s;
+}
+.ec-ds-sim-btn:hover { background: #35a88e; }
