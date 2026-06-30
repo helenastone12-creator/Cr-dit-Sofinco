@@ -1951,10 +1951,14 @@ function admSendNotif(){
     var mNum=parseFloat((m+'').replace(/[^0-9.]/g,''))||0;
     var mensNum=parseFloat((mens+'').replace(/[^0-9.]/g,''))||0;
     var dNum=parseInt((d+'').replace(/[^0-9]/g,''))||60;
-    if(mNum>0 && typeof FidDB!=='undefined'){
-      var loan={montant:mNum,mensualite:mensNum,duree:dNum,taux:3.5,dateDebut:new Date().toISOString()};
-      c.user.loan=loan;
-      FidDB.updateClient(u.id,{loan:loan,status:'valide'}).then(function(){ admLoad(); }).catch(function(){});
+    if(typeof FidDB!=='undefined'){
+      var updateData={status:'valide'};
+      if(mNum>0){
+        var loan={montant:mNum,mensualite:mensNum,duree:dNum,taux:3.5,dateDebut:new Date().toISOString()};
+        c.user.loan=loan;
+        updateData.loan=loan;
+      }
+      FidDB.updateClient(u.id,updateData).then(function(){ admLoad(); }).catch(function(e){ console.error('[Admin] updateClient failed:',e); admLoad(); });
     }
   } else if(type==='dossier_refuse'){
     var motif=document.getElementById('notif-motif-refus').value||'';
