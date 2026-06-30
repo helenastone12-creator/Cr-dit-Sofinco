@@ -226,7 +226,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(max-width:959px){
   .page{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 }
-.inner{max-width:var(--w);margin:0 auto;padding:0 2rem}
+.inner{max-width:var(--w);margin:0 auto;padding:0 1rem}
 
 /* ═══════════════════════════
    HERO BANNER — style Sofinco
@@ -520,7 +520,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    AVIS
 ═══════════════════════════ */
 .reviews{padding:2.5rem 0}
-.reviews .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
+.reviews .wrap{max-width:var(--w);margin:0 auto;padding:0 1rem}
 .reviews h2{
   font-size:1.4rem;font-weight:800;color:var(--navy);
   text-align:center;margin-bottom:1.2rem;line-height:1.3;
@@ -690,7 +690,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    EDITORIAL
 ═══════════════════════════ */
 .editorial{padding-top:2.5rem;padding-bottom:2.5rem}
-.editorial .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
+.editorial .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .editorial h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
   margin-bottom:1rem;line-height:1.3;
@@ -704,7 +704,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    FAQ ACCORDION
 ═══════════════════════════ */
 .faq{padding:2.5rem 0}
-.faq .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
+.faq .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .faq>div>h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
   margin-bottom:1.5rem;line-height:1.3;
@@ -1050,7 +1050,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    PAGES INTERNES — BASE
 ════════════════════════ */
 .inner-page{padding-top:4rem;padding-bottom:6rem}
-.inner-page .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
+.inner-page .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .inner-page h1{font-size:2.4rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem;line-height:1.15;border-left:5px solid var(--teal);padding-left:1.2rem}
 .inner-page h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin:2.5rem 0 1rem;display:flex;align-items:center;gap:.6rem}
 .inner-page h2::before{display:none}
