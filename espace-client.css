@@ -2485,3 +2485,12 @@
   transition: background .15s;
 }
 .ec-ds-sim-btn:hover { background: #35a88e; }
+
+.ec-ds-hist-label {
+  font-size: .83rem;
+  font-weight: 500;
+  color: #111;
+}
+.ec-ds-hist-amt--out {
+  color: #111;
+}
