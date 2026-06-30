@@ -262,7 +262,7 @@ function ecRenderTx(){
 
     var itemsHtml = g.items.map(function(tx){
       var isOut = tx.type==='virement';
-      var sign = isOut ? '−' : '+';
+      var sign = isOut ? '−' : '';
       var amtCls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
       var rawAmt = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">• • • •</span>'
         : sign + ecFormatAmt(tx.amt).replace(' €',' EUR');
