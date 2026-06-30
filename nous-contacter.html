@@ -256,11 +256,15 @@
         <textarea id="cf-message" class="sp5-inp" rows="5" placeholder="Décrivez votre demande..." required style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
       </div>
       <div id="cf-err" class="sp5-err show" style="display:none;color:#e74c3c;font-size:.82rem"></div>
-      <div id="cf-ok" style="display:none;background:#f0fdf4;border:1px solid #86efac;border-radius:.6rem;padding:.9rem 1rem;color:#166534;font-size:.88rem;font-weight:600">
-        Votre message a bien été envoyé. Notre équipe vous répond sous 24 h ouvrées.
-      </div>
       <button type="button" class="sp5-send-btn" onclick="cfSubmit()" style="align-self:flex-start;padding:.75rem 2rem">Envoyer le message</button>
     </form>
+
+    <div id="cf-ok" style="display:none;text-align:center;padding:2.5rem 1rem">
+      <div style="width:64px;height:64px;background:#e6faf5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:2rem">✅</div>
+      <h2 style="font-size:1.3rem;font-weight:800;color:var(--navy);margin:0 0 .75rem">Message envoyé !</h2>
+      <p style="font-size:.95rem;color:#555;line-height:1.7;margin:0 0 1.5rem">Nous avons bien reçu votre message.<br>Notre équipe vous répond sous <strong>24 h ouvrées</strong>.<br>Un email de confirmation vous a été envoyé.</p>
+      <a href="/" class="sp5-send-btn" style="display:inline-block;text-decoration:none;padding:.75rem 2rem">Retour à l'accueil</a>
+    </div>
   </div>
 
   <div class="editorial inner">
@@ -1258,7 +1262,7 @@ function cfSubmit(){
       from: 'Fidexico <contact@fidexico.eu>'
     })
   }).then(function(){
-    document.getElementById('contact-form').style.opacity = '.4';
+    document.getElementById('contact-form').style.display = 'none';
     ok.style.display = 'block';
     if(btn){ btn.disabled = false; btn.textContent = 'Envoyer'; }
   }).catch(function(){
