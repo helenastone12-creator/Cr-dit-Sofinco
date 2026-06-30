@@ -1184,14 +1184,34 @@ function cfSubmit(){
   }
   err.style.display = 'none';
 
-  // Ouvre le client email avec les données pré-remplies
-  var ref    = (document.getElementById('cf-ref')||{}).value||'';
-  var body   = 'Nom : '+prenom.trim()+' '+nom.trim()+'\nEmail : '+email.trim()+'\nSujet : '+sujet+(ref?'\nDossier : '+ref.toUpperCase():'')+'\n\n'+message.trim();
-  window.location.href = 'mailto:contact@votre-domaine.fr?subject='+encodeURIComponent('[Contact] '+sujet)+'&body='+encodeURIComponent(body);
+  var ref = (document.getElementById('cf-ref')||{}).value||'';
+  var html = '<p><strong>Nom :</strong> '+prenom.trim()+' '+nom.trim()+'</p>'
+           + '<p><strong>Email :</strong> '+email.trim()+'</p>'
+           + '<p><strong>Sujet :</strong> '+sujet+'</p>'
+           + (ref ? '<p><strong>N° dossier :</strong> '+ref.toUpperCase()+'</p>' : '')
+           + '<p><strong>Message :</strong><br>'+message.trim().replace(/\n/g,'<br>')+'</p>';
 
-  // Confirmation
-  document.getElementById('contact-form').style.opacity = '.4';
-  ok.style.display = 'block';
+  var btn = document.querySelector('#contact-form button[type=button]');
+  if(btn){ btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+
+  fetch('send-email.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      to: 'contact@fidexico.eu',
+      subject: '[Contact] ' + sujet + (ref ? ' – ' + ref.toUpperCase() : ''),
+      html: html,
+      from: 'Fidexico Contact <contact@fidexico.eu>'
+    })
+  }).then(function(r){
+    document.getElementById('contact-form').style.opacity = '.4';
+    ok.style.display = 'block';
+    if(btn){ btn.disabled = false; btn.textContent = 'Envoyer'; }
+  }).catch(function(){
+    err.textContent = 'Erreur réseau, veuillez réessayer.';
+    err.style.display = 'block';
+    if(btn){ btn.disabled = false; btn.textContent = 'Envoyer'; }
+  });
 }
 </script>
 
