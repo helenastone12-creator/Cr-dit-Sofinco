@@ -747,32 +747,31 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .faq-item.open .faq-answer{padding-bottom:1.5rem;padding-left:1.3rem;padding-right:1.3rem;max-height:2000px}
 .faq-more{text-align:center;margin-top:.5rem}
 .faq-q{
-  display:block;width:100%;text-align:left;background:none;border:none;
-  border-bottom:1px solid #e8edf2;cursor:pointer;font-family:inherit;
-  font-size:.97rem;font-weight:600;color:#222;
-  padding:1.15rem 2.6rem 1.15rem 0;position:relative;
+  display:block;width:100%;text-align:left;background:#f0f0f0;border:none;
+  border-radius:12px;cursor:pointer;font-family:inherit;
+  font-size:.97rem;font-weight:400;color:#222;
+  padding:1.2rem 3rem 1.2rem 1.3rem;position:relative;
   -webkit-tap-highlight-color:transparent;
-  outline:none;
-  transition:color .22s ease;
+  outline:none;margin-bottom:.75rem;
+  transition:background .2s,color .2s;
 }
 .faq-q:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
 .faq-q:hover{color:#111}
 .faq-q::after{
-  content:'';position:absolute;right:6px;top:50%;
-  display:block;width:8px;height:8px;
-  border-right:2px solid #888;border-bottom:2px solid #888;
-  transform:translateY(-70%) rotate(45deg);
-  transition:transform .3s ease,border-color .2s;
+  content:'›';position:absolute;right:1.2rem;top:50%;
+  transform:translateY(-50%);
+  font-size:1.4rem;color:#666;font-weight:300;line-height:1;
+  transition:transform .3s ease,color .2s;
 }
-.faq-item.open .faq-q{color:var(--teal)}
-.faq-item.open .faq-q::after{transform:translateY(-30%) rotate(-135deg);border-color:var(--teal)}
+.faq-item.open .faq-q{color:#222;background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.08);border-radius:12px 12px 0 0;margin-bottom:0}
+.faq-item.open .faq-q::after{content:"∨";transform:translateY(-50%);color:#666;font-size:1.1rem}
 .faq-a{
   display:block;max-height:0;overflow:hidden;
   padding-top:0;padding-bottom:0;
   border-bottom:1px solid transparent;
   transition:max-height .34s cubic-bezier(.4,0,.2,1),padding .25s ease;
 }
-.faq-item.open .faq-a{padding:.85rem 0 1.25rem;border-bottom-color:#e8edf2;max-height:2000px}
+.faq-item.open .faq-a{padding:1rem 1.3rem 1.5rem;border-bottom-color:transparent;max-height:2000px;background:#fff;border-radius:0 0 12px 12px;box-shadow:0 4px 8px rgba(0,0,0,.06);margin-bottom:.75rem}
 .faq-a p{font-size:.9rem;color:#444;line-height:1.75;margin-bottom:.5rem}
 .faq-a p:last-child{margin-bottom:0}
 
