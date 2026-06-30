@@ -821,6 +821,9 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   var sBadge = document.getElementById('fd-status-badge');
   if(sBadge){ sBadge.textContent = si.label; sBadge.className = 'fd-status-badge ' + si.cls; }
 
+  // Init SGP section
+  setTimeout(sgpInit, 600);
+
   // Also refresh disponible after Supabase solde loads
   var _origRefresh = window.ecRefreshSolde;
   ecRefreshSolde = function(){
@@ -1566,3 +1569,236 @@ function ecSendMessage(){
   else if(p.indexOf('suivi-dossier.html')!==-1) ecInitSuivi();
   else if(p.indexOf('messagerie.html')!==-1) ecInitMessagerie();
 })();
+
+/* ── SGP: Suivi et Gestion du Prêt ── */
+
+var _sgpSchedule = [];
+
+function sgpBuildSchedule(capital, mens, duree, taux, dateDebut, moisPasses){
+  var schedule = [];
+  var tauxMens = taux / 100 / 12;
+  var solde = capital;
+  for(var i = 1; i <= duree; i++){
+    var interet = tauxMens > 0 ? Math.round(solde * tauxMens * 100) / 100 : 0;
+    var capitalMens = Math.round((mens - interet) * 100) / 100;
+    if(i === duree) capitalMens = Math.round(solde * 100) / 100;
+    solde = Math.max(0, Math.round((solde - capitalMens) * 100) / 100);
+    var date = new Date(dateDebut);
+    date.setMonth(date.getMonth() + i);
+    var statut = i < moisPasses ? 'paid' : (i === moisPasses ? 'current' : 'future');
+    schedule.push({
+      n: i,
+      date: date,
+      mens: mens,
+      capital: capitalMens,
+      interet: interet,
+      solde: solde,
+      statut: statut
+    });
+  }
+  return schedule;
+}
+
+function sgpFmtEur(n){
+  return n.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+}
+
+function sgpFmtDate(d){
+  return d.toLocaleDateString('fr-FR', {month:'short', year:'numeric'});
+}
+
+function sgpRenderSchedule(rows){
+  var tbody = document.getElementById('sgp-tbody');
+  if(!tbody) return;
+  if(!rows || !rows.length){
+    tbody.innerHTML = '<tr><td colspan="7" class="sgp-empty">Aucun échéancier disponible.</td></tr>';
+    return;
+  }
+  var html = '';
+  rows.forEach(function(r){
+    var statusLabel = r.statut === 'paid' ? '<span class="sgp-badge sgp-badge--paid">Payé</span>' :
+                      r.statut === 'current' ? '<span class="sgp-badge sgp-badge--current">En cours</span>' :
+                      '<span class="sgp-badge sgp-badge--future">À venir</span>';
+    var rowCls = r.statut === 'paid' ? 'sgp-row--paid' : r.statut === 'current' ? 'sgp-row--current' : '';
+    html += '<tr class="' + rowCls + '">';
+    html += '<td class="sgp-td-n">' + r.n + '</td>';
+    html += '<td>' + sgpFmtDate(r.date) + '</td>';
+    html += '<td class="sgp-td-amt">' + sgpFmtEur(r.mens) + '</td>';
+    html += '<td>' + sgpFmtEur(r.capital) + '</td>';
+    html += '<td class="sgp-td-int">' + sgpFmtEur(r.interet) + '</td>';
+    html += '<td>' + sgpFmtEur(r.solde) + '</td>';
+    html += '<td>' + statusLabel + '</td>';
+    html += '</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+function sgpFilterSchedule(q){
+  if(!q) return sgpRenderSchedule(_sgpSchedule);
+  var lq = q.toLowerCase();
+  var filtered = _sgpSchedule.filter(function(r){
+    return sgpFmtDate(r.date).toLowerCase().indexOf(lq) !== -1 ||
+           String(r.n).indexOf(lq) !== -1;
+  });
+  sgpRenderSchedule(filtered);
+}
+
+function sgpInitSchedule(){
+  var user = ecGetUser();
+  if(!user) return;
+  var loan = user.loan || {};
+  var capital = loan.montant || 0;
+  var mens = loan.mensualite || 0;
+  var duree = loan.duree || 0;
+  var taux = loan.taux || 0;
+  var dateDebut = loan.dateDebut ? new Date(loan.dateDebut) : new Date();
+  var moisPasses = Math.max(0, Math.floor((new Date() - dateDebut) / (30.44 * 24 * 3600 * 1000)));
+  moisPasses = Math.min(moisPasses, duree);
+
+  if(!capital || !duree){
+    var tbody = document.getElementById('sgp-tbody');
+    if(tbody) tbody.innerHTML = '<tr><td colspan="7" class="sgp-empty">Aucun prêt actif.</td></tr>';
+    return;
+  }
+
+  _sgpSchedule = sgpBuildSchedule(capital, mens, duree, taux, dateDebut, moisPasses);
+  sgpRenderSchedule(_sgpSchedule);
+
+  var totalInt = _sgpSchedule.reduce(function(s,r){ return s + r.interet; }, 0);
+  var totalMens = mens * duree;
+  var totalsEl = document.getElementById('sgp-totals');
+  if(totalsEl) totalsEl.style.display = '';
+  var elM = document.getElementById('sgp-total-mens');
+  var elI = document.getElementById('sgp-total-int');
+  var elC = document.getElementById('sgp-total-cost');
+  if(elM) elM.textContent = sgpFmtEur(totalMens);
+  if(elI) elI.textContent = sgpFmtEur(totalInt);
+  if(elC) elC.textContent = sgpFmtEur(capital + totalInt);
+}
+
+function sgpInitHistorique(){
+  var el = document.getElementById('sgp-hist-list');
+  if(!el) return;
+  var list = [];
+  try{ list = JSON.parse(localStorage.getItem('ec_tx') || '[]'); }catch(e){}
+  sgpRenderHistorique(list, 'all');
+}
+
+var _sgpHistFilter = 'all';
+function sgpRenderHistorique(list, filter){
+  var el = document.getElementById('sgp-hist-list');
+  if(!el) return;
+  _sgpHistFilter = filter;
+  var filtered = filter === 'all' ? list : list.filter(function(tx){ return tx.type === filter; });
+  if(!filtered.length){
+    el.innerHTML = '<div class="sgp-empty">Aucune opération.</div>';
+    return;
+  }
+  var iconIn = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
+  var iconOut = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  var html = '';
+  filtered.forEach(function(tx){
+    var isIn = tx.type === 'credit';
+    var amt = Math.abs(parseFloat(tx.amt) || 0);
+    var sign = isIn ? '+' : '−';
+    var amtFmt = sign + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+    var label = tx.label || (isIn ? 'Crédit' : 'Débit');
+    var motif = tx.motif ? '<div class="sgp-hist-motif">' + tx.motif + '</div>' : '';
+    html += '<div class="sgp-hist-item">';
+    html += '<div class="sgp-hist-icon ' + (isIn ? 'sgp-hist-icon--in' : 'sgp-hist-icon--out') + '">' + (isIn ? iconIn : iconOut) + '</div>';
+    html += '<div class="sgp-hist-info"><div class="sgp-hist-name">' + label + '</div>' + motif + '<div class="sgp-hist-date">' + (tx.date || '') + '</div></div>';
+    html += '<div class="sgp-hist-right"><div class="sgp-hist-amt ' + (isIn ? 'sgp-hist-amt--in' : 'sgp-hist-amt--out') + '">' + amtFmt + '</div><div class="sgp-hist-status">Validé</div></div>';
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function sgpFilterHist(filter, btn){
+  document.querySelectorAll('.sgp-filter-btn').forEach(function(b){ b.classList.remove('sgp-filter-btn--active'); });
+  if(btn) btn.classList.add('sgp-filter-btn--active');
+  var list = [];
+  try{ list = JSON.parse(localStorage.getItem('ec_tx') || '[]'); }catch(e){}
+  sgpRenderHistorique(list, filter);
+}
+
+function sgpSwitchTab(tab){
+  document.querySelectorAll('.sgp-tab').forEach(function(t){ t.classList.remove('sgp-tab--active'); });
+  document.querySelectorAll('.sgp-pane').forEach(function(p){ p.classList.add('sgp-pane--hidden'); });
+  var btn = document.querySelector('.sgp-tab[onclick*="' + tab + '"]');
+  if(btn) btn.classList.add('sgp-tab--active');
+  var pane = document.getElementById('sgp-pane-' + tab);
+  if(pane) pane.classList.remove('sgp-pane--hidden');
+  if(tab === 'echeancier' && !_sgpSchedule.length) sgpInitSchedule();
+  if(tab === 'historique') sgpInitHistorique();
+  if(tab === 'flexibilite') sgpInitDayGrid();
+}
+
+function sgpInitDayGrid(){
+  var grid = document.getElementById('sgp-day-grid');
+  if(!grid || grid.children.length) return;
+  var html = '';
+  for(var d = 1; d <= 28; d++){
+    html += '<button class="sgp-day-btn" onclick="sgpSelectDay(' + d + ', this)">' + d + '</button>';
+  }
+  grid.innerHTML = html;
+}
+
+function sgpSelectDay(day, btn){
+  document.querySelectorAll('.sgp-day-btn').forEach(function(b){ b.classList.remove('sgp-day-btn--active'); });
+  if(btn) btn.classList.add('sgp-day-btn--active');
+  var info = document.getElementById('sgp-selected-day-val');
+  if(info) info.textContent = day;
+}
+
+function sgpSendReportRequest(){
+  var mois = document.querySelector('input[name="report-mois"]:checked');
+  var motif = document.getElementById('sgp-report-motif');
+  var err = document.getElementById('sgp-report-err');
+  if(!motif || !motif.value.trim()){
+    if(err){ err.textContent = 'Merci d\'indiquer un motif.'; err.style.display = ''; }
+    return;
+  }
+  if(err) err.style.display = 'none';
+  var user = ecGetUser();
+  var text = 'Demande de report de mensualité — ' + (mois ? mois.value : '1') + ' mois.\nMotif : ' + motif.value.trim();
+  if(user && typeof FidDB !== 'undefined'){
+    FidDB.addMessage(user.id, text, true);
+  }
+  ecCloseModal('report-mens');
+  if(motif) motif.value = '';
+  setTimeout(function(){
+    alert('Votre demande de report a bien été envoyée. Votre conseiller vous répondra sous 48h.');
+  }, 300);
+}
+
+function sgpSendDateRequest(){
+  var dayEl = document.getElementById('sgp-selected-day-val');
+  var day = dayEl ? dayEl.textContent : '—';
+  var motif = document.getElementById('sgp-date-motif');
+  var err = document.getElementById('sgp-date-err');
+  if(!dayEl || day === '—'){
+    if(err){ err.textContent = 'Veuillez sélectionner un jour.'; err.style.display = ''; }
+    return;
+  }
+  if(err) err.style.display = 'none';
+  var user = ecGetUser();
+  var text = 'Demande de modification de la date de prélèvement : le ' + day + ' de chaque mois.' + (motif && motif.value.trim() ? '\nMotif : ' + motif.value.trim() : '');
+  if(user && typeof FidDB !== 'undefined'){
+    FidDB.addMessage(user.id, text, true);
+  }
+  ecCloseModal('modif-date');
+  if(motif) motif.value = '';
+  if(dayEl) dayEl.textContent = '—';
+  document.querySelectorAll('.sgp-day-btn').forEach(function(b){ b.classList.remove('sgp-day-btn--active'); });
+  setTimeout(function(){
+    alert('Votre demande de modification a bien été envoyée. Votre conseiller vous répondra sous 48h.');
+  }, 300);
+}
+
+// Init SGP on dashboard load
+var _sgpInit = false;
+function sgpInit(){
+  if(_sgpInit) return;
+  _sgpInit = true;
+  sgpInitSchedule();
+}
