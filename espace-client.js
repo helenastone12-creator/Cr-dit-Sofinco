@@ -863,9 +863,6 @@ function fdRenderActivity(){
     html += '<div class="fd-tx-right"><div class="fd-tx-amt ' + amtCls + '">' + amtFmt + '</div><div class="fd-tx-status">Validé</div></div>';
     html += '</div>';
   });
-  if(list.length > 7){
-    html += '<button class="fd-see-all" onclick="ecOpenAllTx()">Voir toutes les opérations (' + list.length + ') →</button>';
-  }
   el.innerHTML = html;
 }
 
