@@ -710,6 +710,7 @@ function emailBase(content, lang, opts){
   +'</p>'
   +'<p style="margin:0;text-align:center;font-family:Arial,sans-serif;font-size:12px;color:#999">'
   +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999;text-decoration:underline">Nous contacter</a>'
+  +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/securite.html" style="color:#999;text-decoration:underline">Sécurité</a>'
   +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/politique-donnees.html" style="color:#999;text-decoration:underline">Politique de confidentialité</a>'
   +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/mentions-legales.html" style="color:#999;text-decoration:underline">Mentions légales</a>'
   +'</p>'
