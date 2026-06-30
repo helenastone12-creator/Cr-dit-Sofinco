@@ -58,7 +58,14 @@
       margin-bottom: 2rem; line-height: 1.5;
     }
 
-    .field-wrap { position: relative; margin-bottom: 1rem; }
+    .field-group { margin-bottom: 1.1rem; }
+    .field-label { display: block; font-size: .88rem; font-weight: 600; color: #333; margin-bottom: .4rem; }
+    .field-wrap { position: relative; }
+    .forgot-link {
+      font-size: .9rem; font-weight: 700; color: #1a3a5c;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .forgot-link:hover { color: #0a2a4c; }
     .field-wrap input {
       width: 100%; border: 1.5px solid #c8c8c8; border-radius: 6px;
       padding: 1rem 1.1rem; font-size: 1rem; font-family: inherit;
@@ -144,25 +151,31 @@
     </div>
 
     <h1 class="login-title">ACCÉDER À MON<br>ESPACE SÉCURISÉ</h1>
-    <p class="login-subtitle">Saisissez votre adresse email et votre numéro de suivi de dossier pour recevoir votre code de connexion.</p>
 
     <div id="con-err1" class="form-err" style="display:none"></div>
 
-    <div class="field-wrap">
-      <input type="email" id="con-email" placeholder="Adresse email" autocomplete="email"
-        onkeydown="if(event.key==='Enter') conStep1()"/>
-    </div>
-    <div class="field-wrap">
-      <input type="text" id="con-fdx" placeholder="Numéro de dossier (ex : FDX-2026-XXXXXX)"
-        autocomplete="off" oninput="this.value=this.value.toUpperCase()"
-        onkeydown="if(event.key==='Enter') conStep1()"/>
+    <div class="field-group">
+      <label class="field-label">Adresse email</label>
+      <div class="field-wrap">
+        <input type="email" id="con-email" placeholder="ex : janedoe@gmail.com" autocomplete="email"
+          onkeydown="if(event.key==='Enter') conStep1()"/>
+      </div>
     </div>
 
-    <button class="btn-main" id="con-btn1" onclick="conStep1()">Recevoir mon code par email</button>
+    <div class="field-group">
+      <label class="field-label">Numéro de dossier</label>
+      <div class="field-wrap">
+        <input type="text" id="con-fdx" placeholder="ex : FDX-2026-XXXXXX"
+          autocomplete="off" oninput="this.value=this.value.toUpperCase()"
+          onkeydown="if(event.key==='Enter') conStep1()"/>
+      </div>
+    </div>
 
-    <div class="sep"><span>ou</span></div>
+    <button class="btn-main" id="con-btn1" onclick="conStep1()">Se connecter</button>
 
-    <a href="index.html" class="btn-outline">Faire une simulation</a>
+    <div style="text-align:center;margin-top:1.2rem">
+      <a href="nous-contacter.html" class="forgot-link">Numéro de dossier oublié</a>
+    </div>
   </div>
 
   <!-- Étape 2 : Code OTP -->
