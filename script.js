@@ -1551,7 +1551,6 @@ function sp5Submit(){
   var pageMap = {
     "index.html":               {"en":"index.html","de":"index.html","es":"index.html","it":"index.html","nl":"index.html","pl":"index.html","sv":"index.html"},
     "connexion.html":           {"en":"login.html","de":"anmelden.html","es":"iniciar-sesion.html","it":"accedi.html","nl":"inloggen.html","pl":"logowanie.html","sv":"logga-in.html"},
-    "inscription.html":         {"en":"register.html","de":"registrieren.html","es":"registro.html","it":"registrazione.html","nl":"registreren.html","pl":"rejestracja.html","sv":"registrera.html"},
     "mot-de-passe-oublie.html": {"en":"forgot-password.html","de":"passwort-vergessen.html","es":"contrasena-olvidada.html","it":"password-dimenticata.html","nl":"wachtwoord-vergeten.html","pl":"zapomniane-haslo.html","sv":"glomt-losenord.html"},
     "espace-client.html":       {"en":"my-account.html","de":"mein-konto.html","es":"mi-cuenta.html","it":"il-mio-conto.html","nl":"mijn-account.html","pl":"moje-konto.html","sv":"mitt-konto.html"},
     "mes-documents.html":       {"en":"my-documents.html","de":"meine-dokumente.html","es":"mis-documentos.html","it":"i-miei-documenti.html","nl":"mijn-documenten.html","pl":"moje-dokumenty.html","sv":"mina-dokument.html"},
@@ -1978,7 +1977,6 @@ function sp5Submit(){
   var pageMap = {
     'index.html':{'en':'index.html','de':'index.html','es':'index.html','it':'index.html','nl':'index.html','pl':'index.html','sv':'index.html'},
     'connexion.html':{'en':'login.html','de':'anmelden.html','es':'iniciar-sesion.html','it':'accedi.html','nl':'inloggen.html','pl':'logowanie.html','sv':'logga-in.html'},
-    'inscription.html':{'en':'register.html','de':'registrieren.html','es':'registro.html','it':'registrazione.html','nl':'registreren.html','pl':'rejestracja.html','sv':'registrera.html'},
     'tarifs.html':{'en':'pricing.html','de':'preise.html','es':'tarifas.html','it':'tariffe.html','nl':'tarieven.html','pl':'cennik.html','sv':'priser.html'},
     'pret-personnel.html':{'en':'personal-loan.html','de':'privatkredit.html','es':'prestamo-personal.html','it':'prestito-personale.html','nl':'persoonlijke-lening.html','pl':'pozyczka-osobista.html','sv':'personligt-laan.html'},
     'credit-auto.html':{'en':'car-loan.html','de':'autokredit.html','es':'credito-auto.html','it':'credito-auto.html','nl':'autolening.html','pl':'kredyt-samochodowy.html','sv':'billaan.html'},
