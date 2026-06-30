@@ -700,6 +700,21 @@ function ecInitDashboard(){
   var refEl=document.getElementById('ec-credit-ref');
   if(refEl) refEl.textContent=ecFmtRef(user.ref, user.id);
 
+  // Statut du dossier
+  var badge = document.getElementById('ec-ds-badge-statut');
+  if(badge){
+    var statusMap = {
+      'pending':  { label: 'En traitement', cls: 'ec-ds-badge--pending' },
+      'approved': { label: 'Approuvé',      cls: 'ec-ds-badge--approved' },
+      'active':   { label: 'Actif',          cls: 'ec-ds-badge--active' },
+      'closed':   { label: 'Clôturé',        cls: 'ec-ds-badge--closed' }
+    };
+    var status = (loan && loan.statut) || (capital > 0 ? 'active' : 'pending');
+    var si = statusMap[status] || statusMap['active'];
+    badge.textContent = si.label;
+    badge.className = 'ec-ds-badge ' + si.cls;
+  }
+
   ecInitAlertBanner();
   ecInitHealthScore();
   ecInitSpendingChart();
