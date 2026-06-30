@@ -1189,6 +1189,25 @@
             </div>
 
             <div class="op-card">
+              <div class="op-card-header" style="background:#fff3cd;color:#7a4f00;">
+                <span>⚠️</span> Gel des fonds — Litige
+              </div>
+              <div class="op-card-body">
+                <div class="adm-modal-note">Empêche tout transfert ou retrait des fonds déposés sur le compte client. Le client peut toujours se connecter et consulter son espace.</div>
+                <div class="adm-field">
+                  <label class="adm-field-lbl">Identifiant client</label>
+                  <input class="adm-field-inp" id="gel-id" placeholder="USR-XXXX..."/>
+                </div>
+                <div class="adm-modal-success" id="gel-ok">✓ Statut mis à jour.</div>
+                <div class="adm-modal-err" id="gel-err"></div>
+                <div style="display:flex;gap:.6rem;margin-top:.4rem">
+                  <button class="adm-btn adm-btn--coral" style="flex:1" onclick="opGel(true)">Geler les fonds</button>
+                  <button class="adm-btn adm-btn--green" style="flex:1" onclick="opGel(false)">Lever le gel</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="op-card">
               <div class="op-card-header op-card-header--yellow">
                 <span>🔒</span> Bloquer / Débloquer compte
               </div>
@@ -1941,6 +1960,19 @@ function opModPret(){
     FidEmail.dossierValide(c.user.prenom||c.user.nom, c.user.email, fmtAmt(montant), (duree||60)+' mois', fmtAmt(mens||0));
   }
   showMsg('pret-ok','pret-err','Prêt mis à jour pour '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
+}
+
+function opGel(gel){
+  var uid=document.getElementById('gel-id').value.trim();
+  if(!uid) return showMsg('gel-ok','gel-err','Identifiant requis.',false);
+  var c=findClientByUID(uid);
+  if(!c) return showMsg('gel-ok','gel-err','Client introuvable.',false);
+  c.user.fonds_geles=gel;
+  saveUser(c);
+  FidDB.updateClient(c.user.id,{fonds_geles:gel}).catch(function(){});
+  admLog(gel?'gel_fonds':'leve_gel', uid, (gel?'Gel des fonds':'Levée du gel')+' — litige', 0);
+  admLoad();
+  showMsg('gel-ok','gel-err','Fonds '+(gel?'gelés':'dégelés')+' — '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
 }
 
 function opBlock(block){
