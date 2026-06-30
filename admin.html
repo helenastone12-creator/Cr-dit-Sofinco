@@ -1276,12 +1276,17 @@
                 <label class="adm-field-lbl">Type de notification</label>
                 <select class="adm-input" id="notif-type" onchange="admNotifTypeChange()">
                   <option value="">— Choisir —</option>
+                  <option value="bienvenue">Bienvenue (nouveau compte) 👋</option>
                   <option value="dossier_etude">Dossier en cours d'étude</option>
                   <option value="dossier_valide">Dossier validé ✅</option>
                   <option value="dossier_refuse">Dossier refusé ❌</option>
                   <option value="documents">Documents complémentaires requis</option>
+                  <option value="simulation">Simulation soumise</option>
                   <option value="deblocage">Déblocage des fonds 💳</option>
+                  <option value="virement_sortant">Virement sortant effectué</option>
+                  <option value="virement_entrant">Virement entrant reçu</option>
                   <option value="rappel">Rappel de suivi</option>
+                  <option value="reset_password">Reset mot de passe</option>
                   <option value="message">Message personnalisé</option>
                 </select>
               </div>
@@ -1322,6 +1327,32 @@
               <div id="notif-fields-message" style="display:none;margin-bottom:.8rem">
                 <label class="adm-field-lbl">Message</label>
                 <textarea class="adm-input" id="notif-message-txt" rows="4" placeholder="Votre message au client…" style="resize:vertical"></textarea>
+              </div>
+
+              <div id="notif-fields-simulation" style="display:none;margin-bottom:.8rem">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem">
+                  <div><label class="adm-field-lbl">Montant</label><input class="adm-input" id="notif-sim-montant" placeholder="15 000 €"/></div>
+                  <div><label class="adm-field-lbl">Durée</label><input class="adm-input" id="notif-sim-duree" placeholder="60 mois"/></div>
+                  <div><label class="adm-field-lbl">Mensualité</label><input class="adm-input" id="notif-sim-mensualite" placeholder="280 €/mois"/></div>
+                </div>
+              </div>
+
+              <div id="notif-fields-virement_sortant" style="display:none;margin-bottom:.8rem">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem">
+                  <div><label class="adm-field-lbl">Montant</label><input class="adm-input" id="notif-vs-montant" placeholder="1 500 €"/></div>
+                  <div><label class="adm-field-lbl">Destinataire</label><input class="adm-input" id="notif-vs-dest" placeholder="Jean Dupont"/></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+                  <div><label class="adm-field-lbl">IBAN destinataire</label><input class="adm-input" id="notif-vs-iban" placeholder="FR76 1234 5678"/></div>
+                  <div><label class="adm-field-lbl">Motif</label><input class="adm-input" id="notif-vs-motif" placeholder="Remboursement"/></div>
+                </div>
+              </div>
+
+              <div id="notif-fields-virement_entrant" style="display:none;margin-bottom:.8rem">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+                  <div><label class="adm-field-lbl">Montant</label><input class="adm-input" id="notif-ve-montant" placeholder="5 000 €"/></div>
+                  <div><label class="adm-field-lbl">Expéditeur</label><input class="adm-input" id="notif-ve-expediteur" placeholder="Fidexico"/></div>
+                </div>
               </div>
 
               <div id="notif-ok" style="display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;color:#065f46;font-weight:600;margin-bottom:1rem"></div>
@@ -1912,14 +1943,17 @@ function admClearLog(){
 /* ── NOTIFICATIONS ── */
 function admNotifTypeChange(){
   var t=document.getElementById('notif-type').value;
-  var all=['valide','refuse','docs','deblocage','rappel','message'];
-  all.forEach(function(s){ document.getElementById('notif-fields-'+s).style.display='none'; });
-  if(t==='dossier_valide') document.getElementById('notif-fields-valide').style.display='block';
-  if(t==='dossier_refuse') document.getElementById('notif-fields-refuse').style.display='block';
-  if(t==='documents')      document.getElementById('notif-fields-docs').style.display='block';
-  if(t==='deblocage')      document.getElementById('notif-fields-deblocage').style.display='block';
-  if(t==='rappel')         document.getElementById('notif-fields-rappel').style.display='block';
-  if(t==='message')        document.getElementById('notif-fields-message').style.display='block';
+  var all=['valide','refuse','docs','deblocage','rappel','message','simulation','virement_sortant','virement_entrant'];
+  all.forEach(function(s){ var el=document.getElementById('notif-fields-'+s); if(el) el.style.display='none'; });
+  if(t==='dossier_valide')    document.getElementById('notif-fields-valide').style.display='block';
+  if(t==='dossier_refuse')    document.getElementById('notif-fields-refuse').style.display='block';
+  if(t==='documents')         document.getElementById('notif-fields-docs').style.display='block';
+  if(t==='deblocage')         document.getElementById('notif-fields-deblocage').style.display='block';
+  if(t==='rappel')            document.getElementById('notif-fields-rappel').style.display='block';
+  if(t==='message')           document.getElementById('notif-fields-message').style.display='block';
+  if(t==='simulation')        document.getElementById('notif-fields-simulation').style.display='block';
+  if(t==='virement_sortant')  document.getElementById('notif-fields-virement_sortant').style.display='block';
+  if(t==='virement_entrant')  document.getElementById('notif-fields-virement_entrant').style.display='block';
 }
 
 function admSendNotif(){
@@ -1978,6 +2012,28 @@ function admSendNotif(){
     var txt=document.getElementById('notif-message-txt').value.trim();
     if(!txt){ errEl.textContent='Rédigez un message.'; errEl.style.display='block'; return; }
     p=FidEmail.nouveauMessage(prenom, u.email, txt);
+  } else if(type==='bienvenue'){
+    p=FidEmail.bienvenue(prenom, u.nom||'', u.email, u.ref||u.id||'');
+  } else if(type==='simulation'){
+    var sm=document.getElementById('notif-sim-montant').value||'—';
+    var sd=document.getElementById('notif-sim-duree').value||'—';
+    var smens=document.getElementById('notif-sim-mensualite').value||'—';
+    p=FidEmail.simulationSoumise(prenom, u.email, sm, sd, smens);
+  } else if(type==='virement_sortant'){
+    var vsm=document.getElementById('notif-vs-montant').value||'—';
+    var vsd=document.getElementById('notif-vs-dest').value||'—';
+    var vsi=document.getElementById('notif-vs-iban').value||'—';
+    var vsmo=document.getElementById('notif-vs-motif').value||'—';
+    var vsref='VIR-'+Date.now();
+    p=FidEmail.virementSortant(prenom, u.email, vsm, vsd, vsi, vsmo, vsref);
+  } else if(type==='virement_entrant'){
+    var vem=document.getElementById('notif-ve-montant').value||'—';
+    var vee=document.getElementById('notif-ve-expediteur').value||'Fidexico';
+    var veref='DBL-'+Date.now();
+    p=FidEmail.virementEntrant(prenom, u.email, vem, vee, veref);
+  } else if(type==='reset_password'){
+    var token=Math.random().toString(36).substr(2,20);
+    p=sendEmail(u.email, 'Réinitialisation de votre mot de passe Fidexico', emailResetPassword(token));
   }
 
   if(p) p.then(function(){
