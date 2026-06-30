@@ -884,10 +884,10 @@
 .ec-tl-item{ display:flex;padding-left:1.5rem;position:relative;padding-bottom:1.3rem; }
 .ec-tl-item:last-child{ padding-bottom:0; }
 .ec-tl-dot{
-  position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;
+  position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;
   background:var(--teal);display:flex;align-items:center;justify-content:center;z-index:1;
 }
-.ec-tl-dot svg{ width:10px;height:10px; }
+.ec-tl-dot svg{ width:13px;height:13px;stroke-width:2.2; }
 .ec-tl-pulse{
   position:absolute;inset:-4px;border-radius:50%;
   border:2px solid var(--teal);opacity:.3;
@@ -899,7 +899,7 @@
 }
 .ec-tl-dot-pending{ background:#E2E6EA;border:1.5px solid #CDD3DA; }
 .ec-tl-line{
-  position:absolute;left:9px;top:22px;
+  position:absolute;left:12px;top:28px;
   width:2px;height:calc(100% - 20px);
   background:var(--border);z-index:0;
 }
