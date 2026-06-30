@@ -696,11 +696,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    EDITORIAL
 ═══════════════════════════ */
 .editorial{padding-top:1.5rem;padding-bottom:1.5rem}
-.editorial h2{text-align:center;}
 .editorial .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .editorial h2{
-  font-size:1.35rem;font-weight:800;color:var(--navy);
-  margin-bottom:1rem;line-height:1.3;
+  font-size:1.7rem;font-weight:800;color:var(--navy);
+  margin-bottom:1rem;line-height:1.25;text-align:left;text-transform:uppercase;
 }
 .editorial p{font-size:.9rem;color:#333;line-height:1.7;margin-bottom:.9rem}
 .editorial p:last-of-type{margin-bottom:1.4rem}
