@@ -910,6 +910,12 @@
 .ec-tl-date{ font-size:.68rem;color:var(--brand);font-weight:600;margin-top:.25rem; }
 .ec-tl-item.pending .ec-tl-title{ color:var(--muted); }
 .ec-tl-item.pending .ec-tl-desc{ color:var(--muted-2); }
+.ec-tl-dot-active{ background:var(--teal) !important; }
+.ec-tl-item.done .ec-tl-dot{ background:var(--teal); }
+.ec-tl-item.active .ec-tl-dot{ background:var(--teal); }
+.ec-tl-item.pending .ec-tl-dot{ background:#E2E6EA; border:1.5px solid #CDD3DA; }
+.ec-tl-item.done .ec-tl-line{ background:var(--teal); }
+.ec-tl-item.active .ec-tl-line{ background:linear-gradient(to bottom,var(--teal),var(--border)); }
 .ec-suivi-contact{
   display:flex;align-items:center;gap:.6rem;
   font-size:.8rem;color:var(--muted);
