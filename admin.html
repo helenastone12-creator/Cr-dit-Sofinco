@@ -1621,9 +1621,11 @@ function admRenderTable(clients){
     var u=c.user;
     var status=u.blocked
       ?'<span class="status-badge status-blocked">Bloqué</span>'
-      :(u.loan&&u.loan.montant>0
+      :(u.loan&&u.loan.montant>0||u.status==='valide'
         ?'<span class="status-badge status-active">Actif</span>'
-        :'<span class="status-badge status-pending">En attente</span>');
+        :(u.status==='en_etude'
+          ?'<span class="status-badge status-pending">En étude</span>'
+          :'<span class="status-badge status-pending">En attente</span>'));
     return '<tr>'
       +'<td><div class="td-name">'+(u.prenom||'')+' '+(u.nom||'')+'</div><div class="td-sub">'+(u.tel||'')+'</div></td>'
       +'<td><span class="td-tag td-tag--blue">'+(u.id||'—')+'</span></td>'
@@ -1940,11 +1942,20 @@ function admSendNotif(){
 
   if(type==='dossier_etude'){
     p=FidEmail.dossierEnEtude(prenom, u.email);
+    if(typeof FidDB!=='undefined') FidDB.updateClient(u.id,{status:'en_etude'}).then(function(){ admLoad(); }).catch(function(){});
   } else if(type==='dossier_valide'){
     var m=document.getElementById('notif-montant').value||'—';
     var d=document.getElementById('notif-duree').value||'—';
     var mens=document.getElementById('notif-mensualite').value||'—';
     p=FidEmail.dossierValide(prenom, u.email, m, d, mens);
+    var mNum=parseFloat((m+'').replace(/[^0-9.]/g,''))||0;
+    var mensNum=parseFloat((mens+'').replace(/[^0-9.]/g,''))||0;
+    var dNum=parseInt((d+'').replace(/[^0-9]/g,''))||60;
+    if(mNum>0 && typeof FidDB!=='undefined'){
+      var loan={montant:mNum,mensualite:mensNum,duree:dNum,taux:3.5,dateDebut:new Date().toISOString()};
+      c.user.loan=loan;
+      FidDB.updateClient(u.id,{loan:loan,status:'valide'}).then(function(){ admLoad(); }).catch(function(){});
+    }
   } else if(type==='dossier_refuse'){
     var motif=document.getElementById('notif-motif-refus').value||'';
     p=FidEmail.dossierRefuse(prenom, u.email, motif);
