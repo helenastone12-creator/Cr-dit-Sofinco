@@ -14,19 +14,11 @@
 </head>
 <body class="ec-body ec-dash-body">
 
-<!-- Header -->
-<header class="ec-header">
-  <a href="profil.html" class="ec-hd-avatar" id="ec-hd-avatar">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-  </a>
-  <button class="ec-hd-logout" onclick="ecLogout()">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-    <span data-i18n="nav_logout">Se déconnecter</span>
-  </button>
-</header>
+<!-- Header legacy masqué -->
+<header class="ec-header" style="display:none"></header>
 
 <!-- Contenu -->
-<main class="ec-main">
+<main class="ec-main ec-n26-main">
 
   <!-- Bannière d'alerte (conditionnelle) -->
   <div class="ec-alert-banner" id="ec-alert-banner" style="display:none">
@@ -37,51 +29,64 @@
     </button>
   </div>
 
-  <!-- Tableau de bord — à construire -->
+  <!-- ── En-tête N26 ── -->
+  <div class="ec-n26-header">
+    <button class="ec-n26-icon-btn" onclick="ecOpenModal('alertes')" aria-label="Recherche">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <div class="ec-n26-logo">Fidexico</div>
+    <a href="profil.html" class="ec-n26-icon-btn" id="ec-hd-avatar" aria-label="Profil">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+  </div>
+
+  <!-- ── Solde centré ── -->
+  <div class="ec-n26-balance-section">
+    <button class="ec-n26-balance-eye" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer/afficher">
+      <svg id="ec-eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+    <div class="ec-n26-balance-amt" id="ec-solde-amt">€0,00</div>
+    <div id="ec-solde-comptable" style="display:none"></div>
+    <!-- Onglets -->
+    <div class="ec-n26-tabs">
+      <button class="ec-n26-tab" onclick="location.href='mes-documents.html'">Documents</button>
+      <button class="ec-n26-tab ec-n26-tab--active">Solde</button>
+      <button class="ec-n26-tab" onclick="ecOpenModal('remb')">Crédit</button>
+    </div>
+  </div>
+
+  <!-- ── Liste transactions ── -->
+  <div class="ec-n26-tx-section" id="ec-tx-list">
+    <div class="ec-n26-tx-empty" id="ec-tx-empty">Aucune opération pour le moment.</div>
+  </div>
 
 </main>
 
 <!-- Navigation bas / Sidebar desktop -->
 <nav class="ec-bottom-nav">
-  <div class="ec-sidebar-brand">
-    <a href="index.html" class="ec-sidebar-logo"><img src="favicon.svg" alt="Fidexico" class="ec-hd-logo-icon"/></a>
-    <div class="ec-sidebar-tagline" data-i18n="sidebar_espace">Espace Client</div>
-  </div>
-  <div class="ec-sidebar-user-card" id="ec-sidebar-user-card">
-    <div class="ec-sidebar-avatar" id="ec-sidebar-avatar">J</div>
-    <div class="ec-sidebar-user-info">
-      <div class="ec-sidebar-user-name" id="ec-sidebar-user-name">—</div>
-      <div class="ec-sidebar-user-id" id="ec-sidebar-user-id">—</div>
-    </div>
-  </div>
-  <div class="ec-sidebar-divider"></div>
+  <!-- sidebar elements masqués -->
+  <div class="ec-sidebar-brand" style="display:none"></div>
+  <div class="ec-sidebar-user-card" id="ec-sidebar-user-card" style="display:none"><div class="ec-sidebar-avatar" id="ec-sidebar-avatar"></div><div class="ec-sidebar-user-info"><div id="ec-sidebar-user-name"></div><div id="ec-sidebar-user-id"></div></div></div>
+  <div class="ec-sidebar-divider" style="display:none"></div>
 
-  <a href="espace-client.html" class="ec-bnav-link active">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Accueil</span>
-    <div class="ec-bnav-dot"></div>
+  <!-- Nav N26 : liste | grille | + | cadeau | profil -->
+  <a href="espace-client.html" class="ec-bnav-link active" aria-label="Accueil">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </a>
-  <a href="mes-documents.html" class="ec-bnav-link">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-    <span>Documents</span>
-    <div class="ec-bnav-dot"></div>
+  <a href="mes-documents.html" class="ec-bnav-link" aria-label="Documents">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
   </a>
-  <button class="ec-bnav-center" onclick="ecOpenModal('virement')" aria-label="Virement">€</button>
-  <a href="messagerie.html" class="ec-bnav-link">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span>Messages</span>
-    <div class="ec-bnav-dot"></div>
-  </a>
-  <a href="profil.html" class="ec-bnav-link">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-    <span>Profil</span>
-    <div class="ec-bnav-dot"></div>
-  </a>
-
-  <button class="ec-sidebar-logout" onclick="ecLogout()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-    <span data-i18n="nav_logout">Déconnexion</span>
+  <button class="ec-bnav-center" onclick="ecOpenModal('depot')" aria-label="Dépôt">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
   </button>
+  <a href="messagerie.html" class="ec-bnav-link" aria-label="Messages">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+  </a>
+  <a href="profil.html" class="ec-bnav-link" aria-label="Profil">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+  </a>
+
+  <button class="ec-sidebar-logout" style="display:none" onclick="ecLogout()"></button>
 </nav>
 
 <!-- Modal Dépôt -->

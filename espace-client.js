@@ -120,7 +120,7 @@ function ecRefreshSolde(){
   var hidden = ecSoldeHidden();
   var solde = ecGetSolde();
   var mask = '• • • • • •';
-  if(el) el.textContent = hidden ? mask : ecFormatAmt(solde).replace(' €',' EUR');
+  if(el) el.textContent = hidden ? mask : '€'+solde.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
   if(el2) el2.textContent = hidden ? mask : ecFormatAmt(solde);
   var lbl = document.getElementById('ec-hide-bal-lbl');
   var ico = document.getElementById('ec-eye-icon');
@@ -225,6 +225,30 @@ function ecTxDisplayName(tx){
   return label.trim()||'—';
 }
 
+function ecTxCategoryIcon(type){
+  if(type==='virement') return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>';
+  if(type==='depot') return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 8 12 16"/><polyline points="8 12 12 16 16 12"/></svg>';
+  return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>';
+}
+
+function ecTxDateLabel(dateStr){
+  var s = String(dateStr||'').trim();
+  var today = new Date(); today.setHours(0,0,0,0);
+  var yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
+  var d = null;
+  var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(iso) d = new Date(parseInt(iso[1]), parseInt(iso[2])-1, parseInt(iso[3]));
+  var dmy = !d && s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
+  if(dmy) d = new Date(parseInt(dmy[3]), parseInt(dmy[2])-1, parseInt(dmy[1]));
+  if(d){
+    d.setHours(0,0,0,0);
+    if(d.getTime()===today.getTime()) return "Aujourd'hui";
+    if(d.getTime()===yesterday.getTime()) return 'Hier';
+    return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});
+  }
+  return s;
+}
+
 function ecRenderTx(){
   var list = ecGetTx();
   var container = document.getElementById('ec-tx-list');
@@ -233,7 +257,7 @@ function ecRenderTx(){
   if(!list.length){ if(empty) empty.style.display=''; return; }
   if(empty) empty.style.display='none';
   var hidden = ecSoldeHidden();
-  var displayed = EC_TX_SHOW_ALL ? list : list.slice(0,5);
+  var displayed = EC_TX_SHOW_ALL ? list : list.slice(0,10);
 
   /* Group by date */
   var groups = [];
@@ -248,39 +272,30 @@ function ecRenderTx(){
   });
 
   var html = groups.map(function(g){
-    /* Date separator — format dd.mm.yyyy */
-    var dateLabel = (function(){
-      var s = String(g.date||'').trim();
-      var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-      if(iso) return iso[3]+'.'+iso[2]+'.'+iso[1];
-      var dmy = s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
-      if(dmy) return String(dmy[1]).padStart(2,'0')+'.'+dmy[2]+'.'+dmy[3];
-      return s;
-    })();
-
-    var sepHtml = '<div class="ec-tx-date-sep"><span>'+dateLabel+'</span></div>';
+    var label = ecTxDateLabel(g.date);
+    var sepHtml = '<div class="ec-n26-date-label">'+label+'</div>';
 
     var itemsHtml = g.items.map(function(tx){
       var isOut = tx.type==='virement';
-      var sign = isOut ? '−' : '';
-      var amtCls = isOut ? 'ec-tx-amt--out' : 'ec-tx-amt--in';
-      var rawAmt = hidden ? '<span style="letter-spacing:.12em;color:var(--muted)">• • • •</span>'
-        : sign + ecFormatAmt(tx.amt).replace(' €',' EUR');
-      var sub = ecTxSubLabel(tx.type);
+      var sign = isOut ? '-' : '';
+      var fmtAmt = '€'+tx.amt.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+      var rawAmt = hidden ? '• • • •' : sign+fmtAmt;
+      var amtCls = isOut ? 'ec-n26-tx-amt' : 'ec-n26-tx-amt ec-n26-tx-amt--in';
       var displayName = ecTxDisplayName(tx);
-      var initials = ecTxInitials(tx);
+      var dateDisp = ecTxDateLabel(tx.date);
+      var icon = ecTxCategoryIcon(tx.type);
       var txJson = encodeURIComponent(JSON.stringify(tx));
-      return '<div class="ec-tx-item ec-tx-item--clickable" onclick="ecOpenTxDetail(\''+txJson+'\')">'
-        +'<div class="ec-tx-avatar">'+initials+'</div>'
-        +'<div class="ec-tx-info" style="flex:1;min-width:0">'
-        +'<div class="ec-tx-name">'+displayName+'</div>'
-        +'<div class="ec-tx-sub">'+sub.lbl+'</div>'
+      return '<div class="ec-n26-tx-item" onclick="ecOpenTxDetail(\''+txJson+'\')">'
+        +'<div class="ec-n26-tx-icon">'+icon+'</div>'
+        +'<div class="ec-n26-tx-info">'
+        +'<div class="ec-n26-tx-name">'+displayName+'</div>'
+        +'<div class="ec-n26-tx-date">'+dateDisp+'</div>'
         +'</div>'
-        +'<div class="ec-tx-amt '+amtCls+'">'+rawAmt+'</div>'
+        +'<div class="'+amtCls+'">'+rawAmt+'</div>'
         +'</div>';
     }).join('');
 
-    return sepHtml + '<div class="ec-tx-group">'+itemsHtml+'</div>';
+    return sepHtml + itemsHtml;
   }).join('');
 
   container.innerHTML = html;
