@@ -1087,7 +1087,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 ════════════════════════ */
 .prod-hero-badges{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
 .prod-hero-badge{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);color:#fff;padding:.38rem .95rem;border-radius:50px;font-size:.85rem;font-weight:600}
-.prod-audience{display:grid;gap:2rem;padding-top:3rem;padding-bottom:2rem}
+.prod-audience{display:grid;gap:2rem;padding-top:1.5rem;padding-bottom:1.5rem}
 @media(min-width:760px){.prod-audience{grid-template-columns:1fr 1fr}}
 .prod-audience h2{font-size:1.25rem;font-weight:700;color:var(--navy);margin-bottom:1.1rem}
 .audience-chips{display:flex;flex-wrap:wrap;gap:.5rem}
@@ -1151,8 +1151,8 @@ body.pg-inner .editorial{background:none}
 .prod-audience.inner,.prod-eligibilite-wrap.inner,.prod-documents-wrap.inner,
 .prod-etapes.inner,.prod-avantages.inner,.prod-faq.inner,
 .prod-chiffres.inner,.prod-mention-reg.inner{background:transparent}
-.prod-avantages{padding-top:3rem;padding-bottom:3rem}
-.prod-cta{background:#fff;padding:3.5rem 1.5rem;text-align:center}
+.prod-avantages{padding-top:2rem;padding-bottom:2rem}
+.prod-cta{background:#fff;padding:2rem 1.5rem;text-align:center}
 .prod-cta h2{font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:.8rem}
 .prod-cta p{color:#555;margin-bottom:1.5rem;line-height:1.6}
 .prod-cta .btn-prim{background:var(--coral);color:#fff;border:none;border-radius:2rem;padding:1rem 2.5rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
@@ -1267,7 +1267,7 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    AVANTAGES
 ════════════════════════ */
-.prod-avantages{padding-top:2.5rem;padding-bottom:2.5rem}
+.prod-avantages{padding-top:2rem;padding-bottom:2rem}
 .prod-avantages .wrap{max-width:1160px;margin:0 auto;padding:0 1.5rem}
 .prod-section-hd{text-align:center;margin-bottom:3.5rem}
 .prod-section-hd h2{font-size:2rem;font-weight:800;color:var(--navy);margin-bottom:.7rem;line-height:1.2}
@@ -1284,7 +1284,7 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    ÉTAPES
 ════════════════════════ */
-.prod-etapes{padding-top:5rem;padding-bottom:5rem}
+.prod-etapes{padding-top:2rem;padding-bottom:2rem}
 .prod-etapes .wrap{max-width:1000px;margin:0 auto;padding:0 1.5rem}
 .prod-etapes-grid{display:grid;grid-template-columns:1fr;gap:2.5rem;position:relative}
 @media(min-width:700px){.prod-etapes-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
@@ -1297,7 +1297,7 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    EXEMPLE REPRÉSENTATIF
 ════════════════════════ */
-.prod-exemple-wrap{padding-top:3rem;padding-bottom:3rem}
+.prod-exemple-wrap{padding-top:1.5rem;padding-bottom:1.5rem}
 .prod-exemple-wrap .wrap{max-width:860px;margin:0 auto;padding:0 1.5rem}
 .prod-exemple-box{background:linear-gradient(135deg,#f0f8ff,#e8f7f5);border:1.5px solid #b8dff5;border-radius:16px;padding:1.8rem 2rem}
 .prod-exemple-box h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.05em;font-size:.82rem}
@@ -1307,7 +1307,7 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    CTA BAND
 ════════════════════════ */
-.prod-cta{background:#fff;padding:5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.prod-cta{background:#fff;padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden}
 .prod-cta::before{display:none}
 .prod-cta h2{font-size:2.2rem;font-weight:800;color:var(--navy);margin-bottom:.8rem}
 .prod-cta p{font-size:1.05rem;color:#555;margin-bottom:2.5rem;line-height:1.6}
@@ -1327,7 +1327,7 @@ body.pg-inner .editorial{background:none}
 /* ════════════════════════
    TRUST STRIP
 ════════════════════════ */
-.prod-trust{background:var(--navy-d);padding:3rem 0}
+.prod-trust{background:var(--navy-d);padding:1.5rem 0}
 .prod-trust .wrap{max-width:var(--w);margin:0 auto;padding:0 1.5rem}
 .prod-trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
 @media(min-width:700px){.prod-trust-grid{grid-template-columns:repeat(4,1fr)}}
@@ -2012,7 +2012,7 @@ body.pg-inner .editorial{background:none}
   .editorial p{font-size:1rem;line-height:1.9}
   .prod-caract-wrap{padding:3rem}
   .caract-table td{padding:.9rem 1.2rem;font-size:1rem}
-  .prod-avantages{padding-top:2.5rem;padding-bottom:2.5rem}
+  .prod-avantages{padding-top:2rem;padding-bottom:2rem}
 }
 .sp5-confirm-secondary:hover{ color:var(--navy); }
 
