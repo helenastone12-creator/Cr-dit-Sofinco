@@ -3,11 +3,16 @@
 html{overflow-x:hidden;max-width:100%;-webkit-text-size-adjust:100%;font-family:'Source Sans Pro',Arial,sans-serif;background:#fff}
 /* Masquer le contenu de fond quand le simulateur est ouvert (clavier iOS semi-transparent) */
 body.sim-open > *:not(.sim-page):not(.nat-panel) { visibility:hidden; }
-body{font-family:'Source Sans Pro',Arial,sans-serif;font-size:16px;color:#000000;background:#fff;line-height:1.55;font-weight:400;overflow-x:hidden;max-width:100%;width:100%}
+body{font-family:'Source Sans Pro',Arial,sans-serif;font-size:0.75rem;color:#000000;background:#fff;line-height:1.6;font-weight:400;overflow-x:hidden;max-width:100%;width:100%}
+p{font-size:clamp(0.875rem,0.875rem + ((1vw - 0.2rem) * 0.455),1rem);font-weight:400;line-height:1.5rem}
 *{box-sizing:border-box}
 /* Empêche le zoom automatique iOS sur tous les champs (font-size < 16px = zoom) */
 input,select,textarea{font-size:max(16px,1em) !important;}
 h1,h2,h3,h4,h5,h6{font-family:'Montserrat',Arial,sans-serif}
+h1{font-size:2rem;font-weight:800;letter-spacing:-0.8px;line-height:2.5rem}
+h2{font-size:1.75rem;font-weight:800;letter-spacing:-0.7px;line-height:2.125rem}
+h3{font-size:1.5rem;font-weight:700;letter-spacing:-0.4px;line-height:1.875rem}
+h4{font-size:1.25rem;font-weight:600;letter-spacing:-0.35px;line-height:1.75rem}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 img{max-width:100%;height:auto;display:block}
