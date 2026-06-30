@@ -919,20 +919,6 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  // Mot de passe — barre de force
-  var pwdInp = document.getElementById('s5-pwd');
-  if(pwdInp){
-    pwdInp.addEventListener('input', function(){
-      var v = this.value, s = 0;
-      if(v.length>=8) s++;
-      if(/[A-Z]/.test(v)) s++;
-      if(/[0-9]/.test(v)) s++;
-      if(/[^A-Za-z0-9]/.test(v)) s++;
-      var bar = document.getElementById('s5-sbar');
-      if(bar){ bar.style.width=(s*25)+'%'; bar.style.background=['#e0e0e0','#e74c3c','#e67e22','#f1c40f','#2ecc71'][s]; }
-    });
-  }
-
   // IBAN — formatage automatique (groupes de 4)
   var iban = document.getElementById('s5-iban');
   var ibanErr = document.getElementById('s5-iban-err');
@@ -1220,24 +1206,6 @@ function sp5Validate(step){
     if(revEr) revEr.classList.toggle('show', !hasRev);
     if(!hasRev) ok=false;
 
-    // Mot de passe
-    var pwd  = (document.getElementById('s5-pwd')||{}).value||'';
-    var pwd2 = (document.getElementById('s5-pwd2')||{}).value||'';
-    var pwdEr  = document.getElementById('s5-pwd-err');
-    var pwd2Er = document.getElementById('s5-pwd2-err');
-    if(pwd.length < 8){
-      if(pwdEr) pwdEr.classList.add('show');
-      ok = false;
-    } else {
-      if(pwdEr) pwdEr.classList.remove('show');
-    }
-    if(pwd.length >= 8 && pwd !== pwd2){
-      if(pwd2Er){ pwd2Er.classList.add('show'); }
-      ok = false;
-    } else {
-      if(pwd2Er) pwd2Er.classList.remove('show');
-    }
-
   }
   return ok;
 }
@@ -1340,7 +1308,7 @@ function sp5Submit(){
     email: email.trim().toLowerCase(),
     tel: tel.trim(),
     ref: ref,
-    pwd: (document.getElementById('s5-pwd')||{}).value||null,
+
     status: 'active',
     createdAt: new Date().toISOString(),
     loan: {
