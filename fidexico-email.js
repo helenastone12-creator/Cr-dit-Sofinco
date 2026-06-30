@@ -690,14 +690,28 @@ function emailBase(content, lang, opts){
   +content
   +'</td></tr>'
 
+  /* ── AVERTISSEMENT SÉCURITÉ ── */
+  +'<tr><td style="padding:0 0 16px">'
+  +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fffbe6;border:1px solid #f0d080;border-radius:10px">'
+  +'<tr><td style="padding:14px 18px;font-family:Arial,sans-serif;font-size:12px;color:#555;line-height:1.6">'
+  +'<strong style="color:#333">⚠ Avertissement de sécurité</strong> : Fidexico ne vous demandera jamais vos codes d\'accès, mots de passe ou informations bancaires complètes par email. En cas de doute, ne cliquez sur aucun lien et contactez-nous via notre formulaire.'
+  +'</td></tr></table>'
+  +'</td></tr>'
+
   /* ── FOOTER GRIS ── */
-  +'<tr><td style="background:#f5f5f5;border-radius:16px;padding:32px 40px;margin:0 0 40px">'
+  +'<tr><td style="background:#f5f5f5;border-radius:16px;padding:32px 40px">'
   +'<p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:15px;font-weight:800;color:#000">FIDEXICO</p>'
   +'<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:13px;color:#666;line-height:1.6">'
   +'12 Rue de la Finance, 75008 Paris<br>'
   +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#666;text-decoration:underline">Nous contacter</a>'
   +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/politique-donnees.html" style="color:#666;text-decoration:underline">Politique de confidentialité</a>'
   +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/mentions-legales.html" style="color:#666;text-decoration:underline">Mentions légales</a>'
+  +'</p>'
+  +'<p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:11px;color:#999;line-height:1.6">'
+  +'Cet email a été envoyé à l\'adresse associée à votre espace client Fidexico. Il est strictement confidentiel et destiné uniquement à son destinataire. Toute utilisation, divulgation ou reproduction non autorisée est interdite.'
+  +'</p>'
+  +'<p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:11px;color:#999;line-height:1.6">'
+  +'Conformément au Règlement (UE) 2016/679 (RGPD), vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles. Pour exercer ces droits, écrivez-nous à <a href="mailto:contact@fidexico.eu" style="color:#999">contact@fidexico.eu</a> ou via notre <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">formulaire de contact</a>.'
   +'</p>'
   +'<p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#999">© Fidexico '+new Date().getFullYear()+'-'+(new Date().getFullYear()+1)+'</p>'
   +'</td></tr>'
