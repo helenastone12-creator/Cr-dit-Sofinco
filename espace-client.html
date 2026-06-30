@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="espace-client.css"/>
   <script src="ec-i18n.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 </head>
 <body class="ec-body ec-dash-body">
 
@@ -123,19 +124,47 @@
   <!-- ── KPI STRIP (3 métriques secondaires) ── -->
   <div class="v2-kpi-strip">
     <div class="v2-kpi-card">
+      <div class="v2-kpi-icon v2-kpi-icon--blue">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><polyline points="12 16 12.01 16"/></svg>
+      </div>
       <div class="v2-kpi-lbl">Capital restant dû</div>
       <div class="v2-kpi-val" id="fd-kpi-restant">—</div>
       <div class="v2-kpi-sub">Sur le prêt actif</div>
     </div>
     <div class="v2-kpi-card">
+      <div class="v2-kpi-icon v2-kpi-icon--em">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      </div>
       <div class="v2-kpi-lbl">Mensualité</div>
       <div class="v2-kpi-val" id="fd-kpi-mens">—</div>
       <div class="v2-kpi-sub">Prélèvement mensuel</div>
     </div>
     <div class="v2-kpi-card">
+      <div class="v2-kpi-icon v2-kpi-icon--amber">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
       <div class="v2-kpi-lbl">Prochaine échéance</div>
       <div class="v2-kpi-val v2-kpi-val--date" id="fd-kpi-echeance">—</div>
       <div class="v2-kpi-sub" id="fd-kpi-echeance-sub">—</div>
+    </div>
+  </div>
+
+  <!-- ── CHART SECTION ── -->
+  <div class="v4-chart-section" id="v4-chart-section" style="display:none">
+    <div class="v4-chart-card">
+      <div class="v4-chart-hd">
+        <div>
+          <div class="v4-chart-title">Évolution du capital</div>
+          <div class="v4-chart-sub">Amortissement du prêt sur la durée</div>
+        </div>
+        <div class="v4-chart-badges">
+          <span class="v4-chart-badge v4-chart-badge--em">Capital restant</span>
+          <span class="v4-chart-badge v4-chart-badge--blue">Remboursé</span>
+        </div>
+      </div>
+      <div class="v4-chart-wrap">
+        <canvas id="v4-loan-chart"></canvas>
+      </div>
     </div>
   </div>
 
@@ -223,19 +252,55 @@
         </div>
         <ul class="v2-docs">
           <li class="v2-doc">
-            <span class="v2-doc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-            <span class="v2-doc-name">Contrat de prêt</span>
-            <span class="v2-doc-tag">PDF</span>
+            <span class="v2-doc-ico">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </span>
+            <div class="v2-doc-body">
+              <div class="v2-doc-name">Contrat de prêt</div>
+              <div class="v2-doc-meta"><span class="v2-doc-tag">PDF</span><span class="v2-doc-signed">✓ Signé</span><span class="v2-doc-pages">4 pages</span></div>
+            </div>
+            <div class="v2-doc-actions">
+              <button class="v2-doc-btn" title="Voir" onclick="ecOpenModal('credit-detail')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+              <button class="v2-doc-btn v2-doc-btn--dl" title="Télécharger">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+            </div>
           </li>
           <li class="v2-doc">
-            <span class="v2-doc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-            <span class="v2-doc-name">Tableau d'amortissement</span>
-            <span class="v2-doc-tag">PDF</span>
+            <span class="v2-doc-ico">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </span>
+            <div class="v2-doc-body">
+              <div class="v2-doc-name">Tableau d'amortissement</div>
+              <div class="v2-doc-meta"><span class="v2-doc-tag">PDF</span><span class="v2-doc-pages">12 pages</span></div>
+            </div>
+            <div class="v2-doc-actions">
+              <button class="v2-doc-btn" title="Voir">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+              <button class="v2-doc-btn v2-doc-btn--dl" title="Télécharger">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+            </div>
           </li>
           <li class="v2-doc">
-            <span class="v2-doc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-            <span class="v2-doc-name">Attestation de financement</span>
-            <span class="v2-doc-tag">PDF</span>
+            <span class="v2-doc-ico">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </span>
+            <div class="v2-doc-body">
+              <div class="v2-doc-name">Attestation de financement</div>
+              <div class="v2-doc-meta"><span class="v2-doc-tag">PDF</span><span class="v2-doc-signed">✓ Signé</span><span class="v2-doc-pages">1 page</span></div>
+            </div>
+            <div class="v2-doc-actions">
+              <button class="v2-doc-btn" title="Voir">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+              <button class="v2-doc-btn v2-doc-btn--dl" title="Télécharger">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+            </div>
           </li>
         </ul>
       </div>
@@ -259,11 +324,21 @@
       </div>
     </div>
     <div class="v2-sidebar-user-row">
-      <div class="v2-sidebar-avatar" id="ec-sidebar-avatar"></div>
+      <div class="v2-sidebar-avatar-wrap">
+        <div class="v2-sidebar-avatar" id="ec-sidebar-avatar"></div>
+        <span class="v2-sidebar-avatar-status"></span>
+      </div>
       <div class="v2-sidebar-user-info">
-        <div id="ec-sidebar-user-name" class="v2-sidebar-uname"></div>
+        <div class="v2-sidebar-uname-row">
+          <div id="ec-sidebar-user-name" class="v2-sidebar-uname"></div>
+          <span class="v2-sidebar-premium-badge">PRO</span>
+        </div>
         <div id="ec-sidebar-user-id" class="v2-sidebar-uid"></div>
       </div>
+    </div>
+    <div class="v2-sidebar-verified-row">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Entreprise vérifiée
     </div>
   </div>
   <div class="v2-sidebar-sep"></div>

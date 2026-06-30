@@ -789,6 +789,14 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   set('fd-kpi-limite-sub', 'Limite approuvée : ' + fmtEur(capital));
   set('fd-kpi-restant', fmtEur(restant));
   set('fd-kpi-mens', fmtEur(mens));
+
+  // Counter animation on hero amount
+  setTimeout(function(){ v3CountUp('fd-disponible-amt', solde); }, 200);
+
+  // Chart
+  if(capital > 0){
+    setTimeout(function(){ v3InitChart(capital, mens, duree, moisPasses); }, 400);
+  }
   set('fd-restant-amt', fmtEur(restant));
   set('fd-mensualite-amt', fmtEur(mens));
 
@@ -858,6 +866,142 @@ function fdRenderActivity(){
     html += '<button class="fd-see-all" onclick="ecOpenAllTx()">Voir toutes les opérations (' + list.length + ') →</button>';
   }
   el.innerHTML = html;
+}
+
+// ── V4: Counter animation ──
+function v3CountUp(id, finalVal){
+  var el = document.getElementById(id);
+  if(!el || !finalVal || finalVal <= 0) return;
+  var duration = 900;
+  var steps = 40;
+  var interval = duration / steps;
+  var step = 0;
+  var timer = setInterval(function(){
+    step++;
+    var progress = step / steps;
+    var ease = 1 - Math.pow(1 - progress, 3);
+    var current = Math.round(finalVal * ease);
+    el.textContent = current.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
+    if(step >= steps){
+      clearInterval(timer);
+      el.textContent = finalVal.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
+    }
+  }, interval);
+}
+
+// ── V4: Chart.js loan amortization ──
+function v3InitChart(capital, mens, duree, moisPasses){
+  var section = document.getElementById('v4-chart-section');
+  var canvas = document.getElementById('v4-loan-chart');
+  if(!section || !canvas || typeof Chart === 'undefined') return;
+
+  // Build monthly amortization data
+  var tx = parseFloat(localStorage.getItem('ec_tx_rate')) || 0.05;
+  var monthlyRate = tx / 12;
+  var labels = [];
+  var dataRestant = [];
+  var dataRembourse = [];
+
+  var restantCalc = capital;
+  for(var i = 0; i <= duree; i++){
+    var label = i === 0 ? 'Début' : (i === duree ? 'Fin' : (i % Math.ceil(duree/6) === 0 ? 'Mois ' + i : null));
+    labels.push(label !== null ? label : '');
+    dataRestant.push(Math.max(0, Math.round(restantCalc)));
+    dataRembourse.push(Math.round(capital - Math.max(0, restantCalc)));
+    if(monthlyRate > 0){
+      var interest = restantCalc * monthlyRate;
+      var principal = mens - interest;
+      restantCalc -= principal;
+    } else {
+      restantCalc -= (capital / duree);
+    }
+  }
+
+  // Mark current month
+  var now = moisPasses;
+
+  section.style.display = 'block';
+
+  if(window._v4Chart) { try { window._v4Chart.destroy(); } catch(e){} }
+
+  var ctx = canvas.getContext('2d');
+  var gradRestant = ctx.createLinearGradient(0, 0, 0, 240);
+  gradRestant.addColorStop(0, 'rgba(11,170,110,.25)');
+  gradRestant.addColorStop(1, 'rgba(11,170,110,.02)');
+  var gradRemb = ctx.createLinearGradient(0, 0, 0, 240);
+  gradRemb.addColorStop(0, 'rgba(37,99,235,.18)');
+  gradRemb.addColorStop(1, 'rgba(37,99,235,.02)');
+
+  window._v4Chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Capital restant',
+          data: dataRestant,
+          borderColor: '#0BAA6E',
+          backgroundColor: gradRestant,
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          fill: true,
+          tension: .4
+        },
+        {
+          label: 'Remboursé',
+          data: dataRembourse,
+          borderColor: '#2563EB',
+          backgroundColor: gradRemb,
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          fill: true,
+          tension: .4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0B1526',
+          titleColor: 'rgba(255,255,255,.6)',
+          bodyColor: '#fff',
+          borderColor: 'rgba(255,255,255,.1)',
+          borderWidth: 1,
+          cornerRadius: 10,
+          padding: 10,
+          callbacks: {
+            label: function(ctx){
+              return ctx.dataset.label + ' : ' + ctx.parsed.y.toLocaleString('fr-FR') + ' €';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(11,21,38,.05)', drawBorder: false },
+          ticks: {
+            font: { size: 10, family: 'Inter, sans-serif' },
+            color: '#9BAAB8',
+            maxRotation: 0
+          }
+        },
+        y: {
+          grid: { color: 'rgba(11,21,38,.05)', drawBorder: false },
+          ticks: {
+            font: { size: 10, family: 'Inter, sans-serif' },
+            color: '#9BAAB8',
+            callback: function(v){ return (v/1000).toFixed(0) + 'k €'; }
+          }
+        }
+      }
+    }
+  });
 }
 
 // ── Sections prêt dashboard ──
