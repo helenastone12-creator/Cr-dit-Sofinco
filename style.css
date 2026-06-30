@@ -1,9 +1,9 @@
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{overflow-x:hidden;max-width:100%;-webkit-text-size-adjust:100%;font-family:'Open Sans',Arial,sans-serif;background:#fff}
+html{overflow-x:hidden;max-width:100%;-webkit-text-size-adjust:100%;font-family:'Open Sans',Arial,sans-serif;background:#f2f2f7}
 /* Masquer le contenu de fond quand le simulateur est ouvert (clavier iOS semi-transparent) */
 body.sim-open > *:not(.sim-page):not(.nat-panel) { visibility:hidden; }
-body{font-family:'Open Sans',Arial,sans-serif;font-size:14.5px;color:#222;background:#fff;line-height:1.55;font-weight:400;overflow-x:hidden;max-width:100%;width:100%}
+body{font-family:'Open Sans',Arial,sans-serif;font-size:14.5px;color:#222;background:#f2f2f7;line-height:1.55;font-weight:400;overflow-x:hidden;max-width:100%;width:100%}
 *{box-sizing:border-box}
 /* Empêche le zoom automatique iOS sur tous les champs (font-size < 16px = zoom) */
 input,select,textarea{font-size:max(16px,1em) !important;}
@@ -689,7 +689,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* ═══════════════════════════
    EDITORIAL
 ═══════════════════════════ */
-.editorial{padding-top:2.5rem;padding-bottom:2.5rem}
+.editorial{padding-top:2.5rem;padding-bottom:2.5rem;background:#fff}
 .editorial .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .editorial h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
@@ -703,7 +703,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* ═══════════════════════════
    FAQ ACCORDION
 ═══════════════════════════ */
-.faq{padding:2.5rem 0}
+.faq{padding:2.5rem 0;background:#fff}
 .faq .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .faq>div>h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
@@ -1049,7 +1049,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* ════════════════════════
    PAGES INTERNES — BASE
 ════════════════════════ */
-.inner-page{padding-top:4rem;padding-bottom:6rem}
+.inner-page{padding-top:4rem;padding-bottom:6rem;background:#fff}
 .inner-page .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .inner-page h1{font-size:2.4rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem;line-height:1.15;border-left:5px solid var(--teal);padding-left:1.2rem}
 .inner-page h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin:2.5rem 0 1rem;display:flex;align-items:center;gap:.6rem}
