@@ -1195,18 +1195,47 @@ function cfSubmit(){
   if(btn){ btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
 
   var confirmTpl = {
-    fr: { subject: 'Nous avons bien reçu votre message', body: 'Bonjour {prenom},<br><br>Nous avons bien reçu votre message concernant <strong>{sujet}</strong>.<br>Notre équipe vous répondra dans les meilleurs délais.<br><br>Cordialement,<br><strong>L\'équipe Fidexico</strong>' },
-    en: { subject: 'We have received your message', body: 'Hello {prenom},<br><br>We have received your message regarding <strong>{sujet}</strong>.<br>Our team will get back to you as soon as possible.<br><br>Best regards,<br><strong>The Fidexico Team</strong>' },
-    de: { subject: 'Wir haben Ihre Nachricht erhalten', body: 'Hallo {prenom},<br><br>Wir haben Ihre Nachricht zu <strong>{sujet}</strong> erhalten.<br>Unser Team wird sich so bald wie möglich bei Ihnen melden.<br><br>Mit freundlichen Grüßen,<br><strong>Das Fidexico-Team</strong>' },
-    es: { subject: 'Hemos recibido su mensaje', body: 'Hola {prenom},<br><br>Hemos recibido su mensaje sobre <strong>{sujet}</strong>.<br>Nuestro equipo le responderá a la mayor brevedad posible.<br><br>Atentamente,<br><strong>El equipo de Fidexico</strong>' },
-    it: { subject: 'Abbiamo ricevuto il suo messaggio', body: 'Gentile {prenom},<br><br>Abbiamo ricevuto il suo messaggio riguardante <strong>{sujet}</strong>.<br>Il nostro team la contatterà il prima possibile.<br><br>Cordiali saluti,<br><strong>Il team Fidexico</strong>' },
-    nl: { subject: 'Wij hebben uw bericht ontvangen', body: 'Hallo {prenom},<br><br>Wij hebben uw bericht over <strong>{sujet}</strong> ontvangen.<br>Ons team neemt zo snel mogelijk contact met u op.<br><br>Met vriendelijke groet,<br><strong>Het Fidexico-team</strong>' },
-    pl: { subject: 'Otrzymaliśmy Twoją wiadomość', body: 'Witaj {prenom},<br><br>Otrzymaliśmy Twoją wiadomość dotyczącą <strong>{sujet}</strong>.<br>Nasz zespół skontaktuje się z Tobą tak szybko, jak to możliwe.<br><br>Z poważaniem,<br><strong>Zespół Fidexico</strong>' },
-    sv: { subject: 'Vi har mottagit ditt meddelande', body: 'Hej {prenom},<br><br>Vi har mottagit ditt meddelande angående <strong>{sujet}</strong>.<br>Vårt team återkommer till dig så snart som möjligt.<br><br>Med vänliga hälsningar,<br><strong>Fidexico-teamet</strong>' }
+    fr: { subject: 'Nous avons bien reçu votre message', title: 'Votre message a bien été reçu', body: 'Bonjour <strong>{prenom}</strong>,<br><br>Nous avons bien reçu votre message concernant <strong>{sujet}</strong>.<br><br>Notre équipe vous répondra dans les meilleurs délais. Vous pouvez également nous joindre par téléphone au <strong>09 69 39 10 00</strong>.<br><br>Cordialement,<br><strong>L\'équipe Fidexico</strong>' },
+    en: { subject: 'We have received your message', title: 'Your message has been received', body: 'Hello <strong>{prenom}</strong>,<br><br>We have received your message regarding <strong>{sujet}</strong>.<br><br>Our team will get back to you as soon as possible. You can also reach us by phone at <strong>09 69 39 10 00</strong>.<br><br>Best regards,<br><strong>The Fidexico Team</strong>' },
+    de: { subject: 'Wir haben Ihre Nachricht erhalten', title: 'Ihre Nachricht ist bei uns eingegangen', body: 'Hallo <strong>{prenom}</strong>,<br><br>Wir haben Ihre Nachricht zu <strong>{sujet}</strong> erhalten.<br><br>Unser Team wird sich so bald wie möglich bei Ihnen melden. Sie können uns auch telefonisch unter <strong>09 69 39 10 00</strong> erreichen.<br><br>Mit freundlichen Grüßen,<br><strong>Das Fidexico-Team</strong>' },
+    es: { subject: 'Hemos recibido su mensaje', title: 'Su mensaje ha sido recibido', body: 'Hola <strong>{prenom}</strong>,<br><br>Hemos recibido su mensaje sobre <strong>{sujet}</strong>.<br><br>Nuestro equipo le responderá a la mayor brevedad. También puede contactarnos por teléfono en el <strong>09 69 39 10 00</strong>.<br><br>Atentamente,<br><strong>El equipo de Fidexico</strong>' },
+    it: { subject: 'Abbiamo ricevuto il suo messaggio', title: 'Il suo messaggio è stato ricevuto', body: 'Gentile <strong>{prenom}</strong>,<br><br>Abbiamo ricevuto il suo messaggio riguardante <strong>{sujet}</strong>.<br><br>Il nostro team la contatterà il prima possibile. Può anche raggiungerci telefonicamente al <strong>09 69 39 10 00</strong>.<br><br>Cordiali saluti,<br><strong>Il team Fidexico</strong>' },
+    nl: { subject: 'Wij hebben uw bericht ontvangen', title: 'Uw bericht is ontvangen', body: 'Hallo <strong>{prenom}</strong>,<br><br>Wij hebben uw bericht over <strong>{sujet}</strong> ontvangen.<br><br>Ons team neemt zo snel mogelijk contact met u op. U kunt ons ook telefonisch bereiken op <strong>09 69 39 10 00</strong>.<br><br>Met vriendelijke groet,<br><strong>Het Fidexico-team</strong>' },
+    pl: { subject: 'Otrzymaliśmy Twoją wiadomość', title: 'Twoja wiadomość została odebrana', body: 'Witaj <strong>{prenom}</strong>,<br><br>Otrzymaliśmy Twoją wiadomość dotyczącą <strong>{sujet}</strong>.<br><br>Nasz zespół skontaktuje się z Tobą tak szybko, jak to możliwe. Możesz również zadzwonić pod numer <strong>09 69 39 10 00</strong>.<br><br>Z poważaniem,<br><strong>Zespół Fidexico</strong>' },
+    sv: { subject: 'Vi har mottagit ditt meddelande', title: 'Ditt meddelande har mottagits', body: 'Hej <strong>{prenom}</strong>,<br><br>Vi har mottagit ditt meddelande angående <strong>{sujet}</strong>.<br><br>Vårt team återkommer till dig så snart som möjligt. Du kan också nå oss per telefon på <strong>09 69 39 10 00</strong>.<br><br>Med vänliga hälsningar,<br><strong>Fidexico-teamet</strong>' }
   };
   var lang = (document.documentElement.lang || 'fr').split('-')[0];
   var tpl  = confirmTpl[lang] || confirmTpl['fr'];
-  var confirmHtml = tpl.body.replace('{prenom}', prenom.trim()).replace('{sujet}', sujet);
+  var bodyContent = tpl.body.replace(/\{prenom\}/g, prenom.trim()).replace(/\{sujet\}/g, sujet);
+  var now = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  var confirmHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>'
+    +'<body style="margin:0;padding:0;background-color:#ddeef7;font-family:Arial,Helvetica,sans-serif">'
+    +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(180deg,#c5e8f5 0%,#ddeef7 100%);padding:32px 0"><tr><td align="center">'
+    +'<table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%">'
+    +'<tr><td style="background:linear-gradient(135deg,#a8d8ec 0%,#c5e8f5 100%);border-radius:8px 8px 0 0;padding:32px 40px 28px;text-align:center">'
+    +'<div style="font-size:26px;font-weight:800;color:#0B2140;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">FIDEXICO</div>'
+    +'<div style="font-size:10px;color:#1a5a7a;letter-spacing:2.5px;text-transform:uppercase">Établissement de Crédit · Espace Client Sécurisé</div>'
+    +'</td></tr>'
+    +'<tr><td style="background:#ff6b5c;height:3px;font-size:0;line-height:0">&nbsp;</td></tr>'
+    +'<tr><td style="background:#f5f7fa;padding:10px 40px;border-left:1px solid #dde3ec;border-right:1px solid #dde3ec">'
+    +'<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+    +'<td style="font-size:11px;color:#8a9ab0">'+now+'</td>'
+    +'</tr></table></td></tr>'
+    +'<tr><td style="background:#ffffff;padding:36px 40px;border-left:1px solid #dde3ec;border-right:1px solid #dde3ec">'
+    +'<p style="font-size:11px;color:#ff6b5c;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin:0 0 8px">ACCUSÉ DE RÉCEPTION — FORMULAIRE DE CONTACT</p>'
+    +'<h2 style="font-size:22px;font-weight:800;color:#0B2140;margin:0 0 20px;line-height:1.3">'+tpl.title+'</h2>'
+    +'<hr style="border:none;border-top:1px solid #e8edf4;margin:0 0 20px">'
+    +'<p style="font-size:14px;color:#333;line-height:1.8;margin:0">'+bodyContent+'</p>'
+    +'</td></tr>'
+    +'<tr><td style="background:#f0f4fa;padding:16px 40px;border:1px solid #dde3ec;border-top:none">'
+    +'<p style="font-size:11.5px;color:#4a5a6e;margin:0;line-height:1.6"><strong style="color:#0B2140">⚠ Sécurité :</strong> Fidexico ne vous demandera jamais vos codes d\'accès ou mots de passe par email.</p>'
+    +'</td></tr>'
+    +'<tr><td style="background:linear-gradient(135deg,#a8d8ec 0%,#c5e8f5 100%);padding:24px 40px;border-radius:0 0 8px 8px">'
+    +'<p style="font-size:11px;color:#1a4a6a;margin:0 0 8px;line-height:1.7">Conformément au RGPD, vous disposez d\'un droit d\'accès et de rectification de vos données. Contactez-nous à <strong>contact@fidexico.eu</strong>.</p>'
+    +'<hr style="border:none;border-top:1px solid rgba(11,33,64,.15);margin:10px 0">'
+    +'<p style="font-size:10.5px;color:#1a4a6a;margin:0"><strong style="color:#0B2140">FIDEXICO</strong> · <a href="https://fidexico.eu" style="color:#0B2140;text-decoration:none">fidexico.eu</a> · © '+new Date().getFullYear()+' Tous droits réservés</p>'
+    +'</td></tr>'
+    +'</table></td></tr></table></body></html>';
 
   fetch('send-email.php', {
     method: 'POST',
