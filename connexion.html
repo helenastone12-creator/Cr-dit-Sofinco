@@ -12,7 +12,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #f0f2f5;
+      background: #f5f5f5;
       min-height: 100vh;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       color: #111;
@@ -23,98 +23,109 @@
 
     /* ── Barre légale bas de page ── */
     .legal-bar {
-      background: #e4e6e9; border-top: 1px solid #d0d3d8;
+      background: #ebebeb; border-top: 1px solid #d8d8d8;
       color: #555; font-size: .8rem; font-weight: 500;
-      text-align: center; padding: .7rem 1.2rem; line-height: 1.5;
+      text-align: center; padding: .65rem 1.2rem; line-height: 1.5;
       font-family: 'Inter', system-ui, sans-serif;
+      margin-top: auto;
     }
 
     /* ── Page wrapper ── */
     .page {
       flex: 1; display: flex; flex-direction: column;
-      max-width: 1200px; margin: 0 auto; width: 100%;
-      padding: 2.5rem 2.5rem 2rem;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      padding: 2rem 1.5rem 1.5rem;
     }
 
     /* ── Logo ── */
     .page-logo {
       display: flex; align-items: center; gap: .7rem;
-      margin-bottom: 2rem; text-decoration: none;
+      margin-bottom: 2.2rem;
+      text-decoration: none;
     }
     .page-logo-text {
-      font-size: 1.5rem; font-weight: 900; color: #06c2b0;
+      font-size: 1.35rem; font-weight: 900; color: #06c2b0;
       letter-spacing: .08em;
     }
 
     /* ── Titre principal ── */
     .page-title {
-      font-size: 1.85rem; font-weight: 900; color: #111;
+      font-size: 1.7rem; font-weight: 900; color: #111;
       line-height: 1.15; margin-bottom: 2rem;
-      text-transform: uppercase; text-align: center;
+      text-transform: uppercase;
     }
 
-    /* ── Layout deux colonnes ── */
+    /* ── Layout mobile (défaut) : colonne ── */
     .content-row {
       display: flex; flex-direction: column; gap: 1.5rem; flex: 1;
     }
+
+    /* ── Layout desktop : deux colonnes côte à côte ── */
     @media (min-width: 860px) {
-      .page { justify-content: center; }
-      .page-title { font-size: 2.2rem; }
-      .content-row { flex-direction: row; align-items: flex-start; gap: 3rem; }
-      .content-left { flex: 1; }
-      .content-right { width: 400px; flex-shrink: 0; }
+      .page {
+        max-width: 1200px; padding: 2.5rem 2.5rem 2rem;
+        justify-content: center;
+      }
+      .page-logo { margin-bottom: 2rem; }
+      .page-title {
+        font-size: 2.2rem; margin-bottom: 2.5rem; text-align: center;
+      }
+      .content-row {
+        flex-direction: row; align-items: flex-start; gap: 3.5rem;
+      }
+      .content-left  { flex: 1; }
+      .content-right { width: 420px; flex-shrink: 0; }
+      .login-card { padding: 2.6rem 2.4rem; }
     }
 
-    /* ── Bannière fraude (gauche) ── */
+    /* ── Bannière fraudes (gauche) ── */
     .fraud-banner {
-      background: linear-gradient(150deg, #1a3a8c 0%, #2a5298 60%, #1e4fc2 100%);
-      border-radius: 14px; padding: 2.2rem 2.4rem;
+      background: linear-gradient(135deg, #1a3a8c 0%, #2a5298 50%, #1a3a8c 100%);
+      border-radius: 12px; padding: 1.6rem 1.8rem;
       color: #fff; position: relative; overflow: hidden;
     }
     .fraud-banner::before {
-      content: ''; position: absolute; top: -50px; right: -50px;
-      width: 220px; height: 220px; border-radius: 50%;
-      background: rgba(255,255,255,.07);
+      content: ''; position: absolute; top: -30px; right: -30px;
+      width: 140px; height: 140px; border-radius: 50%;
+      background: rgba(255,255,255,.06);
     }
     .fraud-banner::after {
-      content: ''; position: absolute; bottom: -60px; left: 30%;
-      width: 260px; height: 260px; border-radius: 50%;
+      content: ''; position: absolute; bottom: -40px; left: 40%;
+      width: 180px; height: 180px; border-radius: 50%;
       background: rgba(255,255,255,.04);
     }
     .fraud-head {
-      display: flex; align-items: flex-start; gap: .75rem;
-      font-size: 1rem; font-weight: 900; color: #fff;
-      text-transform: uppercase; letter-spacing: .05em; margin-bottom: 1.4rem;
+      display: flex; align-items: flex-start; gap: .6rem;
+      font-size: .92rem; font-weight: 900; color: #fff;
+      text-transform: uppercase; letter-spacing: .04em; margin-bottom: 1rem;
       position: relative; z-index: 1;
     }
-    .fraud-head svg { flex-shrink: 0; margin-top: .15rem; }
+    .fraud-head svg { flex-shrink: 0; margin-top: .1rem; }
     .fraud-body {
-      font-size: .92rem; color: rgba(255,255,255,.9); line-height: 1.75;
-      margin-bottom: .9rem; position: relative; z-index: 1;
+      font-size: .82rem; color: rgba(255,255,255,.88); line-height: 1.65;
+      margin-bottom: .6rem; position: relative; z-index: 1;
     }
     .fraud-body strong { color: #fff; }
     .fraud-body a { color: #90cce4; text-decoration: underline; }
 
-    /* ── Formulaire (droite) ── */
+    /* ── Carte formulaire (droite) ── */
     .form-section-title {
-      font-size: .78rem; font-weight: 800; color: #555;
-      text-transform: uppercase; letter-spacing: .12em;
+      font-size: .75rem; font-weight: 800; color: #555;
+      text-transform: uppercase; letter-spacing: .1em;
       margin-bottom: 1.2rem;
     }
-
-    /* ── Carte formulaire ── */
     .login-card {
-      background: #fff; border-radius: 12px;
-      padding: 2.4rem 2.2rem;
-      box-shadow: 0 4px 24px rgba(0,0,0,.09);
+      background: #fff; border-radius: 10px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
       margin-bottom: 1.2rem;
     }
 
-    .field-group { margin-bottom: 1.3rem; }
-    .field-label { display: block; font-size: .88rem; font-weight: 600; color: #333; margin-bottom: .45rem; }
+    .field-group { margin-bottom: 1.1rem; }
+    .field-label { display: block; font-size: .85rem; font-weight: 600; color: #333; margin-bottom: .4rem; }
     .field-wrap input {
-      width: 100%; border: 1.5px solid #c8c8c8; border-radius: 7px;
-      padding: 1rem 1.1rem; font-size: 1rem; font-family: inherit;
+      width: 100%; border: 1.5px solid #c8c8c8; border-radius: 6px;
+      padding: .9rem 1rem; font-size: .95rem; font-family: inherit;
       color: #111; background: #fff; outline: none;
       transition: border-color .18s;
     }
@@ -123,37 +134,37 @@
 
     .form-err {
       background: #fdf0ef; border: 1px solid rgba(192,57,43,.25);
-      border-radius: 7px; padding: .7rem 1rem; font-size: .84rem;
-      color: #c0392b; margin-bottom: 1rem; line-height: 1.5;
+      border-radius: 6px; padding: .65rem .9rem; font-size: .82rem;
+      color: #c0392b; margin-bottom: 1rem; line-height: 1.45;
     }
 
     .btn-main {
-      display: block; width: 100%; padding: 1.1rem;
-      background: #2c2c2c; color: #fff; border: none; border-radius: 7px;
-      font-size: 1rem; font-weight: 700; font-family: inherit;
-      cursor: pointer; transition: background .2s; margin-top: .5rem;
+      display: block; width: 100%; padding: 1rem;
+      background: #555; color: #fff; border: none; border-radius: 6px;
+      font-size: .95rem; font-weight: 700; font-family: inherit;
+      cursor: pointer; transition: background .2s; margin-top: .4rem;
     }
-    .btn-main:hover { background: #111; }
+    .btn-main:hover { background: #333; }
     .btn-main:disabled { background: #b0b0b0; cursor: not-allowed; }
 
     .forgot-link {
-      display: block; text-align: center; margin-top: 1rem;
-      font-size: .87rem; font-weight: 700; color: #1a3a5c;
+      display: block; text-align: center; margin-top: .9rem;
+      font-size: .85rem; font-weight: 700; color: #1a3a5c;
       text-decoration: underline; text-underline-offset: 2px;
     }
     .forgot-link:hover { color: #0a2a4c; }
 
     .otp-input {
-      text-align: center; font-size: 1.9rem; font-weight: 800;
+      text-align: center; font-size: 1.8rem; font-weight: 800;
       letter-spacing: .35em;
     }
 
     /* ── Footer liens ── */
     .footer-links {
-      display: flex; flex-wrap: nowrap; justify-content: center;
-      align-items: center; gap: .25rem .4rem;
-      font-size: .73rem; padding: 1rem 0 .5rem;
-      color: #999; white-space: nowrap;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: .25rem .5rem;
+      font-size: .72rem; padding: 1rem 0 .5rem;
+      color: #999;
     }
     .footer-links a { color: #c0392b; text-decoration: none; }
     .footer-links a:hover { text-decoration: underline; }
@@ -171,6 +182,7 @@
 
 <div class="page">
 
+  <!-- Logo -->
   <a href="index.html" class="page-logo">
     <span class="page-logo-text">FIDEXICO</span>
   </a>
