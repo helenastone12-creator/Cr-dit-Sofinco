@@ -682,9 +682,7 @@ function emailBase(content, lang, opts){
 
   /* ── LOGO ── */
   +'<tr><td style="padding:0 40px 40px;text-align:center">'
-  +'<span style="font-family:Arial,sans-serif;font-size:26px;font-weight:900;letter-spacing:2px">'
-  +'<span style="color:#06c2b0">FIDE</span><span style="color:#0d2748">XICO</span>'
-  +'</span>'
+  +'<span style="font-family:Arial,sans-serif;font-size:26px;font-weight:900;letter-spacing:2px;color:#06c2b0">FIDEXICO</span>'
   +'</td></tr>'
 
   /* ── CORPS ── */
