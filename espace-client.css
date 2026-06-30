@@ -2641,11 +2641,44 @@ html::-webkit-scrollbar {
   display: none;
 }
 
-/* ── Dashboard N26 sur PC : même design que mobile, adapté à la sidebar ── */
-@media (min-width: 768px) {
+/* ── Dashboard N26 sur PC : mise en page deux colonnes adaptée à l'écran ── */
+@media (min-width: 768px) and (max-width: 1023px) {
   .ec-n26-main {
     margin-left: 240px !important;
     margin-right: auto !important;
     max-width: 480px !important;
   }
+}
+@media (min-width: 1024px) {
+  .ec-n26-main {
+    margin-left: 240px !important;
+    margin-right: auto !important;
+    max-width: 1080px !important;
+    width: calc(100% - 240px);
+    padding: 2.2rem 2.5rem 3rem !important;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    column-gap: 2.5rem;
+    row-gap: 0;
+    align-items: start;
+    grid-template-areas:
+      "header  header"
+      "balance tx"
+      "cards   tx";
+  }
+  .ec-n26-main .ec-alert-banner { grid-column: 1 / -1; }
+  .ec-n26-header { grid-area: header; padding: 0 0 1.6rem; }
+  .ec-n26-balance-section {
+    grid-area: balance;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #F0F1F3;
+    border-radius: 18px;
+    padding: 1.6rem 1.5rem 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .ec-n26-balance-eye { margin-left: 0; }
+  .ec-n26-tx-section { grid-area: tx; margin-top: 0; }
+  .ec-n26-side-cards { grid-area: cards; margin-top: 1.2rem; }
+  .ec-statut-card, .ec-score-card { margin: 0 0 .8rem !important; }
 }
