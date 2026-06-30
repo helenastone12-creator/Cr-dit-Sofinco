@@ -2640,3 +2640,12 @@ html {
 html::-webkit-scrollbar {
   display: none;
 }
+
+/* ── Dashboard N26 sur PC : même design que mobile, adapté à la sidebar ── */
+@media (min-width: 768px) {
+  .ec-n26-main {
+    margin-left: 240px !important;
+    margin-right: auto !important;
+    max-width: 480px !important;
+  }
+}
