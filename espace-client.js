@@ -591,6 +591,13 @@ function ecInitDashboard(){
         var mapped = rows.map(function(r){ return {label:r.label||'',amt:parseFloat(r.amt)||0,type:r.type||'credit',date:r.date||'',iban:r.iban||'',motif:r.motif||''}; });
         localStorage.setItem('ec_tx', JSON.stringify(mapped));
         ecRenderTx();
+        // Rafraîchir l'historique des paiements avec les vraies données
+        var u2=ecGetUser(); var l2=u2.loan||{}; var c2=l2.montant||0; var me2=l2.mensualite||0; var du2=l2.duree||60;
+        var dd2=l2.dateDebut?new Date(l2.dateDebut):new Date();
+        var mp2=Math.min(Math.max(0,Math.floor((new Date()-dd2)/(30.44*24*3600*1000))),du2);
+        var re2=c2>0?Math.round(c2-(c2/du2)*mp2):0;
+        var pc2=c2>0?Math.round((mp2/du2)*100):0;
+        ecInitLoanSections(u2,l2,c2,me2,du2,dd2,mp2,re2,pc2);
       }
     }).catch(function(){});
   }
@@ -678,30 +685,24 @@ function ecInitLoanSections(user, loan, capital, mens, duree, dateDebut, moisPas
     setTimeout(function(){ ringFill.style.strokeDashoffset = circ * (1 - pct/100); }, 200);
   }
 
-  // ── Historique paiements (depuis transactions de type mensualite/remboursement)
+  // ── Historique paiements — toutes les transactions du compte (5 dernières)
   var histList = document.getElementById('ec-hist-list');
   if(histList){
     var txRaw = localStorage.getItem('ec_tx');
     var txArr = txRaw ? JSON.parse(txRaw) : [];
-    var payments = txArr.filter(function(t){ return t.type === 'mensualite' || t.type === 'remboursement' || (t.label && /mensualit|remboursement|échéance/i.test(t.label)); });
-    if(payments.length === 0 && capital > 0 && moisPasses > 0){
-      // Générer les mois passés synthétiques
-      for(var m = 0; m < Math.min(moisPasses, 5); m++){
-        var d = new Date(dateDebut);
-        d.setDate(1);
-        d.setMonth(d.getMonth() + m + 1);
-        payments.push({ date: d.toISOString().slice(0,10), amt: mens, label: 'Mensualité' });
-      }
-    }
-    if(payments.length > 0){
+    // Trier par date décroissante, prendre les 5 dernières
+    var sorted = txArr.slice().sort(function(a,b){ return new Date(b.date||0) - new Date(a.date||0); });
+    var recent = sorted.slice(0, 5);
+    if(recent.length > 0){
       histList.innerHTML = '';
-      payments.slice(-5).reverse().forEach(function(p){
+      recent.forEach(function(p){
         var dStr = p.date ? new Date(p.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}) : '—';
+        var isOut = p.type === 'debit' || p.type === 'virement' || p.type === 'mensualite' || p.amt < 0;
         var row = document.createElement('div');
         row.className = 'ec-ds-hist-item';
-        row.innerHTML = '<span class="ec-ds-hist-date">' + dStr + '</span>'
-          + '<span class="ec-ds-hist-amt">' + fmt(Math.abs(p.amt)) + '</span>'
-          + '<span class="ec-ds-hist-ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1A9478" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>';
+        var label = p.label || (isOut ? 'Débit' : 'Crédit');
+        row.innerHTML = '<div><div class="ec-ds-hist-label">' + label + '</div><div class="ec-ds-hist-date">' + dStr + '</div></div>'
+          + '<span class="ec-ds-hist-amt' + (isOut ? ' ec-ds-hist-amt--out' : '') + '">' + (isOut ? '-' : '') + fmt(Math.abs(p.amt)) + '</span>';
         histList.appendChild(row);
       });
     }
