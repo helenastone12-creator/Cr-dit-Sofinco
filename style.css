@@ -695,7 +695,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* ═══════════════════════════
    EDITORIAL
 ═══════════════════════════ */
-.editorial{padding-top:1.5rem;padding-bottom:1.5rem}
+.editorial{padding-top:1rem;padding-bottom:.75rem}
 .editorial .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .editorial h2{
   font-size:1.5rem;font-weight:800;color:var(--navy);
@@ -1095,7 +1095,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .use-list{list-style:none;padding:0;margin:0}
 .use-list li{padding:.42rem 0 .42rem 1.4rem;position:relative;color:#3d3d3d;font-size:.95rem;border-bottom:1px solid #f0f4f7}
 .use-list li::before{content:'';position:absolute;left:0;color:var(--teal);font-weight:800}
-.prod-caract-wrap{border-radius:14px;padding:2.5rem;margin:2rem auto}
+.prod-caract-wrap{border-radius:14px;padding:1.5rem;margin:.5rem auto}
 .prod-caract-wrap h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin-bottom:1.4rem}
 .prod-caract-wrap{overflow-x:auto}
 .caract-table{width:100%;border-collapse:collapse;min-width:0}
