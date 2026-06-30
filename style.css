@@ -721,7 +721,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .faq-item.open{background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.08)}
 .faq-question{
   width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:.65rem 1.3rem;font-size:.97rem;font-weight:400;color:#222;
+  padding:.85rem 1.3rem;font-size:.97rem;font-weight:400;color:#222;
   background:none;border:none;cursor:pointer;text-align:left;font-family:inherit;
   gap:1rem;
   -webkit-tap-highlight-color:transparent;
@@ -755,9 +755,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   display:block;width:100%;text-align:left;background:#f0f0f0;border:none;
   border-radius:12px;cursor:pointer;font-family:inherit;
   font-size:.97rem;font-weight:400;color:#222;
-  padding:.65rem 3rem .65rem 1.3rem;position:relative;
+  padding:.85rem 3rem .85rem 1.3rem;position:relative;
   -webkit-tap-highlight-color:transparent;
-  outline:none;margin-bottom:.4rem;
+  outline:none;margin-bottom:.75rem;
   transition:background .2s,color .2s;
 }
 .faq-q:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
