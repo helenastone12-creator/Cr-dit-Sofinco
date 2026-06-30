@@ -2171,36 +2171,3 @@ function sp5Submit(){
     setTimeout(initNatDropdown, 100);
   });
 })();
-
-// ── Scroll reveal animations ──
-(function(){
-  var style = document.createElement('style');
-  style.textContent = '';
-  document.head.appendChild(style);
-
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        entry.target.classList.add('sr-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  document.addEventListener('DOMContentLoaded', function(){
-    var selectors = [
-      '.prod-group-hd h2', '.prod-group-hd p',
-      '.editorial h2', '.editorial p',
-      '.prod-avantages h2', '.prod-avantages .avantage-item',
-      '.trust-icons .trust-item',
-      '.prod-card', '.faq-item',
-      '.inner-page h2', '.inner-page p',
-      '.legal-section', '.inner-page .btn-teal'
-    ];
-    document.querySelectorAll(selectors.join(',')).forEach(function(el, i){
-      el.classList.add('sr-hidden');
-      el.style.transitionDelay = (i % 6) * 60 + 'ms';
-      observer.observe(el);
-    });
-  });
-})();
