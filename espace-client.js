@@ -751,6 +751,16 @@ function ecInitDashboard(){
     badge.className = 'ec-ds-badge ' + si.cls;
   }
 
+  // Score de remboursement
+  var scorePctEl = document.getElementById('ec-score-pct-val');
+  var scoreIconEl = document.getElementById('ec-score-icon');
+  var scoreFillEl = document.getElementById('ec-score-bar-fill');
+  if(scorePctEl){
+    scorePctEl.textContent = pct + '%';
+    if(scoreFillEl) setTimeout(function(){ scoreFillEl.style.width = pct + '%'; }, 100);
+    if(scoreIconEl) scoreIconEl.textContent = pct >= 100 ? '🏆' : (pct >= 50 ? '⭐' : '🚀');
+  }
+
   ecInitAlertBanner();
   ecInitHealthScore();
   ecInitSpendingChart();
