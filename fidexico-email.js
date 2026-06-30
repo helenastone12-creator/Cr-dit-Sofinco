@@ -682,7 +682,9 @@ function emailBase(content, lang, opts){
 
   /* ── LOGO ── */
   +'<tr><td style="padding:0 40px 40px;text-align:center">'
-  +'<span style="font-family:Arial,sans-serif;font-size:20px;font-weight:900;color:#000;letter-spacing:1px">FIDEXICO</span>'
+  +'<span style="font-family:Arial,sans-serif;font-size:26px;font-weight:900;letter-spacing:2px">'
+  +'<span style="color:#06c2b0">FIDE</span><span style="color:#0d2748">XICO</span>'
+  +'</span>'
   +'</td></tr>'
 
   /* ── CORPS ── */
@@ -773,7 +775,7 @@ function _alertBox(color, bgColor, title, text){
 function emailBienvenue(prenom, nom, email, fdxNum, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Bienvenue chez Fidexico,<br>'+prenom+' !</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center;line-height:1.6">Votre espace client est maintenant actif.<br>Connectez-vous avec votre email et votre numéro de dossier.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;line-height:1.6">Votre espace client est maintenant actif.<br>Connectez-vous avec votre email et votre numéro de dossier.</p>'
     +_tbl([
       ['Titulaire', prenom+' '+nom],
       ['Email', email],
@@ -791,7 +793,7 @@ function emailConnexion(prenom, date, lang){
   var ref = 'SEC-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Nouvelle connexion<br>sur votre compte</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', une connexion a été enregistrée sur votre espace.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', une connexion a été enregistrée sur votre espace.</p>'
     +_tbl([
       ['Date et heure', date],
       ['Statut', 'Authentification réussie'],
@@ -806,7 +808,7 @@ function emailConnexion(prenom, date, lang){
 function emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre virement<br>a été exécuté</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', votre virement a été traité avec succès.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre virement a été traité avec succès.</p>'
     +_tbl([
       ['Montant débité', '− '+montant],
       ['Bénéficiaire', destinataire],
@@ -825,7 +827,7 @@ function emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, d
 function emailVirementEntrant(prenom, montant, expediteur, ref, date, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Vous avez reçu<br>un virement</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', un virement a été crédité sur votre compte.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', un virement a été crédité sur votre compte.</p>'
     +_tbl([
       ['Montant crédité', '+ '+montant],
       ['Expéditeur', expediteur],
@@ -840,7 +842,7 @@ function emailVirementEntrant(prenom, montant, expediteur, ref, date, lang){
 function emailNouveauMessage(prenom, apercu, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Vous avez un nouveau<br>message</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', votre conseiller vous a envoyé un message.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre conseiller vous a envoyé un message.</p>'
     +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;background:#f5f5f5;border-radius:12px"><tr>'
     +'<td style="padding:20px 24px;font-family:Arial,sans-serif;font-size:15px;color:#444;line-height:1.7;font-style:italic">"'+apercu+'..."</td>'
     +'</tr></table>'
@@ -853,7 +855,7 @@ function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
   var ref = 'DOS-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre demande<br>a bien été reçue</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', votre dossier a été enregistré et transmis à notre équipe.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre dossier a été enregistré et transmis à notre équipe.</p>'
     +_tbl([
       ['Montant demandé', montant],
       ['Durée', duree],
@@ -886,7 +888,7 @@ function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
 function emailDossierEnEtude(prenom, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre dossier est<br>en cours d\'étude</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', notre équipe analyse votre dossier de financement.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', notre équipe analyse votre dossier de financement.</p>'
     +_alertBox('','','Délai estimé','Notre comité de crédit vous répondra sous <strong>24 à 48 heures ouvrées</strong>. Aucune action n\'est requise de votre part.')
     +_btn('Consulter mon espace', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
     +_sign(),
@@ -897,7 +899,7 @@ function emailDossierValide(prenom, montant, duree, mensualite, lang){
   var ref = 'CTR-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Félicitations '+prenom+' !<br>Dossier validé</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Votre demande de financement a été approuvée par notre comité de crédit.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Votre demande de financement a été approuvée par notre comité de crédit.</p>'
     +_tbl([
       ['Montant accordé', montant],
       ['Durée', duree],
@@ -915,7 +917,7 @@ function emailDossierValide(prenom, montant, duree, mensualite, lang){
 function emailDossierRefuse(prenom, motif, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Suite donnée<br>à votre dossier</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', nous avons étudié attentivement votre demande de financement.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', nous avons étudié attentivement votre demande de financement.</p>'
     +_body('Après analyse, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre demande.'+(motif ? ' Motif retenu : <em>'+motif+'</em>.' : ''))
     +_alertBox('','','Vos droits','Vous pouvez demander les raisons objectives de cette décision en nous contactant. Cette décision peut évoluer dans le temps.')
     +_btn('Contacter notre équipe', FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html')
@@ -927,7 +929,7 @@ function emailDossierRefuse(prenom, motif, lang){
 function emailDocumentsRequis(prenom, liste, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Documents requis<br>pour votre dossier</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', pour finaliser votre dossier nous avons besoin des documents suivants :</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', pour finaliser votre dossier nous avons besoin des documents suivants :</p>'
     +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px">'
     +liste.map(function(d,i){
       var border = i < liste.length-1 ? 'border-bottom:1px solid #e8e8e8' : '';
@@ -946,7 +948,7 @@ function emailDeblocageFonds(prenom, montant, date, lang){
   var ref = 'DBL-'+Date.now().toString(36).toUpperCase().slice(-8);
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Vos fonds ont<br>été débloqués</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', le déblocage de vos fonds a été effectué.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', le déblocage de vos fonds a été effectué.</p>'
     +_tbl([
       ['Montant débloqué', montant],
       ['Date de crédit', date],
@@ -962,7 +964,7 @@ function emailDeblocageFonds(prenom, montant, date, lang){
 function emailRappelSuivi(prenom, jours, lang){
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Point de situation<br>sur votre dossier</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', votre conseiller revient vers vous après '+jours+' jours.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre conseiller revient vers vous après '+jours+' jours.</p>'
     +_body('Votre dossier reste ouvert. Avez-vous pu rassembler les éléments nécessaires à la finalisation de votre demande ?')
     +_btn('Accéder à mon espace', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
     +_sign()
@@ -974,7 +976,7 @@ function emailResetPassword(token){
   var link = FIDEXICO_CONFIG.SITE_URL + '/admin.html?reset=' + token;
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Réinitialisation<br>du mot de passe</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Une demande de réinitialisation du mot de passe administrateur a été effectuée.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Une demande de réinitialisation du mot de passe administrateur a été effectuée.</p>'
     +_btn('Réinitialiser mon mot de passe', link)
     +_alertBox('','','Ce lien expire dans 1 heure','Pour des raisons de sécurité, ce lien n\'est valable qu\'une seule fois. Si vous n\'êtes pas à l\'origine de cette demande, ignorez cet email.')
     +_note('Lien : <span style="word-break:break-all;font-size:11px">'+link+'</span>'),
@@ -989,7 +991,7 @@ function emailAdminNouveauClient(prenom, nom, email){
   var date = new Date().toLocaleString('fr-FR');
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Nouveau client<br>inscrit</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Un nouveau client vient de soumettre une demande.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Un nouveau client vient de soumettre une demande.</p>'
     +_tbl([
       ['Prénom', prenom],
       ['Nom', nom],
@@ -1004,7 +1006,7 @@ function emailAdminNouveauVirement(clientNom, montant, destinataire){
   var date = new Date().toLocaleString('fr-FR');
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Nouveau virement<br>client</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Un client a initié un virement depuis son espace.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Un client a initié un virement depuis son espace.</p>'
     +_tbl([
       ['Client', clientNom],
       ['Montant', montant],
@@ -1019,7 +1021,7 @@ function emailAdminNouveauMessage(clientNom, apercu){
   var date = new Date().toLocaleString('fr-FR');
   return emailBase(
     '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Nouveau message<br>client</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">'+clientNom+' vous a envoyé un message.</p>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+clientNom+' vous a envoyé un message.</p>'
     +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;background:#f5f5f5;border-radius:12px"><tr>'
     +'<td style="padding:20px 24px;font-family:Arial,sans-serif;font-size:15px;color:#444;line-height:1.7;font-style:italic">"'+apercu+'..."</td>'
     +'</tr></table>'
@@ -1143,7 +1145,7 @@ var FidEmail = {
   sendLoginOTP: function(email, prenom, code, fdxNum){
     var html = emailBase(
       '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre code<br>de connexion</h1>'
-      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', voici votre code à usage unique.</p>'
+      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', voici votre code à usage unique.</p>'
       +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px"><tr><td align="center">'
       +'<div style="background:#f5f5f5;border-radius:16px;padding:28px 40px;display:inline-block;text-align:center">'
       +'<div style="font-family:Courier New,monospace;font-size:44px;font-weight:900;color:#000;letter-spacing:.25em">'+code+'</div>'
@@ -1163,7 +1165,7 @@ var FidEmail = {
   sendActivationOTP: function(email, prenom, code, fdxNum){
     var html = emailBase(
       '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre code<br>de vérification</h1>'
-      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;text-align:center">Bonjour '+prenom+', voici votre code pour activer votre espace client.</p>'
+      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', voici votre code pour activer votre espace client.</p>'
       +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px"><tr><td align="center">'
       +'<div style="background:#f5f5f5;border-radius:16px;padding:28px 40px;display:inline-block;text-align:center">'
       +'<div style="font-family:Courier New,monospace;font-size:44px;font-weight:900;color:#000;letter-spacing:.25em">'+code+'</div>'
