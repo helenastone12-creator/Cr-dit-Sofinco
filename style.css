@@ -705,7 +705,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
    FAQ ACCORDION
 ═══════════════════════════ */
 .faq{padding:2.5rem 0}
-.faq h2{text-align:left;text-transform:uppercase;color:var(--navy);font-size:1.6rem;font-weight:900;letter-spacing:.02em;margin-bottom:1.5rem;}
+.faq h2{text-align:left;text-transform:uppercase;color:var(--navy);font-size:1.25rem;font-weight:900;letter-spacing:.02em;margin-bottom:1.5rem;}
 .faq .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .faq>div>h2{
   font-size:1.35rem;font-weight:800;color:var(--navy);
@@ -716,7 +716,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .faq-item.open{background:#fff;box-shadow:0 1px 8px rgba(0,0,0,.08)}
 .faq-question{
   width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:1.1rem 1.2rem;font-size:.97rem;font-weight:400;color:#222;
+  padding:1.2rem 1.3rem;font-size:.97rem;font-weight:400;color:#222;
   background:none;border:none;cursor:pointer;text-align:left;font-family:inherit;
   gap:1rem;
   -webkit-tap-highlight-color:transparent;
@@ -725,7 +725,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .faq-question:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
 .faq-question:hover{color:#111}
-.faq-item.open .faq-question{color:var(--teal)}
+.faq-item.open .faq-question{color:#222}
 .faq-icon{
   flex-shrink:0;width:20px;height:20px;
   display:flex;align-items:center;justify-content:center;
@@ -744,7 +744,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   font-size:.9rem;color:#555;line-height:1.75;
   transition:max-height .34s cubic-bezier(.4,0,.2,1),padding-bottom .25s ease;
 }
-.faq-item.open .faq-answer{padding-bottom:1.3rem;padding-left:1.2rem;padding-right:1.2rem;max-height:2000px}
+.faq-item.open .faq-answer{padding-bottom:1.5rem;padding-left:1.3rem;padding-right:1.3rem;max-height:2000px}
 .faq-more{text-align:center;margin-top:.5rem}
 .faq-q{
   display:block;width:100%;text-align:left;background:none;border:none;
