@@ -1,9 +1,9 @@
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{overflow-x:hidden;max-width:100%;-webkit-text-size-adjust:100%;font-family:'Open Sans',Arial,sans-serif;background:#f2f2f7}
+html{overflow-x:hidden;max-width:100%;-webkit-text-size-adjust:100%;font-family:'Open Sans',Arial,sans-serif;background:#f8f8f8}
 /* Masquer le contenu de fond quand le simulateur est ouvert (clavier iOS semi-transparent) */
 body.sim-open > *:not(.sim-page):not(.nat-panel) { visibility:hidden; }
-body{font-family:'Open Sans',Arial,sans-serif;font-size:14.5px;color:#222;background:#f2f2f7;line-height:1.55;font-weight:400;overflow-x:hidden;max-width:100%;width:100%}
+body{font-family:'Open Sans',Arial,sans-serif;font-size:14.5px;color:#222;background:#f8f8f8;line-height:1.55;font-weight:400;overflow-x:hidden;max-width:100%;width:100%}
 *{box-sizing:border-box}
 /* Empêche le zoom automatique iOS sur tous les champs (font-size < 16px = zoom) */
 input,select,textarea{font-size:max(16px,1em) !important;}
@@ -2318,7 +2318,7 @@ body.pg-inner .editorial{background:none}
 /* Panel plein écran — nationalité + tel picker */
 .nat-panel{
   display:none;position:fixed;inset:0;z-index:9990;
-  flex-direction:column;background:#f2f2f7;
+  flex-direction:column;background:#f8f8f8;
 }
 .nat-panel.open{display:flex}
 .nat-panel .nat-list{
@@ -2330,7 +2330,7 @@ body.pg-inner .editorial{background:none}
 }
 .nat-panel .nat-header{
   display:flex;align-items:center;gap:.7rem;
-  padding:1.1rem 1rem .9rem;background:#f2f2f7;flex-shrink:0;
+  padding:1.1rem 1rem .9rem;background:#f8f8f8;flex-shrink:0;
 }
 .nat-panel .nat-close-btn{
   width:32px;height:32px;border-radius:50%;border:none;
