@@ -466,7 +466,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .prod-group:last-child{margin-bottom:0}
 .prod-group-hd{padding:0 .25rem;margin-bottom:1.2rem}
 .prod-group-hd h2{
-  font-size:1.9rem;font-weight:800;color:var(--navy);
+  font-size:1.5rem;font-weight:800;color:var(--navy);
   margin-bottom:.35rem;line-height:1.25;text-align:left;text-transform:uppercase;
 }
 .prod-group-hd p{
@@ -698,7 +698,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .editorial{padding-top:1.5rem;padding-bottom:1.5rem}
 .editorial .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .editorial h2{
-  font-size:1.7rem;font-weight:800;color:var(--navy);
+  font-size:1.5rem;font-weight:800;color:var(--navy);
   margin-bottom:1rem;line-height:1.25;text-align:left;text-transform:uppercase;
 }
 .editorial p{font-size:.9rem;color:#333;line-height:1.7;margin-bottom:.9rem}
