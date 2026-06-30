@@ -1194,6 +1194,20 @@ function cfSubmit(){
   var btn = document.querySelector('#contact-form button[type=button]');
   if(btn){ btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
 
+  var confirmTpl = {
+    fr: { subject: 'Nous avons bien reçu votre message', body: 'Bonjour {prenom},<br><br>Nous avons bien reçu votre message concernant <strong>{sujet}</strong>.<br>Notre équipe vous répondra dans les meilleurs délais.<br><br>Cordialement,<br><strong>L\'équipe Fidexico</strong>' },
+    en: { subject: 'We have received your message', body: 'Hello {prenom},<br><br>We have received your message regarding <strong>{sujet}</strong>.<br>Our team will get back to you as soon as possible.<br><br>Best regards,<br><strong>The Fidexico Team</strong>' },
+    de: { subject: 'Wir haben Ihre Nachricht erhalten', body: 'Hallo {prenom},<br><br>Wir haben Ihre Nachricht zu <strong>{sujet}</strong> erhalten.<br>Unser Team wird sich so bald wie möglich bei Ihnen melden.<br><br>Mit freundlichen Grüßen,<br><strong>Das Fidexico-Team</strong>' },
+    es: { subject: 'Hemos recibido su mensaje', body: 'Hola {prenom},<br><br>Hemos recibido su mensaje sobre <strong>{sujet}</strong>.<br>Nuestro equipo le responderá a la mayor brevedad posible.<br><br>Atentamente,<br><strong>El equipo de Fidexico</strong>' },
+    it: { subject: 'Abbiamo ricevuto il suo messaggio', body: 'Gentile {prenom},<br><br>Abbiamo ricevuto il suo messaggio riguardante <strong>{sujet}</strong>.<br>Il nostro team la contatterà il prima possibile.<br><br>Cordiali saluti,<br><strong>Il team Fidexico</strong>' },
+    nl: { subject: 'Wij hebben uw bericht ontvangen', body: 'Hallo {prenom},<br><br>Wij hebben uw bericht over <strong>{sujet}</strong> ontvangen.<br>Ons team neemt zo snel mogelijk contact met u op.<br><br>Met vriendelijke groet,<br><strong>Het Fidexico-team</strong>' },
+    pl: { subject: 'Otrzymaliśmy Twoją wiadomość', body: 'Witaj {prenom},<br><br>Otrzymaliśmy Twoją wiadomość dotyczącą <strong>{sujet}</strong>.<br>Nasz zespół skontaktuje się z Tobą tak szybko, jak to możliwe.<br><br>Z poważaniem,<br><strong>Zespół Fidexico</strong>' },
+    sv: { subject: 'Vi har mottagit ditt meddelande', body: 'Hej {prenom},<br><br>Vi har mottagit ditt meddelande angående <strong>{sujet}</strong>.<br>Vårt team återkommer till dig så snart som möjligt.<br><br>Med vänliga hälsningar,<br><strong>Fidexico-teamet</strong>' }
+  };
+  var lang = (document.documentElement.lang || 'fr').split('-')[0];
+  var tpl  = confirmTpl[lang] || confirmTpl['fr'];
+  var confirmHtml = tpl.body.replace('{prenom}', prenom.trim()).replace('{sujet}', sujet);
+
   fetch('send-email.php', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
@@ -1201,9 +1215,20 @@ function cfSubmit(){
       to: 'contact@fidexico.eu',
       subject: '[Contact] ' + sujet + (ref ? ' – ' + ref.toUpperCase() : ''),
       html: html,
-      from: 'Fidexico Contact <contact@fidexico.eu>'
+      from: 'Fidexico <contact@fidexico.eu>'
     })
-  }).then(function(r){
+  });
+
+  fetch('send-email.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      to: email.trim(),
+      subject: tpl.subject,
+      html: confirmHtml,
+      from: 'Fidexico <contact@fidexico.eu>'
+    })
+  }).then(function(){
     document.getElementById('contact-form').style.opacity = '.4';
     ok.style.display = 'block';
     if(btn){ btn.disabled = false; btn.textContent = 'Envoyer'; }
