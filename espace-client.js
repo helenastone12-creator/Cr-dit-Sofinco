@@ -272,6 +272,20 @@ function ecTxDateLabel(dateStr){
   return "Aujourd'hui";
 }
 
+function ecNormDateKey(dateStr){
+  var todayKey = new Date().toISOString().slice(0,10);
+  var s = String(dateStr||'').trim();
+  var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(iso) return iso[1]+'-'+iso[2]+'-'+iso[3];
+  var dmy = s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
+  if(dmy) return dmy[3]+'-'+dmy[2]+'-'+String(dmy[1]).padStart(2,'0');
+  var months={'janvier':'01','février':'02','mars':'03','avril':'04','mai':'05','juin':'06','juillet':'07','août':'08','septembre':'09','octobre':'10','novembre':'11','décembre':'12'};
+  var parts = s.split(/\s+/);
+  if(parts.length===3 && months[parts[1].toLowerCase()])
+    return parts[2]+'-'+months[parts[1].toLowerCase()]+'-'+String(parts[0]).padStart(2,'0');
+  return todayKey;
+}
+
 function ecRenderTx(){
   var list = ecGetTx();
   var container = document.getElementById('ec-tx-list');
@@ -285,19 +299,6 @@ function ecRenderTx(){
   /* Group by date */
   var groups = [];
   var groupMap = {};
-  var todayKey = new Date().toISOString().slice(0,10);
-  function ecNormDateKey(dateStr){
-    var s = String(dateStr||'').trim();
-    var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if(iso) return iso[1]+'-'+iso[2]+'-'+iso[3];
-    var dmy = s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
-    if(dmy) return dmy[3]+'-'+dmy[2]+'-'+String(dmy[1]).padStart(2,'0');
-    var months={'janvier':'01','février':'02','mars':'03','avril':'04','mai':'05','juin':'06','juillet':'07','août':'08','septembre':'09','octobre':'10','novembre':'11','décembre':'12'};
-    var parts = s.split(/\s+/);
-    if(parts.length===3 && months[parts[1].toLowerCase()])
-      return parts[2]+'-'+months[parts[1].toLowerCase()]+'-'+String(parts[0]).padStart(2,'0');
-    return todayKey;
-  }
   displayed.forEach(function(tx){
     var key = ecNormDateKey(tx.date);
     if(!groupMap[key]){
