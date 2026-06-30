@@ -21,9 +21,9 @@
     }
     header, nav, footer, .hd-bar, .mob-nav, .hd-menu, .site-header { display: none !important; }
 
-    /* ── Barre légale haut de page ── */
+    /* ── Barre légale bas de page ── */
     .legal-bar {
-      background: #e4e6e9; border-bottom: 1px solid #d0d3d8;
+      background: #e4e6e9; border-top: 1px solid #d0d3d8;
       color: #555; font-size: .8rem; font-weight: 500;
       text-align: center; padding: .7rem 1.2rem; line-height: 1.5;
       font-family: 'Inter', system-ui, sans-serif;
@@ -148,10 +148,10 @@
 
     /* ── Footer liens ── */
     .footer-links {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      align-items: center; gap: .25rem .5rem;
+      display: flex; flex-wrap: nowrap; justify-content: center;
+      align-items: center; gap: .25rem .4rem;
       font-size: .73rem; padding: 1rem 0 .5rem;
-      color: #999;
+      color: #999; white-space: nowrap;
     }
     .footer-links a { color: #c0392b; text-decoration: none; }
     .footer-links a:hover { text-decoration: underline; }
@@ -167,13 +167,16 @@
 </head>
 <body>
 
-<div class="legal-bar">
-  Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
-</div>
-
 <div class="page">
 
-  <!-- Bannière fraude en haut -->
+  <a href="index.html" class="page-logo">
+    <span class="page-logo-text">FIDEXICO</span>
+  </a>
+
+  <!-- Titre -->
+  <h1 class="page-title">ACCÉDER À MON ESPACE SÉCURISÉ</h1>
+
+  <!-- Bannière fraude sous le titre -->
   <div class="fraud-banner" style="margin-bottom:2rem">
     <div class="fraud-head">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -182,13 +185,6 @@
     <p class="fraud-body">Des tentatives d'escroquerie peuvent survenir : des individus malveillants peuvent envoyer de faux messages en usurpant l'identité de Fidexico. Nous vous invitons à <strong>vérifier attentivement l'expéditeur</strong> avant d'ouvrir ou de répondre à tout email.</p>
     <p class="fraud-body">En cas de doute, ne cliquez sur aucun lien et contactez-nous via <a href="nous-contacter.html">notre formulaire de contact</a>.</p>
   </div>
-
-  <a href="index.html" class="page-logo">
-    <span class="page-logo-text">FIDEXICO</span>
-  </a>
-
-  <!-- Titre -->
-  <h1 class="page-title">ACCÉDER À MON ESPACE SÉCURISÉ</h1>
 
   <div class="content-row">
     <div class="login-wrap">
@@ -269,6 +265,10 @@
   </div><!-- /content-row -->
 
 </div><!-- /page -->
+
+<div class="legal-bar">
+  Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
+</div>
 
 <script src="fidexico-db.js"></script>
 <script src="fidexico-email.js"></script>
