@@ -1406,7 +1406,7 @@
                 <span>🔍</span> Prévisualiser &amp; modifier un document
               </div>
               <div class="op-card-body">
-                <div class="adm-modal-note">Modifiez les champs du document, ajoutez des clauses, puis approuvez-le pour le rendre visible dans l'espace client.</div>
+                <div class="adm-modal-note">1. Saisissez l'identifiant client → les champs se remplissent automatiquement. 2. Modifiez ce que vous voulez. 3. Prévisualisez puis cliquez <strong>Enregistrer &amp; Approuver</strong>.</div>
                 <div class="adm-field">
                   <label class="adm-field-lbl">Identifiant client</label>
                   <input class="adm-field-inp" id="docprev-id" placeholder="USR-XXXX..." onchange="admLoadDocCustom()"/>
@@ -1838,6 +1838,11 @@ function admLoad(){
   }
 }
 function admRefresh(){ admLoad(); }
+
+/* Initialise le panneau de champs dès le chargement */
+document.addEventListener('DOMContentLoaded', function(){
+  admLoadDocCustom();
+});
 
 function admRenderStats(){
   var total=ALL_CLIENTS.length;
