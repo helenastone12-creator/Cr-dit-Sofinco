@@ -834,6 +834,25 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   };
 }
 
+var _rfdMonths = {
+  'janvier':1,'février':2,'mars':3,'avril':4,'mai':5,'juin':6,
+  'juillet':7,'août':8,'septembre':9,'octobre':10,'novembre':11,'décembre':12,
+  'jan':1,'fév':2,'mar':3,'avr':4,'mai':5,'jui':6,'juil':7,'aoû':8,'sep':9,'oct':10,'nov':11,'déc':12
+};
+
+function fdNormalizeDate(raw){
+  if(!raw) return raw;
+  if(/^\d{2}\.\d{2}\.\d{4}$/.test(raw)) return raw;
+  var ms = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(ms) return ms[1].padStart(2,'0') + '.' + ms[2].padStart(2,'0') + '.' + ms[3];
+  var mf = raw.match(/^(\d{1,2})\s+(\S+)\s+(\d{4})$/i);
+  if(mf){
+    var mn = _rfdMonths[(mf[2]||'').toLowerCase()];
+    if(mn) return mf[1].padStart(2,'0') + '.' + String(mn).padStart(2,'0') + '.' + mf[3];
+  }
+  return raw;
+}
+
 function fdTxInitials(label){
   var words = (label || '').trim().split(/\s+/);
   if(words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
@@ -884,7 +903,7 @@ function fdRenderActivity(){
   var groups = {};
   var groupOrder = [];
   recent.forEach(function(tx){
-    var d = tx.date || 'Inconnu';
+    var d = fdNormalizeDate(tx.date) || 'Inconnu';
     if(!groups[d]){ groups[d] = []; groupOrder.push(d); }
     groups[d].push(tx);
   });
@@ -1732,7 +1751,7 @@ function sgpRenderHistorique(list, filter){
   var groups = {};
   var groupOrder = [];
   filtered.forEach(function(tx){
-    var d = tx.date || 'Inconnu';
+    var d = fdNormalizeDate(tx.date) || 'Inconnu';
     if(!groups[d]){ groups[d] = []; groupOrder.push(d); }
     groups[d].push(tx);
   });
