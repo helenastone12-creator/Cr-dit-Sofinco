@@ -268,6 +268,11 @@ function conStep1(){
         _conBusy('con-btn1', false);
         return;
       }
+      if(client.status !== 'active'){
+        _conErr('con-err1', 'Votre accès n\'est pas encore activé. <a href="inscription.html">Activez votre espace client →</a>');
+        _conBusy('con-btn1', false);
+        return;
+      }
       _conClient = client;
       _conOTP    = _conGenOTP();
       _conOTPExp = Date.now() + 10 * 60 * 1000;
