@@ -51,7 +51,7 @@
     <div class="ec-n26-tabs">
       <button class="ec-n26-tab" onclick="location.href='mes-documents.html'">Documents</button>
       <button class="ec-n26-tab ec-n26-tab--active">Solde</button>
-      <button class="ec-n26-tab" onclick="ecOpenModal('remb')">Crédit</button>
+      <button class="ec-n26-tab" onclick="ecOpenModal('credit-detail')">Crédit</button>
     </div>
   </div>
 
@@ -191,6 +191,56 @@
         </button>
       </div>
       <div class="ec-rib-copied" id="ec-rib-copied" style="display:none">IBAN copié dans le presse-papiers</div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Détails du crédit -->
+<div class="ec-modal-overlay" id="ec-modal-credit-detail" onclick="ecCloseModal('credit-detail')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Mon crédit</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('credit-detail')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-credit-detail-rows" id="ec-credit-detail-rows">
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Référence</span>
+          <span class="ec-credit-detail-val" id="ec-cd-ref">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Capital emprunté</span>
+          <span class="ec-credit-detail-val" id="ec-cd-capital">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Mensualité</span>
+          <span class="ec-credit-detail-val" id="ec-cd-mens">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Durée</span>
+          <span class="ec-credit-detail-val" id="ec-cd-duree">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Taux d'intérêt</span>
+          <span class="ec-credit-detail-val" id="ec-cd-taux">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Date de début</span>
+          <span class="ec-credit-detail-val" id="ec-cd-debut">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Capital restant dû</span>
+          <span class="ec-credit-detail-val ec-credit-detail-val--teal" id="ec-cd-restant">—</span>
+        </div>
+        <div class="ec-credit-detail-prog-wrap">
+          <div class="ec-credit-detail-prog-bar"><div class="ec-credit-detail-prog-fill" id="ec-cd-prog-fill"></div></div>
+          <span class="ec-credit-detail-prog-pct" id="ec-cd-prog-pct">0%</span>
+        </div>
+      </div>
+      <button class="ec-btn-primary" onclick="ecCloseModal('credit-detail');ecOpenModal('remb')" style="margin-top:1rem">
+        Simuler un remboursement anticipé
+      </button>
     </div>
   </div>
 </div>
