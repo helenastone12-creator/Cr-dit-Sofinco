@@ -659,6 +659,48 @@ function ecInitSuivi(){
   }
 }
 
+function ecSuiviApplyStatus(client){
+  var status = client.status || 'active';
+  var loan   = client.loan || {};
+  var blocked= client.blocked || false;
+  var badgeEl= document.getElementById('ec-suivi-badge');
+
+  // Reset toutes les étapes en pending
+  ['ec-tl-1','ec-tl-2','ec-tl-3','ec-tl-4','ec-tl-5'].forEach(function(id){
+    var el=document.getElementById(id); if(!el) return;
+    el.className='ec-tl-item pending';
+    var dot=el.querySelector('.ec-tl-dot');
+    if(dot){ dot.className='ec-tl-dot ec-tl-dot-pending'; dot.innerHTML=''; }
+  });
+
+  function markDone(id){
+    var el=document.getElementById(id); if(!el) return;
+    el.className='ec-tl-item done';
+    var dot=el.querySelector('.ec-tl-dot');
+    if(dot){ dot.className='ec-tl-dot'; dot.innerHTML='<svg viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'; }
+  }
+  function markActive(id){
+    var el=document.getElementById(id); if(!el) return;
+    el.className='ec-tl-item active';
+    var dot=el.querySelector('.ec-tl-dot');
+    if(dot){ dot.className='ec-tl-dot ec-tl-dot-active'; dot.innerHTML='<span class="ec-tl-pulse"></span>'; }
+  }
+
+  if(blocked){
+    markDone('ec-tl-1');
+    if(badgeEl){ badgeEl.textContent='Dossier suspendu'; badgeEl.style.background='#fee2e2'; badgeEl.style.color='#b91c1c'; }
+  } else if(status==='valide' || (loan && loan.montant>0)){
+    markDone('ec-tl-1'); markDone('ec-tl-2'); markDone('ec-tl-3'); markDone('ec-tl-4'); markDone('ec-tl-5');
+    if(badgeEl){ badgeEl.textContent='Dossier validé'; badgeEl.style.background='#dcfce7'; badgeEl.style.color='#15803d'; }
+  } else if(status==='en_etude'){
+    markDone('ec-tl-1'); markActive('ec-tl-2');
+    if(badgeEl){ badgeEl.textContent="En cours d'analyse"; badgeEl.style.background=''; badgeEl.style.color=''; }
+  } else {
+    markDone('ec-tl-1'); markActive('ec-tl-2');
+    if(badgeEl){ badgeEl.textContent="En cours d'analyse"; badgeEl.style.background=''; badgeEl.style.color=''; }
+  }
+}
+
 function ecSuiviSearch(){
   var val=((document.getElementById('ec-suivi-ref')||{}).value||'').trim();
   var errEl=document.getElementById('ec-suivi-err');
@@ -671,19 +713,42 @@ function ecSuiviSearch(){
     return;
   }
   if(errEl) errEl.style.display='none';
-  if(result) result.style.display='block';
 
   // Affiche le numéro saisi
   var refDisp=document.getElementById('ec-suivi-ref-disp');
   if(refDisp) refDisp.textContent=val.toUpperCase();
 
-  // Date simulée : hier
-  var d=new Date(); d.setDate(d.getDate()-1);
+  // Date depuis le compte ou hier par défaut
+  var user=ecGetUser();
+  var d=new Date();
+  if(user && user.createdAt) d=new Date(user.createdAt);
+  else d.setDate(d.getDate()-1);
   var dateStr=d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
   var dateEl=document.getElementById('ec-tl-date1');
   if(dateEl) dateEl.textContent=dateStr;
 
-  if(result) result.scrollIntoView({behavior:'smooth',block:'start'});
+  // Charger le vrai statut depuis Supabase
+  if(typeof FidDB!=='undefined' && user && user.id){
+    FidDB.getClientById(user.id).then(function(client){
+      if(!client){ if(errEl) errEl.style.display='block'; return; }
+      // Rafraîchir le cache local avec le statut Supabase
+      user.status  = client.status  || user.status;
+      user.loan    = client.loan    || user.loan;
+      user.blocked = client.blocked !== undefined ? client.blocked : user.blocked;
+      localStorage.setItem('ec_user', JSON.stringify(user));
+      if(result) result.style.display='block';
+      ecSuiviApplyStatus(client);
+      if(result) result.scrollIntoView({behavior:'smooth',block:'start'});
+    }).catch(function(){
+      if(result) result.style.display='block';
+      if(user) ecSuiviApplyStatus(user);
+      if(result) result.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  } else {
+    if(result) result.style.display='block';
+    if(user) ecSuiviApplyStatus(user);
+    if(result) result.scrollIntoView({behavior:'smooth',block:'start'});
+  }
 }
 
 // ── Touche Entrée suivi dossier ──
