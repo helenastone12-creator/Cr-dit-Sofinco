@@ -173,8 +173,6 @@
       <div class="step-dot active">1</div>
       <div class="step-line"></div>
       <div class="step-dot">2</div>
-      <div class="step-line"></div>
-      <div class="step-dot">3</div>
     </div>
 
     <h1 class="login-title">CRÉER MON ACCÈS<br>ESPACE CLIENT</h1>
@@ -203,8 +201,6 @@
       <div class="step-dot done">✓</div>
       <div class="step-line"></div>
       <div class="step-dot active">2</div>
-      <div class="step-line"></div>
-      <div class="step-dot">3</div>
     </div>
 
     <div style="text-align:center;margin-bottom:1.6rem">
@@ -230,44 +226,6 @@
       Pas reçu ?
       <button onclick="insResend()" style="background:none;border:none;color:#555;text-decoration:underline;cursor:pointer;font-size:.8rem;font-family:inherit">Renvoyer un code</button>
     </p>
-  </div>
-
-  <!-- Étape 3 : Mot de passe -->
-  <div id="ins-step3" class="login-card" style="display:none">
-    <div class="login-brand"><a href="index.html">FIDEXICO</a></div>
-
-    <div class="step-bar">
-      <div class="step-dot done">✓</div>
-      <div class="step-line"></div>
-      <div class="step-dot done">✓</div>
-      <div class="step-line"></div>
-      <div class="step-dot active">3</div>
-    </div>
-
-    <h1 class="login-title" style="margin-bottom:.5rem">CRÉER MON<br>MOT DE PASSE</h1>
-    <p class="login-subtitle">Choisissez un mot de passe sécurisé pour accéder à votre espace.</p>
-
-    <div id="ins-err3" class="form-err" style="display:none"></div>
-
-    <div class="field-wrap">
-      <input type="password" id="ins-pwd" placeholder="Mot de passe" autocomplete="new-password"
-        oninput="insPwdStrength(this.value)"/>
-      <button type="button" class="eye-btn" onclick="insTogglePwd('ins-pwd')">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
-    </div>
-    <div class="strength-bar"><div class="strength-fill" id="ins-sbar" style="width:0"></div></div>
-    <p class="pwd-hint">8 caractères minimum, avec majuscule, chiffre et symbole recommandés.</p>
-
-    <div class="field-wrap">
-      <input type="password" id="ins-pwd2" placeholder="Confirmer le mot de passe" autocomplete="new-password"
-        onkeydown="if(event.key==='Enter') insStep3()"/>
-      <button type="button" class="eye-btn" onclick="insTogglePwd('ins-pwd2')">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
-    </div>
-
-    <button class="btn-main" id="ins-btn3" onclick="insStep3()">Activer mon espace client</button>
   </div>
 
   <!-- Succès -->
@@ -358,8 +316,8 @@ function insStep1(){
         _insBusy('ins-btn1', false);
         return;
       }
-      if(client.status === 'active' && client.pwd){
-        _insErr('ins-err1','Un accès existe déjà pour ce compte. Utilisez "Mot de passe oublié ?" sur la page de connexion.');
+      if(client.status === 'active'){
+        _insErr('ins-err1','Un accès existe déjà pour ce compte. <a href="connexion.html">Connectez-vous directement</a>.');
         _insBusy('ins-btn1', false);
         return;
       }
@@ -399,24 +357,14 @@ function insStep2(){
   if(!code || code.length < 6){ _insErr('ins-err2','Saisissez le code à 6 chiffres.'); return; }
   if(Date.now() > _insOTPExp){ _insErr('ins-err2','Ce code a expiré. Cliquez sur "Renvoyer un code".'); return; }
   if(code !== _insOTP){ _insErr('ins-err2','Code incorrect. Vérifiez votre email et réessayez.'); return; }
-  document.getElementById('ins-step2').style.display = 'none';
-  document.getElementById('ins-step3').style.display = 'block';
-}
-
-function insStep3(){
-  var pwd  = document.getElementById('ins-pwd').value;
-  var pwd2 = document.getElementById('ins-pwd2').value;
-  _insErr('ins-err3','');
-  if(pwd.length < 8){ _insErr('ins-err3','Le mot de passe doit contenir au moins 8 caractères.'); return; }
-  if(pwd !== pwd2){ _insErr('ins-err3','Les mots de passe ne correspondent pas.'); return; }
-  if(!_insClient){ _insErr('ins-err3','Session expirée. Recommencez depuis le début.'); return; }
-  _insBusy('ins-btn3', true);
-  FidDB.updateClient(_insClient.id, { pwd: pwd, status: 'active' })
+  if(!_insClient){ _insErr('ins-err2','Session expirée. Recommencez depuis le début.'); return; }
+  _insBusy('ins-btn2', true);
+  FidDB.updateClient(_insClient.id, { status: 'active' })
     .then(function(){
-      document.getElementById('ins-step3').style.display = 'none';
+      document.getElementById('ins-step2').style.display = 'none';
       document.getElementById('ins-step4').style.display = 'block';
     })
-    .catch(function(e){ console.error(e); _insErr('ins-err3','Erreur lors de l\'activation. Réessayez.'); _insBusy('ins-btn3', false); });
+    .catch(function(e){ console.error(e); _insErr('ins-err2','Erreur lors de l\'activation. Réessayez.'); _insBusy('ins-btn2', false); });
 }
 </script>
 </body>

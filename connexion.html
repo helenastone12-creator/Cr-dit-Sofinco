@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <script src="ec-i18n.js"></script>
   <style>
-    /* RESET COMPLET */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { background: #f2f2f2 !important; }
     body {
@@ -21,10 +20,8 @@
       -webkit-font-smoothing: antialiased;
       padding-top: 58px;
     }
-    /* Cacher tout élément du site principal */
     header, nav, footer, .hd-bar, .mob-nav, .hd-menu, .site-header { display: none !important; }
 
-    /* ── Barre légale en haut ── */
     .legal-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
       background: #ebebeb; border-bottom: 1px solid #d8d8d8;
@@ -33,20 +30,17 @@
       font-family: 'Inter', system-ui, sans-serif;
     }
 
-    /* ── Wrapper ── */
     .login-wrap {
       max-width: 460px; margin: 0 auto; padding: 2.2rem 1rem 2rem;
       display: flex; flex-direction: column; gap: 1rem;
     }
 
-    /* ── Carte ── */
     .login-card {
       background: #fff; border-radius: 10px;
       padding: 2.6rem 2rem 2.2rem;
       box-shadow: 0 2px 18px rgba(0,0,0,.09);
     }
 
-    /* ── Logo ── */
     .login-brand {
       text-align: center; margin-bottom: 2.2rem;
     }
@@ -55,13 +49,15 @@
       text-decoration: none; letter-spacing: .06em;
     }
 
-    /* ── Titre ── */
     .login-title {
       font-size: 1.65rem; font-weight: 900; color: #111;
-      line-height: 1.15; margin-bottom: 2rem; text-align: center;
+      line-height: 1.15; margin-bottom: 1rem; text-align: center;
+    }
+    .login-subtitle {
+      font-size: .84rem; color: #666; text-align: center;
+      margin-bottom: 2rem; line-height: 1.5;
     }
 
-    /* ── Champs ── */
     .field-wrap { position: relative; margin-bottom: 1rem; }
     .field-wrap input {
       width: 100%; border: 1.5px solid #c8c8c8; border-radius: 6px;
@@ -71,42 +67,13 @@
     }
     .field-wrap input::placeholder { color: #999; }
     .field-wrap input:focus { border-color: #555; }
-    .eye-btn {
-      position: absolute; right: .9rem; top: 50%; transform: translateY(-50%);
-      background: none; border: none; cursor: pointer; color: #aaa;
-      display: flex; align-items: center; padding: 0;
-    }
-    .eye-btn:hover { color: #333; }
 
-    /* ── Oublié ── */
-    .forgot-row { text-align: right; margin: -.2rem 0 .9rem; }
-    .forgot-row a { font-size: .88rem; color: #333; text-decoration: underline; text-underline-offset: 3px; }
-
-    /* ── Toggle souvenir ── */
-    .remember-row { margin-bottom: 1.5rem; display: flex; align-items: center; gap: .55rem; }
-    .remember-row input { display: none; }
-    .toggle-track {
-      width: 38px; height: 22px; border-radius: 22px; background: #ddd;
-      position: relative; flex-shrink: 0; cursor: pointer; transition: background .2s;
-    }
-    .toggle-thumb {
-      position: absolute; top: 3px; left: 3px;
-      width: 16px; height: 16px; border-radius: 50%;
-      background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25);
-      transition: transform .2s;
-    }
-    #ec-remember:checked ~ .toggle-track { background: #555; }
-    #ec-remember:checked ~ .toggle-track .toggle-thumb { transform: translateX(16px); }
-    .remember-lbl { font-size: .9rem; color: #333; cursor: pointer; }
-
-    /* ── Erreur ── */
     .form-err {
       background: #fdf0ef; border: 1px solid rgba(192,57,43,.2);
       border-radius: 6px; padding: .7rem .9rem; font-size: .83rem;
       color: #c0392b; margin-bottom: 1rem; line-height: 1.45;
     }
 
-    /* ── Bouton principal gris ── */
     .btn-main {
       display: block; width: 100%; padding: 1.05rem;
       background: #6b6b6b; color: #fff; border: none; border-radius: 6px;
@@ -115,15 +82,14 @@
       transition: background .2s;
     }
     .btn-main:hover { background: #555; }
+    .btn-main:disabled { background: #b0b0b0; cursor: not-allowed; }
 
-    /* ── Séparateur ou ── */
     .sep {
       display: flex; align-items: center; gap: .8rem;
       margin: 1.2rem 0; color: #aaa; font-size: .82rem;
     }
     .sep::before, .sep::after { content: ''; flex: 1; height: 1px; background: #e0e0e0; }
 
-    /* ── Bouton simulation ── */
     .btn-outline {
       display: block; width: 100%; padding: 1rem;
       background: #fff; color: #111; border: 1.5px solid #c8c8c8;
@@ -133,7 +99,11 @@
     }
     .btn-outline:hover { border-color: #555; background: #f5f5f5; }
 
-    /* ── Banner fraudes ── */
+    .otp-input {
+      text-align: center; font-size: 1.8rem; font-weight: 800;
+      letter-spacing: .35em;
+    }
+
     .fraud-banner {
       background: linear-gradient(135deg, #a8d8ec 0%, #c5e8f5 100%);
       border-radius: 10px; padding: 1.4rem 1.4rem;
@@ -146,14 +116,10 @@
     }
     .fraud-head svg { flex-shrink: 0; margin-top: .15rem; stroke: #0a3a52; }
     .fraud-head-text { flex: 1; line-height: 1.35; }
-    .fraud-body {
-      font-size: .8rem; color: #1a4a62;
-      line-height: 1.6; margin-bottom: .4rem;
-    }
+    .fraud-body { font-size: .8rem; color: #1a4a62; line-height: 1.6; margin-bottom: .4rem; }
     .fraud-body strong { color: #0a3a52; }
     .fraud-body a { color: #0a3a52; text-decoration: underline; }
 
-    /* ── Footer liens ── */
     .footer-links {
       display: flex; flex-wrap: wrap; justify-content: center;
       align-items: center; gap: .3rem .4rem; font-size: .73rem; padding: .3rem 0;
@@ -165,76 +131,71 @@
 </head>
 <body>
 
-<!-- Barre légale fixe en haut -->
 <div class="legal-bar">
   Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.
 </div>
 
 <div class="login-wrap">
 
-  <!-- Étape 1 -->
-  <div id="ec-auth-step1" class="login-card">
-
+  <!-- Étape 1 : Email + numéro de dossier -->
+  <div id="con-step1" class="login-card">
     <div class="login-brand">
       <a href="index.html">FIDEXICO</a>
     </div>
 
     <h1 class="login-title">ACCÉDER À MON<br>ESPACE SÉCURISÉ</h1>
+    <p class="login-subtitle">Saisissez votre adresse email et votre numéro de suivi de dossier pour recevoir votre code de connexion.</p>
 
-    <div id="ec-login-err" class="form-err" style="display:none">
-      Identifiants incorrects. Vérifiez votre email et mot de passe.
-    </div>
-
-    <div class="field-wrap">
-      <input type="email" id="ec-email" placeholder="Adresse email" autocomplete="email"/>
-    </div>
+    <div id="con-err1" class="form-err" style="display:none"></div>
 
     <div class="field-wrap">
-      <input type="password" id="ec-pwd" placeholder="Mot de passe" autocomplete="current-password"/>
-      <button type="button" class="eye-btn" onclick="ecTogglePwd('ec-pwd',this)" aria-label="Afficher">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
+      <input type="email" id="con-email" placeholder="Adresse email" autocomplete="email"
+        onkeydown="if(event.key==='Enter') conStep1()"/>
+    </div>
+    <div class="field-wrap">
+      <input type="text" id="con-fdx" placeholder="Numéro de dossier (ex : FDX-2026-XXXXXX)"
+        autocomplete="off" oninput="this.value=this.value.toUpperCase()"
+        onkeydown="if(event.key==='Enter') conStep1()"/>
     </div>
 
-    <div class="forgot-row">
-      <a href="mot-de-passe-oublie.html">Mot de passe oublié ?</a>
-    </div>
-
-    <label class="remember-row" for="ec-remember">
-      <input type="checkbox" id="ec-remember" autocomplete="off"/>
-      <span class="toggle-track"><span class="toggle-thumb"></span></span>
-      <span class="remember-lbl">Se souvenir de moi</span>
-    </label>
-
-    <button class="btn-main ec-btn-primary" onclick="ecLogin()">Se connecter</button>
+    <button class="btn-main" id="con-btn1" onclick="conStep1()">Recevoir mon code par email</button>
 
     <div class="sep"><span>ou</span></div>
 
     <a href="index.html" class="btn-outline">Faire une simulation</a>
   </div>
 
-  <!-- Étape 2 : 2FA -->
-  <div id="ec-auth-step2" class="login-card" style="display:none">
+  <!-- Étape 2 : Code OTP -->
+  <div id="con-step2" class="login-card" style="display:none">
     <div class="login-brand"><a href="index.html">FIDEXICO</a></div>
+
     <div style="text-align:center;margin:1rem 0 1.4rem">
       <div style="width:52px;height:52px;border-radius:50%;background:#f0f4f8;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0B5E8A" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </div>
-      <h1 class="login-title" style="font-size:1.15rem;margin-bottom:.4rem">VÉRIFICATION EN<br>DEUX ÉTAPES</h1>
-      <p style="font-size:.84rem;color:#666;line-height:1.5">Saisissez le code à 6 chiffres de votre application d'authentification.</p>
+      <h1 class="login-title" style="font-size:1.2rem;margin-bottom:.4rem">CODE DE CONNEXION</h1>
+      <p style="font-size:.84rem;color:#666;line-height:1.5">Un code à 6 chiffres a été envoyé à<br><strong id="con-email-shown"></strong></p>
     </div>
-    <div id="ec-2fa-err" class="form-err" style="display:none"></div>
+
+    <div id="con-err2" class="form-err" style="display:none"></div>
+
     <div class="field-wrap">
-      <input type="text" id="ec-2fa-code" placeholder="000 000"
+      <input type="text" id="con-otp" placeholder="000 000" class="otp-input"
         inputmode="numeric" autocomplete="one-time-code" maxlength="7"
-        style="text-align:center;font-size:1.6rem;font-weight:800;letter-spacing:.35em"
-        onkeydown="if(event.key==='Enter') ecVerify2FA()"/>
+        onkeydown="if(event.key==='Enter') conStep2()"/>
     </div>
-    <button id="ec-2fa-btn" class="btn-main" onclick="ecVerify2FA()">Vérifier le code</button>
-    <button type="button" onclick="document.getElementById('ec-auth-step1').style.display='block';document.getElementById('ec-auth-step2').style.display='none'"
+
+    <button class="btn-main" id="con-btn2" onclick="conStep2()">Se connecter</button>
+
+    <button type="button" onclick="conGoBack()"
       style="display:block;width:100%;margin-top:.6rem;padding:.7rem;background:none;border:none;color:#888;font-size:.83rem;cursor:pointer;font-family:inherit;text-align:center">
-      ← Retour à la connexion
+      ← Retour
     </button>
+
+    <p style="text-align:center;font-size:.8rem;color:#999;margin-top:1rem">
+      Pas reçu ?
+      <button onclick="conResend()" style="background:none;border:none;color:#555;text-decoration:underline;cursor:pointer;font-size:.8rem;font-family:inherit">Renvoyer un code</button>
+    </p>
   </div>
 
   <!-- Banner fraudes -->
@@ -264,12 +225,96 @@
 
 <script src="fidexico-db.js"></script>
 <script src="fidexico-email.js"></script>
-<script src="fidexico-2fa.js"></script>
 <script src="espace-client.js"></script>
 <script>
-// Relier les nouvelles classes aux fonctions existantes
-function ecGetLoginErr(){ return document.getElementById('ec-login-err'); }
-if(typeof ecApplyI18n==='function') ecApplyI18n();
+var _conClient = null;
+var _conOTP    = null;
+var _conOTPExp = 0;
+
+function _conErr(id, msg){
+  var el = document.getElementById(id);
+  if(!el) return;
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+}
+function _conBusy(btnId, busy, label){
+  var b = document.getElementById(btnId);
+  if(!b) return;
+  b.disabled = busy;
+  if(!busy) b.textContent = label || (btnId === 'con-btn1' ? 'Recevoir mon code par email' : 'Se connecter');
+  else b.textContent = 'Chargement…';
+}
+function _conGenOTP(){ return String(Math.floor(100000 + Math.random() * 900000)); }
+
+function conGoBack(){
+  document.getElementById('con-step2').style.display = 'none';
+  document.getElementById('con-step1').style.display = 'block';
+  document.getElementById('con-otp').value = '';
+  _conErr('con-err2', '');
+}
+
+function conStep1(){
+  var email = document.getElementById('con-email').value.trim().toLowerCase();
+  var fdx   = document.getElementById('con-fdx').value.trim().toUpperCase();
+  _conErr('con-err1', '');
+  if(!email || !fdx){ _conErr('con-err1', 'Veuillez remplir tous les champs.'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ _conErr('con-err1', 'Adresse email invalide.'); return; }
+  _conBusy('con-btn1', true);
+
+  FidDB.getClientByIdAndEmail(fdx, email)
+    .then(function(client){
+      if(!client){
+        _conErr('con-err1', 'Aucun compte trouvé avec ces informations. Vérifiez votre email et votre numéro de dossier.');
+        _conBusy('con-btn1', false);
+        return;
+      }
+      _conClient = client;
+      _conOTP    = _conGenOTP();
+      _conOTPExp = Date.now() + 10 * 60 * 1000;
+      return FidEmail.sendLoginOTP(email, client.prenom || 'Client', _conOTP, fdx)
+        .then(function(){
+          document.getElementById('con-email-shown').textContent = email;
+          document.getElementById('con-step1').style.display = 'none';
+          document.getElementById('con-step2').style.display = 'block';
+          _conBusy('con-btn1', false);
+          setTimeout(function(){ var i = document.getElementById('con-otp'); if(i) i.focus(); }, 200);
+        });
+    })
+    .catch(function(e){
+      console.error(e);
+      _conErr('con-err1', 'Une erreur est survenue. Réessayez.');
+      _conBusy('con-btn1', false);
+    });
+}
+
+function conResend(){
+  if(!_conClient) return;
+  _conOTP    = _conGenOTP();
+  _conOTPExp = Date.now() + 10 * 60 * 1000;
+  FidEmail.sendLoginOTP(_conClient.email, _conClient.prenom || 'Client', _conOTP, _conClient.id)
+    .then(function(){
+      var el = document.getElementById('con-err2');
+      if(!el) return;
+      el.style.background = '#f0f9f4';
+      el.style.color = '#1a7a3c';
+      el.style.borderColor = 'rgba(26,122,60,.2)';
+      el.textContent = 'Un nouveau code a été envoyé à votre adresse email.';
+      el.style.display = 'block';
+    })
+    .catch(function(){ _conErr('con-err2', 'Erreur lors de l\'envoi. Réessayez.'); });
+}
+
+function conStep2(){
+  var code = document.getElementById('con-otp').value.replace(/\s/g, '');
+  _conErr('con-err2', '');
+  if(!code || code.length < 6){ _conErr('con-err2', 'Saisissez le code à 6 chiffres.'); return; }
+  if(Date.now() > _conOTPExp){ _conErr('con-err2', 'Ce code a expiré. Cliquez sur "Renvoyer un code".'); return; }
+  if(code !== _conOTP){ _conErr('con-err2', 'Code incorrect. Vérifiez votre email et réessayez.'); return; }
+  _conBusy('con-btn2', true);
+  ecCompleteLogin(_conClient);
+}
+
+if(typeof ecApplyI18n === 'function') ecApplyI18n();
 </script>
 </body>
 </html>

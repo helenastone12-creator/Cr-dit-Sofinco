@@ -45,18 +45,7 @@ function ecGuard(){
   if(!ecIsLoggedIn()) window.location.href='/connexion.html';
 }
 
-// ── Toggle mot de passe visible/caché ──
-function ecTogglePwd(inputId, btn){
-  var inp = document.getElementById(inputId);
-  if(!inp) return;
-  var show = inp.type==='password';
-  inp.type = show ? 'text' : 'password';
-  btn.style.opacity = show ? '1' : '.5';
-}
-
 // ── Connexion ──
-var EC_PENDING_USER = null; // user awaiting 2FA verification
-
 function ecCompleteLogin(user){
   if(typeof FidDB !== 'undefined'){
     FidDB.getSolde(user.id).then(function(s){ localStorage.setItem('ec_solde', s.toFixed(2)); }).catch(function(){});
@@ -74,160 +63,6 @@ function ecCompleteLogin(user){
   setTimeout(function(){ window.location.href='/espace-client.html'; }, 400);
 }
 
-function ecVerify2FA(){
-  var code  = ((document.getElementById('ec-2fa-code')||{}).value||'').replace(/\s/g,'');
-  var errEl = document.getElementById('ec-2fa-err');
-  var btn   = document.getElementById('ec-2fa-btn');
-  if(!EC_PENDING_USER || !code){
-    if(errEl){ errEl.textContent='Saisissez le code à 6 chiffres.'; errEl.style.display='block'; }
-    return;
-  }
-  if(btn){ btn.textContent='Vérification…'; btn.disabled=true; }
-  FID2FA.verify(EC_PENDING_USER.totp_secret, code).then(function(ok){
-    if(ok){
-      var u = EC_PENDING_USER; EC_PENDING_USER = null;
-      ecCompleteLogin(u);
-    } else {
-      if(errEl){ errEl.textContent='Code incorrect. Réessayez.'; errEl.style.display='block'; }
-      if(btn){ btn.textContent='Vérifier'; btn.disabled=false; }
-      var inp = document.getElementById('ec-2fa-code');
-      if(inp){ inp.value=''; inp.focus(); }
-    }
-  }).catch(function(){
-    if(errEl){ errEl.textContent='Erreur de vérification.'; errEl.style.display='block'; }
-    if(btn){ btn.textContent='Vérifier'; btn.disabled=false; }
-  });
-}
-
-function ecInitLoginPage(){
-  var remembered = localStorage.getItem('ec_remember_email');
-  if(remembered){
-    var emailEl = document.getElementById('ec-email');
-    var chk = document.getElementById('ec-remember');
-    if(emailEl) emailEl.value = remembered;
-    if(chk) chk.checked = true;
-  }
-}
-if(document.getElementById('ec-email')) ecInitLoginPage();
-
-function ecLogin(){
-  var email = (document.getElementById('ec-email')||{}).value||'';
-  var pwd   = (document.getElementById('ec-pwd')||{}).value||'';
-  var rememberChk = document.getElementById('ec-remember');
-  if(rememberChk && rememberChk.checked){
-    localStorage.setItem('ec_remember_email', email.trim().toLowerCase());
-  } else {
-    localStorage.removeItem('ec_remember_email');
-  }
-  var errEl = document.getElementById('ec-login-err');
-  var btn   = document.querySelector('.ec-btn-primary');
-
-  if(!email.trim() || !pwd){
-    if(errEl){ errEl.textContent='Veuillez remplir tous les champs.'; errEl.style.display='block'; }
-    return;
-  }
-  if(errEl) errEl.style.display='none';
-  if(btn){ btn.textContent='Connexion…'; btn.disabled=true; }
-
-  function doLogin(user){
-    if(!user){
-      if(errEl){ errEl.innerHTML='Aucun compte trouvé. <a href="inscription.html">Créez votre compte</a>.'; errEl.style.display='block'; }
-      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
-      return;
-    }
-    if(user.__pending){
-      if(errEl){ errEl.innerHTML='Votre compte n\'est pas encore activé. <a href="inscription.html">Finalisez votre inscription →</a>'; errEl.style.display='block'; }
-      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
-      return;
-    }
-    if(user.__wrongpwd){
-      if(errEl){ errEl.textContent='Mot de passe incorrect.'; errEl.style.display='block'; }
-      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
-      var card = document.querySelector('.ec-auth-card, .login-card');
-      if(card){ card.style.animation='none'; setTimeout(function(){ card.style.animation='ecShake .4s ease'; },10); }
-      return;
-    }
-    if(user.email !== email.trim().toLowerCase() || user.pwd !== pwd){
-      if(errEl){ errEl.textContent='Email ou mot de passe incorrect.'; errEl.style.display='block'; }
-      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
-      var card2 = document.querySelector('.ec-auth-card, .login-card');
-      if(card2){ card2.style.animation='none'; setTimeout(function(){ card2.style.animation='ecShake .4s ease'; },10); }
-      return;
-    }
-    // 2FA check
-    if(user.totp_secret && typeof FID2FA !== 'undefined'){
-      EC_PENDING_USER = user;
-      var step1 = document.getElementById('ec-auth-step1');
-      var step2 = document.getElementById('ec-auth-step2');
-      if(step1) step1.style.display='none';
-      if(step2) step2.style.display='block';
-      if(btn){ btn.textContent='Se connecter'; btn.disabled=false; }
-      setTimeout(function(){ var c=document.getElementById('ec-2fa-code'); if(c) c.focus(); }, 200);
-      return;
-    }
-    ecCompleteLogin(user);
-  }
-
-  if(typeof FidDB !== 'undefined'){
-    FidDB.login(email.trim().toLowerCase(), pwd).then(doLogin).catch(function(){
-      doLogin(ecGetUser());
-    });
-  } else {
-    doLogin(ecGetUser());
-  }
-}
-
-// ── Inscription ──
-function ecRegister(){
-  var prenom = (document.getElementById('ec-prenom')||{}).value||'';
-  var nom    = (document.getElementById('ec-nom')||{}).value||'';
-  var email  = (document.getElementById('ec-email-reg')||{}).value||'';
-  var tel    = (document.getElementById('ec-tel-reg')||{}).value||'';
-  var ref    = (document.getElementById('ec-ref-dossier')||{}).value||'';
-  var pwd    = (document.getElementById('ec-pwd-reg')||{}).value||'';
-  var pwdC   = (document.getElementById('ec-pwd-confirm')||{}).value||'';
-  var cgu    = document.getElementById('ec-cgu');
-  var errEl  = document.getElementById('ec-reg-err');
-  var btn    = document.querySelector('.ec-btn-primary');
-
-  var errors=[];
-  if(!prenom.trim()) errors.push('Le prénom est requis.');
-  if(!nom.trim())    errors.push('Le nom est requis.');
-  if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)) errors.push('Adresse email invalide.');
-  if(!tel.trim())    errors.push('Le numéro de téléphone est requis.');
-  if(pwd.length<8)   errors.push('Le mot de passe doit contenir au moins 8 caractères.');
-  if(pwd!==pwdC)     errors.push('Les mots de passe ne correspondent pas.');
-  if(!cgu||!cgu.checked) errors.push('Vous devez accepter les Conditions Générales.');
-
-  if(errors.length){
-    if(errEl){ errEl.innerHTML=errors.join('<br/>'); errEl.style.display='block'; }
-    return;
-  }
-  if(errEl) errEl.style.display='none';
-  if(btn){ btn.textContent='Création…'; btn.disabled=true; }
-
-  var uid = 'USR-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,6).toUpperCase();
-  var user={
-    id: uid,
-    prenom:prenom.trim(), nom:nom.trim(),
-    email:email.trim().toLowerCase(), tel:tel.trim(),
-    ref:ref.trim().toUpperCase(), pwd:pwd,
-    createdAt:new Date().toISOString()
-  };
-  // Persist to localStorage immediately
-  localStorage.setItem('ec_user', JSON.stringify(user));
-  ecSetSession();
-  // Persist to Supabase
-  if(typeof FidDB !== 'undefined'){
-    FidDB.createClient(user).catch(function(){});
-  }
-  // Email bienvenue + notification admin
-  if(typeof FidEmail !== 'undefined'){
-    FidEmail.bienvenue(user.prenom, user.nom, user.email);
-    FidEmail.adminNouveauClient(user.prenom, user.nom, user.email);
-  }
-  setTimeout(function(){ window.location.href='/espace-client.html'; }, 300);
-}
 
 // ── Déconnexion ──
 function ecLogout(){
@@ -851,30 +686,12 @@ function ecSuiviSearch(){
   if(result) result.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ── Indicateur force mot de passe ──
-(function(){
-  var inp=document.getElementById('ec-pwd-reg');
-  var bar=document.getElementById('ec-pwd-strength');
-  if(!inp||!bar) return;
-  inp.addEventListener('input',function(){
-    var v=this.value;
-    bar.innerHTML='<span></span><span></span><span></span>';
-    bar.className='ec-pwd-strength';
-    if(!v) return;
-    if(v.length>=10&&/[A-Z]/.test(v)&&/[0-9]/.test(v)) bar.classList.add('strong');
-    else if(v.length>=8) bar.classList.add('medium');
-    else bar.classList.add('weak');
-  });
-})();
-
-// ── Touche Entrée sur les formulaires ──
+// ── Touche Entrée suivi dossier ──
 (function(){
   document.addEventListener('keydown',function(e){
     if(e.key!=='Enter') return;
     var path=window.location.pathname;
-    if(path.indexOf('connexion')!==-1) ecLogin();
-    else if(path.indexOf('inscription')!==-1) ecRegister();
-    else if(path.indexOf('suivi-dossier')!==-1) ecSuiviSearch();
+    if(path.indexOf('suivi-dossier')!==-1) ecSuiviSearch();
   });
 })();
 

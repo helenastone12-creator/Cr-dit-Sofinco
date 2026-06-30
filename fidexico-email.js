@@ -1209,6 +1209,30 @@ var FidEmail = {
     return sbFetch('admin_config?key=eq.admin_password', 'PATCH', { value: newPwd, updated_at: new Date().toISOString() });
   },
 
+  sendLoginOTP: function(email, prenom, code, fdxNum){
+    var html = emailBase(
+      '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Connexion sécurisée</p>'
+      +'<h1 style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:20px;color:#0B2140;font-weight:700">Votre code de connexion</h1>'
+      +_divider()
+      +_body('Bonjour <strong>'+prenom+'</strong>, voici votre code de connexion à usage unique pour accéder à votre Espace Client Fidexico.')
+      +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0"><tr><td align="center">'
+      +'<div style="background:#f0f7ff;border:2px solid #c5ddf5;border-radius:12px;padding:24px 32px;display:inline-block">'
+      +'<div style="font-family:\'Courier New\',monospace;font-size:38px;font-weight:700;color:#0B2140;letter-spacing:.3em;text-align:center">'+code+'</div>'
+      +'<div style="font-family:Arial,sans-serif;font-size:12px;color:#8a9ab0;margin-top:8px;text-align:center">Code valable 10 minutes</div>'
+      +'</div>'
+      +'</td></tr></table>'
+      +_tbl([
+        ['Numéro de dossier', fdxNum],
+        ['Email', email],
+        ['Date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
+      ])
+      +_alertBox('#d4911a','#fdf6e3','Important','Ce code est à usage unique et valable 10 minutes. Ne le communiquez jamais à personne, même à un conseiller Fidexico.')
+      +_sign()
+      +_note('Si vous n\'avez pas demandé à vous connecter sur Fidexico, ignorez cet email. Votre compte reste sécurisé.'),
+    'fr', {ref: fdxNum});
+    return sendEmail(email, 'Votre code de connexion Fidexico', html);
+  },
+
   sendActivationOTP: function(email, prenom, code, fdxNum){
     var html = emailBase(
       '<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:11px;color:#8a9ab0;text-transform:uppercase;letter-spacing:1.5px">Activation de votre espace client</p>'
