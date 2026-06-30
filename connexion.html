@@ -229,7 +229,7 @@
             onkeydown="if(event.key==='Enter') conStep1('mob')"/>
         </div>
       </div>
-      <button class="btn-main" id="mob-btn1" onclick="conStep1('mob')">Recevoir mon code par email</button>
+      <button class="btn-main" id="mob-btn1" onclick="conStep1('mob')">Se connecter</button>
       <a href="numero-dossier-oublie.html" class="forgot-link">Numéro de dossier oublié ?</a>
     </div>
 
@@ -310,7 +310,7 @@
               onkeydown="if(event.key==='Enter') conStep1('desk')"/>
           </div>
         </div>
-        <button class="btn-main" id="desk-btn1" onclick="conStep1('desk')">Recevoir mon code par email</button>
+        <button class="btn-main" id="desk-btn1" onclick="conStep1('desk')">Se connecter</button>
         <a href="numero-dossier-oublie.html" class="forgot-link">Numéro de dossier oublié ?</a>
       </div>
 
@@ -407,7 +407,7 @@ function _conBusy(p, slot, busy){
   var b = document.getElementById(p+'-btn'+slot);
   if(!b) return;
   b.disabled = busy;
-  b.textContent = busy ? 'Chargement…' : (slot==='1' ? 'Recevoir mon code par email' : 'Se connecter');
+  b.textContent = busy ? 'Chargement…' : (slot==='1' ? 'Se connecter' : 'Se connecter');
 }
 function _conGenOTP(){ return String(Math.floor(100000 + Math.random() * 900000)); }
 
