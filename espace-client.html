@@ -83,31 +83,41 @@
 
 </main>
 
-<!-- Navigation bas / Sidebar desktop -->
+<!-- Navigation bas (mobile) / Sidebar (PC) -->
 <nav class="ec-bottom-nav">
-  <!-- sidebar elements masqués -->
-  <div class="ec-sidebar-brand" style="display:none"></div>
-  <div class="ec-sidebar-user-card" id="ec-sidebar-user-card" style="display:none"><div class="ec-sidebar-avatar" id="ec-sidebar-avatar"></div><div class="ec-sidebar-user-info"><div id="ec-sidebar-user-name"></div><div id="ec-sidebar-user-id"></div></div></div>
-  <div class="ec-sidebar-divider" style="display:none"></div>
+  <!-- visibles uniquement sur PC (sidebar) -->
+  <div class="ec-sidebar-brand">
+    <a href="espace-client.html" class="ec-sidebar-logo"><img src="favicon.svg" alt=""/> Fidexico</a>
+    <div class="ec-sidebar-tagline">Espace client</div>
+  </div>
+  <div class="ec-sidebar-user-card" id="ec-sidebar-user-card"><div class="ec-sidebar-avatar" id="ec-sidebar-avatar"></div><div class="ec-sidebar-user-info"><div id="ec-sidebar-user-name"></div><div id="ec-sidebar-user-id"></div></div></div>
+  <div class="ec-sidebar-divider"></div>
 
   <!-- Nav N26 : liste | grille | + | cadeau | profil -->
   <a href="espace-client.html" class="ec-bnav-link active" aria-label="Accueil">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <span>Accueil</span>
   </a>
   <a href="mes-documents.html" class="ec-bnav-link" aria-label="Documents">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    <span>Documents</span>
   </a>
   <button class="ec-bnav-center" onclick="ecOpenModal('virement')" aria-label="Virement">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
   </button>
   <a href="messagerie.html" class="ec-bnav-link" aria-label="Messages">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+    <span>Messages</span>
   </a>
   <a href="profil.html" class="ec-bnav-link" aria-label="Profil">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    <span>Profil</span>
   </a>
 
-  <button class="ec-sidebar-logout" style="display:none" onclick="ecLogout()"></button>
+  <button class="ec-sidebar-logout" onclick="ecLogout()">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    <span>Déconnexion</span>
+  </button>
 </nav>
 
 <!-- Modal Dépôt -->

@@ -1178,6 +1178,20 @@
   .ec-bnav-link.active svg{ stroke:var(--brand); }
   .ec-bnav-link:hover:not(.active){ background:var(--bg); }
 
+  /* Bouton Virement (sidebar PC) */
+  .ec-bnav-center{
+    order:-1;
+    width:100%;height:auto;min-width:0;
+    flex-direction:row;justify-content:flex-start;gap:.8rem;
+    border-radius:8px;border:none;
+    background:var(--brand);color:#fff;
+    padding:.7rem .9rem;margin:.3rem 0 .6rem;
+    font-size:.83rem;font-weight:600;font-family:inherit;
+    box-shadow:none;
+  }
+  .ec-bnav-center::after{ content:'Virement'; }
+  .ec-bnav-center:hover{ opacity:.9; }
+
   /* ── Header ── */
   .ec-hd-logo{ display:none; }
   .ec-hd-logout--mobile{ display:none; }
@@ -1775,86 +1789,88 @@
   box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
 
-/* Bottom nav — mobile Raiffeisen style */
-.ec-bottom-nav {
-  background: #fff !important;
-  height: 70px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-around !important;
-  border-top: 1px solid #EAECEF !important;
-  padding: 0 .5rem !important;
-  width: 100% !important;
-  left: 0 !important;
-  bottom: 0 !important;
-  position: fixed !important;
-  z-index: 200 !important;
-  gap: 0 !important;
-}
+/* Bottom nav — mobile Raiffeisen style (mobile uniquement, le PC garde la sidebar) */
+@media (max-width: 767px) {
+  .ec-bottom-nav {
+    background: #fff !important;
+    height: 70px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    border-top: 1px solid #EAECEF !important;
+    padding: 0 .5rem !important;
+    width: 100% !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    position: fixed !important;
+    z-index: 200 !important;
+    gap: 0 !important;
+  }
 
-.ec-bnav-link {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  gap: 3px !important;
-  font-size: .6rem !important;
-  color: #888 !important;
-  text-decoration: none !important;
-  font-weight: 500 !important;
-  flex: 1 !important;
-  padding: 0 !important;
-  background: none !important;
-  border-radius: 0 !important;
-}
+  .ec-bnav-link {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 3px !important;
+    font-size: .6rem !important;
+    color: #888 !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    flex: 1 !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+  }
 
-.ec-bnav-link::before {
-  display: none !important;
-}
+  .ec-bnav-link::before {
+    display: none !important;
+  }
 
-.ec-bnav-link svg {
-  stroke: #888 !important;
-}
+  .ec-bnav-link svg {
+    stroke: #888 !important;
+  }
 
-.ec-bnav-link.active {
-  color: #1A4BBC !important;
-}
+  .ec-bnav-link.active {
+    color: #1A4BBC !important;
+  }
 
-.ec-bnav-link.active svg {
-  stroke: #1A4BBC !important;
-}
+  .ec-bnav-link.active svg {
+    stroke: #1A4BBC !important;
+  }
 
-.ec-bnav-dot {
-  display: none !important;
-}
+  .ec-bnav-dot {
+    display: none !important;
+  }
 
-/* Center FAB button */
-.ec-bnav-center {
-  width: 56px !important;
-  height: 56px !important;
-  min-width: 56px !important;
-  border-radius: 50% !important;
-  background: #1A4BBC !important;
-  color: #fff !important;
-  font-size: 1.4rem !important;
-  font-weight: 700 !important;
-  border: none !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin-bottom: 12px !important;
-  box-shadow: 0 4px 12px rgba(26,75,188,.35) !important;
-  flex-shrink: 0 !important;
-  position: relative !important;
-  z-index: 1 !important;
-}
+  /* Center FAB button */
+  .ec-bnav-center {
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    border-radius: 50% !important;
+    background: #1A4BBC !important;
+    color: #fff !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 12px !important;
+    box-shadow: 0 4px 12px rgba(26,75,188,.35) !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
 
-/* Hide sidebar desktop elements in mobile Raiffeisen layout */
-.ec-sidebar-brand,
-.ec-sidebar-user-card,
-.ec-sidebar-divider,
-.ec-sidebar-logout {
-  display: none !important;
+  /* Hide sidebar desktop elements en mobile */
+  .ec-sidebar-brand,
+  .ec-sidebar-user-card,
+  .ec-sidebar-divider,
+  .ec-sidebar-logout {
+    display: none !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -2041,70 +2057,72 @@
   text-align: center;
 }
 
-/* ── Bottom nav N26 ── */
-.ec-bottom-nav {
-  position: fixed !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: 66px !important;
-  background: #fff !important;
-  border-top: 1px solid #E5E7EB !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-around !important;
-  padding: 0 !important;
-  z-index: 200 !important;
-  padding-bottom: env(safe-area-inset-bottom, 0) !important;
-}
+/* ── Bottom nav N26 (mobile uniquement, le PC garde la sidebar) ── */
+@media (max-width: 767px) {
+  .ec-bottom-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 66px !important;
+    background: #fff !important;
+    border-top: 1px solid #E5E7EB !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: 0 !important;
+    z-index: 200 !important;
+    padding-bottom: env(safe-area-inset-bottom, 0) !important;
+  }
 
-.ec-bnav-link {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex: 1 !important;
-  height: 100% !important;
-  color: #999 !important;
-  text-decoration: none !important;
-  background: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  gap: 0 !important;
-  font-size: 0 !important;
-}
+  .ec-bnav-link {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    height: 100% !important;
+    color: #999 !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    font-size: 0 !important;
+  }
 
-.ec-bnav-link svg { stroke: #999 !important; }
-.ec-bnav-link.active svg { stroke: #111 !important; }
-.ec-bnav-link::before { display: none !important; }
-.ec-bnav-dot { display: none !important; }
-.ec-bnav-link span { display: none !important; }
+  .ec-bnav-link svg { stroke: #999 !important; }
+  .ec-bnav-link.active svg { stroke: #111 !important; }
+  .ec-bnav-link::before { display: none !important; }
+  .ec-bnav-dot { display: none !important; }
+  .ec-bnav-link span { display: none !important; }
 
-/* Bouton + central */
-.ec-bnav-center {
-  width: 44px !important;
-  height: 44px !important;
-  min-width: 44px !important;
-  border-radius: 50% !important;
-  background: none !important;
-  border: 1.6px solid #333 !important;
-  color: #333 !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 1rem !important;
-  flex-shrink: 0 !important;
-  box-shadow: none !important;
-  margin-bottom: 0 !important;
-}
+  /* Bouton + central */
+  .ec-bnav-center {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    border-radius: 50% !important;
+    background: none !important;
+    border: 1.6px solid #333 !important;
+    color: #333 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1rem !important;
+    flex-shrink: 0 !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+  }
 
-.ec-sidebar-brand,
-.ec-sidebar-user-card,
-.ec-sidebar-divider,
-.ec-sidebar-logout {
-  display: none !important;
+  .ec-sidebar-brand,
+  .ec-sidebar-user-card,
+  .ec-sidebar-divider,
+  .ec-sidebar-logout {
+    display: none !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
