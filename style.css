@@ -2406,8 +2406,8 @@ body.pg-inner .editorial{background:none}
 /* ── Scroll reveal ── */
 .sr-hidden{
   opacity:0;
-  transform:translateY(28px);
-  transition:opacity .55s ease, transform .55s ease;
+  transform:translateY(10px);
+  transition:opacity .35s ease, transform .35s ease;
 }
 .sr-visible{
   opacity:1;
