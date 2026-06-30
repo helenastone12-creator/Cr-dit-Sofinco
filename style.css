@@ -2402,3 +2402,17 @@ body.pg-inner .editorial{background:none}
 .nat-flag{width:24px;height:24px;flex-shrink:0;display:block;border-radius:50%;object-fit:cover}
 .nat-globe{flex-shrink:0;display:block}
 .sp5-tel-flag{width:22px;height:22px;border-radius:50%;object-fit:cover}
+
+/* ── Scroll reveal ── */
+.sr-hidden{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .55s ease, transform .55s ease;
+}
+.sr-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+@media(prefers-reduced-motion:reduce){
+  .sr-hidden{opacity:1;transform:none;transition:none}
+}
