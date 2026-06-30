@@ -1050,10 +1050,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* ════════════════════════
    PAGES INTERNES — BASE
 ════════════════════════ */
-.inner-page{padding-top:4rem;padding-bottom:6rem}
+.inner-page{padding-top:2rem;padding-bottom:2.5rem}
 .inner-page .wrap{max-width:860px;margin:0 auto;padding:0 1rem}
 .inner-page h1{font-size:2.4rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem;line-height:1.15;border-left:5px solid var(--teal);padding-left:1.2rem}
-.inner-page h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin:2.5rem 0 1rem;display:flex;align-items:center;gap:.6rem}
+.inner-page h2{font-size:1.35rem;font-weight:700;color:var(--navy);margin:1.2rem 0 .75rem;display:flex;align-items:center;gap:.6rem}
 .inner-page h2::before{display:none}
 .inner-page p{font-size:1.02rem;color:#3d3d3d;line-height:1.85;margin-bottom:1.1rem}
 .inner-page ul{padding-left:0;margin-bottom:1.2rem;list-style:none}
@@ -1063,7 +1063,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .inner-page a:hover{border-bottom-color:var(--teal)}
 .inner-page .legal-box{background:#f5f9fc;border-left:3px solid var(--sky);padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;margin:1.5rem 0;font-size:.92rem;color:#555;line-height:1.7}
 @media(min-width:960px){.inner-page h1{font-size:3rem}.inner-page p{font-size:1.05rem}}
-.legal-section{margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid #e8eef3}
+.legal-section{margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid #e8eef3}
 .legal-section:last-child{border-bottom:none}
 .legal-section h2{font-size:1.25rem;font-weight:700;color:var(--navy);margin-bottom:1.2rem}
 .legal-section p{font-size:1rem;color:#3d3d3d;line-height:1.9;margin-bottom:1rem}
