@@ -466,8 +466,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .prod-group:last-child{margin-bottom:0}
 .prod-group-hd{padding:0 .25rem;margin-bottom:1.2rem}
 .prod-group-hd h2{
-  font-size:1.6rem;font-weight:800;color:var(--navy);
-  margin-bottom:.35rem;line-height:1.25;text-align:center;
+  font-size:1.9rem;font-weight:800;color:var(--navy);
+  margin-bottom:.35rem;line-height:1.25;text-align:left;text-transform:uppercase;
 }
 .prod-group-hd p{
   font-size:.93rem;color:#666;line-height:1.55;
