@@ -42,7 +42,12 @@ function ecSetSession(v){ localStorage.setItem('ec_session', v||'1'); }
 function ecClearSession(){ localStorage.removeItem('ec_session'); localStorage.removeItem('ec_user'); }
 
 function ecGuard(){
-  if(!ecIsLoggedIn()) window.location.href='/connexion.html';
+  if(!ecIsLoggedIn()){ window.location.href='/connexion.html'; return; }
+  var _u=ecGetUser();
+  if(_u && _u.force_logout){
+    ecClearSession();
+    window.location.href='/connexion.html';
+  }
 }
 
 // ── Connexion ──
@@ -423,6 +428,9 @@ function ecConfirmVirement(){
   var errEl = document.getElementById('ec-vir-err');
   var solde = ecGetSolde();
 
+  var _u = ecGetUser();
+  if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent='Vos fonds sont temporairement gelés suite à un litige en cours. Veuillez contacter Fidexico pour plus d\'informations.'; errEl.style.display='block'; } return; }
+  if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ if(errEl){ errEl.textContent='Ce virement dépasse votre limite autorisée de '+_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2})+' €. Veuillez contacter Fidexico.'; errEl.style.display='block'; } return; }
   if(!nom){ if(errEl){ errEl.textContent='Le nom du bénéficiaire est requis.'; errEl.style.display='block'; } return; }
   if(!iban){ if(errEl){ errEl.textContent='L\'IBAN destinataire est requis.'; errEl.style.display='block'; } return; }
   if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent='IBAN invalide. Veuillez vérifier le numéro saisi.'; errEl.style.display='block'; } return; }
