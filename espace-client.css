@@ -2555,3 +2555,21 @@
 .ec-credit-detail-prog-bar { flex: 1; height: 6px; background: #F3F4F6; border-radius: 10px; overflow: hidden; }
 .ec-credit-detail-prog-fill { height: 100%; background: #3FBFA0; border-radius: 10px; width: 0; transition: width .6s ease; }
 .ec-credit-detail-prog-pct { font-size: .8rem; font-weight: 700; color: #3FBFA0; flex-shrink: 0; }
+
+/* Statut du dossier */
+.ec-statut-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .9rem 1.3rem;
+  margin: 0 1rem .5rem;
+  background: #fff;
+  border: 1px solid #F0F1F3;
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.ec-statut-lbl {
+  font-size: .85rem;
+  font-weight: 600;
+  color: #333;
+}
