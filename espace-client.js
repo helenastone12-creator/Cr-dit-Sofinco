@@ -423,8 +423,40 @@ function ecDownloadVirementPdf(tx, ref, user){
   setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
 }
 
+// ── Détails crédit ──
+function ecPopulateCreditDetail(){
+  var user = ecGetUser();
+  var loan = (user && user.loan) || {};
+  var capital   = loan.montant    || 0;
+  var mens      = loan.mensualite || 0;
+  var duree     = loan.duree      || 0;
+  var taux      = loan.taux       || 0;
+  var dateDebut = loan.dateDebut  ? new Date(loan.dateDebut) : null;
+  var moisPasses = 0;
+  if(dateDebut){
+    moisPasses = Math.max(0, Math.floor((new Date() - dateDebut) / (30.44*24*3600*1000)));
+    moisPasses = Math.min(moisPasses, duree);
+  }
+  var restant = capital > 0 && duree > 0 ? Math.round(capital - (capital/duree)*moisPasses) : 0;
+  var pct     = capital > 0 && duree > 0 ? Math.round((moisPasses/duree)*100) : 0;
+  var fmt = function(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; };
+  var set = function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+
+  set('ec-cd-ref',     user ? (user.ref || user.id || '—') : '—');
+  set('ec-cd-capital', capital > 0 ? fmt(capital) : 'En attente');
+  set('ec-cd-mens',    mens    > 0 ? fmt(mens)    : '—');
+  set('ec-cd-duree',   duree   > 0 ? duree + ' mois' : '—');
+  set('ec-cd-taux',    taux    > 0 ? taux + ' %' : '—');
+  set('ec-cd-debut',   dateDebut ? dateDebut.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) : '—');
+  set('ec-cd-restant', capital > 0 ? fmt(restant) : '—');
+  set('ec-cd-prog-pct', pct + '%');
+  var fill = document.getElementById('ec-cd-prog-fill');
+  if(fill) setTimeout(function(){ fill.style.width = pct+'%'; }, 150);
+}
+
 // ── Modals ──
 function ecOpenModal(name){
+  if(name === 'credit-detail') ecPopulateCreditDetail();
   var el = document.getElementById('ec-modal-'+name);
   if(!el) return;
   var scrollY = window.scrollY || window.pageYOffset;

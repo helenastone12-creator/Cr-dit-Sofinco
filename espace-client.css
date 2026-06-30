@@ -2537,3 +2537,21 @@
   text-align: center;
   padding: .25rem 0 .5rem;
 }
+
+/* Modal Détails crédit */
+.ec-credit-detail-rows { display: flex; flex-direction: column; gap: 0; }
+.ec-credit-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75rem 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+.ec-credit-detail-row:last-of-type { border-bottom: none; }
+.ec-credit-detail-lbl { font-size: .83rem; color: #888; }
+.ec-credit-detail-val { font-size: .88rem; font-weight: 600; color: #111; }
+.ec-credit-detail-val--teal { color: #3FBFA0; }
+.ec-credit-detail-prog-wrap { display: flex; align-items: center; gap: .75rem; padding: .9rem 0 .25rem; }
+.ec-credit-detail-prog-bar { flex: 1; height: 6px; background: #F3F4F6; border-radius: 10px; overflow: hidden; }
+.ec-credit-detail-prog-fill { height: 100%; background: #3FBFA0; border-radius: 10px; width: 0; transition: width .6s ease; }
+.ec-credit-detail-prog-pct { font-size: .8rem; font-weight: 700; color: #3FBFA0; flex-shrink: 0; }
