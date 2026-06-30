@@ -790,8 +790,6 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   set('fd-kpi-restant', fmtEur(restant));
   set('fd-kpi-mens', fmtEur(mens));
 
-  // Counter animation on hero amount
-  setTimeout(function(){ v3CountUp('fd-disponible-amt', solde); }, 200);
 
   // Chart
   if(capital > 0){
