@@ -53,12 +53,15 @@
     </div>
   </div>
 
+  <!-- Greeting above hero -->
+  <div class="v2-hero-greeting-above" id="fd-greeting-name">—</div>
+  <!-- Hidden compat IDs for JS -->
+  <span id="fd-greeting-desk" style="display:none"></span>
+  <span id="fd-kpi-disponible" style="display:none"></span>
+  <span id="fd-kpi-limite-sub" style="display:none"></span>
+
   <!-- ── HERO BANNER ── -->
   <section class="v2-hero">
-    <!-- Hidden compat IDs for JS -->
-    <span id="fd-greeting-desk" style="display:none"></span>
-    <span id="fd-kpi-disponible" style="display:none"></span>
-    <span id="fd-kpi-limite-sub" style="display:none"></span>
 
     <!-- Eye button — always top-right -->
     <button class="v2-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
@@ -71,7 +74,6 @@
     <div class="v2-hero-body">
       <!-- Left: amount info -->
       <div class="v2-hero-left">
-        <div class="v2-hero-greeting" id="fd-greeting-name">—</div>
         <div class="v2-hero-label">FINANCEMENT DISPONIBLE</div>
         <div class="v2-hero-amount" id="fd-disponible-amt">— €</div>
         <div id="ec-solde-comptable" style="display:none"></div>
