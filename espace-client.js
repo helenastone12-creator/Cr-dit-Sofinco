@@ -130,7 +130,7 @@ function ecRefreshSolde(){
   var el2 = document.getElementById('ec-solde-comptable');
   var hidden = ecSoldeHidden();
   var solde = ecGetSolde();
-  var mask = '• • • • • •';
+  var mask = '* * * * * *';
   var soldeFmt = solde.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
   if(el) el.textContent = hidden ? mask : soldeFmt;
   if(el2) el2.textContent = hidden ? mask : ecFormatAmt(solde);
@@ -924,7 +924,7 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
 
   var solde = parseFloat(localStorage.getItem('ec_solde')) || 0;
   var _hidden = ecSoldeHidden();
-  var _mask = '• • • • • •';
+  var _mask = '* * * * * *';
   var soldeFmtDisp = _hidden ? _mask : fmtEur(solde);
   set('fd-disponible-amt', soldeFmtDisp);
   set('fd-disponible-amt2', soldeFmtDisp);
@@ -971,7 +971,7 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
     if(_origRefresh) _origRefresh();
     var s2 = parseFloat(localStorage.getItem('ec_solde')) || 0;
     var _h2 = ecSoldeHidden();
-    var _m2 = '• • • • • •';
+    var _m2 = '* * * * * *';
     var s2Fmt = _h2 ? _m2 : fmtEur(s2);
     set('fd-disponible-amt', s2Fmt);
     set('fd-disponible-amt2', s2Fmt);
