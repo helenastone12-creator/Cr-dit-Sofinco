@@ -393,41 +393,65 @@ function ecOpenAllTx(){
 function ecOpenTxDetail(encoded){
   var tx;
   try{ tx = JSON.parse(decodeURIComponent(encoded)); } catch(e){ return; }
-  var isOut = tx.type==='virement';
-  var isConv = tx.type==='convert';
-  var sign = isOut ? '−' : '+';
-  var typeLabel = isOut ? 'Virement sortant' : (isConv ? 'Conversion de devises' : 'Dépôt entrant');
-  var ref = tx.ref || ('VIR-' + new Date().getFullYear() + '-' + String(Math.floor(100000 + Math.random()*900000)));
-  var user = ecGetUser()||{};
-
-  var statusHtml = '<span style="display:inline-flex;align-items:center;gap:.35rem;background:var(--green-light);color:var(--green);border:1px solid rgba(5,150,105,.2);border-radius:6px;padding:.22rem .65rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em">'
-    +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Validée</span>';
-
-  /* Lignes IBAN destinataire + Motif pour virements */
-  var extraRows = '';
-  if(isOut){
-    if(tx.iban) extraRows += '<div class="ec-tx-d-row"><span class="ec-tx-d-lbl">IBAN destinataire</span><span class="ec-tx-d-val ec-tx-d-mono" style="font-size:.72rem">'+tx.iban+'</span></div>';
-    extraRows += '<div class="ec-tx-d-row"><span class="ec-tx-d-lbl">Motif</span><span class="ec-tx-d-val">'+(tx.motif||'—')+'</span></div>';
-  }
+  var isOut = tx.type === 'virement';
+  var isIn  = tx.type === 'credit';
+  var amt   = Math.abs(parseFloat(tx.amt) || 0);
+  var amtFmt = (isIn ? '+' : '−') + ecFormatAmt(amt);
+  var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
+  var ref   = tx.ref || ('REF-' + new Date().getFullYear() + '-' + String(Math.floor(100000 + Math.random()*900000)));
+  var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
+  var user  = ecGetUser() || {};
 
   var el = document.getElementById('ec-modal-tx');
   if(!el) return;
-  el.querySelector('#ec-tx-d-label').textContent  = tx.label;
-  el.querySelector('#ec-tx-d-type').textContent   = typeLabel;
-  el.querySelector('#ec-tx-d-date').textContent   = tx.date;
-  el.querySelector('#ec-tx-d-amt').textContent    = sign + ecFormatAmt(tx.amt);
-  el.querySelector('#ec-tx-d-amt').style.color    = isOut ? 'var(--text)' : 'var(--green)';
-  el.querySelector('#ec-tx-d-status').innerHTML   = statusHtml;
-  el.querySelector('#ec-tx-d-ref').textContent    = ref;
-  var extraEl = el.querySelector('#ec-tx-d-extra');
-  if(extraEl) extraEl.innerHTML = extraRows;
 
-  /* Bouton PDF */
-  var pdfBtn = el.querySelector('#ec-tx-pdf-btn');
-  if(pdfBtn){
-    pdfBtn.style.display = isOut ? '' : 'none';
-    pdfBtn.onclick = function(){ ecDownloadVirementPdf(tx, ref, user); };
+  // Top bar subtle amount
+  var topAmt = el.querySelector('#ec-tx-d-amt-top');
+  if(topAmt){ topAmt.textContent = amtFmt; topAmt.style.color = isIn ? '#16A34A' : '#1F2937'; }
+
+  // Hero icon (↗ out / ↓ in)
+  var iconEl = el.querySelector('#ec-tx-d-icon');
+  if(iconEl){
+    iconEl.className = 'txd-hero-icon' + (isIn ? ' txd-hero-icon--in' : '');
+    iconEl.innerHTML = isIn
+      ? '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>'
+      : '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
   }
+
+  // Hero amount + subtitle + date
+  var amtEl = el.querySelector('#ec-tx-d-amt');
+  if(amtEl){ amtEl.textContent = amtFmt; amtEl.style.color = isIn ? '#16A34A' : '#1F2937'; }
+  var subEl = el.querySelector('#ec-tx-d-sub');
+  if(subEl) subEl.textContent = (isIn ? 'Reçu de ' : 'Envoyé à ') + label;
+  var dateEl = el.querySelector('#ec-tx-d-date');
+  if(dateEl) dateEl.textContent = dateDisp;
+
+  // Detail rows
+  var recvLbl = el.querySelector('#ec-tx-d-recv-lbl');
+  if(recvLbl) recvLbl.textContent = isIn ? (label + ' reçoit') : 'Montant envoyé';
+  var recvAmt = el.querySelector('#ec-tx-d-recv-amt');
+  if(recvAmt) recvAmt.textContent = ecFormatAmt(amt);
+  el.querySelector('#ec-tx-d-label').textContent = label;
+  el.querySelector('#ec-tx-d-ref').textContent = ref;
+
+  // Extra rows (IBAN + motif for virements)
+  var extraEl = el.querySelector('#ec-tx-d-extra');
+  if(extraEl){
+    var extra = '';
+    if(isOut && tx.iban) extra += '<div class="txd-row"><span class="txd-lbl">IBAN destinataire</span><span class="txd-val txd-mono" style="font-size:.72rem">'+tx.iban+'</span></div>';
+    if(isOut) extra += '<div class="txd-row"><span class="txd-lbl">Motif</span><span class="txd-val">'+(tx.motif||'—')+'</span></div>';
+    extraEl.innerHTML = extra;
+  }
+
+  // Timeline dates
+  ['ec-tx-tl-date1','ec-tx-tl-date2','ec-tx-tl-date3'].forEach(function(id){
+    var d = el.querySelector('#'+id);
+    if(d) d.textContent = dateDisp;
+  });
+
+  // Share receipt button
+  var pdfBtn = el.querySelector('#ec-tx-pdf-btn');
+  if(pdfBtn) pdfBtn.onclick = function(){ ecDownloadVirementPdf(tx, ref, user); };
 
   ecOpenModal('tx');
 }

@@ -493,28 +493,68 @@
   </div>
 </div>
 
-<!-- Modal Détail Transaction -->
-<div class="ec-modal-overlay" id="ec-modal-tx" onclick="ecCloseModal('tx')">
-  <div class="ec-modal-card" onclick="event.stopPropagation()">
-    <div class="ec-modal-handle"></div>
-    <div class="ec-modal-header">
-      <span class="ec-modal-title" data-i18n="tx_detail_title">Détail de l'opération</span>
-      <button class="ec-modal-close" onclick="ecCloseModal('tx')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="ec-tx-detail">
-      <div class="ec-tx-d-amt" id="ec-tx-d-amt">—</div>
-      <div class="ec-tx-d-status" id="ec-tx-d-status"></div>
-      <div class="ec-tx-d-rows">
-        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl" data-i18n="tx_detail_label">Libellé</span><span class="ec-tx-d-val" id="ec-tx-d-label">—</span></div>
-        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl" data-i18n="tx_detail_type">Type</span><span class="ec-tx-d-val" id="ec-tx-d-type">—</span></div>
-        <div class="ec-tx-d-row"><span class="ec-tx-d-lbl" data-i18n="tx_detail_date">Date</span><span class="ec-tx-d-val" id="ec-tx-d-date">—</span></div>
-        <div id="ec-tx-d-extra"></div>
-        <div class="ec-tx-d-row" style="border-bottom:none"><span class="ec-tx-d-lbl" data-i18n="tx_detail_ref">Référence</span><span class="ec-tx-d-val ec-tx-d-mono" id="ec-tx-d-ref">—</span></div>
-      </div>
-      <button id="ec-tx-pdf-btn" style="display:none;margin-top:1rem;width:100%;background:var(--navy);color:#fff;border:none;border-radius:10px;padding:.8rem 1rem;font-size:.85rem;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Télécharger la confirmation
+<!-- Modal Détail Transaction (Grey style) -->
+<div class="ec-modal-overlay ec-modal-overlay--fullscreen" id="ec-modal-tx" onclick="ecCloseModal('tx')">
+  <div class="ec-modal-card ec-modal-card--fullscreen txd-page" onclick="event.stopPropagation()">
+    <!-- Top bar -->
+    <div class="txd-topbar">
+      <button class="atx-back-btn" onclick="ecCloseModal('tx')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
+      <span class="txd-topbar-amt" id="ec-tx-d-amt-top"></span>
+      <div style="width:36px"></div>
+    </div>
+    <!-- Scrollable body -->
+    <div class="txd-body">
+      <!-- Hero -->
+      <div class="txd-hero">
+        <div class="txd-hero-icon" id="ec-tx-d-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </div>
+        <div class="txd-hero-amt" id="ec-tx-d-amt">—</div>
+        <div class="txd-hero-sub" id="ec-tx-d-sub">—</div>
+        <div class="txd-hero-date" id="ec-tx-d-date">—</div>
+      </div>
+      <!-- Wavy divider -->
+      <div class="txd-wavy">
+        <svg viewBox="0 0 375 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,12 C30,0 60,24 90,12 C120,0 150,24 180,12 C210,0 240,24 270,12 C300,0 330,24 360,12 L375,12 L375,24 L0,24 Z" fill="#fff"/></svg>
+      </div>
+      <!-- Details section -->
+      <div class="txd-section">
+        <div class="txd-section-title">Détails de la transaction</div>
+        <div class="txd-rows" id="ec-tx-d-rows">
+          <div class="txd-row"><span class="txd-lbl">Statut</span><span class="txd-val"><span class="txd-status-badge"><span class="txd-status-dot"></span> Complété</span></span></div>
+          <div class="txd-row"><span class="txd-lbl" id="ec-tx-d-recv-lbl">Montant reçu</span><span class="txd-val txd-val--bold" id="ec-tx-d-recv-amt">—</span></div>
+          <div class="txd-row"><span class="txd-lbl">Nom du compte</span><span class="txd-val txd-val--bold" id="ec-tx-d-label">—</span></div>
+          <div class="txd-row" id="ec-tx-d-ref-row"><span class="txd-lbl">Référence</span><span class="txd-val txd-mono" id="ec-tx-d-ref">—</span></div>
+          <div id="ec-tx-d-extra"></div>
+        </div>
+      </div>
+      <!-- Timeline section -->
+      <div class="txd-section">
+        <div class="txd-section-title">Délai</div>
+        <div class="txd-timeline">
+          <div class="txd-tl-item">
+            <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="txd-tl-line"></div>
+            <div class="txd-tl-body"><div class="txd-tl-title">Transaction initiée</div><div class="txd-tl-sub">Vous avez effectué une transaction</div><div class="txd-tl-date" id="ec-tx-tl-date1">—</div></div>
+          </div>
+          <div class="txd-tl-item">
+            <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="txd-tl-line"></div>
+            <div class="txd-tl-body"><div class="txd-tl-title">Traitement en cours</div><div class="txd-tl-sub">Les fonds ont été envoyés au destinataire</div><div class="txd-tl-date" id="ec-tx-tl-date2">—</div></div>
+          </div>
+          <div class="txd-tl-item txd-tl-item--last">
+            <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="txd-tl-body"><div class="txd-tl-title">Paiement complété</div><div class="txd-tl-sub">Le compte a été crédité</div><div class="txd-tl-date" id="ec-tx-tl-date3">—</div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Actions -->
+      <div class="txd-actions">
+        <button class="txd-btn-primary" id="ec-tx-pdf-btn">Partager le reçu</button>
+        <button class="txd-btn-secondary" onclick="ecCloseModal('tx')">Fermer</button>
+      </div>
     </div>
   </div>
 </div>
