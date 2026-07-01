@@ -4932,7 +4932,7 @@ body.ec-body {
 .gd-tx-type-val { font-size: .78rem; color: #6B7280; }
 .gd-tx-desc-cell {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: .65rem;
 }
 .gd-tx-avatar {
@@ -4946,6 +4946,12 @@ body.ec-body {
   flex-shrink: 0;
   letter-spacing: .02em;
 }
+.gd-tx-desc-info {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  min-width: 0;
+}
 .gd-tx-desc-text {
   font-size: .82rem;
   font-weight: 600;
@@ -4954,6 +4960,11 @@ body.ec-body {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 180px;
+}
+.gd-tx-desc-sub {
+  font-size: .7rem;
+  color: #9CA3AF;
+  white-space: nowrap;
 }
 .gd-tx-status-val {
   display: flex;
@@ -4986,7 +4997,7 @@ body.ec-body {
   .gd-action-btns { gap: 1.8rem; }
   .gd-action-circle { width: 56px; height: 56px; }
   .gd-section { padding: 0 .85rem 1.1rem; }
-  .gd-balances-wrap { grid-template-columns: 1fr; gap: .65rem; }
+  .gd-balances-wrap { grid-template-columns: repeat(2, 1fr); gap: .65rem; }
   .gd-qa-grid { grid-template-columns: repeat(2, 1fr); gap: .65rem; }
 
   /* Responsive table → list on mobile */
@@ -4994,7 +5005,7 @@ body.ec-body {
   .gd-tx-table, .gd-tx-table tbody { display: block; }
   .gd-tx-table tbody tr {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: .75rem;
     padding: .85rem 1rem;
     border-bottom: 1px solid #F3F4F6;

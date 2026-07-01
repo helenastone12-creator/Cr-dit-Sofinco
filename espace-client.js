@@ -863,7 +863,7 @@ function fdRenderActivity(){
     html += '<td><span class="gd-tx-date-val">' + dateFmt + '</span></td>';
     html += '<td><span class="gd-tx-amt-val ' + amtCls + '">' + amtFmt + '</span></td>';
     html += '<td><span class="gd-tx-type-val">' + type + '</span></td>';
-    html += '<td><div class="gd-tx-desc-cell"><div class="gd-tx-avatar">' + initials + '</div><span class="gd-tx-desc-text">' + label + '</span></div></td>';
+    html += '<td><div class="gd-tx-desc-cell"><div class="gd-tx-avatar">' + initials + '</div><div class="gd-tx-desc-info"><span class="gd-tx-desc-text">' + label + '</span><span class="gd-tx-desc-sub">' + dateFmt + '</span></div></div></td>';
     html += '<td><span class="gd-tx-status-val"><span class="gd-tx-dot"></span> Validé</span></td>';
     html += '<td><span class="gd-tx-chevron-val">›</span></td>';
     html += '</tr>';
@@ -927,7 +927,7 @@ function v3InitChart(capital, mens, duree, moisPasses){
   // Mark current month
   var now = moisPasses;
 
-  section.style.display = 'block';
+  // Chart hidden in new gd-* layout
 
   if(window._v4Chart) { try { window._v4Chart.destroy(); } catch(e){} }
 
