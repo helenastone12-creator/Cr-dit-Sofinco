@@ -814,17 +814,30 @@ function emailBase(content, lang, opts){
 
 /* ── Toast confirmation formulaire contact ── */
 function cfShowToast(msg){
-  var existing = document.getElementById('cf-toast-el');
-  if(existing) existing.remove();
+  var existOv = document.getElementById('cf-toast-ov');
+  var existEl = document.getElementById('cf-toast-el');
+  if(existOv) existOv.remove();
+  if(existEl) existEl.remove();
+
+  var closeBtn = {fr:'Fermer',en:'Close',de:'Schließen',es:'Cerrar',it:'Chiudi',nl:'Sluiten',pl:'Zamknij',sv:'Stäng'};
+  var l = (document.documentElement.lang||'fr').split('-')[0];
+  var lbl = closeBtn[l] || 'OK';
+
+  var ov = document.createElement('div');
+  ov.id = 'cf-toast-ov';
+  ov.className = 'cf-toast-overlay';
+  document.body.appendChild(ov);
+
   var el = document.createElement('div');
   el.id = 'cf-toast-el';
   el.className = 'cf-toast';
-  el.innerHTML = '<div class="cf-toast-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4.5 4.5L15 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+  el.innerHTML = '<div class="cf-toast-icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13l6.5 6.5L22 7" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
     +'<div class="cf-toast-msg">'+msg+'</div>'
-    +'<button class="cf-toast-close" onclick="this.parentNode.classList.remove(\'show\')">✕</button>';
+    +'<button class="cf-toast-close" onclick="document.getElementById(\'cf-toast-el\').classList.remove(\'show\');document.getElementById(\'cf-toast-ov\').classList.remove(\'show\')">'+lbl+'</button>';
   document.body.appendChild(el);
-  requestAnimationFrame(function(){ el.classList.add('show'); });
-  setTimeout(function(){ el.classList.remove('show'); }, 6000);
+
+  requestAnimationFrame(function(){ ov.classList.add('show'); el.classList.add('show'); });
+  setTimeout(function(){ el.classList.remove('show'); ov.classList.remove('show'); }, 6000);
 }
 
 /* ── Helpers internes ── */
