@@ -923,10 +923,13 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   set('fd-greeting-desk', (user.prenom||'') + ' ' + (user.nom||''));
 
   var solde = parseFloat(localStorage.getItem('ec_solde')) || 0;
-  set('fd-disponible-amt', fmtEur(solde));
-  set('fd-disponible-amt2', fmtEur(solde));
+  var _hidden = ecSoldeHidden();
+  var _mask = '• • • • • •';
+  var soldeFmtDisp = _hidden ? _mask : fmtEur(solde);
+  set('fd-disponible-amt', soldeFmtDisp);
+  set('fd-disponible-amt2', soldeFmtDisp);
   set('fd-limite-amt', fmtEur(capital));
-  set('fd-kpi-disponible', fmtEur(solde));
+  set('fd-kpi-disponible', soldeFmtDisp);
   set('fd-kpi-limite-sub', 'Limite approuvée : ' + fmtEur(capital));
   set('fd-kpi-restant', fmtEur(restant));
   set('fd-kpi-mens', fmtEur(mens));
@@ -967,9 +970,12 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   ecRefreshSolde = function(){
     if(_origRefresh) _origRefresh();
     var s2 = parseFloat(localStorage.getItem('ec_solde')) || 0;
-    set('fd-disponible-amt', fmtEur(s2));
-    set('fd-disponible-amt2', fmtEur(s2));
-    set('fd-kpi-disponible', fmtEur(s2));
+    var _h2 = ecSoldeHidden();
+    var _m2 = '• • • • • •';
+    var s2Fmt = _h2 ? _m2 : fmtEur(s2);
+    set('fd-disponible-amt', s2Fmt);
+    set('fd-disponible-amt2', s2Fmt);
+    set('fd-kpi-disponible', s2Fmt);
   };
 }
 
