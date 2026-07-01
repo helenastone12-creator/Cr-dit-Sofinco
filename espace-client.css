@@ -2797,16 +2797,16 @@ html::-webkit-scrollbar {
   --p-amber:     #D97706;
   --p-amber-lt:  #FFFBEB;
 
-  /* Sidebar (bleu clair) */
-  --sb-bg:       #a8d8ec;
-  --sb-bg-2:     #b8e0f0;
-  --sb-border:   rgba(0,0,0,.08);
-  --sb-ink:      rgba(10,50,80,.6);
-  --sb-ink-2:    rgba(10,50,80,.85);
-  --sb-ink-3:    #0A3250;
-  --sb-active:   rgba(10,80,130,.12);
-  --sb-active-bd:rgba(10,80,130,.4);
-  --sb-hover:    rgba(10,50,80,.07);
+  /* Sidebar (blanc) */
+  --sb-bg:       #FFFFFF;
+  --sb-bg-2:     #F8FAFC;
+  --sb-border:   rgba(0,0,0,.07);
+  --sb-ink:      rgba(15,23,42,.5);
+  --sb-ink-2:    rgba(15,23,42,.8);
+  --sb-ink-3:    #0F172A;
+  --sb-active:   rgba(11,170,110,.1);
+  --sb-active-bd:rgba(11,170,110,.4);
+  --sb-hover:    rgba(15,23,42,.04);
 
   /* Shadows */
   --sh-xs:  0 1px 2px rgba(11,21,38,.04);
@@ -3577,8 +3577,8 @@ body.ec-body {
     border-right: 1px solid var(--sb-border);
     padding: 0;
     gap: 0;
-    background: linear-gradient(180deg, #a8d8ec 0%, #c5e8f5 100%);
-    box-shadow: 4px 0 24px rgba(0,0,0,.1);
+    background: var(--sb-bg);
+    box-shadow: 4px 0 24px rgba(0,0,0,.06);
     overflow-y: auto;
     scrollbar-width: none;
   }
