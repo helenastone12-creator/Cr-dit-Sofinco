@@ -2623,12 +2623,27 @@
 }
 
 /* Modal plein écran transactions */
+.ec-modal-overlay--fullscreen {
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
 .ec-modal-overlay--fullscreen .ec-modal-card--fullscreen {
-  max-height: 100vh !important;
-  height: 100vh !important;
+  max-height: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
   border-radius: 0 !important;
   display: flex !important;
   flex-direction: column !important;
+  transform: translateX(100%) !important;
+  transition: transform .3s cubic-bezier(.22,1,.36,1) !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.ec-modal-overlay--fullscreen.open .ec-modal-card--fullscreen {
+  transform: translateX(0) !important;
 }
 .ec-all-tx-body {
   flex: 1;
