@@ -5478,6 +5478,8 @@ body.ec-body {
   .gd-balance-section {
     padding: 1.75rem 2rem 1.5rem;
     border-bottom: none;
+    background: linear-gradient(135deg, #a8d8ec 0%, #c5e8f5 100%);
+    border-radius: 18px 18px 0 0;
   }
   .gd-section.gd-pc-only { padding: 1.25rem 2rem; }
   .gd-balance-label { font-size: .82rem; font-weight: 600; letter-spacing: .06em; }
