@@ -185,6 +185,12 @@
     <span>Messages</span>
   </a>
 
+  <!-- Plus (mobile bottom nav) -->
+  <button class="v2-nav-link v2-nav-mobile-only" onclick="ecOpenModal('more')" aria-label="Plus">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+    <span>Plus</span>
+  </button>
+
   <!-- Services (sidebar desktop) -->
   <div class="v2-sidebar-sep v2-nav-desktop-only"></div>
   <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenAllTx()" aria-label="Transactions">
@@ -537,6 +543,52 @@
         <button class="txd-btn-primary" id="ec-tx-pdf-btn">Partager le reçu</button>
         <button class="txd-btn-secondary" onclick="ecCloseModal('tx')">Fermer</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Plus (mobile) -->
+<div class="ec-modal-overlay" id="ec-modal-more" onclick="ecCloseModal('more')">
+  <div class="ec-modal-card more-sheet" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="more-sheet-title">Services</div>
+    <div class="more-sheet-grid">
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenAllTx()">
+        <div class="more-item-icon more-item-icon--purple">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <span>Transactions</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('virement')">
+        <div class="more-item-icon more-item-icon--teal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <span>Virement crédit</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('pause-mens')">
+        <div class="more-item-icon more-item-icon--orange">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
+        </div>
+        <span>Pause mensualités</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('e-releve')">
+        <div class="more-item-icon more-item-icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span>E-relevé</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('open-banking')">
+        <div class="more-item-icon more-item-icon--blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <span>Open Banking</span>
+      </button>
+      <a href="profil.html" class="more-item" onclick="ecCloseModal('more')">
+        <div class="more-item-icon more-item-icon--pink">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <span>Mon profil</span>
+      </a>
     </div>
   </div>
 </div>
