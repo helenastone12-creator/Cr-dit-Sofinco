@@ -343,42 +343,105 @@ function ecRenderTx(){
 }
 
 // ── Toutes les transactions (modal scrollable) ──
+var atxPage = 0;
+var atxPageSize = 10;
+
+function atxGetFiltered(){
+  var isPC = window.innerWidth >= 701;
+  var q = ((document.getElementById(isPC ? 'atx-search-input' : 'atx-search-input-mobile') || {}).value || '').toLowerCase().trim();
+  var typeFilter = (document.getElementById('atx-filter-type') || {}).value || '';
+  var list = ecGetTx();
+  if(q) list = list.filter(function(tx){ return (tx.label||'').toLowerCase().indexOf(q) !== -1; });
+  if(typeFilter) list = list.filter(function(tx){ return tx.type === typeFilter; });
+  return list;
+}
+
 function atxRenderList(list){
   var hidden = ecSoldeHidden();
   var el = document.getElementById('ec-all-tx-list');
   if(!el) return;
-  if(!list || !list.length){ el.innerHTML = '<div class="atx-empty">Aucune opération.</div>'; return; }
-  var html = list.map(function(tx){
-    var isIn = tx.type === 'credit';
-    var amt = Math.abs(parseFloat(tx.amt) || 0);
-    var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
-    var amtCls = isIn ? 'atx-amt atx-amt--in' : 'atx-amt';
-    var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
-    var initials = fdTxInitials(label);
-    var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
-    var txJson = encodeURIComponent(JSON.stringify(tx));
-    return '<div class="atx-row" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
-      '<div class="atx-avatar">'+initials+'</div>'+
-      '<div class="atx-info"><span class="atx-name">'+label+'</span><span class="atx-date">'+dateDisp+'</span></div>'+
-      '<span class="'+amtCls+'">'+amtFmt+'</span>'+
-    '</div>';
-  }).join('');
-  el.innerHTML = html;
+  var isPC = window.innerWidth >= 701;
+  if(!list || !list.length){ el.innerHTML = isPC ? '<div class="atx-pc-empty">Aucune opération.</div>' : '<div class="atx-empty">Aucune opération.</div>'; return; }
+  if(isPC){
+    var start = atxPage * atxPageSize;
+    var pageList = list.slice(start, start + atxPageSize);
+    var rows = pageList.map(function(tx){
+      var isIn = tx.type === 'credit';
+      var amt = Math.abs(parseFloat(tx.amt) || 0);
+      var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+      var amtCls = isIn ? 'atx-pc-amt--in' : 'atx-pc-amt--out';
+      var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
+      var type = isIn ? 'Dépôt' : 'Retrait';
+      var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
+      var txJson = encodeURIComponent(JSON.stringify(tx));
+      return '<tr class="atx-pc-row" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
+        '<td class="atx-pc-td atx-pc-td--date">'+dateDisp+'</td>'+
+        '<td class="atx-pc-td"><span class="'+amtCls+'">'+amtFmt+'</span></td>'+
+        '<td class="atx-pc-td atx-pc-td--type">'+type+'</td>'+
+        '<td class="atx-pc-td">'+label+'</td>'+
+        '<td class="atx-pc-td"><span class="atx-pc-status">Validé</span></td>'+
+        '<td class="atx-pc-td atx-pc-td--chev">›</td>'+
+      '</tr>';
+    }).join('');
+    el.innerHTML = '<table class="atx-pc-table"><thead><tr>'+
+      '<th class="atx-pc-th">DATE</th><th class="atx-pc-th">MONTANT</th>'+
+      '<th class="atx-pc-th">TYPE</th><th class="atx-pc-th">DESCRIPTION</th>'+
+      '<th class="atx-pc-th">STATUT</th><th class="atx-pc-th"></th>'+
+      '</tr></thead><tbody>'+rows+'</tbody></table>';
+    atxRenderPagination(list.length);
+  } else {
+    var html = list.map(function(tx){
+      var isIn = tx.type === 'credit';
+      var amt = Math.abs(parseFloat(tx.amt) || 0);
+      var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+      var amtCls = isIn ? 'atx-amt atx-amt--in' : 'atx-amt';
+      var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
+      var initials = fdTxInitials(label);
+      var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
+      var txJson = encodeURIComponent(JSON.stringify(tx));
+      return '<div class="atx-row" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
+        '<div class="atx-avatar">'+initials+'</div>'+
+        '<div class="atx-info"><span class="atx-name">'+label+'</span><span class="atx-date">'+dateDisp+'</span></div>'+
+        '<span class="'+amtCls+'">'+amtFmt+'</span>'+
+      '</div>';
+    }).join('');
+    el.innerHTML = html;
+  }
+}
+
+function atxRenderPagination(total){
+  var pg = document.getElementById('atx-pagination');
+  if(!pg) return;
+  var totalPages = Math.ceil(total / atxPageSize);
+  if(totalPages <= 1){ pg.innerHTML = ''; return; }
+  var nums = '';
+  for(var i=0;i<totalPages;i++){
+    nums += '<button class="atx-pc-pg-num'+(i===atxPage?' atx-pc-pg-num--active':'')+'" onclick="atxGoPage('+i+')">'+( i+1)+'</button>';
+  }
+  pg.innerHTML =
+    '<button class="atx-pc-pg-btn" onclick="atxGoPage('+(atxPage-1)+')" '+(atxPage===0?'disabled':'')+'>← Précédent</button>'+
+    '<div class="atx-pc-pg-nums">'+nums+'</div>'+
+    '<button class="atx-pc-pg-btn" onclick="atxGoPage('+(atxPage+1)+')" '+(atxPage>=totalPages-1?'disabled':'')+'>Suivant →</button>';
+}
+
+function atxGoPage(p){
+  var total = atxGetFiltered().length;
+  var max = Math.max(0, Math.ceil(total/atxPageSize)-1);
+  atxPage = Math.max(0, Math.min(p, max));
+  atxRenderList(atxGetFiltered());
 }
 
 function atxFilterTx(){
-  var q = (document.getElementById('atx-search-input') || {}).value || '';
-  var list = ecGetTx();
-  if(q.trim()){
-    var ql = q.toLowerCase();
-    list = list.filter(function(tx){ return (tx.label||'').toLowerCase().indexOf(ql) !== -1; });
-  }
-  atxRenderList(list);
+  atxPage = 0;
+  atxRenderList(atxGetFiltered());
 }
 
 function atxClearSearch(){
   var inp = document.getElementById('atx-search-input');
-  if(inp){ inp.value = ''; }
+  var inpm = document.getElementById('atx-search-input-mobile');
+  if(inp) inp.value = '';
+  if(inpm) inpm.value = '';
+  atxPage = 0;
   atxRenderList(ecGetTx());
 }
 

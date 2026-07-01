@@ -5160,6 +5160,154 @@ body.ec-body {
 .atx-amt--in { color: #16A34A; }
 .atx-empty { padding: 2rem 1rem; text-align: center; color: #9CA3AF; font-size: .88rem; }
 
+/* ── ATX mobile/pc visibility ── */
+.atx-mobile-only { display: flex; }
+.atx-pc-only { display: none; }
+
+/* ── ATX PC styles ── */
+@media (min-width: 701px) {
+  .atx-mobile-only { display: none !important; }
+  .atx-pc-only { display: flex; }
+
+  .ec-modal-overlay--fullscreen#ec-modal-all-tx {
+    left: var(--sidebar-w, 220px) !important;
+    background: #F5F7FA !important;
+    align-items: flex-start !important;
+    overflow-y: auto;
+  }
+  .ec-modal-overlay--fullscreen#ec-modal-all-tx .ec-modal-card--fullscreen {
+    transform: none !important;
+    transition: opacity .2s !important;
+    opacity: 0;
+    width: 100%;
+    max-width: none;
+    background: #F5F7FA;
+    padding: 2rem 2.5rem 3rem;
+    overflow: visible;
+  }
+  .ec-modal-overlay--fullscreen#ec-modal-all-tx.open .ec-modal-card--fullscreen {
+    opacity: 1;
+  }
+
+  /* PC header */
+  .atx-pc-header { flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; width: 100%; }
+  .atx-pc-title-row { display: flex; align-items: center; width: 100%; }
+  .atx-pc-title { font-size: 1.75rem; font-weight: 800; color: #0F172A; letter-spacing: -.02em; }
+
+  /* PC filter bar */
+  .atx-pc-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-wrap: wrap;
+  }
+  .atx-pc-filter-label { font-size: .82rem; color: #6B7280; font-weight: 500; }
+  .atx-pc-select {
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: .45rem .7rem;
+    font-size: .82rem;
+    color: #374151;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+  }
+  .atx-pc-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: .45rem .75rem;
+    margin-left: auto;
+  }
+  .atx-pc-search-input {
+    border: none; outline: none; background: transparent;
+    font-size: .82rem; color: #1F2937; width: 180px;
+    font-family: inherit;
+  }
+  .atx-pc-search-input::placeholder { color: #9CA3AF; }
+
+  /* PC table card */
+  .atx-list {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.06);
+    margin: 0;
+    overflow: visible;
+  }
+  .atx-pc-table { width: 100%; border-collapse: collapse; }
+  .atx-pc-th {
+    font-size: .7rem;
+    font-weight: 700;
+    color: #9CA3AF;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .9rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid #F1F5F9;
+  }
+  .atx-pc-row { cursor: pointer; transition: background .12s; }
+  .atx-pc-row:hover { background: #F9FAFB; }
+  .atx-pc-row:not(:last-child) td { border-bottom: 1px solid #F1F5F9; }
+  .atx-pc-td {
+    padding: 1rem 1.25rem;
+    font-size: .88rem;
+    color: #374151;
+    vertical-align: middle;
+  }
+  .atx-pc-td--date { color: #6B7280; }
+  .atx-pc-td--type { color: #6B7280; }
+  .atx-pc-td--chev { color: #9CA3AF; font-size: 1.2rem; text-align: right; width: 30px; }
+  .atx-pc-amt--in { color: #16A34A; font-weight: 700; }
+  .atx-pc-amt--out { color: #1F2937; font-weight: 700; }
+  .atx-pc-status {
+    display: inline-block;
+    padding: .25rem .75rem;
+    border: 1px solid #16A34A;
+    border-radius: 20px;
+    color: #16A34A;
+    font-size: .78rem;
+    font-weight: 500;
+  }
+  .atx-pc-empty { padding: 3rem; text-align: center; color: #9CA3AF; font-size: .9rem; }
+
+  /* PC Pagination */
+  .atx-pc-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+    gap: 1rem;
+  }
+  .atx-pc-pg-btn {
+    padding: .45rem 1rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    background: #fff;
+    font-size: .82rem;
+    color: #374151;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .atx-pc-pg-btn:disabled { opacity: .4; cursor: default; }
+  .atx-pc-pg-nums { display: flex; gap: .4rem; }
+  .atx-pc-pg-num {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    background: #fff;
+    font-size: .82rem;
+    color: #374151;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .atx-pc-pg-num--active { background: #0F172A; color: #fff; border-color: #0F172A; }
+}
+
 /* ── TX DETAIL PAGE (Grey style) ── */
 .txd-page { display: flex; flex-direction: column; background: #F5F7FA; padding: 0 !important; border-radius: 0 !important; }
 .txd-topbar {
