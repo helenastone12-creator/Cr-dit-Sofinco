@@ -811,8 +811,11 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   function set(id, v){ var e=document.getElementById(id); if(e) e.textContent=v; }
   function fmtEur(n){ return n>0 ? n.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0})+' €' : '—'; }
 
+  var greetText = 'Bonjour, ' + (user.prenom || user.nom || 'Client') + ' 👋';
   var greet = document.getElementById('fd-greeting-name');
-  if(greet) greet.textContent = 'Bonjour, ' + (user.prenom || user.nom || 'Client') + ' 👋';
+  if(greet) greet.textContent = greetText;
+  var greetPc = document.getElementById('gd-topbar-greeting-pc');
+  if(greetPc) greetPc.textContent = greetText;
   set('fd-greeting-desk', (user.prenom||'') + ' ' + (user.nom||''));
 
   var solde = parseFloat(localStorage.getItem('ec_solde')) || 0;
