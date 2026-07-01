@@ -1770,15 +1770,7 @@ function gdRenderCountdown(){
   var next = new Date(dateDebut);
   while(next <= today) next.setMonth(next.getMonth()+1);
   var diff = Math.round((next - today) / (1000*60*60*24));
-  var chip = document.getElementById('gd-echeance-chip');
-  var chipTxt = document.getElementById('gd-echeance-chip-txt');
-  if(!chip || !chipTxt) return;
-  chip.style.display = 'inline-flex';
-  if(diff === 0) chipTxt.textContent = 'Échéance aujourd\'hui';
-  else if(diff === 1) chipTxt.textContent = 'Échéance demain';
-  else chipTxt.textContent = 'Prochaine échéance dans ' + diff + ' jour' + (diff > 1 ? 's' : '');
   if(diff <= 3){
-    chip.classList.add('gd-echeance-chip--urgent');
     var banner = document.getElementById('ec-alert-banner');
     var bannerTxt = document.getElementById('ec-alert-banner-text');
     if(banner && bannerTxt && banner.style.display === 'none'){
