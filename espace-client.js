@@ -901,7 +901,7 @@ function ecInitDashboard(){
 
 function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct){
   function set(id, v){ var e=document.getElementById(id); if(e) e.textContent=v; }
-  function fmtEur(n){ return n>0 ? n.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0})+' €' : '—'; }
+  function fmtEur(n){ return (n != null && !isNaN(n)) ? n.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0})+' €' : '—'; }
 
   var greetText = 'Bonjour, ' + (user.prenom || user.nom || 'Client') + ' 👋';
   var greet = document.getElementById('fd-greeting-name');
