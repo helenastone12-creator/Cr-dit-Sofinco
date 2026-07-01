@@ -592,6 +592,30 @@ function ecOpenModal(name){
   if(name === 'open-banking') obInitModal();
   if(name === 'e-releve') erInitModal();
   if(name === 'pause-mens') pmInitModal();
+  if(name === 'connexions') cxInitModal();
+  if(name === 'chg-date') cdInitModal();
+  if(name === 'credit-detail') setTimeout(cdRenderChart, 200);
+  if(name === 'simul-rachat' || name === 'simul-mens' || name === 'simul-eco'){
+    var _u = ecGetUser(); var _l = (_u && _u.loan) || {};
+    var _cap = _l.montant || 0; var _taux = _l.taux || 0; var _mens = _l.mensualite || 0;
+    var _duree = _l.duree || 0;
+    var _dateDebut = _l.dateDebut ? new Date(_l.dateDebut) : null;
+    var _moisPass = _dateDebut ? Math.min(Math.max(0,Math.floor((new Date()-_dateDebut)/(30.44*24*3600*1000))),_duree) : 0;
+    var _restant = _cap > 0 ? Math.round(_cap - (_cap/_duree)*_moisPass) : 0;
+    var _dureeRest = Math.max(0, _duree - _moisPass);
+    if(name === 'simul-rachat'){
+      var f = function(id,v){ var e=document.getElementById(id); if(e&&v) e.value=v; };
+      f('sr-taux-actuel', _taux); f('sr-capital', _restant||_cap); f('sr-duree', _dureeRest||_duree);
+    }
+    if(name === 'simul-mens'){
+      var f2 = function(id,v){ var e=document.getElementById(id); if(e&&v) e.value=v; };
+      f2('sm-capital', _restant||_cap); f2('sm-mens', _mens); f2('sm-taux', _taux);
+    }
+    if(name === 'simul-eco'){
+      var f3 = function(id,v){ var e=document.getElementById(id); if(e&&v) e.value=v; };
+      f3('se-capital', _restant||_cap); f3('se-taux', _taux); f3('se-duree', _dureeRest||_duree);
+    }
+  }
   var el = document.getElementById('ec-modal-'+name);
   if(!el) return;
   var scrollY = window.scrollY || window.pageYOffset;
@@ -783,6 +807,7 @@ function ecDetectIpCountry(){
 // ── Tableau de bord ──
 function ecInitDashboard(){
   ecGuard();
+  cxTrackLogin();
   if(typeof ecApplyI18n==='function') ecApplyI18n();
   ecDetectIpCountry();
   document.addEventListener('click',function(e){ var dd=document.getElementById('ec-lang-dropdown'); if(dd&&!dd.contains(e.target)&&e.target.id!=='ec-lang-toggle'&&!e.target.closest('#ec-lang-toggle')) dd.classList.remove('open'); });
@@ -871,6 +896,7 @@ function ecInitDashboard(){
   // ── Fidexico Premium: populate new dashboard elements ──
   fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct);
   fdRenderActivity();
+  gdRenderCountdown();
 }
 
 function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct){
@@ -1664,6 +1690,205 @@ function ecSendMessage(){
   }
   inp.value='';
   ecRenderMessages();
+}
+
+// ── Historique Connexions ──
+function cxTrackLogin(){
+  var history = JSON.parse(localStorage.getItem('cx_history')||'[]');
+  var ua = navigator.userAgent;
+  var device = /iPhone|iPad|iPod/.test(ua) ? 'iPhone / iPad' : /Android/.test(ua) ? 'Android' : /Mac/.test(ua) ? 'Mac' : /Win/.test(ua) ? 'Windows' : 'Navigateur web';
+  var browser = /Chrome/.test(ua) && !/Edg/.test(ua) ? 'Chrome' : /Safari/.test(ua) && !/Chrome/.test(ua) ? 'Safari' : /Firefox/.test(ua) ? 'Firefox' : /Edg/.test(ua) ? 'Edge' : 'Navigateur';
+  history.unshift({ date: new Date().toISOString(), device: device, browser: browser });
+  if(history.length > 10) history = history.slice(0, 10);
+  localStorage.setItem('cx_history', JSON.stringify(history));
+}
+function cxInitModal(){
+  var history = JSON.parse(localStorage.getItem('cx_history')||'[]');
+  var list = document.getElementById('cx-list');
+  if(!list) return;
+  if(!history.length){ list.innerHTML = '<div class="cx-empty">Aucun historique disponible.</div>'; return; }
+  list.innerHTML = history.map(function(h, i){
+    var d = new Date(h.date);
+    var dateStr = d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) + ' à ' + d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    var iconCls = i === 0 ? 'cx-item-icon cx-item-icon--current' : 'cx-item-icon';
+    var deviceIcon = /iPhone|iPad|Android/.test(h.device)
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>';
+    var badge = i === 0 ? ' <span class="cx-item-badge">Session actuelle</span>' : '';
+    return '<div class="cx-item"><div class="'+iconCls+'">'+deviceIcon+'</div><div class="cx-item-body"><div class="cx-item-title">'+h.device+' — '+h.browser+badge+'</div><div class="cx-item-sub">'+dateStr+'</div></div></div>';
+  }).join('');
+}
+
+// ── Compte à rebours échéance ──
+function gdRenderCountdown(){
+  var user = ecGetUser();
+  var loan = (user && user.loan) || {};
+  var dateDebut = loan.dateDebut ? new Date(loan.dateDebut) : null;
+  if(!dateDebut || !loan.duree) return;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var next = new Date(dateDebut);
+  while(next <= today) next.setMonth(next.getMonth()+1);
+  var diff = Math.round((next - today) / (1000*60*60*24));
+  var chip = document.getElementById('gd-echeance-chip');
+  var chipTxt = document.getElementById('gd-echeance-chip-txt');
+  if(!chip || !chipTxt) return;
+  chip.style.display = 'inline-flex';
+  if(diff === 0) chipTxt.textContent = 'Échéance aujourd\'hui';
+  else if(diff === 1) chipTxt.textContent = 'Échéance demain';
+  else chipTxt.textContent = 'Prochaine échéance dans ' + diff + ' jour' + (diff > 1 ? 's' : '');
+  if(diff <= 3){
+    chip.classList.add('gd-echeance-chip--urgent');
+    var banner = document.getElementById('ec-alert-banner');
+    var bannerTxt = document.getElementById('ec-alert-banner-text');
+    if(banner && bannerTxt && banner.style.display === 'none'){
+      bannerTxt.textContent = 'Rappel : votre prochaine échéance est dans ' + diff + ' jour' + (diff > 1 ? 's' : '') + '.';
+      banner.style.display = 'flex';
+    }
+  }
+}
+
+// ── Graphique capital restant (credit-detail) ──
+var _cdChart = null;
+function cdRenderChart(){
+  var user = ecGetUser();
+  var loan = (user && user.loan) || {};
+  var wrap = document.getElementById('ec-cd-chart-wrap');
+  var canvas = document.getElementById('ec-cd-chart');
+  if(!wrap || !canvas) return;
+  var capital = loan.montant || 0;
+  var duree = loan.duree || 0;
+  var taux = loan.taux || 0;
+  if(!capital || !duree || !taux || typeof Chart === 'undefined'){ wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  var tauxM = taux / 100 / 12;
+  var mens = capital * tauxM / (1 - Math.pow(1+tauxM, -duree));
+  var labels = [], data = [];
+  var restant = capital;
+  for(var i = 0; i <= duree; i++){
+    labels.push(i === 0 ? 'Départ' : 'M'+i);
+    data.push(Math.max(0, Math.round(restant)));
+    restant = restant - (mens - restant * tauxM);
+  }
+  if(_cdChart){ _cdChart.destroy(); _cdChart = null; }
+  _cdChart = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{ data: data, borderColor: '#0B5E8A', backgroundColor: 'rgba(11,94,138,.08)', borderWidth: 2, pointRadius: 0, fill: true, tension: 0.3 }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { display: false },
+        y: { ticks: { callback: function(v){ return v.toLocaleString('fr-FR')+'€'; }, font:{size:10}, color:'#6B7A8D', maxTicksLimit:4 }, grid: { color:'rgba(0,0,0,.05)' } }
+      }
+    }
+  });
+}
+
+// ── Changement date prélèvement ──
+function cdInitModal(){
+  var user = ecGetUser();
+  var loan = (user && user.loan) || {};
+  var dateDebut = loan.dateDebut ? new Date(loan.dateDebut) : null;
+  var currentDay = dateDebut ? dateDebut.getDate() : null;
+  var el = document.getElementById('cd-current-date');
+  if(el) el.textContent = currentDay ? 'Le ' + currentDay + ' de chaque mois' : '—';
+  var grid = document.getElementById('cd-day-grid');
+  if(!grid) return;
+  var days = [1,5,8,10,12,15,18,20,22,25,28];
+  grid.innerHTML = days.map(function(d){
+    var sel = currentDay === d ? ' cd-day-btn--selected' : '';
+    return '<button class="cd-day-btn'+sel+'" onclick="cdSelectDay(this,'+d+')">' + d + '</button>';
+  }).join('');
+}
+function cdSelectDay(btn){
+  document.querySelectorAll('.cd-day-btn').forEach(function(b){ b.classList.remove('cd-day-btn--selected'); });
+  btn.classList.add('cd-day-btn--selected');
+}
+
+// ── Simulateur Rachat de Crédit ──
+function srCalc(){
+  var tauxA = parseFloat((document.getElementById('sr-taux-actuel')||{}).value);
+  var capital = parseFloat((document.getElementById('sr-capital')||{}).value);
+  var duree = parseFloat((document.getElementById('sr-duree')||{}).value);
+  var tauxN = parseFloat((document.getElementById('sr-taux-nouveau')||{}).value);
+  var res = document.getElementById('sr-result');
+  if(!res) return;
+  if([tauxA,capital,duree,tauxN].some(isNaN)||capital<=0||duree<=0){ res.style.display='none'; return; }
+  var fmt = function(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; };
+  var mensCalc = function(c,t,d){ var tm=t/100/12; return c*tm/(1-Math.pow(1+tm,-d)); };
+  var mensA = mensCalc(capital, tauxA, duree);
+  var mensN = mensCalc(capital, tauxN, duree);
+  var eco = (mensA - mensN) * duree;
+  res.style.display = 'block';
+  document.getElementById('sr-mens-actuelle').textContent = fmt(mensA);
+  document.getElementById('sr-mens-nouvelle').textContent = fmt(mensN);
+  document.getElementById('sr-economie').textContent = fmt(eco);
+}
+
+// ── Simulateur Augmentation Mensualité ──
+function smCalc(){
+  var capital = parseFloat((document.getElementById('sm-capital')||{}).value);
+  var mens = parseFloat((document.getElementById('sm-mens')||{}).value);
+  var taux = parseFloat((document.getElementById('sm-taux')||{}).value);
+  var supp = parseFloat((document.getElementById('sm-supp')||{}).value);
+  var res = document.getElementById('sm-result');
+  if(!res) return;
+  if([capital,mens,taux,supp].some(isNaN)||capital<=0||mens<=0||supp<=0){ res.style.display='none'; return; }
+  var tauxM = taux/100/12;
+  var dureeCalc = function(c,m){ return tauxM===0 ? Math.ceil(c/m) : Math.ceil(-Math.log(1-(c*tauxM/m))/Math.log(1+tauxM)); };
+  var dureeA = dureeCalc(capital, mens);
+  var dureeN = dureeCalc(capital, mens+supp);
+  var intA = mens*dureeA - capital;
+  var intN = (mens+supp)*dureeN - capital;
+  var fmt = function(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; };
+  res.style.display = 'block';
+  document.getElementById('sm-duree-actuelle').textContent = dureeA + ' mois';
+  document.getElementById('sm-duree-nouvelle').textContent = dureeN + ' mois';
+  document.getElementById('sm-economie').textContent = fmt(Math.max(0, intA - intN));
+}
+
+// ── Calculateur Économies Remboursement Anticipé ──
+function seCalc(){
+  var capital = parseFloat((document.getElementById('se-capital')||{}).value);
+  var taux = parseFloat((document.getElementById('se-taux')||{}).value);
+  var duree = parseFloat((document.getElementById('se-duree')||{}).value);
+  var montant = parseFloat((document.getElementById('se-montant')||{}).value);
+  var res = document.getElementById('se-result');
+  if(!res) return;
+  if([capital,taux,duree,montant].some(isNaN)||capital<=0||duree<=0||montant<=0){ res.style.display='none'; return; }
+  var tauxM = taux/100/12;
+  var mensCalc = function(c,d){ return tauxM===0 ? c/d : c*tauxM/(1-Math.pow(1+tauxM,-d)); };
+  var intSans = mensCalc(capital,duree)*duree - capital;
+  var capitalApres = Math.max(0, capital - montant);
+  var dureeApres = capitalApres <= 0 ? 0 : Math.ceil(-Math.log(1-(capitalApres*tauxM/mensCalc(capital,duree)))/Math.log(1+tauxM));
+  var intAvec = capitalApres <= 0 ? 0 : mensCalc(capitalApres, dureeApres)*dureeApres - capitalApres;
+  var fmt = function(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; };
+  res.style.display = 'block';
+  document.getElementById('se-int-sans').textContent = fmt(Math.max(0,intSans));
+  document.getElementById('se-int-avec').textContent = fmt(Math.max(0,intAvec));
+  document.getElementById('se-economie').textContent = fmt(Math.max(0,intSans-intAvec));
+  document.getElementById('se-mois').textContent = Math.max(0, duree - dureeApres) + ' mois';
+}
+
+// ── Chat Conseiller ──
+function chatSend(){
+  var inp = document.getElementById('chat-input');
+  var msgs = document.getElementById('chat-messages');
+  if(!inp || !msgs || !inp.value.trim()) return;
+  var text = inp.value.trim();
+  inp.value = '';
+  var now = new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  msgs.innerHTML += '<div class="chat-msg chat-msg--out"><div class="chat-bubble">'+text.replace(/</g,'&lt;')+'</div><div class="chat-time">'+now+'</div></div>';
+  msgs.scrollTop = msgs.scrollHeight;
+  setTimeout(function(){
+    var replies = ['Merci pour votre message. Un conseiller va vous répondre dans les plus brefs délais.','Bien reçu ! Je transmets votre demande à votre conseiller attitré.','Votre demande a été enregistrée. Nous vous recontactons sous 24h.'];
+    var reply = replies[Math.floor(Math.random()*replies.length)];
+    var nowR = new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    msgs.innerHTML += '<div class="chat-msg chat-msg--in"><div class="chat-bubble">'+reply+'</div><div class="chat-time">'+nowR+'</div></div>';
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 900 + Math.random()*600);
 }
 
 // ── Open Banking ──
