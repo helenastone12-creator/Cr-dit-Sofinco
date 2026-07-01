@@ -103,6 +103,8 @@ function ecInitHeader(){
   if(sid) sid.textContent=ecFmtId(user.id);
 }
 
+function ecParseAmt(v){ return parseFloat(String(v||'0').replace(/\s/g,'').replace(',','.')) || 0; }
+
 // ── Solde ──
 function ecCalcSoldeFromTx(txList){
   var CREDIT_TYPES = ['credit','depot'];
@@ -648,7 +650,7 @@ function ecCloseModal(name){
 }
 
 function ecConfirmDepot(){
-  var amt  = parseFloat((document.getElementById('ec-depot-amt')||{}).value||'0');
+  var amt  = ecParseAmt((document.getElementById('ec-depot-amt')||{}).value);
   var errEl = document.getElementById('ec-depot-err');
   if(!amt || amt <= 0){
     if(errEl){ errEl.textContent='Veuillez saisir un montant valide.'; errEl.style.display='block'; }
@@ -680,7 +682,7 @@ var EC_SYMBOLS = {
 };
 
 function ecConvert(){
-  var amt  = parseFloat((document.getElementById('ec-conv-amt')||{}).value||'0');
+  var amt  = ecParseAmt((document.getElementById('ec-conv-amt')||{}).value);
   var cur  = (document.getElementById('ec-conv-currency')||{}).value||'GBP';
   var rate = EC_RATES[cur] || 1;
   var sym  = EC_SYMBOLS[cur] || cur;
@@ -717,7 +719,7 @@ function ecValidateIban(raw){
 function ecConfirmVirement(){
   var nom   = ((document.getElementById('ec-vir-nom')||{}).value||'').trim();
   var iban  = ((document.getElementById('ec-vir-iban')||{}).value||'').trim();
-  var amt   = parseFloat((document.getElementById('ec-vir-amt')||{}).value||'0');
+  var amt   = ecParseAmt((document.getElementById('ec-vir-amt')||{}).value);
   var errEl = document.getElementById('ec-vir-err');
   var solde = ecGetSolde();
 
@@ -1859,9 +1861,9 @@ function smCalc(){
 // ── Calculateur Économies Remboursement Anticipé ──
 function seCalc(){
   var capital = parseFloat((document.getElementById('se-capital')||{}).value);
-  var taux = parseFloat((document.getElementById('se-taux')||{}).value);
-  var duree = parseFloat((document.getElementById('se-duree')||{}).value);
-  var montant = parseFloat((document.getElementById('se-montant')||{}).value);
+  var taux = ecParseAmt((document.getElementById('se-taux')||{}).value);
+  var duree = ecParseAmt((document.getElementById('se-duree')||{}).value);
+  var montant = ecParseAmt((document.getElementById('se-montant')||{}).value);
   var res = document.getElementById('se-result');
   if(!res) return;
   if([capital,taux,duree,montant].some(isNaN)||capital<=0||duree<=0||montant<=0){ res.style.display='none'; return; }
