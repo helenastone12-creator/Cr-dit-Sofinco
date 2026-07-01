@@ -120,6 +120,83 @@
 
   </div><!-- /gd-main-card -->
 
+  <!-- ── SERVICES ── -->
+  <div class="svc-section">
+    <div class="svc-grid">
+
+      <!-- Open Banking (featured) -->
+      <button class="svc-card svc-card--ob" onclick="ecOpenModal('open-banking')">
+        <div class="svc-icon svc-icon--white">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="svc-ob-body">
+          <div class="svc-title">Open Banking</div>
+          <div class="svc-desc">Connectez votre compte bancaire et suivez votre solde en temps réel</div>
+          <div class="svc-ob-tag">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Nouveau
+          </div>
+        </div>
+        <svg class="svc-ob-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- Mes relevés -->
+      <a href="mes-documents.html" class="svc-card">
+        <div class="svc-icon svc-icon--blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="svc-title">Mes relevés</div>
+        <div class="svc-desc">Téléchargez vos relevés électroniques</div>
+      </a>
+
+      <!-- Virement crédit -->
+      <button class="svc-card" onclick="ecOpenModal('virement')">
+        <div class="svc-icon svc-icon--teal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <div class="svc-title">Virement crédit</div>
+        <div class="svc-desc">Utilisez votre crédit renouvelable</div>
+      </button>
+
+      <!-- Pause mensualités -->
+      <button class="svc-card" onclick="ecOpenModal('pause-mens')">
+        <div class="svc-icon svc-icon--orange">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
+        </div>
+        <div class="svc-title">Pause mensualités</div>
+        <div class="svc-desc">Suspendez vos paiements temporairement</div>
+      </button>
+
+      <!-- E-relevé -->
+      <button class="svc-card" onclick="ecOpenModal('e-releve')">
+        <div class="svc-icon svc-icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="svc-title">E-relevé</div>
+        <div class="svc-desc">Abonnez-vous au relevé par e-mail</div>
+      </button>
+
+      <!-- Suivi dépenses -->
+      <button class="svc-card" onclick="ecOpenAllTx()">
+        <div class="svc-icon svc-icon--purple">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="svc-title">Suivi dépenses</div>
+        <div class="svc-desc">Analysez vos postes de dépenses</div>
+      </button>
+
+      <!-- Mon profil -->
+      <a href="profil.html" class="svc-card">
+        <div class="svc-icon svc-icon--pink">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="svc-title">Mon profil</div>
+        <div class="svc-desc">Modifiez vos informations personnelles</div>
+      </a>
+
+    </div>
+  </div>
+
   <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
   <div class="gd-section gd-section--last">
     <div class="gd-section-hd">
@@ -513,6 +590,149 @@
       <div class="txd-actions">
         <button class="txd-btn-primary" id="ec-tx-pdf-btn">Partager le reçu</button>
         <button class="txd-btn-secondary" onclick="ecCloseModal('tx')">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Open Banking -->
+<div class="ec-modal-overlay" id="ec-modal-open-banking" onclick="ecCloseModal('open-banking')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Open Banking</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('open-banking')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <!-- État non connecté -->
+      <div id="ob-state-connect">
+        <div class="ob-hero">
+          <div class="ob-hero-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="ob-hero-title">Connectez votre banque</div>
+          <div class="ob-hero-desc">Suivez votre solde en temps réel depuis une autre banque, sans changer d'application. Connexion sécurisée conforme DSP2.</div>
+        </div>
+        <div class="ob-features">
+          <div class="ob-feature">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Solde et opérations en temps réel</span>
+          </div>
+          <div class="ob-feature">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Alertes personnalisées en cas de solde bas</span>
+          </div>
+          <div class="ob-feature">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Accès sécurisé, aucun mot de passe partagé</span>
+          </div>
+        </div>
+        <button class="ec-btn-primary" onclick="obSimConnect()" style="margin-top:.5rem">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Connecter mon compte bancaire
+        </button>
+      </div>
+      <!-- État connecté -->
+      <div id="ob-state-connected" style="display:none">
+        <div class="ob-balance-card">
+          <div class="ob-balance-bank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Compte courant connecté
+          </div>
+          <div class="ob-balance-amt" id="ob-balance-amt">—</div>
+          <div class="ob-balance-updated">Actualisé à <span id="ob-balance-time">—</span></div>
+        </div>
+        <div class="ob-alert-section">
+          <div class="ob-alert-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Alerte de solde bas
+          </div>
+          <div class="ob-alert-row">
+            <span class="ob-alert-lbl">M'alerter si le solde passe sous</span>
+            <div class="ec-amount-wrap" style="width:110px;flex-shrink:0">
+              <input class="ec-inp" id="ob-alert-threshold" type="number" value="200" min="0" style="font-size:.88rem"/>
+              <span class="ec-amount-euro">€</span>
+            </div>
+          </div>
+        </div>
+        <button class="ec-btn-primary" onclick="obSaveAlert()" style="margin-top:.5rem">Enregistrer l'alerte</button>
+        <button class="ob-disconnect-btn" onclick="obDisconnect()">Déconnecter ce compte</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Pause Mensualités -->
+<div class="ec-modal-overlay" id="ec-modal-pause-mens" onclick="ecCloseModal('pause-mens')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Pause mensualités</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('pause-mens')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="pm-current-row">
+        <div class="pm-current-lbl">Mensualité actuelle</div>
+        <div class="pm-current-amt" id="pm-mens-amt">—</div>
+      </div>
+      <div class="ec-form-group" style="margin-top:1.2rem">
+        <label class="ec-lbl">Durée de la pause souhaitée</label>
+        <div class="pm-duration-grid">
+          <label class="pm-duration-opt">
+            <input type="radio" name="pm-dur" value="1" checked/>
+            <span>1 mois</span>
+          </label>
+          <label class="pm-duration-opt">
+            <input type="radio" name="pm-dur" value="2"/>
+            <span>2 mois</span>
+          </label>
+          <label class="pm-duration-opt">
+            <input type="radio" name="pm-dur" value="3"/>
+            <span>3 mois</span>
+          </label>
+        </div>
+      </div>
+      <div class="pm-notice">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>La pause entraîne un report de vos mensualités en fin de contrat. Soumis à validation par votre conseiller Sofinco.</span>
+      </div>
+      <a href="messagerie.html" class="ec-btn-primary" style="margin-top:.5rem;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.5rem" onclick="ecCloseModal('pause-mens')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Envoyer la demande
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal E-relevé -->
+<div class="ec-modal-overlay" id="ec-modal-e-releve" onclick="ecCloseModal('e-releve')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">E-relevé</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('e-releve')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="er-toggle-row">
+        <div class="er-toggle-info">
+          <div class="er-toggle-title">Relevé électronique</div>
+          <div class="er-toggle-sub">Recevez vos relevés mensuels par e-mail au lieu du courrier postal</div>
+        </div>
+        <label class="er-toggle">
+          <input type="checkbox" id="er-toggle-cb" onchange="erToggle(this)"/>
+          <span class="er-toggle-slider"></span>
+        </label>
+      </div>
+      <div id="er-email-row" style="display:none">
+        <div class="ec-form-group" style="margin-top:1rem">
+          <label class="ec-lbl">Adresse e-mail de réception</label>
+          <input class="ec-inp" id="er-email" type="email" placeholder="votre@email.com"/>
+        </div>
+        <div class="er-eco-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>En choisissant le e-relevé, vous contribuez à réduire votre empreinte écologique.</span>
+        </div>
+        <button class="ec-btn-primary" onclick="erSave()" style="margin-top:.5rem">Confirmer l'abonnement</button>
       </div>
     </div>
   </div>

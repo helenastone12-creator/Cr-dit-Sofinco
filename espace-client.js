@@ -589,6 +589,9 @@ function ecPopulateCreditDetail(){
 // ── Modals ──
 function ecOpenModal(name){
   if(name === 'credit-detail') ecPopulateCreditDetail();
+  if(name === 'open-banking') obInitModal();
+  if(name === 'e-releve') erInitModal();
+  if(name === 'pause-mens') pmInitModal();
   var el = document.getElementById('ec-modal-'+name);
   if(!el) return;
   var scrollY = window.scrollY || window.pageYOffset;
@@ -1661,6 +1664,84 @@ function ecSendMessage(){
   }
   inp.value='';
   ecRenderMessages();
+}
+
+// ── Open Banking ──
+function obSimConnect(){
+  var s1 = document.getElementById('ob-state-connect');
+  var s2 = document.getElementById('ob-state-connected');
+  if(s1) s1.style.display = 'none';
+  if(s2) s2.style.display = 'block';
+  var bal = (Math.random() * 3500 + 400).toFixed(2).replace('.', ',');
+  var amtEl = document.getElementById('ob-balance-amt');
+  if(amtEl) amtEl.textContent = bal + ' €';
+  var now = new Date();
+  var timeEl = document.getElementById('ob-balance-time');
+  if(timeEl) timeEl.textContent = now.getHours() + 'h' + String(now.getMinutes()).padStart(2,'0');
+  localStorage.setItem('ob_connected', '1');
+}
+function obSaveAlert(){
+  var th = (document.getElementById('ob-alert-threshold')||{}).value || '200';
+  localStorage.setItem('ob_alert_threshold', th);
+  ecCloseModal('open-banking');
+  var t = document.getElementById('ec-success-title');
+  var m = document.getElementById('ec-success-msg');
+  if(t) t.textContent = 'Alerte configurée';
+  if(m) m.textContent = 'Vous serez notifié si votre solde passe sous ' + th + ' €.';
+  ecOpenModal('success');
+}
+function obDisconnect(){
+  localStorage.removeItem('ob_connected');
+  var s1 = document.getElementById('ob-state-connect');
+  var s2 = document.getElementById('ob-state-connected');
+  if(s1) s1.style.display = 'block';
+  if(s2) s2.style.display = 'none';
+}
+function obInitModal(){
+  if(localStorage.getItem('ob_connected') === '1') obSimConnect();
+}
+
+// ── E-relevé ──
+function erToggle(cb){
+  var row = document.getElementById('er-email-row');
+  if(row) row.style.display = cb.checked ? 'block' : 'none';
+  if(cb.checked){
+    var u = ecGetUser();
+    var inp = document.getElementById('er-email');
+    if(inp && u && u.email) inp.value = u.email;
+  }
+}
+function erSave(){
+  var email = (document.getElementById('er-email')||{}).value || '';
+  if(!email){ return; }
+  localStorage.setItem('er_subscribed', '1');
+  localStorage.setItem('er_email', email);
+  ecCloseModal('e-releve');
+  var t = document.getElementById('ec-success-title');
+  var m = document.getElementById('ec-success-msg');
+  if(t) t.textContent = 'E-relevé activé';
+  if(m) m.textContent = 'Vos relevés mensuels seront envoyés à ' + email + '.';
+  ecOpenModal('success');
+}
+function erInitModal(){
+  var cb = document.getElementById('er-toggle-cb');
+  var subscribed = localStorage.getItem('er_subscribed') === '1';
+  if(cb) cb.checked = subscribed;
+  var row = document.getElementById('er-email-row');
+  if(row) row.style.display = subscribed ? 'block' : 'none';
+  if(subscribed){
+    var inp = document.getElementById('er-email');
+    if(inp) inp.value = localStorage.getItem('er_email') || '';
+  }
+}
+
+// ── Pause mensualités ──
+function pmInitModal(){
+  var u = ecGetUser();
+  var loan = (u && u.loan) || {};
+  var mens = loan.mensualite || 0;
+  var el = document.getElementById('pm-mens-amt');
+  if(el) el.textContent = mens > 0 ? mens.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €' : '—';
 }
 
 // ── Auto-init selon la page ──
