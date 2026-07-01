@@ -5317,6 +5317,7 @@ body.ec-body {
   position: sticky; top: 0; z-index: 2;
 }
 .txd-topbar-amt { font-size: .95rem; font-weight: 700; color: #1F2937; }
+.txd-topbar-title { display: none; font-size: 1rem; font-weight: 700; color: #0F172A; flex: 1; }
 .txd-body { flex: 1; overflow-y: auto; }
 
 /* Hero */
@@ -5389,6 +5390,61 @@ body.ec-body {
   width: 100%; padding: .85rem; border: 1.5px solid #E5E7EB; border-radius: 12px;
   background: #fff; color: #374151;
   font-size: .92rem; font-weight: 600; font-family: inherit; cursor: pointer;
+}
+
+@media (min-width: 701px) {
+  /* PC: modal centré, pas fullscreen */
+  .ec-modal-overlay--fullscreen#ec-modal-tx {
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(15,23,42,.45) !important;
+  }
+  .ec-modal-overlay--fullscreen#ec-modal-tx .ec-modal-card--fullscreen {
+    transform: translateY(20px) !important;
+    transition: opacity .25s, transform .25s !important;
+    opacity: 0;
+    width: 520px !important;
+    max-width: 95vw;
+    height: auto !important;
+    max-height: 88vh;
+    border-radius: 20px !important;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .ec-modal-overlay--fullscreen#ec-modal-tx.open .ec-modal-card--fullscreen {
+    opacity: 1;
+    transform: translateY(0) !important;
+  }
+
+  /* PC topbar → titre "Détails" */
+  .txd-topbar {
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: 1px solid #F1F5F9;
+    background: #fff;
+  }
+  .txd-topbar-amt { display: none; }
+  .txd-topbar-title { display: block; }
+
+  /* PC hero */
+  .txd-hero { background: #fff; padding: 1.5rem 1.5rem .5rem; }
+  .txd-hero-icon { width: 60px; height: 60px; border-radius: 50%; }
+  .txd-hero-amt { font-size: 2.4rem; }
+
+  /* PC wavy hidden */
+  .txd-wavy { display: none; }
+
+  /* PC sections */
+  .txd-section { padding: 1rem 1.5rem; background: #fff; }
+  .txd-section:not(:last-of-type) { border-bottom: 1px solid #F1F5F9; }
+
+  /* PC actions */
+  .txd-actions {
+    padding: 1.25rem 1.5rem 1.75rem;
+    background: #fff;
+    border-top: 1px solid #F1F5F9;
+  }
+  .txd-btn-primary { border-radius: 10px; }
+  .txd-btn-secondary { border-radius: 10px; }
 }
 
 /* ── PC-ONLY SECTIONS ── */
