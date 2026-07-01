@@ -124,6 +124,51 @@
 
   </div><!-- /gd-main-card -->
 
+  <!-- ── GD: CARTE PRÊT PREMIUM ── -->
+  <div class="gd-section" id="gd-loan-card-section">
+    <div class="gd-loan-card" onclick="ecOpenModal('credit-detail')">
+      <div class="gd-loan-card-header">
+        <div class="gd-loan-card-title-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          <span class="gd-loan-card-label">Mon Prêt</span>
+        </div>
+        <span class="gd-loan-card-badge" id="gd-loan-status-badge">—</span>
+      </div>
+      <div class="gd-loan-card-amount" id="gd-loan-capital-disp">—</div>
+      <div class="gd-loan-card-grid">
+        <div class="gd-loan-card-item">
+          <span class="gd-loan-card-item-lbl">Mensualité</span>
+          <span class="gd-loan-card-item-val" id="gd-loan-mens-disp">—</span>
+        </div>
+        <div class="gd-loan-card-item">
+          <span class="gd-loan-card-item-lbl">Taux</span>
+          <span class="gd-loan-card-item-val" id="gd-loan-taux-disp">—</span>
+        </div>
+        <div class="gd-loan-card-item">
+          <span class="gd-loan-card-item-lbl">Durée</span>
+          <span class="gd-loan-card-item-val" id="gd-loan-duree-disp">—</span>
+        </div>
+        <div class="gd-loan-card-item">
+          <span class="gd-loan-card-item-lbl">Restant dû</span>
+          <span class="gd-loan-card-item-val gd-loan-card-item-val--teal" id="gd-loan-restant-disp">—</span>
+        </div>
+      </div>
+      <div class="gd-loan-card-prog-section">
+        <div class="gd-loan-card-prog-header">
+          <span class="gd-loan-card-prog-lbl">Remboursement</span>
+          <span class="gd-loan-card-prog-pct" id="gd-loan-prog-pct">0%</span>
+        </div>
+        <div class="gd-loan-card-prog-track">
+          <div class="gd-loan-card-prog-fill" id="gd-loan-prog-fill"></div>
+        </div>
+      </div>
+      <div class="gd-loan-card-footer">
+        <span id="gd-loan-next-date">—</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </div>
+
   <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
   <div class="gd-section gd-section--last">
     <div class="gd-section-hd">

@@ -954,6 +954,29 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   if(progFill) setTimeout(function(){ progFill.style.width = pct + '%'; }, 300);
   set('fd-loan-prog-pct', pct + '%');
 
+  // ── Carte prêt premium ──
+  var loanStatusMap = {
+    'pending':  { label:'En cours',         cls:'gd-loan-badge--pending'  },
+    'approved': { label:'Validé',           cls:'gd-loan-badge--approved' },
+    'active':   { label:'Fonds débloqués',  cls:'gd-loan-badge--active'   },
+    'closed':   { label:'Clôturé',          cls:'gd-loan-badge--closed'   }
+  };
+  var loanStatus = (loan && loan.statut) || (capital > 0 ? 'active' : 'pending');
+  var lsi = loanStatusMap[loanStatus] || loanStatusMap['pending'];
+  var loanBadge = document.getElementById('gd-loan-status-badge');
+  if(loanBadge){ loanBadge.textContent = lsi.label; loanBadge.className = 'gd-loan-card-badge ' + lsi.cls; }
+  set('gd-loan-capital-disp', capital > 0 ? capital.toLocaleString('fr-FR') + ' €' : '—');
+  set('gd-loan-mens-disp',    mens > 0    ? mens.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €/mois' : '—');
+  set('gd-loan-taux-disp',    taux > 0    ? taux + ' %' : '—');
+  set('gd-loan-duree-disp',   duree > 0   ? duree + ' mois' : '—');
+  set('gd-loan-restant-disp', restant > 0 ? restant.toLocaleString('fr-FR') + ' €' : '0 €');
+  set('gd-loan-prog-pct', pct + '%');
+  set('gd-loan-next-date', 'Prochaine échéance : ' + nextDateFull);
+  var gdProgFill = document.getElementById('gd-loan-prog-fill');
+  if(gdProgFill) setTimeout(function(){ gdProgFill.style.width = pct + '%'; }, 400);
+  var loanSection = document.getElementById('gd-loan-card-section');
+  if(loanSection) loanSection.style.display = capital > 0 ? '' : 'none';
+
   var statusMap = {
     'pending':  { label:'En traitement', cls:'fd-status--pending' },
     'approved': { label:'Approuvé',      cls:'fd-status--approved' },
