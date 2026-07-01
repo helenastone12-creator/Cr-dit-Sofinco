@@ -4905,24 +4905,16 @@ body.ec-body {
 
 /* ── Carte Prêt Premium (v2) ── */
 .gd-loan-card {
-  background: linear-gradient(145deg, #071325 0%, #0B3A5E 60%, #0B5E8A 100%);
+  background: #fff;
   border-radius: 18px;
   padding: 1.1rem 1.2rem 1rem;
   cursor: pointer;
-  box-shadow: 0 6px 28px rgba(7,19,37,.28);
+  box-shadow: 0 1px 8px rgba(0,0,0,.06);
   transition: transform .16s, box-shadow .16s;
-  color: #fff;
+  color: #1F2937;
   position: relative;
   overflow: hidden;
-}
-.gd-loan-card::before {
-  content: '';
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 130px; height: 130px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.04);
-  pointer-events: none;
+  border-top: 3px solid #0B5E8A;
 }
 .gd-loan-card:active { transform: scale(.985); }
 .gd-lc-top {
@@ -4935,7 +4927,7 @@ body.ec-body {
   font-size: .65rem;
   font-weight: 700;
   letter-spacing: .12em;
-  opacity: .5;
+  color: #9CA3AF;
 }
 .gd-lc-badge {
   font-size: .68rem;
@@ -4944,10 +4936,10 @@ body.ec-body {
   border-radius: 999px;
   letter-spacing: .03em;
 }
-.gd-loan-badge--pending  { background: rgba(251,191,36,.18); color: #FCD34D; }
-.gd-loan-badge--approved { background: rgba(139,92,246,.22); color: #C4B5FD; }
-.gd-loan-badge--active   { background: rgba(16,185,129,.18); color: #6EE7B7; }
-.gd-loan-badge--closed   { background: rgba(255,255,255,.08); color: rgba(255,255,255,.4); }
+.gd-loan-badge--pending  { background: #FEF3C7; color: #B45309; }
+.gd-loan-badge--approved { background: #EDE9FE; color: #6D28D9; }
+.gd-loan-badge--active   { background: #D1FAE5; color: #065F46; }
+.gd-loan-badge--closed   { background: #F3F4F6; color: #6B7280; }
 .gd-lc-body {
   display: flex;
   align-items: flex-end;
@@ -4971,13 +4963,13 @@ body.ec-body {
 .gd-lc-prog-pct {
   font-size: .72rem;
   font-weight: 700;
-  color: #6EE7B7;
+  color: #0B5E8A;
   letter-spacing: .03em;
 }
 .gd-lc-prog-track {
   width: 90px;
   height: 5px;
-  background: rgba(255,255,255,.1);
+  background: #E5E7EB;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -4992,7 +4984,7 @@ body.ec-body {
   display: flex;
   align-items: stretch;
   gap: 0;
-  background: rgba(255,255,255,.06);
+  background: #F8FAFC;
   border-radius: 10px;
   padding: .6rem 0;
   margin-bottom: .75rem;
@@ -5007,20 +4999,20 @@ body.ec-body {
 }
 .gd-lc-divider {
   width: 1px;
-  background: rgba(255,255,255,.1);
+  background: #E5E7EB;
   margin: .1rem 0;
 }
-.gd-lc-stat-lbl { font-size: .58rem; font-weight: 600; opacity: .45; text-transform: uppercase; letter-spacing: .07em; text-align: center; }
-.gd-lc-stat-val { font-size: .8rem; font-weight: 700; color: #fff; text-align: center; }
-.gd-lc-stat-val--green { color: #6EE7B7; }
+.gd-lc-stat-lbl { font-size: .58rem; font-weight: 600; color: #9CA3AF; text-transform: uppercase; letter-spacing: .07em; text-align: center; }
+.gd-lc-stat-val { font-size: .8rem; font-weight: 700; color: #1F2937; text-align: center; }
+.gd-lc-stat-val--green { color: #059669; }
 .gd-lc-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: .7rem;
-  opacity: .45;
+  color: #9CA3AF;
   padding-top: .6rem;
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid #E5E7EB;
 }
 
 /* Transactions table */
