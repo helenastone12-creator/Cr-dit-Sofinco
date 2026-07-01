@@ -131,8 +131,11 @@ function ecRefreshSolde(){
   var hidden = ecSoldeHidden();
   var solde = ecGetSolde();
   var mask = '• • • • • •';
-  if(el) el.textContent = hidden ? mask : solde.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  var soldeFmt = solde.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  if(el) el.textContent = hidden ? mask : soldeFmt;
   if(el2) el2.textContent = hidden ? mask : ecFormatAmt(solde);
+  var fdEl = document.getElementById('fd-disponible-amt');
+  if(fdEl) fdEl.textContent = hidden ? mask : soldeFmt;
   var lbl = document.getElementById('ec-hide-bal-lbl');
   var ico = document.getElementById('ec-eye-icon');
   if(lbl) lbl.textContent = ecT(hidden ? 'solde_afficher' : 'solde_masquer') || (hidden ? 'Afficher le solde' : 'Masquer le solde');
