@@ -964,15 +964,16 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   var loanStatus = (loan && loan.statut) || (capital > 0 ? 'active' : 'pending');
   var lsi = loanStatusMap[loanStatus] || loanStatusMap['pending'];
   var loanBadge = document.getElementById('gd-loan-status-badge');
-  if(loanBadge){ loanBadge.textContent = lsi.label; loanBadge.className = 'gd-loan-card-badge ' + lsi.cls; }
+  if(loanBadge){ loanBadge.textContent = lsi.label; loanBadge.className = 'gd-lc-badge ' + lsi.cls; }
   set('gd-loan-capital-disp', capital > 0 ? capital.toLocaleString('fr-FR') + ' €' : '—');
-  set('gd-loan-mens-disp',    mens > 0    ? mens.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €/mois' : '—');
-  set('gd-loan-taux-disp',    taux > 0    ? taux + ' %' : '—');
-  set('gd-loan-duree-disp',   duree > 0   ? duree + ' mois' : '—');
-  set('gd-loan-restant-disp', restant > 0 ? restant.toLocaleString('fr-FR') + ' €' : '0 €');
+  set('gd-loan-mens-disp',    mens    != null ? mens.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €' : '—');
+  set('gd-loan-taux-disp',    loan && loan.taux    != null ? loan.taux + ' %'    : '—');
+  set('gd-loan-duree-disp',   loan && loan.duree   != null ? loan.duree + ' mois': '—');
+  var restantSafe = (duree > 0 && capital > 0) ? Math.max(0, Math.round(capital - (capital/duree)*moisPasses)) : capital;
+  set('gd-loan-restant-disp', restantSafe > 0 ? restantSafe.toLocaleString('fr-FR') + ' €' : '0 €');
   set('gd-loan-prog-pct', pct + '%');
-  set('gd-loan-next-date', 'Prochaine échéance : ' + nextDateFull);
-  var gdProgFill = document.getElementById('gd-loan-prog-fill');
+  set('gd-loan-next-date', dateDebut ? 'Prochaine échéance : ' + nextDateFull : '');
+  var gdProgFill = document.getElementById('gd-lc-prog-fill') || document.getElementById('gd-loan-prog-fill');
   if(gdProgFill) setTimeout(function(){ gdProgFill.style.width = pct + '%'; }, 400);
   var loanSection = document.getElementById('gd-loan-card-section');
   if(loanSection) loanSection.style.display = capital > 0 ? '' : 'none';
