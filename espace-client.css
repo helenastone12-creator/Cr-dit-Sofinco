@@ -3716,12 +3716,8 @@ body.ec-body {
     border-bottom: 1px solid var(--p-border);
     background: var(--p-surface);
   }
-  .v2-topbar-brand { display: none; }
-  .v2-topbar-title {
-    display: block;
-    font-size: 1rem;
-    font-weight: 700;
-  }
+  .v2-topbar-brand { display: flex; }
+  .v2-topbar-title { display: none; }
   .v2-topbar-ghost,
   .v2-topbar-primary { display: inline-flex; }
   .v2-topbar-avatar { display: none; }
@@ -5245,6 +5241,7 @@ body.ec-body {
   .gd-pc-only { display: block; }
 
   /* PC Balance grid */
+  .gd-tx-desc-sub { display: none; }
   .gd-pc-bal-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
