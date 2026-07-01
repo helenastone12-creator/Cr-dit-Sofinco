@@ -5664,6 +5664,11 @@ body.ec-body {
   /* PC greeting */
   .gd-greeting-name { font-size: 1.5rem; }
 
+  /* Loan card section: align with other PC cards */
+  #gd-loan-card-section {
+    padding: 0 2rem 1.5rem;
+  }
+
   /* Recent transactions card */
   .gd-section--last {
     background: #fff;
