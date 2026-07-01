@@ -4903,6 +4903,88 @@ body.ec-body {
   line-height: 1.45;
 }
 
+/* ── Carte Prêt Premium ── */
+.gd-loan-card {
+  background: linear-gradient(135deg, #0B1D3A 0%, #0B5E8A 100%);
+  border-radius: 20px;
+  padding: 1.4rem 1.5rem 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(11,94,138,.22);
+  transition: transform .18s, box-shadow .18s;
+  color: #fff;
+}
+.gd-loan-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(11,94,138,.3); }
+.gd-loan-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.gd-loan-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  opacity: .75;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.gd-loan-card-badge {
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .28rem .75rem;
+  border-radius: 999px;
+  letter-spacing: .04em;
+}
+.gd-loan-badge--pending  { background: rgba(251,191,36,.2);  color: #FCD34D; }
+.gd-loan-badge--approved { background: rgba(99,102,241,.25); color: #A5B4FC; }
+.gd-loan-badge--active   { background: rgba(16,185,129,.2);  color: #6EE7B7; }
+.gd-loan-badge--closed   { background: rgba(255,255,255,.1); color: rgba(255,255,255,.5); }
+.gd-loan-card-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  margin-bottom: 1.2rem;
+  color: #fff;
+}
+.gd-loan-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .75rem 1rem;
+  margin-bottom: 1.3rem;
+}
+.gd-loan-card-item { display: flex; flex-direction: column; gap: .15rem; }
+.gd-loan-card-item-lbl { font-size: .68rem; font-weight: 600; opacity: .55; text-transform: uppercase; letter-spacing: .06em; }
+.gd-loan-card-item-val { font-size: .92rem; font-weight: 700; color: #fff; }
+.gd-loan-card-item-val--teal { color: #6EE7B7; }
+.gd-loan-card-prog-section { margin-bottom: 1.1rem; }
+.gd-loan-card-prog-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: .45rem; }
+.gd-loan-card-prog-lbl { font-size: .72rem; font-weight: 600; opacity: .6; text-transform: uppercase; letter-spacing: .06em; }
+.gd-loan-card-prog-pct { font-size: .82rem; font-weight: 800; color: #6EE7B7; }
+.gd-loan-card-prog-track {
+  height: 6px;
+  background: rgba(255,255,255,.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.gd-loan-card-prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6EE7B7, #0B9E8A);
+  border-radius: 999px;
+  width: 0%;
+  transition: width .9s cubic-bezier(.4,0,.2,1);
+}
+.gd-loan-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .9rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+  font-size: .78rem;
+  opacity: .6;
+}
+
 /* Transactions table */
 .gd-tx-wrap {
   background: #fff;
