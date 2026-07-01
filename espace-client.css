@@ -2624,9 +2624,9 @@
 
 /* Modal plein écran transactions */
 .ec-modal-overlay--fullscreen .ec-modal-card--fullscreen {
-  max-height: 92vh !important;
-  height: 92vh !important;
-  border-radius: 20px 20px 0 0 !important;
+  max-height: 100vh !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
   display: flex !important;
   flex-direction: column !important;
 }
