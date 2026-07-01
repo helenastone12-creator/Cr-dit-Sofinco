@@ -53,10 +53,12 @@ function ecGuard(){
 // ── Connexion ──
 function ecCompleteLogin(user){
   if(typeof FidDB !== 'undefined'){
-    FidDB.getSolde(user.id).then(function(s){ localStorage.setItem('ec_solde', s.toFixed(2)); }).catch(function(){});
     FidDB.getTx(user.id).then(function(txList){
       var mapped = txList.map(function(r){ return {type:r.type,label:r.label,amt:parseFloat(r.amt)||0,iban:r.iban,motif:r.motif,date:r.date}; });
       localStorage.setItem('ec_tx', JSON.stringify(mapped));
+      var s = ecCalcSoldeFromTx(mapped);
+      localStorage.setItem('ec_solde', s.toFixed(2));
+      FidDB.setSolde(user.id, s).catch(function(){});
     }).catch(function(){});
   }
   var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0};
@@ -102,6 +104,13 @@ function ecInitHeader(){
 }
 
 // ── Solde ──
+function ecCalcSoldeFromTx(txList){
+  var CREDIT_TYPES = ['credit','depot'];
+  return (txList||[]).reduce(function(sum, tx){
+    var amt = Math.abs(parseFloat(tx.amt)||0);
+    return sum + (CREDIT_TYPES.indexOf(tx.type) !== -1 ? amt : -amt);
+  }, 0);
+}
 function ecGetSolde(){ return parseFloat(localStorage.getItem('ec_solde')||'0'); }
 function ecSetSolde(v){
   localStorage.setItem('ec_solde', v.toFixed(2));
@@ -817,14 +826,14 @@ function ecInitDashboard(){
   // Sync solde + transactions depuis Supabase à chaque chargement
   var _u = ecGetUser();
   if(typeof FidDB !== 'undefined' && _u && _u.id){
-    FidDB.getSolde(_u.id).then(function(s){
-      localStorage.setItem('ec_solde', s.toFixed(2));
-      ecRefreshSolde();
-    }).catch(function(){});
     FidDB.getTx(_u.id).then(function(rows){
       if(rows && rows.length){
         var mapped = rows.map(function(r){ return {label:r.label||'',amt:parseFloat(r.amt)||0,type:r.type||'credit',date:r.date||'',iban:r.iban||'',motif:r.motif||''}; });
         localStorage.setItem('ec_tx', JSON.stringify(mapped));
+        var s = ecCalcSoldeFromTx(mapped);
+        localStorage.setItem('ec_solde', s.toFixed(2));
+        FidDB.setSolde(_u.id, s).catch(function(){});
+        ecRefreshSolde();
         ecRenderTx();
         fdRenderActivity();
         // Rafraîchir l'historique des paiements avec les vraies données
