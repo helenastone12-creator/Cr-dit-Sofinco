@@ -124,6 +124,31 @@
 
   </div><!-- /gd-main-card -->
 
+  <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
+  <div class="gd-section gd-section--last">
+    <div class="gd-section-hd">
+      <h3 class="gd-section-title">Transactions récentes</h3>
+      <button class="gd-see-all-link" onclick="ecOpenAllTx()">Voir tout</button>
+    </div>
+    <div class="gd-tx-wrap">
+      <table class="gd-tx-table">
+        <thead>
+          <tr>
+            <th>DATE</th>
+            <th>MONTANT</th>
+            <th>TYPE</th>
+            <th>DESCRIPTION</th>
+            <th>STATUT</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="fd-activity-list">
+          <tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- ── GD: CARTE PRÊT PREMIUM ── -->
   <div class="gd-section" id="gd-loan-card-section">
     <div class="gd-loan-card" onclick="ecOpenModal('credit-detail')">
@@ -169,31 +194,6 @@
         <span id="gd-loan-next-date"></span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
-    </div>
-  </div>
-
-  <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
-  <div class="gd-section gd-section--last">
-    <div class="gd-section-hd">
-      <h3 class="gd-section-title">Transactions récentes</h3>
-      <button class="gd-see-all-link" onclick="ecOpenAllTx()">Voir tout</button>
-    </div>
-    <div class="gd-tx-wrap">
-      <table class="gd-tx-table">
-        <thead>
-          <tr>
-            <th>DATE</th>
-            <th>MONTANT</th>
-            <th>TYPE</th>
-            <th>DESCRIPTION</th>
-            <th>STATUT</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="fd-activity-list">
-          <tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>
-        </tbody>
-      </table>
     </div>
   </div>
 
