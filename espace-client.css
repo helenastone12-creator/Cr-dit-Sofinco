@@ -4713,7 +4713,7 @@ body.ec-body {
 }
 .gd-eye-btn:hover { color: #374151; }
 .gd-balance-amount {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #0F172A;
   letter-spacing: -.04em;
@@ -5020,7 +5020,7 @@ body.ec-body {
     padding: 1rem .85rem 1rem;
   }
   .gd-balance-label { justify-content: center; }
-  .gd-balance-amount { font-size: 2.6rem; }
+  .gd-balance-amount { font-size: 2rem; }
   .gd-action-btns { gap: 1.8rem; }
   .gd-action-circle { width: 56px; height: 56px; }
   .gd-section { padding: 0 .85rem 1.1rem; }
@@ -5546,7 +5546,7 @@ body.ec-body {
   }
   .gd-section.gd-pc-only { padding: 1.25rem 2rem; }
   .gd-balance-label { font-size: .82rem; font-weight: 600; letter-spacing: .06em; }
-  .gd-balance-amount { font-size: 2.8rem; }
+  .gd-balance-amount { font-size: 2.2rem; }
   .gd-action-circle { width: 48px; height: 48px; }
 
   /* PC greeting */
