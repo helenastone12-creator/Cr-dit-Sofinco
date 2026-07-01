@@ -972,8 +972,7 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   var restantSafe = (duree > 0 && capital > 0) ? Math.max(0, Math.round(capital - (capital/duree)*moisPasses)) : capital;
   set('gd-loan-restant-disp', restantSafe > 0 ? restantSafe.toLocaleString('fr-FR') + ' €' : '0 €');
   set('gd-loan-prog-pct', pct + '%');
-  set('gd-loan-next-date', dateDebut ? 'Prochaine échéance : ' + nextDateFull : '');
-  var gdProgFill = document.getElementById('gd-lc-prog-fill') || document.getElementById('gd-loan-prog-fill');
+var gdProgFill = document.getElementById('gd-lc-prog-fill') || document.getElementById('gd-loan-prog-fill');
   if(gdProgFill) setTimeout(function(){ gdProgFill.style.width = pct + '%'; }, 400);
   var loanSection = document.getElementById('gd-loan-card-section');
   if(loanSection) loanSection.style.display = capital > 0 ? '' : 'none';
