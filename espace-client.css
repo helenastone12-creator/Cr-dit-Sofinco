@@ -5237,3 +5237,79 @@ body.ec-body {
   background: #fff; color: #374151;
   font-size: .92rem; font-weight: 600; font-family: inherit; cursor: pointer;
 }
+
+/* ── PC-ONLY SECTIONS ── */
+.gd-pc-only { display: none; }
+
+@media (min-width: 701px) {
+  .gd-pc-only { display: block; }
+
+  /* PC Balance grid */
+  .gd-pc-bal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .gd-pc-bal-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.2rem 1.1rem;
+    box-shadow: 0 1px 5px rgba(0,0,0,.045);
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    transition: box-shadow .15s;
+  }
+  .gd-pc-bal-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,.09); }
+  .gd-pc-bal-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .gd-pc-bal-icon--eur { background: #EFF6FF; color: #3B82F6; }
+  .gd-pc-bal-icon--loan { background: #ECFDF5; color: #059669; }
+  .gd-pc-bal-icon--cal { background: #FEF3C7; color: #D97706; }
+  .gd-pc-bal-body { flex: 1; min-width: 0; }
+  .gd-pc-bal-name { font-size: .82rem; color: #6B7280; margin-bottom: .25rem; }
+  .gd-pc-bal-amt { font-size: 1.25rem; font-weight: 800; color: #0F172A; letter-spacing: -.02em; }
+  .gd-pc-bal-amt--date { font-size: 1rem; font-weight: 700; }
+  .gd-pc-bal-sub { font-size: .75rem; color: #9CA3AF; margin-top: .35rem; display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+
+  /* PC Quick Actions grid */
+  .gd-pc-qa-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .gd-pc-qa-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.3rem 1.1rem 1.1rem;
+    box-shadow: 0 1px 5px rgba(0,0,0,.045);
+    cursor: pointer;
+    transition: box-shadow .15s, transform .12s;
+  }
+  .gd-pc-qa-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,.1); transform: translateY(-1px); }
+  .gd-pc-qa-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: .85rem;
+  }
+  .gd-pc-qa-icon--green { background: #ECFDF5; color: #059669; }
+  .gd-pc-qa-icon--blue  { background: #EFF6FF; color: #3B82F6; }
+  .gd-pc-qa-icon--amber { background: #FEF3C7; color: #D97706; }
+  .gd-pc-qa-icon--purple{ background: #F5F3FF; color: #7C3AED; }
+  .gd-pc-qa-title { font-size: .95rem; font-weight: 700; color: #0F172A; margin-bottom: .3rem; }
+  .gd-pc-qa-desc  { font-size: .78rem; color: #6B7280; line-height: 1.4; }
+
+  /* PC balance section: bigger layout */
+  .gd-balance-section { padding: 1.5rem 2rem; }
+  .gd-balance-label { font-size: .82rem; font-weight: 600; letter-spacing: .06em; }
+  .gd-balance-amount { font-size: 2.8rem; }
+  .gd-action-circle { width: 48px; height: 48px; }
+
+  /* PC greeting */
+  .gd-greeting-name { font-size: 1.5rem; }
+}
