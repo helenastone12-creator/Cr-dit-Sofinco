@@ -5004,6 +5004,13 @@ body.ec-body {
 
 /* Mobile */
 @media (max-width: 700px) {
+  .gd-main-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 1px 8px rgba(0,0,0,.06);
+    margin: .75rem .85rem 1rem;
+    overflow: hidden;
+  }
   .gd-greeting-row { padding: 1rem .85rem .3rem; }
   .gd-greeting-name { font-size: 1.1rem; }
   .gd-balance-section {
