@@ -827,23 +827,21 @@ function ecInitDashboard(){
   var _u = ecGetUser();
   if(typeof FidDB !== 'undefined' && _u && _u.id){
     FidDB.getTx(_u.id).then(function(rows){
-      if(rows && rows.length){
-        var mapped = rows.map(function(r){ return {label:r.label||'',amt:parseFloat(r.amt)||0,type:r.type||'credit',date:r.date||'',iban:r.iban||'',motif:r.motif||''}; });
-        localStorage.setItem('ec_tx', JSON.stringify(mapped));
-        var s = ecCalcSoldeFromTx(mapped);
-        localStorage.setItem('ec_solde', s.toFixed(2));
-        FidDB.setSolde(_u.id, s).catch(function(){});
-        ecRefreshSolde();
-        ecRenderTx();
-        fdRenderActivity();
-        // Rafraîchir l'historique des paiements avec les vraies données
-        var u2=ecGetUser(); var l2=u2.loan||{}; var c2=l2.montant||0; var me2=l2.mensualite||0; var du2=l2.duree||60;
-        var dd2=l2.dateDebut?new Date(l2.dateDebut):new Date();
-        var mp2=Math.min(Math.max(0,Math.floor((new Date()-dd2)/(30.44*24*3600*1000))),du2);
-        var re2=c2>0?Math.round(c2-(c2/du2)*mp2):0;
-        var pc2=c2>0?Math.round((mp2/du2)*100):0;
-        ecInitLoanSections(u2,l2,c2,me2,du2,dd2,mp2,re2,pc2);
-      }
+      var mapped = (rows||[]).map(function(r){ return {label:r.label||'',amt:parseFloat(r.amt)||0,type:r.type||'credit',date:r.date||'',iban:r.iban||'',motif:r.motif||''}; });
+      localStorage.setItem('ec_tx', JSON.stringify(mapped));
+      var s = ecCalcSoldeFromTx(mapped);
+      localStorage.setItem('ec_solde', s.toFixed(2));
+      FidDB.setSolde(_u.id, s).catch(function(){});
+      ecRefreshSolde();
+      ecRenderTx();
+      fdRenderActivity();
+      // Rafraîchir l'historique des paiements avec les vraies données
+      var u2=ecGetUser(); var l2=u2.loan||{}; var c2=l2.montant||0; var me2=l2.mensualite||0; var du2=l2.duree||60;
+      var dd2=l2.dateDebut?new Date(l2.dateDebut):new Date();
+      var mp2=Math.min(Math.max(0,Math.floor((new Date()-dd2)/(30.44*24*3600*1000))),du2);
+      var re2=c2>0?Math.round(c2-(c2/du2)*mp2):0;
+      var pc2=c2>0?Math.round((mp2/du2)*100):0;
+      ecInitLoanSections(u2,l2,c2,me2,du2,dd2,mp2,re2,pc2);
     }).catch(function(){});
   }
   var user=ecGetUser();
