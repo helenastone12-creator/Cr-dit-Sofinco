@@ -3718,6 +3718,14 @@ body.ec-body {
   }
   .v2-topbar-brand { display: flex; }
   .v2-topbar-title { display: none; }
+  .gd-topbar-greeting {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: -.02em;
+    flex: 1;
+  }
   .v2-topbar-ghost,
   .v2-topbar-primary { display: inline-flex; }
   .v2-topbar-avatar { display: none; }
@@ -4768,7 +4776,8 @@ body.ec-body {
   margin-bottom: .9rem;
 }
 .gd-section-hd .gd-section-title { margin: 0; }
-.gd-see-all-btn {
+.gd-topbar-greeting { display: none; }
+.gd-see-all-btn, .gd-see-all-link {
   font-size: .8rem;
   font-weight: 600;
   color: #3B5BDB;
@@ -5239,39 +5248,41 @@ body.ec-body {
 
 @media (min-width: 701px) {
   .gd-pc-only { display: block; }
+  .gd-greeting-row { display: none; }
 
   /* PC Balance grid */
   .gd-tx-desc-sub { display: none; }
   .gd-pc-bal-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
   }
   .gd-pc-bal-card {
     background: #fff;
     border-radius: 14px;
-    padding: 1.2rem 1.1rem;
+    padding: 1.4rem 1.25rem;
     box-shadow: 0 1px 5px rgba(0,0,0,.045);
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    gap: .9rem;
+    gap: .55rem;
     transition: box-shadow .15s;
   }
   .gd-pc-bal-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,.09); }
   .gd-pc-bal-icon {
-    width: 48px; height: 48px;
-    border-radius: 12px;
+    width: 52px; height: 52px;
+    border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+    margin-bottom: .3rem;
   }
   .gd-pc-bal-icon--eur { background: #EFF6FF; color: #3B82F6; }
   .gd-pc-bal-icon--loan { background: #ECFDF5; color: #059669; }
   .gd-pc-bal-icon--cal { background: #FEF3C7; color: #D97706; }
-  .gd-pc-bal-body { flex: 1; min-width: 0; }
-  .gd-pc-bal-name { font-size: .82rem; color: #6B7280; margin-bottom: .25rem; }
-  .gd-pc-bal-amt { font-size: 1.25rem; font-weight: 800; color: #0F172A; letter-spacing: -.02em; }
+  .gd-pc-bal-icon--purple { background: #F5F3FF; color: #7C3AED; }
+  .gd-pc-bal-name { font-size: .82rem; color: #6B7280; }
+  .gd-pc-bal-amt { font-size: 1.3rem; font-weight: 800; color: #0F172A; letter-spacing: -.02em; }
   .gd-pc-bal-amt--date { font-size: 1rem; font-weight: 700; }
-  .gd-pc-bal-sub { font-size: .75rem; color: #9CA3AF; margin-top: .35rem; display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+  .gd-pc-bal-sub { font-size: .75rem; color: #9CA3AF; display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
 
   /* PC Quick Actions grid */
   .gd-pc-qa-grid {

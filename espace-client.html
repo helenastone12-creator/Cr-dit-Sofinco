@@ -38,6 +38,7 @@
       </a>
     </div>
     <div class="v2-topbar-title">Tableau de bord</div>
+    <div class="gd-topbar-greeting" id="gd-topbar-greeting-pc">—</div>
     <div class="v2-topbar-right">
       <button class="v2-topbar-ghost" onclick="ecOpenModal('alertes')" aria-label="Notifications">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -111,35 +112,36 @@
     <div class="gd-pc-bal-grid">
       <div class="gd-pc-bal-card">
         <div class="gd-pc-bal-icon gd-pc-bal-icon--eur">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 7.5A7 7 0 1 0 17 16.5"/><path d="M5 12h8"/><path d="M5 14.5h6"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 7.5A7 7 0 1 0 17 16.5"/><path d="M5 12h8"/><path d="M5 14.5h6"/></svg>
         </div>
-        <div class="gd-pc-bal-body">
-          <div class="gd-pc-bal-name">Euro</div>
-          <div class="gd-pc-bal-amt" id="fd-disponible-amt2">—</div>
-        </div>
+        <div class="gd-pc-bal-name">Euro</div>
+        <div class="gd-pc-bal-amt" id="fd-disponible-amt2">—</div>
       </div>
       <div class="gd-pc-bal-card" onclick="ecOpenModal('credit-detail')" style="cursor:pointer">
         <div class="gd-pc-bal-icon gd-pc-bal-icon--loan">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
         </div>
-        <div class="gd-pc-bal-body">
-          <div class="gd-pc-bal-name">Prêt actif <span class="fd-status-badge" id="fd-status-badge"></span></div>
-          <div class="gd-pc-bal-amt" id="fd-restant-amt">—</div>
-          <div class="gd-pc-bal-sub">
-            <div class="gd-bc-prog-track"><div class="gd-bc-prog-fill" id="fd-loan-prog-fill"></div></div>
-            <span id="fd-loan-prog-pct">0%</span> remboursé
-          </div>
+        <div class="gd-pc-bal-name">Prêt actif <span class="fd-status-badge" id="fd-status-badge"></span></div>
+        <div class="gd-pc-bal-amt" id="fd-restant-amt">—</div>
+        <div class="gd-pc-bal-sub">
+          <div class="gd-bc-prog-track"><div class="gd-bc-prog-fill" id="fd-loan-prog-fill"></div></div>
+          <span id="fd-loan-prog-pct">0%</span> remboursé
         </div>
       </div>
       <div class="gd-pc-bal-card">
         <div class="gd-pc-bal-icon gd-pc-bal-icon--cal">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
-        <div class="gd-pc-bal-body">
-          <div class="gd-pc-bal-name">Prochaine échéance</div>
-          <div class="gd-pc-bal-amt gd-pc-bal-amt--date" id="fd-echeance-date">—</div>
-          <div class="gd-pc-bal-sub">Mensualité : <span id="fd-mensualite-amt">—</span></div>
+        <div class="gd-pc-bal-name">Prochaine échéance</div>
+        <div class="gd-pc-bal-amt gd-pc-bal-amt--date" id="fd-echeance-date">—</div>
+        <div class="gd-pc-bal-sub">Mensualité : <span id="fd-mensualite-amt">—</span></div>
+      </div>
+      <div class="gd-pc-bal-card" onclick="location.href='messagerie.html'" style="cursor:pointer">
+        <div class="gd-pc-bal-icon gd-pc-bal-icon--purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
+        <div class="gd-pc-bal-name">Messagerie</div>
+        <div class="gd-pc-bal-amt" style="font-size:.95rem;font-weight:500;color:#6B7280">Contacter</div>
       </div>
     </div>
   </div>
@@ -183,7 +185,7 @@
   <div class="gd-section gd-section--last">
     <div class="gd-section-hd">
       <h3 class="gd-section-title">Transactions récentes</h3>
-      <button class="gd-see-all-btn" onclick="ecOpenAllTx()">Voir tout</button>
+      <button class="gd-see-all-link" onclick="ecOpenAllTx()">Voir tout</button>
     </div>
     <div class="gd-tx-wrap">
       <table class="gd-tx-table">
