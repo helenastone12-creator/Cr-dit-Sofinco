@@ -377,7 +377,7 @@ function atxRenderList(list){
     var start = atxPage * atxPageSize;
     var pageList = list.slice(start, start + atxPageSize);
     var rows = pageList.map(function(tx){
-      var isIn = tx.type === 'credit';
+      var isIn = tx.type === 'credit' || tx.type === 'depot';
       var amt = Math.abs(parseFloat(tx.amt) || 0);
       var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
       var amtCls = isIn ? 'atx-pc-amt--in' : 'atx-pc-amt--out';
@@ -402,7 +402,7 @@ function atxRenderList(list){
     atxRenderPagination(list.length);
   } else {
     var html = list.map(function(tx){
-      var isIn = tx.type === 'credit';
+      var isIn = tx.type === 'credit' || tx.type === 'depot';
       var amt = Math.abs(parseFloat(tx.amt) || 0);
       var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
       var amtCls = isIn ? 'atx-amt atx-amt--in' : 'atx-amt';
@@ -910,7 +910,7 @@ function ecInitDashboard(){
 
 function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPasses, restant, pct){
   function set(id, v){ var e=document.getElementById(id); if(e) e.textContent=v; }
-  function fmtEur(n){ return (n != null && !isNaN(n)) ? n.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0})+' €' : '—'; }
+  function fmtEur(n){ return (n != null && !isNaN(n)) ? n.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2})+' €' : '—'; }
 
   var greetText = 'Bonjour, ' + (user.prenom || user.nom || 'Client') + ' 👋';
   var greet = document.getElementById('fd-greeting-name');
@@ -988,7 +988,7 @@ function fdRenderActivity(){
   var recent = list.slice(0, 5);
   var html = '';
   recent.forEach(function(tx){
-    var isIn = tx.type === 'credit';
+    var isIn = tx.type === 'credit' || tx.type === 'depot';
     var amt = Math.abs(parseFloat(tx.amt) || 0);
     var amtFmt = (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
     var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
