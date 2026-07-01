@@ -892,7 +892,8 @@ function fdRenderActivity(){
     var initials = fdTxInitials(label);
     var amtCls = isIn ? 'gd-tx-amt-val--in' : 'gd-tx-amt-val--out';
     var dateFmt = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
-    html += '<tr>';
+    var txJson = encodeURIComponent(JSON.stringify(tx));
+    html += '<tr style="cursor:pointer" onclick="ecOpenTxDetail(\''+txJson+'\')">';
     html += '<td><span class="gd-tx-date-val">' + dateFmt + '</span></td>';
     html += '<td><span class="gd-tx-amt-val ' + amtCls + '">' + amtFmt + '</span></td>';
     html += '<td><span class="gd-tx-type-val">' + type + '</span></td>';
