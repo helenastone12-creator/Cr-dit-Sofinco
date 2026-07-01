@@ -53,170 +53,156 @@
     </div>
   </div>
 
-  <!-- Greeting above hero -->
-  <div class="v2-hero-greeting-above" id="fd-greeting-name">—</div>
   <!-- Hidden compat IDs for JS -->
   <span id="fd-greeting-desk" style="display:none"></span>
   <span id="fd-kpi-disponible" style="display:none"></span>
   <span id="fd-kpi-limite-sub" style="display:none"></span>
+  <span id="fd-kpi-restant" style="display:none"></span>
+  <span id="fd-kpi-mens" style="display:none"></span>
+  <span id="fd-kpi-echeance" style="display:none"></span>
+  <span id="fd-kpi-echeance-sub" style="display:none"></span>
+  <span id="ec-solde-comptable" style="display:none"></span>
+  <span id="fd-limite-amt" style="display:none"></span>
+  <div id="v4-chart-section" style="display:none"><canvas id="v4-loan-chart"></canvas></div>
 
-  <!-- ── HERO BANNER ── -->
-  <section class="v2-hero">
-
-    <!-- Eye button — always top-right -->
-    <button class="v2-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
-      <svg id="ec-eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-    </button>
-
-    <!-- Decorative circle -->
-    <div class="v2-hero-deco" aria-hidden="true"></div>
-
-    <div class="v2-hero-body">
-      <!-- Left: amount info -->
-      <div class="v2-hero-left">
-        <div class="v2-hero-label">FINANCEMENT DISPONIBLE</div>
-        <div class="v2-hero-amount" id="fd-disponible-amt">— €</div>
-        <div id="ec-solde-comptable" style="display:none"></div>
-        <div id="fd-limite-amt" style="display:none"></div>
-      </div>
-
-      <!-- Right (desktop): actions column -->
-      <div class="v2-hero-right">
-        <button class="v2-ha v2-ha--primary" onclick="ecOpenModal('virement')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Demander un virement
-        </button>
-        <button class="v2-ha" onclick="ecOpenModal('remb')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-          Rembourser
-        </button>
-        <button class="v2-ha" onclick="location.href='mes-documents.html'">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Documents
-        </button>
-      </div>
-    </div>
-
-    <!-- Bottom (mobile): action pills row -->
-    <div class="v2-hero-pills">
-      <button class="v2-pill v2-pill--primary" onclick="ecOpenModal('virement')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Virement
-      </button>
-      <button class="v2-pill" onclick="ecOpenModal('remb')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-        Rembourser
-      </button>
-      <button class="v2-pill" onclick="location.href='mes-documents.html'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Documents
-      </button>
-    </div>
-  </section>
-
-  <!-- ── KPI STRIP (3 métriques secondaires) ── -->
-  <div class="v2-kpi-strip">
-    <div class="v2-kpi-card">
-      <div class="v2-kpi-icon v2-kpi-icon--blue">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><polyline points="12 16 12.01 16"/></svg>
-      </div>
-      <div class="v2-kpi-lbl">Capital restant dû</div>
-      <div class="v2-kpi-val" id="fd-kpi-restant">—</div>
-      <div class="v2-kpi-sub">Sur le prêt actif</div>
-    </div>
-    <div class="v2-kpi-card">
-      <div class="v2-kpi-icon v2-kpi-icon--em">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-      </div>
-      <div class="v2-kpi-lbl">Mensualité</div>
-      <div class="v2-kpi-val" id="fd-kpi-mens">—</div>
-      <div class="v2-kpi-sub">Prélèvement mensuel</div>
-    </div>
-    <div class="v2-kpi-card">
-      <div class="v2-kpi-icon v2-kpi-icon--amber">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      </div>
-      <div class="v2-kpi-lbl">Prochaine échéance</div>
-      <div class="v2-kpi-val v2-kpi-val--date" id="fd-kpi-echeance">—</div>
-      <div class="v2-kpi-sub" id="fd-kpi-echeance-sub">—</div>
+  <!-- ── GD: GREETING ── -->
+  <div class="gd-greeting-row">
+    <div>
+      <div class="gd-greeting-name" id="fd-greeting-name">—</div>
+      <div class="gd-greeting-sub">Gérez votre crédit et suivez vos transactions</div>
     </div>
   </div>
 
-  <!-- ── CHART SECTION ── -->
-  <div class="v4-chart-section" id="v4-chart-section" style="display:none">
-    <div class="v4-chart-card">
-      <div class="v4-chart-hd">
-        <div>
-          <div class="v4-chart-title">Évolution du capital</div>
-          <div class="v4-chart-sub">Amortissement du prêt sur la durée</div>
+  <!-- ── GD: BALANCE + ACTIONS ── -->
+  <div class="gd-balance-section">
+    <div class="gd-balance-left">
+      <div class="gd-balance-label">
+        Solde total
+        <button class="gd-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
+          <svg id="ec-eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="gd-balance-amount" id="fd-disponible-amt">—</div>
+    </div>
+    <div class="gd-action-btns">
+      <button class="gd-action-btn" onclick="ecOpenModal('depot')">
+        <div class="gd-action-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </div>
-        <div class="v4-chart-badges">
-          <span class="v4-chart-badge v4-chart-badge--em">Capital restant</span>
-          <span class="v4-chart-badge v4-chart-badge--blue">Remboursé</span>
+        <span>Ajouter</span>
+      </button>
+      <button class="gd-action-btn" onclick="ecOpenModal('virement')">
+        <div class="gd-action-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </div>
+        <span>Envoyer</span>
+      </button>
+      <button class="gd-action-btn" onclick="ecOpenModal('remb')">
+        <div class="gd-action-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <span>Simuler</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── GD: MES COMPTES ── -->
+  <div class="gd-section">
+    <h3 class="gd-section-title">Mes comptes</h3>
+    <div class="gd-balances-wrap">
+      <div class="gd-bc">
+        <div class="gd-bc-icon gd-bc-icon--eur">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 7.5A7 7 0 1 0 17 16.5"/><path d="M5 12h8"/><path d="M5 14.5h6"/></svg>
+        </div>
+        <div class="gd-bc-body">
+          <div class="gd-bc-name">Euro</div>
+          <div class="gd-bc-amount" id="fd-disponible-amt2">—</div>
         </div>
       </div>
-      <div class="v4-chart-wrap">
-        <canvas id="v4-loan-chart"></canvas>
+      <div class="gd-bc gd-bc--loan" onclick="ecOpenModal('credit-detail')" style="cursor:pointer">
+        <div class="gd-bc-icon gd-bc-icon--loan">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <div class="gd-bc-body">
+          <div class="gd-bc-name">Prêt actif <span class="fd-status-badge" id="fd-status-badge" style="font-size:.68rem;margin-left:.4rem"></span></div>
+          <div class="gd-bc-amount" id="fd-restant-amt">—</div>
+          <div class="gd-bc-sub">
+            <div class="gd-bc-prog-track"><div class="gd-bc-prog-fill" id="fd-loan-prog-fill"></div></div>
+            <span id="fd-loan-prog-pct" class="gd-bc-prog-pct">0%</span> remboursé
+          </div>
+        </div>
+      </div>
+      <div class="gd-bc">
+        <div class="gd-bc-icon gd-bc-icon--cal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="gd-bc-body">
+          <div class="gd-bc-name">Prochaine échéance</div>
+          <div class="gd-bc-amount gd-bc-amount--date" id="fd-echeance-date">—</div>
+          <div class="gd-bc-sub">Mensualité : <span id="fd-mensualite-amt">—</span></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ── CONTENT GRID ── -->
-  <div class="v2-grid">
-
-    <!-- Colonne gauche : Prêt + Timeline -->
-    <div class="v2-col-left">
-
-      <div class="v2-card">
-        <div class="v2-card-hd">
-          <span class="v2-card-title">Prêt actif</span>
-          <div class="v2-card-hd-r">
-            <span class="fd-status-badge" id="fd-status-badge">—</span>
-            <button class="v2-link-btn" onclick="ecOpenModal('credit-detail')">Détails →</button>
-          </div>
+  <!-- ── GD: ACTIONS RAPIDES ── -->
+  <div class="gd-section">
+    <h3 class="gd-section-title">Actions rapides</h3>
+    <div class="gd-qa-grid">
+      <div class="gd-qa-card" onclick="ecOpenModal('depot')">
+        <div class="gd-qa-icon gd-qa-icon--green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
-        <div class="v2-loan-row">
-          <div class="v2-ls">
-            <div class="v2-ls-lbl">Montant restant</div>
-            <div class="v2-ls-val" id="fd-restant-amt">—</div>
-          </div>
-          <div class="v2-ls">
-            <div class="v2-ls-lbl">Mensualité</div>
-            <div class="v2-ls-val" id="fd-mensualite-amt">—</div>
-          </div>
-          <div class="v2-ls">
-            <div class="v2-ls-lbl">Prochaine échéance</div>
-            <div class="v2-ls-val v2-ls-val--date" id="fd-echeance-date">—</div>
-          </div>
-        </div>
-        <div class="v2-prog-wrap">
-          <div class="v2-prog-hd">
-            <span class="v2-prog-lbl">Remboursé</span>
-            <span class="v2-prog-pct" id="fd-loan-prog-pct">0%</span>
-          </div>
-          <div class="v2-prog-track"><div class="v2-prog-fill" id="fd-loan-prog-fill"></div></div>
-        </div>
-        <button class="v2-text-link" onclick="ecOpenModal('remb')">Simuler un remboursement anticipé →</button>
+        <div class="gd-qa-title">Dépôt</div>
+        <div class="gd-qa-desc">Alimentez votre compte facilement</div>
       </div>
-
-    </div>
-
-    <!-- Colonne droite : Activité + Documents -->
-    <div class="v2-col-right">
-
-      <div class="v2-card v2-card--activity">
-        <div class="v2-card-hd">
-          <span class="v2-card-title">Activité récente</span>
-          <button class="v2-link-btn" onclick="ecOpenAllTx()">Tout afficher →</button>
+      <div class="gd-qa-card" onclick="ecOpenModal('virement')">
+        <div class="gd-qa-icon gd-qa-icon--blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </div>
-        <div id="fd-activity-list">
-          <div class="fd-activity-empty">Aucune opération pour le moment.</div>
-        </div>
+        <div class="gd-qa-title">Virement</div>
+        <div class="gd-qa-desc">Effectuez un virement bancaire</div>
       </div>
-
-
+      <div class="gd-qa-card" onclick="ecOpenModal('remb')">
+        <div class="gd-qa-icon gd-qa-icon--amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <div class="gd-qa-title">Remboursement</div>
+        <div class="gd-qa-desc">Simulez un remboursement anticipé</div>
+      </div>
+      <div class="gd-qa-card" onclick="location.href='messagerie.html'">
+        <div class="gd-qa-icon gd-qa-icon--purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="gd-qa-title">Messagerie</div>
+        <div class="gd-qa-desc">Contactez votre conseiller</div>
+      </div>
     </div>
+  </div>
 
+  <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
+  <div class="gd-section gd-section--last">
+    <div class="gd-section-hd">
+      <h3 class="gd-section-title">Transactions récentes</h3>
+      <button class="gd-see-all-btn" onclick="ecOpenAllTx()">Voir tout</button>
+    </div>
+    <div class="gd-tx-wrap">
+      <table class="gd-tx-table">
+        <thead>
+          <tr>
+            <th>DATE</th>
+            <th>MONTANT</th>
+            <th>TYPE</th>
+            <th>DESCRIPTION</th>
+            <th>STATUT</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="fd-activity-list">
+          <tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </main>

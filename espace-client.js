@@ -784,6 +784,7 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
 
   var solde = parseFloat(localStorage.getItem('ec_solde')) || 0;
   set('fd-disponible-amt', fmtEur(solde));
+  set('fd-disponible-amt2', fmtEur(solde));
   set('fd-limite-amt', fmtEur(capital));
   set('fd-kpi-disponible', fmtEur(solde));
   set('fd-kpi-limite-sub', 'Limite approuvée : ' + fmtEur(capital));
@@ -827,8 +828,15 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
     if(_origRefresh) _origRefresh();
     var s2 = parseFloat(localStorage.getItem('ec_solde')) || 0;
     set('fd-disponible-amt', fmtEur(s2));
+    set('fd-disponible-amt2', fmtEur(s2));
     set('fd-kpi-disponible', fmtEur(s2));
   };
+}
+
+function fdTxInitials(label){
+  var words = (label || '').trim().split(/\s+/);
+  if(words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+  return (words[0] || '').substring(0,2).toUpperCase() || '??';
 }
 
 function fdRenderActivity(){
@@ -837,28 +845,28 @@ function fdRenderActivity(){
   var list = [];
   try { list = JSON.parse(localStorage.getItem('ec_tx') || '[]'); } catch(e){}
   if(!list.length){
-    el.innerHTML = '<div class="fd-activity-empty">Aucune opération pour le moment.</div>';
+    el.innerHTML = '<tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>';
     return;
   }
-  var recent = list.slice(0, 7);
-  var iconIn = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
-  var iconOut = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  var recent = list.slice(0, 10);
   var html = '';
   recent.forEach(function(tx){
     var isIn = tx.type === 'credit';
     var amt = Math.abs(parseFloat(tx.amt) || 0);
-    var sign = isIn ? '+' : '−';
-    var amtFmt = sign + amt.toLocaleString('fr-FR', {minimumFractionDigits:0, maximumFractionDigits:0}) + ' €';
+    var amtFmt = (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+    var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
+    var type = isIn ? 'Dépôt' : 'Retrait';
+    var initials = fdTxInitials(label);
+    var amtCls = isIn ? 'gd-tx-amt-val--in' : 'gd-tx-amt-val--out';
     var dateFmt = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
-    var iconHtml = isIn ? iconIn : iconOut;
-    var iconCls = isIn ? 'fd-tx-icon--in' : 'fd-tx-icon--out';
-    var amtCls = isIn ? 'fd-tx-amt--in' : 'fd-tx-amt--out';
-    var label = tx.label || (isIn ? 'Crédit' : 'Débit');
-    html += '<div class="fd-tx-item">';
-    html += '<div class="fd-tx-icon ' + iconCls + '">' + iconHtml + '</div>';
-    html += '<div class="fd-tx-info"><div class="fd-tx-name">' + label + '</div><div class="fd-tx-date">' + dateFmt + '</div></div>';
-    html += '<div class="fd-tx-right"><div class="fd-tx-amt ' + amtCls + '">' + amtFmt + '</div><div class="fd-tx-status">Validé</div></div>';
-    html += '</div>';
+    html += '<tr>';
+    html += '<td><span class="gd-tx-date-val">' + dateFmt + '</span></td>';
+    html += '<td><span class="gd-tx-amt-val ' + amtCls + '">' + amtFmt + '</span></td>';
+    html += '<td><span class="gd-tx-type-val">' + type + '</span></td>';
+    html += '<td><div class="gd-tx-desc-cell"><div class="gd-tx-avatar">' + initials + '</div><span class="gd-tx-desc-text">' + label + '</span></div></td>';
+    html += '<td><span class="gd-tx-status-val"><span class="gd-tx-dot"></span> Validé</span></td>';
+    html += '<td><span class="gd-tx-chevron-val">›</span></td>';
+    html += '</tr>';
   });
   el.innerHTML = html;
 }
