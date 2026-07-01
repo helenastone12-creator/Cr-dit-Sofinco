@@ -343,40 +343,49 @@ function ecRenderTx(){
 }
 
 // ── Toutes les transactions (modal scrollable) ──
-function ecOpenAllTx(){
-  var list = ecGetTx();
+function atxRenderList(list){
   var hidden = ecSoldeHidden();
+  var el = document.getElementById('ec-all-tx-list');
+  if(!el) return;
+  if(!list || !list.length){ el.innerHTML = '<div class="atx-empty">Aucune opération.</div>'; return; }
+  var html = list.map(function(tx){
+    var isIn = tx.type === 'credit';
+    var amt = Math.abs(parseFloat(tx.amt) || 0);
+    var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+    var amtCls = isIn ? 'atx-amt atx-amt--in' : 'atx-amt';
+    var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
+    var initials = fdTxInitials(label);
+    var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
+    var txJson = encodeURIComponent(JSON.stringify(tx));
+    return '<div class="atx-row" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
+      '<div class="atx-avatar">'+initials+'</div>'+
+      '<div class="atx-info"><span class="atx-name">'+label+'</span><span class="atx-date">'+dateDisp+'</span></div>'+
+      '<span class="'+amtCls+'">'+amtFmt+'</span>'+
+    '</div>';
+  }).join('');
+  el.innerHTML = html;
+}
+
+function atxFilterTx(){
+  var q = (document.getElementById('atx-search-input') || {}).value || '';
+  var list = ecGetTx();
+  if(q.trim()){
+    var ql = q.toLowerCase();
+    list = list.filter(function(tx){ return (tx.label||'').toLowerCase().indexOf(ql) !== -1; });
+  }
+  atxRenderList(list);
+}
+
+function atxClearSearch(){
+  var inp = document.getElementById('atx-search-input');
+  if(inp){ inp.value = ''; }
+  atxRenderList(ecGetTx());
+}
+
+function ecOpenAllTx(){
   var modal = document.getElementById('ec-modal-all-tx');
   if(!modal) return;
-  var todayKey = new Date().toISOString().slice(0,10);
-  // Group by normalized date
-  var groups = [], groupMap = {};
-  list.forEach(function(tx){
-    var key = ecNormDateKey(tx.date);
-    if(!groupMap[key]){ groupMap[key]={date:key,items:[]}; groups.push(groupMap[key]); }
-    groupMap[key].items.push(tx);
-  });
-  var html = groups.map(function(g){
-    var label = ecTxDateLabel(g.date);
-    var sep = '<div class="ec-n26-date-label">'+label+'</div>';
-    var items = g.items.map(function(tx){
-      var isOut = tx.type==='virement';
-      var sign = isOut ? '-' : '';
-      var fmtAmt = tx.amt.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
-      var rawAmt = hidden ? '• • • •' : sign+fmtAmt;
-      var amtCls = isOut ? 'ec-n26-tx-amt' : 'ec-n26-tx-amt ec-n26-tx-amt--in';
-      var icon = ecTxCategoryIcon(tx.type);
-      var name = ecTxDisplayName(tx);
-      var dateDisp = ecFmtTxDateFull(tx.date);
-      var txJson = encodeURIComponent(JSON.stringify(tx));
-      return '<div class="ec-n26-tx-item" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
-        '<div class="ec-n26-tx-icon">'+icon+'</div>'+
-        '<div class="ec-n26-tx-info"><div class="ec-n26-tx-name">'+name+'</div><div class="ec-n26-tx-date">'+dateDisp+'</div></div>'+
-        '<div class="'+amtCls+'">'+rawAmt+'</div></div>';
-    }).join('');
-    return sep + items;
-  }).join('');
-  document.getElementById('ec-all-tx-list').innerHTML = html || '<div class="ec-n26-tx-empty">Aucune opération.</div>';
+  atxRenderList(ecGetTx());
   ecOpenModal('all-tx');
 }
 

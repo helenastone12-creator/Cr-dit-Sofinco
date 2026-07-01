@@ -379,13 +379,28 @@
 
 <!-- Modal Toutes les transactions -->
 <div class="ec-modal-overlay ec-modal-overlay--fullscreen" id="ec-modal-all-tx" onclick="ecCloseModal('all-tx')">
-  <div class="ec-modal-card ec-modal-card--fullscreen" onclick="event.stopPropagation()">
-    <div class="ec-modal-handle"></div>
-    <div class="ec-modal-header">
-      <span class="ec-modal-title">Toutes les opérations</span>
-      <button class="ec-modal-close" onclick="ecCloseModal('all-tx')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="ec-modal-card ec-modal-card--fullscreen atx-page" onclick="event.stopPropagation()">
+    <!-- Header -->
+    <div class="atx-header">
+      <button class="atx-back-btn" onclick="ecCloseModal('all-tx')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="atx-title">Transactions</span>
     </div>
-    <div class="ec-all-tx-body" id="ec-all-tx-list"></div>
+    <!-- Search + Filter -->
+    <div class="atx-search-row">
+      <div class="atx-search-wrap">
+        <svg class="atx-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="atx-search-input" id="atx-search-input" type="text" placeholder="Rechercher ici" oninput="atxFilterTx()" />
+      </div>
+      <button class="atx-filter-btn" onclick="atxClearSearch()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      </button>
+    </div>
+    <!-- Label -->
+    <div class="atx-label">Toutes les transactions</div>
+    <!-- List -->
+    <div class="atx-list" id="ec-all-tx-list"></div>
   </div>
 </div>
 
