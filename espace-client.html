@@ -120,83 +120,6 @@
 
   </div><!-- /gd-main-card -->
 
-  <!-- ── SERVICES ── -->
-  <div class="svc-section">
-    <div class="svc-grid">
-
-      <!-- Open Banking (featured) -->
-      <button class="svc-card svc-card--ob" onclick="ecOpenModal('open-banking')">
-        <div class="svc-icon svc-icon--white">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <div class="svc-ob-body">
-          <div class="svc-title">Open Banking</div>
-          <div class="svc-desc">Connectez votre compte bancaire et suivez votre solde en temps réel</div>
-          <div class="svc-ob-tag">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Nouveau
-          </div>
-        </div>
-        <svg class="svc-ob-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-
-      <!-- Mes relevés -->
-      <a href="mes-documents.html" class="svc-card">
-        <div class="svc-icon svc-icon--blue">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <div class="svc-title">Mes relevés</div>
-        <div class="svc-desc">Téléchargez vos relevés électroniques</div>
-      </a>
-
-      <!-- Virement crédit -->
-      <button class="svc-card" onclick="ecOpenModal('virement')">
-        <div class="svc-icon svc-icon--teal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-        </div>
-        <div class="svc-title">Virement crédit</div>
-        <div class="svc-desc">Utilisez votre crédit renouvelable</div>
-      </button>
-
-      <!-- Pause mensualités -->
-      <button class="svc-card" onclick="ecOpenModal('pause-mens')">
-        <div class="svc-icon svc-icon--orange">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
-        </div>
-        <div class="svc-title">Pause mensualités</div>
-        <div class="svc-desc">Suspendez vos paiements temporairement</div>
-      </button>
-
-      <!-- E-relevé -->
-      <button class="svc-card" onclick="ecOpenModal('e-releve')">
-        <div class="svc-icon svc-icon--green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <div class="svc-title">E-relevé</div>
-        <div class="svc-desc">Abonnez-vous au relevé par e-mail</div>
-      </button>
-
-      <!-- Suivi dépenses -->
-      <button class="svc-card" onclick="ecOpenAllTx()">
-        <div class="svc-icon svc-icon--purple">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <div class="svc-title">Suivi dépenses</div>
-        <div class="svc-desc">Analysez vos postes de dépenses</div>
-      </button>
-
-      <!-- Mon profil -->
-      <a href="profil.html" class="svc-card">
-        <div class="svc-icon svc-icon--pink">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div class="svc-title">Mon profil</div>
-        <div class="svc-desc">Modifiez vos informations personnelles</div>
-      </a>
-
-    </div>
-  </div>
-
   <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
   <div class="gd-section gd-section--last">
     <div class="gd-section-hd">
@@ -261,6 +184,29 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     <span>Messages</span>
   </a>
+
+  <!-- Services (sidebar desktop) -->
+  <div class="v2-sidebar-sep v2-nav-desktop-only"></div>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenAllTx()" aria-label="Transactions">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span>Transactions</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('virement')" aria-label="Virement crédit">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+    <span>Virement crédit</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('pause-mens')" aria-label="Pause mensualités">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
+    <span>Pause mensualités</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('e-releve')" aria-label="E-relevé">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <span>E-relevé</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('open-banking')" aria-label="Open Banking">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <span>Open Banking</span>
+  </button>
 
   <!-- Desktop only -->
   <a href="profil.html" class="v2-nav-link v2-nav-desktop-only" aria-label="Paramètres">
