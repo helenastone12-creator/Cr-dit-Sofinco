@@ -106,44 +106,14 @@
     </div>
   </div>
 
-  <!-- ── GD: MES COMPTES ── -->
-  <div class="gd-section">
-    <h3 class="gd-section-title">Mes comptes</h3>
-    <div class="gd-balances-wrap">
-      <div class="gd-bc">
-        <div class="gd-bc-icon gd-bc-icon--eur">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 7.5A7 7 0 1 0 17 16.5"/><path d="M5 12h8"/><path d="M5 14.5h6"/></svg>
-        </div>
-        <div class="gd-bc-body">
-          <div class="gd-bc-name">Euro</div>
-          <div class="gd-bc-amount" id="fd-disponible-amt2">—</div>
-        </div>
-      </div>
-      <div class="gd-bc gd-bc--loan" onclick="ecOpenModal('credit-detail')" style="cursor:pointer">
-        <div class="gd-bc-icon gd-bc-icon--loan">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-        </div>
-        <div class="gd-bc-body">
-          <div class="gd-bc-name">Prêt actif <span class="fd-status-badge" id="fd-status-badge" style="font-size:.68rem;margin-left:.4rem"></span></div>
-          <div class="gd-bc-amount" id="fd-restant-amt">—</div>
-          <div class="gd-bc-sub">
-            <div class="gd-bc-prog-track"><div class="gd-bc-prog-fill" id="fd-loan-prog-fill"></div></div>
-            <span id="fd-loan-prog-pct" class="gd-bc-prog-pct">0%</span> remboursé
-          </div>
-        </div>
-      </div>
-      <div class="gd-bc">
-        <div class="gd-bc-icon gd-bc-icon--cal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <div class="gd-bc-body">
-          <div class="gd-bc-name">Prochaine échéance</div>
-          <div class="gd-bc-amount gd-bc-amount--date" id="fd-echeance-date">—</div>
-          <div class="gd-bc-sub">Mensualité : <span id="fd-mensualite-amt">—</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Hidden compat IDs (Mes comptes removed) -->
+  <span id="fd-disponible-amt2" style="display:none"></span>
+  <span id="fd-restant-amt" style="display:none"></span>
+  <span id="fd-status-badge" style="display:none"></span>
+  <span id="fd-loan-prog-fill" style="display:none"></span>
+  <span id="fd-loan-prog-pct" style="display:none"></span>
+  <span id="fd-echeance-date" style="display:none"></span>
+  <span id="fd-mensualite-amt" style="display:none"></span>
 
 
   <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
