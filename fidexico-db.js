@@ -88,6 +88,10 @@ var FidDB = {
       .then(function(rows){ return rows||[]; });
   },
 
+  deleteTx: function(clientId){
+    return sbQ('transactions?client_id=eq.'+encodeURIComponent(clientId), 'DELETE');
+  },
+
   addTx: function(clientId, tx){
     return sbQ('transactions', 'POST', {
       client_id: clientId,

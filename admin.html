@@ -1455,6 +1455,9 @@
                   <button class="adm-btn" style="flex:1" onclick="opViewTx()">Voir les transactions</button>
                   <button class="adm-btn adm-btn--outline" style="flex:1" onclick="opExportClientTx()">Exporter CSV</button>
                 </div>
+                <div style="margin-top:.6rem">
+                  <button class="adm-btn" style="width:100%;background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5" onclick="opClearTx()">🗑 Effacer l'historique</button>
+                </div>
                 <div id="txview-list" style="margin-top:1rem;max-height:220px;overflow-y:auto;display:none"></div>
               </div>
             </div>
@@ -2561,6 +2564,30 @@ function opExportClientTx(){
     }).catch(function(){ doExport(c.tx||[]); });
   } else {
     doExport(c.tx||[]);
+  }
+}
+
+function opClearTx(){
+  var uid=document.getElementById('txview-id').value.trim();
+  var errEl=document.getElementById('txview-err');
+  var listEl=document.getElementById('txview-list');
+  errEl.style.display='none';
+  if(!uid){errEl.textContent='✗ Identifiant requis.';errEl.style.display='block';return;}
+  var c=findClientByUID(uid);
+  if(!c){errEl.textContent='✗ Client introuvable.';errEl.style.display='block';return;}
+  if(!confirm('Effacer TOUT l\'historique des transactions de '+c.user.prenom+' '+c.user.nom+' ? Cette action est irréversible.')){return;}
+  var doClear=function(){
+    c.tx=[];
+    listEl.innerHTML='<div style="color:#94a3b8;font-size:.82rem;padding:.5rem 0">Historique effacé.</div>';
+    listEl.style.display='block';
+    admLog('clear_tx', uid, 'Historique transactions effacé', 0);
+  };
+  if(typeof FidDB!=='undefined' && c.user.id){
+    FidDB.deleteTx(c.user.id).then(doClear).catch(function(){
+      errEl.textContent='✗ Erreur Supabase lors de la suppression.';errEl.style.display='block';
+    });
+  } else {
+    doClear();
   }
 }
 
