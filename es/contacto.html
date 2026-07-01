@@ -1156,6 +1156,7 @@
 
 </div>
 
+<script src="../fidexico-email.js"></script>
 <script src="../script.js"></script>
 <script>
 function cfSubmit(){
@@ -1181,14 +1182,67 @@ function cfSubmit(){
   }
   err.style.display = 'none';
 
-  // Ouvre le client email avec les données pré-remplies
-  var ref    = (document.getElementById('cf-ref')||{}).value||'';
-  var body   = 'Nom : '+prenom.trim()+' '+nom.trim()+'\nEmail : '+email.trim()+'\nSujet : '+sujet+(ref?'\nDossier : '+ref.toUpperCase():'')+'\n\n'+message.trim();
-  window.location.href = 'mailto:contact@votre-domaine.fr?subject='+encodeURIComponent('[Contact] '+sujet)+'&body='+encodeURIComponent(body);
+  var ref = (document.getElementById('cf-ref')||{}).value||'';
+  var _html = '<p><strong>Nom :</strong> '+prenom.trim()+' '+nom.trim()+'</p>'
+            + '<p><strong>Email :</strong> '+email.trim()+'</p>'
+            + '<p><strong>Sujet :</strong> '+sujet+'</p>'
+            + (ref ? '<p><strong>N\u00b0 dossier :</strong> '+ref.toUpperCase()+'</p>' : '')
+            + '<p><strong>Message :</strong><br>'+message.trim().replace(/\n/g,'<br>')+'</p>';
 
-  // Confirmation
-  document.getElementById('contact-form').style.opacity = '.4';
-  ok.style.display = 'block';
+  var btn = document.querySelector('#contact-form button[type=button]');
+  if(btn){ btn.disabled = true; }
+
+  var _tplContact = {
+    fr: { subject: 'Nous avons bien re\u00e7u votre message', title: 'Votre message a bien \u00e9t\u00e9 re\u00e7u', cta: 'Nous contacter', footer: 'Cet email est automatique, ne pas r\u00e9pondre.', body: 'Bonjour <strong>{prenom}</strong>,<br><br>Nous avons bien re\u00e7u votre message concernant <strong>{sujet}</strong>.<br><br>Notre \u00e9quipe vous r\u00e9pondra dans les meilleurs d\u00e9lais. Vous pouvez \u00e9galement nous joindre par t\u00e9l\u00e9phone au <strong>09 69 39 10 00</strong>.<br><br>Cordialement,<br><strong>L\'\u00e9quipe Fidexico</strong>' },
+    en: { subject: 'We have received your message', title: 'Your message has been received', cta: 'Contact us', footer: 'This is an automated email, please do not reply.', body: 'Hello <strong>{prenom}</strong>,<br><br>We have received your message regarding <strong>{sujet}</strong>.<br><br>Our team will get back to you as soon as possible. You can also reach us by phone at <strong>09 69 39 10 00</strong>.<br><br>Best regards,<br><strong>The Fidexico Team</strong>' },
+    de: { subject: 'Wir haben Ihre Nachricht erhalten', title: 'Ihre Nachricht ist bei uns eingegangen', cta: 'Kontakt aufnehmen', footer: 'Diese E-Mail wurde automatisch generiert, bitte nicht antworten.', body: 'Hallo <strong>{prenom}</strong>,<br><br>Wir haben Ihre Nachricht zu <strong>{sujet}</strong> erhalten.<br><br>Unser Team wird sich so bald wie m\u00f6glich bei Ihnen melden. Sie k\u00f6nnen uns auch telefonisch unter <strong>09 69 39 10 00</strong> erreichen.<br><br>Mit freundlichen Gr\u00fc\u00dfen,<br><strong>Das Fidexico-Team</strong>' },
+    es: { subject: 'Hemos recibido su mensaje', title: 'Su mensaje ha sido recibido', cta: 'Contactarnos', footer: 'Este email es autom\u00e1tico, no responder.', body: 'Hola <strong>{prenom}</strong>,<br><br>Hemos recibido su mensaje sobre <strong>{sujet}</strong>.<br><br>Nuestro equipo le responder\u00e1 a la mayor brevedad. Tambi\u00e9n puede contactarnos por tel\u00e9fono en el <strong>09 69 39 10 00</strong>.<br><br>Atentamente,<br><strong>El equipo de Fidexico</strong>' },
+    it: { subject: 'Abbiamo ricevuto il suo messaggio', title: 'Il suo messaggio \u00e8 stato ricevuto', cta: 'Contattaci', footer: 'Questa email \u00e8 automatica, non rispondere.', body: 'Gentile <strong>{prenom}</strong>,<br><br>Abbiamo ricevuto il suo messaggio riguardante <strong>{sujet}</strong>.<br><br>Il nostro team la contatter\u00e0 il prima possibile. Pu\u00f2 anche raggiungerci telefonicamente al <strong>09 69 39 10 00</strong>.<br><br>Cordiali saluti,<br><strong>Il team Fidexico</strong>' },
+    nl: { subject: 'Wij hebben uw bericht ontvangen', title: 'Uw bericht is ontvangen', cta: 'Neem contact op', footer: 'Deze e-mail is automatisch gegenereerd, niet beantwoorden.', body: 'Hallo <strong>{prenom}</strong>,<br><br>Wij hebben uw bericht over <strong>{sujet}</strong> ontvangen.<br><br>Ons team neemt zo snel mogelijk contact met u op. U kunt ons ook telefonisch bereiken op <strong>09 69 39 10 00</strong>.<br><br>Met vriendelijke groet,<br><strong>Het Fidexico-team</strong>' },
+    pl: { subject: 'Otrzymali\u015bmy Twoj\u0105 wiadomo\u015b\u0107', title: 'Twoja wiadomo\u015b\u0107 zosta\u0142a odebrana', cta: 'Skontaktuj si\u0119 z nami', footer: 'Ta wiadomo\u015b\u0107 zosta\u0142a wygenerowana automatycznie, prosimy nie odpowiada\u0107.', body: 'Witaj <strong>{prenom}</strong>,<br><br>Otrzymali\u015bmy Twoj\u0105 wiadomo\u015b\u0107 dotycz\u0105c\u0105 <strong>{sujet}</strong>.<br><br>Nasz zesp\u00f3\u0142 skontaktuje si\u0119 z Tob\u0105 tak szybko, jak to mo\u017cliwe. Mo\u017cesz r\u00f3wnie\u017c zadzwoni\u0107 pod numer <strong>09 69 39 10 00</strong>.<br><br>Z powa\u017caniem,<br><strong>Zesp\u00f3\u0142 Fidexico</strong>' },
+    sv: { subject: 'Vi har mottagit ditt meddelande', title: 'Ditt meddelande har mottagits', cta: 'Kontakta oss', footer: 'Detta \u00e4r ett automatiskt e-postmeddelande, svara inte.', body: 'Hej <strong>{prenom}</strong>,<br><br>Vi har mottagit ditt meddelande ang\u00e5ende <strong>{sujet}</strong>.<br><br>V\u00e5rt team \u00e5terkommer till dig s\u00e5 snart som m\u00f6jligt. Du kan ocks\u00e5 n\u00e5 oss per telefon p\u00e5 <strong>09 69 39 10 00</strong>.<br><br>Med v\u00e4nliga h\u00e4lsningar,<br><strong>Fidexico-teamet</strong>' }
+  };
+  var _lang = (document.documentElement.lang||'fr').split('-')[0];
+  var _tpl = _tplContact[_lang] || _tplContact['fr'];
+  var _bodyContent = _tpl.body.replace(/\{prenom\}/g, prenom.trim()).replace(/\{sujet\}/g, sujet);
+  var _locales = {fr:'fr-FR',en:'en-GB',de:'de-DE',es:'es-ES',it:'it-IT',nl:'nl-NL',pl:'pl-PL',sv:'sv-SE'};
+  var _now = new Date().toLocaleDateString(_locales[_lang]||'fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  var _confirmHtml = emailBase(
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+_tpl.title+'</h1>'
+    +'<p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:15px;color:#444;line-height:1.7">'+_bodyContent+'</p>'
+    +_tbl([[fidT('lbl_date',null,_lang), _now]])
+    +_btn(_tpl.cta, FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html')
+    +_note(_tpl.footer),
+  _lang);
+
+  fetch('../send-email.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      to: 'contact@fidexico.eu',
+      subject: '[Contact] ' + sujet + (ref ? ' \u2013 ' + ref.toUpperCase() : ''),
+      html: _html,
+      from: 'Fidexico <contact@fidexico.eu>'
+    })
+  });
+
+  fetch('../send-email.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      to: email.trim(),
+      subject: _tpl.subject,
+      html: _confirmHtml,
+      from: 'Fidexico <contact@fidexico.eu>'
+    })
+  }).then(function(){
+    document.getElementById('contact-form').style.display = 'none';
+    ok.style.display = 'block';
+    if(btn){ btn.disabled = false; }
+  }).catch(function(){
+    err.style.display = 'block';
+    if(btn){ btn.disabled = false; }
+  });
 }
 </script>
 
