@@ -812,6 +812,21 @@ function emailBase(content, lang, opts){
   +'</body></html>';
 }
 
+/* ── Toast confirmation formulaire contact ── */
+function cfShowToast(msg){
+  var existing = document.getElementById('cf-toast-el');
+  if(existing) existing.remove();
+  var el = document.createElement('div');
+  el.id = 'cf-toast-el';
+  el.className = 'cf-toast';
+  el.innerHTML = '<div class="cf-toast-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4.5 4.5L15 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+    +'<div class="cf-toast-msg">'+msg+'</div>'
+    +'<button class="cf-toast-close" onclick="this.parentNode.classList.remove(\'show\')">✕</button>';
+  document.body.appendChild(el);
+  requestAnimationFrame(function(){ el.classList.add('show'); });
+  setTimeout(function(){ el.classList.remove('show'); }, 6000);
+}
+
 /* ── Helpers internes ── */
 function _btn(label, url){
   return '<table cellpadding="0" cellspacing="0" border="0" style="margin:32px auto"><tr>'
