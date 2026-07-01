@@ -4739,8 +4739,8 @@ body.ec-body {
   font-family: inherit;
 }
 .gd-action-circle {
-  width: 52px;
-  height: 52px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: #fff;
   border: 1px solid #E5E7EB;
@@ -5134,7 +5134,7 @@ body.ec-body {
   .gd-balance-label { justify-content: center; }
   .gd-balance-amount { font-size: 2rem; }
   .gd-action-btns { gap: 1.8rem; }
-  .gd-action-circle { width: 56px; height: 56px; }
+  .gd-action-circle { width: 46px; height: 46px; }
   .gd-section { padding: 0 .85rem 1.1rem; }
   .gd-balances-wrap { grid-template-columns: repeat(2, 1fr); gap: .65rem; }
   .gd-qa-grid { grid-template-columns: repeat(2, 1fr); gap: .65rem; }
