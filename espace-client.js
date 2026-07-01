@@ -857,7 +857,7 @@ function fdRenderActivity(){
     el.innerHTML = '<tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>';
     return;
   }
-  var recent = list.slice(0, 10);
+  var recent = list.slice(0, 5);
   var html = '';
   recent.forEach(function(tx){
     var isIn = tx.type === 'credit';
