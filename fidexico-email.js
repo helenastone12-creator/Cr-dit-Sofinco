@@ -672,9 +672,102 @@ function sendEmail(to, subject, html, lang){
 /* ════════════════════════════════════════════════════════════
    BASE LAYOUT — style minimaliste (inspiré ChatGPT)
    ════════════════════════════════════════════════════════════ */
+var _EB_I18N = {
+  fr: {
+    sec_title: 'Avertissement de sécurité',
+    sec_body:  'Fidexico ne vous demandera jamais vos codes d\'accès, mots de passe ou informations bancaires complètes par email. En cas de doute, ne cliquez sur aucun lien et contactez-nous via notre formulaire.',
+    conf:      'Cet email a été envoyé à l\'adresse associée à votre espace client Fidexico. Il est strictement confidentiel et destiné uniquement à son destinataire. Toute utilisation, divulgation ou reproduction non autorisée est interdite.',
+    gdpr:      'Conformément au Règlement (UE) 2016/679 (RGPD), vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles. Pour exercer ces droits, écrivez-nous à',
+    gdpr_or:   'ou via notre',
+    gdpr_form: 'formulaire de contact',
+    lnk_sec:   'Sécurité',
+    lnk_priv:  'Politique de confidentialité',
+    lnk_legal: 'Mentions légales'
+  },
+  en: {
+    sec_title: 'Security notice',
+    sec_body:  'Fidexico will never ask for your login credentials, passwords or full banking details by email. If in doubt, do not click any link and contact us via our form.',
+    conf:      'This email was sent to the address associated with your Fidexico client account. It is strictly confidential and intended solely for its recipient. Any unauthorised use, disclosure or reproduction is prohibited.',
+    gdpr:      'In accordance with Regulation (EU) 2016/679 (GDPR), you have the right to access, rectify and delete your personal data. To exercise these rights, write to us at',
+    gdpr_or:   'or via our',
+    gdpr_form: 'contact form',
+    lnk_sec:   'Security',
+    lnk_priv:  'Privacy policy',
+    lnk_legal: 'Legal notice'
+  },
+  de: {
+    sec_title: 'Sicherheitshinweis',
+    sec_body:  'Fidexico wird Sie niemals per E-Mail nach Ihren Zugangsdaten, Passwörtern oder vollständigen Bankdaten fragen. Klicken Sie im Zweifelsfall auf keinen Link und kontaktieren Sie uns über unser Formular.',
+    conf:      'Diese E-Mail wurde an die mit Ihrem Fidexico-Kundenkonto verknüpfte Adresse gesendet. Sie ist streng vertraulich und ausschließlich für den Empfänger bestimmt. Jede unbefugte Nutzung, Weitergabe oder Vervielfältigung ist untersagt.',
+    gdpr:      'Gemäß der Verordnung (EU) 2016/679 (DSGVO) haben Sie das Recht auf Zugang, Berichtigung und Löschung Ihrer personenbezogenen Daten. Um diese Rechte auszuüben, schreiben Sie uns an',
+    gdpr_or:   'oder über unser',
+    gdpr_form: 'Kontaktformular',
+    lnk_sec:   'Sicherheit',
+    lnk_priv:  'Datenschutzrichtlinie',
+    lnk_legal: 'Rechtliche Hinweise'
+  },
+  es: {
+    sec_title: 'Aviso de seguridad',
+    sec_body:  'Fidexico nunca le pedirá sus credenciales de acceso, contraseñas o datos bancarios completos por email. En caso de duda, no haga clic en ningún enlace y contáctenos a través de nuestro formulario.',
+    conf:      'Este email fue enviado a la dirección asociada a su cuenta de cliente Fidexico. Es estrictamente confidencial y destinado únicamente a su destinatario. Cualquier uso, divulgación o reproducción no autorizada está prohibida.',
+    gdpr:      'De conformidad con el Reglamento (UE) 2016/679 (RGPD), usted tiene derecho de acceso, rectificación y supresión de sus datos personales. Para ejercer estos derechos, escríbanos a',
+    gdpr_or:   'o a través de nuestro',
+    gdpr_form: 'formulario de contacto',
+    lnk_sec:   'Seguridad',
+    lnk_priv:  'Política de privacidad',
+    lnk_legal: 'Aviso legal'
+  },
+  it: {
+    sec_title: 'Avviso di sicurezza',
+    sec_body:  'Fidexico non le chiederà mai le sue credenziali, password o dati bancari completi via email. In caso di dubbio, non clicchi su nessun link e ci contatti tramite il nostro modulo.',
+    conf:      'Questa email è stata inviata all\'indirizzo associato al suo account cliente Fidexico. È strettamente riservata e destinata esclusivamente al suo destinatario. Qualsiasi uso, divulgazione o riproduzione non autorizzata è vietata.',
+    gdpr:      'Ai sensi del Regolamento (UE) 2016/679 (GDPR), lei ha il diritto di accesso, rettifica e cancellazione dei suoi dati personali. Per esercitare questi diritti, scriva a',
+    gdpr_or:   'o tramite il nostro',
+    gdpr_form: 'modulo di contatto',
+    lnk_sec:   'Sicurezza',
+    lnk_priv:  'Informativa sulla privacy',
+    lnk_legal: 'Note legali'
+  },
+  nl: {
+    sec_title: 'Beveiligingswaarschuwing',
+    sec_body:  'Fidexico zal u nooit vragen om uw inloggegevens, wachtwoorden of volledige bankgegevens per e-mail. Klik bij twijfel op geen enkele link en neem contact met ons op via ons formulier.',
+    conf:      'Deze e-mail is verzonden naar het adres dat is gekoppeld aan uw Fidexico-klantaccount. Het is strikt vertrouwelijk en uitsluitend bestemd voor de ontvanger. Ongeoorloofd gebruik, openbaarmaking of reproductie is verboden.',
+    gdpr:      'Overeenkomstig Verordening (EU) 2016/679 (AVG) heeft u recht op inzage, rectificatie en verwijdering van uw persoonsgegevens. Om deze rechten uit te oefenen, schrijft u ons op',
+    gdpr_or:   'of via ons',
+    gdpr_form: 'contactformulier',
+    lnk_sec:   'Beveiliging',
+    lnk_priv:  'Privacybeleid',
+    lnk_legal: 'Juridische informatie'
+  },
+  pl: {
+    sec_title: 'Ostrzeżenie bezpieczeństwa',
+    sec_body:  'Fidexico nigdy nie poprosi Cię o dane logowania, hasła ani pełne dane bankowe drogą mailową. W razie wątpliwości nie klikaj żadnego linku i skontaktuj się z nami przez nasz formularz.',
+    conf:      'Ta wiadomość została wysłana na adres powiązany z Twoim kontem klienta Fidexico. Jest ściśle poufna i przeznaczona wyłącznie dla jej odbiorcy. Wszelkie nieupoważnione użycie, ujawnienie lub powielanie jest zabronione.',
+    gdpr:      'Zgodnie z Rozporządzeniem (UE) 2016/679 (RODO) przysługuje Ci prawo dostępu, sprostowania i usunięcia danych osobowych. Aby skorzystać z tych praw, napisz do nas na adres',
+    gdpr_or:   'lub poprzez nasz',
+    gdpr_form: 'formularz kontaktowy',
+    lnk_sec:   'Bezpieczeństwo',
+    lnk_priv:  'Polityka prywatności',
+    lnk_legal: 'Informacje prawne'
+  },
+  sv: {
+    sec_title: 'Säkerhetsvarning',
+    sec_body:  'Fidexico kommer aldrig att be dig om dina inloggningsuppgifter, lösenord eller fullständiga bankuppgifter via e-post. Klicka inte på några länkar om du är osäker — kontakta oss via vårt formulär.',
+    conf:      'Det här e-postmeddelandet skickades till den adress som är kopplad till ditt Fidexico-kundkonto. Det är strikt konfidentiellt och avsett enbart för mottagaren. All obehörig användning, röjande eller reproduktion är förbjuden.',
+    gdpr:      'I enlighet med förordning (EU) 2016/679 (GDPR) har du rätt till åtkomst, rättelse och radering av dina personuppgifter. För att utöva dessa rättigheter, skriv till oss på',
+    gdpr_or:   'eller via vårt',
+    gdpr_form: 'kontaktformulär',
+    lnk_sec:   'Säkerhet',
+    lnk_priv:  'Integritetspolicy',
+    lnk_legal: 'Juridisk information'
+  }
+};
+
 function emailBase(content, lang, opts){
   opts = opts || {};
-  return '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fidexico</title></head>'
+  var l = lang || 'fr';
+  var t = _EB_I18N[l] || _EB_I18N['fr'];
+  return '<!DOCTYPE html><html lang="'+l+'"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fidexico</title></head>'
   +'<body style="margin:0;padding:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif">'
   +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;padding:40px 0 0">'
   +'<tr><td align="center">'
@@ -694,7 +787,7 @@ function emailBase(content, lang, opts){
   +'<tr><td style="padding:0 0 16px">'
   +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fffbe6;border:1px solid #f0d080;border-radius:10px">'
   +'<tr><td style="padding:14px 18px;font-family:Arial,sans-serif;font-size:12px;color:#555;line-height:1.6">'
-  +'<strong style="color:#333">⚠ Avertissement de sécurité</strong> : Fidexico ne vous demandera jamais vos codes d\'accès, mots de passe ou informations bancaires complètes par email. En cas de doute, ne cliquez sur aucun lien et contactez-nous via notre formulaire.'
+  +'<strong style="color:#333">⚠ '+t.sec_title+'</strong> : '+t.sec_body
   +'</td></tr></table>'
   +'</td></tr>'
 
@@ -702,16 +795,14 @@ function emailBase(content, lang, opts){
   +'<tr><td style="background:#f5f5f5;border-radius:16px;padding:32px 40px">'
   +'<p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:15px;font-weight:800;color:#000">FIDEXICO</p>'
   +'<p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:13px;color:#666;line-height:1.6">12 Rue de la Finance, 75008 Paris</p>'
-  +'<p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:11px;color:#999;line-height:1.6">'
-  +'Cet email a été envoyé à l\'adresse associée à votre espace client Fidexico. Il est strictement confidentiel et destiné uniquement à son destinataire. Toute utilisation, divulgation ou reproduction non autorisée est interdite.'
-  +'</p>'
+  +'<p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:11px;color:#999;line-height:1.6">'+t.conf+'</p>'
   +'<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:11px;color:#999;line-height:1.6">'
-  +'Conformément au Règlement (UE) 2016/679 (RGPD), vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles. Pour exercer ces droits, écrivez-nous à <a href="mailto:contact@fidexico.eu" style="color:#999">contact@fidexico.eu</a> ou via notre <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">formulaire de contact</a>.'
+  +t.gdpr+' <a href="mailto:contact@fidexico.eu" style="color:#999">contact@fidexico.eu</a> '+t.gdpr_or+' <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">'+t.gdpr_form+'</a>.'
   +'</p>'
   +'<p style="margin:0;text-align:center;font-family:Arial,sans-serif;font-size:12px;color:#999">'
-  +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/securite.html" style="color:#999;text-decoration:underline">Sécurité</a>'
-  +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/politique-donnees.html" style="color:#999;text-decoration:underline">Politique de confidentialité</a>'
-  +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/mentions-legales.html" style="color:#999;text-decoration:underline">Mentions légales</a>'
+  +'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/securite.html" style="color:#999;text-decoration:underline">'+t.lnk_sec+'</a>'
+  +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/politique-donnees.html" style="color:#999;text-decoration:underline">'+t.lnk_priv+'</a>'
+  +' &nbsp;·&nbsp; <a href="'+FIDEXICO_CONFIG.SITE_URL+'/mentions-legales.html" style="color:#999;text-decoration:underline">'+t.lnk_legal+'</a>'
   +'</p>'
   +'</td></tr>'
 
