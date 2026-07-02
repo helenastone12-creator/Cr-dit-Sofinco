@@ -3708,6 +3708,7 @@ body.ec-body {
   .v2-main {
     margin-left: var(--sidebar-w);
     padding-bottom: 3rem;
+    --main-px: 3rem;
   }
 
   /* ── Top bar desktop ── */
@@ -5164,6 +5165,7 @@ body.ec-body {
 @media (min-width: 701px) and (max-width: 1024px) {
   .gd-balances-wrap { grid-template-columns: repeat(3, 1fr); }
   .gd-qa-grid { grid-template-columns: repeat(2, 1fr); }
+  .v2-main { --main-px: 2rem; }
 }
 
 /* ── ALL-TX PAGE (Grey style) ── */
