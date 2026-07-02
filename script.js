@@ -753,7 +753,8 @@ function unlockScroll(){
     });
   });
 
-  document.getElementById('sim-bb-next').addEventListener('click',function(){
+  var _simBbNext = document.getElementById('sim-bb-next');
+  if(_simBbNext) _simBbNext.addEventListener('click',function(){
     var s=simData.step;
     if(s===1){
       if(!simData.projet) return;
@@ -776,7 +777,8 @@ function unlockScroll(){
     }
   });
 
-  document.getElementById('sim-bb-back').addEventListener('click',function(){
+  var _simBbBack = document.getElementById('sim-bb-back');
+  if(_simBbBack) _simBbBack.addEventListener('click',function(){
     if(simData.step>1) showStep(simData.step-1);
   });
 
@@ -787,7 +789,7 @@ function unlockScroll(){
     });
   });
 
-  document.getElementById('sim-options-trigger').addEventListener('click',function(){
+  var _simOptTrig=document.getElementById('sim-options-trigger'); if(_simOptTrig) _simOptTrig.addEventListener('click',function(){
     var isOpen=this.classList.contains('open');
     if(isOpen){ closeDd(); }
     else{
@@ -814,18 +816,18 @@ function unlockScroll(){
   if(sp4CtaBtn) sp4CtaBtn.addEventListener('click',function(){ showStep(5); });
 
   // Sidebar modifiable (desktop step 4)
-  document.getElementById('sp4-sb-montant-inp').addEventListener('change',function(){
+  var _sp4MontInp=document.getElementById('sp4-sb-montant-inp'); if(_sp4MontInp) _sp4MontInp.addEventListener('change',function(){
     var v=parseInt(this.value);
     if(v>=3000 && v<=200000){ simData.montant=v; renderResults(); }
     else { this.value=simData.montant||5000; }
   });
-  document.getElementById('sp4-sb-montant-clr').addEventListener('click',function(){
+  var _sp4MontClr=document.getElementById('sp4-sb-montant-clr'); if(_sp4MontClr) _sp4MontClr.addEventListener('click',function(){
     var inp=document.getElementById('sp4-sb-montant-inp');
     inp.value=''; inp.focus();
     simData.montant=5000;
     renderResults();
   });
-  document.getElementById('sp4-sb-type-sel').addEventListener('change',function(){
+  var _sp4TypeSel=document.getElementById('sp4-sb-type-sel'); if(_sp4TypeSel) _sp4TypeSel.addEventListener('change',function(){
     if(this.value==='regroupement'){
       simData.projet='regroupement';
       var ps=document.getElementById('sp4-sb-projet-sel');
@@ -835,18 +837,18 @@ function unlockScroll(){
     }
     renderResults();
   });
-  document.getElementById('sp4-sb-projet-sel').addEventListener('change',function(){
+  var _sp4ProjSel=document.getElementById('sp4-sb-projet-sel'); if(_sp4ProjSel) _sp4ProjSel.addEventListener('change',function(){
     simData.projet=this.value;
     var ts=document.getElementById('sp4-sb-type-sel');
     if(ts) ts.value=(this.value==='regroupement'?'regroupement':'pret');
     renderResults();
   });
-  document.getElementById('sp4-sb-mens-sel').addEventListener('change',function(){
+  var _sp4MensSel=document.getElementById('sp4-sb-mens-sel'); if(_sp4MensSel) _sp4MensSel.addEventListener('change',function(){
     simData.duree=parseInt(this.value);
     simData.choix='mensualite';
     renderResults();
   });
-  document.getElementById('sp4-sb-dur-sel').addEventListener('change',function(){
+  var _sp4DurSel=document.getElementById('sp4-sb-dur-sel'); if(_sp4DurSel) _sp4DurSel.addEventListener('change',function(){
     simData.duree=parseInt(this.value);
     simData.choix='duree';
     renderResults();
