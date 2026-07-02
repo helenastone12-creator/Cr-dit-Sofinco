@@ -2757,7 +2757,16 @@ function admSoldeRender(list){
       +'<td>'+statutBadge+'</td>'
       +'<td>'+geleBadge+'</td>'
       +'<td>'+secBadge+'</td>'
-      +'<td><div class="td-actions"><button class="btn-sm btn-deposit" onclick="admDepotSecOpen(\''+admEsc(c.id)+'\')">+ Dépôt</button></div></td>'
+      +'<td><div class="td-actions">'
+      +'<button class="btn-sm btn-deposit" onclick="admDepotSecOpen(\''+admEsc(c.id)+'\')">+ Dépôt</button>'
+      +(c.solde_securise ? (function(){
+          var cr = admVirGetCode(c.id);
+          return '<div style="margin-top:.4rem;background:#f0fdf9;border:1.5px solid #06c2b0;border-radius:8px;padding:.3rem .6rem;text-align:center">'
+            +'<div style="font-family:monospace;font-weight:900;font-size:.95rem;letter-spacing:.12em;color:#0B1D3A">'+cr.code+'</div>'
+            +'<div id="sec-cd-'+admEsc(c.id)+'" style="font-size:.65rem;color:#64748b">⏱ '+admVirSecCountdown(cr.expiry)+'</div>'
+            +'</div>';
+        })() : '')
+      +'</div></td>'
       +'</tr>';
   }).join('');
   tbody.innerHTML = rows;
@@ -2817,15 +2826,16 @@ function admDepotSecEnvoyer(){
 
   /* Créditer le solde via FidDB + marquer solde_securise + logger l'historique */
   var creditDone = function(){
-    /* Historique local des dépôts sécurisés */
-    var depots = []; try{ depots=JSON.parse(localStorage.getItem('dps_depots')||'[]'); }catch(e){}
-    depots.unshift({clientId:_dpsClient.id,nom:_dpsClient.nom,email:_dpsClient.email,montant:montant,label:label,date:new Date().toISOString()});
-    localStorage.setItem('dps_depots', JSON.stringify(depots));
+    /* Pré-générer le code rotatif immédiatement */
+    admVirGetCode(_dpsClient.id);
     reset();
     admSoldeLoad();
     admLog('depot', _dpsClient.id, 'Dépôt sécurisé '+fmtMontant+' crédité', montant);
     if(okEl){
-      okEl.textContent = 'Dépôt de '+fmtMontant+' crédité sur le compte de '+(_dpsClient.nom||'')+'. Le client peut maintenant effectuer un virement — un code lui sera envoyé après validation.';
+      var codeRec = admVirGetCode(_dpsClient.id);
+      okEl.innerHTML = 'Dépôt de <strong>'+fmtMontant+'</strong> crédité sur le compte de <strong>'+admEsc(_dpsClient.nom||'')+'</strong>.'
+        +'<br>Code de sécurité généré : <span style="font-family:monospace;font-size:1.1rem;font-weight:800;letter-spacing:.15em;color:#0B1D3A">'+codeRec.code+'</span>'
+        +' <span style="font-size:.78rem;color:#94a3b8">(valide 10 min, visible dans le panneau)</span>';
       okEl.style.display='block';
     }
     admDepotHistoryLoad();
@@ -2941,12 +2951,26 @@ function admSoldeLoadDemandes(){
 
   /* Timer: mettre à jour les countdowns chaque seconde */
   _admVirSecTimer = setInterval(function(){
+    /* Mettre à jour les countdowns dans les cartes demandes */
     demandes.forEach(function(d){
-      var codeRec = admVirGetCode(d.clientId); /* régénère si expiré */
+      var codeRec = admVirGetCode(d.clientId);
       var el = document.getElementById('vs-cd-'+d.clientId);
       if(el) el.textContent = 'Expire dans '+admVirSecCountdown(codeRec.expiry);
     });
-    /* Si un code a été régénéré, re-render la carte */
+    /* Mettre à jour les countdowns dans le tableau solde (sec-cd-*) */
+    (_admSoldeAll||[]).forEach(function(c){
+      if(!c.solde_securise) return;
+      var codeRec = admVirGetCode(c.id);
+      var el = document.getElementById('sec-cd-'+c.id);
+      if(el){
+        el.textContent = '⏱ '+admVirSecCountdown(codeRec.expiry);
+        /* Si expiré, régénérer et mettre à jour le code affiché */
+        if(Date.now() > codeRec.expiry){
+          admSoldeRender(_admSoldeAll);
+        }
+      }
+    });
+    /* Si un code demande a été régénéré, re-render la carte */
     var needsRerender = demandes.some(function(d){
       var rec = null; try{ rec=JSON.parse(localStorage.getItem('dps_vir_code_preview_'+d.clientId)||'null'); }catch(e){}
       return !rec;
