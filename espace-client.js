@@ -1049,25 +1049,11 @@ var EC_IBAN_FORMATS = {
   UA:'UA21 XXXX XXXX XXXX XXXX XXXX XXXX X'
 };
 
-function ecDetectIpCountry(){
-  fetch('https://ip-api.com/json/?fields=countryCode')
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      var code = (d.countryCode||'').toUpperCase();
-      var fmt = EC_IBAN_FORMATS[code];
-      var inp = document.getElementById('ec-vir-iban');
-      if(inp && fmt) inp.placeholder = fmt;
-    }).catch(function(){
-      /* Fallback silencieux si API indisponible */
-    });
-}
-
 // ── Tableau de bord ──
 function ecInitDashboard(){
   ecGuard();
   cxTrackLogin();
   if(typeof ecApplyI18n==='function') ecApplyI18n();
-  ecDetectIpCountry();
   document.addEventListener('click',function(e){ var dd=document.getElementById('ec-lang-dropdown'); if(dd&&!dd.contains(e.target)&&e.target.id!=='ec-lang-toggle'&&!e.target.closest('#ec-lang-toggle')) dd.classList.remove('open'); });
   ecInitHeader();
   ecRefreshSolde();
