@@ -398,8 +398,8 @@ function atxRenderList(list){
       var amt = Math.abs(parseFloat(tx.amt) || 0);
       var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
       var amtCls = isIn ? 'atx-pc-amt--in' : 'atx-pc-amt--out';
-      var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
-      var type = isIn ? 'Dépôt' : 'Retrait';
+      var label = tx.label || (isIn ? t('tx_type_depot') : t('tx_type_retrait'));
+      var type = isIn ? t('tx_type_depot') : t('tx_type_retrait');
       var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
       var txJson = encodeURIComponent(JSON.stringify(tx));
       return '<tr class="atx-pc-row" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
@@ -407,7 +407,7 @@ function atxRenderList(list){
         '<td class="atx-pc-td"><span class="'+amtCls+'">'+amtFmt+'</span></td>'+
         '<td class="atx-pc-td atx-pc-td--type">'+type+'</td>'+
         '<td class="atx-pc-td">'+label+'</td>'+
-        '<td class="atx-pc-td"><span class="atx-pc-status">Validé</span></td>'+
+        '<td class="atx-pc-td"><span class="atx-pc-status">'+t('tx_status_valide')+'</span></td>'+
         '<td class="atx-pc-td atx-pc-td--chev">›</td>'+
       '</tr>';
     }).join('');
@@ -423,7 +423,7 @@ function atxRenderList(list){
       var amt = Math.abs(parseFloat(tx.amt) || 0);
       var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
       var amtCls = isIn ? 'atx-amt atx-amt--in' : 'atx-amt';
-      var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
+      var label = tx.label || (isIn ? t('tx_type_depot') : t('tx_type_retrait'));
       var atxAv = ecIsFidexicoTx(tx) ? '<div class="atx-avatar atx-avatar--img">'+ EC_FIDEXICO_AVATAR +'</div>' : '<div class="atx-avatar">'+ fdTxInitials(label) +'</div>';
       var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
       var txJson = encodeURIComponent(JSON.stringify(tx));
@@ -513,13 +513,13 @@ function ecOpenTxDetail(encoded){
   var amtEl = el.querySelector('#ec-tx-d-amt');
   if(amtEl){ amtEl.textContent = amtFmt; amtEl.style.color = isIn ? '#16A34A' : '#1F2937'; }
   var subEl = el.querySelector('#ec-tx-d-sub');
-  if(subEl) subEl.textContent = (isIn ? 'Reçu de ' : 'Envoyé à ') + label;
+  if(subEl) subEl.textContent = (isIn ? t('tx_received_from') : t('tx_sent_to')) + ' ' + label;
   var dateEl = el.querySelector('#ec-tx-d-date');
   if(dateEl) dateEl.textContent = dateDisp;
 
   // Detail rows
   var recvLbl = el.querySelector('#ec-tx-d-recv-lbl');
-  if(recvLbl) recvLbl.textContent = isIn ? (label + ' reçoit') : 'Montant envoyé';
+  if(recvLbl) recvLbl.textContent = isIn ? (label + ' ' + t('tx_receives')) : t('tx_amount_sent');
   var recvAmt = el.querySelector('#ec-tx-d-recv-amt');
   if(recvAmt) recvAmt.textContent = ecFormatAmt(amt);
   el.querySelector('#ec-tx-d-label').textContent = label;
@@ -684,7 +684,7 @@ function ecConfirmDepot(){
   if(errEl) errEl.style.display='none';
   var nouveau = ecGetSolde() + amt;
   ecSetSolde(nouveau);
-  ecAddTx({ type:'depot', label:'Dépôt', amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
+  ecAddTx({ type:'depot', label:'', amt:amt, date: new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) });
   ecRefreshSolde();
   ecRenderTx();
   ecCloseModal('depot');
@@ -1276,8 +1276,8 @@ function fdRenderActivity(){
     var isIn = tx.type === 'credit' || tx.type === 'depot';
     var amt = Math.abs(parseFloat(tx.amt) || 0);
     var amtFmt = (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
-    var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
-    var type = isIn ? 'Dépôt' : 'Retrait';
+    var label = tx.label || (isIn ? t('tx_type_depot') : t('tx_type_retrait'));
+    var type = isIn ? t('tx_type_depot') : t('tx_type_retrait');
     var avatarHtml = ecIsFidexicoTx(tx) ? '<div class="gd-tx-avatar gd-tx-avatar--img">'+EC_FIDEXICO_AVATAR+'</div>' : '<div class="gd-tx-avatar">'+fdTxInitials(label)+'</div>';
     var amtCls = isIn ? 'gd-tx-amt-val--in' : 'gd-tx-amt-val--out';
     var dateFmt = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
@@ -1287,7 +1287,7 @@ function fdRenderActivity(){
     html += '<td><span class="gd-tx-amt-val ' + amtCls + '">' + amtFmt + '</span></td>';
     html += '<td><span class="gd-tx-type-val">' + type + '</span></td>';
     html += '<td><div class="gd-tx-desc-cell">'+avatarHtml+'<div class="gd-tx-desc-info"><span class="gd-tx-desc-text">' + label + '</span><span class="gd-tx-desc-sub">' + dateFmt + '</span></div></div></td>';
-    html += '<td><span class="gd-tx-status-val"><span class="gd-tx-dot"></span> Validé</span></td>';
+    html += '<td><span class="gd-tx-status-val"><span class="gd-tx-dot"></span> '+t('tx_status_valide')+'</span></td>';
     html += '<td><span class="gd-tx-chevron-val">›</span></td>';
     html += '</tr>';
   });

@@ -77,7 +77,7 @@
   <div class="gd-balance-section">
     <div class="gd-balance-left">
       <div class="gd-balance-label">
-        Solde total
+        <span data-i18n="solde_total">Solde total</span>
         <button class="gd-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
           <svg id="ec-eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
@@ -89,24 +89,24 @@
         <div class="gd-action-circle">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </div>
-        <span>Ajouter</span>
+        <span data-i18n="btn_ajouter">Ajouter</span>
       </button>
       <button class="gd-action-btn" onclick="ecOpenModal('virement')">
         <div class="gd-action-circle">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </div>
-        <span>Envoyer</span>
+        <span data-i18n="btn_envoyer">Envoyer</span>
       </button>
       <button class="gd-action-btn" onclick="ecOpenModal('remb')">
         <div class="gd-action-circle">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
         </div>
-        <span>Simuler</span>
+        <span data-i18n="btn_simuler">Simuler</span>
       </button>
     </div>
     <button class="gd-vir-btn-pc" onclick="ecOpenModal('virement')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Virement
+      <span data-i18n="action_virement">Virement</span>
     </button>
   </div>
 
@@ -124,23 +124,23 @@
   <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
   <div class="gd-section gd-section--last">
     <div class="gd-section-hd">
-      <h3 class="gd-section-title">Transactions récentes</h3>
-      <button class="gd-see-all-link" onclick="ecOpenAllTx()">Voir tout</button>
+      <h3 class="gd-section-title" data-i18n="tx_title">Transactions récentes</h3>
+      <button class="gd-see-all-link" onclick="ecOpenAllTx()" data-i18n="tx_all_link">Voir tout</button>
     </div>
     <div class="gd-tx-wrap">
       <table class="gd-tx-table">
         <thead>
           <tr>
-            <th>DATE</th>
-            <th>MONTANT</th>
-            <th>TYPE</th>
+            <th data-i18n="tx_date_hdr">DATE</th>
+            <th data-i18n="tx_montant_hdr">MONTANT</th>
+            <th data-i18n="tx_type_hdr">TYPE</th>
             <th>DESCRIPTION</th>
-            <th>STATUT</th>
+            <th data-i18n="tx_statut_hdr">STATUT</th>
             <th></th>
           </tr>
         </thead>
         <tbody id="fd-activity-list">
-          <tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>
+          <tr><td colspan="6" class="gd-tx-empty" data-i18n="tx_op_empty">Aucune opération pour le moment.</td></tr>
         </tbody>
       </table>
     </div>
@@ -209,21 +209,21 @@
   <!-- Nav links -->
   <a href="espace-client.html" class="v2-nav-link v2-nav-link--active" aria-label="Accueil">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
-    <span>Accueil</span>
+    <span data-i18n="nav_home">Accueil</span>
   </a>
   <a href="suivi-dossier.html" class="v2-nav-link" aria-label="Suivi dossier">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M5 4h-1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1"/><path d="M9 2h6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/><polyline points="8 8 9.5 9.5 12 7"/></svg>
-    <span>Suivi dossier</span>
+    <span data-i18n="nav_suivi">Suivi dossier</span>
   </a>
   <button class="v2-nav-link" onclick="ecOpenModal('virement')" aria-label="Virement">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a9 9 0 0 1 15.87-2.13M3 8H7M3 8V4"/><path d="M21 16a9 9 0 0 1-15.87 2.13M21 16h-4m4 0v4"/><text x="12" y="14.5" text-anchor="middle" font-size="7" font-family="Arial" fill="currentColor" stroke="none" font-weight="700">€</text></svg>
-    <span>Virement</span>
+    <span data-i18n="action_virement">Virement</span>
   </button>
 
   <!-- Plus (mobile bottom nav) -->
   <button class="v2-nav-link v2-nav-mobile-only" onclick="ecOpenModal('more')" aria-label="Plus">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-    <span>Plus</span>
+    <span data-i18n="nav_plus">Plus</span>
   </button>
 
   <!-- Services (sidebar desktop) -->
@@ -231,42 +231,42 @@
 
   <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('virement')" aria-label="Virement crédit">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-    <span>Virement crédit</span>
+    <span data-i18n="nav_virement_credit">Virement crédit</span>
   </button>
   <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('pause-mens')" aria-label="Pause mensualités">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
-    <span>Pause mensualités</span>
+    <span data-i18n="nav_pause_mens">Pause mensualités</span>
   </button>
   <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('e-releve')" aria-label="E-relevé">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    <span>E-relevé</span>
+    <span data-i18n="nav_e_releve">E-relevé</span>
   </button>
   <a href="mes-documents.html" class="v2-nav-link v2-nav-desktop-only" aria-label="Mes documents">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-    <span>Mes documents</span>
+    <span data-i18n="docs_title">Mes documents</span>
   </a>
 
   <div class="v2-sidebar-sep v2-nav-desktop-only"></div>
   <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('simul-rachat')" aria-label="Simulations">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-    <span>Simulations</span>
+    <span data-i18n="nav_simulations">Simulations</span>
   </button>
   <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('nouvelle-demande')" aria-label="Nouvelle demande">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-    <span>Nouvelle demande</span>
+    <span data-i18n="nav_nouvelle_demande">Nouvelle demande</span>
   </button>
 
   <!-- Desktop only -->
   <a href="profil.html" class="v2-nav-link v2-nav-desktop-only" aria-label="Paramètres">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    <span>Paramètres</span>
+    <span data-i18n="nav_params">Paramètres</span>
   </a>
 
   <div class="v2-sidebar-spacer"></div>
 
   <button class="v2-sidebar-logout v2-nav-desktop-only" onclick="ecLogout()">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-    <span>Déconnexion</span>
+    <span data-i18n="nav_logout">Déconnexion</span>
   </button>
 
 </nav>

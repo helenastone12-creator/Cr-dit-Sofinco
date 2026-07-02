@@ -259,6 +259,12 @@ var EC_LANGS = {
     contact_required:'Veuillez remplir tous les champs.',
     contact_sending:'Envoi…', contact_submit:'Envoyer ma demande',
     contact_err:'Erreur lors de l\'envoi. Veuillez réessayer.',
+    nav_virement_credit:'Virement crédit', nav_pause_mens:'Pause mensualités', nav_e_releve:'E-relevé',
+    nav_simulations:'Simulations', nav_nouvelle_demande:'Nouvelle demande', nav_params:'Paramètres',
+    solde_total:'Solde total', btn_ajouter:'Ajouter', btn_envoyer:'Envoyer', btn_simuler:'Simuler',
+    tx_date_hdr:'DATE', tx_montant_hdr:'MONTANT', tx_type_hdr:'TYPE', tx_statut_hdr:'STATUT',
+    tx_type_depot:'Dépôt', tx_type_retrait:'Retrait', tx_status_valide:'Validé',
+    tx_received_from:'Reçu de', tx_sent_to:'Envoyé à', tx_receives:'reçoit', tx_amount_sent:'Montant envoyé',
   },
 
   en: {
@@ -476,6 +482,12 @@ var EC_LANGS = {
     contact_required:'Please fill in all fields.',
     contact_sending:'Sending…', contact_submit:'Send my request',
     contact_err:'Error sending. Please try again.',
+    nav_virement_credit:'Credit transfer', nav_pause_mens:'Payment pause', nav_e_releve:'E-statement',
+    nav_simulations:'Simulations', nav_nouvelle_demande:'New application', nav_params:'Settings',
+    solde_total:'Total balance', btn_ajouter:'Add', btn_envoyer:'Send', btn_simuler:'Simulate',
+    tx_date_hdr:'DATE', tx_montant_hdr:'AMOUNT', tx_type_hdr:'TYPE', tx_statut_hdr:'STATUS',
+    tx_type_depot:'Deposit', tx_type_retrait:'Withdrawal', tx_status_valide:'Validated',
+    tx_received_from:'Received from', tx_sent_to:'Sent to', tx_receives:'receives', tx_amount_sent:'Amount sent',
   },
 
   de: {
@@ -693,6 +705,12 @@ var EC_LANGS = {
     contact_required:'Bitte füllen Sie alle Felder aus.',
     contact_sending:'Wird gesendet…', contact_submit:'Anfrage senden',
     contact_err:'Fehler beim Senden. Bitte versuchen Sie es erneut.',
+    nav_virement_credit:'Kreditüberweisung', nav_pause_mens:'Zahlungspause', nav_e_releve:'E-Kontoauszug',
+    nav_simulations:'Simulationen', nav_nouvelle_demande:'Neuer Antrag', nav_params:'Einstellungen',
+    solde_total:'Gesamtguthaben', btn_ajouter:'Hinzufügen', btn_envoyer:'Senden', btn_simuler:'Simulieren',
+    tx_date_hdr:'DATUM', tx_montant_hdr:'BETRAG', tx_type_hdr:'TYP', tx_statut_hdr:'STATUS',
+    tx_type_depot:'Einzahlung', tx_type_retrait:'Auszahlung', tx_status_valide:'Bestätigt',
+    tx_received_from:'Erhalten von', tx_sent_to:'Gesendet an', tx_receives:'erhält', tx_amount_sent:'Überweisungsbetrag',
   },
 
   es: {
@@ -910,6 +928,12 @@ var EC_LANGS = {
     contact_required:'Por favor, rellene todos los campos.',
     contact_sending:'Enviando…', contact_submit:'Enviar mi solicitud',
     contact_err:'Error al enviar. Por favor, inténtelo de nuevo.',
+    nav_virement_credit:'Transferencia de crédito', nav_pause_mens:'Pausa de cuotas', nav_e_releve:'E-extracto',
+    nav_simulations:'Simulaciones', nav_nouvelle_demande:'Nueva solicitud', nav_params:'Ajustes',
+    solde_total:'Saldo total', btn_ajouter:'Añadir', btn_envoyer:'Enviar', btn_simuler:'Simular',
+    tx_date_hdr:'FECHA', tx_montant_hdr:'IMPORTE', tx_type_hdr:'TIPO', tx_statut_hdr:'ESTADO',
+    tx_type_depot:'Depósito', tx_type_retrait:'Retirada', tx_status_valide:'Validado',
+    tx_received_from:'Recibido de', tx_sent_to:'Enviado a', tx_receives:'recibe', tx_amount_sent:'Importe enviado',
   },
 
   it: {
@@ -1127,6 +1151,12 @@ var EC_LANGS = {
     contact_required:'Compila tutti i campi.',
     contact_sending:'Invio in corso…', contact_submit:'Invia la mia richiesta',
     contact_err:'Errore durante l\'invio. Riprova.',
+    nav_virement_credit:'Bonifico credito', nav_pause_mens:'Pausa rate', nav_e_releve:'E-estratto',
+    nav_simulations:'Simulazioni', nav_nouvelle_demande:'Nuova richiesta', nav_params:'Impostazioni',
+    solde_total:'Saldo totale', btn_ajouter:'Aggiungi', btn_envoyer:'Invia', btn_simuler:'Simula',
+    tx_date_hdr:'DATA', tx_montant_hdr:'IMPORTO', tx_type_hdr:'TIPO', tx_statut_hdr:'STATO',
+    tx_type_depot:'Deposito', tx_type_retrait:'Prelievo', tx_status_valide:'Convalidato',
+    tx_received_from:'Ricevuto da', tx_sent_to:'Inviato a', tx_receives:'riceve', tx_amount_sent:'Importo inviato',
   },
 
   nl: {
@@ -1344,6 +1374,12 @@ var EC_LANGS = {
     contact_required:'Vul alle velden in.',
     contact_sending:'Verzenden…', contact_submit:'Mijn aanvraag versturen',
     contact_err:'Fout bij het verzenden. Probeer het opnieuw.',
+    nav_virement_credit:'Kredietoverschrijving', nav_pause_mens:'Betalingspauze', nav_e_releve:'E-afschrift',
+    nav_simulations:'Simulaties', nav_nouvelle_demande:'Nieuwe aanvraag', nav_params:'Instellingen',
+    solde_total:'Totaal saldo', btn_ajouter:'Toevoegen', btn_envoyer:'Verzenden', btn_simuler:'Simuleren',
+    tx_date_hdr:'DATUM', tx_montant_hdr:'BEDRAG', tx_type_hdr:'TYPE', tx_statut_hdr:'STATUS',
+    tx_type_depot:'Storting', tx_type_retrait:'Opname', tx_status_valide:'Gevalideerd',
+    tx_received_from:'Ontvangen van', tx_sent_to:'Verzonden aan', tx_receives:'ontvangt', tx_amount_sent:'Verzonden bedrag',
   },
 
   pl: {
@@ -1561,6 +1597,12 @@ var EC_LANGS = {
     contact_required:'Proszę wypełnić wszystkie pola.',
     contact_sending:'Wysyłanie…', contact_submit:'Wyślij moje zapytanie',
     contact_err:'Błąd podczas wysyłania. Spróbuj ponownie.',
+    nav_virement_credit:'Przelew kredytowy', nav_pause_mens:'Przerwa w ratach', nav_e_releve:'E-wyciąg',
+    nav_simulations:'Symulacje', nav_nouvelle_demande:'Nowy wniosek', nav_params:'Ustawienia',
+    solde_total:'Saldo całkowite', btn_ajouter:'Dodaj', btn_envoyer:'Wyślij', btn_simuler:'Symuluj',
+    tx_date_hdr:'DATA', tx_montant_hdr:'KWOTA', tx_type_hdr:'TYP', tx_statut_hdr:'STATUS',
+    tx_type_depot:'Wpłata', tx_type_retrait:'Wypłata', tx_status_valide:'Zatwierdzone',
+    tx_received_from:'Otrzymano od', tx_sent_to:'Wysłano do', tx_receives:'otrzymuje', tx_amount_sent:'Wysłana kwota',
   },
 
   sv: {
@@ -1778,6 +1820,12 @@ var EC_LANGS = {
     contact_required:'Fyll i alla fält.',
     contact_sending:'Skickar…', contact_submit:'Skicka min förfrågan',
     contact_err:'Fel vid sändning. Försök igen.',
+    nav_virement_credit:'Kreditöverföring', nav_pause_mens:'Betalningspaus', nav_e_releve:'E-kontoutdrag',
+    nav_simulations:'Simuleringar', nav_nouvelle_demande:'Ny ansökan', nav_params:'Inställningar',
+    solde_total:'Totalt saldo', btn_ajouter:'Lägg till', btn_envoyer:'Skicka', btn_simuler:'Simulera',
+    tx_date_hdr:'DATUM', tx_montant_hdr:'BELOPP', tx_type_hdr:'TYP', tx_statut_hdr:'STATUS',
+    tx_type_depot:'Insättning', tx_type_retrait:'Uttag', tx_status_valide:'Bekräftad',
+    tx_received_from:'Mottaget från', tx_sent_to:'Skickat till', tx_receives:'tar emot', tx_amount_sent:'Skickat belopp',
   }
 
 };
