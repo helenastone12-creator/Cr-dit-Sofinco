@@ -1668,9 +1668,15 @@
           </div>
         </div>
 
+        <!-- Demandes virement sécurisé en attente -->
+        <div id="dps-demandes-wrap" style="margin-top:2rem;display:none">
+          <div style="font-weight:700;font-size:.95rem;color:#0B1D3A;margin-bottom:.75rem">⏳ Demandes de virement sécurisé en attente</div>
+          <div id="dps-demandes-list"></div>
+        </div>
+
         <!-- Modal dépôt sécurisé -->
-        <div id="adm-depot-sec-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center" onclick="admDepotSecClose()">
-          <div style="background:#fff;border-radius:18px;padding:2rem;width:440px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)" onclick="event.stopPropagation()">
+        <div id="adm-depot-sec-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center" onclick="admDepotSecClose()">
+          <div style="background:#fff;border-radius:18px;padding:2rem;width:460px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)" onclick="event.stopPropagation()">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
               <div style="font-weight:800;font-size:1.05rem;color:#0B1D3A">🔐 Dépôt sécurisé</div>
               <button onclick="admDepotSecClose()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b">✕</button>
@@ -1684,14 +1690,6 @@
               <input class="adm-input" id="dps-montant" type="number" min="1" placeholder="ex : 5000"/>
             </div>
             <div class="adm-field">
-              <label class="adm-field-lbl" style="display:flex;justify-content:space-between;align-items:center">
-                Code de validation
-                <button onclick="admDepotSecGenCode()" style="background:none;border:none;color:#06c2b0;font-size:.78rem;font-weight:700;cursor:pointer;padding:0">↻ Générer nouveau code</button>
-              </label>
-              <input class="adm-input" id="dps-code" type="text" placeholder="ex : 847291" style="font-family:monospace;font-size:1.1rem;letter-spacing:.15em;font-weight:700"/>
-              <div style="font-size:.75rem;color:#94a3b8;margin-top:.3rem">Ce code sera envoyé par email au client. Vous pouvez le modifier manuellement.</div>
-            </div>
-            <div class="adm-field">
               <label class="adm-field-lbl">Libellé (optionnel)</label>
               <input class="adm-input" id="dps-label" placeholder="Déblocage fonds / Dépôt Fidexico…"/>
             </div>
@@ -1701,7 +1699,35 @@
               <button class="adm-btn" style="flex:1" onclick="admDepotSecClose()">Annuler</button>
               <button class="adm-btn adm-btn--teal" style="flex:2" onclick="admDepotSecEnvoyer()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Créditer et envoyer le code
+                Créditer le compte
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal envoi code virement sécurisé -->
+        <div id="adm-vir-sec-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center" onclick="admVirSecClose()">
+          <div style="background:#fff;border-radius:18px;padding:2rem;width:440px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)" onclick="event.stopPropagation()">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+              <div style="font-weight:800;font-size:1.05rem;color:#0B1D3A">📨 Envoyer le code de virement</div>
+              <button onclick="admVirSecClose()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b">✕</button>
+            </div>
+            <div style="background:#f8fafc;border-radius:10px;padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.85rem;color:#475569" id="vs-info">—</div>
+            <div class="adm-field">
+              <label class="adm-field-lbl" style="display:flex;justify-content:space-between;align-items:center">
+                Code de validation
+                <button onclick="admVirSecGenCode()" style="background:none;border:none;color:#06c2b0;font-size:.78rem;font-weight:700;cursor:pointer;padding:0">↻ Nouveau code</button>
+              </label>
+              <input class="adm-input" id="vs-code" type="text" style="font-family:monospace;font-size:1.2rem;letter-spacing:.18em;font-weight:800" placeholder="847291"/>
+              <div style="font-size:.75rem;color:#94a3b8;margin-top:.3rem">Code modifiable. Valide 10 minutes après envoi.</div>
+            </div>
+            <div id="vs-ok"  style="display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:10px;padding:.65rem 1rem;font-size:.83rem;color:#065f46;font-weight:600;margin-bottom:.75rem"></div>
+            <div id="vs-err" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:.65rem 1rem;font-size:.83rem;color:#991b1b;font-weight:600;margin-bottom:.75rem"></div>
+            <div style="display:flex;gap:.75rem;margin-top:.5rem">
+              <button class="adm-btn" style="flex:1" onclick="admVirSecClose()">Annuler</button>
+              <button class="adm-btn adm-btn--teal" style="flex:2" id="vs-send-btn" onclick="admVirSecEnvoyer()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Valider et envoyer le code
               </button>
             </div>
           </div>
@@ -2471,6 +2497,7 @@ function admSoldeLoad(){
       };
     });
     admSoldeRender(_admSoldeAll);
+    admSoldeLoadDemandes();
   }).catch(function(e){
     if(tbody) tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Erreur de chargement : '+(e&&e.message||e)+'</td></tr>';
   });
@@ -2523,13 +2550,6 @@ function admSoldeFilter(){
 /* ── DÉPÔT SÉCURISÉ ── */
 var _dpsClient = null;
 
-function admDepotSecGenCode(){
-  var code = String(Math.floor(100000 + Math.random() * 900000));
-  var el = document.getElementById('dps-code');
-  if(el) el.value = code;
-  return code;
-}
-
 function admDepotSecOpen(c){
   _dpsClient = c;
   document.getElementById('dps-client-nom').textContent   = c.nom || '—';
@@ -2538,7 +2558,6 @@ function admDepotSecOpen(c){
   document.getElementById('dps-label').value   = '';
   document.getElementById('dps-ok').style.display  = 'none';
   document.getElementById('dps-err').style.display = 'none';
-  admDepotSecGenCode();
   var overlay = document.getElementById('adm-depot-sec-overlay');
   if(overlay){ overlay.style.display = 'flex'; }
 }
@@ -2552,56 +2571,134 @@ function admDepotSecClose(){
 function admDepotSecEnvoyer(){
   if(!_dpsClient) return;
   var montant = parseFloat(document.getElementById('dps-montant').value);
-  var code    = (document.getElementById('dps-code').value||'').trim();
   var label   = (document.getElementById('dps-label').value||'').trim() || 'Dépôt sécurisé Fidexico';
   var okEl    = document.getElementById('dps-ok');
   var errEl   = document.getElementById('dps-err');
   if(okEl) okEl.style.display='none';
   if(errEl) errEl.style.display='none';
   if(!montant||montant<=0){ if(errEl){ errEl.textContent='Montant invalide.'; errEl.style.display='block'; } return; }
-  if(!code||code.length<4){ if(errEl){ errEl.textContent='Code invalide (minimum 4 caractères).'; errEl.style.display='block'; } return; }
 
   var fmtMontant = montant.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
   var btn = document.querySelector('#adm-depot-sec-overlay .adm-btn--teal');
   if(btn){ btn.disabled=true; btn.textContent='Traitement…'; }
-  var reset = function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Créditer et envoyer le code'; }; };
+  var reset = function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Créditer le compte'; }; };
 
-  /* 1. Créditer le solde immédiatement via FidDB */
-  var c = findClientByUID(_dpsClient.id);
-  if(c){
-    var newSolde = (c.solde||0) + montant;
-    saveSolde(c, newSolde);
-    var tx = tryParse(localStorage.getItem(getTxKey(c)));
-    tx.unshift({label:label, amt:montant, type:'credit', date:new Date().toLocaleDateString('fr-FR')});
-    saveTx(c, tx);
-  } else if(typeof FidDB !== 'undefined'){
-    FidDB.getClientById(_dpsClient.id).then(function(client){
-      if(client){
-        var ns = (parseFloat(client.solde)||0)+montant;
-        FidDB.setSolde(_dpsClient.id, ns).catch(function(){});
-        FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}).catch(function(){});
-      }
-    }).catch(function(){});
-  }
-
-  /* 2. Stocker le code OTP virement (10 min) côté client via localStorage */
-  var expiry = Date.now() + 10 * 60 * 1000;
-  var otpRecord = { code: code, expiry: expiry, montant: montant, label: label };
-  localStorage.setItem('dps_vir_otp_'+_dpsClient.id, JSON.stringify(otpRecord));
-
-  /* 3. Envoyer le code par email au client */
-  var done = function(emailOk){
+  /* Créditer le solde via FidDB + marquer solde_securise */
+  var creditDone = function(){
     reset();
     admLoad();
-    admLog('depot', _dpsClient.id, 'Dépôt sécurisé '+fmtMontant+' — code OTP virement envoyé', montant);
+    admLog('depot', _dpsClient.id, 'Dépôt sécurisé '+fmtMontant+' crédité', montant);
     if(okEl){
-      okEl.textContent = 'Dépôt de '+fmtMontant+' crédité sur le compte de '+_dpsClient.nom+'.'
-        +(emailOk ? ' Code OTP envoyé à '+_dpsClient.email+' (valide 10 min).' : ' Code : '+code+' (à communiquer manuellement).');
+      okEl.textContent = 'Dépôt de '+fmtMontant+' crédité sur le compte de '+(_dpsClient.nom||'')+'.\nLe client pourra effectuer un virement — un code lui sera envoyé après validation.';
       okEl.style.display='block';
     }
   };
-  if(typeof FidEmail !== 'undefined' && _dpsClient.email){
-    FidEmail.sendVirementOTP(_dpsClient.email, (_dpsClient.nom||'').split(' ')[0]||'Client', code, fmtMontant, 'votre compte', 'fr')
+
+  if(typeof FidDB !== 'undefined'){
+    FidDB.getClientById(_dpsClient.id).then(function(client){
+      if(client){
+        var ns = (parseFloat(client.solde)||0)+montant;
+        return FidDB.setSolde(_dpsClient.id, ns)
+          .then(function(){ return FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}); })
+          .then(function(){ return FidDB.updateClient(_dpsClient.id, {solde_securise:true}); });
+      }
+    }).then(function(){ creditDone(); }).catch(function(e){ reset(); if(errEl){ errEl.textContent='Erreur : '+(e&&e.message||e); errEl.style.display='block'; } });
+  } else {
+    creditDone();
+  }
+}
+
+/* ── VIREMENT SÉCURISÉ — envoi du code OTP par l'admin ── */
+var _vsClient = null;
+var _vsDemande = null;
+
+function admSoldeLoadDemandes(){
+  var wrap = document.getElementById('dps-demandes-wrap');
+  var list = document.getElementById('dps-demandes-list');
+  if(!wrap||!list) return;
+  var demandes = [];
+  for(var k in localStorage){
+    if(k.indexOf('dps_vir_demande_')===0){
+      try{ var d=JSON.parse(localStorage.getItem(k)); if(d&&d.statut==='en_attente') demandes.push(d); }catch(e){}
+    }
+  }
+  if(!demandes.length){ wrap.style.display='none'; return; }
+  wrap.style.display='block';
+  list.innerHTML = demandes.map(function(d){
+    var amt = (d.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+    var dt  = d.date ? new Date(d.date).toLocaleString('fr-FR') : '—';
+    return '<div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:.85rem 1rem;margin-bottom:.65rem;display:flex;align-items:center;gap:.75rem">'
+      +'<div style="flex:1">'
+        +'<div style="font-weight:700;font-size:.9rem;color:#0B1D3A">'+admEsc(d.nom_client||'—')+'</div>'
+        +'<div style="font-size:.78rem;color:#64748b">'+admEsc(d.email||'')+'</div>'
+        +'<div style="font-size:.8rem;color:#475569;margin-top:.2rem">Bénéficiaire : <strong>'+admEsc(d.beneficiaire||'—')+'</strong></div>'
+        +'<div style="font-size:.8rem;color:#475569">IBAN : <span style="font-family:monospace">'+admEsc(d.iban||'—')+'</span></div>'
+        +'<div style="font-size:.78rem;color:#94a3b8;margin-top:.2rem">'+dt+'</div>'
+      +'</div>'
+      +'<div style="text-align:right">'
+        +'<div style="font-weight:800;font-size:1rem;color:#0B1D3A;margin-bottom:.5rem">'+amt+'</div>'
+        +'<button class="adm-btn adm-btn--teal" style="padding:.3rem .85rem;font-size:.78rem" onclick=\'admVirSecOpen('+JSON.stringify(d)+')\'>Envoyer le code</button>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function admVirSecOpen(demande){
+  _vsDemande = demande;
+  var amt = (demande.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  var info = document.getElementById('vs-info');
+  if(info) info.innerHTML = '<strong>'+admEsc(demande.nom_client||'—')+'</strong> — '+admEsc(demande.email||'')+
+    '<br>Bénéficiaire : <strong>'+admEsc(demande.beneficiaire||'—')+'</strong>'+
+    '<br>IBAN : <span style="font-family:monospace">'+admEsc(demande.iban||'—')+'</span>'+
+    '<br>Montant : <strong style="color:#0B1D3A">'+amt+'</strong>';
+  admVirSecGenCode();
+  var okEl=document.getElementById('vs-ok'); if(okEl) okEl.style.display='none';
+  var errEl=document.getElementById('vs-err'); if(errEl) errEl.style.display='none';
+  var btn=document.getElementById('vs-send-btn'); if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Valider et envoyer le code'; }
+  var overlay=document.getElementById('adm-vir-sec-overlay'); if(overlay) overlay.style.display='flex';
+}
+
+function admVirSecClose(){
+  var overlay=document.getElementById('adm-vir-sec-overlay'); if(overlay) overlay.style.display='none';
+  _vsDemande=null; _vsClient=null;
+}
+
+function admVirSecGenCode(){
+  var code = String(Math.floor(100000 + Math.random() * 900000));
+  var el = document.getElementById('vs-code'); if(el) el.value = code;
+  return code;
+}
+
+function admVirSecEnvoyer(){
+  if(!_vsDemande) return;
+  var code = (document.getElementById('vs-code').value||'').trim();
+  var okEl=document.getElementById('vs-ok'); if(okEl) okEl.style.display='none';
+  var errEl=document.getElementById('vs-err'); if(errEl) errEl.style.display='none';
+  if(!code||code.length<4){ if(errEl){ errEl.textContent='Code invalide (minimum 4 caractères).'; errEl.style.display='block'; } return; }
+
+  var btn=document.getElementById('vs-send-btn');
+  if(btn){ btn.disabled=true; btn.textContent='Envoi…'; }
+  var reset=function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Valider et envoyer le code'; } };
+
+  var expiry = Date.now() + 10 * 60 * 1000;
+  var otpRecord = { code: code, expiry: expiry };
+  localStorage.setItem('dps_vir_otp_'+_vsDemande.clientId, JSON.stringify(otpRecord));
+
+  var amt = (_vsDemande.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  var prenom = (_vsDemande.nom_client||'').split(' ')[0]||'Client';
+
+  var done=function(emailOk){
+    reset();
+    admLog('virement', _vsDemande.clientId, 'Code OTP virement sécurisé envoyé à '+_vsDemande.email, _vsDemande.montant);
+    if(okEl){
+      okEl.textContent = 'Code '+code+' '+(emailOk?'envoyé à '+_vsDemande.email+' (valide 10 min).':'généré (à communiquer manuellement).');
+      okEl.style.display='block';
+    }
+    admSoldeLoadDemandes();
+  };
+
+  if(typeof FidEmail !== 'undefined' && _vsDemande.email){
+    FidEmail.sendVirementOTP(_vsDemande.email, prenom, code, amt, _vsDemande.beneficiaire||'bénéficiaire', 'fr')
       .then(function(){ done(true); }).catch(function(){ done(false); });
   } else {
     done(false);
