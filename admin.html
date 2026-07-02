@@ -2706,13 +2706,13 @@ function admSoldeLoadDemandes(){
   demandes.forEach(function(d){ admVirGetCode(d.clientId); });
 
   function renderCards(){
-    list.innerHTML = '<div style="display:flex;flex-direction:column;gap:1rem">'
+    list.innerHTML = '<div style="display:flex;flex-direction:column;gap:1rem;width:100%">'
       + demandes.map(function(d){
       var codeRec = admVirGetCode(d.clientId);
       var amt = (d.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
       var dt  = d.date ? new Date(d.date).toLocaleString('fr-FR') : '—';
       var countdown = admVirSecCountdown(codeRec.expiry);
-      return '<div style="background:#fff;border:2px solid #06c2b0;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(6,194,176,.1)">'
+      return '<div style="background:#fff;border:2px solid #06c2b0;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(6,194,176,.1);width:100%;box-sizing:border-box">'
         /* En-tête */
         +'<div style="background:linear-gradient(135deg,#06c2b0,#0B1D3A);padding:.85rem 1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">'
           +'<div>'
