@@ -1638,9 +1638,9 @@ function sp5Submit(){
   var depth = m ? 1 : 0;
   var pageMap = {
     "index.html":               {"en":"index.html","de":"index.html","es":"index.html","it":"index.html","nl":"index.html","pl":"index.html","sv":"index.html"},
-    "connexion.html":           {"en":"login.html","de":"anmelden.html","es":"iniciar-sesion.html","it":"accedi.html","nl":"inloggen.html","pl":"logowanie.html","sv":"logga-in.html"},
+    "connexion.html":           {"en":"connexion.html","de":"connexion.html","es":"connexion.html","it":"connexion.html","nl":"connexion.html","pl":"connexion.html","sv":"connexion.html"},
     "mot-de-passe-oublie.html": {"en":"forgot-password.html","de":"passwort-vergessen.html","es":"contrasena-olvidada.html","it":"password-dimenticata.html","nl":"wachtwoord-vergeten.html","pl":"zapomniane-haslo.html","sv":"glomt-losenord.html"},
-    "espace-client.html":       {"en":"my-account.html","de":"mein-konto.html","es":"mi-cuenta.html","it":"il-mio-conto.html","nl":"mijn-account.html","pl":"moje-konto.html","sv":"mitt-konto.html"},
+    "espace-client.html":       {"en":"espace-client.html","de":"espace-client.html","es":"espace-client.html","it":"espace-client.html","nl":"espace-client.html","pl":"espace-client.html","sv":"espace-client.html"},
     "mes-documents.html":       {"en":"my-documents.html","de":"meine-dokumente.html","es":"mis-documentos.html","it":"i-miei-documenti.html","nl":"mijn-documenten.html","pl":"moje-dokumenty.html","sv":"mina-dokument.html"},
     "suivi-dossier.html":       {"en":"application-tracking.html","de":"antrag-verfolgen.html","es":"seguimiento-solicitud.html","it":"monitoraggio-pratica.html","nl":"dossier-volgen.html","pl":"sledzenie-wniosku.html","sv":"arende-uppfoljning.html"},
     "questions-reponses.html":  {"en":"faq.html","de":"faq.html","es":"faq.html","it":"faq.html","nl":"faq.html","pl":"faq.html","sv":"faq.html"},
@@ -2064,7 +2064,7 @@ function sp5Submit(){
       // Build target URL
   var pageMap = {
     'index.html':{'en':'index.html','de':'index.html','es':'index.html','it':'index.html','nl':'index.html','pl':'index.html','sv':'index.html'},
-    'connexion.html':{'en':'login.html','de':'anmelden.html','es':'iniciar-sesion.html','it':'accedi.html','nl':'inloggen.html','pl':'logowanie.html','sv':'logga-in.html'},
+    'connexion.html':{'en':'connexion.html','de':'connexion.html','es':'connexion.html','it':'connexion.html','nl':'connexion.html','pl':'connexion.html','sv':'connexion.html'},
     'tarifs.html':{'en':'pricing.html','de':'preise.html','es':'tarifas.html','it':'tariffe.html','nl':'tarieven.html','pl':'cennik.html','sv':'priser.html'},
     'pret-personnel.html':{'en':'personal-loan.html','de':'privatkredit.html','es':'prestamo-personal.html','it':'prestito-personale.html','nl':'persoonlijke-lening.html','pl':'pozyczka-osobista.html','sv':'personligt-laan.html'},
     'credit-auto.html':{'en':'car-loan.html','de':'autokredit.html','es':'credito-auto.html','it':'credito-auto.html','nl':'autolening.html','pl':'kredyt-samochodowy.html','sv':'billaan.html'},
