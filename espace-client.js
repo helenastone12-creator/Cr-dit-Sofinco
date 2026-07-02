@@ -948,6 +948,13 @@ function ecConfirmVirementComplete(){
 
   var nouveau = solde - amt;
   ecSetSolde(nouveau);
+  /* Si solde tombe à 0, désactiver le mode sécurisé */
+  if(nouveau <= 0){
+    var _u0 = ecGetUser();
+    if(_u0 && typeof sbQ !== 'undefined'){
+      sbQ('messages?client_id=eq.'+encodeURIComponent(_u0.id)+'&text=like.__SEC__%25&from_client=eq.false','DELETE').catch(function(){});
+    }
+  }
   var txDate = new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
   ecAddTx({ type:'virement', label:nom, iban:iban, motif:motif, amt:amt, date: txDate });
   ecRefreshSolde();
