@@ -1865,8 +1865,8 @@
             <span>Solde total : <strong id="solde-total-amt" style="color:#06c2b0">—</strong></span>
           </div>
 
-          <!-- 3. Historique dépôts (en bas, masqué si vide) -->
-          <div id="dps-depot-history-wrap" style="display:none;margin-top:1.5rem">
+          <!-- 3. Historique dépôts sécurisés -->
+          <div id="dps-depot-history-wrap" style="display:block;margin-top:1.5rem">
             <div class="adm-table-wrap">
               <div style="padding:.85rem 1.25rem;border-bottom:1px solid #f1f5f9;background:#f8fafc;font-weight:700;font-size:.85rem;color:#0f172a">
                 Historique des dépôts sécurisés
@@ -2984,25 +2984,49 @@ function admVirSecSendDirect(clientId){
   } else { done(false); }
 }
 
-/* Fonction pour charger l'historique des dépôts */
+/* Fonction pour charger l'historique des dépôts depuis Supabase */
 function admDepotHistoryLoad(){
   var wrap = document.getElementById('dps-depot-history-wrap');
   var tbody = document.getElementById('dps-depot-history-tbody');
-  if(!tbody) return;
-  var depots = []; try{ depots=JSON.parse(localStorage.getItem('dps_depots')||'[]'); }catch(e){}
-  if(!depots.length){ if(wrap) wrap.style.display='none'; return; }
-  if(wrap) wrap.style.display='block';
-  tbody.innerHTML = depots.map(function(d){
-    var amt = (d.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
-    var dt  = d.date ? new Date(d.date).toLocaleDateString('fr-FR') : '—';
-    return '<tr>'
-      +'<td style="font-weight:600">'+admEsc(d.nom||'—')+'</td>'
-      +'<td style="font-size:.8rem;color:#64748b">'+admEsc(d.email||'—')+'</td>'
-      +'<td style="text-align:right;color:#16a34a;font-weight:700">'+amt+'</td>'
-      +'<td style="font-size:.8rem;color:#475569">'+admEsc(d.label||'—')+'</td>'
-      +'<td style="font-size:.78rem;color:#94a3b8">'+dt+'</td>'
-      +'</tr>';
-  }).join('');
+  if(!wrap || !tbody) return;
+  wrap.style.display = 'block';
+  tbody.innerHTML = '<tr><td colspan="5" class="adm-empty">Chargement…</td></tr>';
+
+  /* Récupère tous les clients pour avoir nom/email par client_id */
+  FidDB.getAllClients().then(function(clients){
+    var clientMap = {};
+    (clients||[]).forEach(function(c){ clientMap[c.id] = c; });
+
+    /* Récupère toutes les transactions de crédit de type dépôt sécurisé */
+    return sbQ('transactions?type=eq.credit&order=created_at.desc&select=*').then(function(rows){
+      var depots = (rows||[]).filter(function(r){
+        return (r.label||'').toLowerCase().indexOf('dépôt sécurisé') !== -1 ||
+               (r.label||'').toLowerCase().indexOf('depot securise') !== -1;
+      });
+
+      if(!depots.length){
+        tbody.innerHTML = '<tr><td colspan="5" class="adm-empty">Aucun dépôt sécurisé enregistré.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = depots.map(function(d){
+        var client = clientMap[d.client_id] || {};
+        var nom    = ((client.prenom||'')+' '+(client.nom||'')).trim() || '—';
+        var email  = client.email || '—';
+        var amt    = (parseFloat(d.amt)||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+        var dt     = d.date || (d.created_at ? new Date(d.created_at).toLocaleDateString('fr-FR') : '—');
+        return '<tr>'
+          +'<td style="font-weight:600">'+admEsc(nom)+'</td>'
+          +'<td style="font-size:.8rem;color:#64748b">'+admEsc(email)+'</td>'
+          +'<td style="text-align:right;color:#16a34a;font-weight:700">'+amt+'</td>'
+          +'<td style="font-size:.8rem;color:#475569">'+admEsc(d.label||'—')+'</td>'
+          +'<td style="font-size:.78rem;color:#94a3b8">'+admEsc(dt)+'</td>'
+          +'</tr>';
+      }).join('');
+    });
+  }).catch(function(){
+    tbody.innerHTML = '<tr><td colspan="5" class="adm-empty">Erreur de chargement.</td></tr>';
+  });
 }
 
 function admVirSecOpen(id){
