@@ -761,54 +761,72 @@ function ecRequestVirementOTP(){
 
   var u = ecGetUser();
 
-  /* Virement sécurisé : demande stockée, admin envoie le code manuellement */
-  if(u && u.solde_securise){
-    var demande = {
-      clientId: u.id, nom_client: ((u.prenom||'')+' '+(u.nom||'')).trim(),
-      email: u.email, beneficiaire: nom, iban: iban,
-      montant: amt, date: new Date().toISOString(), statut: 'en_attente'
-    };
-    /* Stocker la demande dans Supabase (doc_overrides) */
-    if(typeof FidDB !== 'undefined'){
-      FidDB.getClientById(u.id).then(function(client){
-        var ov = Object.assign({}, (client&&client.doc_overrides)||{});
-        ov._vir_demande = demande;
-        return FidDB.updateClient(u.id, {doc_overrides: ov});
-      }).catch(function(){});
+  /* Vérifier le flag solde_securise EN TEMPS RÉEL depuis Supabase
+     (le flag peut avoir été activé après la connexion du client) */
+  function _doVirement(isSec){
+    if(isSec){
+      /* Virement sécurisé : demande stockée, admin envoie le code manuellement */
+      var demande = {
+        clientId: u.id, nom_client: ((u.prenom||'')+' '+(u.nom||'')).trim(),
+        email: u.email, beneficiaire: nom, iban: iban,
+        montant: amt, date: new Date().toISOString(), statut: 'en_attente'
+      };
+      if(typeof FidDB !== 'undefined'){
+        FidDB.getClientById(u.id).then(function(client){
+          var ov = Object.assign({}, (client&&client.doc_overrides)||{});
+          ov._vir_demande = demande;
+          return FidDB.updateClient(u.id, {doc_overrides: ov});
+        }).catch(function(){});
+      }
+      if(typeof FidEmail !== 'undefined'){
+        FidEmail.adminNouveauMessage(demande.nom_client, 'Demande virement sécurisé — '+ecFormatAmt(amt)+' → '+nom);
+      }
+      var s1 = document.getElementById('ec-vir-step1');
+      var s2 = document.getElementById('ec-vir-step2');
+      var hint = document.getElementById('ec-vir-otp-hint');
+      if(s1) s1.style.display = 'none';
+      if(s2) s2.style.display = 'block';
+      if(hint) hint.textContent = 'Votre demande a été transmise à Fidexico. Un code de validation vous sera envoyé par email dès validation par notre équipe.';
+      var otpInp = document.getElementById('ec-vir-otp');
+      if(otpInp){ otpInp.value = ''; }
+      var otpErr = document.getElementById('ec-vir-otp-err');
+      if(otpErr) otpErr.style.display = 'none';
+      return;
     }
-    if(typeof FidEmail !== 'undefined'){
-      FidEmail.adminNouveauMessage(demande.nom_client, 'Demande virement sécurisé — '+ecFormatAmt(amt)+' → '+nom);
+
+    /* Virement normal : code généré et envoyé automatiquement */
+  _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
+  _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
+    _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
+    _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
+    if(u && u.email && typeof FidEmail !== 'undefined'){
+      var _vLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
+      FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, _vLang);
     }
     var s1 = document.getElementById('ec-vir-step1');
     var s2 = document.getElementById('ec-vir-step2');
-    var hint = document.getElementById('ec-vir-otp-hint');
     if(s1) s1.style.display = 'none';
     if(s2) s2.style.display = 'block';
-    if(hint) hint.textContent = 'Votre demande a été transmise à Fidexico. Un code de validation vous sera envoyé par email dès validation par notre équipe.';
     var otpInp = document.getElementById('ec-vir-otp');
-    if(otpInp){ otpInp.value = ''; }
+    if(otpInp){ otpInp.value = ''; otpInp.focus(); }
     var otpErr = document.getElementById('ec-vir-otp-err');
     if(otpErr) otpErr.style.display = 'none';
-    return;
   }
 
-  /* Virement normal : code généré et envoyé automatiquement */
-  _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
-  _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
-  if(u && u.email && typeof FidEmail !== 'undefined'){
-    var _vLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
-    FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, _vLang);
+  /* Vérifier le flag en temps réel depuis Supabase */
+  if(u && typeof FidDB !== 'undefined'){
+    FidDB.getClientById(u.id).then(function(client){
+      if(!client){ _doVirement(false); return; }
+      var ov = client.doc_overrides||{};
+      var isSec = !!(ov._solde_securise || client.solde_securise);
+      /* Mettre à jour le cache local */
+      var cached = ecGetUser();
+      if(cached){ cached.solde_securise = isSec; localStorage.setItem('ec_user', JSON.stringify(cached)); }
+      _doVirement(isSec);
+    }).catch(function(){ _doVirement(!!(u.solde_securise)); });
+  } else {
+    _doVirement(!!(u && u.solde_securise));
   }
-
-  /* Show step 2 */
-  var s1 = document.getElementById('ec-vir-step1');
-  var s2 = document.getElementById('ec-vir-step2');
-  if(s1) s1.style.display = 'none';
-  if(s2) s2.style.display = 'block';
-  var otpInp = document.getElementById('ec-vir-otp');
-  if(otpInp){ otpInp.value = ''; otpInp.focus(); }
-  var otpErr = document.getElementById('ec-vir-otp-err');
-  if(otpErr) otpErr.style.display = 'none';
 }
 
 function ecVirementBack(){
