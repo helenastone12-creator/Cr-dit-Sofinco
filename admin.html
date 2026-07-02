@@ -1563,6 +1563,20 @@
               <div id="notif-ok" style="display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;color:#065f46;font-weight:600;margin-bottom:1rem"></div>
               <div id="notif-err" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;color:#991b1b;font-weight:600;margin-bottom:1rem"></div>
 
+              <div style="margin-bottom:1rem">
+                <label style="font-size:.8rem;font-weight:600;color:#666;display:block;margin-bottom:.35rem">Langue de l'email</label>
+                <select class="adm-input" id="notif-lang" style="width:auto">
+                  <option value="fr">🇫🇷 Français</option>
+                  <option value="de">🇩🇪 Deutsch</option>
+                  <option value="en">🇬🇧 English</option>
+                  <option value="es">🇪🇸 Español</option>
+                  <option value="it">🇮🇹 Italiano</option>
+                  <option value="nl">🇳🇱 Nederlands</option>
+                  <option value="pl">🇵🇱 Polski</option>
+                  <option value="sv">🇸🇪 Svenska</option>
+                </select>
+              </div>
+
               <button class="adm-btn adm-btn--teal" style="padding:.8rem 2rem" onclick="admSendNotif()">
                 Envoyer la notification
               </button>
@@ -1992,7 +2006,7 @@ function opDeposit(){
   /* email virement entrant au client */
   if(typeof FidEmail !== 'undefined' && c.user.email){
     var ref='DEP-'+new Date().getFullYear()+'-'+String(Math.floor(100000+Math.random()*900000));
-    FidEmail.virementEntrant(c.user.prenom||c.user.nom, c.user.email, fmtAmt(amt), 'Fidexico', ref);
+    FidEmail.virementEntrant(c.user.prenom||c.user.nom, c.user.email, fmtAmt(amt), 'Fidexico', ref, c.user.lang||'fr');
   }
   showMsg('dep-ok','dep-err','Dépôt de '+fmtAmt(amt)+' effectué sur '+((c.user.prenom||'')+' '+(c.user.nom||'')).trim()+'.',true);
   document.getElementById('dep-id').value='';
@@ -2357,7 +2371,12 @@ function admSendNotif(){
   if(!u.email){ errEl.textContent='Ce client n\'a pas d\'email enregistré.'; errEl.style.display='block'; return; }
 
   var prenom=u.prenom||u.nom;
-  var uLang=u.lang||'fr';
+  var langSel=document.getElementById('notif-lang');
+  /* pré-remplir la langue depuis le profil client si disponible */
+  if(langSel && u.lang && ['fr','en','de','es','it','nl','pl','sv'].indexOf(u.lang)!==-1){
+    langSel.value=u.lang;
+  }
+  var uLang=(langSel&&langSel.value)||u.lang||'fr';
   var p;
 
   if(type==='dossier_etude'){

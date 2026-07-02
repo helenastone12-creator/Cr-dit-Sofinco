@@ -1098,49 +1098,81 @@ function emailConnexion(prenom, date, lang){
 }
 
 function emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
+  var T2 = {
+    title:  {fr:'Votre virement<br>a été exécuté',en:'Your transfer<br>has been executed',de:'Ihre Überweisung<br>wurde ausgeführt',es:'Su transferencia<br>ha sido ejecutada',it:'Il suo bonifico<br>è stato eseguito',nl:'Uw overschrijving<br>is uitgevoerd',pl:'Twój przelew<br>został wykonany',sv:'Din överföring<br>har genomförts'},
+    body:   {fr:'Bonjour '+prenom+', votre virement a été traité avec succès.',en:'Hello '+prenom+', your transfer has been processed successfully.',de:'Hallo '+prenom+', Ihre Überweisung wurde erfolgreich verarbeitet.',es:'Hola '+prenom+', su transferencia ha sido procesada con éxito.',it:'Ciao '+prenom+', il suo bonifico è stato elaborato con successo.',nl:'Hallo '+prenom+', uw overschrijving is succesvol verwerkt.',pl:'Cześć '+prenom+', Twój przelew został pomyślnie zrealizowany.',sv:'Hej '+prenom+', din överföring har behandlats framgångsrikt.'},
+    lbl_amt:{fr:'Montant débité',en:'Debited amount',de:'Abgebuchter Betrag',es:'Importe debitado',it:'Importo addebitato',nl:'Gedebiteerd bedrag',pl:'Kwota pobrana',sv:'Debiterat belopp'},
+    lbl_ben:{fr:'Bénéficiaire',en:'Recipient',de:'Empfänger',es:'Beneficiario',it:'Beneficiario',nl:'Begunstigde',pl:'Odbiorca',sv:'Mottagare'},
+    lbl_mot:{fr:'Motif',en:'Reference',de:'Verwendungszweck',es:'Concepto',it:'Causale',nl:'Reden',pl:'Tytuł',sv:'Referens'},
+    warn_l: {fr:'Vous n\'avez pas initié ce virement ?',en:'Did you not initiate this transfer?',de:'Haben Sie diese Überweisung nicht veranlasst?',es:'¿No ha iniciado esta transferencia?',it:'Non ha avviato questo bonifico?',nl:'Heeft u deze overschrijving niet geïnitieerd?',pl:'Nie zleciłeś tego przelewu?',sv:'Har du inte initierat denna överföring?'},
+    warn:   {fr:'Contactez-nous immédiatement — les virements sont irréversibles une fois traités.',en:'Contact us immediately — transfers are irreversible once processed.',de:'Kontaktieren Sie uns sofort — Überweisungen sind nach der Ausführung unwiderruflich.',es:'Contáctenos de inmediato — las transferencias son irreversibles una vez procesadas.',it:'Ci contatti immediatamente — i bonifici sono irreversibili una volta elaborati.',nl:'Neem onmiddellijk contact met ons op — overschrijvingen zijn onomkeerbaar na verwerking.',pl:'Skontaktuj się z nami natychmiast — przelewy są nieodwracalne po realizacji.',sv:'Kontakta oss omedelbart — överföringar är oåterkalleliga efter behandling.'},
+    cta:    {fr:'Consulter mon espace',en:'View my account',de:'Mein Konto anzeigen',es:'Ver mi cuenta',it:'Visualizza il mio account',nl:'Mijn account bekijken',pl:'Zobacz moje konto',sv:'Se mitt konto'},
+    note:   {fr:'Conservez cet email comme justificatif.',en:'Keep this email as proof of payment.',de:'Bewahren Sie diese E-Mail als Nachweis auf.',es:'Conserve este email como justificante.',it:'Conservi questa email come giustificativo.',nl:'Bewaar deze e-mail als bewijs.',pl:'Zachowaj ten email jako potwierdzenie.',sv:'Spara detta e-postmeddelande som kvitto.'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre virement<br>a été exécuté</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre virement a été traité avec succès.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
     +_tbl([
-      ['Montant débité', '− '+montant],
-      ['Bénéficiaire', destinataire],
+      [g('lbl_amt'), '− '+montant],
+      [g('lbl_ben'), destinataire],
       ['IBAN', iban],
-      motif ? ['Motif', motif] : null,
-      ['Date', date],
-      ['Référence', ref]
+      motif ? [g('lbl_mot'), motif] : null,
+      [fidT('lbl_date',null,l), date],
+      [fidT('lbl_ref',null,l), ref]
     ].filter(Boolean))
-    +_alertBox('','','Vous n\'avez pas initié ce virement ?','Contactez-nous immédiatement — les virements sont irréversibles une fois traités.')
-    +_btn('Consulter mon espace', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
-    +_sign()
-    +_note('Conservez cet email comme justificatif. Réf. : '+ref),
-  'fr', {ref:ref});
+    +_alertBox('','',g('warn_l'),g('warn'))
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/espace-client.html')
+    +_sign(l)
+    +_note(g('note')+' Réf. : '+ref),
+  l, {ref:ref});
 }
 
 function emailVirementEntrant(prenom, montant, expediteur, ref, date, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
+  var T2 = {
+    title:  {fr:'Vous avez reçu<br>un virement',en:'You have received<br>a transfer',de:'Sie haben eine<br>Überweisung erhalten',es:'Ha recibido<br>una transferencia',it:'Ha ricevuto<br>un bonifico',nl:'U heeft een<br>overboeking ontvangen',pl:'Otrzymałeś<br>przelew',sv:'Du har mottagit<br>en överföring'},
+    body:   {fr:'Bonjour '+prenom+', un virement a été crédité sur votre compte.',en:'Hello '+prenom+', a transfer has been credited to your account.',de:'Hallo '+prenom+', eine Überweisung wurde auf Ihr Konto gutgeschrieben.',es:'Hola '+prenom+', se ha acreditado una transferencia en su cuenta.',it:'Ciao '+prenom+', un bonifico è stato accreditato sul suo conto.',nl:'Hallo '+prenom+', een overboeking is op uw rekening bijgeschreven.',pl:'Cześć '+prenom+', przelew został zaksięgowany na Twoim koncie.',sv:'Hej '+prenom+', en överföring har krediterats på ditt konto.'},
+    lbl_amt:{fr:'Montant crédité',en:'Credited amount',de:'Gutgeschriebener Betrag',es:'Importe acreditado',it:'Importo accreditato',nl:'Bijgeschreven bedrag',pl:'Kwota uznana',sv:'Krediterat belopp'},
+    lbl_exp:{fr:'Expéditeur',en:'Sender',de:'Absender',es:'Remitente',it:'Mittente',nl:'Afzender',pl:'Nadawca',sv:'Avsändare'},
+    cta:    {fr:'Voir mon solde',en:'View my balance',de:'Kontostand anzeigen',es:'Ver mi saldo',it:'Vedi il mio saldo',nl:'Mijn saldo bekijken',pl:'Zobacz moje saldo',sv:'Se mitt saldo'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Vous avez reçu<br>un virement</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', un virement a été crédité sur votre compte.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
     +_tbl([
-      ['Montant crédité', '+ '+montant],
-      ['Expéditeur', expediteur],
-      ['Date', date],
-      ['Référence', ref]
+      [g('lbl_amt'), '+ '+montant],
+      [g('lbl_exp'), expediteur],
+      [fidT('lbl_date',null,l), date],
+      [fidT('lbl_ref',null,l), ref]
     ])
-    +_btn('Voir mon solde', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
-    +_sign(),
-  'fr', {ref:ref});
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/espace-client.html')
+    +_sign(l),
+  l, {ref:ref});
 }
 
 function emailNouveauMessage(prenom, apercu, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
+  var T2 = {
+    title:  {fr:'Vous avez un nouveau<br>message',en:'You have a new<br>message',de:'Sie haben eine neue<br>Nachricht',es:'Tiene un nuevo<br>mensaje',it:'Ha un nuovo<br>messaggio',nl:'U heeft een nieuw<br>bericht',pl:'Masz nową<br>wiadomość',sv:'Du har ett nytt<br>meddelande'},
+    body:   {fr:'Bonjour '+prenom+', votre conseiller vous a envoyé un message.',en:'Hello '+prenom+', your advisor has sent you a message.',de:'Hallo '+prenom+', Ihr Berater hat Ihnen eine Nachricht gesendet.',es:'Hola '+prenom+', su asesor le ha enviado un mensaje.',it:'Ciao '+prenom+', il suo consulente le ha inviato un messaggio.',nl:'Hallo '+prenom+', uw adviseur heeft u een bericht gestuurd.',pl:'Cześć '+prenom+', Twój doradca wysłał Ci wiadomość.',sv:'Hej '+prenom+', din rådgivare har skickat dig ett meddelande.'},
+    cta:    {fr:'Lire le message',en:'Read the message',de:'Nachricht lesen',es:'Leer el mensaje',it:'Leggi il messaggio',nl:'Bericht lezen',pl:'Czytaj wiadomość',sv:'Läs meddelandet'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Vous avez un nouveau<br>message</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre conseiller vous a envoyé un message.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
     +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;background:#f5f5f5;border-radius:12px"><tr>'
     +'<td style="padding:20px 24px;font-family:Arial,sans-serif;font-size:15px;color:#444;line-height:1.7;font-style:italic">"'+apercu+'..."</td>'
     +'</tr></table>'
-    +_btn('Lire le message', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
-    +_sign(),
-  'fr');
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/espace-client.html')
+    +_sign(l),
+  l);
 }
 
 function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){

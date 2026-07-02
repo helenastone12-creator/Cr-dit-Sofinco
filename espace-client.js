@@ -750,7 +750,8 @@ function ecConfirmVirement(){
     var u = ecGetUser();
     if(u && u.email && typeof FidEmail !== 'undefined'){
       var ref = 'VIR-' + new Date().getFullYear() + '-' + String(Math.floor(100000 + Math.random()*900000));
-      FidEmail.virementSortant(u.prenom||u.nom, u.email, ecFormatAmt(amt), nom, iban, motif, ref);
+      var _vLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
+      FidEmail.virementSortant(u.prenom||u.nom, u.email, ecFormatAmt(amt), nom, iban, motif, ref, _vLang);
     }
   })();
   ['ec-vir-nom','ec-vir-iban','ec-vir-amt','ec-vir-motif'].forEach(function(id){ var e=document.getElementById(id); if(e)e.value=''; });
