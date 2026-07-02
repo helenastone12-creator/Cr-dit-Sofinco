@@ -2854,7 +2854,7 @@ function admDepotSecEnvoyer(){
   var depotType = (document.getElementById('dps-type')||{}).value || 'normal';
   var montant = parseFloat(document.getElementById('dps-montant').value);
   var labelInput = (document.getElementById('dps-label').value||'').trim();
-  var label = labelInput || (depotType === 'securise' ? 'Dépôt sécurisé Fidexico' : 'Dépôt Fidexico');
+  var label = labelInput || 'Dépôt Fidexico';
   var okEl    = document.getElementById('dps-ok');
   var errEl   = document.getElementById('dps-err');
   if(okEl) okEl.style.display='none';
@@ -2894,17 +2894,20 @@ function admDepotSecEnvoyer(){
       if(client){
         var ns = (parseFloat(client.solde)||0)+montant;
         var ov = Object.assign({}, client.doc_overrides||{});
-        var clientPatch = {};
         if(depotType === 'securise'){
           ov._solde_securise = true;
-          clientPatch.solde_securise = true;
-          clientPatch.doc_overrides  = ov;
         }
         return FidDB.setSolde(_dpsClient.id, ns)
           .then(function(){ return FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}); })
           .then(function(){
             if(depotType === 'securise'){
-              return FidDB.updateClient(_dpsClient.id, clientPatch);
+              /* First patch doc_overrides, then try the direct column separately */
+              return FidDB.updateClient(_dpsClient.id, {doc_overrides: ov})
+                .then(function(){
+                  return sbQ('clients?id=eq.'+encodeURIComponent(_dpsClient.id), 'PATCH',
+                    {solde_securise: true, updated_at: new Date().toISOString()})
+                    .catch(function(){});
+                });
             }
           });
       }
