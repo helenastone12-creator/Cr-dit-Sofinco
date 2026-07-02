@@ -2946,23 +2946,35 @@ function admSoldeLoadDemandes(){
   var clientMap = {};
   (_admSoldeAll||[]).forEach(function(c){ clientMap[c.id] = c; });
 
-  /* Lire les demandes depuis la table messages (__DEMANDE__: prefix, from_client=true) */
-  sbQ('messages?text=like.__DEMANDE__%&from_client=eq.true&order=created_at.desc&select=*')
-    .then(function(rows){
+  /* Lire les demandes en fetchant les messages de chaque client sécurisé */
+  var secClientIds = (_admSoldeAll||[])
+    .filter(function(c){ return c.solde_securise; })
+    .map(function(c){ return c.id; });
+
+  var msgPromises = secClientIds.map(function(cid){
+    return FidDB.getMessages(cid).then(function(msgs){
+      return { cid: cid, msgs: msgs||[] };
+    }).catch(function(){ return { cid: cid, msgs: [] }; });
+  });
+
+  Promise.all(msgPromises).then(function(results){
       var seen = {};
       var demandes = [];
-      (rows||[]).forEach(function(row){
-        /* Une demande par client (la plus récente) */
-        if(seen[row.client_id]) return;
-        seen[row.client_id] = true;
+      results.forEach(function(r){
+        var demandeMsg = null;
+        r.msgs.forEach(function(m){
+          if(m.from_client && (m.text||'').indexOf('__DEMANDE__:') === 0) demandeMsg = m;
+        });
+        if(!demandeMsg) return;
         try{
-          var d = JSON.parse((row.text||'').replace(/^__DEMANDE__:/,''));
-          if(!d.clientId) d.clientId = row.client_id;
-          var c = clientMap[row.client_id]||{};
+          var d = JSON.parse(demandeMsg.text.replace(/^__DEMANDE__:/,''));
+          if(!d.clientId) d.clientId = r.cid;
+          var c = clientMap[r.cid]||{};
           if(!d.nom_client) d.nom_client = ((c.prenom||'')+' '+(c.nom||'')).trim()||'—';
           if(!d.email) d.email = c.email;
           _admDemandesMap[d.clientId] = d;
           demandes.push(d);
+          seen[r.cid] = true;
         }catch(e){}
       });
       /* Fallback : lire aussi depuis doc_overrides pour anciens comptes */
@@ -3050,9 +3062,9 @@ function admSoldeLoadDemandes(){
         });
         if(needsRerender) renderCards();
       }, 1000);
-    }).catch(function(){
-      list.innerHTML = '<div class="adm-empty">Erreur de chargement des demandes.</div>';
-    });
+  }).catch(function(){
+    list.innerHTML = '<div class="adm-empty">Erreur de chargement des demandes.</div>';
+  });
 }
 
 /* Envoi direct depuis la carte — stocke l'OTP dans messages */
