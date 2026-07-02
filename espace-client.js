@@ -1167,7 +1167,7 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   function set(id, v){ var e=document.getElementById(id); if(e) e.textContent=v; }
   function fmtEur(n){ return (n != null && !isNaN(n)) ? n.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2})+' €' : '—'; }
 
-  var greetText = 'Bonjour, ' + (user.prenom || user.nom || 'Client') + ' 👋';
+  var greetText = t('greeting') + ', ' + (user.prenom || user.nom || 'Client') + ' 👋';
   var greet = document.getElementById('fd-greeting-name');
   if(greet) greet.textContent = greetText;
   var greetPc = document.getElementById('gd-topbar-greeting-pc');
@@ -1182,7 +1182,7 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   set('fd-disponible-amt2', soldeFmtDisp);
   set('fd-limite-amt', fmtEur(capital));
   set('fd-kpi-disponible', soldeFmtDisp);
-  set('fd-kpi-limite-sub', 'Limite approuvée : ' + fmtEur(capital));
+  set('fd-kpi-limite-sub', t('limite_approuvee') + fmtEur(capital));
   set('fd-kpi-restant', fmtEur(restant));
   set('fd-kpi-mens', fmtEur(mens));
 
@@ -1196,8 +1196,9 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
 
   var nextDate = new Date(dateDebut);
   nextDate.setMonth(nextDate.getMonth() + moisPasses + 1);
-  var nextDateFull = nextDate.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'});
-  var nextDateShort = nextDate.toLocaleDateString('fr-FR', {day:'numeric', month:'short'});
+  var _dateLocale = {fr:'fr-FR',en:'en-GB',de:'de-DE',es:'es-ES',it:'it-IT',nl:'nl-NL',pl:'pl-PL',sv:'sv-SE'}[(typeof EC_LANG!=='undefined'?EC_LANG:'fr')] || 'fr-FR';
+  var nextDateFull = nextDate.toLocaleDateString(_dateLocale, {day:'numeric', month:'long', year:'numeric'});
+  var nextDateShort = nextDate.toLocaleDateString(_dateLocale, {day:'numeric', month:'short'});
   set('fd-echeance-date', nextDateFull);
   set('fd-kpi-echeance', nextDateShort);
   set('fd-kpi-echeance-sub', nextDate.getFullYear().toString());
@@ -1208,10 +1209,10 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
 
   // ── Carte prêt premium ──
   var loanStatusMap = {
-    'pending':  { label:'En cours',         cls:'gd-loan-badge--pending'  },
-    'approved': { label:'Validé',           cls:'gd-loan-badge--approved' },
-    'active':   { label:'Fonds débloqués',  cls:'gd-loan-badge--active'   },
-    'closed':   { label:'Clôturé',          cls:'gd-loan-badge--closed'   }
+    'pending':  { label:t('loan_status_pending'),  cls:'gd-loan-badge--pending'  },
+    'approved': { label:t('loan_status_approved'), cls:'gd-loan-badge--approved' },
+    'active':   { label:t('loan_status_active'),   cls:'gd-loan-badge--active'   },
+    'closed':   { label:t('loan_status_closed'),   cls:'gd-loan-badge--closed'   }
   };
   var loanStatus = (loan && loan.statut) || (capital > 0 ? 'active' : 'pending');
   var lsi = loanStatusMap[loanStatus] || loanStatusMap['pending'];
@@ -1220,21 +1221,21 @@ function fdPopulateDashboard(user, loan, capital, mens, duree, dateDebut, moisPa
   set('gd-loan-capital-disp', capital > 0 ? capital.toLocaleString('fr-FR') + ' €' : '—');
   set('gd-loan-mens-disp',    mens    != null ? mens.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €' : '—');
   set('gd-loan-taux-disp',    loan && loan.taux    != null ? loan.taux + ' %'    : '—');
-  set('gd-loan-duree-disp',   loan && loan.duree   != null ? loan.duree + ' mois': '—');
+  set('gd-loan-duree-disp',   loan && loan.duree   != null ? loan.duree + ' ' + t('loan_mois'): '—');
   var restantSafe = (duree > 0 && capital > 0) ? Math.max(0, Math.round(capital - (capital/duree)*moisPasses)) : capital;
   set('gd-loan-restant-disp', restantSafe > 0 ? restantSafe.toLocaleString('fr-FR') + ' €' : '0 €');
   set('gd-loan-prog-pct', pct + '%');
-  set('gd-loan-next-date', dateDebut ? 'Prochaine échéance : ' + nextDateFull : '');
+  set('gd-loan-next-date', dateDebut ? t('prochaine_echeance') + nextDateFull : '');
   var gdProgFill = document.getElementById('gd-lc-prog-fill') || document.getElementById('gd-loan-prog-fill');
   if(gdProgFill) setTimeout(function(){ gdProgFill.style.width = pct + '%'; }, 400);
   var loanSection = document.getElementById('gd-loan-card-section');
   if(loanSection) loanSection.style.display = capital > 0 ? '' : 'none';
 
   var statusMap = {
-    'pending':  { label:'En traitement', cls:'fd-status--pending' },
-    'approved': { label:'Approuvé',      cls:'fd-status--approved' },
-    'active':   { label:'Actif',          cls:'fd-status--active' },
-    'closed':   { label:'Clôturé',        cls:'fd-status--closed' }
+    'pending':  { label:t('fd_status_processing'), cls:'fd-status--pending' },
+    'approved': { label:t('fd_status_approved'),   cls:'fd-status--approved' },
+    'active':   { label:t('fd_status_active'),     cls:'fd-status--active' },
+    'closed':   { label:t('fd_status_closed'),     cls:'fd-status--closed' }
   };
   var status = (loan && loan.statut) || (capital > 0 ? 'active' : 'pending');
   var si = statusMap[status] || statusMap['active'];

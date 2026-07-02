@@ -120,7 +120,7 @@ var EC_LANGS = {
     pf_iban_label:'Mon IBAN',
     pf_section_securite:'Sécurité',
     pf_pwd_label:'Changer le mot de passe',
-    pf_2fa_label:'Authentification à deux facteurs', pf_inactive:'Inactif',
+    pf_2fa_label:'Authentification à deux facteurs', pf_inactive:'Inactif', pf_active:'Actif',
     pf_sessions_label:'Appareils et sessions', pf_sessions_sub:'1 session active',
     pf_section_autres:'Autres',
     pf_support_label:'Contacter le support',
@@ -264,7 +264,7 @@ var EC_LANGS = {
     solde_total:'Solde total', btn_ajouter:'Ajouter', btn_envoyer:'Envoyer', btn_simuler:'Simuler',
     tx_date_hdr:'DATE', tx_montant_hdr:'MONTANT', tx_type_hdr:'TYPE', tx_statut_hdr:'STATUT',
     tx_type_depot:'Dépôt', tx_type_retrait:'Retrait', tx_status_valide:'Validé',
-    tx_received_from:'Reçu de', tx_sent_to:'Envoyé à', tx_receives:'reçoit', tx_amount_sent:'Montant envoyé',
+    tx_received_from:'Reçu de', tx_sent_to:'Envoyé à', tx_receives:'reçoit', tx_amount_sent:'Montant envoyé', greeting:'Bonjour', loan_label:'MON PRÊT', loan_mensualite:'Mensualité', loan_taux:'Taux', loan_duree:'Durée', loan_restant:'Restant dû', loan_mois:'mois', loan_status_active:'Fonds débloqués', loan_status_pending:'En cours', loan_status_approved:'Validé', loan_status_closed:'Clôturé', fd_status_processing:'En traitement', fd_status_approved:'Approuvé', fd_status_active:'Actif', fd_status_closed:'Clôturé', prochaine_echeance:'Prochaine échéance : ', limite_approuvee:'Limite approuvée : ', tx_page_title:'Transactions', tx_search_ph:'Rechercher ici', tx_all_label:'Toutes les transactions', more_services:'SERVICES', not_set:'Non renseigné',
   },
 
   en: {
@@ -355,7 +355,7 @@ var EC_LANGS = {
     pf_iban_label:'My IBAN',
     pf_section_securite:'Security',
     pf_pwd_label:'Change password',
-    pf_2fa_label:'Two-factor authentication', pf_inactive:'Inactive',
+    pf_2fa_label:'Two-factor authentication', pf_inactive:'Inactive', pf_active:'Active',
     pf_sessions_label:'Devices and sessions', pf_sessions_sub:'1 active session',
     pf_section_autres:'Other',
     pf_support_label:'Contact support',
@@ -487,7 +487,7 @@ var EC_LANGS = {
     solde_total:'Total balance', btn_ajouter:'Add', btn_envoyer:'Send', btn_simuler:'Simulate',
     tx_date_hdr:'DATE', tx_montant_hdr:'AMOUNT', tx_type_hdr:'TYPE', tx_statut_hdr:'STATUS',
     tx_type_depot:'Deposit', tx_type_retrait:'Withdrawal', tx_status_valide:'Validated',
-    tx_received_from:'Received from', tx_sent_to:'Sent to', tx_receives:'receives', tx_amount_sent:'Amount sent',
+    tx_received_from:'Received from', tx_sent_to:'Sent to', tx_receives:'receives', tx_amount_sent:'Amount sent', greeting:'Hello', loan_label:'MY LOAN', loan_mensualite:'Monthly payment', loan_taux:'Rate', loan_duree:'Duration', loan_restant:'Remaining', loan_mois:'months', loan_status_active:'Funds released', loan_status_pending:'Processing', loan_status_approved:'Approved', loan_status_closed:'Closed', fd_status_processing:'Processing', fd_status_approved:'Approved', fd_status_active:'Active', fd_status_closed:'Closed', prochaine_echeance:'Next due date: ', limite_approuvee:'Approved limit: ', tx_page_title:'Transactions', tx_search_ph:'Search here', tx_all_label:'All transactions', more_services:'SERVICES', not_set:'Not provided',
   },
 
   de: {
@@ -578,7 +578,7 @@ var EC_LANGS = {
     pf_iban_label:'Meine IBAN',
     pf_section_securite:'Sicherheit',
     pf_pwd_label:'Passwort ändern',
-    pf_2fa_label:'Zwei-Faktor-Authentifizierung', pf_inactive:'Inaktiv',
+    pf_2fa_label:'Zwei-Faktor-Authentifizierung', pf_inactive:'Inaktiv', pf_active:'Aktiv',
     pf_sessions_label:'Geräte und Sitzungen', pf_sessions_sub:'1 aktive Sitzung',
     pf_section_autres:'Sonstiges',
     pf_support_label:'Support kontaktieren',
@@ -710,7 +710,7 @@ var EC_LANGS = {
     solde_total:'Gesamtguthaben', btn_ajouter:'Hinzufügen', btn_envoyer:'Senden', btn_simuler:'Simulieren',
     tx_date_hdr:'DATUM', tx_montant_hdr:'BETRAG', tx_type_hdr:'TYP', tx_statut_hdr:'STATUS',
     tx_type_depot:'Einzahlung', tx_type_retrait:'Auszahlung', tx_status_valide:'Bestätigt',
-    tx_received_from:'Erhalten von', tx_sent_to:'Gesendet an', tx_receives:'erhält', tx_amount_sent:'Überweisungsbetrag',
+    tx_received_from:'Erhalten von', tx_sent_to:'Gesendet an', tx_receives:'erhält', tx_amount_sent:'Überweisungsbetrag', greeting:'Hallo', loan_label:'MEIN KREDIT', loan_mensualite:'Monatsrate', loan_taux:'Zinssatz', loan_duree:'Laufzeit', loan_restant:'Restschuld', loan_mois:'Monate', loan_status_active:'Mittel freigegeben', loan_status_pending:'In Bearbeitung', loan_status_approved:'Genehmigt', loan_status_closed:'Abgeschlossen', fd_status_processing:'In Bearbeitung', fd_status_approved:'Genehmigt', fd_status_active:'Aktiv', fd_status_closed:'Abgeschlossen', prochaine_echeance:'Nächste Fälligkeit: ', limite_approuvee:'Genehmigtes Limit: ', tx_page_title:'Transaktionen', tx_search_ph:'Hier suchen', tx_all_label:'Alle Transaktionen', more_services:'DIENSTE', not_set:'Nicht angegeben',
   },
 
   es: {
@@ -801,7 +801,7 @@ var EC_LANGS = {
     pf_iban_label:'Mi IBAN',
     pf_section_securite:'Seguridad',
     pf_pwd_label:'Cambiar contraseña',
-    pf_2fa_label:'Autenticación de dos factores', pf_inactive:'Inactivo',
+    pf_2fa_label:'Autenticación de dos factores', pf_inactive:'Inactivo', pf_active:'Activo',
     pf_sessions_label:'Dispositivos y sesiones', pf_sessions_sub:'1 sesión activa',
     pf_section_autres:'Otros',
     pf_support_label:'Contactar soporte',
@@ -933,7 +933,7 @@ var EC_LANGS = {
     solde_total:'Saldo total', btn_ajouter:'Añadir', btn_envoyer:'Enviar', btn_simuler:'Simular',
     tx_date_hdr:'FECHA', tx_montant_hdr:'IMPORTE', tx_type_hdr:'TIPO', tx_statut_hdr:'ESTADO',
     tx_type_depot:'Depósito', tx_type_retrait:'Retirada', tx_status_valide:'Validado',
-    tx_received_from:'Recibido de', tx_sent_to:'Enviado a', tx_receives:'recibe', tx_amount_sent:'Importe enviado',
+    tx_received_from:'Recibido de', tx_sent_to:'Enviado a', tx_receives:'recibe', tx_amount_sent:'Importe enviado', greeting:'Hola', loan_label:'MI PRÉSTAMO', loan_mensualite:'Cuota mensual', loan_taux:'Tasa', loan_duree:'Plazo', loan_restant:'Capital pendiente', loan_mois:'meses', loan_status_active:'Fondos liberados', loan_status_pending:'En proceso', loan_status_approved:'Aprobado', loan_status_closed:'Cerrado', fd_status_processing:'En proceso', fd_status_approved:'Aprobado', fd_status_active:'Activo', fd_status_closed:'Cerrado', prochaine_echeance:'Próximo vencimiento: ', limite_approuvee:'Límite aprobado: ', tx_page_title:'Transacciones', tx_search_ph:'Buscar aquí', tx_all_label:'Todas las transacciones', more_services:'SERVICIOS', not_set:'No indicado',
   },
 
   it: {
@@ -1024,7 +1024,7 @@ var EC_LANGS = {
     pf_iban_label:'Il mio IBAN',
     pf_section_securite:'Sicurezza',
     pf_pwd_label:'Cambia password',
-    pf_2fa_label:'Autenticazione a due fattori', pf_inactive:'Inattivo',
+    pf_2fa_label:'Autenticazione a due fattori', pf_inactive:'Inattivo', pf_active:'Attivo',
     pf_sessions_label:'Dispositivi e sessioni', pf_sessions_sub:'1 sessione attiva',
     pf_section_autres:'Altro',
     pf_support_label:'Contatta il supporto',
@@ -1156,7 +1156,7 @@ var EC_LANGS = {
     solde_total:'Saldo totale', btn_ajouter:'Aggiungi', btn_envoyer:'Invia', btn_simuler:'Simula',
     tx_date_hdr:'DATA', tx_montant_hdr:'IMPORTO', tx_type_hdr:'TIPO', tx_statut_hdr:'STATO',
     tx_type_depot:'Deposito', tx_type_retrait:'Prelievo', tx_status_valide:'Convalidato',
-    tx_received_from:'Ricevuto da', tx_sent_to:'Inviato a', tx_receives:'riceve', tx_amount_sent:'Importo inviato',
+    tx_received_from:'Ricevuto da', tx_sent_to:'Inviato a', tx_receives:'riceve', tx_amount_sent:'Importo inviato', greeting:'Ciao', loan_label:'IL MIO PRESTITO', loan_mensualite:'Rata mensile', loan_taux:'Tasso', loan_duree:'Durata', loan_restant:'Debito residuo', loan_mois:'mesi', loan_status_active:'Fondi sbloccati', loan_status_pending:'In elaborazione', loan_status_approved:'Approvato', loan_status_closed:'Chiuso', fd_status_processing:'In elaborazione', fd_status_approved:'Approvato', fd_status_active:'Attivo', fd_status_closed:'Chiuso', prochaine_echeance:'Prossima scadenza: ', limite_approuvee:'Limite approvato: ', tx_page_title:'Transazioni', tx_search_ph:'Cerca qui', tx_all_label:'Tutte le transazioni', more_services:'SERVIZI', not_set:'Non indicato',
   },
 
   nl: {
@@ -1247,7 +1247,7 @@ var EC_LANGS = {
     pf_iban_label:'Mijn IBAN',
     pf_section_securite:'Beveiliging',
     pf_pwd_label:'Wachtwoord wijzigen',
-    pf_2fa_label:'Twee-factor-authenticatie', pf_inactive:'Inactief',
+    pf_2fa_label:'Twee-factor-authenticatie', pf_inactive:'Inactief', pf_active:'Actief',
     pf_sessions_label:'Apparaten en sessies', pf_sessions_sub:'1 actieve sessie',
     pf_section_autres:'Overig',
     pf_support_label:'Contact opnemen met support',
@@ -1379,7 +1379,7 @@ var EC_LANGS = {
     solde_total:'Totaal saldo', btn_ajouter:'Toevoegen', btn_envoyer:'Verzenden', btn_simuler:'Simuleren',
     tx_date_hdr:'DATUM', tx_montant_hdr:'BEDRAG', tx_type_hdr:'TYPE', tx_statut_hdr:'STATUS',
     tx_type_depot:'Storting', tx_type_retrait:'Opname', tx_status_valide:'Gevalideerd',
-    tx_received_from:'Ontvangen van', tx_sent_to:'Verzonden aan', tx_receives:'ontvangt', tx_amount_sent:'Verzonden bedrag',
+    tx_received_from:'Ontvangen van', tx_sent_to:'Verzonden aan', tx_receives:'ontvangt', tx_amount_sent:'Verzonden bedrag', greeting:'Hallo', loan_label:'MIJN LENING', loan_mensualite:'Maandbedrag', loan_taux:'Rente', loan_duree:'Looptijd', loan_restant:'Resterende schuld', loan_mois:'maanden', loan_status_active:'Fondsen vrijgegeven', loan_status_pending:'In behandeling', loan_status_approved:'Goedgekeurd', loan_status_closed:'Gesloten', fd_status_processing:'In behandeling', fd_status_approved:'Goedgekeurd', fd_status_active:'Actief', fd_status_closed:'Gesloten', prochaine_echeance:'Volgende vervaldatum: ', limite_approuvee:'Goedgekeurd limiet: ', tx_page_title:'Transacties', tx_search_ph:'Hier zoeken', tx_all_label:'Alle transacties', more_services:'DIENSTEN', not_set:'Niet opgegeven',
   },
 
   pl: {
@@ -1470,7 +1470,7 @@ var EC_LANGS = {
     pf_iban_label:'Mój IBAN',
     pf_section_securite:'Bezpieczeństwo',
     pf_pwd_label:'Zmień hasło',
-    pf_2fa_label:'Uwierzytelnianie dwuskładnikowe', pf_inactive:'Nieaktywne',
+    pf_2fa_label:'Uwierzytelnianie dwuskładnikowe', pf_inactive:'Nieaktywne', pf_active:'Aktywny',
     pf_sessions_label:'Urządzenia i sesje', pf_sessions_sub:'1 aktywna sesja',
     pf_section_autres:'Inne',
     pf_support_label:'Kontakt z pomocą techniczną',
@@ -1602,7 +1602,7 @@ var EC_LANGS = {
     solde_total:'Saldo całkowite', btn_ajouter:'Dodaj', btn_envoyer:'Wyślij', btn_simuler:'Symuluj',
     tx_date_hdr:'DATA', tx_montant_hdr:'KWOTA', tx_type_hdr:'TYP', tx_statut_hdr:'STATUS',
     tx_type_depot:'Wpłata', tx_type_retrait:'Wypłata', tx_status_valide:'Zatwierdzone',
-    tx_received_from:'Otrzymano od', tx_sent_to:'Wysłano do', tx_receives:'otrzymuje', tx_amount_sent:'Wysłana kwota',
+    tx_received_from:'Otrzymano od', tx_sent_to:'Wysłano do', tx_receives:'otrzymuje', tx_amount_sent:'Wysłana kwota', greeting:'Cześć', loan_label:'MÓJ KREDYT', loan_mensualite:'Rata miesięczna', loan_taux:'Oprocentowanie', loan_duree:'Okres', loan_restant:'Pozostało', loan_mois:'miesięcy', loan_status_active:'Środki odblokowane', loan_status_pending:'W toku', loan_status_approved:'Zatwierdzony', loan_status_closed:'Zamknięty', fd_status_processing:'W toku', fd_status_approved:'Zatwierdzony', fd_status_active:'Aktywny', fd_status_closed:'Zamknięty', prochaine_echeance:'Następna płatność: ', limite_approuvee:'Zatwierdzona kwota: ', tx_page_title:'Transakcje', tx_search_ph:'Szukaj tutaj', tx_all_label:'Wszystkie transakcje', more_services:'USŁUGI', not_set:'Nie podano',
   },
 
   sv: {
@@ -1693,7 +1693,7 @@ var EC_LANGS = {
     pf_iban_label:'Mitt IBAN',
     pf_section_securite:'Säkerhet',
     pf_pwd_label:'Ändra lösenord',
-    pf_2fa_label:'Tvåfaktorsautentisering', pf_inactive:'Inaktiv',
+    pf_2fa_label:'Tvåfaktorsautentisering', pf_inactive:'Inaktiv', pf_active:'Aktiv',
     pf_sessions_label:'Enheter och sessioner', pf_sessions_sub:'1 aktiv session',
     pf_section_autres:'Övrigt',
     pf_support_label:'Kontakta support',
@@ -1825,7 +1825,7 @@ var EC_LANGS = {
     solde_total:'Totalt saldo', btn_ajouter:'Lägg till', btn_envoyer:'Skicka', btn_simuler:'Simulera',
     tx_date_hdr:'DATUM', tx_montant_hdr:'BELOPP', tx_type_hdr:'TYP', tx_statut_hdr:'STATUS',
     tx_type_depot:'Insättning', tx_type_retrait:'Uttag', tx_status_valide:'Bekräftad',
-    tx_received_from:'Mottaget från', tx_sent_to:'Skickat till', tx_receives:'tar emot', tx_amount_sent:'Skickat belopp',
+    tx_received_from:'Mottaget från', tx_sent_to:'Skickat till', tx_receives:'tar emot', tx_amount_sent:'Skickat belopp', greeting:'Hej', loan_label:'MITT LÅN', loan_mensualite:'Månadsbetalning', loan_taux:'Ränta', loan_duree:'Löptid', loan_restant:'Återstående', loan_mois:'månader', loan_status_active:'Medel frigjorda', loan_status_pending:'Pågående', loan_status_approved:'Godkänd', loan_status_closed:'Stängt', fd_status_processing:'Pågående', fd_status_approved:'Godkänd', fd_status_active:'Aktiv', fd_status_closed:'Stängt', prochaine_echeance:'Nästa förfallodag: ', limite_approuvee:'Godkänd gräns: ', tx_page_title:'Transaktioner', tx_search_ph:'Sök här', tx_all_label:'Alla transaktioner', more_services:'TJÄNSTER', not_set:'Ej angivet',
   }
 
 };

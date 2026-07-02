@@ -310,7 +310,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
       </div>
       <div class="pf-item-body">
-        <div class="pf-item-label">Authentification à deux facteurs</div>
+        <div class="pf-item-label" data-i18n="pf_2fa_label">Authentification à deux facteurs</div>
         <div class="pf-item-sub">Google Authenticator</div>
       </div>
       <div class="pf-item-right">
@@ -664,11 +664,11 @@ function pfInit(){
 
   // Modal lecture seule — coordonnées de la demande
   document.getElementById('pf-ro-id').textContent    = user.id||'—';
-  document.getElementById('pf-ro-prenom').textContent = user.prenom||'Non renseigné';
-  document.getElementById('pf-ro-nom').textContent    = user.nom||'Non renseigné';
-  document.getElementById('pf-ro-email').textContent  = user.email||'Non renseigné';
-  document.getElementById('pf-ro-tel').textContent    = user.tel||'Non renseigné';
-  document.getElementById('pf-ro-ref').textContent    = user.ref||'Non renseigné';
+  document.getElementById('pf-ro-prenom').textContent = user.prenom||ecT('not_set')||'Non renseigné';
+  document.getElementById('pf-ro-nom').textContent    = user.nom||ecT('not_set')||'Non renseigné';
+  document.getElementById('pf-ro-email').textContent  = user.email||ecT('not_set')||'Non renseigné';
+  document.getElementById('pf-ro-tel').textContent    = user.tel||ecT('not_set')||'Non renseigné';
+  document.getElementById('pf-ro-ref').textContent    = user.ref||ecT('not_set')||'Non renseigné';
   var iban = user.iban||'';
   document.getElementById('pf-ro-iban').textContent   = iban ? iban.substring(0,8)+'••••' : 'Non renseigné';
 
@@ -753,10 +753,10 @@ function pf2FAStatusTag(hasSecret){
   var tag = document.getElementById('pf-2fa-status-tag');
   if(!tag) return;
   if(hasSecret){
-    tag.textContent = 'Actif';
+    tag.textContent = ecT('pf_active')||'Actif';
     tag.className = 'pf-tag pf-tag--green';
   } else {
-    tag.textContent = 'Inactif';
+    tag.textContent = ecT('pf_inactive')||'Inactif';
     tag.className = 'pf-tag pf-tag--orange';
   }
 }
