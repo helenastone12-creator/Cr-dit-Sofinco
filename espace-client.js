@@ -2,6 +2,9 @@
    ESPACE CLIENT — logique (Supabase + localStorage cache)
 ════════════════════════════════════════════ */
 
+/* Alias vers ecT() — script.js définit var t = T[LANG] (objet, pas fonction) */
+function t(k){ return typeof ecT === 'function' ? ecT(k) : k; }
+
 // ── Formatage affichage IDs ──
 function _ecNumFromId(id){
   var hash = 0;
