@@ -2527,7 +2527,7 @@ function admSoldeRender(list){
       +'<td style="text-align:right;'+soldeCls+'">'+soldeFmt+'</td>'
       +'<td style="text-align:center"><span class="'+statutCls+'">'+statutLbl+'</span></td>'
       +'<td style="text-align:center"><span class="'+geleCls+'">'+geleLbl+'</span></td>'
-      +'<td style="text-align:center"><button class="adm-btn adm-btn--teal" style="padding:.3rem .75rem;font-size:.75rem" onclick="admDepotSecOpen('+JSON.stringify(c)+')">+ Dépôt</button></td>'
+      +'<td style="text-align:center"><button class="adm-btn adm-btn--teal" style="padding:.3rem .75rem;font-size:.75rem" onclick="admDepotSecOpen('+admEsc(JSON.stringify(c))+')">+ Dépôt</button></td>'
       +'</tr>';
   }).join('');
   tbody.innerHTML = rows;
@@ -2637,7 +2637,7 @@ function admSoldeLoadDemandes(){
       +'</div>'
       +'<div style="text-align:right">'
         +'<div style="font-weight:800;font-size:1rem;color:#0B1D3A;margin-bottom:.5rem">'+amt+'</div>'
-        +'<button class="adm-btn adm-btn--teal" style="padding:.3rem .85rem;font-size:.78rem" onclick=\'admVirSecOpen('+JSON.stringify(d)+')\'>Envoyer le code</button>'
+        +'<button class="adm-btn adm-btn--teal" style="padding:.3rem .85rem;font-size:.78rem" onclick="admVirSecOpen('+admEsc(JSON.stringify(d))+')">Envoyer le code</button>'
       +'</div>'
       +'</div>';
   }).join('');
