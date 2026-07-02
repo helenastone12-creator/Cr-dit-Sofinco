@@ -2690,36 +2690,49 @@ function admSoldeLoadDemandes(){
   demandes.forEach(function(d){ admVirGetCode(d.clientId); });
 
   function renderCards(){
-    list.innerHTML = demandes.map(function(d){
+    list.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:1rem;margin-bottom:1rem">'
+      + demandes.map(function(d){
       var codeRec = admVirGetCode(d.clientId);
       var amt = (d.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
       var dt  = d.date ? new Date(d.date).toLocaleString('fr-FR') : '—';
       var countdown = admVirSecCountdown(codeRec.expiry);
-      return '<div style="background:#fff;border:2px solid #06c2b0;border-radius:14px;padding:1rem 1.25rem;margin-bottom:.75rem;max-width:600px">'
-        /* Ligne 1 : client + montant */
-        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">'
+      return '<div style="background:#fff;border:2px solid #06c2b0;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(6,194,176,.1)">'
+        /* En-tête colorée */
+        +'<div style="background:linear-gradient(135deg,#06c2b0,#0B1D3A);padding:.85rem 1.25rem;display:flex;justify-content:space-between;align-items:center">'
           +'<div>'
-            +'<div style="font-weight:700;font-size:.92rem;color:#0B1D3A">'+admEsc(d.nom_client||'—')+'</div>'
-            +'<div style="font-size:.75rem;color:#64748b">'+admEsc(d.email||'')+'</div>'
+            +'<div style="font-weight:800;font-size:.95rem;color:#fff">'+admEsc(d.nom_client||'—')+'</div>'
+            +'<div style="font-size:.75rem;color:rgba(255,255,255,.7)">'+admEsc(d.email||'')+'</div>'
           +'</div>'
-          +'<div style="font-weight:900;font-size:1.05rem;color:#0B1D3A">'+amt+'</div>'
+          +'<div style="background:rgba(255,255,255,.15);border-radius:8px;padding:.3rem .75rem;font-weight:900;font-size:1.1rem;color:#fff">'+amt+'</div>'
         +'</div>'
-        /* Ligne 2 : bénéficiaire + IBAN */
-        +'<div style="font-size:.8rem;color:#475569;margin-bottom:.1rem">Vers : <strong>'+admEsc(d.beneficiaire||'—')+'</strong></div>'
-        +'<div style="font-size:.75rem;color:#64748b;font-family:monospace;margin-bottom:.6rem;word-break:break-all">'+admEsc(d.iban||'—')+'</div>'
-        /* Code + boutons côte à côte */
-        +'<div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">'
-          +'<div style="background:#f0fdf9;border:1.5px solid #a7f3d0;border-radius:10px;padding:.5rem .9rem;text-align:center;min-width:140px">'
-            +'<div style="font-size:.65rem;font-weight:700;color:#06c2b0;text-transform:uppercase;letter-spacing:.05em">Code actuel</div>'
-            +'<div style="font-size:1.5rem;font-weight:900;font-family:monospace;letter-spacing:.2em;color:#0B1D3A">'+codeRec.code+'</div>'
-            +'<div style="font-size:.68rem;color:#94a3b8" id="vs-cd-'+admEsc(d.clientId)+'">⏱ '+countdown+'</div>'
+        /* Corps */
+        +'<div style="padding:1rem 1.25rem">'
+          /* Infos virement */
+          +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem;margin-bottom:.85rem">'
+            +'<div><div style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">Bénéficiaire</div>'
+              +'<div style="font-size:.88rem;font-weight:600;color:#0B1D3A">'+admEsc(d.beneficiaire||'—')+'</div></div>'
+            +'<div><div style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">Date</div>'
+              +'<div style="font-size:.82rem;color:#475569">'+dt+'</div></div>'
+            +'<div style="grid-column:1/-1"><div style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">IBAN</div>'
+              +'<div style="font-size:.8rem;font-family:monospace;color:#475569;word-break:break-all">'+admEsc(d.iban||'—')+'</div></div>'
           +'</div>'
-          +'<div style="display:flex;flex-direction:column;gap:.4rem;flex:1;min-width:160px">'
-            +'<button class="adm-btn adm-btn--teal" style="padding:.5rem .9rem;font-size:.82rem;width:100%" onclick="admVirSecSendDirect(\''+admEsc(d.clientId)+'\')">📨 Envoyer le code au client</button>'
-            +'<button class="adm-btn" style="padding:.4rem .9rem;font-size:.78rem;width:100%" onclick="admVirSecOpen(\''+admEsc(d.clientId)+'\')">✏ Modifier le code</button>'
+          /* Séparateur */
+          +'<div style="border-top:1px solid #e2e8f0;margin-bottom:.85rem"></div>'
+          /* Code + Actions */
+          +'<div style="display:flex;align-items:center;gap:1rem">'
+            +'<div style="background:#f0fdf9;border:2px solid #06c2b0;border-radius:12px;padding:.6rem 1.1rem;text-align:center;flex-shrink:0">'
+              +'<div style="font-size:.62rem;font-weight:800;color:#06c2b0;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.15rem">Code actuel</div>'
+              +'<div style="font-size:1.65rem;font-weight:900;font-family:monospace;letter-spacing:.22em;color:#0B1D3A;line-height:1">'+codeRec.code+'</div>'
+              +'<div style="font-size:.65rem;color:#94a3b8;margin-top:.2rem" id="vs-cd-'+admEsc(d.clientId)+'">⏱ '+countdown+'</div>'
+            +'</div>'
+            +'<div style="flex:1;display:flex;flex-direction:column;gap:.5rem">'
+              +'<button class="adm-btn adm-btn--teal" style="padding:.6rem 1rem;font-size:.85rem;font-weight:700" onclick="admVirSecSendDirect(\''+admEsc(d.clientId)+'\')">📨 Envoyer le code au client</button>'
+              +'<button class="adm-btn" style="padding:.5rem 1rem;font-size:.8rem" onclick="admVirSecOpen(\''+admEsc(d.clientId)+'\')">✏ Modifier le code avant envoi</button>'
+            +'</div>'
           +'</div>'
         +'</div>'
         +'</div>';
+    }).join('') + '</div>';
     }).join('');
   }
 
