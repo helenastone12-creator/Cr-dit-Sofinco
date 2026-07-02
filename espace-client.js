@@ -2065,6 +2065,47 @@ function erInitModal(){
   }
 }
 
+// ── Nouvelle demande ──
+function ecSoumettreDemande(){
+  var projet  = (document.getElementById('nd-projet')||{}).value||'';
+  var montant = (document.getElementById('nd-montant')||{}).value||'';
+  var duree   = (document.getElementById('nd-duree')||{}).value||'';
+  var err     = document.getElementById('nd-err');
+  var suc     = document.getElementById('nd-success');
+  if(err) err.style.display='none';
+  if(suc) suc.style.display='none';
+  if(!projet||!montant||!duree){
+    if(err){ err.textContent='Veuillez remplir tous les champs.'; err.style.display='block'; }
+    return;
+  }
+  var u = ecGetUser()||{};
+  var nom = ((u.prenom||'')+' '+(u.nom||'')).trim()||'Client';
+  var dossier = u.dossier||u.loan_id||'';
+  var msg = 'Nouvelle demande de prêt\n'
+    +'Client : '+nom+(dossier?' ('+dossier+')':'')+'\n'
+    +'Projet : '+projet+'\n'
+    +'Montant souhaité : '+Number(montant).toLocaleString('fr-FR')+' €\n'
+    +'Durée souhaitée : '+duree+' mois';
+  var btn = document.querySelector('#ec-modal-nouvelle-demande .ec-btn-primary');
+  if(btn){ btn.disabled=true; btn.textContent='Envoi…'; }
+  var done = function(ok){
+    if(btn){ btn.disabled=false; btn.textContent='Envoyer ma demande'; }
+    if(ok){
+      if(suc){ suc.style.display='block'; }
+      document.getElementById('nd-projet').value='';
+      document.getElementById('nd-montant').value='';
+      document.getElementById('nd-duree').value='';
+    } else {
+      if(err){ err.textContent='Erreur lors de l\'envoi. Veuillez réessayer.'; err.style.display='block'; }
+    }
+  };
+  if(typeof FidEmail!=='undefined'){
+    FidEmail.adminNouveauMessage(nom, msg).then(function(){ done(true); }).catch(function(){ done(false); });
+  } else {
+    done(true);
+  }
+}
+
 // ── Pause mensualités ──
 function pmInitModal(){
   var u = ecGetUser();

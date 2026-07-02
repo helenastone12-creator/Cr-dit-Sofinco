@@ -667,6 +667,62 @@
         </div>
         <span>Sécurité</span>
       </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('nouvelle-demande')">
+        <div class="more-item-icon" style="background:#FFF7ED;color:#EA580C">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        </div>
+        <span>Nouvelle demande</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Nouvelle Demande -->
+<div class="ec-modal-overlay" id="ec-modal-nouvelle-demande" onclick="ecCloseModal('nouvelle-demande')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Nouvelle demande de prêt</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('nouvelle-demande')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ec-modal-body">
+      <p style="font-size:.88rem;color:#64748b;margin:0 0 1.2rem;line-height:1.5">Renseignez votre projet et nous vous recontacterons rapidement.</p>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Type de projet</label>
+        <select class="ec-inp" id="nd-projet">
+          <option value="">-- Sélectionner --</option>
+          <option value="Auto">Crédit auto</option>
+          <option value="Travaux">Travaux / Rénovation</option>
+          <option value="Personnel">Prêt personnel</option>
+          <option value="Rachat">Rachat de crédits</option>
+          <option value="Autre">Autre projet</option>
+        </select>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Montant souhaité (€)</label>
+        <input class="ec-inp" id="nd-montant" type="number" min="500" placeholder="ex : 15 000" />
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Durée souhaitée (mois)</label>
+        <select class="ec-inp" id="nd-duree">
+          <option value="">-- Sélectionner --</option>
+          <option value="12">12 mois</option>
+          <option value="24">24 mois</option>
+          <option value="36">36 mois</option>
+          <option value="48">48 mois</option>
+          <option value="60">60 mois</option>
+          <option value="72">72 mois</option>
+          <option value="84">84 mois</option>
+          <option value="96">96 mois</option>
+        </select>
+      </div>
+      <div class="ec-modal-err" id="nd-err" style="display:none"></div>
+      <div id="nd-success" style="display:none;background:#F0FDF4;border-radius:10px;padding:1rem;text-align:center;color:#15803D;font-size:.9rem;font-weight:600;margin-bottom:.5rem">
+        ✓ Votre demande a bien été envoyée. Nous vous recontacterons prochainement.
+      </div>
+      <button class="ec-btn-primary" onclick="ecSoumettreDemande()" style="margin-top:.5rem">Envoyer ma demande</button>
     </div>
   </div>
 </div>
