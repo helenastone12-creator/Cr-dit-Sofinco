@@ -750,29 +750,30 @@ function ecRequestVirementOTP(){
   /* Bug 3 fix: clear error immediately before any validation */
   if(errEl){ errEl.style.display='none'; errEl.textContent=''; }
 
-  /* Bug 2 fix: disable send button to prevent double-click */
+  /* Bug 2 fix: disable send button to prevent double-click, with loading text */
   var _sendBtn = document.getElementById('ec-vir-send-btn');
-  if(_sendBtn){ _sendBtn.disabled=true; }
-  var _sendReset = function(){ if(_sendBtn){ _sendBtn.disabled=false; } };
+  var _sendBtnOrigText = _sendBtn ? _sendBtn.textContent : '';
+  if(_sendBtn){ _sendBtn.disabled=true; _sendBtn.textContent=t('vir_checking')||'…'; }
+  var _sendReset = function(){
+    if(_sendBtn){ _sendBtn.textContent=_sendBtnOrigText; _sendBtn.disabled=false; _sendBtn.removeAttribute('disabled'); }
+  };
+
+  var _showErr = function(msg){ if(errEl){ errEl.textContent=msg; errEl.style.display='block'; errEl.scrollIntoView({behavior:'smooth',block:'nearest'}); } _sendReset(); };
 
   var _u = ecGetUser();
-  if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent=t('vir_fonds_geles'); errEl.style.display='block'; } _sendReset(); return; }
-  if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ if(errEl){ errEl.textContent=t('vir_limit_exceeded').replace('{limit}',_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2})); errEl.style.display='block'; } _sendReset(); return; }
-  if(!nom){ if(errEl){ errEl.textContent=t('vir_err_nom'); errEl.style.display='block'; } _sendReset(); return; }
-  if(!iban){ if(errEl){ errEl.textContent=t('vir_err_iban'); errEl.style.display='block'; } _sendReset(); return; }
-  if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent=t('vir_err_iban_invalid'); errEl.style.display='block'; } _sendReset(); return; }
-  if(!amt || amt <= 0){ if(errEl){ errEl.textContent=t('vir_err_amt'); errEl.style.display='block'; } _sendReset(); return; }
+  if(_u && _u.fonds_geles){ _showErr(t('vir_fonds_geles')); return; }
+  if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ _showErr(t('vir_limit_exceeded').replace('{limit}',_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2}))); return; }
+  if(!nom){ _showErr(t('vir_err_nom')); return; }
+  if(!iban){ _showErr(t('vir_err_iban')); return; }
+  if(!ecValidateIban(iban)){ _showErr(t('vir_err_iban_invalid')); return; }
+  if(!amt || amt <= 0){ _showErr(t('vir_err_amt')); return; }
 
   var u = ecGetUser();
   if(!u){ _sendReset(); return; }
 
   /* Vérification solde pour les deux modes (normal ET sécurisé) */
   var _soldeCheck = ecGetSolde();
-  if(amt > _soldeCheck){
-    if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(_soldeCheck)); errEl.style.display='block'; }
-    _sendReset();
-    return;
-  }
+  if(amt > _soldeCheck){ _showErr(t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(_soldeCheck))); return; }
 
   if(typeof FidDB === 'undefined'){
     _sendReset();
@@ -809,12 +810,14 @@ function ecRequestVirementOTP(){
 function _ecDoVirementNormal(u, nom, iban, amt){
   var solde = ecGetSolde();
   var errEl = document.getElementById('ec-vir-err');
-  if(amt > solde){ if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(solde)); errEl.style.display='block'; } return; }
+  if(amt > solde){ if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(solde)); errEl.style.display='block'; errEl.scrollIntoView({behavior:'smooth',block:'nearest'}); } return; }
   _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
   _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
   if(u.email && typeof FidEmail !== 'undefined'){
-    var lang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
-    FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, lang);
+    try{
+      var lang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
+      FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, lang);
+    }catch(e){}
   }
   var s1 = document.getElementById('ec-vir-step1');
   var s2 = document.getElementById('ec-vir-step2');
@@ -885,7 +888,7 @@ function ecConfirmVirement(){
 
   var _cfBtn = document.getElementById('ec-vir-confirm-btn');
   if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent=t('vir_checking'); }
-  var _cfReset = function(){ if(_cfBtn){ _cfBtn.disabled=false; _cfBtn.textContent=t('vir_confirm_btn'); } };
+  var _cfReset = function(){ if(_cfBtn){ _cfBtn.textContent=t('vir_confirm_btn'); _cfBtn.disabled=false; _cfBtn.removeAttribute('disabled'); } };
 
   FidDB.getMessages(_u2.id).then(function(msgs){
     var isSec = (msgs||[]).some(function(m){ return !m.from_client && (m.text||'').indexOf('__SEC__:ACTIVE') === 0; });
