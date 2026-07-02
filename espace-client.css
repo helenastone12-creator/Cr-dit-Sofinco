@@ -5079,6 +5079,12 @@ body.ec-body {
   flex-shrink: 0;
   letter-spacing: .02em;
 }
+.gd-tx-avatar--img, .atx-avatar--img {
+  background: transparent !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  padding: 0 !important;
+}
 .gd-tx-desc-info {
   display: flex;
   flex-direction: column;

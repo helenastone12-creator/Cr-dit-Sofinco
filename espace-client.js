@@ -237,9 +237,18 @@ function ecTxDisplayName(tx){
   return label.trim()||'—';
 }
 
-function ecTxCategoryIcon(type){
+var EC_FIDEXICO_AVATAR = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="36" height="36" style="border-radius:8px;display:block"><defs><linearGradient id="ecfbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A7BAF"/><stop offset="100%" stop-color="#0B5E8A"/></linearGradient></defs><rect width="32" height="32" rx="7" fill="url(#ecfbg)"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="700" text-anchor="middle" fill="#ffffff" letter-spacing="-1">F</text></svg>';
+
+function ecIsFidexicoTx(tx){
+  var lbl = (tx.label||'').toLowerCase();
+  return tx.type==='credit' || tx.type==='depot' || lbl.indexOf('fidexico')!==-1 || lbl.indexOf('déblocage')!==-1 || lbl.indexOf('deblocage')!==-1 || lbl.indexOf('sofinco')!==-1;
+}
+
+function ecTxCategoryIcon(tx){
+  var type = typeof tx === 'string' ? tx : (tx.type||'');
+  if(typeof tx === 'object' && ecIsFidexicoTx(tx)) return EC_FIDEXICO_AVATAR;
   if(type==='virement') return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>';
-  if(type==='depot') return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 8 12 16"/><polyline points="8 12 12 16 16 12"/></svg>';
+  if(type==='depot') return EC_FIDEXICO_AVATAR;
   return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>';
 }
 
@@ -334,7 +343,7 @@ function ecRenderTx(){
       var amtCls = isOut ? 'ec-n26-tx-amt' : 'ec-n26-tx-amt ec-n26-tx-amt--in';
       var displayName = ecTxDisplayName(tx);
       var dateDisp = ecFmtTxDateFull(tx.date);
-      var icon = ecTxCategoryIcon(tx.type);
+      var icon = ecTxCategoryIcon(tx);
       var txJson = encodeURIComponent(JSON.stringify(tx));
       return '<div class="ec-n26-tx-item" onclick="ecOpenTxDetail(\''+txJson+'\')">'
         +'<div class="ec-n26-tx-icon">'+icon+'</div>'
@@ -411,11 +420,11 @@ function atxRenderList(list){
       var amtFmt = hidden ? '• • • •' : (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
       var amtCls = isIn ? 'atx-amt atx-amt--in' : 'atx-amt';
       var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
-      var initials = fdTxInitials(label);
+      var atxAv = ecIsFidexicoTx(tx) ? '<div class="atx-avatar atx-avatar--img">'+ EC_FIDEXICO_AVATAR +'</div>' : '<div class="atx-avatar">'+ fdTxInitials(label) +'</div>';
       var dateDisp = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
       var txJson = encodeURIComponent(JSON.stringify(tx));
       return '<div class="atx-row" onclick="ecCloseModal(\'all-tx\');ecOpenTxDetail(\''+txJson+'\')">'+
-        '<div class="atx-avatar">'+initials+'</div>'+
+        atxAv +
         '<div class="atx-info"><span class="atx-name">'+label+'</span><span class="atx-date">'+dateDisp+'</span></div>'+
         '<span class="'+amtCls+'">'+amtFmt+'</span>'+
       '</div>';
@@ -1108,7 +1117,7 @@ function fdRenderActivity(){
     var amtFmt = (isIn ? '+' : '−') + amt.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
     var label = tx.label || (isIn ? 'Dépôt' : 'Retrait');
     var type = isIn ? 'Dépôt' : 'Retrait';
-    var initials = fdTxInitials(label);
+    var avatarHtml = ecIsFidexicoTx(tx) ? '<div class="gd-tx-avatar gd-tx-avatar--img">'+EC_FIDEXICO_AVATAR+'</div>' : '<div class="gd-tx-avatar">'+fdTxInitials(label)+'</div>';
     var amtCls = isIn ? 'gd-tx-amt-val--in' : 'gd-tx-amt-val--out';
     var dateFmt = typeof ecFmtTxDateFull === 'function' ? ecFmtTxDateFull(tx.date) : (tx.date || '');
     var txJson = encodeURIComponent(JSON.stringify(tx));
@@ -1116,7 +1125,7 @@ function fdRenderActivity(){
     html += '<td><span class="gd-tx-date-val">' + dateFmt + '</span></td>';
     html += '<td><span class="gd-tx-amt-val ' + amtCls + '">' + amtFmt + '</span></td>';
     html += '<td><span class="gd-tx-type-val">' + type + '</span></td>';
-    html += '<td><div class="gd-tx-desc-cell"><div class="gd-tx-avatar">' + initials + '</div><div class="gd-tx-desc-info"><span class="gd-tx-desc-text">' + label + '</span><span class="gd-tx-desc-sub">' + dateFmt + '</span></div></div></td>';
+    html += '<td><div class="gd-tx-desc-cell">'+avatarHtml+'<div class="gd-tx-desc-info"><span class="gd-tx-desc-text">' + label + '</span><span class="gd-tx-desc-sub">' + dateFmt + '</span></div></div></td>';
     html += '<td><span class="gd-tx-status-val"><span class="gd-tx-dot"></span> Validé</span></td>';
     html += '<td><span class="gd-tx-chevron-val">›</span></td>';
     html += '</tr>';
