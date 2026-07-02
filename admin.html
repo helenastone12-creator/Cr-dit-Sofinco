@@ -288,7 +288,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     /* ── Top header ── */
@@ -988,6 +988,10 @@
       overflow: hidden;
       margin-bottom: 1rem;
       width: 100%;
+      box-sizing: border-box;
+    }
+    #dps-demandes-list {
+      padding: 0 .25rem;
     }
     .sc-card:last-child { margin-bottom: 0; }
     .sc-card-head {
@@ -1824,6 +1828,8 @@
 
         <!-- ── Solde clients sécurisés ── -->
         <div class="adm-section" id="sec-solde">
+
+          <div class="adm-section-title">Solde clients sécurisés</div>
 
           <!-- 1. Demandes de virement (masquée si vide) -->
           <div id="dps-demandes-wrap" style="display:none;margin-bottom:1.25rem">
