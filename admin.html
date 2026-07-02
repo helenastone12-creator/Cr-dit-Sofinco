@@ -982,99 +982,102 @@
       flex-wrap: wrap;
     }
     /* Carte demande de virement */
+    #dps-demandes-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .85rem;
+    }
     .sc-card {
       border: 2px solid #06c2b0;
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
-      margin-bottom: 1rem;
-      width: 100%;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
     }
-    #dps-demandes-list {
-      padding: 0 .25rem;
-    }
-    .sc-card:last-child { margin-bottom: 0; }
     .sc-card-head {
       background: linear-gradient(135deg, #06c2b0 0%, #0B1D3A 100%);
-      padding: 1rem 1.5rem;
+      padding: .65rem 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: .75rem;
     }
-    .sc-card-head-name { font-weight: 800; font-size: 1rem; color: #fff; }
-    .sc-card-head-email { font-size: .78rem; color: rgba(255,255,255,.7); margin-top: .1rem; }
+    .sc-card-head-name { font-weight: 800; font-size: .88rem; color: #fff; }
+    .sc-card-head-email { font-size: .7rem; color: rgba(255,255,255,.7); margin-top: .05rem; }
     .sc-card-head-amt {
       background: rgba(255,255,255,.15);
-      border-radius: 8px;
-      padding: .35rem .9rem;
+      border-radius: 7px;
+      padding: .25rem .7rem;
       font-weight: 900;
-      font-size: 1.1rem;
+      font-size: .95rem;
       color: #fff;
       white-space: nowrap;
     }
     .sc-card-body {
-      padding: 1.25rem 1.5rem;
+      padding: .75rem 1rem;
       background: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
     }
     .sc-card-info {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: .75rem 1.5rem;
-      margin-bottom: 1rem;
+      gap: .4rem .75rem;
     }
     .sc-card-info-full { grid-column: 1 / -1; }
     .sc-info-lbl {
-      font-size: .65rem;
+      font-size: .6rem;
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: .07em;
-      margin-bottom: .2rem;
+      letter-spacing: .06em;
+      margin-bottom: .1rem;
     }
-    .sc-info-val { font-size: .9rem; font-weight: 600; color: #0f172a; }
-    .sc-info-val--mono { font-family: monospace; font-size: .82rem; word-break: break-all; }
+    .sc-info-val { font-size: .8rem; font-weight: 600; color: #0f172a; }
+    .sc-info-val--mono { font-family: monospace; font-size: .72rem; word-break: break-all; }
     .sc-info-val--green { color: #059669; }
-    .sc-card-divider { border: none; border-top: 1px solid #e2e8f0; margin: 0 0 1rem; }
+    .sc-card-divider { border: none; border-top: 1px solid #e2e8f0; margin: 0; }
     .sc-card-bottom {
       display: flex;
-      align-items: stretch;
-      gap: 1.5rem;
+      align-items: center;
+      gap: .75rem;
     }
     .sc-code-box {
       background: #f0fdf9;
-      border: 2px solid #06c2b0;
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
+      border: 1.5px solid #06c2b0;
+      border-radius: 9px;
+      padding: .45rem .75rem;
       text-align: center;
       flex-shrink: 0;
-      min-width: 180px;
     }
     .sc-code-lbl {
-      font-size: .62rem;
+      font-size: .55rem;
       font-weight: 800;
       color: #06c2b0;
       text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: .3rem;
+      letter-spacing: .07em;
+      margin-bottom: .15rem;
     }
     .sc-code-val {
-      font-size: 2.2rem;
+      font-size: 1.45rem;
       font-weight: 900;
       font-family: monospace;
-      letter-spacing: .2em;
+      letter-spacing: .15em;
       color: #0B1D3A;
       line-height: 1;
     }
     .sc-code-timer {
-      font-size: .67rem;
+      font-size: .58rem;
       color: #94a3b8;
-      margin-top: .35rem;
+      margin-top: .2rem;
     }
     .sc-card-btns {
       display: flex;
       flex-direction: column;
-      gap: .65rem;
+      gap: .4rem;
       flex: 1;
       justify-content: center;
     }
@@ -1831,7 +1834,10 @@
           <!-- 1. Demandes de virement -->
           <div id="dps-demandes-wrap" style="display:block;margin-bottom:1.5rem">
             <div class="adm-table-wrap" style="padding:1rem 1.5rem;margin-bottom:.5rem">
-              <div style="font-weight:700;font-size:.85rem;color:#0f172a;margin-bottom:.75rem">⏳ Demandes de virement en attente</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
+                <div style="font-weight:700;font-size:.85rem;color:#0f172a">⏳ Demandes de virement en attente <span id="dps-demandes-badge" style="background:#06c2b0;color:#fff;border-radius:999px;padding:.1rem .55rem;font-size:.72rem;margin-left:.4rem">0</span></div>
+                <button onclick="admSoldeLoadDemandes()" style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:.35rem .85rem;font-size:.78rem;font-weight:600;color:#475569;cursor:pointer;display:flex;align-items:center;gap:.4rem">↻ Actualiser</button>
+              </div>
               <div id="dps-demandes-list"><div class="adm-empty">Aucune demande en attente.</div></div>
             </div>
           </div>
@@ -3035,8 +3041,8 @@ function admSoldeLoadDemandes(){
                 +'<div class="sc-code-timer" id="vs-cd-'+admEsc(d.clientId)+'">⏱ Expire dans '+countdown+'</div>'
               +'</div>'
               +'<div class="sc-card-btns">'
-                +'<button class="adm-btn adm-btn--teal" style="font-size:.9rem;padding:.8rem 1.5rem;font-weight:700" onclick="admVirSecSendDirect(\''+admEsc(d.clientId)+'\')">📨 Envoyer le code au client</button>'
-                +'<button class="adm-btn" style="font-size:.85rem;padding:.7rem 1.5rem" onclick="admVirSecOpen(\''+admEsc(d.clientId)+'\')">✏ Modifier le code avant envoi</button>'
+                +'<button class="adm-btn adm-btn--teal" style="font-size:.78rem;padding:.55rem .9rem;font-weight:700" onclick="admVirSecSendDirect(\''+admEsc(d.clientId)+'\')">📨 Envoyer le code</button>'
+                +'<button class="adm-btn" style="font-size:.75rem;padding:.5rem .9rem" onclick="admVirSecOpen(\''+admEsc(d.clientId)+'\')">✏ Modifier avant envoi</button>'
               +'</div>'
             +'</div>'
           +'</div>'
