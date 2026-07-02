@@ -1885,15 +1885,33 @@
 
         <!-- Modal dépôt sécurisé -->
         <div id="adm-depot-sec-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center" onclick="admDepotSecClose()">
-          <div style="background:#fff;border-radius:18px;padding:2rem;width:460px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)" onclick="event.stopPropagation()">
+          <div style="background:#fff;border-radius:18px;padding:2rem;width:480px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)" onclick="event.stopPropagation()">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
-              <div style="font-weight:800;font-size:1.05rem;color:#0B1D3A">🔐 Dépôt sécurisé</div>
+              <div style="font-weight:800;font-size:1.05rem;color:#0B1D3A">💳 Dépôt client</div>
               <button onclick="admDepotSecClose()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b">✕</button>
             </div>
             <div style="background:#f8fafc;border-radius:10px;padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.85rem;color:#475569">
               Client : <strong id="dps-client-nom" style="color:#0B1D3A">—</strong><br>
               Email : <span id="dps-client-email" style="font-family:monospace">—</span>
             </div>
+
+            <!-- Type de dépôt -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem">
+              <label id="dps-type-normal-lbl" style="border:2px solid #06c2b0;border-radius:12px;padding:.85rem 1rem;cursor:pointer;background:#f0fdf9;display:flex;flex-direction:column;gap:.3rem" onclick="admDepotSetType('normal')">
+                <div style="display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.88rem;color:#0B1D3A">
+                  <span style="font-size:1.1rem">💰</span> Dépôt normal
+                </div>
+                <div style="font-size:.75rem;color:#64748b;line-height:1.4">Le client reçoit son code OTP automatiquement par email</div>
+              </label>
+              <label id="dps-type-sec-lbl" style="border:2px solid #e2e8f0;border-radius:12px;padding:.85rem 1rem;cursor:pointer;background:#fff;display:flex;flex-direction:column;gap:.3rem" onclick="admDepotSetType('securise')">
+                <div style="display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.88rem;color:#0B1D3A">
+                  <span style="font-size:1.1rem">🔐</span> Dépôt sécurisé
+                </div>
+                <div style="font-size:.75rem;color:#64748b;line-height:1.4">L'admin envoie le code manuellement avant tout transfert</div>
+              </label>
+            </div>
+            <input type="hidden" id="dps-type" value="normal"/>
+
             <div class="adm-field">
               <label class="adm-field-lbl">Montant du dépôt (€)</label>
               <input class="adm-input" id="dps-montant" type="number" min="1" placeholder="ex : 5000"/>
@@ -2790,6 +2808,25 @@ function admSoldeFilter(){
 /* ── DÉPÔT SÉCURISÉ ── */
 var _dpsClient = null;
 
+function admDepotSetType(type){
+  var normalLbl = document.getElementById('dps-type-normal-lbl');
+  var secLbl    = document.getElementById('dps-type-sec-lbl');
+  var inp       = document.getElementById('dps-type');
+  if(!normalLbl||!secLbl||!inp) return;
+  if(type === 'securise'){
+    normalLbl.style.border     = '2px solid #e2e8f0';
+    normalLbl.style.background = '#fff';
+    secLbl.style.border        = '2px solid #06c2b0';
+    secLbl.style.background    = '#f0fdf9';
+  } else {
+    normalLbl.style.border     = '2px solid #06c2b0';
+    normalLbl.style.background = '#f0fdf9';
+    secLbl.style.border        = '2px solid #e2e8f0';
+    secLbl.style.background    = '#fff';
+  }
+  inp.value = type;
+}
+
 function admDepotSecOpen(id){
   var c = (typeof id === 'string') ? (_admSoldeMap[id]||null) : id;
   if(!c){ alert('Client introuvable'); return; }
@@ -2800,6 +2837,7 @@ function admDepotSecOpen(id){
   document.getElementById('dps-label').value   = '';
   document.getElementById('dps-ok').style.display  = 'none';
   document.getElementById('dps-err').style.display = 'none';
+  admDepotSetType('normal');
   var overlay = document.getElementById('adm-depot-sec-overlay');
   if(overlay){ overlay.style.display = 'flex'; }
 }
@@ -2812,8 +2850,10 @@ function admDepotSecClose(){
 
 function admDepotSecEnvoyer(){
   if(!_dpsClient) return;
+  var depotType = (document.getElementById('dps-type')||{}).value || 'normal';
   var montant = parseFloat(document.getElementById('dps-montant').value);
-  var label   = (document.getElementById('dps-label').value||'').trim() || 'Dépôt sécurisé Fidexico';
+  var labelInput = (document.getElementById('dps-label').value||'').trim();
+  var label = labelInput || (depotType === 'securise' ? 'Dépôt sécurisé Fidexico' : 'Dépôt Fidexico');
   var okEl    = document.getElementById('dps-ok');
   var errEl   = document.getElementById('dps-err');
   if(okEl) okEl.style.display='none';
@@ -2825,21 +2865,27 @@ function admDepotSecEnvoyer(){
   if(btn){ btn.disabled=true; btn.textContent='Traitement…'; }
   var reset = function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Créditer le compte'; }; };
 
-  /* Créditer le solde via FidDB + marquer solde_securise + logger l'historique */
   var creditDone = function(){
-    /* Pré-générer le code rotatif immédiatement */
-    admVirGetCode(_dpsClient.id);
     reset();
     admSoldeLoad();
-    admLog('depot', _dpsClient.id, 'Dépôt sécurisé '+fmtMontant+' crédité', montant);
-    if(okEl){
-      var codeRec = admVirGetCode(_dpsClient.id);
-      okEl.innerHTML = 'Dépôt de <strong>'+fmtMontant+'</strong> crédité sur le compte de <strong>'+admEsc(_dpsClient.nom||'')+'</strong>.'
-        +'<br>Code de sécurité généré : <span style="font-family:monospace;font-size:1.1rem;font-weight:800;letter-spacing:.15em;color:#0B1D3A">'+codeRec.code+'</span>'
-        +' <span style="font-size:.78rem;color:#94a3b8">(valide 10 min, visible dans le panneau)</span>';
-      okEl.style.display='block';
+    if(depotType === 'securise'){
+      admVirGetCode(_dpsClient.id);
+      admLog('depot', _dpsClient.id, 'Dépôt sécurisé '+fmtMontant+' crédité', montant);
+      if(okEl){
+        var codeRec = admVirGetCode(_dpsClient.id);
+        okEl.innerHTML = 'Dépôt sécurisé de <strong>'+fmtMontant+'</strong> crédité sur le compte de <strong>'+admEsc((_dpsClient.prenom||'')+' '+(_dpsClient.nom||''))+'</strong>.'
+          +'<br>Code de sécurité généré : <span style="font-family:monospace;font-size:1.1rem;font-weight:800;letter-spacing:.15em;color:#0B1D3A">'+codeRec.code+'</span>'
+          +' <span style="font-size:.78rem;color:#94a3b8">(valide 10 min, visible dans le panneau)</span>';
+        okEl.style.display='block';
+      }
+      admDepotHistoryLoad();
+    } else {
+      admLog('depot', _dpsClient.id, 'Dépôt normal '+fmtMontant+' crédité', montant);
+      if(okEl){
+        okEl.innerHTML = 'Dépôt de <strong>'+fmtMontant+'</strong> crédité sur le compte de <strong>'+admEsc((_dpsClient.prenom||'')+' '+(_dpsClient.nom||''))+'</strong>.';
+        okEl.style.display='block';
+      }
     }
-    admDepotHistoryLoad();
   };
 
   if(typeof FidDB !== 'undefined'){
@@ -2847,10 +2893,16 @@ function admDepotSecEnvoyer(){
       if(client){
         var ns = (parseFloat(client.solde)||0)+montant;
         var ov = Object.assign({}, client.doc_overrides||{});
-        ov._solde_securise = true;
+        if(depotType === 'securise'){
+          ov._solde_securise = true;
+        }
         return FidDB.setSolde(_dpsClient.id, ns)
           .then(function(){ return FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}); })
-          .then(function(){ return FidDB.updateClient(_dpsClient.id, {doc_overrides: ov}); });
+          .then(function(){
+            if(depotType === 'securise'){
+              return FidDB.updateClient(_dpsClient.id, {doc_overrides: ov});
+            }
+          });
       }
     }).then(function(){ creditDone(); }).catch(function(e){ reset(); if(errEl){ errEl.textContent='Erreur : '+(e&&e.message||e); errEl.style.display='block'; } });
   } else {
