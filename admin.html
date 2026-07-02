@@ -3094,11 +3094,6 @@ function admVirSecSendDirect(clientId){
     if(sendBtn){ sendBtn.disabled=false; sendBtn.innerHTML='📨 Envoyer le code'; }
     if(ok){
       admLog('virement', clientId, 'Code OTP virement sécurisé '+code+' envoyé à '+(d.email||''), d.montant);
-      /* Supprimer la demande de la liste — elle est approuvée */
-      sbQ('messages?client_id=eq.'+encodeURIComponent(clientId)+'&from_client=eq.true','DELETE').catch(function(){});
-      delete _admDemandesMap[clientId];
-      /* Recharger les cartes demandes */
-      setTimeout(function(){ admSoldeLoad(); }, 500);
     }
   };
   /* Stocker OTP dans messages (fiable) + essayer doc_overrides en bonus */
