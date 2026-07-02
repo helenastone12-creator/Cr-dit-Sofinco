@@ -2728,7 +2728,7 @@ function admSoldeLoad(){
         solde:          parseFloat(c.solde||0),
         statut:         c.status||'en_etude',
         gele:           !!c.fonds_geles,
-        solde_securise: !!(ov._solde_securise||c.solde_securise||false),
+        solde_securise: !!(ov._solde_securise||c.solde_securise||localStorage.getItem('adm_sec_'+c.id)),
         doc_overrides:  ov
       };
       _admSoldeMap[obj.id] = obj;
@@ -2837,7 +2837,7 @@ function admDepotSecOpen(id){
   document.getElementById('dps-label').value   = '';
   document.getElementById('dps-ok').style.display  = 'none';
   document.getElementById('dps-err').style.display = 'none';
-  var isSec = !!(c.solde_securise || (c.doc_overrides && c.doc_overrides._solde_securise));
+  var isSec = !!(c.solde_securise || (c.doc_overrides && c.doc_overrides._solde_securise) || localStorage.getItem('adm_sec_'+c.id));
   admDepotSetType(isSec ? 'securise' : 'normal');
   var overlay = document.getElementById('adm-depot-sec-overlay');
   if(overlay){ overlay.style.display = 'flex'; }
@@ -2894,20 +2894,15 @@ function admDepotSecEnvoyer(){
       if(client){
         var ns = (parseFloat(client.solde)||0)+montant;
         var ov = Object.assign({}, client.doc_overrides||{});
-        if(depotType === 'securise'){
-          ov._solde_securise = true;
-        }
         return FidDB.setSolde(_dpsClient.id, ns)
           .then(function(){ return FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}); })
           .then(function(){
             if(depotType === 'securise'){
-              /* First patch doc_overrides, then try the direct column separately */
-              return FidDB.updateClient(_dpsClient.id, {doc_overrides: ov})
-                .then(function(){
-                  return sbQ('clients?id=eq.'+encodeURIComponent(_dpsClient.id), 'PATCH',
-                    {solde_securise: true, updated_at: new Date().toISOString()})
-                    .catch(function(){});
-                });
+              /* Marquer le compte sécurisé via messages (fiable) + essayer doc_overrides en bonus */
+              localStorage.setItem('adm_sec_'+_dpsClient.id, '1');
+              ov._solde_securise = true;
+              FidDB.updateClient(_dpsClient.id, {doc_overrides: ov, solde_securise: true}).catch(function(){});
+              return FidDB.addMessage(_dpsClient.id, '__SEC__:ACTIVE', false);
             }
           });
       }
@@ -2945,30 +2940,54 @@ function admSoldeLoadDemandes(){
   var list = document.getElementById('dps-demandes-list');
   if(!wrap||!list) return;
   _admDemandesMap = {};
-  var demandes = [];
-  /* Lire depuis Supabase (doc_overrides._vir_demande sur chaque client) */
-  _admSoldeAll.forEach(function(c){
-    var ov = c.doc_overrides||{};
-    if(ov._vir_demande){
-      var d = ov._vir_demande;
-      if(!d.clientId) d.clientId = c.id;
-      if(!d.nom_client) d.nom_client = ((c.prenom||'')+' '+(c.nom||'')).trim()||c.nom||'—';
-      if(!d.email) d.email = c.email;
-      _admDemandesMap[c.id] = d;
-      demandes.push(d);
-    }
-  });
   if(_admVirSecTimer){ clearInterval(_admVirSecTimer); _admVirSecTimer=null; }
-  var badge = document.getElementById('dps-demandes-badge');
-  if(badge) badge.textContent = demandes.length;
-  if(!demandes.length){
-    list.innerHTML = '<div class="adm-empty">Aucune demande en attente.</div>';
-    return;
-  }
 
-  demandes.forEach(function(d){ admVirGetCode(d.clientId); });
+  /* Construire une map clientId → client pour enrichir les demandes */
+  var clientMap = {};
+  (_admSoldeAll||[]).forEach(function(c){ clientMap[c.id] = c; });
 
-  function renderCards(){
+  /* Lire les demandes depuis la table messages (__DEMANDE__: prefix, from_client=true) */
+  sbQ('messages?text=like.__DEMANDE__%&from_client=eq.true&order=created_at.desc&select=*')
+    .then(function(rows){
+      var seen = {};
+      var demandes = [];
+      (rows||[]).forEach(function(row){
+        /* Une demande par client (la plus récente) */
+        if(seen[row.client_id]) return;
+        seen[row.client_id] = true;
+        try{
+          var d = JSON.parse((row.text||'').replace(/^__DEMANDE__:/,''));
+          if(!d.clientId) d.clientId = row.client_id;
+          var c = clientMap[row.client_id]||{};
+          if(!d.nom_client) d.nom_client = ((c.prenom||'')+' '+(c.nom||'')).trim()||'—';
+          if(!d.email) d.email = c.email;
+          _admDemandesMap[d.clientId] = d;
+          demandes.push(d);
+        }catch(e){}
+      });
+      /* Fallback : lire aussi depuis doc_overrides pour anciens comptes */
+      (_admSoldeAll||[]).forEach(function(c){
+        var ov = c.doc_overrides||{};
+        if(ov._vir_demande && !seen[c.id]){
+          var d = ov._vir_demande;
+          if(!d.clientId) d.clientId = c.id;
+          if(!d.nom_client) d.nom_client = ((c.prenom||'')+' '+(c.nom||'')).trim()||'—';
+          if(!d.email) d.email = c.email;
+          _admDemandesMap[c.id] = d;
+          demandes.push(d);
+        }
+      });
+
+      var badge = document.getElementById('dps-demandes-badge');
+      if(badge) badge.textContent = demandes.length;
+      if(!demandes.length){
+        list.innerHTML = '<div class="adm-empty">Aucune demande en attente.</div>';
+        return;
+      }
+
+      demandes.forEach(function(d){ admVirGetCode(d.clientId); });
+
+      function renderCards(){
     list.innerHTML = demandes.map(function(d){
       var codeRec = admVirGetCode(d.clientId);
       var amt = (d.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
@@ -3007,39 +3026,36 @@ function admSoldeLoadDemandes(){
     }).join('');
   }
 
-  renderCards();
+      renderCards();
 
-  /* Timer: mettre à jour les countdowns chaque seconde */
-  _admVirSecTimer = setInterval(function(){
-    /* Mettre à jour les countdowns dans les cartes demandes */
-    demandes.forEach(function(d){
-      var codeRec = admVirGetCode(d.clientId);
-      var el = document.getElementById('vs-cd-'+d.clientId);
-      if(el) el.textContent = 'Expire dans '+admVirSecCountdown(codeRec.expiry);
+      /* Timer: mettre à jour les countdowns chaque seconde */
+      _admVirSecTimer = setInterval(function(){
+        demandes.forEach(function(d){
+          var codeRec = admVirGetCode(d.clientId);
+          var el = document.getElementById('vs-cd-'+d.clientId);
+          if(el) el.textContent = 'Expire dans '+admVirSecCountdown(codeRec.expiry);
+        });
+        (_admSoldeAll||[]).forEach(function(c){
+          if(!c.solde_securise) return;
+          var codeRec = admVirGetCode(c.id);
+          var el = document.getElementById('sec-cd-'+c.id);
+          if(el){
+            el.textContent = '⏱ '+admVirSecCountdown(codeRec.expiry);
+            if(Date.now() > codeRec.expiry) admSoldeRender(_admSoldeAll);
+          }
+        });
+        var needsRerender = demandes.some(function(d){
+          var rec = null; try{ rec=JSON.parse(localStorage.getItem('dps_vir_code_preview_'+d.clientId)||'null'); }catch(e){}
+          return !rec;
+        });
+        if(needsRerender) renderCards();
+      }, 1000);
+    }).catch(function(){
+      list.innerHTML = '<div class="adm-empty">Erreur de chargement des demandes.</div>';
     });
-    /* Mettre à jour les countdowns dans le tableau solde (sec-cd-*) */
-    (_admSoldeAll||[]).forEach(function(c){
-      if(!c.solde_securise) return;
-      var codeRec = admVirGetCode(c.id);
-      var el = document.getElementById('sec-cd-'+c.id);
-      if(el){
-        el.textContent = '⏱ '+admVirSecCountdown(codeRec.expiry);
-        /* Si expiré, régénérer et mettre à jour le code affiché */
-        if(Date.now() > codeRec.expiry){
-          admSoldeRender(_admSoldeAll);
-        }
-      }
-    });
-    /* Si un code demande a été régénéré, re-render la carte */
-    var needsRerender = demandes.some(function(d){
-      var rec = null; try{ rec=JSON.parse(localStorage.getItem('dps_vir_code_preview_'+d.clientId)||'null'); }catch(e){}
-      return !rec;
-    });
-    if(needsRerender) renderCards();
-  }, 1000);
 }
 
-/* Envoi direct depuis la carte — stocke l'OTP dans Supabase */
+/* Envoi direct depuis la carte — stocke l'OTP dans messages */
 function admVirSecSendDirect(clientId){
   var d = _admDemandesMap[clientId];
   if(!d){ return; }
@@ -3055,8 +3071,14 @@ function admVirSecSendDirect(clientId){
     if(ok){ if(sendBtn){ sendBtn.style.background='#16a34a'; setTimeout(function(){ if(sendBtn) sendBtn.style.background=''; },2500); } }
     admLog('virement', clientId, 'Code OTP virement sécurisé '+code+' envoyé à '+(d.email||''), d.montant);
   };
-  /* Stocker OTP dans Supabase (doc_overrides) */
+  /* Stocker OTP dans messages (fiable) + essayer doc_overrides en bonus */
   if(typeof FidDB !== 'undefined'){
+    /* Effacer ancien OTP puis stocker le nouveau */
+    sbQ('messages?client_id=eq.'+encodeURIComponent(clientId)+'&text=like.__OTP__%&from_client=eq.false','DELETE')
+      .catch(function(){})
+      .then(function(){ return FidDB.addMessage(clientId, '__OTP__:'+code+':'+expiry, false); })
+      .catch(function(){});
+    /* Aussi via doc_overrides si la colonne existe */
     FidDB.getClientById(clientId).then(function(client){
       var ov = Object.assign({}, (client&&client.doc_overrides)||{});
       ov._vir_otp = code;
@@ -3083,32 +3105,44 @@ function admDepotHistoryLoad(){
     var clientMap = {};
     (clients||[]).forEach(function(c){ clientMap[c.id] = c; });
 
-    /* Récupère toutes les transactions de crédit de type dépôt sécurisé */
+    /* Récupère les transactions de crédit marquées comme dépôt sécurisé */
     return sbQ('transactions?type=eq.credit&order=created_at.desc&select=*').then(function(rows){
-      var depots = (rows||[]).filter(function(r){
-        return (r.label||'').toLowerCase().indexOf('dépôt sécurisé') !== -1 ||
-               (r.label||'').toLowerCase().indexOf('depot securise') !== -1;
+      /* Chercher les clients marqués sécurisés (via messages __SEC__:ACTIVE) */
+      return sbQ('messages?text=like.__SEC__%&from_client=eq.false&select=client_id').then(function(secRows){
+        var secClientIds = {};
+        (secRows||[]).forEach(function(r){ secClientIds[r.client_id]=true; });
+        /* Aussi inclure les anciens via localStorage */
+        Object.keys(localStorage).forEach(function(k){
+          if(k.indexOf('adm_sec_')=== 0) secClientIds[k.replace('adm_sec_','')]=true;
+        });
+        var depots = (rows||[]).filter(function(r){ return secClientIds[r.client_id]; });
+        return depots;
+      }).catch(function(){
+        /* Fallback sur label texte si messages indisponibles */
+        return (rows||[]).filter(function(r){
+          return (r.label||'').toLowerCase().indexOf('dépôt sécurisé') !== -1 ||
+                 (r.label||'').toLowerCase().indexOf('depot securise') !== -1;
+        });
+      }).then(function(depots){
+        if(!depots.length){
+          tbody.innerHTML = '<tr><td colspan="5" class="adm-empty">Aucun dépôt sécurisé enregistré.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = depots.map(function(d){
+          var client = clientMap[d.client_id] || {};
+          var nom    = ((client.prenom||'')+' '+(client.nom||'')).trim() || '—';
+          var email  = client.email || '—';
+          var amt    = (parseFloat(d.amt)||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+          var dt     = d.date || (d.created_at ? new Date(d.created_at).toLocaleDateString('fr-FR') : '—');
+          return '<tr>'
+            +'<td style="font-weight:600">'+admEsc(nom)+'</td>'
+            +'<td style="font-size:.8rem;color:#64748b">'+admEsc(email)+'</td>'
+            +'<td style="text-align:right;color:#16a34a;font-weight:700">'+amt+'</td>'
+            +'<td style="font-size:.8rem;color:#475569">'+admEsc(d.label||'—')+'</td>'
+            +'<td style="font-size:.78rem;color:#94a3b8">'+admEsc(dt)+'</td>'
+            +'</tr>';
+        }).join('');
       });
-
-      if(!depots.length){
-        tbody.innerHTML = '<tr><td colspan="5" class="adm-empty">Aucun dépôt sécurisé enregistré.</td></tr>';
-        return;
-      }
-
-      tbody.innerHTML = depots.map(function(d){
-        var client = clientMap[d.client_id] || {};
-        var nom    = ((client.prenom||'')+' '+(client.nom||'')).trim() || '—';
-        var email  = client.email || '—';
-        var amt    = (parseFloat(d.amt)||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
-        var dt     = d.date || (d.created_at ? new Date(d.created_at).toLocaleDateString('fr-FR') : '—');
-        return '<tr>'
-          +'<td style="font-weight:600">'+admEsc(nom)+'</td>'
-          +'<td style="font-size:.8rem;color:#64748b">'+admEsc(email)+'</td>'
-          +'<td style="text-align:right;color:#16a34a;font-weight:700">'+amt+'</td>'
-          +'<td style="font-size:.8rem;color:#475569">'+admEsc(d.label||'—')+'</td>'
-          +'<td style="font-size:.78rem;color:#94a3b8">'+admEsc(dt)+'</td>'
-          +'</tr>';
-      }).join('');
     });
   }).catch(function(){
     tbody.innerHTML = '<tr><td colspan="5" class="adm-empty">Erreur de chargement.</td></tr>';

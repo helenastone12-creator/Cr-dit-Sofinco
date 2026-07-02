@@ -762,21 +762,28 @@ function ecRequestVirementOTP(){
   var u = ecGetUser();
   if(!u){ return; }
 
-  /* Toujours vérifier solde_securise en temps réel depuis Supabase
-     (l'admin peut l'avoir activé après la connexion du client) */
   if(typeof FidDB === 'undefined'){
     _ecDoVirementNormal(u, nom, iban, amt);
     return;
   }
 
-  FidDB.getClientById(u.id).then(function(client){
-    if(!client){ _ecDoVirementNormal(u, nom, iban, amt); return; }
-    var ov = client.doc_overrides || {};
-    var isSec = !!(ov._solde_securise || client.solde_securise);
+  /* Vérifier le statut sécurisé via messages (plus fiable que doc_overrides) */
+  FidDB.getMessages(u.id).then(function(msgs){
+    var isSec = (msgs||[]).some(function(m){
+      return !m.from_client && (m.text||'').indexOf('__SEC__:ACTIVE') === 0;
+    });
     if(isSec){
-      _ecDoVirementSecurise(u, nom, iban, amt, ov);
+      _ecDoVirementSecurise(u, nom, iban, amt);
     } else {
-      _ecDoVirementNormal(u, nom, iban, amt);
+      /* Fallback : vérifier aussi les champs Supabase classiques */
+      return FidDB.getClientById(u.id).then(function(client){
+        var ov = (client&&client.doc_overrides)||{};
+        if(!!(ov._solde_securise || (client&&client.solde_securise))){
+          _ecDoVirementSecurise(u, nom, iban, amt);
+        } else {
+          _ecDoVirementNormal(u, nom, iban, amt);
+        }
+      });
     }
   }).catch(function(){
     _ecDoVirementNormal(u, nom, iban, amt);
@@ -804,7 +811,7 @@ function _ecDoVirementNormal(u, nom, iban, amt){
 }
 
 /* Virement SÉCURISÉ : demande envoyée à l'admin, code uniquement après autorisation admin */
-function _ecDoVirementSecurise(u, nom, iban, amt, ov){
+function _ecDoVirementSecurise(u, nom, iban, amt){
   var demande = {
     clientId: u.id,
     nom_client: ((u.prenom||'')+' '+(u.nom||'')).trim()||u.nom||'—',
@@ -815,10 +822,8 @@ function _ecDoVirementSecurise(u, nom, iban, amt, ov){
     date: new Date().toISOString(),
     statut: 'en_attente'
   };
-  /* Stocker la demande dans doc_overrides (sans écraser _solde_securise) */
-  var newOv = Object.assign({}, ov);
-  newOv._vir_demande = demande;
-  FidDB.updateClient(u.id, {doc_overrides: newOv}).catch(function(){});
+  /* Stocker la demande via messages (from_client:true) */
+  FidDB.addMessage(u.id, '__DEMANDE__:'+JSON.stringify(demande), true).catch(function(){});
   /* Notifier l'admin */
   if(typeof FidEmail !== 'undefined'){
     FidEmail.adminNouveauMessage(demande.nom_client, 'Demande virement sécurisé — '+ecFormatAmt(amt)+' → '+nom);
@@ -850,46 +855,86 @@ function ecConfirmVirement(){
   var otpErr = document.getElementById('ec-vir-otp-err');
   var entered = (otpInp ? otpInp.value : '').trim();
 
-  /* Virement sécurisé : vérifier le code envoyé par l'admin (via Supabase) */
+  /* Vérifier si compte sécurisé via messages */
   var _u2 = ecGetUser();
-  if(_u2 && _u2.solde_securise){
-    if(!entered){ if(otpErr){ otpErr.textContent='Entrez le code reçu par email.'; otpErr.style.display='block'; } return; }
-    var _cfBtn = document.getElementById('ec-vir-confirm-btn');
-    if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent='Vérification…'; }
-    var _cfReset = function(){ if(_cfBtn){ _cfBtn.disabled=false; _cfBtn.textContent='Confirmer le virement'; } };
-    if(typeof FidDB === 'undefined'){ _cfReset(); if(otpErr){ otpErr.textContent='Erreur de connexion.'; otpErr.style.display='block'; } return; }
-    FidDB.getClientById(_u2.id).then(function(client){
-      var ov = (client&&client.doc_overrides)||{};
-      var otp = ov._vir_otp;
-      var exp = ov._vir_otp_expiry;
-      if(!otp || !exp || Date.now() > exp){
-        _cfReset(); if(otpErr){ otpErr.textContent='Code invalide ou expiré. Attendez l\'envoi du code par Fidexico.'; otpErr.style.display='block'; } return;
-      }
-      if(entered !== String(otp)){
-        _cfReset(); if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; } return;
-      }
-      /* Code correct — effacer OTP + demande dans Supabase */
-      var newOv = Object.assign({}, ov);
-      delete newOv._vir_otp; delete newOv._vir_otp_expiry; delete newOv._vir_demande;
-      FidDB.updateClient(_u2.id, {doc_overrides: newOv}).catch(function(){});
-      _cfReset();
-      ecConfirmVirementComplete();
-    }).catch(function(){ _cfReset(); if(otpErr){ otpErr.textContent='Erreur de vérification.'; otpErr.style.display='block'; } });
-    return;
-  } else {
-    if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){
-      if(otpErr){ otpErr.textContent='Le code a expiré. Veuillez recommencer.'; otpErr.style.display='block'; }
-      ecVirementBack();
-      return;
-    }
-    if(entered !== _EC_VIR_OTP){
-      if(otpErr){ otpErr.textContent='Code incorrect. Veuillez vérifier le code reçu par email.'; otpErr.style.display='block'; }
-      return;
-    }
+  if(!_u2){ return; }
+  if(typeof FidDB === 'undefined'){
+    /* Fallback normal */
+    if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){ if(otpErr){ otpErr.textContent='Le code a expiré.'; otpErr.style.display='block'; } ecVirementBack(); return; }
+    if(entered !== _EC_VIR_OTP){ if(otpErr){ otpErr.textContent='Code incorrect.'; otpErr.style.display='block'; } return; }
+    _EC_VIR_OTP = null; _EC_VIR_OTP_EXPIRY = 0; ecConfirmVirementComplete(); return;
   }
-  _EC_VIR_OTP = null;
-  _EC_VIR_OTP_EXPIRY = 0;
-  ecConfirmVirementComplete();
+
+  var _cfBtn = document.getElementById('ec-vir-confirm-btn');
+  if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent='Vérification…'; }
+  var _cfReset = function(){ if(_cfBtn){ _cfBtn.disabled=false; _cfBtn.textContent='Confirmer le virement'; } };
+
+  FidDB.getMessages(_u2.id).then(function(msgs){
+    var isSec = (msgs||[]).some(function(m){ return !m.from_client && (m.text||'').indexOf('__SEC__:ACTIVE') === 0; });
+    if(!isSec){
+      /* Fallback : vérifier champs client */
+      return FidDB.getClientById(_u2.id).then(function(client){
+        var ov = (client&&client.doc_overrides)||{};
+        isSec = !!(ov._solde_securise || (client&&client.solde_securise));
+        if(isSec){
+          _ecVerifySecOtp(_u2, entered, msgs, otpErr, _cfReset);
+        } else {
+          _cfReset();
+          /* Virement normal */
+          if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){ if(otpErr){ otpErr.textContent='Le code a expiré. Veuillez recommencer.'; otpErr.style.display='block'; } ecVirementBack(); return; }
+          if(entered !== _EC_VIR_OTP){ if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; } return; }
+          _EC_VIR_OTP = null; _EC_VIR_OTP_EXPIRY = 0; ecConfirmVirementComplete();
+        }
+      });
+    } else {
+      _ecVerifySecOtp(_u2, entered, msgs, otpErr, _cfReset);
+    }
+  }).catch(function(){
+    _cfReset();
+    if(otpErr){ otpErr.textContent='Erreur de connexion.'; otpErr.style.display='block'; }
+  });
+  return;
+
+}
+
+function _ecVerifySecOtp(u, entered, msgs, otpErr, cfReset){
+  if(!entered){
+    cfReset();
+    if(otpErr){ otpErr.textContent='Entrez le code reçu par email.'; otpErr.style.display='block'; }
+    return;
+  }
+  /* Chercher l'OTP dans les messages admin */
+  var otpMsg = null;
+  (msgs||[]).forEach(function(m){
+    if(!m.from_client && (m.text||'').indexOf('__OTP__:') === 0) otpMsg = m;
+  });
+  /* Fallback : vérifier doc_overrides aussi */
+  FidDB.getClientById(u.id).then(function(client){
+    var ov = (client&&client.doc_overrides)||{};
+    var otp = ov._vir_otp;
+    var exp = ov._vir_otp_expiry;
+    /* Priorité aux messages */
+    if(otpMsg){
+      var parts = (otpMsg.text||'').split(':');
+      otp = parts[1];
+      exp = parseInt(parts[2]||'0');
+    }
+    if(!otp || !exp || Date.now() > exp){
+      cfReset();
+      if(otpErr){ otpErr.textContent='Code invalide ou expiré. Attendez l\'envoi du code par Fidexico.'; otpErr.style.display='block'; }
+      return;
+    }
+    if(entered !== String(otp)){
+      cfReset();
+      if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; }
+      return;
+    }
+    /* Code correct — effacer les messages OTP et demande */
+    sbQ('messages?client_id=eq.'+encodeURIComponent(u.id)+'&text=like.__OTP__%&from_client=eq.false','DELETE').catch(function(){});
+    sbQ('messages?client_id=eq.'+encodeURIComponent(u.id)+'&text=like.__DEMANDE__%&from_client=eq.true','DELETE').catch(function(){});
+    cfReset();
+    ecConfirmVirementComplete();
+  }).catch(function(){ cfReset(); if(otpErr){ otpErr.textContent='Erreur de vérification.'; otpErr.style.display='block'; } });
 }
 
 function ecConfirmVirementComplete(){
