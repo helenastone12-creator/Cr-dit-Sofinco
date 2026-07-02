@@ -761,7 +761,7 @@ function ecRequestVirementOTP(){
     if(_sendBtn){ _sendBtn.textContent=_sendBtnOrigText; _sendBtn.disabled=false; _sendBtn.removeAttribute('disabled'); }
   };
 
-  var _showErr = function(msg){ if(errEl){ errEl.textContent=msg; errEl.style.display='block'; errEl.scrollIntoView({behavior:'smooth',block:'nearest'}); } _sendReset(); };
+  var _showErr = function(msg){ if(errEl){ errEl.textContent=msg; errEl.style.display='block'; } _sendReset(); };
 
   var _u = ecGetUser();
   if(_u && _u.fonds_geles){ _showErr(t('vir_fonds_geles')); return; }
@@ -813,7 +813,7 @@ function ecRequestVirementOTP(){
 function _ecDoVirementNormal(u, nom, iban, amt){
   var solde = ecGetSolde();
   var errEl = document.getElementById('ec-vir-err');
-  if(amt > solde){ if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(solde)); errEl.style.display='block'; errEl.scrollIntoView({behavior:'smooth',block:'nearest'}); } return; }
+  if(amt > solde){ if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(solde)); errEl.style.display='block'; } return; }
   _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
   _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
   if(u.email && typeof FidEmail !== 'undefined'){
