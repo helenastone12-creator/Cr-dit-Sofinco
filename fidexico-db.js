@@ -47,6 +47,7 @@ var FidDB = {
       tel:       user.tel||'',
       ref:       user.ref||'',
       civilite:  user.civilite||user.civility||'M',
+      lang:      user.lang||'fr',
       solde:     0,
       blocked:   false,
       status:    user.status || 'active',

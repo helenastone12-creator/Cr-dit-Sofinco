@@ -1396,6 +1396,7 @@ function sp5Submit(){
     email: email.trim().toLowerCase(),
     tel: tel.trim(),
     ref: ref,
+    lang: LANG,
 
     status: 'active',
     createdAt: new Date().toISOString(),

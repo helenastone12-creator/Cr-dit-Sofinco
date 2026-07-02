@@ -2357,16 +2357,17 @@ function admSendNotif(){
   if(!u.email){ errEl.textContent='Ce client n\'a pas d\'email enregistré.'; errEl.style.display='block'; return; }
 
   var prenom=u.prenom||u.nom;
+  var uLang=u.lang||'fr';
   var p;
 
   if(type==='dossier_etude'){
-    p=FidEmail.dossierEnEtude(prenom, u.email);
+    p=FidEmail.dossierEnEtude(prenom, u.email, uLang);
     if(typeof FidDB!=='undefined') FidDB.updateClient(u.id,{status:'en_etude'}).then(function(){ admLoad(); }).catch(function(){});
   } else if(type==='dossier_valide'){
     var m=document.getElementById('notif-montant').value||'—';
     var d=document.getElementById('notif-duree').value||'—';
     var mens=document.getElementById('notif-mensualite').value||'—';
-    p=FidEmail.dossierValide(prenom, u.email, m, d, mens);
+    p=FidEmail.dossierValide(prenom, u.email, m, d, mens, uLang);
     var mNum=parseFloat((m+'').replace(/[^0-9.]/g,''))||0;
     var mensNum=parseFloat((mens+'').replace(/[^0-9.]/g,''))||0;
     var dNum=parseInt((d+'').replace(/[^0-9]/g,''))||60;
@@ -2381,41 +2382,41 @@ function admSendNotif(){
     }
   } else if(type==='dossier_refuse'){
     var motif=document.getElementById('notif-motif-refus').value||'';
-    p=FidEmail.dossierRefuse(prenom, u.email, motif);
+    p=FidEmail.dossierRefuse(prenom, u.email, motif, uLang);
   } else if(type==='documents'){
     var raw=document.getElementById('notif-docs').value||'';
     var liste=raw.split('\n').map(function(s){return s.trim();}).filter(Boolean);
     if(!liste.length){ errEl.textContent='Ajoutez au moins un document.'; errEl.style.display='block'; return; }
-    p=FidEmail.documentsRequis(prenom, u.email, liste);
+    p=FidEmail.documentsRequis(prenom, u.email, liste, uLang);
   } else if(type==='deblocage'){
     var amt=document.getElementById('notif-deblocage-amt').value||'—';
-    p=FidEmail.deblocageFonds(prenom, u.email, amt);
+    p=FidEmail.deblocageFonds(prenom, u.email, amt, uLang);
   } else if(type==='rappel'){
     var j=parseInt(document.getElementById('notif-jours').value)||3;
-    p=FidEmail.rappelSuivi(prenom, u.email, j);
+    p=FidEmail.rappelSuivi(prenom, u.email, j, uLang);
   } else if(type==='message'){
     var txt=document.getElementById('notif-message-txt').value.trim();
     if(!txt){ errEl.textContent='Rédigez un message.'; errEl.style.display='block'; return; }
-    p=FidEmail.nouveauMessage(prenom, u.email, txt);
+    p=FidEmail.nouveauMessage(prenom, u.email, txt, uLang);
   } else if(type==='bienvenue'){
-    p=FidEmail.bienvenue(prenom, u.nom||'', u.email, u.ref||u.id||'');
+    p=FidEmail.bienvenue(prenom, u.nom||'', u.email, u.ref||u.id||'', uLang);
   } else if(type==='simulation'){
     var sm=document.getElementById('notif-sim-montant').value||'—';
     var sd=document.getElementById('notif-sim-duree').value||'—';
     var smens=document.getElementById('notif-sim-mensualite').value||'—';
-    p=FidEmail.simulationSoumise(prenom, u.email, sm, sd, smens);
+    p=FidEmail.simulationSoumise(prenom, u.email, sm, sd, smens, uLang);
   } else if(type==='virement_sortant'){
     var vsm=document.getElementById('notif-vs-montant').value||'—';
     var vsd=document.getElementById('notif-vs-dest').value||'—';
     var vsi=document.getElementById('notif-vs-iban').value||'—';
     var vsmo=document.getElementById('notif-vs-motif').value||'—';
     var vsref='VIR-'+Date.now();
-    p=FidEmail.virementSortant(prenom, u.email, vsm, vsd, vsi, vsmo, vsref);
+    p=FidEmail.virementSortant(prenom, u.email, vsm, vsd, vsi, vsmo, vsref, uLang);
   } else if(type==='virement_entrant'){
     var vem=document.getElementById('notif-ve-montant').value||'—';
     var vee=document.getElementById('notif-ve-expediteur').value||'Fidexico';
     var veref='DBL-'+Date.now();
-    p=FidEmail.virementEntrant(prenom, u.email, vem, vee, veref);
+    p=FidEmail.virementEntrant(prenom, u.email, vem, vee, veref, uLang);
   } else if(type==='reset_password'){
     var token=Math.random().toString(36).substr(2,20);
     p=sendEmail(u.email, 'Réinitialisation de votre mot de passe Fidexico', emailResetPassword(token));
