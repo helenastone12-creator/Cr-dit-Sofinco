@@ -651,6 +651,13 @@ function ecCloseModal(name){
   document.body.style.width = '';
   document.body.style.overflow = '';
   window.scrollTo(0, scrollY);
+  if(name === 'virement' || name === 'all'){
+    var s1 = document.getElementById('ec-vir-step1');
+    var s2 = document.getElementById('ec-vir-step2');
+    if(s1) s1.style.display = 'block';
+    if(s2) s2.style.display = 'none';
+    _EC_VIR_OTP = null; _EC_VIR_OTP_EXPIRY = 0;
+  }
 }
 
 function ecConfirmDepot(){
@@ -720,7 +727,10 @@ function ecValidateIban(raw){
   return remainder===1;
 }
 
-function ecConfirmVirement(){
+var _EC_VIR_OTP = null;
+var _EC_VIR_OTP_EXPIRY = 0;
+
+function ecRequestVirementOTP(){
   var nom   = ((document.getElementById('ec-vir-nom')||{}).value||'').trim();
   var iban  = ((document.getElementById('ec-vir-iban')||{}).value||'').trim();
   var amt   = ecParseAmt((document.getElementById('ec-vir-amt')||{}).value);
@@ -737,15 +747,74 @@ function ecConfirmVirement(){
   if(amt > solde){ if(errEl){ errEl.textContent='Solde insuffisant ('+ecFormatAmt(solde)+' disponible).'; errEl.style.display='block'; } return; }
 
   if(errEl) errEl.style.display='none';
+
+  /* Generate & send OTP */
+  _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
+  _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
+  var u = ecGetUser();
+  if(u && u.email && typeof FidEmail !== 'undefined'){
+    var _vLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
+    FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, _vLang);
+  }
+
+  /* Show step 2 */
+  var s1 = document.getElementById('ec-vir-step1');
+  var s2 = document.getElementById('ec-vir-step2');
+  if(s1) s1.style.display = 'none';
+  if(s2) s2.style.display = 'block';
+  var otpInp = document.getElementById('ec-vir-otp');
+  if(otpInp){ otpInp.value = ''; otpInp.focus(); }
+  var otpErr = document.getElementById('ec-vir-otp-err');
+  if(otpErr) otpErr.style.display = 'none';
+}
+
+function ecVirementBack(){
+  var s1 = document.getElementById('ec-vir-step1');
+  var s2 = document.getElementById('ec-vir-step2');
+  if(s1) s1.style.display = 'block';
+  if(s2) s2.style.display = 'none';
+  _EC_VIR_OTP = null;
+  _EC_VIR_OTP_EXPIRY = 0;
+}
+
+function ecConfirmVirement(){
+  var otpInp = document.getElementById('ec-vir-otp');
+  var otpErr = document.getElementById('ec-vir-otp-err');
+  var entered = (otpInp ? otpInp.value : '').trim();
+
+  if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){
+    if(otpErr){ otpErr.textContent='Le code a expiré. Veuillez recommencer.'; otpErr.style.display='block'; }
+    ecVirementBack();
+    return;
+  }
+  if(entered !== _EC_VIR_OTP){
+    if(otpErr){ otpErr.textContent='Code incorrect. Veuillez vérifier le code reçu par email.'; otpErr.style.display='block'; }
+    return;
+  }
+  _EC_VIR_OTP = null;
+  _EC_VIR_OTP_EXPIRY = 0;
+
+  var nom   = ((document.getElementById('ec-vir-nom')||{}).value||'').trim();
+  var iban  = ((document.getElementById('ec-vir-iban')||{}).value||'').trim();
+  var amt   = ecParseAmt((document.getElementById('ec-vir-amt')||{}).value);
+  var solde = ecGetSolde();
+  var motif = ((document.getElementById('ec-vir-motif')||{}).value||'').trim();
+
   var nouveau = solde - amt;
   ecSetSolde(nouveau);
-  var motif = ((document.getElementById('ec-vir-motif')||{}).value||'').trim();
   var txDate = new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
   ecAddTx({ type:'virement', label:nom, iban:iban, motif:motif, amt:amt, date: txDate });
   ecRefreshSolde();
   ecRenderTx();
+
+  /* Reset modal to step 1 for next use */
+  var s1 = document.getElementById('ec-vir-step1');
+  var s2 = document.getElementById('ec-vir-step2');
+  if(s1) s1.style.display = 'block';
+  if(s2) s2.style.display = 'none';
   ecCloseModal('virement');
-  /* email confirmation virement */
+
+  /* Email confirmation virement */
   (function(){
     var u = ecGetUser();
     if(u && u.email && typeof FidEmail !== 'undefined'){
