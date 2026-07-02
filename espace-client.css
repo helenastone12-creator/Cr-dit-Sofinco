@@ -5306,7 +5306,7 @@ body.ec-body {
     width: 100%;
     max-width: none;
     background: #F5F7FA;
-    padding: 2rem 8rem 3rem;
+    padding: 2rem 8rem 3rem !important;
     overflow: visible;
   }
   .ec-modal-overlay--fullscreen#ec-modal-all-tx.open .ec-modal-card--fullscreen {
