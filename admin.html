@@ -2898,11 +2898,17 @@ function admDepotSecEnvoyer(){
           .then(function(){ return FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}); })
           .then(function(){
             if(depotType === 'securise'){
-              /* Marquer le compte sécurisé via messages (fiable) + essayer doc_overrides en bonus */
+              /* Marquer le compte sécurisé via messages + localStorage */
               localStorage.setItem('adm_sec_'+_dpsClient.id, '1');
               ov._solde_securise = true;
               FidDB.updateClient(_dpsClient.id, {doc_overrides: ov, solde_securise: true}).catch(function(){});
               return FidDB.addMessage(_dpsClient.id, '__SEC__:ACTIVE', false);
+            } else {
+              /* Dépôt normal : retirer le mode sécurisé si actif */
+              localStorage.removeItem('adm_sec_'+_dpsClient.id);
+              ov._solde_securise = false;
+              FidDB.updateClient(_dpsClient.id, {doc_overrides: ov, solde_securise: false}).catch(function(){});
+              sbQ('messages?client_id=eq.'+encodeURIComponent(_dpsClient.id)+'&text=like.__SEC__%&from_client=eq.false','DELETE').catch(function(){});
             }
           });
       }
