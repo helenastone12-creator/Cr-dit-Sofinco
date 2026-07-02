@@ -2837,7 +2837,8 @@ function admDepotSecOpen(id){
   document.getElementById('dps-label').value   = '';
   document.getElementById('dps-ok').style.display  = 'none';
   document.getElementById('dps-err').style.display = 'none';
-  admDepotSetType('normal');
+  var isSec = !!(c.solde_securise || (c.doc_overrides && c.doc_overrides._solde_securise));
+  admDepotSetType(isSec ? 'securise' : 'normal');
   var overlay = document.getElementById('adm-depot-sec-overlay');
   if(overlay){ overlay.style.display = 'flex'; }
 }
