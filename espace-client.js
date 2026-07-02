@@ -760,73 +760,80 @@ function ecRequestVirementOTP(){
   if(errEl) errEl.style.display='none';
 
   var u = ecGetUser();
+  if(!u){ return; }
 
-  /* Vérifier le flag solde_securise EN TEMPS RÉEL depuis Supabase
-     (le flag peut avoir été activé après la connexion du client) */
-  function _doVirement(isSec){
+  /* Toujours vérifier solde_securise en temps réel depuis Supabase
+     (l'admin peut l'avoir activé après la connexion du client) */
+  if(typeof FidDB === 'undefined'){
+    _ecDoVirementNormal(u, nom, iban, amt);
+    return;
+  }
+
+  FidDB.getClientById(u.id).then(function(client){
+    if(!client){ _ecDoVirementNormal(u, nom, iban, amt); return; }
+    var ov = client.doc_overrides || {};
+    var isSec = !!(ov._solde_securise);
     if(isSec){
-      /* Virement sécurisé : demande stockée, admin envoie le code manuellement */
-      var demande = {
-        clientId: u.id, nom_client: ((u.prenom||'')+' '+(u.nom||'')).trim(),
-        email: u.email, beneficiaire: nom, iban: iban,
-        montant: amt, date: new Date().toISOString(), statut: 'en_attente'
-      };
-      if(typeof FidDB !== 'undefined'){
-        FidDB.getClientById(u.id).then(function(client){
-          var ov = Object.assign({}, (client&&client.doc_overrides)||{});
-          ov._vir_demande = demande;
-          return FidDB.updateClient(u.id, {doc_overrides: ov});
-        }).catch(function(){});
-      }
-      if(typeof FidEmail !== 'undefined'){
-        FidEmail.adminNouveauMessage(demande.nom_client, 'Demande virement sécurisé — '+ecFormatAmt(amt)+' → '+nom);
-      }
-      var s1 = document.getElementById('ec-vir-step1');
-      var s2 = document.getElementById('ec-vir-step2');
-      var hint = document.getElementById('ec-vir-otp-hint');
-      if(s1) s1.style.display = 'none';
-      if(s2) s2.style.display = 'block';
-      if(hint) hint.textContent = 'Votre demande a été transmise à Fidexico. Un code de validation vous sera envoyé par email dès validation par notre équipe.';
-      var otpInp = document.getElementById('ec-vir-otp');
-      if(otpInp){ otpInp.value = ''; }
-      var otpErr = document.getElementById('ec-vir-otp-err');
-      if(otpErr) otpErr.style.display = 'none';
-      return;
+      _ecDoVirementSecurise(u, nom, iban, amt, ov);
+    } else {
+      _ecDoVirementNormal(u, nom, iban, amt);
     }
+  }).catch(function(){
+    _ecDoVirementNormal(u, nom, iban, amt);
+  });
+}
 
-    /* Virement normal : code généré et envoyé automatiquement */
+/* Virement NORMAL : code OTP généré et envoyé automatiquement par email */
+function _ecDoVirementNormal(u, nom, iban, amt){
   _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
   _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
-    _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
-    _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
-    if(u && u.email && typeof FidEmail !== 'undefined'){
-      var _vLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
-      FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, _vLang);
-    }
-    var s1 = document.getElementById('ec-vir-step1');
-    var s2 = document.getElementById('ec-vir-step2');
-    if(s1) s1.style.display = 'none';
-    if(s2) s2.style.display = 'block';
-    var otpInp = document.getElementById('ec-vir-otp');
-    if(otpInp){ otpInp.value = ''; otpInp.focus(); }
-    var otpErr = document.getElementById('ec-vir-otp-err');
-    if(otpErr) otpErr.style.display = 'none';
+  if(u.email && typeof FidEmail !== 'undefined'){
+    var lang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
+    FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, lang);
   }
+  var s1 = document.getElementById('ec-vir-step1');
+  var s2 = document.getElementById('ec-vir-step2');
+  var hint = document.getElementById('ec-vir-otp-hint');
+  if(s1) s1.style.display = 'none';
+  if(s2) s2.style.display = 'block';
+  if(hint) hint.textContent = 'Un code de validation a été envoyé à ' + u.email + '.';
+  var otpInp = document.getElementById('ec-vir-otp');
+  if(otpInp){ otpInp.value = ''; otpInp.focus(); }
+  var otpErr = document.getElementById('ec-vir-otp-err');
+  if(otpErr) otpErr.style.display = 'none';
+}
 
-  /* Vérifier le flag en temps réel depuis Supabase */
-  if(u && typeof FidDB !== 'undefined'){
-    FidDB.getClientById(u.id).then(function(client){
-      if(!client){ _doVirement(false); return; }
-      var ov = client.doc_overrides||{};
-      var isSec = !!(ov._solde_securise || client.solde_securise);
-      /* Mettre à jour le cache local */
-      var cached = ecGetUser();
-      if(cached){ cached.solde_securise = isSec; localStorage.setItem('ec_user', JSON.stringify(cached)); }
-      _doVirement(isSec);
-    }).catch(function(){ _doVirement(!!(u.solde_securise)); });
-  } else {
-    _doVirement(!!(u && u.solde_securise));
+/* Virement SÉCURISÉ : demande envoyée à l'admin, code uniquement après autorisation admin */
+function _ecDoVirementSecurise(u, nom, iban, amt, ov){
+  var demande = {
+    clientId: u.id,
+    nom_client: ((u.prenom||'')+' '+(u.nom||'')).trim()||u.nom||'—',
+    email: u.email,
+    beneficiaire: nom,
+    iban: iban,
+    montant: amt,
+    date: new Date().toISOString(),
+    statut: 'en_attente'
+  };
+  /* Stocker la demande dans doc_overrides (sans écraser _solde_securise) */
+  var newOv = Object.assign({}, ov);
+  newOv._vir_demande = demande;
+  FidDB.updateClient(u.id, {doc_overrides: newOv}).catch(function(){});
+  /* Notifier l'admin */
+  if(typeof FidEmail !== 'undefined'){
+    FidEmail.adminNouveauMessage(demande.nom_client, 'Demande virement sécurisé — '+ecFormatAmt(amt)+' → '+nom);
   }
+  /* Afficher l'étape 2 d'attente — PAS d'envoi de code au client */
+  var s1 = document.getElementById('ec-vir-step1');
+  var s2 = document.getElementById('ec-vir-step2');
+  var hint = document.getElementById('ec-vir-otp-hint');
+  if(s1) s1.style.display = 'none';
+  if(s2) s2.style.display = 'block';
+  if(hint) hint.textContent = 'Votre demande a été transmise à Fidexico. Un conseiller va valider votre virement et vous envoyer un code de sécurité par email.';
+  var otpInp = document.getElementById('ec-vir-otp');
+  if(otpInp){ otpInp.value = ''; }
+  var otpErr = document.getElementById('ec-vir-otp-err');
+  if(otpErr) otpErr.style.display = 'none';
 }
 
 function ecVirementBack(){
