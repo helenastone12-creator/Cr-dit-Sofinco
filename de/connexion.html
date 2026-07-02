@@ -432,9 +432,11 @@
 <script src="../fidexico-2fa.js"></script>
 <script src="../espace-client.js"></script>
 <script>
-var _conClient = null;
-var _conOTP    = null;
-var _conOTPExp = 0;
+var _conClient  = null;
+var _conOTP     = null;
+var _conOTPExp  = 0;
+var _conLastSend = 0;
+var _conCooldown = 60000;
 
 function _pfx(p){ return p === 'mob' ? 'mob' : 'desk'; }
 
@@ -493,8 +495,15 @@ function conStep1(p){
       }
 
       /* Sinon → envoyer OTP par email */
-      _conOTP    = _conGenOTP();
-      _conOTPExp = Date.now() + 10 * 60 * 1000;
+      var now = Date.now();
+      if(now - _conLastSend < _conCooldown){
+        var wait = Math.ceil((_conCooldown - (now - _conLastSend)) / 1000);
+        _conErr(p, '1', ecT('con_err_wait').replace('{sec}', wait));
+        _conBusy(p, '1', false); return;
+      }
+      _conOTP     = _conGenOTP();
+      _conOTPExp  = now + 10 * 60 * 1000;
+      _conLastSend = now;
       return FidEmail.sendLoginOTP(email, client.prenom || 'Client', _conOTP, fdx)
         .then(function(){
           var shown = document.getElementById(p+'-email-shown');
@@ -533,8 +542,15 @@ function conStepTOTP(p){
 
 function conResend(p){
   if(!_conClient) return;
-  _conOTP    = _conGenOTP();
-  _conOTPExp = Date.now() + 10 * 60 * 1000;
+  var now = Date.now();
+  if(now - _conLastSend < _conCooldown){
+    var wait = Math.ceil((_conCooldown - (now - _conLastSend)) / 1000);
+    _conErr(p, '2', ecT('con_err_wait').replace('{sec}', wait));
+    return;
+  }
+  _conOTP      = _conGenOTP();
+  _conOTPExp   = now + 10 * 60 * 1000;
+  _conLastSend = now;
   FidEmail.sendLoginOTP(_conClient.email, _conClient.prenom || 'Client', _conOTP, _conClient.id)
     .then(function(){
       var el = document.getElementById(p+'-err2');
