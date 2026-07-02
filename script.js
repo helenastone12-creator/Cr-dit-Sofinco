@@ -388,7 +388,7 @@ var T = {
     confirm_close: 'Stäng'
   }
 };
-var t = T[LANG] || T.fr;
+var _sT = T[LANG] || T.fr;
 // ── Scroll lock universel (iOS Safari + PC + tablette) ──
 var _lockScrollY = 0;
 function lockScroll(){
@@ -480,16 +480,16 @@ function unlockScroll(){
     document.querySelector('.sim-body').scrollTop=0;
     document.querySelector('.sim-body').classList.toggle('sp4-open', n===4);
     document.getElementById('sim-page').classList.toggle('sp4-open', n===4);
-    document.getElementById('sim-bb-prog').textContent=t.progress+' : '+(PROG[n]||'90%');
+    document.getElementById('sim-bb-prog').textContent=_sT.progress+' : '+(PROG[n]||'90%');
     var nxt=document.getElementById('sim-bb-next');
-    if(n===3){ nxt.textContent=t.discover_offers; nxt.classList.add('bb-teal'); }
-    else if(n===5){ nxt.textContent=t.validate; nxt.classList.add('bb-teal'); }
-    else{ nxt.textContent=t.next; nxt.classList.remove('bb-teal'); }
+    if(n===3){ nxt.textContent=_sT.discover_offers; nxt.classList.add('bb-teal'); }
+    else if(n===5){ nxt.textContent=_sT.validate; nxt.classList.add('bb-teal'); }
+    else{ nxt.textContent=_sT.next; nxt.classList.remove('bb-teal'); }
     document.getElementById('sim-bb-back').disabled=(n<=1);
     if(n===3){
       var P=parseInt(simData.montant)||5000;
       document.getElementById('sim-step3-sub').innerHTML=
-        t.indicate_pref+' <strong>'+fmtAmt(P)+'</strong>.';
+        _sT.indicate_pref+' <strong>'+fmtAmt(P)+'</strong>.';
       document.getElementById('sim-r-mens').checked=true;
       simData.choix='mensualite';
       refreshDropdown();
@@ -527,15 +527,15 @@ function unlockScroll(){
     var isReg=(simData.projet==='regroupement');
     var items=[];
     if(simData.choix==='mensualite'){
-      document.getElementById('sim-dd-type-lbl').textContent=t.monthly;
+      document.getElementById('sim-dd-type-lbl').textContent=_sT.monthly;
       [180,144,120,96,84,72,60,48,36,24,12,6].forEach(function(m){
         var pmt=calcPMT(P,m,isReg);
-        items.push({value:m,label:Math.round(pmt)+' '+t.per_month});
+        items.push({value:m,label:Math.round(pmt)+' '+_sT.per_month});
       });
     } else {
-      document.getElementById('sim-dd-type-lbl').textContent=t.nb_monthly;
+      document.getElementById('sim-dd-type-lbl').textContent=_sT.nb_monthly;
       [6,12,24,36,48,60,72,84,96,120,144,180].forEach(function(m){
-        items.push({value:m,label:m+' '+t.months});
+        items.push({value:m,label:m+' '+_sT.months});
       });
     }
     var list=document.getElementById('sim-dd-list');
@@ -563,7 +563,7 @@ function unlockScroll(){
 
   function updateOfferCard(offer){
     document.getElementById('sim-r-monthly').textContent=fmtNum(offer.mensualite);
-    document.getElementById('sim-r-duree').textContent=offer.duree+' '+t.months;
+    document.getElementById('sim-r-duree').textContent=offer.duree+' '+_sT.months;
     document.getElementById('sim-r-taeg').textContent='3,5 %';
     document.getElementById('sim-r-total').textContent=fmtEur(offer.mensualite*offer.duree);
   }
@@ -572,17 +572,17 @@ function unlockScroll(){
     var P=parseInt(simData.montant)||5000;
     var n=simData.duree||36;
     var isReg=(simData.projet==='regroupement');
-    var projetLabels={'famille-loisirs':t.pret_perso,'auto':t.credit_auto,'travaux':t.credit_travaux,'autre':t.pret_perso,'regroupement':t.regroupement};
-    var projetNames={'famille-loisirs':t.famille,'auto':t.auto_lbl,'travaux':t.travaux_lbl,'autre':t.autre_lbl,'regroupement':t.regroupement_lbl};
+    var projetLabels={'famille-loisirs':_sT.pret_perso,'auto':_sT.credit_auto,'travaux':_sT.credit_travaux,'autre':_sT.pret_perso,'regroupement':_sT.regroupement};
+    var projetNames={'famille-loisirs':_sT.famille,'auto':_sT.auto_lbl,'travaux':_sT.travaux_lbl,'autre':_sT.autre_lbl,'regroupement':_sT.regroupement_lbl};
     var typeName=projetLabels[simData.projet]||'Prêt personnel';
 
     // 3 offres pour desktop, 2 onglets pour mobile
     var alt1=n>12?n-12:n+12; if(alt1<6)alt1=6;
     var alt2=n+12;
     var offers=[
-      {duree:alt1, mensualite:calcPMT(P,alt1,isReg), lbl:t.offer_on+' '+alt1+' '+t.months},
-      {duree:n,    mensualite:calcPMT(P,n,isReg),    lbl:t.your_sim},
-      {duree:alt2, mensualite:calcPMT(P,alt2,isReg), lbl:t.offer_on+' '+alt2+' '+t.months}
+      {duree:alt1, mensualite:calcPMT(P,alt1,isReg), lbl:_sT.offer_on+' '+alt1+' '+_sT.months},
+      {duree:n,    mensualite:calcPMT(P,n,isReg),    lbl:_sT.your_sim},
+      {duree:alt2, mensualite:calcPMT(P,alt2,isReg), lbl:_sT.offer_on+' '+alt2+' '+_sT.months}
     ];
 
     // ── MOBILE : 2 onglets (offre 1 + offre centrale) ──
@@ -594,9 +594,9 @@ function unlockScroll(){
       var btn=document.createElement('button');
       btn.type='button';
       btn.className='sim-otab'+(i===1?' active':'');
-      btn.innerHTML='<span class="sim-otab-price">'+fmtEur(offer.mensualite)+' '+t.per_month+'</span><span class="sim-otab-dur">'+offer.duree+' '+t.months+'</span>';
+      btn.innerHTML='<span class="sim-otab-price">'+fmtEur(offer.mensualite)+' '+_sT.per_month+'</span><span class="sim-otab-dur">'+offer.duree+' '+_sT.months+'</span>';
       btn.addEventListener('click',function(){
-        tabs.querySelectorAll('.sim-otab').forEach(function(t){t.classList.remove('active')});
+        tabs.querySelectorAll('.sim-otab').forEach(function(t){_sT.classList.remove('active')});
         btn.classList.add('active');
         updateOfferCard(offer);
       });
@@ -623,7 +623,7 @@ function unlockScroll(){
         var pmt=calcPMT(P,d,isReg);
         var opt=document.createElement('option');
         opt.value=d;
-        opt.textContent=Math.round(pmt)+' '+t.per_month;
+        opt.textContent=Math.round(pmt)+' '+_sT.per_month;
         if(d===n) opt.selected=true;
         sbMens.appendChild(opt);
       });
@@ -635,7 +635,7 @@ function unlockScroll(){
       [6,12,24,36,48,60,72,84,96,120,144,180].forEach(function(d){
         var opt=document.createElement('option');
         opt.value=d;
-        opt.textContent=d+' '+t.months+' ('+Math.round(d/12*10)/10+' '+t.years+')';
+        opt.textContent=d+' '+_sT.months+' ('+Math.round(d/12*10)/10+' '+_sT.years+')';
         if(d===n) opt.selected=true;
         sbDur.appendChild(opt);
       });
@@ -650,11 +650,11 @@ function unlockScroll(){
       card.className='sp4-card'+(isSel?' sel':'');
       card.innerHTML=
         '<div class="sp4-card-radio"></div>'+
-        '<div class="sp4-card-price">'+fmtNum(offer.mensualite)+' <sup>€</sup> '+t.per_month+'</div>'+
+        '<div class="sp4-card-price">'+fmtNum(offer.mensualite)+' <sup>€</sup> '+_sT.per_month+'</div>'+
         '<div class="sp4-card-sublbl">'+offer.lbl+'</div>'+
-        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+t.duration+'</span><span class="sp4-card-row-val">'+offer.duree+' '+t.months+'</span></div>'+
-        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+t.fixed_taeg+'</span><span class="sp4-card-row-val">'+t.see_detail+'</span></div>'+
-        '<div class="sp4-card-total"><span>'+t.total_due+'<sup>(1)</sup></span><b>'+fmtEur(offer.mensualite*offer.duree)+'</b></div>';
+        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+_sT.duration+'</span><span class="sp4-card-row-val">'+offer.duree+' '+_sT.months+'</span></div>'+
+        '<div class="sp4-card-row"><span class="sp4-card-row-lbl">'+_sT.fixed_taeg+'</span><span class="sp4-card-row-val">'+_sT.see_detail+'</span></div>'+
+        '<div class="sp4-card-total"><span>'+_sT.total_due+'<sup>(1)</sup></span><b>'+fmtEur(offer.mensualite*offer.duree)+'</b></div>';
       card.addEventListener('click',function(){
         cardsEl.querySelectorAll('.sp4-card').forEach(function(c){c.classList.remove('sel')});
         card.classList.add('sel');
@@ -669,7 +669,7 @@ function unlockScroll(){
   function updateDesktopDetail(offer, P){
     var last=offer.mensualite; // simplifié
     document.getElementById('sp4-d-montant').textContent=fmtEur(P);
-    document.getElementById('sp4-d-mens').textContent=fmtEur(offer.mensualite)+' '+t.per_month;
+    document.getElementById('sp4-d-mens').textContent=fmtEur(offer.mensualite)+' '+_sT.per_month;
     document.getElementById('sp4-d-last').textContent=fmtEur(last);
     document.getElementById('sp4-d-n').textContent=offer.duree;
   }
@@ -1239,13 +1239,13 @@ function sp5Validate(step){
       if(!sp5ValidAge(v)) return false;
       return true;
     }, 'Date invalide ou âge non conforme (18 ans minimum)');
-    check('s5-nat',    's5-nat-err',    function(v){ return v && v.trim().length>0; }, t.nationality_err);
-    check('s5-sitfam', 's5-sitfam-err', function(v){ return v && v.trim().length>0; }, t.sitfam_err);
+    check('s5-nat',    's5-nat-err',    function(v){ return v && v.trim().length>0; }, _sT.nationality_err);
+    check('s5-sitfam', 's5-sitfam-err', function(v){ return v && v.trim().length>0; }, _sT.sitfam_err);
 
   } else if(step===2){
-    check('s5-sitpro',    's5-sitpro-err',    function(v){ return v && v.trim().length>0; }, t.sitpro_err);
-    check('s5-secteur',   's5-secteur-err',   function(v){ return v && v.trim().length>0; }, t.secteur_err);
-    check('s5-anciennete','s5-anciennete-err', function(v){ return v && v.trim().length>0; }, t.anciennete_err);
+    check('s5-sitpro',    's5-sitpro-err',    function(v){ return v && v.trim().length>0; }, _sT.sitpro_err);
+    check('s5-secteur',   's5-secteur-err',   function(v){ return v && v.trim().length>0; }, _sT.secteur_err);
+    check('s5-anciennete','s5-anciennete-err', function(v){ return v && v.trim().length>0; }, _sT.anciennete_err);
     check('s5-revenus',   's5-revenus-err',   function(v){
       var n = parseFloat((v||'').replace(/\s/g,'').replace(',','.'));
       return !isNaN(n) && n > 0 && n < 1000000;
@@ -1318,7 +1318,7 @@ function sp5Go(toStep){
 
 function sp5DocTab(mode, btn){
   sp5DocMode = mode;
-  document.querySelectorAll('.sp5-doc-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.sp5-doc-tab').forEach(function(t){_sT.classList.remove('active');});
   if(btn) btn.classList.add('active');
   var panels = ['cni','passport','permis'];
   panels.forEach(function(p){
@@ -1526,34 +1526,34 @@ function sp5Submit(){
         '<path d="M14 26.5l8 8 16-16" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>'+
       '</svg>'+
     '</div>'+
-    '<p class="sp5-confirm-hey">'+t.confirm_thanks+' '+nomAffiche+' !</p>'+
-    '<h2 class="sp5-confirm-title">'+t.confirm_title+'</h2>'+
+    '<p class="sp5-confirm-hey">'+_sT.confirm_thanks+' '+nomAffiche+' !</p>'+
+    '<h2 class="sp5-confirm-title">'+_sT.confirm_title+'</h2>'+
     '<div class="sp5-confirm-ref-box">'+
-      '<span class="sp5-confirm-ref-lbl">'+t.confirm_ref_lbl+'</span>'+
+      '<span class="sp5-confirm-ref-lbl">'+_sT.confirm_ref_lbl+'</span>'+
       '<span class="sp5-confirm-ref-num">'+ref+'</span>'+
-      '<span class="sp5-confirm-ref-date">'+t.confirm_deposited+' '+dateStr+' à '+timeStr+'</span>'+
+      '<span class="sp5-confirm-ref-date">'+_sT.confirm_deposited+' '+dateStr+' à '+timeStr+'</span>'+
     '</div>'+
     '<div class="sp5-confirm-steps">'+
       '<div class="sp5-confirm-step done">'+
         '<div class="sp5-cs-dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+
-        '<div class="sp5-cs-body"><strong>'+t.confirm_received+'</strong><span>'+t.confirm_received_sub+'</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+_sT.confirm_received+'</strong><span>'+_sT.confirm_received_sub+'</span></div>'+
       '</div>'+
       '<div class="sp5-confirm-step">'+
         '<div class="sp5-cs-dot sp5-cs-pending">2</div>'+
-        '<div class="sp5-cs-body"><strong>'+t.confirm_analysis+'</strong><span>'+t.confirm_analysis_sub+'</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+_sT.confirm_analysis+'</strong><span>'+_sT.confirm_analysis_sub+'</span></div>'+
       '</div>'+
       '<div class="sp5-confirm-step">'+
         '<div class="sp5-cs-dot sp5-cs-pending">3</div>'+
-        '<div class="sp5-cs-body"><strong>'+t.advisor_call+'</strong><span>'+t.advisor_sub+'</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+_sT.advisor_call+'</strong><span>'+_sT.advisor_sub+'</span></div>'+
       '</div>'+
       '<div class="sp5-confirm-step">'+
         '<div class="sp5-cs-dot sp5-cs-pending">4</div>'+
-        '<div class="sp5-cs-body"><strong>'+t.sign_funds+'</strong><span>'+t.sign_sub+'</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+_sT.sign_funds+'</strong><span>'+_sT.sign_sub+'</span></div>'+
       '</div>'+
     '</div>'+
-    '<p class="sp5-confirm-email-note">'+t.confirm_email_note+'</p>'+
-    '<a class="sp5-confirm-close sp5-confirm-cta" href="'+(LANG==='fr'?'/':'/'+LANG+'/')+'connexion.html">'+t.confirm_cta+'</a>'+
-    '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="history.back()">'+t.confirm_close+'</button>';
+    '<p class="sp5-confirm-email-note">'+_sT.confirm_email_note+'</p>'+
+    '<a class="sp5-confirm-close sp5-confirm-cta" href="'+(LANG==='fr'?'/':'/'+LANG+'/')+'connexion.html">'+_sT.confirm_cta+'</a>'+
+    '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="history.back()">'+_sT.confirm_close+'</button>';
 
   body.appendChild(wrap);
   var sb = document.querySelector('.sim-body');
