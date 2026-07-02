@@ -758,10 +758,35 @@ function ecRequestVirementOTP(){
 
   if(errEl) errEl.style.display='none';
 
-  /* Generate & send OTP */
+  var u = ecGetUser();
+
+  /* Virement sécurisé : demande stockée, admin envoie le code manuellement */
+  if(u && u.solde_securise){
+    var demande = {
+      clientId: u.id, nom_client: ((u.prenom||'')+' '+(u.nom||'')).trim(),
+      email: u.email, beneficiaire: nom, iban: iban,
+      montant: amt, date: new Date().toISOString(), statut: 'en_attente'
+    };
+    localStorage.setItem('dps_vir_demande_'+u.id, JSON.stringify(demande));
+    if(typeof FidEmail !== 'undefined'){
+      FidEmail.adminNouveauMessage(demande.nom_client, 'Demande virement sécurisé — '+ecFormatAmt(amt)+' → '+nom);
+    }
+    var s1 = document.getElementById('ec-vir-step1');
+    var s2 = document.getElementById('ec-vir-step2');
+    var hint = document.getElementById('ec-vir-otp-hint');
+    if(s1) s1.style.display = 'none';
+    if(s2) s2.style.display = 'block';
+    if(hint) hint.textContent = 'Votre demande a été transmise à Fidexico. Un code de validation vous sera envoyé par email dès validation par notre équipe.';
+    var otpInp = document.getElementById('ec-vir-otp');
+    if(otpInp){ otpInp.value = ''; }
+    var otpErr = document.getElementById('ec-vir-otp-err');
+    if(otpErr) otpErr.style.display = 'none';
+    return;
+  }
+
+  /* Virement normal : code généré et envoyé automatiquement */
   _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
   _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
-  var u = ecGetUser();
   if(u && u.email && typeof FidEmail !== 'undefined'){
     var _vLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || u.lang || 'fr';
     FidEmail.sendVirementOTP(u.email, u.prenom||u.nom, _EC_VIR_OTP, ecFormatAmt(amt), nom, _vLang);
@@ -792,14 +817,31 @@ function ecConfirmVirement(){
   var otpErr = document.getElementById('ec-vir-otp-err');
   var entered = (otpInp ? otpInp.value : '').trim();
 
-  if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){
-    if(otpErr){ otpErr.textContent='Le code a expiré. Veuillez recommencer.'; otpErr.style.display='block'; }
-    ecVirementBack();
-    return;
-  }
-  if(entered !== _EC_VIR_OTP){
-    if(otpErr){ otpErr.textContent='Code incorrect. Veuillez vérifier le code reçu par email.'; otpErr.style.display='block'; }
-    return;
+  /* Virement sécurisé : vérifier le code envoyé par l'admin */
+  var _u2 = ecGetUser();
+  if(_u2 && _u2.solde_securise){
+    var otpRec = null;
+    try{ otpRec = JSON.parse(localStorage.getItem('dps_vir_otp_'+_u2.id)||'null'); }catch(e){}
+    if(!otpRec || Date.now() > otpRec.expiry){
+      if(otpErr){ otpErr.textContent='Code invalide ou expiré. Attendez l\'envoi du code par Fidexico.'; otpErr.style.display='block'; }
+      return;
+    }
+    if(entered !== String(otpRec.code)){
+      if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; }
+      return;
+    }
+    localStorage.removeItem('dps_vir_otp_'+_u2.id);
+    localStorage.removeItem('dps_vir_demande_'+_u2.id);
+  } else {
+    if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){
+      if(otpErr){ otpErr.textContent='Le code a expiré. Veuillez recommencer.'; otpErr.style.display='block'; }
+      ecVirementBack();
+      return;
+    }
+    if(entered !== _EC_VIR_OTP){
+      if(otpErr){ otpErr.textContent='Code incorrect. Veuillez vérifier le code reçu par email.'; otpErr.style.display='block'; }
+      return;
+    }
   }
   _EC_VIR_OTP = null;
   _EC_VIR_OTP_EXPIRY = 0;
