@@ -2888,6 +2888,12 @@ function admDepotSecEnvoyer(){
   var creditDone = function(){
     reset();
     admSoldeLoad();
+    /* Email de confirmation au client */
+    if(typeof FidEmail !== 'undefined' && _dpsClient.email){
+      var prenom = _dpsClient.prenom || _dpsClient.nom || 'Client';
+      var lang   = _dpsClient.lang || 'fr';
+      FidEmail.virementEntrant(prenom, _dpsClient.email, fmtMontant, 'Fidexico', label, lang).catch(function(){});
+    }
     if(depotType === 'securise'){
       admVirGetCode(_dpsClient.id);
       admLog('depot', _dpsClient.id, 'Dépôt sécurisé '+fmtMontant+' crédité', montant);
