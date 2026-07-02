@@ -308,6 +308,9 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
     }
     .adm-hamburger {
       display: none;
@@ -372,7 +375,7 @@
       max-width: 100%;
       overflow-x: hidden;
     }
-    .adm-section { display: none; }
+    .adm-section { display: none; width: 100%; box-sizing: border-box; }
     .adm-section.active { display: block; }
     .adm-section-title {
       font-size: 1.25rem;
@@ -1855,7 +1858,7 @@
               </tbody>
             </table>
           </div>
-          <div id="solde-total-bar" style="display:none;margin-top:.75rem;padding:.6rem 1rem;background:#f8fafc;border-radius:10px;font-size:.85rem;color:#475569;display:flex;gap:2rem">
+          <div id="solde-total-bar" style="display:none;margin-top:.75rem;padding:.6rem 1rem;background:#f8fafc;border-radius:10px;font-size:.85rem;color:#475569;gap:2rem">
             <span>Total : <strong id="solde-total-clients">0</strong> clients</span>
             <span>Solde total : <strong id="solde-total-amt" style="color:#06c2b0">—</strong></span>
           </div>
