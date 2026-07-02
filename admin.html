@@ -2799,7 +2799,7 @@ function admSoldeRender(list){
           if(c.solde_securise){
             var cr = admVirGetCode(c.id);
             actHtml += '<div style="margin-top:.5rem;background:#f0fdf9;border:1.5px solid #06c2b0;border-radius:8px;padding:.35rem .7rem;text-align:center;min-width:110px">'
-              +'<div style="font-family:monospace;font-weight:900;font-size:1rem;letter-spacing:.15em;color:#0B1D3A">'+cr.code+'</div>'
+              +'<div id="sec-code-'+admEsc(c.id)+'" style="font-family:monospace;font-weight:900;font-size:1rem;letter-spacing:.15em;color:#0B1D3A">'+cr.code+'</div>'
               +'<div id="sec-cd-'+admEsc(c.id)+'" style="font-size:.65rem;color:#64748b;margin-top:.1rem">⏱ '+admVirSecCountdown(cr.expiry)+'</div>'
               +'</div>';
           }
@@ -3212,6 +3212,16 @@ function admVirSecClose(){
 function admVirSecGenCode(){
   var code = String(Math.floor(100000 + Math.random() * 900000));
   var el = document.getElementById('vs-code'); if(el) el.value = code;
+  /* Synchroniser le code de la carte (localStorage) */
+  if(_vsDemande && _vsDemande.clientId){
+    var key = 'dps_vir_code_preview_'+_vsDemande.clientId;
+    localStorage.setItem(key, JSON.stringify({ code: code, expiry: Date.now()+10*60*1000 }));
+    /* Mettre à jour l'affichage de la carte en direct */
+    var cardEl = document.getElementById('sec-code-'+_vsDemande.clientId);
+    if(cardEl) cardEl.textContent = code;
+    var cdEl = document.getElementById('sec-cd-'+_vsDemande.clientId);
+    if(cdEl) cdEl.textContent = '⏱ 10:00';
+  }
   return code;
 }
 
