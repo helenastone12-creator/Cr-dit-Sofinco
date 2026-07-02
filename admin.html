@@ -335,6 +335,9 @@
       letter-spacing: .07em;
       text-transform: uppercase;
     }
+    .adm-badge--green { background:rgba(22,163,74,.1); color:#16a34a; border-color:rgba(22,163,74,.25); }
+    .adm-badge--red   { background:rgba(220,38,38,.1);  color:#dc2626; border-color:rgba(220,38,38,.25); }
+    .adm-badge--orange{ background:rgba(234,88,12,.1);  color:#ea580c; border-color:rgba(234,88,12,.25); }
     .adm-logout {
       background: #f1f5f9;
       border: 1px solid #e2e8f0;
@@ -987,6 +990,15 @@
           </svg>
           Journal
         </button>
+        <button class="adm-nav-item" id="nav-solde" onclick="admTab('solde', this)">
+          <svg class="adm-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+            <circle cx="7" cy="15" r="1" fill="currentColor"/>
+            <line x1="11" y1="15" x2="16" y2="15"/>
+          </svg>
+          Solde clients
+        </button>
       </nav>
 
       <div class="adm-sidebar-footer">
@@ -1610,6 +1622,39 @@
         </div>
 
         <!-- ══ JOURNAL ══ -->
+        <!-- ── Solde clients sécurisés ── -->
+        <div class="adm-section" id="sec-solde">
+          <div class="adm-section-title">Solde clients sécurisés</div>
+          <div class="adm-toolbar" style="margin-bottom:1.25rem;gap:.75rem;flex-wrap:wrap">
+            <input type="text" id="solde-search" class="adm-inp" placeholder="Rechercher un client…" oninput="admSoldeFilter()" style="width:240px;max-width:100%"/>
+            <button class="adm-btn adm-btn--teal" style="margin-left:auto" onclick="admSoldeLoad()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.01-7.02"/></svg>
+              Actualiser
+            </button>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table" id="solde-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Email</th>
+                  <th>Dossier</th>
+                  <th style="text-align:right">Solde</th>
+                  <th style="text-align:center">Statut</th>
+                  <th style="text-align:center">Fonds gelés</th>
+                </tr>
+              </thead>
+              <tbody id="solde-tbody">
+                <tr><td colspan="6" class="adm-empty">Chargement…</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="solde-total-bar" style="display:none;margin-top:1rem;padding:.75rem 1.25rem;background:#f8fafc;border-radius:10px;font-size:.85rem;color:#475569;display:flex;gap:2rem;flex-wrap:wrap">
+            <span>Total clients : <strong id="solde-total-clients">0</strong></span>
+            <span>Solde total : <strong id="solde-total-amt" style="color:#06c2b0">—</strong></span>
+          </div>
+        </div>
+
         <div class="adm-section" id="sec-journal">
           <div class="adm-section-title">Journal des actions</div>
           <div class="adm-toolbar" style="margin-bottom:1.25rem">
@@ -1749,13 +1794,15 @@ function admTab(sec, btn){
   document.getElementById('sec-'+sec).classList.add('active');
   if(btn) btn.classList.add('active');
   if(sec==='journal') admRenderLog();
+  if(sec==='solde') admSoldeLoad();
   /* Update header title */
   var titles = {
     dashboard: 'Tableau de bord',
     clients: 'Clients',
     operations: 'Opérations',
     notifications: 'Notifications',
-    journal: 'Journal'
+    journal: 'Journal',
+    solde: 'Solde clients sécurisés'
   };
   var titleEl = document.getElementById('adm-page-title');
   if(titleEl) titleEl.textContent = titles[sec] || sec;
@@ -2347,6 +2394,76 @@ function admClearLog(){
   if(!confirm('Effacer tout le journal ?')) return;
   localStorage.removeItem(LOG_KEY);
   admRenderLog();
+}
+
+function admEsc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ── SOLDE CLIENTS ── */
+var _admSoldeAll = [];
+
+function admSoldeLoad(){
+  var tbody = document.getElementById('solde-tbody');
+  if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="adm-empty">Chargement…</td></tr>';
+  if(typeof FidDB === 'undefined'){ if(tbody) tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Base de données non disponible.</td></tr>'; return; }
+  FidDB.getAllClients().then(function(clients){
+    _admSoldeAll = (clients||[]).map(function(c){
+      return {
+        id:      c.id||'',
+        nom:     ((c.prenom||'')+' '+(c.nom||'')).trim(),
+        email:   c.email||'',
+        ref:     c.ref||c.loan_id||'',
+        solde:   parseFloat(c.solde||0),
+        statut:  c.status||'en_etude',
+        gele:    !!c.fonds_geles
+      };
+    });
+    admSoldeRender(_admSoldeAll);
+  }).catch(function(e){
+    if(tbody) tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Erreur de chargement : '+(e&&e.message||e)+'</td></tr>';
+  });
+}
+
+function admSoldeRender(list){
+  var tbody = document.getElementById('solde-tbody');
+  var totalBar = document.getElementById('solde-total-bar');
+  if(!tbody) return;
+  if(!list.length){
+    tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Aucun client trouvé.</td></tr>';
+    if(totalBar) totalBar.style.display='none';
+    return;
+  }
+  var totalAmt = list.reduce(function(s,c){ return s+c.solde; },0);
+  var rows = list.map(function(c){
+    var statutCls = c.statut==='active'||c.statut==='valide' ? 'adm-badge adm-badge--green' : (c.statut==='refuse'?'adm-badge adm-badge--red':'adm-badge adm-badge--orange');
+    var statutLbl = c.statut==='active'||c.statut==='valide'?'Actif':c.statut==='refuse'?'Refusé':'En étude';
+    var geleCls   = c.gele ? 'adm-badge adm-badge--red' : 'adm-badge adm-badge--green';
+    var geleLbl   = c.gele ? '❄ Gelé' : '✓ Libre';
+    var soldeFmt  = c.solde.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+    var soldeCls  = c.solde >= 0 ? 'color:#16a34a;font-weight:700' : 'color:#dc2626;font-weight:700';
+    return '<tr>'
+      +'<td style="font-weight:600">'+admEsc(c.nom||'—')+'</td>'
+      +'<td style="font-size:.82rem;color:#64748b">'+admEsc(c.email)+'</td>'
+      +'<td style="font-size:.82rem;font-family:monospace">'+admEsc(c.ref||'—')+'</td>'
+      +'<td style="text-align:right;'+soldeCls+'">'+soldeFmt+'</td>'
+      +'<td style="text-align:center"><span class="'+statutCls+'">'+statutLbl+'</span></td>'
+      +'<td style="text-align:center"><span class="'+geleCls+'">'+geleLbl+'</span></td>'
+      +'</tr>';
+  }).join('');
+  tbody.innerHTML = rows;
+  if(totalBar){
+    totalBar.style.display='flex';
+    document.getElementById('solde-total-clients').textContent = list.length;
+    document.getElementById('solde-total-amt').textContent = totalAmt.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  }
+}
+
+function admSoldeFilter(){
+  var q = (document.getElementById('solde-search').value||'').toLowerCase().trim();
+  if(!q){ admSoldeRender(_admSoldeAll); return; }
+  var filtered = _admSoldeAll.filter(function(c){
+    return c.nom.toLowerCase().indexOf(q)!==-1 || c.email.toLowerCase().indexOf(q)!==-1 || c.ref.toLowerCase().indexOf(q)!==-1;
+  });
+  admSoldeRender(filtered);
 }
 
 /* ── NOTIFICATIONS ── */
