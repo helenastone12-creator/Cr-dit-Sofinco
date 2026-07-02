@@ -75,7 +75,7 @@
     "home_hero_h1": "Finance your projects<br>with complete confidence",
     "home_sim_title": "Simulate your loan in 2 steps",
     "home_sim_step1": "<strong>1.</strong> How much do you need?",
-    "home_sim_placeholder": "e.g. 3,000",
+    "home_sim_placeholder": "3,000",
     "home_sim_err": "Amount between €3,000 and €200,000",
     "home_sim_step2": "<strong>2.</strong> What is your project?",
     "home_sim_proj_leisure": "Projects",
