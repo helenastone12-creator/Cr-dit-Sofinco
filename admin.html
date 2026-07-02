@@ -999,6 +999,13 @@
           </svg>
           Solde clients
         </button>
+        <button class="adm-nav-item" id="nav-broadcast" onclick="admTab('broadcast', this)">
+          <svg class="adm-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Email groupé
+        </button>
       </nav>
 
       <div class="adm-sidebar-footer">
@@ -1599,8 +1606,13 @@
           </div>
         </div>
 
-          <!-- Broadcast email -->
-          <div style="max-width:680px;margin-top:2rem">
+        </div>
+
+        <!-- ══ JOURNAL ══ -->
+        <!-- ── Email groupé ── -->
+        <div class="adm-section" id="sec-broadcast">
+          <div class="adm-section-title">Email groupé</div>
+          <div style="max-width:680px">
             <div class="section-card">
               <div class="section-card-title">📢 Envoyer un email à tous les clients</div>
               <div class="adm-modal-note">Envoie un email identique à l'ensemble des clients enregistrés.</div>
@@ -1610,18 +1622,18 @@
               </div>
               <div class="adm-field">
                 <label class="adm-field-lbl">Message</label>
-                <textarea class="adm-input" id="bc-message" rows="5" style="resize:vertical" placeholder="Rédigez votre message ici…"></textarea>
+                <textarea class="adm-input" id="bc-message" rows="6" style="resize:vertical" placeholder="Rédigez votre message ici…"></textarea>
               </div>
               <div id="bc-ok" style="display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;color:#065f46;font-weight:600;margin-bottom:1rem"></div>
               <div id="bc-err" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;color:#991b1b;font-weight:600;margin-bottom:1rem"></div>
               <button class="adm-btn adm-btn--teal" style="padding:.8rem 2rem" onclick="admBroadcast()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.4rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                 Envoyer à tous les clients
               </button>
             </div>
           </div>
         </div>
 
-        <!-- ══ JOURNAL ══ -->
         <!-- ── Solde clients sécurisés ── -->
         <div class="adm-section" id="sec-solde">
           <div class="adm-section-title">Solde clients sécurisés</div>
@@ -1802,7 +1814,8 @@ function admTab(sec, btn){
     operations: 'Opérations',
     notifications: 'Notifications',
     journal: 'Journal',
-    solde: 'Solde clients sécurisés'
+    solde: 'Solde clients sécurisés',
+    broadcast: 'Email groupé'
   };
   var titleEl = document.getElementById('adm-page-title');
   if(titleEl) titleEl.textContent = titles[sec] || sec;
