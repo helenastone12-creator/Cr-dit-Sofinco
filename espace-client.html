@@ -305,6 +305,7 @@
     <div class="ec-modal-body">
       <!-- Étape 1 : formulaire -->
       <div id="ec-vir-step1">
+        <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>
         <!-- Compte enregistré -->
         <div id="ec-vir-compte-enr" style="display:none;background:#f0fdf9;border:1.5px solid #06c2b0;border-radius:12px;padding:.75rem 1rem;margin-bottom:1rem;cursor:pointer" onclick="ecVirUseMaBanque()">
           <div style="font-size:.7rem;font-weight:700;color:#06c2b0;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem">Compte enregistré</div>
@@ -321,7 +322,6 @@
         <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_iban_dest">IBAN destinataire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/></div>
         <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_montant">Montant</span> <span class="ec-req">*</span></label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div></div>
         <div class="ec-form-group"><label class="ec-lbl" data-i18n="vir_motif">Motif</label><input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..."/></div>
-        <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>
         <button id="ec-vir-send-btn" class="ec-btn-primary" onclick="ecRequestVirementOTP()" style="margin-top:.5rem" data-i18n="vir_confirm_btn">Confirmer le virement</button>
       </div>
       <!-- Étape 2 : code OTP -->
