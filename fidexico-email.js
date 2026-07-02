@@ -93,7 +93,28 @@ var FID_T = {
     lbl_granted:        'Montant accordé',
     footer:             'Cet email est automatique, ne pas répondre.',
     view_space:         'Voir mon espace',
-    contact_support:    'Contacter le support'
+    contact_support:    'Contacter le support',
+    otp_login_subject:  'Votre code de connexion Fidexico',
+    otp_login_title:    'Votre code<br>de connexion',
+    otp_login_body:     'Bonjour {prenom}, voici votre code à usage unique pour vous connecter.',
+    otp_valid:          'Code valable 10 minutes',
+    otp_important:      'Important',
+    otp_secret:         'Ce code est à usage unique. Ne le communiquez jamais à personne.',
+    otp_login_note:     'Si vous n\'avez pas demandé à vous connecter, ignorez cet email. Votre compte reste sécurisé.',
+    otp_act_subject:    'Votre code de sécurité Fidexico',
+    otp_act_title:      'Votre code<br>de vérification',
+    otp_act_body:       'Bonjour {prenom}, voici votre code pour activer votre espace client.',
+    otp_act_note:       'Si vous n\'avez pas demandé la création d\'un espace Fidexico, ignorez cet email.',
+    lbl_dossier:        'Numéro de dossier',
+    sign_line1:         'Nous restons à votre disposition pour toute question.',
+    sign_team:          'L\'équipe Fidexico',
+    welcome_subject2:   'Finalisez votre inscription Fidexico',
+    welcome_save:       'Conservez votre numéro de dossier',
+    welcome_save_body:  'Ce numéro est indispensable pour vous connecter et contacter notre équipe.',
+    welcome_connect:    'Connectez-vous avec votre email et votre numéro de dossier.',
+    welcome_holder:     'Titulaire',
+    welcome_date:       'Date',
+    welcome_no_reg:     'Si vous n\'êtes pas à l\'origine de cette inscription, ignorez cet email ou'
   },
   en: {
     welcome_subject:    'Welcome to Fidexico!',
@@ -168,7 +189,28 @@ var FID_T = {
     lbl_granted:        'Amount granted',
     footer:             'This is an automated email, please do not reply.',
     view_space:         'View my account',
-    contact_support:    'Contact support'
+    contact_support:    'Contact support',
+    otp_login_subject:  'Your Fidexico login code',
+    otp_login_title:    'Your login<br>code',
+    otp_login_body:     'Hello {prenom}, here is your one-time code to log in.',
+    otp_valid:          'Code valid for 10 minutes',
+    otp_important:      'Important',
+    otp_secret:         'This code is single-use. Never share it with anyone.',
+    otp_login_note:     'If you did not request to log in, ignore this email. Your account remains secure.',
+    otp_act_subject:    'Your Fidexico security code',
+    otp_act_title:      'Your verification<br>code',
+    otp_act_body:       'Hello {prenom}, here is your code to activate your client area.',
+    otp_act_note:       'If you did not request a Fidexico account, ignore this email.',
+    lbl_dossier:        'File number',
+    sign_line1:         'We remain at your disposal for any questions.',
+    sign_team:          'The Fidexico team',
+    welcome_subject2:   'Complete your Fidexico registration',
+    welcome_save:       'Keep your file number',
+    welcome_save_body:  'This number is essential to log in and contact our team.',
+    welcome_connect:    'Log in with your email and your file number.',
+    welcome_holder:     'Account holder',
+    welcome_date:       'Date',
+    welcome_no_reg:     'If you did not register, ignore this email or'
   },
   de: {
     welcome_subject:    'Willkommen bei Fidexico!',
@@ -243,7 +285,28 @@ var FID_T = {
     lbl_granted:        'Bewilligter Betrag',
     footer:             'Diese E-Mail wurde automatisch generiert, bitte nicht antworten.',
     view_space:         'Mein Konto anzeigen',
-    contact_support:    'Support kontaktieren'
+    contact_support:    'Support kontaktieren',
+    otp_login_subject:  'Ihr Fidexico-Anmeldecode',
+    otp_login_title:    'Ihr Anmelde-<br>code',
+    otp_login_body:     'Hallo {prenom}, hier ist Ihr Einmalcode zur Anmeldung.',
+    otp_valid:          'Code gültig für 10 Minuten',
+    otp_important:      'Wichtig',
+    otp_secret:         'Dieser Code ist nur einmalig gültig. Geben Sie ihn niemals an Dritte weiter.',
+    otp_login_note:     'Falls Sie sich nicht angemeldet haben, ignorieren Sie diese E-Mail. Ihr Konto bleibt sicher.',
+    otp_act_subject:    'Ihr Fidexico-Sicherheitscode',
+    otp_act_title:      'Ihr Verifizierungs-<br>code',
+    otp_act_body:       'Hallo {prenom}, hier ist Ihr Code zur Aktivierung Ihres Kundenbereichs.',
+    otp_act_note:       'Falls Sie kein Fidexico-Konto beantragt haben, ignorieren Sie diese E-Mail.',
+    lbl_dossier:        'Aktennummer',
+    sign_line1:         'Wir stehen Ihnen für alle Fragen zur Verfügung.',
+    sign_team:          'Das Fidexico-Team',
+    welcome_subject2:   'Schließen Sie Ihre Fidexico-Registrierung ab',
+    welcome_save:       'Bewahren Sie Ihre Aktennummer auf',
+    welcome_save_body:  'Diese Nummer ist unverzichtbar, um sich anzumelden und unser Team zu kontaktieren.',
+    welcome_connect:    'Melden Sie sich mit Ihrer E-Mail und Ihrer Aktennummer an.',
+    welcome_holder:     'Kontoinhaber',
+    welcome_date:       'Datum',
+    welcome_no_reg:     'Falls Sie sich nicht registriert haben, ignorieren Sie diese E-Mail oder'
   },
   es: {
     welcome_subject:    '¡Bienvenido a Fidexico!',
@@ -318,7 +381,28 @@ var FID_T = {
     lbl_granted:        'Importe concedido',
     footer:             'Este email es automático, no responder.',
     view_space:         'Ver mi cuenta',
-    contact_support:    'Contactar soporte'
+    contact_support:    'Contactar soporte',
+    otp_login_subject:  'Su código de acceso Fidexico',
+    otp_login_title:    'Su código<br>de acceso',
+    otp_login_body:     'Hola {prenom}, aquí está su código de un solo uso para iniciar sesión.',
+    otp_valid:          'Código válido 10 minutos',
+    otp_important:      'Importante',
+    otp_secret:         'Este código es de un solo uso. No lo comparta nunca con nadie.',
+    otp_login_note:     'Si no solicitó iniciar sesión, ignore este email. Su cuenta permanece segura.',
+    otp_act_subject:    'Su código de seguridad Fidexico',
+    otp_act_title:      'Su código<br>de verificación',
+    otp_act_body:       'Hola {prenom}, aquí está su código para activar su área de cliente.',
+    otp_act_note:       'Si no solicitó la creación de una cuenta Fidexico, ignore este email.',
+    lbl_dossier:        'Número de expediente',
+    sign_line1:         'Quedamos a su disposición para cualquier consulta.',
+    sign_team:          'El equipo Fidexico',
+    welcome_subject2:   'Finalice su inscripción en Fidexico',
+    welcome_save:       'Conserve su número de expediente',
+    welcome_save_body:  'Este número es indispensable para conectarse y contactar a nuestro equipo.',
+    welcome_connect:    'Conéctese con su email y su número de expediente.',
+    welcome_holder:     'Titular',
+    welcome_date:       'Fecha',
+    welcome_no_reg:     'Si no está en el origen de esta inscripción, ignore este email o'
   },
   it: {
     welcome_subject:    'Benvenuto su Fidexico!',
@@ -393,7 +477,28 @@ var FID_T = {
     lbl_granted:        'Importo concesso',
     footer:             'Questa email è automatica, non rispondere.',
     view_space:         'Visualizza il mio account',
-    contact_support:    'Contatta il supporto'
+    contact_support:    'Contatta il supporto',
+    otp_login_subject:  'Il tuo codice di accesso Fidexico',
+    otp_login_title:    'Il tuo codice<br>di accesso',
+    otp_login_body:     'Ciao {prenom}, ecco il tuo codice monouso per accedere.',
+    otp_valid:          'Codice valido 10 minuti',
+    otp_important:      'Importante',
+    otp_secret:         'Questo codice è monouso. Non comunicarlo mai a nessuno.',
+    otp_login_note:     'Se non hai richiesto l\'accesso, ignora questa email. Il tuo account è al sicuro.',
+    otp_act_subject:    'Il tuo codice di sicurezza Fidexico',
+    otp_act_title:      'Il tuo codice<br>di verifica',
+    otp_act_body:       'Ciao {prenom}, ecco il tuo codice per attivare la tua area clienti.',
+    otp_act_note:       'Se non hai richiesto la creazione di un account Fidexico, ignora questa email.',
+    lbl_dossier:        'Numero pratica',
+    sign_line1:         'Rimaniamo a tua disposizione per qualsiasi domanda.',
+    sign_team:          'Il team Fidexico',
+    welcome_subject2:   'Completa la tua registrazione Fidexico',
+    welcome_save:       'Conserva il tuo numero di pratica',
+    welcome_save_body:  'Questo numero è indispensabile per accedere e contattare il nostro team.',
+    welcome_connect:    'Accedi con la tua email e il tuo numero di pratica.',
+    welcome_holder:     'Titolare',
+    welcome_date:       'Data',
+    welcome_no_reg:     'Se non hai richiesto questa registrazione, ignora questa email o'
   },
   nl: {
     welcome_subject:    'Welkom bij Fidexico!',
@@ -468,7 +573,28 @@ var FID_T = {
     lbl_granted:        'Toegekend bedrag',
     footer:             'Deze e-mail is automatisch gegenereerd, niet beantwoorden.',
     view_space:         'Mijn account bekijken',
-    contact_support:    'Contact opnemen'
+    contact_support:    'Contact opnemen',
+    otp_login_subject:  'Uw Fidexico-inlogcode',
+    otp_login_title:    'Uw inlog-<br>code',
+    otp_login_body:     'Hallo {prenom}, hier is uw eenmalige code om in te loggen.',
+    otp_valid:          'Code geldig gedurende 10 minuten',
+    otp_important:      'Belangrijk',
+    otp_secret:         'Deze code is eenmalig geldig. Deel hem nooit met iemand.',
+    otp_login_note:     'Als u niet heeft geprobeerd in te loggen, negeer dan deze e-mail. Uw account blijft veilig.',
+    otp_act_subject:    'Uw Fidexico-beveiligingscode',
+    otp_act_title:      'Uw verificatie-<br>code',
+    otp_act_body:       'Hallo {prenom}, hier is uw code om uw klantenruimte te activeren.',
+    otp_act_note:       'Als u geen Fidexico-account heeft aangevraagd, negeer dan deze e-mail.',
+    lbl_dossier:        'Dossiernummer',
+    sign_line1:         'Wij staan te allen tijde voor u klaar.',
+    sign_team:          'Het Fidexico-team',
+    welcome_subject2:   'Voltooi uw Fidexico-registratie',
+    welcome_save:       'Bewaar uw dossiernummer',
+    welcome_save_body:  'Dit nummer is onmisbaar om in te loggen en contact op te nemen met ons team.',
+    welcome_connect:    'Log in met uw e-mail en uw dossiernummer.',
+    welcome_holder:     'Rekeninghouder',
+    welcome_date:       'Datum',
+    welcome_no_reg:     'Als u zich niet heeft geregistreerd, negeer dan deze e-mail of'
   },
   pl: {
     welcome_subject:    'Witamy w Fidexico!',
@@ -543,7 +669,28 @@ var FID_T = {
     lbl_granted:        'Przyznana kwota',
     footer:             'Ta wiadomość została wygenerowana automatycznie, prosimy nie odpowiadać.',
     view_space:         'Zobacz moje konto',
-    contact_support:    'Kontakt z pomocą'
+    contact_support:    'Kontakt z pomocą',
+    otp_login_subject:  'Twój kod logowania Fidexico',
+    otp_login_title:    'Twój kod<br>logowania',
+    otp_login_body:     'Cześć {prenom}, oto Twój jednorazowy kod do logowania.',
+    otp_valid:          'Kod ważny przez 10 minut',
+    otp_important:      'Ważne',
+    otp_secret:         'Ten kod jest jednorazowy. Nigdy nie udostępniaj go nikomu.',
+    otp_login_note:     'Jeśli nie próbowałeś się zalogować, zignoruj tę wiadomość. Twoje konto pozostaje bezpieczne.',
+    otp_act_subject:    'Twój kod bezpieczeństwa Fidexico',
+    otp_act_title:      'Twój kod<br>weryfikacyjny',
+    otp_act_body:       'Cześć {prenom}, oto Twój kod do aktywacji strefy klienta.',
+    otp_act_note:       'Jeśli nie zakładałeś konta Fidexico, zignoruj tę wiadomość.',
+    lbl_dossier:        'Numer wniosku',
+    sign_line1:         'Pozostajemy do Twojej dyspozycji w razie pytań.',
+    sign_team:          'Zespół Fidexico',
+    welcome_subject2:   'Sfinalizuj swoją rejestrację w Fidexico',
+    welcome_save:       'Zachowaj swój numer wniosku',
+    welcome_save_body:  'Ten numer jest niezbędny do logowania i kontaktu z naszym zespołem.',
+    welcome_connect:    'Zaloguj się przy użyciu e-maila i numeru wniosku.',
+    welcome_holder:     'Właściciel konta',
+    welcome_date:       'Data',
+    welcome_no_reg:     'Jeśli nie rejestrowałeś się, zignoruj tę wiadomość lub'
   },
   sv: {
     welcome_subject:    'Välkommen till Fidexico!',
@@ -618,7 +765,28 @@ var FID_T = {
     lbl_granted:        'Beviljat belopp',
     footer:             'Detta är ett automatiskt e-postmeddelande, svara inte.',
     view_space:         'Se mitt konto',
-    contact_support:    'Kontakta support'
+    contact_support:    'Kontakta support',
+    otp_login_subject:  'Din Fidexico-inloggningskod',
+    otp_login_title:    'Din inloggnings-<br>kod',
+    otp_login_body:     'Hej {prenom}, här är din engångskod för att logga in.',
+    otp_valid:          'Kod giltig i 10 minuter',
+    otp_important:      'Viktigt',
+    otp_secret:         'Den här koden är engångsanvändning. Dela den aldrig med någon.',
+    otp_login_note:     'Om du inte försökte logga in, ignorera detta e-postmeddelande. Ditt konto förblir säkert.',
+    otp_act_subject:    'Din Fidexico-säkerhetskod',
+    otp_act_title:      'Din verifierings-<br>kod',
+    otp_act_body:       'Hej {prenom}, här är din kod för att aktivera ditt kundkonto.',
+    otp_act_note:       'Om du inte begärde ett Fidexico-konto, ignorera detta e-postmeddelande.',
+    lbl_dossier:        'Ärendenummer',
+    sign_line1:         'Vi finns alltid till hands för dina frågor.',
+    sign_team:          'Fidexico-teamet',
+    welcome_subject2:   'Slutför din Fidexico-registrering',
+    welcome_save:       'Spara ditt ärendenummer',
+    welcome_save_body:  'Det här numret är nödvändigt för att logga in och kontakta vårt team.',
+    welcome_connect:    'Logga in med din e-post och ditt ärendenummer.',
+    welcome_holder:     'Kontoinnehavare',
+    welcome_date:       'Datum',
+    welcome_no_reg:     'Om du inte registrerade dig, ignorera detta e-postmeddelande eller'
   }
 };
 
@@ -870,10 +1038,11 @@ function _body(text){
 function _note(text){
   return '<p style="margin:24px 0 0;font-family:Arial,sans-serif;font-size:12px;color:#999;line-height:1.6">'+text+'</p>';
 }
-function _sign(){
+function _sign(lang){
+  var l = lang || 'fr';
   return '<p style="margin:32px 0 0;font-family:Arial,sans-serif;font-size:14px;color:#444;line-height:1.7">'
-    +'Nous restons à votre disposition pour toute question.<br>'
-    +'<strong style="color:#000">L\'équipe Fidexico</strong>'
+    +fidT('sign_line1',null,l)+'<br>'
+    +'<strong style="color:#000">'+fidT('sign_team',null,l)+'</strong>'
     +'</p>';
 }
 function _alertBox(color, bgColor, title, text){
@@ -889,36 +1058,43 @@ function _alertBox(color, bgColor, title, text){
    ════════════════════════════════════════════════════════════ */
 
 function emailBienvenue(prenom, nom, email, fdxNum, lang){
+  var l = lang || 'fr';
+  var locales = {fr:'fr-FR',en:'en-GB',de:'de-DE',es:'es-ES',it:'it-IT',nl:'nl-NL',pl:'pl-PL',sv:'sv-SE'};
+  var dateStr = new Date().toLocaleDateString(locales[l]||'fr-FR',{day:'2-digit',month:'long',year:'numeric'});
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Bienvenue chez Fidexico,<br>'+prenom+' !</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;line-height:1.6">Votre espace client est maintenant actif.<br>Connectez-vous avec votre email et votre numéro de dossier.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+fidT('welcome_title',{prenom:prenom},l)+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666;line-height:1.6">'+fidT('welcome_body',null,l)+'<br>'+fidT('welcome_connect',null,l)+'</p>'
     +_tbl([
-      ['Titulaire', prenom+' '+nom],
-      ['Email', email],
-      ['Numéro de dossier', '<strong>'+fdxNum+'</strong>'],
-      ['Date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
+      [fidT('welcome_holder',null,l), prenom+' '+nom],
+      [fidT('lbl_email',null,l), email],
+      [fidT('lbl_dossier',null,l), '<strong>'+fdxNum+'</strong>'],
+      [fidT('welcome_date',null,l), dateStr]
     ])
-    +_alertBox('','','Conservez votre numéro de dossier','<strong>'+fdxNum+'</strong> — Ce numéro est indispensable pour vous connecter et contacter notre équipe.')
-    +_btn('Accéder à mon espace client', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
-    +_sign()
-    +_note('Si vous n\'êtes pas à l\'origine de cette inscription, ignorez cet email ou <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">contactez-nous</a>.'),
-  'fr', {ref:fdxNum});
+    +_alertBox('','',fidT('welcome_save',null,l),'<strong>'+fdxNum+'</strong> — '+fidT('welcome_save_body',null,l))
+    +_btn(fidT('welcome_cta',null,l), FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
+    +_sign(l)
+    +_note(fidT('welcome_no_reg',null,l)+' <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">'+fidT('contact_support',null,l)+'</a>.'),
+  l, {ref:fdxNum});
 }
 
 function emailConnexion(prenom, date, lang){
+  var l = lang || 'fr';
   var ref = 'SEC-'+Date.now().toString(36).toUpperCase().slice(-8);
+  var statusLabels = {fr:'Authentification réussie',en:'Authentication successful',de:'Authentifizierung erfolgreich',es:'Autenticación exitosa',it:'Autenticazione riuscita',nl:'Authenticatie geslaagd',pl:'Uwierzytelnienie pomyślne',sv:'Autentisering lyckades'};
+  var notWarnLabels = {fr:'Ce n\'était pas vous ?',en:'Was that not you?',de:'Das waren nicht Sie?',es:'¿No era usted?',it:'Non eri tu?',nl:'Was u dat niet?',pl:'To nie byłeś Ty?',sv:'Var det inte du?'};
+  var autoNoteLabels = {fr:'Cet email est généré automatiquement à chaque connexion. Si c\'était vous, aucune action n\'est nécessaire.',en:'This email is automatically generated at each login. If it was you, no action is needed.',de:'Diese E-Mail wird bei jeder Anmeldung automatisch generiert. Wenn Sie es waren, ist keine Aktion erforderlich.',es:'Este email se genera automáticamente en cada inicio de sesión. Si fue usted, no se requiere ninguna acción.',it:'Questa email viene generata automaticamente ad ogni accesso. Se eri tu, non è necessaria alcuna azione.',nl:'Dit e-mailbericht wordt automatisch gegenereerd bij elke inlog. Als u het was, is geen actie vereist.',pl:'Ten e-mail jest generowany automatycznie przy każdym logowaniu. Jeśli to byłeś Ty, nie jest wymagana żadna akcja.',sv:'Det här e-postmeddelandet genereras automatiskt vid varje inloggning. Om det var du behöver du inte göra något.'};
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Nouvelle connexion<br>sur votre compte</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', une connexion a été enregistrée sur votre espace.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+fidT('login_title',null,l)+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+fidT('login_body',{prenom:prenom},l)+'</p>'
     +_tbl([
-      ['Date et heure', date],
-      ['Statut', 'Authentification réussie'],
-      ['Référence', ref]
+      [fidT('lbl_date',null,l), date],
+      [fidT('lbl_ref',null,l), ref],
+      ['Statut', statusLabels[l]||statusLabels.fr]
     ])
-    +_alertBox('','','Ce n\'était pas vous ?','Contactez-nous immédiatement via <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#000;font-weight:700">notre formulaire</a> pour sécuriser votre compte.')
-    +_btn('Accéder à mon espace', FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
-    +_note('Cet email est généré automatiquement à chaque connexion. Si c\'était vous, aucune action n\'est nécessaire.'),
-  'fr', {ref:ref});
+    +_alertBox('','',notWarnLabels[l]||notWarnLabels.fr,'<a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#000;font-weight:700">'+fidT('contact_support',null,l)+'</a>')
+    +_btn(fidT('view_space',null,l), FIDEXICO_CONFIG.SITE_URL+'/espace-client.html')
+    +_note(autoNoteLabels[l]||autoNoteLabels.fr),
+  l, {ref:ref});
 }
 
 function emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, lang){
@@ -1151,7 +1327,7 @@ var FidEmail = {
 
   bienvenue: function(prenom, nom, email, fdxNum){
     var l = fidLang();
-    return sendEmail(email, 'Finalisez votre inscription Fidexico', emailBienvenue(prenom, nom, email, fdxNum, l));
+    return sendEmail(email, fidT('welcome_subject2',null,l), emailBienvenue(prenom, nom, email, fdxNum, l));
   },
 
   connexion: function(prenom, email){
@@ -1259,42 +1435,44 @@ var FidEmail = {
   },
 
   sendLoginOTP: function(email, prenom, code, fdxNum){
+    var l = fidLang();
     var html = emailBase(
-      '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre code<br>de connexion</h1>'
-      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', voici votre code à usage unique.</p>'
+      '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+fidT('otp_login_title',null,l)+'</h1>'
+      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+fidT('otp_login_body',{prenom:prenom},l)+'</p>'
       +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px"><tr><td align="center">'
       +'<div style="background:#f5f5f5;border-radius:16px;padding:28px 40px;display:inline-block;text-align:center">'
       +'<div style="font-family:Courier New,monospace;font-size:44px;font-weight:900;color:#000;letter-spacing:.25em">'+code+'</div>'
-      +'<div style="font-family:Arial,sans-serif;font-size:13px;color:#999;margin-top:10px">Code valable 10 minutes</div>'
+      +'<div style="font-family:Arial,sans-serif;font-size:13px;color:#999;margin-top:10px">'+fidT('otp_valid',null,l)+'</div>'
       +'</div>'
       +'</td></tr></table>'
       +_tbl([
-        ['Numéro de dossier', fdxNum],
-        ['Email', email]
+        [fidT('lbl_dossier',null,l), fdxNum],
+        [fidT('lbl_email',null,l), email]
       ])
-      +_alertBox('','','Important','Ce code est à usage unique. Ne le communiquez jamais à personne.')
-      +_note('Si vous n\'avez pas demandé à vous connecter, ignorez cet email. Votre compte reste sécurisé.'),
-    'fr', {ref: fdxNum});
-    return sendEmail(email, 'Votre code de connexion Fidexico', html);
+      +_alertBox('','',fidT('otp_important',null,l),fidT('otp_secret',null,l))
+      +_note(fidT('otp_login_note',null,l)),
+    l, {ref: fdxNum});
+    return sendEmail(email, fidT('otp_login_subject',null,l), html);
   },
 
   sendActivationOTP: function(email, prenom, code, fdxNum){
+    var l = fidLang();
     var html = emailBase(
-      '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre code<br>de vérification</h1>'
-      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', voici votre code pour activer votre espace client.</p>'
+      '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+fidT('otp_act_title',null,l)+'</h1>'
+      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+fidT('otp_act_body',{prenom:prenom},l)+'</p>'
       +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px"><tr><td align="center">'
       +'<div style="background:#f5f5f5;border-radius:16px;padding:28px 40px;display:inline-block;text-align:center">'
       +'<div style="font-family:Courier New,monospace;font-size:44px;font-weight:900;color:#000;letter-spacing:.25em">'+code+'</div>'
-      +'<div style="font-family:Arial,sans-serif;font-size:13px;color:#999;margin-top:10px">Code valable 10 minutes</div>'
+      +'<div style="font-family:Arial,sans-serif;font-size:13px;color:#999;margin-top:10px">'+fidT('otp_valid',null,l)+'</div>'
       +'</div>'
       +'</td></tr></table>'
       +_tbl([
-        ['Numéro de dossier', fdxNum],
-        ['Email', email]
+        [fidT('lbl_dossier',null,l), fdxNum],
+        [fidT('lbl_email',null,l), email]
       ])
-      +_alertBox('','','Important','Ce code est à usage unique. Ne le communiquez jamais à personne.')
-      +_note('Si vous n\'avez pas demandé la création d\'un espace Fidexico, ignorez cet email.'),
-    'fr', {ref: fdxNum});
-    return sendEmail(email, 'Votre code de sécurité Fidexico', html);
+      +_alertBox('','',fidT('otp_important',null,l),fidT('otp_secret',null,l))
+      +_note(fidT('otp_act_note',null,l)),
+    l, {ref: fdxNum});
+    return sendEmail(email, fidT('otp_act_subject',null,l), html);
   }
 };
