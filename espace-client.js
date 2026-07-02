@@ -64,7 +64,8 @@ function ecCompleteLogin(user){
   var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0};
   localStorage.setItem('ec_user', JSON.stringify(norm));
   if(typeof FidEmail !== 'undefined' && user.email){
-    FidEmail.connexion(user.prenom||user.nom, user.email);
+    var _connLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || user.lang || 'fr';
+    FidEmail.connexion(user.prenom||user.nom, user.email, _connLang);
   }
   ecSetSession('1');
   setTimeout(function(){ window.location.href='/espace-client.html'; }, 400);

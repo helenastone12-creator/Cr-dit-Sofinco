@@ -1202,50 +1202,96 @@ function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
 }
 
 function emailDossierEnEtude(prenom, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
+  var T2 = {
+    title:  {fr:'Votre dossier est<br>en cours d\'étude',en:'Your file is<br>being reviewed',de:'Ihre Akte wird<br>geprüft',es:'Su expediente está<br>siendo revisado',it:'La sua pratica è<br>in fase di studio',nl:'Uw dossier wordt<br>beoordeeld',pl:'Twoja dokumentacja<br>jest analizowana',sv:'Din ansökan<br>granskas'},
+    body:   {fr:'Bonjour '+prenom+', notre équipe analyse votre dossier de financement.',en:'Hello '+prenom+', our team is analysing your financing file.',de:'Hallo '+prenom+', unser Team analysiert Ihre Finanzierungsakte.',es:'Hola '+prenom+', nuestro equipo está analizando su expediente de financiación.',it:'Ciao '+prenom+', il nostro team sta analizzando la sua pratica di finanziamento.',nl:'Hallo '+prenom+', ons team analyseert uw financieringsdossier.',pl:'Cześć '+prenom+', nasz zespół analizuje Twoją dokumentację finansową.',sv:'Hej '+prenom+', vårt team analyserar din finansieringsansökan.'},
+    delay:  {fr:'Notre comité de crédit vous répondra sous <strong>24 à 48 heures ouvrées</strong>. Aucune action n\'est requise de votre part.',en:'Our credit committee will respond within <strong>24 to 48 business hours</strong>. No action is required on your part.',de:'Unser Kreditausschuss wird Ihnen innerhalb von <strong>24 bis 48 Geschäftsstunden</strong> antworten. Ihrerseits ist keine Aktion erforderlich.',es:'Nuestro comité de crédito le responderá en <strong>24 a 48 horas hábiles</strong>. No se requiere ninguna acción por su parte.',it:'Il nostro comitato di credito Le risponderà entro <strong>24-48 ore lavorative</strong>. Non è richiesta alcuna azione da parte Sua.',nl:'Ons kredietcomité zal u binnen <strong>24 tot 48 werkuren</strong> antwoorden. Van uw kant is geen actie vereist.',pl:'Nasz komitet kredytowy odpowie w ciągu <strong>24–48 godzin roboczych</strong>. Z Twojej strony nie jest wymagane żadne działanie.',sv:'Vårt kreditkommitté svarar inom <strong>24 till 48 arbetstimmar</strong>. Du behöver inte göra något.'},
+    delay_l:{fr:'Délai estimé',en:'Estimated timeline',de:'Geschätzter Zeitplan',es:'Plazo estimado',it:'Tempistica stimata',nl:'Geschatte termijn',pl:'Szacowany termin',sv:'Beräknad tid'},
+    cta:    {fr:'Consulter mon espace',en:'View my account',de:'Mein Konto anzeigen',es:'Ver mi cuenta',it:'Visualizza il mio account',nl:'Mijn account bekijken',pl:'Zobacz moje konto',sv:'Se mitt konto'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre dossier est<br>en cours d\'étude</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', notre équipe analyse votre dossier de financement.</p>'
-    +_alertBox('','','Délai estimé','Notre comité de crédit vous répondra sous <strong>24 à 48 heures ouvrées</strong>. Aucune action n\'est requise de votre part.')
-    +_btn('Consulter mon espace', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
-    +_sign(),
-  'fr');
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
+    +_alertBox('','',g('delay_l'),g('delay'))
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/connexion.html')
+    +_sign(l),
+  l);
 }
 
 function emailDossierValide(prenom, montant, duree, mensualite, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
+  var localeMap = {fr:'fr-FR',en:'en-GB',de:'de-DE',es:'es-ES',it:'it-IT',nl:'nl-NL',pl:'pl-PL',sv:'sv-SE'};
   var ref = 'CTR-'+Date.now().toString(36).toUpperCase().slice(-8);
+  var dateStr = new Date().toLocaleDateString(localeMap[l]||'fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  var T2 = {
+    title:  {fr:'Félicitations '+prenom+' !<br>Dossier validé',en:'Congratulations '+prenom+'!<br>File approved',de:'Herzlichen Glückwunsch '+prenom+'!<br>Akte genehmigt',es:'¡Felicitaciones '+prenom+'!<br>Expediente aprobado',it:'Congratulazioni '+prenom+'!<br>Pratica approvata',nl:'Gefeliciteerd '+prenom+'!<br>Dossier goedgekeurd',pl:'Gratulacje '+prenom+'!<br>Dokumentacja zatwierdzona',sv:'Grattis '+prenom+'!<br>Ansökan godkänd'},
+    body:   {fr:'Votre demande de financement a été approuvée par notre comité de crédit.',en:'Your financing application has been approved by our credit committee.',de:'Ihr Finanzierungsantrag wurde von unserem Kreditausschuss genehmigt.',es:'Su solicitud de financiación ha sido aprobada por nuestro comité de crédito.',it:'La sua richiesta di finanziamento è stata approvata dal nostro comitato di credito.',nl:'Uw financieringsaanvraag is goedgekeurd door ons kredietcomité.',pl:'Twój wniosek o finansowanie został zatwierdzony przez nasz komitet kredytowy.',sv:'Din finansieringsansökan har godkänts av vårt kreditkommitté.'},
+    next_l: {fr:'Prochaine étape',en:'Next step',de:'Nächster Schritt',es:'Próximo paso',it:'Prossimo passo',nl:'Volgende stap',pl:'Następny krok',sv:'Nästa steg'},
+    next:   {fr:'Votre conseiller vous transmettra l\'offre de prêt pour signature. Vous disposez d\'un délai légal de réflexion de <strong>14 jours</strong>.',en:'Your advisor will send you the loan offer for signature. You have a legal cooling-off period of <strong>14 days</strong>.',de:'Ihr Berater sendet Ihnen das Kreditangebot zur Unterschrift. Sie haben eine gesetzliche Bedenkzeit von <strong>14 Tagen</strong>.',es:'Su asesor le enviará la oferta de préstamo para firma. Dispone de un período de reflexión legal de <strong>14 días</strong>.',it:'Il suo consulente le invierà l\'offerta di prestito per la firma. Ha un periodo di riflessione legale di <strong>14 giorni</strong>.',nl:'Uw adviseur stuurt u het leenaanbod ter ondertekening. U heeft een wettelijke bedenktijd van <strong>14 dagen</strong>.',pl:'Twój doradca prześle Ci ofertę pożyczki do podpisania. Przysługuje Ci ustawowy okres namysłu wynoszący <strong>14 dni</strong>.',sv:'Din rådgivare skickar låneerbjudandet för underskrift. Du har en lagstadgad ångerfrist på <strong>14 dagar</strong>.'},
+    note:   {fr:'Le déblocage des fonds interviendra après signature et expiration du délai de rétractation.',en:'Funds will be released after signing and the cooling-off period has expired.',de:'Die Freigabe der Mittel erfolgt nach Unterzeichnung und Ablauf der Widerrufsfrist.',es:'Los fondos se liberarán tras la firma y la expiración del período de reflexión.',it:'I fondi saranno sbloccati dopo la firma e la scadenza del periodo di recesso.',nl:'De middelen worden vrijgegeven na ondertekening en het verstrijken van de bedenktijd.',pl:'Środki zostaną uwolnione po podpisaniu i upływie okresu odstąpienia.',sv:'Medlen frigörs efter underskrift och att ångerfristen löpt ut.'},
+    cta:    {fr:'Accéder à mon espace',en:'Access my account',de:'Mein Konto aufrufen',es:'Acceder a mi cuenta',it:'Accedi al mio account',nl:'Mijn account openen',pl:'Przejdź do mojego konta',sv:'Gå till mitt konto'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Félicitations '+prenom+' !<br>Dossier validé</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Votre demande de financement a été approuvée par notre comité de crédit.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
     +_tbl([
-      ['Montant accordé', montant],
-      ['Durée', duree],
-      ['Mensualité', mensualite],
-      ['Réf. contrat', ref],
-      ['Date de décision', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
+      [fidT('lbl_granted',null,l), montant],
+      [fidT('lbl_duration',null,l), duree],
+      [fidT('lbl_monthly',null,l), mensualite],
+      [fidT('lbl_ref',null,l), ref],
+      [fidT('lbl_date',null,l), dateStr]
     ])
-    +_alertBox('','','Prochaine étape','Votre conseiller vous transmettra l\'offre de prêt pour signature. Vous disposez d\'un délai légal de réflexion de <strong>14 jours</strong>.')
-    +_btn('Accéder à mon espace', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
-    +_sign()
-    +_note('Le déblocage des fonds interviendra après signature et expiration du délai de rétractation. Réf. : '+ref),
-  'fr', {ref:ref});
+    +_alertBox('','',g('next_l'),g('next'))
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/connexion.html')
+    +_sign(l)
+    +_note(g('note')+' Réf. : '+ref),
+  l, {ref:ref});
 }
 
 function emailDossierRefuse(prenom, motif, lang){
+  var l = lang || 'fr';
+  var T2 = {
+    title:  {fr:'Suite donnée<br>à votre dossier',en:'Decision on<br>your file',de:'Entscheidung zu<br>Ihrer Akte',es:'Decisión sobre<br>su expediente',it:'Decisione sulla<br>sua pratica',nl:'Beslissing over<br>uw dossier',pl:'Decyzja w sprawie<br>Twojej dokumentacji',sv:'Beslut om<br>din ansökan'},
+    body:   {fr:'Bonjour '+prenom+', nous avons étudié attentivement votre demande de financement.',en:'Hello '+prenom+', we have carefully reviewed your financing application.',de:'Hallo '+prenom+', wir haben Ihren Finanzierungsantrag sorgfältig geprüft.',es:'Hola '+prenom+', hemos revisado detenidamente su solicitud de financiación.',it:'Ciao '+prenom+', abbiamo esaminato attentamente la sua richiesta di finanziamento.',nl:'Hallo '+prenom+', wij hebben uw financieringsaanvraag zorgvuldig beoordeeld.',pl:'Cześć '+prenom+', dokładnie przeanalizowaliśmy Twój wniosek o finansowanie.',sv:'Hej '+prenom+', vi har noggrant granskat din finansieringsansökan.'},
+    text:   {fr:'Après analyse, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre demande.',en:'After review, we are unfortunately unable to give a favourable response to your application.',de:'Nach Prüfung können wir Ihrem Antrag leider nicht stattgeben.',es:'Tras el análisis, lamentablemente no podemos dar una respuesta favorable a su solicitud.',it:'Dopo l\'analisi, purtroppo non siamo in grado di dare un riscontro favorevole alla sua richiesta.',nl:'Na beoordeling zijn wij helaas niet in staat een gunstig antwoord te geven op uw aanvraag.',pl:'Po analizie niestety nie możemy rozpatrzyć pozytywnie Twojego wniosku.',sv:'Efter granskning kan vi tyvärr inte ge ett positivt svar på din ansökan.'},
+    motif_l:{fr:'Motif retenu',en:'Reason',de:'Grund',es:'Motivo',it:'Motivo',nl:'Reden',pl:'Powód',sv:'Skäl'},
+    rights_l:{fr:'Vos droits',en:'Your rights',de:'Ihre Rechte',es:'Sus derechos',it:'I suoi diritti',nl:'Uw rechten',pl:'Twoje prawa',sv:'Dina rättigheter'},
+    rights: {fr:'Vous pouvez demander les raisons objectives de cette décision en nous contactant. Cette décision peut évoluer dans le temps.',en:'You can request the objective reasons for this decision by contacting us. This decision may change over time.',de:'Sie können die objektiven Gründe für diese Entscheidung erfragen, indem Sie uns kontaktieren. Diese Entscheidung kann sich mit der Zeit ändern.',es:'Puede solicitar las razones objetivas de esta decisión contactándonos. Esta decisión puede cambiar con el tiempo.',it:'Può richiedere le ragioni oggettive di questa decisione contattandoci. Questa decisione può cambiare nel tempo.',nl:'U kunt de objectieve redenen voor deze beslissing opvragen door contact met ons op te nemen. Deze beslissing kan in de loop van de tijd veranderen.',pl:'Możesz poprosić o obiektywne powody tej decyzji kontaktując się z nami. Decyzja ta może się zmieniać w czasie.',sv:'Du kan begära de objektiva skälen för detta beslut genom att kontakta oss. Detta beslut kan förändras över tid.'},
+    cta:    {fr:'Contacter notre équipe',en:'Contact our team',de:'Unser Team kontaktieren',es:'Contactar con nuestro equipo',it:'Contattare il nostro team',nl:'Ons team contacteren',pl:'Skontaktuj się z naszym zespołem',sv:'Kontakta vårt team'},
+    note:   {fr:'Nos équipes restent disponibles pour explorer d\'autres solutions adaptées à votre situation.',en:'Our teams remain available to explore other solutions suited to your situation.',de:'Unser Team steht Ihnen zur Verfügung, um andere Lösungen für Ihre Situation zu erkunden.',es:'Nuestros equipos siguen disponibles para explorar otras soluciones adaptadas a su situación.',it:'Il nostro team rimane disponibile per esplorare altre soluzioni adatte alla sua situazione.',nl:'Ons team blijft beschikbaar om andere oplossingen te verkennen die bij uw situatie passen.',pl:'Nasz zespół pozostaje do dyspozycji, aby znaleźć inne rozwiązania dostosowane do Twojej sytuacji.',sv:'Vårt team finns tillgängligt för att utforska andra lösningar som passar din situation.'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
+  var motifHtml = motif ? ' '+g('motif_l')+' : <em>'+motif+'</em>.' : '';
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Suite donnée<br>à votre dossier</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', nous avons étudié attentivement votre demande de financement.</p>'
-    +_body('Après analyse, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre demande.'+(motif ? ' Motif retenu : <em>'+motif+'</em>.' : ''))
-    +_alertBox('','','Vos droits','Vous pouvez demander les raisons objectives de cette décision en nous contactant. Cette décision peut évoluer dans le temps.')
-    +_btn('Contacter notre équipe', FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html')
-    +_sign()
-    +_note('Nos équipes restent disponibles pour explorer d\'autres solutions adaptées à votre situation.'),
-  'fr');
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
+    +_body(g('text')+motifHtml)
+    +_alertBox('','',g('rights_l'),g('rights'))
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html')
+    +_sign(l)
+    +_note(g('note')),
+  l);
 }
 
 function emailDocumentsRequis(prenom, liste, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
+  var T2 = {
+    title:  {fr:'Documents requis<br>pour votre dossier',en:'Documents required<br>for your file',de:'Erforderliche Dokumente<br>für Ihre Akte',es:'Documentos necesarios<br>para su expediente',it:'Documenti richiesti<br>per la sua pratica',nl:'Vereiste documenten<br>voor uw dossier',pl:'Wymagane dokumenty<br>do Twojej dokumentacji',sv:'Dokument som krävs<br>för din ansökan'},
+    body:   {fr:'Bonjour '+prenom+', pour finaliser votre dossier nous avons besoin des documents suivants :',en:'Hello '+prenom+', to finalise your file we need the following documents:',de:'Hallo '+prenom+', zur Fertigstellung Ihrer Akte benötigen wir folgende Dokumente:',es:'Hola '+prenom+', para finalizar su expediente necesitamos los siguientes documentos:',it:'Ciao '+prenom+', per finalizzare la sua pratica abbiamo bisogno dei seguenti documenti:',nl:'Hallo '+prenom+', om uw dossier af te ronden hebben we de volgende documenten nodig:',pl:'Cześć '+prenom+', aby sfinalizować Twoją dokumentację potrzebujemy następujących dokumentów:',sv:'Hej '+prenom+', för att slutföra din ansökan behöver vi följande dokument:'},
+    note_l: {fr:'À noter',en:'Please note',de:'Bitte beachten',es:'A tener en cuenta',it:'Da notare',nl:'Let op',pl:'Do odnotowania',sv:'Observera'},
+    note:   {fr:'L\'instruction de votre dossier est suspendue dans l\'attente de ces pièces.',en:'Processing of your file is on hold pending receipt of these documents.',de:'Die Bearbeitung Ihrer Akte ist bis zum Eingang dieser Unterlagen ausgesetzt.',es:'La tramitación de su expediente está suspendida a la espera de estos documentos.',it:'L\'istruttoria della sua pratica è sospesa in attesa di questi documenti.',nl:'De verwerking van uw dossier is opgeschort in afwachting van deze documenten.',pl:'Rozpatrywanie Twojej dokumentacji jest wstrzymane do czasu otrzymania tych dokumentów.',sv:'Handläggningen av din ansökan är pausad i väntan på dessa dokument.'},
+    cta:    {fr:'Envoyer mes documents',en:'Send my documents',de:'Meine Dokumente senden',es:'Enviar mis documentos',it:'Inviare i miei documenti',nl:'Mijn documenten sturen',pl:'Wyślij moje dokumenty',sv:'Skicka mina dokument'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Documents requis<br>pour votre dossier</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', pour finaliser votre dossier nous avons besoin des documents suivants :</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
     +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px">'
     +liste.map(function(d,i){
       var border = i < liste.length-1 ? 'border-bottom:1px solid #e8e8e8' : '';
@@ -1254,38 +1300,60 @@ function emailDocumentsRequis(prenom, liste, lang){
         +'</td><td style="padding:12px 0 12px 12px;font-family:Arial,sans-serif;font-size:15px;color:#000;'+border+'">'+d+'</td></tr>';
     }).join('')
     +'</table>'
-    +_alertBox('','','À noter','L\'instruction de votre dossier est suspendue dans l\'attente de ces pièces.')
-    +_btn('Envoyer mes documents', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
-    +_sign(),
-  'fr');
+    +_alertBox('','',g('note_l'),g('note'))
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/connexion.html')
+    +_sign(l),
+  l);
 }
 
 function emailDeblocageFonds(prenom, montant, date, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
   var ref = 'DBL-'+Date.now().toString(36).toUpperCase().slice(-8);
+  var T2 = {
+    title:  {fr:'Vos fonds ont<br>été débloqués',en:'Your funds<br>have been released',de:'Ihre Mittel wurden<br>freigegeben',es:'Sus fondos han<br>sido liberados',it:'I suoi fondi<br>sono stati sbloccati',nl:'Uw middelen zijn<br>vrijgegeven',pl:'Twoje środki<br>zostały uwolnione',sv:'Dina medel<br>har frigjorts'},
+    body:   {fr:'Bonjour '+prenom+', le déblocage de vos fonds a été effectué.',en:'Hello '+prenom+', the release of your funds has been completed.',de:'Hallo '+prenom+', die Freigabe Ihrer Mittel wurde durchgeführt.',es:'Hola '+prenom+', la liberación de sus fondos se ha completado.',it:'Ciao '+prenom+', lo sblocco dei suoi fondi è stato effettuato.',nl:'Hallo '+prenom+', de vrijgave van uw middelen is voltooid.',pl:'Cześć '+prenom+', uwolnienie Twoich środków zostało dokonane.',sv:'Hej '+prenom+', frigivningen av dina medel har genomförts.'},
+    lbl_amt:{fr:'Montant débloqué',en:'Released amount',de:'Freigegebener Betrag',es:'Importe liberado',it:'Importo sbloccato',nl:'Vrijgegeven bedrag',pl:'Uwolniona kwota',sv:'Frigivet belopp'},
+    lbl_dat:{fr:'Date de crédit',en:'Credit date',de:'Kreditdatum',es:'Fecha de crédito',it:'Data di accredito',nl:'Kredietdatum',pl:'Data kredytu',sv:'Kreditdatum'},
+    rem_l:  {fr:'Rappel',en:'Reminder',de:'Erinnerung',es:'Recordatorio',it:'Promemoria',nl:'Herinnering',pl:'Przypomnienie',sv:'Påminnelse'},
+    rem:    {fr:'Vos mensualités seront prélevées automatiquement selon votre contrat. En cas de difficulté, contactez-nous avant toute échéance.',en:'Your monthly payments will be automatically debited in accordance with your contract. If you experience difficulties, contact us before any due date.',de:'Ihre monatlichen Raten werden gemäß Ihrem Vertrag automatisch abgebucht. Bei Schwierigkeiten kontaktieren Sie uns vor einem Fälligkeitsdatum.',es:'Sus cuotas mensuales se deducirán automáticamente según su contrato. En caso de dificultades, contáctenos antes de cualquier vencimiento.',it:'Le sue rate mensili verranno addebitate automaticamente secondo il suo contratto. In caso di difficoltà, ci contatti prima di qualsiasi scadenza.',nl:'Uw maandelijkse betalingen worden automatisch geïncasseerd overeenkomstig uw contract. Neem bij moeilijkheden vóór een vervaldatum contact met ons op.',pl:'Twoje miesięczne raty będą automatycznie pobierane zgodnie z umową. W razie trudności skontaktuj się z nami przed każdym terminem płatności.',sv:'Dina månatliga betalningar debiteras automatiskt i enlighet med ditt avtal. Kontakta oss vid svårigheter innan något förfallodatum.'},
+    cta:    {fr:'Consulter mon espace',en:'View my account',de:'Mein Konto anzeigen',es:'Ver mi cuenta',it:'Visualizza il mio account',nl:'Mijn account bekijken',pl:'Zobacz moje konto',sv:'Se mitt konto'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Vos fonds ont<br>été débloqués</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', le déblocage de vos fonds a été effectué.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
     +_tbl([
-      ['Montant débloqué', montant],
-      ['Date de crédit', date],
-      ['Référence', ref]
+      [g('lbl_amt'), montant],
+      [g('lbl_dat'), date],
+      [fidT('lbl_ref',null,l), ref]
     ])
-    +_alertBox('','','Rappel','Vos mensualités seront prélevées automatiquement selon votre contrat. En cas de difficulté, contactez-nous avant toute échéance.')
-    +_btn('Consulter mon espace', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
-    +_sign()
+    +_alertBox('','',g('rem_l'),g('rem'))
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/connexion.html')
+    +_sign(l)
     +_note('Réf. : '+ref),
-  'fr', {ref:ref});
+  l, {ref:ref});
 }
 
 function emailRappelSuivi(prenom, jours, lang){
+  var l = lang || 'fr';
+  var lp = l==='fr'?'':'/'+l;
+  var T2 = {
+    title:  {fr:'Point de situation<br>sur votre dossier',en:'Status update<br>on your file',de:'Statusbericht<br>zu Ihrer Akte',es:'Actualización<br>de su expediente',it:'Aggiornamento<br>sulla sua pratica',nl:'Statusupdate<br>van uw dossier',pl:'Aktualizacja statusu<br>Twojej dokumentacji',sv:'Statusuppdatering<br>av din ansökan'},
+    body:   {fr:'Bonjour '+prenom+', votre conseiller revient vers vous après '+jours+' jours.',en:'Hello '+prenom+', your advisor is following up after '+jours+' days.',de:'Hallo '+prenom+', Ihr Berater meldet sich nach '+jours+' Tagen bei Ihnen.',es:'Hola '+prenom+', su asesor hace seguimiento después de '+jours+' días.',it:'Ciao '+prenom+', il suo consulente la ricontatta dopo '+jours+' giorni.',nl:'Hallo '+prenom+', uw adviseur neemt na '+jours+' dagen contact op.',pl:'Cześć '+prenom+', Twój doradca odzywa się po '+jours+' dniach.',sv:'Hej '+prenom+', din rådgivare återkommer efter '+jours+' dagar.'},
+    text:   {fr:'Votre dossier reste ouvert. Avez-vous pu rassembler les éléments nécessaires à la finalisation de votre demande ?',en:'Your file remains open. Have you been able to gather the documents needed to finalise your application?',de:'Ihre Akte ist noch offen. Konnten Sie die für die Fertigstellung Ihres Antrags erforderlichen Unterlagen zusammenstellen?',es:'Su expediente sigue abierto. ¿Ha podido reunir los elementos necesarios para finalizar su solicitud?',it:'La sua pratica è ancora aperta. È riuscito a raccogliere i documenti necessari per finalizzare la sua richiesta?',nl:'Uw dossier staat nog open. Heeft u de benodigde documenten kunnen verzamelen om uw aanvraag te voltooien?',pl:'Twoja dokumentacja jest nadal otwarta. Czy udało Ci się zebrać dokumenty niezbędne do sfinalizowania wniosku?',sv:'Din ansökan är fortfarande öppen. Har du kunnat samla de dokument som behövs för att slutföra din ansökan?'},
+    cta:    {fr:'Accéder à mon espace',en:'Access my account',de:'Mein Konto aufrufen',es:'Acceder a mi cuenta',it:'Accedi al mio account',nl:'Mijn account openen',pl:'Przejdź do mojego konta',sv:'Gå till mitt konto'},
+    note:   {fr:'Si vous ne souhaitez plus donner suite, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">contactez-nous</a> et votre dossier sera classé sans suite.',en:'If you no longer wish to proceed, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">contact us</a> and your file will be closed.',de:'Wenn Sie nicht mehr fortfahren möchten, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">kontaktieren Sie uns</a> und Ihre Akte wird geschlossen.',es:'Si ya no desea continuar, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">contáctenos</a> y su expediente será archivado.',it:'Se non desidera più procedere, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">ci contatti</a> e la sua pratica verrà archiviata.',nl:'Als u niet langer wilt doorgaan, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">neem contact op</a> en uw dossier wordt gesloten.',pl:'Jeśli nie chcesz kontynuować, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">skontaktuj się z nami</a>, a Twoja dokumentacja zostanie zamknięta.',sv:'Om du inte längre vill fortsätta, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">kontakta oss</a> så stängs din ansökan.'}
+  };
+  var g = function(k){ return T2[k][l]||T2[k].fr; };
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Point de situation<br>sur votre dossier</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre conseiller revient vers vous après '+jours+' jours.</p>'
-    +_body('Votre dossier reste ouvert. Avez-vous pu rassembler les éléments nécessaires à la finalisation de votre demande ?')
-    +_btn('Accéder à mon espace', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
-    +_sign()
-    +_note('Si vous ne souhaitez plus donner suite, <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">contactez-nous</a> et votre dossier sera classé sans suite.'),
-  'fr');
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
+    +_body(g('text'))
+    +_btn(g('cta'), FIDEXICO_CONFIG.SITE_URL+lp+'/connexion.html')
+    +_sign(l)
+    +_note(g('note')),
+  l);
 }
 
 function emailResetPassword(token){
@@ -1349,67 +1417,67 @@ function emailAdminNouveauMessage(clientNom, apercu){
 /* ── Public API ── */
 var FidEmail = {
 
-  bienvenue: function(prenom, nom, email, fdxNum){
-    var l = fidLang();
+  bienvenue: function(prenom, nom, email, fdxNum, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('welcome_subject2',null,l), emailBienvenue(prenom, nom, email, fdxNum, l));
   },
 
-  connexion: function(prenom, email){
-    var l = fidLang();
+  connexion: function(prenom, email, langOverride){
+    var l = langOverride || fidLang();
     var now = new Date().toLocaleString(l==='fr'?'fr-FR':l==='de'?'de-DE':l==='es'?'es-ES':l==='it'?'it-IT':l==='nl'?'nl-NL':l==='pl'?'pl-PL':l==='sv'?'sv-SE':'en-GB');
     return sendEmail(email, fidT('login_subject',null,l), emailConnexion(prenom, now, l));
   },
 
-  virementSortant: function(prenom, email, montant, destinataire, iban, motif, ref){
-    var l = fidLang();
+  virementSortant: function(prenom, email, montant, destinataire, iban, motif, ref, langOverride){
+    var l = langOverride || fidLang();
     var date = new Date().toLocaleDateString('fr-FR');
     return sendEmail(email, fidT('vir_out_subject',{montant:montant},l), emailVirementSortant(prenom, montant, destinataire, iban, motif, ref, date, l));
   },
 
-  virementEntrant: function(prenom, email, montant, expediteur, ref){
-    var l = fidLang();
+  virementEntrant: function(prenom, email, montant, expediteur, ref, langOverride){
+    var l = langOverride || fidLang();
     var date = new Date().toLocaleDateString('fr-FR');
     return sendEmail(email, fidT('vir_in_subject',{montant:montant},l), emailVirementEntrant(prenom, montant, expediteur, ref, date, l));
   },
 
-  nouveauMessage: function(prenom, email, apercu){
-    var l = fidLang();
+  nouveauMessage: function(prenom, email, apercu, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('msg_subject',null,l), emailNouveauMessage(prenom, apercu, l));
   },
 
-  simulationSoumise: function(prenom, email, montant, duree, mensualite){
-    var l = fidLang();
+  simulationSoumise: function(prenom, email, montant, duree, mensualite, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('sim_subject',null,l), emailSimulationSoumise(prenom, montant, duree, mensualite, l));
   },
 
-  dossierEnEtude: function(prenom, email){
-    var l = fidLang();
+  dossierEnEtude: function(prenom, email, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('etude_subject',null,l), emailDossierEnEtude(prenom, l));
   },
 
-  dossierValide: function(prenom, email, montant, duree, mensualite){
-    var l = fidLang();
+  dossierValide: function(prenom, email, montant, duree, mensualite, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('valide_subject',{montant:montant},l), emailDossierValide(prenom, montant, duree, mensualite, l));
   },
 
-  dossierRefuse: function(prenom, email, motif){
-    var l = fidLang();
+  dossierRefuse: function(prenom, email, motif, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('refuse_subject',null,l), emailDossierRefuse(prenom, motif||'', l));
   },
 
-  documentsRequis: function(prenom, email, liste){
-    var l = fidLang();
+  documentsRequis: function(prenom, email, liste, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('docs_subject',null,l), emailDocumentsRequis(prenom, liste, l));
   },
 
-  deblocageFonds: function(prenom, email, montant){
-    var l = fidLang();
+  deblocageFonds: function(prenom, email, montant, langOverride){
+    var l = langOverride || fidLang();
     var date = new Date().toLocaleDateString('fr-FR');
     return sendEmail(email, fidT('debloc_subject',{montant:montant},l), emailDeblocageFonds(prenom, montant, date, l));
   },
 
-  rappelSuivi: function(prenom, email, jours){
-    var l = fidLang();
+  rappelSuivi: function(prenom, email, jours, langOverride){
+    var l = langOverride || fidLang();
     return sendEmail(email, fidT('rappel_subject',null,l), emailRappelSuivi(prenom, jours, l));
   },
 
