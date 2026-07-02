@@ -3710,14 +3710,6 @@ body.ec-body {
     padding-bottom: 3rem;
     --main-px: 3rem;
   }
-  /* ── Content width limiter (PC) ── */
-  .gd-main-card,
-  .gd-section--last,
-  #gd-loan-card-section {
-    max-width: 900px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
 
   /* ── Top bar desktop ── */
   .v2-topbar {
@@ -5314,17 +5306,8 @@ body.ec-body {
     width: 100%;
     max-width: none;
     background: #F5F7FA;
-    padding: 2rem 0 3rem;
+    padding: 2rem 8rem 3rem;
     overflow: visible;
-  }
-  .atx-pc-header,
-  .atx-list,
-  .atx-pc-pagination {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
   .ec-modal-overlay--fullscreen#ec-modal-all-tx.open .ec-modal-card--fullscreen {
     opacity: 1;
