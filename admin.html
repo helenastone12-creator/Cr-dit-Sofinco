@@ -663,9 +663,24 @@
     ══════════════════════════════════════ */
     .ops-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 1.25rem;
     }
+    .op-group-select {
+      width: 100%;
+      padding: .55rem .8rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: .87rem;
+      font-weight: 600;
+      background: #fff;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      color: #1e293b;
+    }
+    .op-panel { display: none; }
+    .op-panel.active { display: block; }
+    .op-panel + .op-panel { border-top: 1px solid #f1f5f9; padding-top: 1rem; margin-top: .25rem; }
     .op-card {
       background: #fff;
       border-radius: 14px;
@@ -1112,353 +1127,341 @@
 
           <div class="ops-grid">
 
+            <!-- ══ CARTE 1 : FINANCES ══ -->
             <div class="op-card">
               <div class="op-card-header op-card-header--green">
-                <span>💚</span> Dépôt sur compte client
+                <span>💰</span> Finances
               </div>
               <div class="op-card-body">
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="dep-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Montant (€)</label>
-                  <input class="adm-field-inp" id="dep-amt" type="number" min="1" placeholder="Ex : 1500"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Libellé</label>
-                  <input class="adm-field-inp" id="dep-label" placeholder="Ex : Virement Fidexico"/>
-                </div>
-                <div class="adm-modal-success" id="dep-ok">✓ Dépôt effectué avec succès.</div>
-                <div class="adm-modal-err" id="dep-err"></div>
-                <button class="adm-btn adm-btn--green" style="width:100%" onclick="opDeposit()">Effectuer le dépôt</button>
-              </div>
-            </div>
+                <select class="op-group-select" onchange="opShowPanel('fin',this.value)">
+                  <option value="">— Choisir une opération —</option>
+                  <option value="dep">💚 Dépôt sur compte client</option>
+                  <option value="ret">🔴 Retrait sur compte client</option>
+                  <option value="pret">✎ Modifier les données de prêt</option>
+                  <option value="vlim">💳 Limite de virement</option>
+                </select>
 
-            <div class="op-card">
-              <div class="op-card-header op-card-header--red">
-                <span>🔴</span> Retrait sur compte client
-              </div>
-              <div class="op-card-body">
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="ret-id" placeholder="USR-XXXX..."/>
+                <!-- Dépôt -->
+                <div class="op-panel" id="fin-panel-dep">
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="dep-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Montant (€)</label>
+                    <input class="adm-field-inp" id="dep-amt" type="number" min="1" placeholder="Ex : 1500"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Libellé</label>
+                    <input class="adm-field-inp" id="dep-label" placeholder="Ex : Virement Fidexico"/>
+                  </div>
+                  <div class="adm-modal-success" id="dep-ok">✓ Dépôt effectué avec succès.</div>
+                  <div class="adm-modal-err" id="dep-err"></div>
+                  <button class="adm-btn adm-btn--green" style="width:100%" onclick="opDeposit()">Effectuer le dépôt</button>
                 </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Montant (€)</label>
-                  <input class="adm-field-inp" id="ret-amt" type="number" min="1" placeholder="Ex : 500"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Libellé</label>
-                  <input class="adm-field-inp" id="ret-label" placeholder="Ex : Frais de dossier"/>
-                </div>
-                <div class="adm-modal-success" id="ret-ok">✓ Retrait effectué avec succès.</div>
-                <div class="adm-modal-err" id="ret-err"></div>
-                <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opRetrait()">Effectuer le retrait</button>
-              </div>
-            </div>
 
-            <div class="op-card">
-              <div class="op-card-header op-card-header--blue">
-                <span>✎</span> Modifier les données de prêt
-              </div>
-              <div class="op-card-body">
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="pret-id" placeholder="USR-XXXX..."/>
+                <!-- Retrait -->
+                <div class="op-panel" id="fin-panel-ret">
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="ret-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Montant (€)</label>
+                    <input class="adm-field-inp" id="ret-amt" type="number" min="1" placeholder="Ex : 500"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Libellé</label>
+                    <input class="adm-field-inp" id="ret-label" placeholder="Ex : Frais de dossier"/>
+                  </div>
+                  <div class="adm-modal-success" id="ret-ok">✓ Retrait effectué avec succès.</div>
+                  <div class="adm-modal-err" id="ret-err"></div>
+                  <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opRetrait()">Effectuer le retrait</button>
                 </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Montant du crédit (€)</label>
-                  <input class="adm-field-inp" id="pret-montant" type="number" placeholder="Ex : 10000"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Mensualité (€)</label>
-                  <input class="adm-field-inp" id="pret-mens" type="number" placeholder="Ex : 200"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Durée (mois)</label>
-                  <input class="adm-field-inp" id="pret-duree" type="number" placeholder="Ex : 60"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Taux annuel (%)</label>
-                  <input class="adm-field-inp" id="pret-taux" type="number" step="0.01" placeholder="Ex : 3.5"/>
-                </div>
-                <div class="adm-modal-success" id="pret-ok">✓ Données de prêt mises à jour.</div>
-                <div class="adm-modal-err" id="pret-err"></div>
-                <button class="adm-btn" style="width:100%" onclick="opModPret()">Enregistrer le prêt</button>
-              </div>
-            </div>
 
-            <div class="op-card">
-              <div class="op-card-header" style="background:#fff3cd;color:#7a4f00;">
-                <span>⚠️</span> Gel des fonds — Litige
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">Empêche tout transfert ou retrait des fonds déposés sur le compte client. Le client peut toujours se connecter et consulter son espace.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="gel-id" placeholder="USR-XXXX..."/>
+                <!-- Modifier prêt -->
+                <div class="op-panel" id="fin-panel-pret">
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="pret-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Montant du crédit (€)</label>
+                    <input class="adm-field-inp" id="pret-montant" type="number" placeholder="Ex : 10000"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Mensualité (€)</label>
+                    <input class="adm-field-inp" id="pret-mens" type="number" placeholder="Ex : 200"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Durée (mois)</label>
+                    <input class="adm-field-inp" id="pret-duree" type="number" placeholder="Ex : 60"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Taux annuel (%)</label>
+                    <input class="adm-field-inp" id="pret-taux" type="number" step="0.01" placeholder="Ex : 3.5"/>
+                  </div>
+                  <div class="adm-modal-success" id="pret-ok">✓ Données de prêt mises à jour.</div>
+                  <div class="adm-modal-err" id="pret-err"></div>
+                  <button class="adm-btn" style="width:100%" onclick="opModPret()">Enregistrer le prêt</button>
                 </div>
-                <div class="adm-modal-success" id="gel-ok">✓ Statut mis à jour.</div>
-                <div class="adm-modal-err" id="gel-err"></div>
-                <div style="display:flex;gap:.6rem;margin-top:.4rem">
-                  <button class="adm-btn adm-btn--coral" style="flex:1" onclick="opGel(true)">Geler les fonds</button>
-                  <button class="adm-btn adm-btn--green" style="flex:1" onclick="opGel(false)">Lever le gel</button>
-                </div>
-              </div>
-            </div>
 
-            <div class="op-card">
-              <div class="op-card-header op-card-header--yellow">
-                <span>🔒</span> Bloquer / Débloquer compte
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">Bloquer un compte empêche le client de se connecter à son espace. Il peut toujours récupérer l'accès sur demande.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="blk-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-modal-success" id="blk-ok">✓ Statut mis à jour.</div>
-                <div class="adm-modal-err" id="blk-err"></div>
-                <div style="display:flex;gap:.6rem;margin-top:.4rem">
-                  <button class="adm-btn adm-btn--coral" style="flex:1" onclick="opBlock(true)">Bloquer</button>
-                  <button class="adm-btn adm-btn--green" style="flex:1" onclick="opBlock(false)">Débloquer</button>
+                <!-- Limite virement -->
+                <div class="op-panel" id="fin-panel-vlim">
+                  <div class="adm-modal-note">Définit un montant maximum par virement pour ce client. Mettre 0 pour supprimer la limite.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="vlim-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Limite (€) — 0 = aucune limite</label>
+                    <input class="adm-field-inp" id="vlim-amt" type="number" min="0" placeholder="Ex : 5000"/>
+                  </div>
+                  <div class="adm-modal-success" id="vlim-ok">✓ Limite enregistrée.</div>
+                  <div class="adm-modal-err" id="vlim-err"></div>
+                  <button class="adm-btn" style="width:100%" onclick="opSetVirementLimit()">Enregistrer la limite</button>
                 </div>
               </div>
             </div>
 
-            <div class="op-card">
-              <div class="op-card-header op-card-header--purple">
-                <span>📝</span> Modifier les informations client
-              </div>
-              <div class="op-card-body">
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="edit-id" placeholder="USR-XXXX..." onchange="admPrefill()"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Prénom</label>
-                  <input class="adm-field-inp" id="edit-prenom" placeholder="Prénom"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Nom</label>
-                  <input class="adm-field-inp" id="edit-nom" placeholder="Nom"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Email</label>
-                  <input class="adm-field-inp" id="edit-email" type="email" placeholder="email@exemple.fr"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Téléphone</label>
-                  <input class="adm-field-inp" id="edit-tel" placeholder="06 XX XX XX XX"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">N° dossier</label>
-                  <input class="adm-field-inp" id="edit-ref" placeholder="SOF-2026-XXXXX"/>
-                </div>
-                <div class="adm-modal-success" id="edit-ok">✓ Informations mises à jour.</div>
-                <div class="adm-modal-err" id="edit-err"></div>
-                <button class="adm-btn" style="width:100%" onclick="opEditUser()">Enregistrer</button>
-              </div>
-            </div>
-
-            <div class="op-card">
-              <div class="op-card-header op-card-header--slate">
-                <span>🗑️</span> Supprimer un compte
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">⚠️ Action irréversible. Toutes les données du client seront effacées définitivement.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="del-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-modal-err" id="del-err"></div>
-                <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opDelete()">Supprimer définitivement</button>
-              </div>
-            </div>
-
-            <div class="op-card">
-              <div class="op-card-header op-card-header--blue">
-                <span>🔑</span> Réinitialiser mot de passe
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">Efface le mot de passe du client et le force à en choisir un nouveau à la prochaine connexion.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="rpwd-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-modal-success" id="rpwd-ok">✓ Mot de passe réinitialisé.</div>
-                <div class="adm-modal-err" id="rpwd-err"></div>
-                <button class="adm-btn" style="width:100%" onclick="opResetPwd()">Réinitialiser le mot de passe</button>
-              </div>
-            </div>
-
-            <div class="op-card">
-              <div class="op-card-header op-card-header--purple">
-                <span>🔐</span> Désactiver l'authentification 2FA
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">Supprime la clé TOTP du client. Il devra reconfigurer Google Authenticator s'il souhaite réactiver le 2FA.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="dis2fa-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-modal-success" id="dis2fa-ok">✓ 2FA désactivé.</div>
-                <div class="adm-modal-err" id="dis2fa-err"></div>
-                <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opDisable2FA()">Désactiver le 2FA</button>
-              </div>
-            </div>
-
-            <div class="op-card">
-              <div class="op-card-header op-card-header--blue">
-                <span>📋</span> Changer le statut du dossier
-              </div>
-              <div class="op-card-body">
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="stat-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Nouveau statut</label>
-                  <select class="adm-field-inp" id="stat-val">
-                    <option value="en_etude">En cours d'étude</option>
-                    <option value="valide">Validé</option>
-                    <option value="active">Actif</option>
-                    <option value="refuse">Refusé</option>
-                    <option value="suspendu">Suspendu</option>
-                  </select>
-                </div>
-                <div class="adm-modal-success" id="stat-ok">✓ Statut mis à jour.</div>
-                <div class="adm-modal-err" id="stat-err"></div>
-                <button class="adm-btn" style="width:100%" onclick="opChangeStatut()">Enregistrer le statut</button>
-              </div>
-            </div>
-
-            <div class="op-card">
-              <div class="op-card-header op-card-header--red">
-                <span>🚪</span> Forcer la déconnexion
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">Le client sera déconnecté automatiquement à la prochaine vérification de session.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="flog-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-modal-success" id="flog-ok">✓ Déconnexion forcée.</div>
-                <div class="adm-modal-err" id="flog-err"></div>
-                <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opForceLogout()">Forcer la déconnexion</button>
-              </div>
-            </div>
-
+            <!-- ══ CARTE 2 : SÉCURITÉ & ACCÈS ══ -->
             <div class="op-card">
               <div class="op-card-header op-card-header--yellow">
-                <span>💳</span> Limite de virement
+                <span>🔒</span> Sécurité &amp; Accès
               </div>
               <div class="op-card-body">
-                <div class="adm-modal-note">Définit un montant maximum par virement pour ce client. Mettre 0 pour supprimer la limite.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="vlim-id" placeholder="USR-XXXX..."/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Limite (€) — 0 = aucune limite</label>
-                  <input class="adm-field-inp" id="vlim-amt" type="number" min="0" placeholder="Ex : 5000"/>
-                </div>
-                <div class="adm-modal-success" id="vlim-ok">✓ Limite enregistrée.</div>
-                <div class="adm-modal-err" id="vlim-err"></div>
-                <button class="adm-btn" style="width:100%" onclick="opSetVirementLimit()">Enregistrer la limite</button>
-              </div>
-            </div>
+                <select class="op-group-select" onchange="opShowPanel('sec',this.value)">
+                  <option value="">— Choisir une opération —</option>
+                  <option value="blk">🔒 Bloquer / Débloquer compte</option>
+                  <option value="gel">⚠️ Gel des fonds — Litige</option>
+                  <option value="flog">🚪 Forcer la déconnexion</option>
+                  <option value="rpwd">🔑 Réinitialiser mot de passe</option>
+                  <option value="dis2fa">🔐 Désactiver l'authentification 2FA</option>
+                </select>
 
-            <div class="op-card">
-              <div class="op-card-header" style="background:#f0fdf4;color:#166534;">
-                <span>📄</span> Autoriser les documents client
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">Choisissez les documents accessibles par ce client dans son espace. Par défaut aucun document n'est visible.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="docs-id" placeholder="USR-XXXX..." onchange="admPrefillDocs()"/>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:.5rem;margin:.6rem 0">
-                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
-                    <input type="checkbox" id="docs-cb-contrat" style="width:16px;height:16px;accent-color:#06c2b0"/> Contrat de crédit personnel
-                  </label>
-                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
-                    <input type="checkbox" id="docs-cb-amort" style="width:16px;height:16px;accent-color:#06c2b0"/> Tableau d'amortissement
-                  </label>
-                  <div style="font-size:.78rem;color:#94a3b8;font-style:italic;padding:.2rem 0">✓ Relevés de compte — générés automatiquement chaque mois</div>
-                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
-                    <input type="checkbox" id="docs-cb-attest-ass" style="width:16px;height:16px;accent-color:#06c2b0"/> Attestation d'assurance emprunteur
-                  </label>
-                  <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
-                    <input type="checkbox" id="docs-cb-attest-ra" style="width:16px;height:16px;accent-color:#06c2b0"/> Attestation de remboursement anticipé
-                  </label>
-                </div>
-                <div class="adm-modal-success" id="docs-ok">✓ Documents mis à jour.</div>
-                <div class="adm-modal-err" id="docs-err"></div>
-                <button class="adm-btn adm-btn--green" style="width:100%" onclick="opSetDocs()">Enregistrer les autorisations</button>
-              </div>
-            </div>
-
-            <div class="op-card">
-              <div class="op-card-header" style="background:#fefce8;color:#854d0e;">
-                <span>🔍</span> Prévisualiser &amp; modifier un document
-              </div>
-              <div class="op-card-body">
-                <div class="adm-modal-note">1. Saisissez l'identifiant client → les champs se remplissent automatiquement. 2. Modifiez ce que vous voulez. 3. Prévisualisez puis cliquez <strong>Enregistrer &amp; Approuver</strong>.</div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="docprev-id" placeholder="USR-XXXX..." onchange="admLoadDocCustom()"/>
-                </div>
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Document</label>
-                  <select class="adm-field-inp" id="docprev-type" onchange="admLoadDocCustom()">
-                    <option value="doc_contrat">Contrat de crédit personnel</option>
-                    <option value="doc_amort">Tableau d'amortissement</option>
-                    <option value="doc_attest_ass">Attestation d'assurance emprunteur</option>
-                    <option value="doc_attest_ra">Attestation de remboursement anticipé</option>
-                  </select>
+                <!-- Bloquer/Débloquer -->
+                <div class="op-panel" id="sec-panel-blk">
+                  <div class="adm-modal-note">Bloquer un compte empêche le client de se connecter à son espace. Il peut toujours récupérer l'accès sur demande.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="blk-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-modal-success" id="blk-ok">✓ Statut mis à jour.</div>
+                  <div class="adm-modal-err" id="blk-err"></div>
+                  <div style="display:flex;gap:.6rem;margin-top:.4rem">
+                    <button class="adm-btn adm-btn--coral" style="flex:1" onclick="opBlock(true)">Bloquer</button>
+                    <button class="adm-btn adm-btn--green" style="flex:1" onclick="opBlock(false)">Débloquer</button>
+                  </div>
                 </div>
 
-                <div style="border:1px solid #e5e7eb;border-radius:8px;padding:.75rem;margin:.6rem 0;background:#f9fafb">
-                  <div style="font-size:.78rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">✏️ Modifier les champs du document</div>
-                  <div id="docprev-fields-panel" style="display:flex;flex-direction:column;gap:.45rem"></div>
+                <!-- Gel des fonds -->
+                <div class="op-panel" id="sec-panel-gel">
+                  <div class="adm-modal-note">Empêche tout transfert ou retrait des fonds déposés sur le compte client. Le client peut toujours se connecter et consulter son espace.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="gel-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-modal-success" id="gel-ok">✓ Statut mis à jour.</div>
+                  <div class="adm-modal-err" id="gel-err"></div>
+                  <div style="display:flex;gap:.6rem;margin-top:.4rem">
+                    <button class="adm-btn adm-btn--coral" style="flex:1" onclick="opGel(true)">Geler les fonds</button>
+                    <button class="adm-btn adm-btn--green" style="flex:1" onclick="opGel(false)">Lever le gel</button>
+                  </div>
                 </div>
 
-                <div class="adm-field" style="margin-top:.6rem">
-                  <label class="adm-field-lbl">Clauses / mentions personnalisées (section ajoutée en bas)</label>
-                  <textarea id="docprev-custom" rows="3" style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:.5rem .75rem;font-size:.85rem;resize:vertical" placeholder="Ex : Clause particulière convenue entre les parties..."></textarea>
+                <!-- Forcer déconnexion -->
+                <div class="op-panel" id="sec-panel-flog">
+                  <div class="adm-modal-note">Le client sera déconnecté automatiquement à la prochaine vérification de session.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="flog-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-modal-success" id="flog-ok">✓ Déconnexion forcée.</div>
+                  <div class="adm-modal-err" id="flog-err"></div>
+                  <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opForceLogout()">Forcer la déconnexion</button>
                 </div>
 
-                <div class="adm-modal-success" id="docprev-ok">✓ Document mis à jour.</div>
-                <div class="adm-modal-err" id="docprev-err"></div>
-                <button class="adm-btn" style="width:100%;background:#0B1D3A;color:#fff;margin:.5rem 0" onclick="admPreviewDoc()">👁 Prévisualiser le document</button>
-                <div style="display:flex;gap:.5rem">
-                  <button class="adm-btn" style="flex:1;background:#6b7280;color:#fff" onclick="admSaveDocCustom(false)">💾 Enregistrer</button>
-                  <button class="adm-btn adm-btn--green" style="flex:1" onclick="admSaveDocCustom(true)">✅ Enregistrer &amp; Approuver</button>
+                <!-- Réinitialiser MDP -->
+                <div class="op-panel" id="sec-panel-rpwd">
+                  <div class="adm-modal-note">Efface le mot de passe du client et le force à en choisir un nouveau à la prochaine connexion.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="rpwd-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-modal-success" id="rpwd-ok">✓ Mot de passe réinitialisé.</div>
+                  <div class="adm-modal-err" id="rpwd-err"></div>
+                  <button class="adm-btn" style="width:100%" onclick="opResetPwd()">Réinitialiser le mot de passe</button>
+                </div>
+
+                <!-- Désactiver 2FA -->
+                <div class="op-panel" id="sec-panel-dis2fa">
+                  <div class="adm-modal-note">Supprime la clé TOTP du client. Il devra reconfigurer Google Authenticator s'il souhaite réactiver le 2FA.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="dis2fa-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-modal-success" id="dis2fa-ok">✓ 2FA désactivé.</div>
+                  <div class="adm-modal-err" id="dis2fa-err"></div>
+                  <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opDisable2FA()">Désactiver le 2FA</button>
                 </div>
               </div>
             </div>
 
+            <!-- ══ CARTE 3 : DOSSIER ══ -->
             <div class="op-card">
-              <div class="op-card-header" style="background:#eff6ff;color:#1e40af;">
-                <span>📊</span> Historique transactions client
+              <div class="op-card-header op-card-header--purple">
+                <span>📋</span> Dossier
               </div>
               <div class="op-card-body">
-                <div class="adm-field">
-                  <label class="adm-field-lbl">Identifiant client</label>
-                  <input class="adm-field-inp" id="txview-id" placeholder="USR-XXXX..."/>
+                <select class="op-group-select" onchange="opShowPanel('dos',this.value)">
+                  <option value="">— Choisir une opération —</option>
+                  <option value="edit">📝 Modifier les informations client</option>
+                  <option value="stat">📋 Changer le statut du dossier</option>
+                  <option value="docs">📄 Autoriser les documents client</option>
+                  <option value="docprev">🔍 Prévisualiser &amp; modifier un document</option>
+                  <option value="txview">📊 Historique transactions</option>
+                  <option value="del">🗑️ Supprimer un compte</option>
+                </select>
+
+                <!-- Modifier infos -->
+                <div class="op-panel" id="dos-panel-edit">
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="edit-id" placeholder="USR-XXXX..." onchange="admPrefill()"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Prénom</label>
+                    <input class="adm-field-inp" id="edit-prenom" placeholder="Prénom"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Nom</label>
+                    <input class="adm-field-inp" id="edit-nom" placeholder="Nom"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Email</label>
+                    <input class="adm-field-inp" id="edit-email" type="email" placeholder="email@exemple.fr"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Téléphone</label>
+                    <input class="adm-field-inp" id="edit-tel" placeholder="06 XX XX XX XX"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">N° dossier</label>
+                    <input class="adm-field-inp" id="edit-ref" placeholder="SOF-2026-XXXXX"/>
+                  </div>
+                  <div class="adm-modal-success" id="edit-ok">✓ Informations mises à jour.</div>
+                  <div class="adm-modal-err" id="edit-err"></div>
+                  <button class="adm-btn" style="width:100%" onclick="opEditUser()">Enregistrer</button>
                 </div>
-                <div class="adm-modal-err" id="txview-err"></div>
-                <div style="display:flex;gap:.6rem;margin-top:.4rem">
-                  <button class="adm-btn" style="flex:1" onclick="opViewTx()">Voir les transactions</button>
-                  <button class="adm-btn adm-btn--outline" style="flex:1" onclick="opExportClientTx()">Exporter CSV</button>
+
+                <!-- Changer statut -->
+                <div class="op-panel" id="dos-panel-stat">
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="stat-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Nouveau statut</label>
+                    <select class="adm-field-inp" id="stat-val">
+                      <option value="en_etude">En cours d'étude</option>
+                      <option value="valide">Validé</option>
+                      <option value="active">Actif</option>
+                      <option value="refuse">Refusé</option>
+                      <option value="suspendu">Suspendu</option>
+                    </select>
+                  </div>
+                  <div class="adm-modal-success" id="stat-ok">✓ Statut mis à jour.</div>
+                  <div class="adm-modal-err" id="stat-err"></div>
+                  <button class="adm-btn" style="width:100%" onclick="opChangeStatut()">Enregistrer le statut</button>
                 </div>
-                <div style="margin-top:.6rem">
-                  <button class="adm-btn" style="width:100%;background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5" onclick="opClearTx()">🗑 Effacer l'historique</button>
+
+                <!-- Autoriser documents -->
+                <div class="op-panel" id="dos-panel-docs">
+                  <div class="adm-modal-note">Choisissez les documents accessibles par ce client dans son espace. Par défaut aucun document n'est visible.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="docs-id" placeholder="USR-XXXX..." onchange="admPrefillDocs()"/>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:.5rem;margin:.6rem 0">
+                    <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                      <input type="checkbox" id="docs-cb-contrat" style="width:16px;height:16px;accent-color:#06c2b0"/> Contrat de crédit personnel
+                    </label>
+                    <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                      <input type="checkbox" id="docs-cb-amort" style="width:16px;height:16px;accent-color:#06c2b0"/> Tableau d'amortissement
+                    </label>
+                    <div style="font-size:.78rem;color:#94a3b8;font-style:italic;padding:.2rem 0">✓ Relevés de compte — générés automatiquement chaque mois</div>
+                    <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                      <input type="checkbox" id="docs-cb-attest-ass" style="width:16px;height:16px;accent-color:#06c2b0"/> Attestation d'assurance emprunteur
+                    </label>
+                    <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">
+                      <input type="checkbox" id="docs-cb-attest-ra" style="width:16px;height:16px;accent-color:#06c2b0"/> Attestation de remboursement anticipé
+                    </label>
+                  </div>
+                  <div class="adm-modal-success" id="docs-ok">✓ Documents mis à jour.</div>
+                  <div class="adm-modal-err" id="docs-err"></div>
+                  <button class="adm-btn adm-btn--green" style="width:100%" onclick="opSetDocs()">Enregistrer les autorisations</button>
                 </div>
-                <div id="txview-list" style="margin-top:1rem;max-height:220px;overflow-y:auto;display:none"></div>
+
+                <!-- Prévisualiser document -->
+                <div class="op-panel" id="dos-panel-docprev">
+                  <div class="adm-modal-note">1. Saisissez l'identifiant client → les champs se remplissent automatiquement. 2. Modifiez ce que vous voulez. 3. Prévisualisez puis cliquez <strong>Enregistrer &amp; Approuver</strong>.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="docprev-id" placeholder="USR-XXXX..." onchange="admLoadDocCustom()"/>
+                  </div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Document</label>
+                    <select class="adm-field-inp" id="docprev-type" onchange="admLoadDocCustom()">
+                      <option value="doc_contrat">Contrat de crédit personnel</option>
+                      <option value="doc_amort">Tableau d'amortissement</option>
+                      <option value="doc_attest_ass">Attestation d'assurance emprunteur</option>
+                      <option value="doc_attest_ra">Attestation de remboursement anticipé</option>
+                    </select>
+                  </div>
+                  <div style="border:1px solid #e5e7eb;border-radius:8px;padding:.75rem;margin:.6rem 0;background:#f9fafb">
+                    <div style="font-size:.78rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">✏️ Modifier les champs du document</div>
+                    <div id="docprev-fields-panel" style="display:flex;flex-direction:column;gap:.45rem"></div>
+                  </div>
+                  <div class="adm-field" style="margin-top:.6rem">
+                    <label class="adm-field-lbl">Clauses / mentions personnalisées (section ajoutée en bas)</label>
+                    <textarea id="docprev-custom" rows="3" style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:.5rem .75rem;font-size:.85rem;resize:vertical" placeholder="Ex : Clause particulière convenue entre les parties..."></textarea>
+                  </div>
+                  <div class="adm-modal-success" id="docprev-ok">✓ Document mis à jour.</div>
+                  <div class="adm-modal-err" id="docprev-err"></div>
+                  <button class="adm-btn" style="width:100%;background:#0B1D3A;color:#fff;margin:.5rem 0" onclick="admPreviewDoc()">👁 Prévisualiser le document</button>
+                  <div style="display:flex;gap:.5rem">
+                    <button class="adm-btn" style="flex:1;background:#6b7280;color:#fff" onclick="admSaveDocCustom(false)">💾 Enregistrer</button>
+                    <button class="adm-btn adm-btn--green" style="flex:1" onclick="admSaveDocCustom(true)">✅ Enregistrer &amp; Approuver</button>
+                  </div>
+                </div>
+
+                <!-- Historique transactions -->
+                <div class="op-panel" id="dos-panel-txview">
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="txview-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-modal-err" id="txview-err"></div>
+                  <div style="display:flex;gap:.6rem;margin-top:.4rem">
+                    <button class="adm-btn" style="flex:1" onclick="opViewTx()">Voir les transactions</button>
+                    <button class="adm-btn adm-btn--outline" style="flex:1" onclick="opExportClientTx()">Exporter CSV</button>
+                  </div>
+                  <div style="margin-top:.6rem">
+                    <button class="adm-btn" style="width:100%;background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5" onclick="opClearTx()">🗑 Effacer l'historique</button>
+                  </div>
+                  <div id="txview-list" style="margin-top:1rem;max-height:220px;overflow-y:auto;display:none"></div>
+                </div>
+
+                <!-- Supprimer compte -->
+                <div class="op-panel" id="dos-panel-del">
+                  <div class="adm-modal-note">⚠️ Action irréversible. Toutes les données du client seront effacées définitivement.</div>
+                  <div class="adm-field">
+                    <label class="adm-field-lbl">Identifiant client</label>
+                    <input class="adm-field-inp" id="del-id" placeholder="USR-XXXX..."/>
+                  </div>
+                  <div class="adm-modal-err" id="del-err"></div>
+                  <button class="adm-btn adm-btn--coral" style="width:100%" onclick="opDelete()">Supprimer définitivement</button>
+                </div>
               </div>
             </div>
 
@@ -1986,6 +1989,13 @@ function showMsg(okId,errId,msg,isOk){
   if(isOk){ok.style.display='block';err.style.display='none';ok.textContent='✓ '+msg;}
   else{err.style.display='block';ok.style.display='none';err.textContent='✗ '+msg;}
   setTimeout(function(){ok.style.display='none';err.style.display='none';},4000);
+}
+
+function opShowPanel(group, val){
+  var prefix = group+'-panel-';
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(function(el){
+    el.classList.toggle('active', el.id === prefix+val);
+  });
 }
 
 function opDeposit(){
