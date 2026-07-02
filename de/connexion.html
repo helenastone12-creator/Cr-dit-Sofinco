@@ -190,6 +190,16 @@
     .footer-links a:hover { text-decoration: underline; }
     .footer-links span { color: #ccc; }
 
+    .remember-wrap {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .84rem; color: #555; cursor: pointer;
+      margin: .6rem 0 .8rem; user-select: none;
+    }
+    .remember-wrap input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: #333;
+      cursor: pointer; flex-shrink: 0;
+    }
+
     .sep {
       display: flex; align-items: center; gap: .8rem;
       margin: 1rem 0; color: #aaa; font-size: .8rem;
@@ -229,6 +239,10 @@
             onkeydown="if(event.key==='Enter') conStep1('mob')"/>
         </div>
       </div>
+      <label class="remember-wrap">
+        <input type="checkbox" id="mob-remember" onchange="conToggleRemember('mob')"/>
+        <span data-i18n="con_remember"></span>
+      </label>
       <button class="btn-main" id="mob-btn1" onclick="conStep1('mob')" data-i18n="con_btn"></button>
       <a href="/numero-dossier-oublie.html" class="forgot-link" data-i18n="con_forgot"></a>
     </div>
@@ -330,6 +344,10 @@
               onkeydown="if(event.key==='Enter') conStep1('desk')"/>
           </div>
         </div>
+        <label class="remember-wrap">
+          <input type="checkbox" id="desk-remember" onchange="conToggleRemember('desk')"/>
+          <span data-i18n="con_remember"></span>
+        </label>
         <button class="btn-main" id="desk-btn1" onclick="conStep1('desk')" data-i18n="con_btn"></button>
         <a href="/numero-dossier-oublie.html" class="forgot-link" data-i18n="con_forgot"></a>
       </div>
@@ -438,6 +456,39 @@ var _conOTPExp  = 0;
 var _conLastSend = 0;
 var _conCooldown = 60000;
 
+/* ── Se souvenir de moi ── */
+(function(){
+  var saved = localStorage.getItem('con_remember');
+  if(!saved) return;
+  try {
+    var d = JSON.parse(saved);
+    ['mob','desk'].forEach(function(p){
+      var em = document.getElementById(p+'-email');
+      var fdx = document.getElementById(p+'-fdx');
+      var cb = document.getElementById(p+'-remember');
+      if(em && d.email) em.value = d.email;
+      if(fdx && d.fdx) fdx.value = d.fdx;
+      if(cb) cb.checked = true;
+    });
+  } catch(e){}
+})();
+
+function conToggleRemember(p){
+  var cb = document.getElementById(p+'-remember');
+  var other = document.getElementById((p==='mob'?'desk':'mob')+'-remember');
+  if(other) other.checked = cb.checked;
+  if(!cb.checked) localStorage.removeItem('con_remember');
+}
+
+function _conSaveIfRemember(p, email, fdx){
+  var cb = document.getElementById(p+'-remember') || document.getElementById('mob-remember');
+  if(cb && cb.checked){
+    localStorage.setItem('con_remember', JSON.stringify({email: email, fdx: fdx}));
+  } else {
+    localStorage.removeItem('con_remember');
+  }
+}
+
 function _pfx(p){ return p === 'mob' ? 'mob' : 'desk'; }
 
 function _conErr(p, slot, msg){
@@ -536,6 +587,7 @@ function conStepTOTP(p){
       if(btn){ btn.disabled=false; btn.textContent=ecT('con_btn'); }
       return;
     }
+    _conSaveIfRemember(p, _conClient.email, _conClient.id);
     ecCompleteLogin(_conClient);
   });
 }
@@ -570,6 +622,7 @@ function conStep2(p){
   if(Date.now() > _conOTPExp){ _conErr(p, '2', ecT('con_otp_expired')); return; }
   if(code !== _conOTP){ _conErr(p, '2', ecT('con_otp_wrong')); return; }
   _conBusy(p, '2', true);
+  _conSaveIfRemember(p, _conClient.email, _conClient.id);
   ecCompleteLogin(_conClient);
 }
 
