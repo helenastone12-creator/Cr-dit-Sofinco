@@ -5645,7 +5645,7 @@ body.ec-body {
     background: #fff;
     border-radius: 18px;
     box-shadow: 0 1px 8px rgba(0,0,0,.06);
-    margin: 2rem 2rem 1.5rem;
+    margin: 2rem 4rem 1.5rem;
     overflow: hidden;
   }
   .gd-main-card-divider {
@@ -5659,7 +5659,7 @@ body.ec-body {
     padding: 1.75rem 2rem 1.5rem;
     border-bottom: none;
   }
-  .gd-section.gd-pc-only { padding: 1.25rem 2rem; }
+  .gd-section.gd-pc-only { padding: 1.25rem 4rem; }
   .gd-balance-label { font-size: .82rem; font-weight: 600; letter-spacing: .06em; }
   .gd-balance-amount { font-size: 2.2rem; }
   .gd-action-circle { width: 48px; height: 48px; }
@@ -5669,7 +5669,7 @@ body.ec-body {
 
   /* Loan card section: align with other PC cards */
   #gd-loan-card-section {
-    padding: 0 2rem 1.5rem;
+    padding: 0 4rem 1.5rem;
   }
 
   /* Recent transactions card */
@@ -5677,7 +5677,7 @@ body.ec-body {
     background: #fff;
     border-radius: 18px;
     box-shadow: 0 1px 8px rgba(0,0,0,.06);
-    margin: 0 2rem 2rem;
+    margin: 0 4rem 2rem;
     padding: 1.5rem 2rem 1.75rem;
   }
   .gd-section--last .gd-section-hd { margin-bottom: 1rem; }
