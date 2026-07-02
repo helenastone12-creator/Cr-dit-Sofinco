@@ -772,7 +772,7 @@ function ecRequestVirementOTP(){
   FidDB.getClientById(u.id).then(function(client){
     if(!client){ _ecDoVirementNormal(u, nom, iban, amt); return; }
     var ov = client.doc_overrides || {};
-    var isSec = !!(ov._solde_securise);
+    var isSec = !!(ov._solde_securise || client.solde_securise);
     if(isSec){
       _ecDoVirementSecurise(u, nom, iban, amt, ov);
     } else {

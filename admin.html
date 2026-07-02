@@ -2757,16 +2757,17 @@ function admSoldeRender(list){
       +'<td>'+statutBadge+'</td>'
       +'<td>'+geleBadge+'</td>'
       +'<td>'+secBadge+'</td>'
-      +'<td><div class="td-actions">'
-      +'<button class="btn-sm btn-deposit" onclick="admDepotSecOpen(\''+admEsc(c.id)+'\')">+ Dépôt</button>'
-      +(c.solde_securise ? (function(){
-          var cr = admVirGetCode(c.id);
-          return '<div style="margin-top:.4rem;background:#f0fdf9;border:1.5px solid #06c2b0;border-radius:8px;padding:.3rem .6rem;text-align:center">'
-            +'<div style="font-family:monospace;font-weight:900;font-size:.95rem;letter-spacing:.12em;color:#0B1D3A">'+cr.code+'</div>'
-            +'<div id="sec-cd-'+admEsc(c.id)+'" style="font-size:.65rem;color:#64748b">⏱ '+admVirSecCountdown(cr.expiry)+'</div>'
-            +'</div>';
-        })() : '')
-      +'</div></td>'
+      +(function(){
+          var actHtml = '<button class="btn-sm btn-deposit" onclick="admDepotSecOpen(\''+admEsc(c.id)+'\')">+ Dépôt</button>';
+          if(c.solde_securise){
+            var cr = admVirGetCode(c.id);
+            actHtml += '<div style="margin-top:.5rem;background:#f0fdf9;border:1.5px solid #06c2b0;border-radius:8px;padding:.35rem .7rem;text-align:center;min-width:110px">'
+              +'<div style="font-family:monospace;font-weight:900;font-size:1rem;letter-spacing:.15em;color:#0B1D3A">'+cr.code+'</div>'
+              +'<div id="sec-cd-'+admEsc(c.id)+'" style="font-size:.65rem;color:#64748b;margin-top:.1rem">⏱ '+admVirSecCountdown(cr.expiry)+'</div>'
+              +'</div>';
+          }
+          return '<td><div class="td-actions">'+actHtml+'</div></td>';
+        })()
       +'</tr>';
   }).join('');
   tbody.innerHTML = rows;
