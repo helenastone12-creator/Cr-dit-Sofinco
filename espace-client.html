@@ -1085,15 +1085,5 @@
 <script src="fidexico-email.js"></script>
 <script src="espace-client.js"></script>
 <script src="script.js"></script>
-<script>
-// script.js redirige vers des pages séparées par langue qui n'existent pas dans
-// l'espace client. On remplace tous les href pour pointer vers la même page :
-// script.js sauvegarde lang_choice, navigue vers espace-client.html → rechargement,
-// ec-i18n.js lit la nouvelle langue et applique les traductions.
-(function(){
-  var self = 'espace-client.html';
-  document.querySelectorAll('.ft-lang-list-item').forEach(function(a){ a.href = self; });
-})();
-</script>
 </body>
 </html>
