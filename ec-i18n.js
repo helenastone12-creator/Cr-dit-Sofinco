@@ -82,7 +82,7 @@ var EC_LANGS = {
     depot_from_iban:'Depuis votre IBAN', depot_confirm_btn:'Confirmer le dépôt',
     /* Virement modal */
     vir_beneficiaire:'Bénéficiaire', vir_iban_dest:'IBAN destinataire',
-    vir_montant:'Montant', vir_motif:'Motif', vir_ph_nom:'Nom du bénéficiaire', vir_ph_motif:'Ex : Remboursement', vir_confirm_btn:'Confirmer le virement',
+    vir_montant:'Montant', vir_motif:'Motif', vir_ph_nom:'Nom du bénéficiaire', vir_ph_motif:'Remboursement', vir_confirm_btn:'Confirmer le virement',
     vir_otp_sent:'Un code de validation a été envoyé à {email}.',
     vir_sec_waiting:'Votre demande a été transmise à Fidexico. Un conseiller va valider votre virement et vous envoyer un code de sécurité par email.',
     vir_code_empty:'Entrez le code reçu par email.',
@@ -324,7 +324,7 @@ var EC_LANGS = {
     credit_ref:'Ref.',
     depot_from_iban:'From your IBAN', depot_confirm_btn:'Confirm deposit',
     vir_beneficiaire:'Recipient', vir_iban_dest:'Recipient IBAN',
-    vir_montant:'Amount', vir_motif:'Reference', vir_ph_nom:'Recipient name', vir_ph_motif:'Ex: Reimbursement', vir_confirm_btn:'Confirm transfer',
+    vir_montant:'Amount', vir_motif:'Reference', vir_ph_nom:'Recipient name', vir_ph_motif:'Reimbursement', vir_confirm_btn:'Confirm transfer',
     vir_otp_sent:'A validation code has been sent to {email}.',
     vir_sec_waiting:'Your request has been sent to Fidexico. An advisor will validate your transfer and send you a security code by email.',
     vir_code_empty:'Enter the code received by email.',
