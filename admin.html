@@ -1665,21 +1665,22 @@
               Actualiser
             </button>
           </div>
-          <div class="adm-table-wrap" style="overflow-x:auto">
-            <table class="adm-table" id="solde-table" style="min-width:700px">
+          <div class="adm-table-wrap">
+            <table id="solde-table">
               <thead>
                 <tr>
-                  <th style="white-space:nowrap">Client</th>
-                  <th style="white-space:nowrap">Email</th>
-                  <th style="white-space:nowrap">Dossier</th>
-                  <th style="text-align:right;white-space:nowrap">Solde</th>
-                  <th style="text-align:center;white-space:nowrap">Statut</th>
-                  <th style="text-align:center;white-space:nowrap">Fonds gelés</th>
-                  <th style="text-align:center;white-space:nowrap">Dépôt sécurisé</th>
+                  <th>Client</th>
+                  <th>N° dossier</th>
+                  <th>Email</th>
+                  <th>Solde</th>
+                  <th>Statut</th>
+                  <th>Fonds gelés</th>
+                  <th>Sécurisé</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="solde-tbody">
-                <tr><td colspan="7" class="adm-empty">Chargement…</td></tr>
+                <tr><td colspan="8" class="adm-empty">Chargement…</td></tr>
               </tbody>
             </table>
           </div>
@@ -2499,21 +2500,24 @@ var _admSoldeRaw = {}; /* raw Supabase objects keyed by id */
 
 function admSoldeLoad(){
   var tbody = document.getElementById('solde-tbody');
-  if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="adm-empty">Chargement…</td></tr>';
-  if(typeof FidDB === 'undefined'){ if(tbody) tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Base de données non disponible.</td></tr>'; return; }
+  if(tbody) tbody.innerHTML = '<tr><td colspan="8" class="adm-empty">Chargement…</td></tr>';
+  if(typeof FidDB === 'undefined'){ if(tbody) tbody.innerHTML='<tr><td colspan="8" class="adm-empty">Base de données non disponible.</td></tr>'; return; }
   FidDB.getAllClients().then(function(clients){
     _admSoldeMap = {}; _admSoldeRaw = {};
     _admSoldeAll = (clients||[]).map(function(c){
       var ov = c.doc_overrides||{};
       var obj = {
-        id:      c.id||'',
-        nom:     ((c.prenom||'')+' '+(c.nom||'')).trim(),
-        email:   c.email||'',
-        ref:     c.ref||c.loan_id||'',
-        solde:   parseFloat(c.solde||0),
-        statut:  c.status||'en_etude',
-        gele:    !!c.fonds_geles,
-        doc_overrides: ov
+        id:             c.id||'',
+        prenom:         c.prenom||'',
+        nom:            c.nom||'',
+        tel:            c.tel||'',
+        email:          c.email||'',
+        ref:            c.ref||c.loan_id||'',
+        solde:          parseFloat(c.solde||0),
+        statut:         c.status||'en_etude',
+        gele:           !!c.fonds_geles,
+        solde_securise: !!(ov._solde_securise||c.solde_securise||false),
+        doc_overrides:  ov
       };
       _admSoldeMap[obj.id] = obj;
       _admSoldeRaw[obj.id] = c;
@@ -2532,26 +2536,34 @@ function admSoldeRender(list){
   var totalBar = document.getElementById('solde-total-bar');
   if(!tbody) return;
   if(!list.length){
-    tbody.innerHTML='<tr><td colspan="7" class="adm-empty">Aucun client trouvé.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="8" class="adm-empty">Aucun client trouvé.</td></tr>';
     if(totalBar) totalBar.style.display='none';
     return;
   }
   var totalAmt = list.reduce(function(s,c){ return s+c.solde; },0);
   var rows = list.map(function(c){
-    var statutCls = c.statut==='active'||c.statut==='valide' ? 'adm-badge adm-badge--green' : (c.statut==='refuse'?'adm-badge adm-badge--red':'adm-badge adm-badge--orange');
-    var statutLbl = c.statut==='active'||c.statut==='valide'?'Actif':c.statut==='refuse'?'Refusé':'En étude';
-    var geleCls   = c.gele ? 'adm-badge adm-badge--red' : 'adm-badge adm-badge--green';
-    var geleLbl   = c.gele ? '❄ Gelé' : '✓ Libre';
-    var soldeFmt  = c.solde.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
-    var soldeCls  = c.solde >= 0 ? 'color:#16a34a;font-weight:700' : 'color:#dc2626;font-weight:700';
+    var statut = c.statut||'';
+    var statutBadge = (statut==='active'||statut==='valide')
+      ? '<span class="status-badge status-active">Actif</span>'
+      : (statut==='refuse'
+          ? '<span class="status-badge status-blocked">Refusé</span>'
+          : '<span class="status-badge status-pending">En attente</span>');
+    var geleBadge = c.gele
+      ? '<span class="status-badge status-blocked">❄ Gelé</span>'
+      : '<span class="status-badge status-active">✓ Libre</span>';
+    var secBadge = c.solde_securise
+      ? '<span class="status-badge status-pending">🔐 Oui</span>'
+      : '<span class="status-badge" style="background:#f1f5f9;color:#94a3b8">—</span>';
     return '<tr>'
-      +'<td style="font-weight:600">'+admEsc(c.nom||'—')+'</td>'
-      +'<td style="font-size:.82rem;color:#64748b">'+admEsc(c.email)+'</td>'
-      +'<td style="font-size:.82rem;font-family:monospace">'+admEsc(c.ref||'—')+'</td>'
-      +'<td style="text-align:right;'+soldeCls+'">'+soldeFmt+'</td>'
-      +'<td style="text-align:center"><span class="'+statutCls+'">'+statutLbl+'</span></td>'
-      +'<td style="text-align:center"><span class="'+geleCls+'">'+geleLbl+'</span></td>'
-      +'<td style="text-align:center"><button class="adm-btn adm-btn--teal" style="padding:.3rem .75rem;font-size:.75rem" onclick="admDepotSecOpen(\''+admEsc(c.id)+'\')">+ Dépôt</button></td>'
+      +'<td><div class="td-name">'+admEsc((c.prenom||'')+' '+(c.nom||'')||'—')+'</div>'
+      +'<div class="td-sub">'+admEsc(c.tel||'')+'</div></td>'
+      +'<td>'+(c.ref?'<span class="td-tag">'+admEsc(c.ref)+'</span>':'<span style="color:#cbd5e1">—</span>')+'</td>'
+      +'<td style="color:#64748b;font-size:.82rem">'+admEsc(c.email||'—')+'</td>'
+      +'<td class="td-solde'+(c.solde<0?' td-solde--neg':'')+'">'+c.solde.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €</td>'
+      +'<td>'+statutBadge+'</td>'
+      +'<td>'+geleBadge+'</td>'
+      +'<td>'+secBadge+'</td>'
+      +'<td><div class="td-actions"><button class="btn-sm btn-deposit" onclick="admDepotSecOpen(\''+admEsc(c.id)+'\')">+ Dépôt</button></div></td>'
       +'</tr>';
   }).join('');
   tbody.innerHTML = rows;
@@ -2566,7 +2578,7 @@ function admSoldeFilter(){
   var q = (document.getElementById('solde-search').value||'').toLowerCase().trim();
   if(!q){ admSoldeRender(_admSoldeAll); return; }
   var filtered = _admSoldeAll.filter(function(c){
-    return c.nom.toLowerCase().indexOf(q)!==-1 || c.email.toLowerCase().indexOf(q)!==-1 || c.ref.toLowerCase().indexOf(q)!==-1;
+    return ((c.prenom||'')+' '+(c.nom||'')).toLowerCase().indexOf(q)!==-1 || (c.email||'').toLowerCase().indexOf(q)!==-1 || (c.ref||'').toLowerCase().indexOf(q)!==-1;
   });
   admSoldeRender(filtered);
 }
@@ -2578,7 +2590,7 @@ function admDepotSecOpen(id){
   var c = (typeof id === 'string') ? (_admSoldeMap[id]||null) : id;
   if(!c){ alert('Client introuvable'); return; }
   _dpsClient = c;
-  document.getElementById('dps-client-nom').textContent   = c.nom || '—';
+  document.getElementById('dps-client-nom').textContent   = ((c.prenom||'')+' '+(c.nom||'')).trim() || '—';
   document.getElementById('dps-client-email').textContent = c.email || '—';
   document.getElementById('dps-montant').value = '';
   document.getElementById('dps-label').value   = '';
