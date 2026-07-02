@@ -61,7 +61,7 @@ function ecCompleteLogin(user){
       FidDB.setSolde(user.id, s).catch(function(){});
     }).catch(function(){});
   }
-  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0};
+  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,status:user.status||'en_etude',createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0};
   localStorage.setItem('ec_user', JSON.stringify(norm));
   if(typeof FidEmail !== 'undefined' && user.email){
     var _connLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || user.lang || 'fr';
