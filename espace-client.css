@@ -5527,10 +5527,10 @@ body.ec-body {
     transform: translateY(20px) !important;
     transition: opacity .25s, transform .25s !important;
     opacity: 0;
-    width: 420px !important;
-    max-width: 90vw;
+    width: 520px !important;
+    max-width: 95vw;
     height: auto !important;
-    max-height: 88vh;
+    max-height: 65vh;
     border-radius: 20px !important;
     overflow: hidden;
     overflow-y: auto;
