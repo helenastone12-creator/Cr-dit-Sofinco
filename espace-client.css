@@ -5116,6 +5116,7 @@ body.ec-body {
 
 /* Mobile */
 @media (max-width: 700px) {
+  .gd-action-btns { display: none; }
   .gd-main-card {
     background: #fff;
     border-radius: 18px;
