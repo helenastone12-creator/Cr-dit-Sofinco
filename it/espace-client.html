@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFBN0JBRiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwQjVFOEEiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjciIGZpbGw9InVybCgjYmcpIi8+CiAgPHRleHQgeD0iMTYiIHk9IjI0IiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIyMiIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZmZmZiIgbGV0dGVyLXNwYWNpbmc9Ii0xIj5GPC90ZXh0Pgo8L3N2Zz4K">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La mia area clienti — Fidexico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../style.css"/>
+  <link rel="stylesheet" href="../espace-client.css"/>
+  <script src="../ec-i18n.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+</head>
+<body class="ec-body ec-dash-body">
+
+<!-- Header legacy masqué -->
+<header class="ec-header" style="display:none"></header>
+
+<!-- V2 Dashboard -->
+<main class="v2-main">
+
+  <!-- Alert banner -->
+  <div class="ec-alert-banner" id="ec-alert-banner" style="display:none">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="ec-alert-banner-text"></span>
+    <button class="ec-alert-close" onclick="this.parentElement.style.display='none'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- ── TOP BAR (mobile header + desktop top-right) ── -->
+  <div class="v2-topbar">
+    <div class="v2-topbar-brand">
+      <a href="/espace-client.html" class="v2-topbar-logo">
+        <img src="../favicon.svg" alt="" width="22" height="22"/> <span>Fidexico</span>
+      </a>
+    </div>
+    <div class="v2-topbar-title">Tableau de bord</div>
+    <div class="gd-topbar-greeting" id="gd-topbar-greeting-pc">—</div>
+    <div class="v2-topbar-right">
+      <button class="v2-topbar-ghost" onclick="ecOpenModal('alertes')" aria-label="Notifications">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span>Notifications</span>
+      </button>
+      <button class="v2-topbar-primary" onclick="ecOpenModal('virement')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Virement</span>
+      </button>
+      <a href="/profil.html" class="v2-topbar-avatar" id="ec-hd-avatar" aria-label="Profil">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Hidden compat IDs for JS -->
+  <span id="fd-greeting-desk" style="display:none"></span>
+  <span id="fd-kpi-disponible" style="display:none"></span>
+  <span id="fd-kpi-limite-sub" style="display:none"></span>
+  <span id="fd-kpi-restant" style="display:none"></span>
+  <span id="fd-kpi-mens" style="display:none"></span>
+  <span id="fd-kpi-echeance" style="display:none"></span>
+  <span id="fd-kpi-echeance-sub" style="display:none"></span>
+  <span id="ec-solde-comptable" style="display:none"></span>
+  <span id="fd-limite-amt" style="display:none"></span>
+  <div id="v4-chart-section" style="display:none"><canvas id="v4-loan-chart"></canvas></div>
+
+  <!-- ── GD: GREETING ── -->
+  <div class="gd-greeting-row">
+    <div>
+      <div class="gd-greeting-name" id="fd-greeting-name">—</div>
+    </div>
+  </div>
+
+  <!-- ── GD: MAIN CARD (balance + comptes + actions) ── -->
+  <div class="gd-main-card">
+
+  <!-- ── GD: BALANCE + ACTIONS ── -->
+  <div class="gd-balance-section">
+    <div class="gd-balance-left">
+      <div class="gd-balance-label">
+        Solde total
+        <button class="gd-eye-btn" id="ec-eye-toggle" onclick="ecToggleSolde()" aria-label="Masquer le solde">
+          <svg id="ec-eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="gd-balance-amount" id="fd-disponible-amt">—</div>
+    </div>
+    <div class="gd-action-btns">
+      <button class="gd-action-btn" onclick="ecOpenModal('depot')">
+        <div class="gd-action-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <span>Ajouter</span>
+      </button>
+      <button class="gd-action-btn" onclick="ecOpenModal('virement')">
+        <div class="gd-action-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </div>
+        <span>Envoyer</span>
+      </button>
+      <button class="gd-action-btn" onclick="ecOpenModal('remb')">
+        <div class="gd-action-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <span>Simuler</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- IDs conservés pour JS -->
+  <span id="fd-disponible-amt2" style="display:none"></span>
+  <span id="fd-restant-amt" style="display:none"></span>
+  <span id="fd-status-badge" style="display:none"></span>
+  <span id="fd-loan-prog-fill" style="display:none"></span>
+  <span id="fd-loan-prog-pct" style="display:none"></span>
+  <span id="fd-echeance-date" style="display:none"></span>
+  <span id="fd-mensualite-amt" style="display:none"></span>
+
+  </div><!-- /gd-main-card -->
+
+  <!-- ── GD: TRANSACTIONS RÉCENTES ── -->
+  <div class="gd-section gd-section--last">
+    <div class="gd-section-hd">
+      <h3 class="gd-section-title">Transactions récentes</h3>
+      <button class="gd-see-all-link" onclick="ecOpenAllTx()">Voir tout</button>
+    </div>
+    <div class="gd-tx-wrap">
+      <table class="gd-tx-table">
+        <thead>
+          <tr>
+            <th>DATE</th>
+            <th>MONTANT</th>
+            <th>TYPE</th>
+            <th>DESCRIPTION</th>
+            <th>STATUT</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="fd-activity-list">
+          <tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── GD: CARTE PRÊT PREMIUM ── -->
+  <div class="gd-section" id="gd-loan-card-section">
+    <div class="gd-loan-card" onclick="ecOpenModal('credit-detail')">
+      <!-- Top row: label + badge -->
+      <div class="gd-lc-top">
+        <span class="gd-lc-label">MON PRÊT</span>
+        <span class="gd-lc-badge" id="gd-loan-status-badge"></span>
+      </div>
+      <!-- Amount + progress inline -->
+      <div class="gd-lc-body">
+        <div class="gd-lc-amount" id="gd-loan-capital-disp">—</div>
+        <div class="gd-lc-prog-wrap">
+          <div class="gd-lc-prog-track">
+            <div class="gd-lc-prog-fill" id="gd-loan-prog-fill"></div>
+          </div>
+          <span class="gd-lc-prog-pct" id="gd-loan-prog-pct">0%</span>
+        </div>
+      </div>
+      <!-- Stats row -->
+      <div class="gd-lc-stats">
+        <div class="gd-lc-stat">
+          <span class="gd-lc-stat-lbl">Mensualité</span>
+          <span class="gd-lc-stat-val" id="gd-loan-mens-disp">—</span>
+        </div>
+        <div class="gd-lc-divider"></div>
+        <div class="gd-lc-stat">
+          <span class="gd-lc-stat-lbl">Taux</span>
+          <span class="gd-lc-stat-val" id="gd-loan-taux-disp">—</span>
+        </div>
+        <div class="gd-lc-divider"></div>
+        <div class="gd-lc-stat">
+          <span class="gd-lc-stat-lbl">Durée</span>
+          <span class="gd-lc-stat-val" id="gd-loan-duree-disp">—</span>
+        </div>
+        <div class="gd-lc-divider"></div>
+        <div class="gd-lc-stat">
+          <span class="gd-lc-stat-lbl">Restant dû</span>
+          <span class="gd-lc-stat-val gd-lc-stat-val--green" id="gd-loan-restant-disp">—</span>
+        </div>
+      </div>
+      <!-- Footer échéance -->
+      <div class="gd-lc-footer">
+        <span id="gd-loan-next-date"></span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── SIDEBAR (PC) / BOTTOM NAV (mobile) ── -->
+<nav class="v2-nav">
+
+  <!-- Sidebar top: brand + user (desktop) -->
+  <div class="v2-sidebar-brand" id="ec-sidebar-user-card">
+    <div class="v2-sidebar-user-row">
+      <div class="v2-sidebar-avatar-wrap">
+        <div class="v2-sidebar-avatar" id="ec-sidebar-avatar"></div>
+        <span class="v2-sidebar-avatar-status"></span>
+      </div>
+      <div class="v2-sidebar-user-info">
+        <div class="v2-sidebar-uname-row">
+          <div id="ec-sidebar-user-name" class="v2-sidebar-uname"></div>
+        </div>
+        <div id="ec-sidebar-user-id" class="v2-sidebar-uid"></div>
+      </div>
+    </div>
+  </div>
+  <div class="v2-sidebar-sep"></div>
+
+  <!-- Nav links -->
+  <a href="/espace-client.html" class="v2-nav-link v2-nav-link--active" aria-label="Dashboard">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    <span>Dashboard</span>
+  </a>
+  <button class="v2-nav-link" onclick="ecOpenModal('credit-detail')" aria-label="Prêts">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+    <span>Prêts</span>
+  </button>
+  <a href="/mes-documents.html" class="v2-nav-link" aria-label="Documents">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <span>Documents</span>
+  </a>
+  <a href="/messagerie.html" class="v2-nav-link" aria-label="Messages">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>Messages</span>
+  </a>
+
+  <!-- Plus (mobile bottom nav) -->
+  <button class="v2-nav-link v2-nav-mobile-only" onclick="ecOpenModal('more')" aria-label="Plus">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+    <span>Plus</span>
+  </button>
+
+  <!-- Services (sidebar desktop) -->
+  <div class="v2-sidebar-sep v2-nav-desktop-only"></div>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenAllTx()" aria-label="Transactions">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span>Transactions</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('virement')" aria-label="Virement crédit">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+    <span>Virement crédit</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('pause-mens')" aria-label="Pause mensualités">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
+    <span>Pause mensualités</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('e-releve')" aria-label="E-relevé">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <span>E-relevé</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('open-banking')" aria-label="Open Banking">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <span>Open Banking</span>
+  </button>
+  <div class="v2-sidebar-sep v2-nav-desktop-only"></div>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('simul-rachat')" aria-label="Simulations">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    <span>Simulations</span>
+  </button>
+  <button class="v2-nav-link v2-nav-desktop-only" onclick="ecOpenModal('connexions')" aria-label="Sécurité">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span>Sécurité</span>
+  </button>
+
+  <!-- Desktop only -->
+  <a href="/profil.html" class="v2-nav-link v2-nav-desktop-only" aria-label="Paramètres">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span>Paramètres</span>
+  </a>
+
+  <div class="v2-sidebar-spacer"></div>
+
+  <button class="v2-sidebar-logout v2-nav-desktop-only" onclick="ecLogout()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    <span>Déconnexion</span>
+  </button>
+
+</nav>
+
+<!-- Modal Dépôt -->
+<div class="ec-modal-overlay" id="ec-modal-depot" onclick="ecCloseModal('depot')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title" data-i18n="depot_title">Faire un dépôt</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('depot')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-form-group">
+        <label class="ec-lbl"><span data-i18n="depot_lbl">Montant à déposer</span> <span class="ec-req">*</span></label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="ec-depot-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl" data-i18n="depot_from_iban">Depuis votre IBAN</label>
+        <input class="ec-inp" id="ec-depot-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/>
+      </div>
+      <div class="ec-modal-err" id="ec-depot-err" style="display:none"></div>
+      <button class="ec-btn-primary" onclick="ecConfirmDepot()" style="margin-top:.5rem" data-i18n="depot_confirm_btn">Confirmer le dépôt</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Virement -->
+<div class="ec-modal-overlay" id="ec-modal-virement" onclick="ecCloseModal('virement')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title" data-i18n="virement_title">Effectuer un virement</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('virement')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_beneficiaire">Bénéficiaire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire"/></div>
+      <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_iban_dest">IBAN destinataire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/></div>
+      <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_montant">Montant</span> <span class="ec-req">*</span></label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div></div>
+      <div class="ec-form-group"><label class="ec-lbl" data-i18n="vir_motif">Motif</label><input class="ec-inp" id="ec-vir-motif" type="text" placeholder="Ex : Loyer, Remboursement..."/></div>
+      <div class="ec-modal-err" id="ec-vir-err" style="display:none"></div>
+      <button class="ec-btn-primary" onclick="ecConfirmVirement()" style="margin-top:.5rem" data-i18n="vir_confirm_btn">Confirmer le virement</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Convertir -->
+<div class="ec-modal-overlay" id="ec-modal-convert" onclick="ecCloseModal('convert')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title" data-i18n="conv_title">Convertir une devise</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('convert')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-convert-row">
+        <div class="ec-form-group" style="flex:1"><label class="ec-lbl" data-i18n="conv_montant">Montant (€)</label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-conv-amt" type="number" min="0" placeholder="0,00" oninput="ecConvert()"/><span class="ec-amount-euro">€</span></div></div>
+        <div class="ec-form-group" style="flex:1"><label class="ec-lbl" data-i18n="conv_vers">Vers</label>
+          <select class="ec-inp" id="ec-conv-currency" onchange="ecConvert()">
+            <option value="GBP">🇬🇧 Livre (GBP)</option><option value="CHF">🇨🇭 Franc suisse (CHF)</option>
+            <option value="SEK">🇸🇪 Couronne SE (SEK)</option><option value="NOK">🇳🇴 Couronne NO (NOK)</option>
+            <option value="DKK">🇩🇰 Couronne DK (DKK)</option><option value="PLN">🇵🇱 Zloty (PLN)</option>
+            <option value="CZK">🇨🇿 Couronne CZ (CZK)</option><option value="HUF">🇭🇺 Forint (HUF)</option>
+            <option value="RON">🇷🇴 Leu (RON)</option><option value="BGN">🇧🇬 Lev (BGN)</option>
+            <option value="TRY">🇹🇷 Livre TK (TRY)</option><option value="ISK">🇮🇸 Couronne IS (ISK)</option>
+          </select>
+        </div>
+      </div>
+      <div class="ec-convert-result">
+        <div class="ec-conv-res-lbl" data-i18n="conv_result_lbl">Résultat estimé</div>
+        <div class="ec-conv-res-amt" id="ec-conv-res-amt">—</div>
+        <div class="ec-conv-res-rate" id="ec-conv-res-rate"></div>
+      </div>
+      <div class="ec-conv-note" data-i18n="conv_note">Taux indicatifs (BCE). Non contractuels.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Mon RIB -->
+<div class="ec-modal-overlay" id="ec-modal-rib" onclick="ecCloseModal('rib')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title" data-i18n="rib_title">Mon RIB</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('rib')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-rib-card">
+        <div class="ec-rib-bank-name">Fidexico</div>
+        <div class="ec-rib-row"><span class="ec-rib-lbl" data-i18n="rib_titulaire">Titulaire</span><span class="ec-rib-val" id="ec-rib-titulaire">—</span></div>
+        <div class="ec-rib-row"><span class="ec-rib-lbl" data-i18n="rib_iban">IBAN</span><span class="ec-rib-val ec-rib-mono" id="ec-rib-iban">—</span></div>
+        <div class="ec-rib-row"><span class="ec-rib-lbl" data-i18n="rib_bic">BIC / SWIFT</span><span class="ec-rib-val ec-rib-mono">SOFIFR2PXXX</span></div>
+        <div class="ec-rib-row" style="border-bottom:none"><span class="ec-rib-lbl" data-i18n="rib_banque">Banque</span><span class="ec-rib-val">Fidexico — Paris</span></div>
+      </div>
+      <div class="ec-rib-actions">
+        <button class="ec-rib-copy-btn" onclick="ecCopyIban()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span data-i18n="rib_copy">Copier l'IBAN</span>
+        </button>
+        <button class="ec-rib-dl-btn" onclick="ecDownloadRib()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-i18n="rib_dl">Télécharger PDF</span>
+        </button>
+      </div>
+      <div class="ec-rib-copied" id="ec-rib-copied" style="display:none">IBAN copié dans le presse-papiers</div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Toutes les transactions -->
+<div class="ec-modal-overlay ec-modal-overlay--fullscreen" id="ec-modal-all-tx" onclick="ecCloseModal('all-tx')">
+  <div class="ec-modal-card ec-modal-card--fullscreen atx-page" onclick="event.stopPropagation()">
+    <!-- Mobile Header -->
+    <div class="atx-header atx-mobile-only">
+      <button class="atx-back-btn" onclick="ecCloseModal('all-tx')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="atx-title">Transactions</span>
+    </div>
+    <!-- PC Header -->
+    <div class="atx-pc-header atx-pc-only">
+      <div class="atx-pc-title-row">
+        <div class="atx-pc-title">Transactions</div>
+        <button class="atx-back-btn" onclick="ecCloseModal('all-tx')" style="margin-left:auto">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <!-- Filter bar -->
+      <div class="atx-pc-filter-bar">
+        <span class="atx-pc-filter-label">Filtrer :</span>
+        <select class="atx-pc-select" id="atx-filter-type" onchange="atxFilterTx()">
+          <option value="">Toutes</option>
+          <option value="credit">Dépôt</option>
+          <option value="debit">Retrait</option>
+        </select>
+        <select class="atx-pc-select" id="atx-filter-status" onchange="atxFilterTx()">
+          <option value="">Tous statuts</option>
+          <option value="valide">Validé</option>
+        </select>
+        <div class="atx-pc-search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="atx-pc-search-input" id="atx-search-input" type="text" placeholder="Rechercher..." oninput="atxFilterTx()" />
+        </div>
+      </div>
+    </div>
+    <!-- Mobile Search -->
+    <div class="atx-search-row atx-mobile-only">
+      <div class="atx-search-wrap">
+        <svg class="atx-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="atx-search-input" id="atx-search-input-mobile" type="text" placeholder="Rechercher ici" oninput="atxFilterTx()" />
+      </div>
+      <button class="atx-filter-btn" onclick="atxClearSearch()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      </button>
+    </div>
+    <!-- Mobile Label -->
+    <div class="atx-label atx-mobile-only">Toutes les transactions</div>
+    <!-- List (mobile) / Table (pc) -->
+    <div class="atx-list" id="ec-all-tx-list"></div>
+    <!-- PC Pagination -->
+    <div class="atx-pc-pagination atx-pc-only" id="atx-pagination"></div>
+  </div>
+</div>
+
+<!-- Modal Détails du crédit -->
+<div class="ec-modal-overlay" id="ec-modal-credit-detail" onclick="ecCloseModal('credit-detail')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Mon crédit</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('credit-detail')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-credit-detail-rows" id="ec-credit-detail-rows">
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Référence</span>
+          <span class="ec-credit-detail-val" id="ec-cd-ref">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Capital emprunté</span>
+          <span class="ec-credit-detail-val" id="ec-cd-capital">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Mensualité</span>
+          <span class="ec-credit-detail-val" id="ec-cd-mens">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Durée</span>
+          <span class="ec-credit-detail-val" id="ec-cd-duree">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Taux d'intérêt</span>
+          <span class="ec-credit-detail-val" id="ec-cd-taux">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Date de début</span>
+          <span class="ec-credit-detail-val" id="ec-cd-debut">—</span>
+        </div>
+        <div class="ec-credit-detail-row">
+          <span class="ec-credit-detail-lbl">Capital restant dû</span>
+          <span class="ec-credit-detail-val ec-credit-detail-val--teal" id="ec-cd-restant">—</span>
+        </div>
+        <div class="ec-credit-detail-prog-wrap">
+          <div class="ec-credit-detail-prog-bar"><div class="ec-credit-detail-prog-fill" id="ec-cd-prog-fill"></div></div>
+          <span class="ec-credit-detail-prog-pct" id="ec-cd-prog-pct">0%</span>
+        </div>
+      </div>
+      <div class="ec-cd-chart-wrap" id="ec-cd-chart-wrap" style="display:none">
+        <div class="ec-cd-chart-title">Évolution du capital restant dû</div>
+        <canvas id="ec-cd-chart" height="160"></canvas>
+      </div>
+      <div class="ec-cd-actions">
+        <button class="ec-btn-primary" onclick="ecCloseModal('credit-detail');ecOpenModal('simul-eco')">Calculer mes économies</button>
+        <button class="ec-cd-btn-sec" onclick="ecCloseModal('credit-detail');ecOpenModal('remb')">Remboursement anticipé</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Remboursement anticipé -->
+<div class="ec-modal-overlay" id="ec-modal-remb" onclick="ecCloseModal('remb')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title" data-i18n="remb_title">Remboursement anticipé</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('remb')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="ec-remb-rows" id="ec-remb-rows">
+        <div class="ec-remb-row"><span class="ec-remb-lbl" data-i18n="remb_capital">Capital restant dû</span><span class="ec-remb-val" id="ec-remb-capital">—</span></div>
+        <div class="ec-remb-row"><span class="ec-remb-lbl" data-i18n="remb_ira">Indemnité de remb. (IRA)</span><span class="ec-remb-val" id="ec-remb-ira">—</span></div>
+        <div class="ec-remb-row ec-remb-row--total"><span class="ec-remb-lbl" data-i18n="remb_total">Total à verser</span><span class="ec-remb-val" id="ec-remb-total">—</span></div>
+      </div>
+      <div class="ec-remb-note">
+        <span data-i18n="remb_ira_note">L'IRA est plafonnée à 6 mois d'intérêts ou 3% du capital restant (Loi Lagarde — Art. L312-34 C. conso.). Pour finaliser, contactez votre conseiller.</span>
+      </div>
+      <a href="/messagerie.html" class="ec-btn-primary" style="margin-top:1rem;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.5rem" onclick="ecCloseModal('remb')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span data-i18n="remb_contact_btn">Contacter mon conseiller</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Alertes -->
+<div class="ec-modal-overlay" id="ec-modal-alertes" onclick="ecCloseModal('alertes')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title" data-i18n="alertes_title">Notifications</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('alertes')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-notif-list" id="ec-notif-list">
+      <div class="ec-notif-empty" data-i18n="notif_none">Aucune nouvelle notification.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Détail Transaction (Grey style) -->
+<div class="ec-modal-overlay ec-modal-overlay--fullscreen" id="ec-modal-tx" onclick="ecCloseModal('tx')">
+  <div class="ec-modal-card ec-modal-card--fullscreen txd-page" onclick="event.stopPropagation()">
+    <!-- Top bar -->
+    <div class="txd-topbar">
+      <button class="atx-back-btn" onclick="ecCloseModal('tx')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="txd-topbar-title">Détails de la transaction</span>
+      <span class="txd-topbar-amt" id="ec-tx-d-amt-top"></span>
+      <button class="atx-back-btn" onclick="ecCloseModal('tx')" style="margin-left:auto">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- Scrollable body -->
+    <div class="txd-body">
+      <!-- Hero -->
+      <div class="txd-hero">
+        <div class="txd-hero-icon" id="ec-tx-d-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </div>
+        <div class="txd-hero-amt" id="ec-tx-d-amt">—</div>
+        <div class="txd-hero-sub" id="ec-tx-d-sub">—</div>
+        <div class="txd-hero-date" id="ec-tx-d-date">—</div>
+      </div>
+      <!-- Wavy divider -->
+      <div class="txd-wavy">
+        <svg viewBox="0 0 375 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,12 C30,0 60,24 90,12 C120,0 150,24 180,12 C210,0 240,24 270,12 C300,0 330,24 360,12 L375,12 L375,24 L0,24 Z" fill="#fff"/></svg>
+      </div>
+      <!-- Details section -->
+      <div class="txd-section">
+        <div class="txd-section-title">Détails de la transaction</div>
+        <div class="txd-rows" id="ec-tx-d-rows">
+          <div class="txd-row"><span class="txd-lbl">Statut</span><span class="txd-val"><span class="txd-status-badge"><span class="txd-status-dot"></span> Complété</span></span></div>
+          <div class="txd-row"><span class="txd-lbl" id="ec-tx-d-recv-lbl">Montant reçu</span><span class="txd-val txd-val--bold" id="ec-tx-d-recv-amt">—</span></div>
+          <div class="txd-row"><span class="txd-lbl">Nom du compte</span><span class="txd-val txd-val--bold" id="ec-tx-d-label">—</span></div>
+          <div class="txd-row" id="ec-tx-d-ref-row"><span class="txd-lbl">Référence</span><span class="txd-val txd-mono" id="ec-tx-d-ref">—</span></div>
+          <div id="ec-tx-d-extra"></div>
+        </div>
+      </div>
+      <!-- Timeline section -->
+      <div class="txd-section">
+        <div class="txd-section-title">Délai</div>
+        <div class="txd-timeline">
+          <div class="txd-tl-item">
+            <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="txd-tl-line"></div>
+            <div class="txd-tl-body"><div class="txd-tl-title">Transaction initiée</div><div class="txd-tl-sub">Vous avez effectué une transaction</div><div class="txd-tl-date" id="ec-tx-tl-date1">—</div></div>
+          </div>
+          <div class="txd-tl-item">
+            <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="txd-tl-line"></div>
+            <div class="txd-tl-body"><div class="txd-tl-title">Traitement en cours</div><div class="txd-tl-sub">Les fonds ont été envoyés au destinataire</div><div class="txd-tl-date" id="ec-tx-tl-date2">—</div></div>
+          </div>
+          <div class="txd-tl-item txd-tl-item--last">
+            <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="txd-tl-body"><div class="txd-tl-title">Paiement complété</div><div class="txd-tl-sub">Le compte a été crédité</div><div class="txd-tl-date" id="ec-tx-tl-date3">—</div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Actions -->
+      <div class="txd-actions">
+        <button class="txd-btn-primary" id="ec-tx-pdf-btn">Partager le reçu</button>
+        <button class="txd-btn-secondary" onclick="ecCloseModal('tx')">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Plus (mobile) -->
+<div class="ec-modal-overlay" id="ec-modal-more" onclick="ecCloseModal('more')">
+  <div class="ec-modal-card more-sheet" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="more-sheet-title">Services</div>
+    <div class="more-sheet-grid">
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenAllTx()">
+        <div class="more-item-icon more-item-icon--purple">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <span>Transactions</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('virement')">
+        <div class="more-item-icon more-item-icon--teal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <span>Virement crédit</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('pause-mens')">
+        <div class="more-item-icon more-item-icon--orange">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
+        </div>
+        <span>Pause mensualités</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('e-releve')">
+        <div class="more-item-icon more-item-icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span>E-relevé</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('open-banking')">
+        <div class="more-item-icon more-item-icon--blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <span>Open Banking</span>
+      </button>
+      <a href="/profil.html" class="more-item" onclick="ecCloseModal('more')">
+        <div class="more-item-icon more-item-icon--pink">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <span>Mon profil</span>
+      </a>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('simul-rachat')">
+        <div class="more-item-icon" style="background:#F0FDF4;color:#16A34A">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <span>Simulations</span>
+      </button>
+      <button class="more-item" onclick="ecCloseModal('more');ecOpenModal('connexions')">
+        <div class="more-item-icon" style="background:#F0F4FF;color:#3B5BDB">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span>Sécurité</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Historique Connexions -->
+<div class="ec-modal-overlay" id="ec-modal-connexions" onclick="ecCloseModal('connexions')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Historique des connexions</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('connexions')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="cx-list" id="cx-list">
+        <div class="cx-empty">Aucun historique disponible.</div>
+      </div>
+      <div class="cx-notice">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Seules vos 10 dernières connexions sont affichées. Si vous détectez une activité suspecte, contactez votre conseiller.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Changement Date Prélèvement -->
+<div class="ec-modal-overlay" id="ec-modal-chg-date" onclick="ecCloseModal('chg-date')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Changer la date de prélèvement</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('chg-date')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="cd-current-row">
+        <span class="cd-lbl">Date actuelle</span>
+        <span class="cd-val" id="cd-current-date">—</span>
+      </div>
+      <div class="ec-form-group" style="margin-top:1.1rem">
+        <label class="ec-lbl">Nouvelle date de prélèvement</label>
+        <div class="cd-day-grid" id="cd-day-grid"></div>
+      </div>
+      <div class="pm-notice" style="margin-top:.9rem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Le changement prend effet à partir du prochain cycle. Soumis à validation sous 48h.</span>
+      </div>
+      <a href="/messagerie.html" class="ec-btn-primary" style="margin-top:.75rem;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.5rem" onclick="ecCloseModal('chg-date')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Confirmer la demande
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Paiements en retard -->
+<div class="ec-modal-overlay" id="ec-modal-paiements-retard" onclick="ecCloseModal('paiements-retard')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Paiements en retard</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('paiements-retard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="pr-summary ok" id="pr-summary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Aucun incident de paiement enregistré</span>
+      </div>
+      <div class="pr-list" id="pr-list"></div>
+      <button class="ec-btn-primary" style="margin-top:1rem" onclick="ecCloseModal('paiements-retard');ecOpenModal('regularisation')">Régulariser un paiement</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Régularisation -->
+<div class="ec-modal-overlay" id="ec-modal-regularisation" onclick="ecCloseModal('regularisation')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Régularisation en ligne</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('regularisation')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="reg-hero">
+        <div class="reg-hero-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <div class="reg-hero-title">Régulariser votre situation</div>
+        <div class="reg-hero-desc">Pour régulariser un paiement manqué, vous pouvez effectuer un virement immédiat ou contacter votre conseiller.</div>
+      </div>
+      <button class="ec-btn-primary" onclick="ecCloseModal('regularisation');ecOpenModal('virement')">Effectuer un virement maintenant</button>
+      <a href="/messagerie.html" class="ec-cd-btn-sec" style="margin-top:.6rem;text-decoration:none;display:flex;align-items:center;justify-content:center" onclick="ecCloseModal('regularisation')">Contacter mon conseiller</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Simulateur Rachat de Crédit -->
+<div class="ec-modal-overlay" id="ec-modal-simul-rachat" onclick="ecCloseModal('simul-rachat')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Simulateur — Rachat de crédit</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('simul-rachat')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="sim-tabs">
+        <button class="sim-tab sim-tab--active" onclick="ecOpenModal('simul-rachat')">Rachat</button>
+        <button class="sim-tab" onclick="ecCloseModal('simul-rachat');ecOpenModal('simul-mens')">Augmentation</button>
+        <button class="sim-tab" onclick="ecCloseModal('simul-rachat');ecOpenModal('simul-eco')">Économies</button>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Taux actuel (%)</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sr-taux-actuel" type="number" step="0.1" placeholder="ex : 5.5" oninput="srCalc()"/><span class="ec-amount-euro">%</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Capital restant dû</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sr-capital" type="number" placeholder="ex : 15000" oninput="srCalc()"/><span class="ec-amount-euro">€</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Durée restante (mois)</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sr-duree" type="number" placeholder="ex : 36" oninput="srCalc()"/><span class="ec-amount-euro">mo</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Nouveau taux proposé (%)</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sr-taux-nouveau" type="number" step="0.1" placeholder="ex : 3.2" oninput="srCalc()"/><span class="ec-amount-euro">%</span></div>
+      </div>
+      <div class="sim-result" id="sr-result" style="display:none">
+        <div class="sim-result-row"><span>Mensualité actuelle</span><span class="sim-result-val" id="sr-mens-actuelle">—</span></div>
+        <div class="sim-result-row"><span>Nouvelle mensualité</span><span class="sim-result-val sim-result-val--good" id="sr-mens-nouvelle">—</span></div>
+        <div class="sim-result-row sim-result-row--total"><span>Économie totale</span><span class="sim-result-val sim-result-val--big" id="sr-economie">—</span></div>
+      </div>
+      <a href="/messagerie.html" class="ec-btn-primary" style="margin-top:.75rem;text-decoration:none;display:flex;align-items:center;justify-content:center" onclick="ecCloseModal('simul-rachat')">Demander un rachat de crédit</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Simulateur Augmentation Mensualité -->
+<div class="ec-modal-overlay" id="ec-modal-simul-mens" onclick="ecCloseModal('simul-mens')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Simulateur — Augmenter ma mensualité</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('simul-mens')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="sim-tabs">
+        <button class="sim-tab" onclick="ecCloseModal('simul-mens');ecOpenModal('simul-rachat')">Rachat</button>
+        <button class="sim-tab sim-tab--active" onclick="ecOpenModal('simul-mens')">Augmentation</button>
+        <button class="sim-tab" onclick="ecCloseModal('simul-mens');ecOpenModal('simul-eco')">Économies</button>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Capital restant dû</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sm-capital" type="number" placeholder="ex : 15000" oninput="smCalc()"/><span class="ec-amount-euro">€</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Mensualité actuelle</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sm-mens" type="number" placeholder="ex : 450" oninput="smCalc()"/><span class="ec-amount-euro">€</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Taux d'intérêt annuel (%)</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sm-taux" type="number" step="0.1" placeholder="ex : 5.5" oninput="smCalc()"/><span class="ec-amount-euro">%</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Supplément mensuel souhaité</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="sm-supp" type="number" placeholder="ex : 100" oninput="smCalc()"/><span class="ec-amount-euro">€</span></div>
+      </div>
+      <div class="sim-result" id="sm-result" style="display:none">
+        <div class="sim-result-row"><span>Durée actuelle estimée</span><span class="sim-result-val" id="sm-duree-actuelle">—</span></div>
+        <div class="sim-result-row"><span>Nouvelle durée</span><span class="sim-result-val sim-result-val--good" id="sm-duree-nouvelle">—</span></div>
+        <div class="sim-result-row sim-result-row--total"><span>Intérêts économisés</span><span class="sim-result-val sim-result-val--big" id="sm-economie">—</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Calculateur Économies Remboursement Anticipé -->
+<div class="ec-modal-overlay" id="ec-modal-simul-eco" onclick="ecCloseModal('simul-eco')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Calculateur — Remboursement anticipé</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('simul-eco')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="sim-tabs">
+        <button class="sim-tab" onclick="ecCloseModal('simul-eco');ecOpenModal('simul-rachat')">Rachat</button>
+        <button class="sim-tab" onclick="ecCloseModal('simul-eco');ecOpenModal('simul-mens')">Augmentation</button>
+        <button class="sim-tab sim-tab--active" onclick="ecOpenModal('simul-eco')">Économies</button>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Capital restant dû</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="se-capital" type="number" placeholder="ex : 15000" oninput="seCalc()"/><span class="ec-amount-euro">€</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Taux d'intérêt annuel (%)</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="se-taux" type="number" step="0.1" placeholder="ex : 5.5" oninput="seCalc()"/><span class="ec-amount-euro">%</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Durée restante (mois)</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="se-duree" type="number" placeholder="ex : 36" oninput="seCalc()"/><span class="ec-amount-euro">mo</span></div>
+      </div>
+      <div class="ec-form-group">
+        <label class="ec-lbl">Montant du remboursement anticipé</label>
+        <div class="ec-amount-wrap"><input class="ec-inp" id="se-montant" type="number" placeholder="ex : 5000" oninput="seCalc()"/><span class="ec-amount-euro">€</span></div>
+      </div>
+      <div class="sim-result" id="se-result" style="display:none">
+        <div class="sim-result-row"><span>Intérêts sans remboursement</span><span class="sim-result-val" id="se-int-sans">—</span></div>
+        <div class="sim-result-row"><span>Intérêts avec remboursement</span><span class="sim-result-val sim-result-val--good" id="se-int-avec">—</span></div>
+        <div class="sim-result-row sim-result-row--total"><span>Économie sur intérêts</span><span class="sim-result-val sim-result-val--big" id="se-economie">—</span></div>
+        <div class="sim-result-row"><span>Mois gagnés</span><span class="sim-result-val sim-result-val--good" id="se-mois">—</span></div>
+      </div>
+      <a href="/messagerie.html" class="ec-btn-primary" style="margin-top:.75rem;text-decoration:none;display:flex;align-items:center;justify-content:center" onclick="ecCloseModal('simul-eco')">Demander un remboursement anticipé</a>
+    </div>
+  </div>
+</div>
+
+<!-- Chat Conseiller (FAB + Modal) -->
+<button class="chat-fab" id="chat-fab" onclick="ecOpenModal('chat-conseiller')" aria-label="Chat conseiller">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<div class="ec-modal-overlay" id="ec-modal-chat-conseiller" onclick="ecCloseModal('chat-conseiller')">
+  <div class="ec-modal-card chat-modal" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="chat-modal-header">
+      <div class="chat-modal-avatar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <div class="chat-modal-name">Conseiller Fidexico</div>
+        <div class="chat-modal-status"><span class="chat-status-dot"></span> En ligne</div>
+      </div>
+      <button class="ec-modal-close" style="margin-left:auto" onclick="ecCloseModal('chat-conseiller')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg chat-msg--in">
+        <div class="chat-bubble">Bonjour ! Je suis votre conseiller Fidexico. Comment puis-je vous aider aujourd'hui ?</div>
+        <div class="chat-time">Maintenant</div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chat-input" type="text" placeholder="Votre message..." onkeydown="if(event.key==='Enter')chatSend()"/>
+      <button class="chat-send-btn" onclick="chatSend()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Open Banking -->
+<div class="ec-modal-overlay" id="ec-modal-open-banking" onclick="ecCloseModal('open-banking')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Open Banking</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('open-banking')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <!-- État non connecté -->
+      <div id="ob-state-connect">
+        <div class="ob-hero">
+          <div class="ob-hero-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="ob-hero-title">Connectez votre banque</div>
+          <div class="ob-hero-desc">Suivez votre solde en temps réel depuis une autre banque, sans changer d'application. Connexion sécurisée conforme DSP2.</div>
+        </div>
+        <div class="ob-features">
+          <div class="ob-feature">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Solde et opérations en temps réel</span>
+          </div>
+          <div class="ob-feature">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Alertes personnalisées en cas de solde bas</span>
+          </div>
+          <div class="ob-feature">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Accès sécurisé, aucun mot de passe partagé</span>
+          </div>
+        </div>
+        <button class="ec-btn-primary" onclick="obSimConnect()" style="margin-top:.5rem">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Connecter mon compte bancaire
+        </button>
+      </div>
+      <!-- État connecté -->
+      <div id="ob-state-connected" style="display:none">
+        <div class="ob-balance-card">
+          <div class="ob-balance-bank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Compte courant connecté
+          </div>
+          <div class="ob-balance-amt" id="ob-balance-amt">—</div>
+          <div class="ob-balance-updated">Actualisé à <span id="ob-balance-time">—</span></div>
+        </div>
+        <div class="ob-alert-section">
+          <div class="ob-alert-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Alerte de solde bas
+          </div>
+          <div class="ob-alert-row">
+            <span class="ob-alert-lbl">M'alerter si le solde passe sous</span>
+            <div class="ec-amount-wrap" style="width:110px;flex-shrink:0">
+              <input class="ec-inp" id="ob-alert-threshold" type="number" value="200" min="0" style="font-size:.88rem"/>
+              <span class="ec-amount-euro">€</span>
+            </div>
+          </div>
+        </div>
+        <button class="ec-btn-primary" onclick="obSaveAlert()" style="margin-top:.5rem">Enregistrer l'alerte</button>
+        <button class="ob-disconnect-btn" onclick="obDisconnect()">Déconnecter ce compte</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Pause Mensualités -->
+<div class="ec-modal-overlay" id="ec-modal-pause-mens" onclick="ecCloseModal('pause-mens')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">Pause mensualités</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('pause-mens')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="pm-current-row">
+        <div class="pm-current-lbl">Mensualité actuelle</div>
+        <div class="pm-current-amt" id="pm-mens-amt">—</div>
+      </div>
+      <div class="ec-form-group" style="margin-top:1.2rem">
+        <label class="ec-lbl">Durée de la pause souhaitée</label>
+        <div class="pm-duration-grid">
+          <label class="pm-duration-opt">
+            <input type="radio" name="pm-dur" value="1" checked/>
+            <span>1 mois</span>
+          </label>
+          <label class="pm-duration-opt">
+            <input type="radio" name="pm-dur" value="2"/>
+            <span>2 mois</span>
+          </label>
+          <label class="pm-duration-opt">
+            <input type="radio" name="pm-dur" value="3"/>
+            <span>3 mois</span>
+          </label>
+        </div>
+      </div>
+      <div class="pm-notice">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>La pause entraîne un report de vos mensualités en fin de contrat. Soumis à validation par votre conseiller Fidexico.</span>
+      </div>
+      <a href="/messagerie.html" class="ec-btn-primary" style="margin-top:.5rem;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.5rem" onclick="ecCloseModal('pause-mens')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Envoyer la demande
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal E-relevé -->
+<div class="ec-modal-overlay" id="ec-modal-e-releve" onclick="ecCloseModal('e-releve')">
+  <div class="ec-modal-card" onclick="event.stopPropagation()">
+    <div class="ec-modal-handle"></div>
+    <div class="ec-modal-header">
+      <span class="ec-modal-title">E-relevé</span>
+      <button class="ec-modal-close" onclick="ecCloseModal('e-releve')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ec-modal-body">
+      <div class="er-toggle-row">
+        <div class="er-toggle-info">
+          <div class="er-toggle-title">Relevé électronique</div>
+          <div class="er-toggle-sub">Recevez vos relevés mensuels par e-mail au lieu du courrier postal</div>
+        </div>
+        <label class="er-toggle">
+          <input type="checkbox" id="er-toggle-cb" onchange="erToggle(this)"/>
+          <span class="er-toggle-slider"></span>
+        </label>
+      </div>
+      <div id="er-email-row" style="display:none">
+        <div class="ec-form-group" style="margin-top:1rem">
+          <label class="ec-lbl">Adresse e-mail de réception</label>
+          <input class="ec-inp" id="er-email" type="email" placeholder="votre@email.com"/>
+        </div>
+        <div class="er-eco-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>En choisissant le e-relevé, vous contribuez à réduire votre empreinte écologique.</span>
+        </div>
+        <button class="ec-btn-primary" onclick="erSave()" style="margin-top:.5rem">Confirmer l'abonnement</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Succès -->
+<div class="ec-modal-overlay" id="ec-modal-success" onclick="ecCloseModal('success')">
+  <div class="ec-modal-card ec-modal-card--sm" onclick="event.stopPropagation()">
+    <div class="ec-success-ico">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="ec-success-title" id="ec-success-title" data-i18n="success_title">Opération réussie</div>
+    <div class="ec-success-msg" id="ec-success-msg"></div>
+    <button class="ec-btn-primary" onclick="ecCloseModal('success')" style="margin-top:1.4rem" data-i18n="btn_close">Fermer</button>
+  </div>
+</div>
+
+<!-- Sélecteur de langue (même système que le site) -->
+<div class="ft-lang-section">
+  <div id="ft-lang-section"></div>
+</div>
+<div class="ft-lang-panel" id="ft-lang-panel">
+  <div class="ft-lang-panel-inner">
+    <div class="ft-lang-search-wrap">
+      <div class="ft-lang-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="ft-lang-search-input" placeholder="Rechercher" autocomplete="off">
+      </div>
+    </div>
+    <div class="ft-lang-list" id="ft-lang-list"></div>
+  </div>
+</div>
+
+<script src="../fidexico-db.js"></script>
+<script src="../fidexico-email.js"></script>
+<script src="../espace-client.js"></script>
+<script src="../script.js"></script>
+<script>
+// script.js redirige vers des pages séparées par langue qui n'existent pas dans
+// l'espace client. On remplace tous les href pour pointer vers la même page :
+// script.js sauvegarde lang_choice, navigue vers espace-client.html → rechargement,
+// ec-i18n.js lit la nouvelle langue et applique les traductions.
+(function(){
+  var self = 'espace-client.html';
+  document.querySelectorAll('.ft-lang-list-item').forEach(function(a){ a.href = self; });
+})();
+</script>
+</body>
+</html>
