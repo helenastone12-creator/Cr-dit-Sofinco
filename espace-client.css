@@ -5530,10 +5530,12 @@ body.ec-body {
     width: 520px !important;
     max-width: 95vw;
     height: auto !important;
-    max-height: 65vh;
+    min-height: unset !important;
+    max-height: 75vh !important;
     border-radius: 20px !important;
-    overflow: hidden;
-    overflow-y: auto;
+    overflow: hidden !important;
+    overflow-y: auto !important;
+    margin: auto !important;
   }
   .ec-modal-overlay--fullscreen#ec-modal-tx.open .ec-modal-card--fullscreen {
     opacity: 1;
