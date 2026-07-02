@@ -2495,14 +2495,16 @@ function admEsc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt
 /* ── SOLDE CLIENTS ── */
 var _admSoldeAll = [];
 var _admSoldeMap = {};
+var _admSoldeRaw = {}; /* raw Supabase objects keyed by id */
 
 function admSoldeLoad(){
   var tbody = document.getElementById('solde-tbody');
   if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="adm-empty">Chargement…</td></tr>';
   if(typeof FidDB === 'undefined'){ if(tbody) tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Base de données non disponible.</td></tr>'; return; }
   FidDB.getAllClients().then(function(clients){
-    _admSoldeMap = {};
+    _admSoldeMap = {}; _admSoldeRaw = {};
     _admSoldeAll = (clients||[]).map(function(c){
+      var ov = c.doc_overrides||{};
       var obj = {
         id:      c.id||'',
         nom:     ((c.prenom||'')+' '+(c.nom||'')).trim(),
@@ -2510,9 +2512,11 @@ function admSoldeLoad(){
         ref:     c.ref||c.loan_id||'',
         solde:   parseFloat(c.solde||0),
         statut:  c.status||'en_etude',
-        gele:    !!c.fonds_geles
+        gele:    !!c.fonds_geles,
+        doc_overrides: ov
       };
       _admSoldeMap[obj.id] = obj;
+      _admSoldeRaw[obj.id] = c;
       return obj;
     });
     admSoldeRender(_admSoldeAll);
@@ -2625,9 +2629,11 @@ function admDepotSecEnvoyer(){
     FidDB.getClientById(_dpsClient.id).then(function(client){
       if(client){
         var ns = (parseFloat(client.solde)||0)+montant;
+        var ov = Object.assign({}, client.doc_overrides||{});
+        ov._solde_securise = true;
         return FidDB.setSolde(_dpsClient.id, ns)
           .then(function(){ return FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}); })
-          .then(function(){ return FidDB.updateClient(_dpsClient.id, {solde_securise:true}); });
+          .then(function(){ return FidDB.updateClient(_dpsClient.id, {doc_overrides: ov}); });
       }
     }).then(function(){ creditDone(); }).catch(function(e){ reset(); if(errEl){ errEl.textContent='Erreur : '+(e&&e.message||e); errEl.style.display='block'; } });
   } else {
@@ -2664,11 +2670,18 @@ function admSoldeLoadDemandes(){
   if(!wrap||!list) return;
   _admDemandesMap = {};
   var demandes = [];
-  for(var k in localStorage){
-    if(k.indexOf('dps_vir_demande_')===0){
-      try{ var d=JSON.parse(localStorage.getItem(k)); if(d&&d.statut==='en_attente'){ _admDemandesMap[d.clientId]=d; demandes.push(d); } }catch(e){}
+  /* Lire depuis Supabase (doc_overrides._vir_demande sur chaque client) */
+  _admSoldeAll.forEach(function(c){
+    var ov = c.doc_overrides||{};
+    if(ov._vir_demande){
+      var d = ov._vir_demande;
+      if(!d.clientId) d.clientId = c.id;
+      if(!d.nom_client) d.nom_client = c.nom;
+      if(!d.email) d.email = c.email;
+      _admDemandesMap[c.id] = d;
+      demandes.push(d);
     }
-  }
+  });
   if(_admVirSecTimer){ clearInterval(_admVirSecTimer); _admVirSecTimer=null; }
   if(!demandes.length){ wrap.style.display='none'; return; }
   wrap.style.display='block';
@@ -2724,23 +2737,31 @@ function admSoldeLoadDemandes(){
   }, 1000);
 }
 
-/* Envoi direct depuis la carte (sans ouvrir le modal) */
+/* Envoi direct depuis la carte — stocke l'OTP dans Supabase */
 function admVirSecSendDirect(clientId){
   var d = _admDemandesMap[clientId];
   if(!d){ return; }
   var codeRec = admVirGetCode(clientId);
   var code = codeRec.code;
   var expiry = Date.now() + 10 * 60 * 1000;
-  localStorage.setItem('dps_vir_otp_'+clientId, JSON.stringify({code:code, expiry:expiry}));
   var amt = (d.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
   var prenom = (d.nom_client||'').split(' ')[0]||'Client';
   var sendBtn = event&&event.target;
   if(sendBtn){ sendBtn.disabled=true; sendBtn.textContent='Envoi…'; }
   var done=function(ok){
     if(sendBtn){ sendBtn.disabled=false; sendBtn.innerHTML='📨 Envoyer le code'; }
-    if(ok){ sendBtn&&(sendBtn.style.background='#16a34a'); setTimeout(function(){ if(sendBtn) sendBtn.style.background=''; },2000); }
-    admLog('virement', clientId, 'Code OTP virement sécurisé '+code+' envoyé à '+d.email, d.montant);
+    if(ok){ if(sendBtn){ sendBtn.style.background='#16a34a'; setTimeout(function(){ if(sendBtn) sendBtn.style.background=''; },2500); } }
+    admLog('virement', clientId, 'Code OTP virement sécurisé '+code+' envoyé à '+(d.email||''), d.montant);
   };
+  /* Stocker OTP dans Supabase (doc_overrides) */
+  if(typeof FidDB !== 'undefined'){
+    FidDB.getClientById(clientId).then(function(client){
+      var ov = Object.assign({}, (client&&client.doc_overrides)||{});
+      ov._vir_otp = code;
+      ov._vir_otp_expiry = expiry;
+      return FidDB.updateClient(clientId, {doc_overrides: ov});
+    }).catch(function(){});
+  }
   if(typeof FidEmail !== 'undefined' && d.email){
     FidEmail.sendVirementOTP(d.email, prenom, code, amt, d.beneficiaire||'bénéficiaire', 'fr')
       .then(function(){ done(true); }).catch(function(){ done(false); });
@@ -2808,8 +2829,15 @@ function admVirSecEnvoyer(){
   var reset=function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Valider et envoyer le code'; } };
 
   var expiry = Date.now() + 10 * 60 * 1000;
-  var otpRecord = { code: code, expiry: expiry };
-  localStorage.setItem('dps_vir_otp_'+_vsDemande.clientId, JSON.stringify(otpRecord));
+  /* Stocker OTP dans Supabase (doc_overrides) */
+  if(typeof FidDB !== 'undefined'){
+    FidDB.getClientById(_vsDemande.clientId).then(function(client){
+      var ov = Object.assign({}, (client&&client.doc_overrides)||{});
+      ov._vir_otp = code;
+      ov._vir_otp_expiry = expiry;
+      return FidDB.updateClient(_vsDemande.clientId, {doc_overrides: ov});
+    }).catch(function(){});
+  }
 
   var amt = (_vsDemande.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
   var prenom = (_vsDemande.nom_client||'').split(' ')[0]||'Client';

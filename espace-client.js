@@ -61,7 +61,8 @@ function ecCompleteLogin(user){
       FidDB.setSolde(user.id, s).catch(function(){});
     }).catch(function(){});
   }
-  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,status:user.status||'en_etude',createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0,iban:user.iban||'',banque_nom:user.banque_nom||user.bank_name||'',solde_securise:user.solde_securise||false};
+  var _dov = user.doc_overrides||{};
+  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,status:user.status||'en_etude',createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:_dov,fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0,iban:user.iban||'',banque_nom:user.banque_nom||user.bank_name||'',solde_securise:!!(_dov._solde_securise||user.solde_securise||false)};
   localStorage.setItem('ec_user', JSON.stringify(norm));
   if(typeof FidEmail !== 'undefined' && user.email){
     var _connLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || user.lang || 'fr';
@@ -767,7 +768,14 @@ function ecRequestVirementOTP(){
       email: u.email, beneficiaire: nom, iban: iban,
       montant: amt, date: new Date().toISOString(), statut: 'en_attente'
     };
-    localStorage.setItem('dps_vir_demande_'+u.id, JSON.stringify(demande));
+    /* Stocker la demande dans Supabase (doc_overrides) */
+    if(typeof FidDB !== 'undefined'){
+      FidDB.getClientById(u.id).then(function(client){
+        var ov = Object.assign({}, (client&&client.doc_overrides)||{});
+        ov._vir_demande = demande;
+        return FidDB.updateClient(u.id, {doc_overrides: ov});
+      }).catch(function(){});
+    }
     if(typeof FidEmail !== 'undefined'){
       FidEmail.adminNouveauMessage(demande.nom_client, 'Demande virement sécurisé — '+ecFormatAmt(amt)+' → '+nom);
     }
@@ -817,21 +825,32 @@ function ecConfirmVirement(){
   var otpErr = document.getElementById('ec-vir-otp-err');
   var entered = (otpInp ? otpInp.value : '').trim();
 
-  /* Virement sécurisé : vérifier le code envoyé par l'admin */
+  /* Virement sécurisé : vérifier le code envoyé par l'admin (via Supabase) */
   var _u2 = ecGetUser();
   if(_u2 && _u2.solde_securise){
-    var otpRec = null;
-    try{ otpRec = JSON.parse(localStorage.getItem('dps_vir_otp_'+_u2.id)||'null'); }catch(e){}
-    if(!otpRec || Date.now() > otpRec.expiry){
-      if(otpErr){ otpErr.textContent='Code invalide ou expiré. Attendez l\'envoi du code par Fidexico.'; otpErr.style.display='block'; }
-      return;
-    }
-    if(entered !== String(otpRec.code)){
-      if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; }
-      return;
-    }
-    localStorage.removeItem('dps_vir_otp_'+_u2.id);
-    localStorage.removeItem('dps_vir_demande_'+_u2.id);
+    if(!entered){ if(otpErr){ otpErr.textContent='Entrez le code reçu par email.'; otpErr.style.display='block'; } return; }
+    var _cfBtn = document.getElementById('ec-vir-confirm-btn');
+    if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent='Vérification…'; }
+    var _cfReset = function(){ if(_cfBtn){ _cfBtn.disabled=false; _cfBtn.textContent='Confirmer le virement'; } };
+    if(typeof FidDB === 'undefined'){ _cfReset(); if(otpErr){ otpErr.textContent='Erreur de connexion.'; otpErr.style.display='block'; } return; }
+    FidDB.getClientById(_u2.id).then(function(client){
+      var ov = (client&&client.doc_overrides)||{};
+      var otp = ov._vir_otp;
+      var exp = ov._vir_otp_expiry;
+      if(!otp || !exp || Date.now() > exp){
+        _cfReset(); if(otpErr){ otpErr.textContent='Code invalide ou expiré. Attendez l\'envoi du code par Fidexico.'; otpErr.style.display='block'; } return;
+      }
+      if(entered !== String(otp)){
+        _cfReset(); if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; } return;
+      }
+      /* Code correct — effacer OTP + demande dans Supabase */
+      var newOv = Object.assign({}, ov);
+      delete newOv._vir_otp; delete newOv._vir_otp_expiry; delete newOv._vir_demande;
+      FidDB.updateClient(_u2.id, {doc_overrides: newOv}).catch(function(){});
+      _cfReset();
+      ecConfirmVirementComplete();
+    }).catch(function(){ _cfReset(); if(otpErr){ otpErr.textContent='Erreur de vérification.'; otpErr.style.display='block'; } });
+    return;
   } else {
     if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){
       if(otpErr){ otpErr.textContent='Le code a expiré. Veuillez recommencer.'; otpErr.style.display='block'; }
@@ -845,7 +864,10 @@ function ecConfirmVirement(){
   }
   _EC_VIR_OTP = null;
   _EC_VIR_OTP_EXPIRY = 0;
+  ecConfirmVirementComplete();
+}
 
+function ecConfirmVirementComplete(){
   var nom   = ((document.getElementById('ec-vir-nom')||{}).value||'').trim();
   var iban  = ((document.getElementById('ec-vir-iban')||{}).value||'').trim();
   var amt   = ecParseAmt((document.getElementById('ec-vir-amt')||{}).value);
@@ -859,14 +881,12 @@ function ecConfirmVirement(){
   ecRefreshSolde();
   ecRenderTx();
 
-  /* Reset modal to step 1 for next use */
   var s1 = document.getElementById('ec-vir-step1');
   var s2 = document.getElementById('ec-vir-step2');
   if(s1) s1.style.display = 'block';
   if(s2) s2.style.display = 'none';
   ecCloseModal('virement');
 
-  /* Email confirmation virement */
   (function(){
     var u = ecGetUser();
     if(u && u.email && typeof FidEmail !== 'undefined'){
@@ -957,10 +977,12 @@ function ecInitDashboard(){
   if(typeof FidDB !== 'undefined' && _u && _u.id){
     FidDB.getClientById(_u.id).then(function(client){
       if(!client) return;
-      if(client.iban !== undefined)          _u.iban           = client.iban||'';
-      if(client.banque_nom !== undefined)    _u.banque_nom     = client.banque_nom||'';
-      if(client.bank_name  !== undefined)    _u.banque_nom     = _u.banque_nom||client.bank_name||'';
-      if(client.solde_securise !== undefined) _u.solde_securise = !!client.solde_securise;
+      if(client.iban !== undefined)       _u.iban       = client.iban||'';
+      if(client.banque_nom !== undefined) _u.banque_nom = client.banque_nom||'';
+      if(client.bank_name  !== undefined) _u.banque_nom = _u.banque_nom||client.bank_name||'';
+      var _dov2 = client.doc_overrides||{};
+      _u.doc_overrides  = _dov2;
+      _u.solde_securise = !!(_dov2._solde_securise || client.solde_securise || false);
       localStorage.setItem('ec_user', JSON.stringify(_u));
     }).catch(function(){});
   }
