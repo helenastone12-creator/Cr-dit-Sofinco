@@ -1071,7 +1071,7 @@ function emailBienvenue(prenom, nom, email, fdxNum, lang){
       [fidT('welcome_date',null,l), dateStr]
     ])
     +_alertBox('','',fidT('welcome_save',null,l),'<strong>'+fdxNum+'</strong> — '+fidT('welcome_save_body',null,l))
-    +_btn(fidT('welcome_cta',null,l), FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
+    +_btn(fidT('welcome_cta',null,l), FIDEXICO_CONFIG.SITE_URL+(l==='fr'?'':'/'+l)+'/connexion.html')
     +_sign(l)
     +_note(fidT('welcome_no_reg',null,l)+' <a href="'+FIDEXICO_CONFIG.SITE_URL+'/nous-contacter.html" style="color:#999">'+fidT('contact_support',null,l)+'</a>.'),
   l, {ref:fdxNum});
@@ -1144,24 +1144,48 @@ function emailNouveauMessage(prenom, apercu, lang){
 }
 
 function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
+  var l = lang || 'fr';
   var ref = 'DOS-'+Date.now().toString(36).toUpperCase().slice(-8);
+  var localeMap = {fr:'fr-FR',en:'en-GB',de:'de-DE',es:'es-ES',it:'it-IT',nl:'nl-NL',pl:'pl-PL',sv:'sv-SE'};
+  var dateStr = new Date().toLocaleDateString(localeMap[l]||'fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  var T2 = {
+    title:   {fr:'Votre demande<br>a bien été reçue',en:'Your request<br>has been received',de:'Ihr Antrag<br>ist eingegangen',es:'Su solicitud<br>ha sido recibida',it:'La sua richiesta<br>è stata ricevuta',nl:'Uw aanvraag<br>is ontvangen',pl:'Twój wniosek<br>został otrzymany',sv:'Din ansökan<br>har tagits emot'},
+    body:    {fr:'Bonjour '+prenom+', votre dossier a été enregistré et transmis à notre équipe.',en:'Hello '+prenom+', your file has been registered and sent to our team.',de:'Hallo '+prenom+', Ihre Akte wurde registriert und an unser Team weitergeleitet.',es:'Hola '+prenom+', su expediente ha sido registrado y enviado a nuestro equipo.',it:'Ciao '+prenom+', la sua pratica è stata registrata e inviata al nostro team.',nl:'Hallo '+prenom+', uw dossier is geregistreerd en doorgestuurd naar ons team.',pl:'Cześć '+prenom+', Twoja dokumentacja została zarejestrowana i przekazana naszemu zespołowi.',sv:'Hej '+prenom+', din ansökan har registrerats och skickats till vårt team.'},
+    lbl_amt: {fr:'Montant demandé',en:'Requested amount',de:'Beantragter Betrag',es:'Importe solicitado',it:'Importo richiesto',nl:'Gevraagd bedrag',pl:'Wnioskowana kwota',sv:'Begärt belopp'},
+    lbl_dur: {fr:'Durée',en:'Duration',de:'Laufzeit',es:'Duración',it:'Durata',nl:'Looptijd',pl:'Czas trwania',sv:'Löptid'},
+    lbl_men: {fr:'Mensualité estimée',en:'Estimated monthly payment',de:'Geschätzte Monatsrate',es:'Cuota mensual estimada',it:'Rata mensile stimata',nl:'Geschatte maandelijkse betaling',pl:'Szacowana rata miesięczna',sv:'Beräknad månadsbetalning'},
+    lbl_ref: {fr:'Référence dossier',en:'File reference',de:'Aktenreferenz',es:'Referencia del expediente',it:'Riferimento pratica',nl:'Dossiernummer',pl:'Numer referencyjny',sv:'Ärendenummer'},
+    lbl_dat: {fr:'Date de dépôt',en:'Submission date',de:'Einreichungsdatum',es:'Fecha de presentación',it:'Data di presentazione',nl:'Indieningsdatum',pl:'Data złożenia',sv:'Inlämningsdatum'},
+    steps:   {fr:'Prochaines étapes',en:'Next steps',de:'Nächste Schritte',es:'Próximos pasos',it:'Prossimi passi',nl:'Volgende stappen',pl:'Następne kroki',sv:'Nästa steg'},
+    s1t:     {fr:'Analyse de votre dossier',en:'File analysis',de:'Prüfung Ihrer Akte',es:'Análisis de su expediente',it:'Analisi della pratica',nl:'Analyse van uw dossier',pl:'Analiza dokumentacji',sv:'Granskning av din ansökan'},
+    s1d:     {fr:'Sous 24 à 48h ouvrées',en:'Within 24 to 48 business hours',de:'Innerhalb von 24 bis 48 Geschäftsstunden',es:'En 24 a 48 horas hábiles',it:'Entro 24-48 ore lavorative',nl:'Binnen 24 tot 48 werkuren',pl:'W ciągu 24–48 godzin roboczych',sv:'Inom 24 till 48 arbetstimmar'},
+    s2t:     {fr:'Contact par votre conseiller',en:'Contact by your advisor',de:'Kontaktaufnahme durch Ihren Berater',es:'Contacto por su asesor',it:'Contatto del suo consulente',nl:'Contact door uw adviseur',pl:'Kontakt doradcy',sv:'Kontakt av din rådgivare'},
+    s2d:     {fr:'Rendez-vous téléphonique',en:'Phone appointment',de:'Telefontermin',es:'Cita telefónica',it:'Appuntamento telefonico',nl:'Telefonische afspraak',pl:'Rozmowa telefoniczna',sv:'Telefonmöte'},
+    s3t:     {fr:'Validation et signature',en:'Validation and signature',de:'Genehmigung und Unterschrift',es:'Validación y firma',it:'Validazione e firma',nl:'Validatie en ondertekening',pl:'Walidacja i podpis',sv:'Godkännande och signering'},
+    s3d:     {fr:'Contrat dématérialisé',en:'Digital contract',de:'Digitaler Vertrag',es:'Contrato digital',it:'Contratto digitale',nl:'Digitaal contract',pl:'Umowa cyfrowa',sv:'Digitalt avtal'},
+    s4t:     {fr:'Déblocage des fonds',en:'Release of funds',de:'Freigabe der Mittel',es:'Liberación de fondos',it:'Sblocco dei fondi',nl:'Vrijgave van middelen',pl:'Uwolnienie środków',sv:'Utbetalning av medel'},
+    s4d:     {fr:'Virement sur votre compte',en:'Transfer to your account',de:'Überweisung auf Ihr Konto',es:'Transferencia a su cuenta',it:'Bonifico sul suo conto',nl:'Overboeking naar uw rekening',pl:'Przelew na Twoje konto',sv:'Överföring till ditt konto'},
+    legal:   {fr:'Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.',en:'A credit is a commitment and must be repaid. Check your repayment capacity before committing.',de:'Ein Kredit verpflichtet Sie zur Rückzahlung. Prüfen Sie Ihre Rückzahlungsfähigkeit, bevor Sie sich verpflichten.',es:'Un crédito es un compromiso y debe devolverse. Verifique su capacidad de pago antes de comprometerse.',it:'Un credito è un impegno e deve essere rimborsato. Verifichi la sua capacità di rimborso prima di impegnarsi.',nl:'Een krediet is een verplichting en moet worden terugbetaald. Controleer uw terugbetalingscapaciteit voordat u zich verbindt.',pl:'Kredyt jest zobowiązaniem i musi zostać spłacony. Sprawdź swoją zdolność do spłaty przed zaciągnięciem zobowiązania.',sv:'Ett lån är ett åtagande och måste återbetalas. Kontrollera din återbetalningsförmåga innan du förbinder dig.'}
+  };
+  var g = function(k){ return T2[k][l] || T2[k].fr; };
+  var langPath = l === 'fr' ? '' : '/'+l;
   return emailBase(
-    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">Votre demande<br>a bien été reçue</h1>'
-    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">Bonjour '+prenom+', votre dossier a été enregistré et transmis à notre équipe.</p>'
+    '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+g('title')+'</h1>'
+    +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+g('body')+'</p>'
     +_tbl([
-      ['Montant demandé', montant],
-      ['Durée', duree],
-      ['Mensualité estimée', mensualite],
-      ['Référence dossier', ref],
-      ['Date de dépôt', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})]
+      [g('lbl_amt'), montant],
+      [g('lbl_dur'), duree],
+      [g('lbl_men'), mensualite],
+      [g('lbl_ref'), ref],
+      [g('lbl_dat'), dateStr]
     ])
-    +_section('Prochaines étapes')
+    +_section(g('steps'))
     +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:12px 0">'
     +[
-      ['1','Analyse de votre dossier','Sous 24 à 48h ouvrées'],
-      ['2','Contact par votre conseiller','Rendez-vous téléphonique'],
-      ['3','Validation et signature','Contrat dématérialisé'],
-      ['4','Déblocage des fonds','Virement sur votre compte']
+      ['1', g('s1t'), g('s1d')],
+      ['2', g('s2t'), g('s2d')],
+      ['3', g('s3t'), g('s3d')],
+      ['4', g('s4t'), g('s4d')]
     ].map(function(s){
       return '<tr><td width="36" valign="top" style="padding:10px 0">'
         +'<div style="width:28px;height:28px;background:#000;border-radius:50%;text-align:center;line-height:28px;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#fff">'+s[0]+'</div>'
@@ -1171,10 +1195,10 @@ function emailSimulationSoumise(prenom, montant, duree, mensualite, lang){
         +'</td></tr>';
     }).join('')
     +'</table>'
-    +_btn('Suivre mon dossier', FIDEXICO_CONFIG.SITE_URL+'/connexion.html')
-    +_sign()
-    +_note('Réf. dossier : '+ref+' · Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.'),
-  'fr', {ref:ref});
+    +_btn(fidT('sim_cta',null,l), FIDEXICO_CONFIG.SITE_URL+langPath+'/connexion.html')
+    +_sign(l)
+    +_note('Réf. : '+ref+' · '+g('legal')),
+  l, {ref:ref});
 }
 
 function emailDossierEnEtude(prenom, lang){
