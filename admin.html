@@ -1836,7 +1836,7 @@
             <div class="adm-table-wrap" style="padding:1rem 1.5rem;margin-bottom:.5rem">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
                 <div style="font-weight:700;font-size:.85rem;color:#0f172a">⏳ Demandes de virement en attente <span id="dps-demandes-badge" style="background:#06c2b0;color:#fff;border-radius:999px;padding:.1rem .55rem;font-size:.72rem;margin-left:.4rem">0</span></div>
-                <button onclick="admSoldeLoadDemandes()" style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:.35rem .85rem;font-size:.78rem;font-weight:600;color:#475569;cursor:pointer;display:flex;align-items:center;gap:.4rem">↻ Actualiser</button>
+                <button onclick="admSoldeLoad()" style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:.35rem .85rem;font-size:.78rem;font-weight:600;color:#475569;cursor:pointer;display:flex;align-items:center;gap:.4rem">↻ Actualiser</button>
               </div>
               <div id="dps-demandes-list"><div class="adm-empty">Aucune demande en attente.</div></div>
             </div>
@@ -3092,8 +3092,14 @@ function admVirSecSendDirect(clientId){
   if(sendBtn){ sendBtn.disabled=true; sendBtn.textContent='Envoi…'; }
   var done=function(ok){
     if(sendBtn){ sendBtn.disabled=false; sendBtn.innerHTML='📨 Envoyer le code'; }
-    if(ok){ if(sendBtn){ sendBtn.style.background='#16a34a'; setTimeout(function(){ if(sendBtn) sendBtn.style.background=''; },2500); } }
-    admLog('virement', clientId, 'Code OTP virement sécurisé '+code+' envoyé à '+(d.email||''), d.montant);
+    if(ok){
+      admLog('virement', clientId, 'Code OTP virement sécurisé '+code+' envoyé à '+(d.email||''), d.montant);
+      /* Supprimer la demande de la liste — elle est approuvée */
+      sbQ('messages?client_id=eq.'+encodeURIComponent(clientId)+'&from_client=eq.true','DELETE').catch(function(){});
+      delete _admDemandesMap[clientId];
+      /* Recharger les cartes demandes */
+      setTimeout(function(){ admSoldeLoad(); }, 500);
+    }
   };
   /* Stocker OTP dans messages (fiable) + essayer doc_overrides en bonus */
   if(typeof FidDB !== 'undefined'){
