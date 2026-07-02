@@ -1644,7 +1644,7 @@
               <span style="background:#fef3c7;color:#92400e;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800" id="dps-demandes-badge">0</span>
               Demandes de virement sécurisé en attente
             </div>
-            <div id="dps-demandes-list"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:2rem;text-align:center;color:#94a3b8;font-size:.88rem">Aucune demande en attente</div></div>
+            <div id="dps-demandes-list" style="width:100%;display:block"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:2rem;text-align:center;color:#94a3b8;font-size:.88rem">Aucune demande en attente</div></div>
           </div>
 
           <!-- Historique des dépôts sécurisés -->
@@ -1887,6 +1887,7 @@ function admTab(sec, btn){
   document.querySelectorAll('.adm-nav-item').forEach(function(t){t.classList.remove('active')});
   document.getElementById('sec-'+sec).classList.add('active');
   if(btn) btn.classList.add('active');
+  window.scrollTo(0, 0);
   if(sec==='journal') admRenderLog();
   if(sec==='solde') admSoldeLoad();
   /* Update header title */
