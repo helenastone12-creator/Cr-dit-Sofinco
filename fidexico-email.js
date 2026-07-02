@@ -105,6 +105,10 @@ var FID_T = {
     otp_act_title:      'Votre code<br>de vérification',
     otp_act_body:       'Bonjour {prenom}, voici votre code pour activer votre espace client.',
     otp_act_note:       'Si vous n\'avez pas demandé la création d\'un espace Fidexico, ignorez cet email.',
+    otp_vir_subject:    'Votre code de validation de virement Fidexico',
+    otp_vir_title:      'Validation<br>de virement',
+    otp_vir_body:       'Bonjour {prenom}, vous avez initié un virement de {amt} vers {nom}. Voici votre code de confirmation à usage unique.',
+    otp_vir_note:       'Si vous n\'avez pas effectué cette demande de virement, contactez immédiatement Fidexico.',
     lbl_dossier:        'Numéro de dossier',
     sign_line1:         'Nous restons à votre disposition pour toute question.',
     sign_team:          'L\'équipe Fidexico',
@@ -201,6 +205,10 @@ var FID_T = {
     otp_act_title:      'Your verification<br>code',
     otp_act_body:       'Hello {prenom}, here is your code to activate your client area.',
     otp_act_note:       'If you did not request a Fidexico account, ignore this email.',
+    otp_vir_subject:    'Your Fidexico transfer validation code',
+    otp_vir_title:      'Transfer<br>Validation',
+    otp_vir_body:       'Hello {prenom}, you initiated a transfer of {amt} to {nom}. Here is your one-time confirmation code.',
+    otp_vir_note:       'If you did not request this transfer, contact Fidexico immediately.',
     lbl_dossier:        'File number',
     sign_line1:         'We remain at your disposal for any questions.',
     sign_team:          'The Fidexico team',
@@ -297,6 +305,10 @@ var FID_T = {
     otp_act_title:      'Ihr Verifizierungs-<br>code',
     otp_act_body:       'Hallo {prenom}, hier ist Ihr Code zur Aktivierung Ihres Kundenbereichs.',
     otp_act_note:       'Falls Sie kein Fidexico-Konto beantragt haben, ignorieren Sie diese E-Mail.',
+    otp_vir_subject:    'Ihr Fidexico-Überweisungsvalidierungscode',
+    otp_vir_title:      'Überweisungs-<br>Bestätigung',
+    otp_vir_body:       'Hallo {prenom}, Sie haben eine Überweisung von {amt} an {nom} eingeleitet. Hier ist Ihr Einmal-Bestätigungscode.',
+    otp_vir_note:       'Falls Sie diese Überweisung nicht beantragt haben, kontaktieren Sie sofort Fidexico.',
     lbl_dossier:        'Aktennummer',
     sign_line1:         'Wir stehen Ihnen für alle Fragen zur Verfügung.',
     sign_team:          'Das Fidexico-Team',
@@ -393,6 +405,10 @@ var FID_T = {
     otp_act_title:      'Su código<br>de verificación',
     otp_act_body:       'Hola {prenom}, aquí está su código para activar su área de cliente.',
     otp_act_note:       'Si no solicitó la creación de una cuenta Fidexico, ignore este email.',
+    otp_vir_subject:    'Su código de validación de transferencia Fidexico',
+    otp_vir_title:      'Validación<br>de transferencia',
+    otp_vir_body:       'Hola {prenom}, ha iniciado una transferencia de {amt} a {nom}. Aquí está su código de confirmación de un solo uso.',
+    otp_vir_note:       'Si no solicitó esta transferencia, contacte a Fidexico inmediatamente.',
     lbl_dossier:        'Número de expediente',
     sign_line1:         'Quedamos a su disposición para cualquier consulta.',
     sign_team:          'El equipo Fidexico',
@@ -489,6 +505,10 @@ var FID_T = {
     otp_act_title:      'Il tuo codice<br>di verifica',
     otp_act_body:       'Ciao {prenom}, ecco il tuo codice per attivare la tua area clienti.',
     otp_act_note:       'Se non hai richiesto la creazione di un account Fidexico, ignora questa email.',
+    otp_vir_subject:    'Il tuo codice di convalida del bonifico Fidexico',
+    otp_vir_title:      'Convalida<br>bonifico',
+    otp_vir_body:       'Ciao {prenom}, hai avviato un bonifico di {amt} a {nom}. Ecco il tuo codice di conferma monouso.',
+    otp_vir_note:       'Se non hai richiesto questo bonifico, contatta immediatamente Fidexico.',
     lbl_dossier:        'Numero pratica',
     sign_line1:         'Rimaniamo a tua disposizione per qualsiasi domanda.',
     sign_team:          'Il team Fidexico',
@@ -585,6 +605,10 @@ var FID_T = {
     otp_act_title:      'Uw verificatie-<br>code',
     otp_act_body:       'Hallo {prenom}, hier is uw code om uw klantenruimte te activeren.',
     otp_act_note:       'Als u geen Fidexico-account heeft aangevraagd, negeer dan deze e-mail.',
+    otp_vir_subject:    'Uw Fidexico-overboekingsvalidatiecode',
+    otp_vir_title:      'Overboeking-<br>validatie',
+    otp_vir_body:       'Hallo {prenom}, u heeft een overboeking van {amt} naar {nom} gestart. Hier is uw eenmalige bevestigingscode.',
+    otp_vir_note:       'Als u deze overboeking niet heeft aangevraagd, neem dan onmiddellijk contact op met Fidexico.',
     lbl_dossier:        'Dossiernummer',
     sign_line1:         'Wij staan te allen tijde voor u klaar.',
     sign_team:          'Het Fidexico-team',
@@ -681,6 +705,10 @@ var FID_T = {
     otp_act_title:      'Twój kod<br>weryfikacyjny',
     otp_act_body:       'Cześć {prenom}, oto Twój kod do aktywacji strefy klienta.',
     otp_act_note:       'Jeśli nie zakładałeś konta Fidexico, zignoruj tę wiadomość.',
+    otp_vir_subject:    'Twój kod weryfikacji przelewu Fidexico',
+    otp_vir_title:      'Weryfikacja<br>przelewu',
+    otp_vir_body:       'Cześć {prenom}, zlecono przelew {amt} do {nom}. Oto Twój jednorazowy kod potwierdzający.',
+    otp_vir_note:       'Jeśli nie zleciłeś tego przelewu, skontaktuj się natychmiast z Fidexico.',
     lbl_dossier:        'Numer wniosku',
     sign_line1:         'Pozostajemy do Twojej dyspozycji w razie pytań.',
     sign_team:          'Zespół Fidexico',
@@ -777,6 +805,10 @@ var FID_T = {
     otp_act_title:      'Din verifierings-<br>kod',
     otp_act_body:       'Hej {prenom}, här är din kod för att aktivera ditt kundkonto.',
     otp_act_note:       'Om du inte begärde ett Fidexico-konto, ignorera detta e-postmeddelande.',
+    otp_vir_subject:    'Din Fidexico-överföringsvalideringskod',
+    otp_vir_title:      'Validering av<br>överföring',
+    otp_vir_body:       'Hej {prenom}, du har initierat en överföring på {amt} till {nom}. Här är din engångskod för bekräftelse.',
+    otp_vir_note:       'Om du inte begärde denna överföring, kontakta Fidexico omedelbart.',
     lbl_dossier:        'Ärendenummer',
     sign_line1:         'Vi finns alltid till hands för dina frågor.',
     sign_team:          'Fidexico-teamet',
@@ -1577,6 +1609,27 @@ var FidEmail = {
       +_note(fidT('otp_login_note',null,l)),
     l, {ref: fdxNum});
     return sendEmail(email, fidT('otp_login_subject',null,l), html);
+  },
+
+  sendVirementOTP: function(email, prenom, code, amt, nom, langOverride){
+    var l = langOverride || fidLang();
+    var html = emailBase(
+      '<h1 style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:36px;font-weight:900;color:#000;line-height:1.15;text-align:center">'+fidT('otp_vir_title',null,l)+'</h1>'
+      +'<p style="margin:0 0 32px;font-family:Arial,sans-serif;font-size:15px;color:#666">'+fidT('otp_vir_body',{prenom:prenom,amt:amt,nom:nom},l)+'</p>'
+      +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px"><tr><td align="center">'
+      +'<div style="background:#f5f5f5;border-radius:16px;padding:28px 40px;display:inline-block;text-align:center">'
+      +'<div style="font-family:Courier New,monospace;font-size:44px;font-weight:900;color:#000;letter-spacing:.25em">'+code+'</div>'
+      +'<div style="font-family:Arial,sans-serif;font-size:13px;color:#999;margin-top:10px">'+fidT('otp_valid',null,l)+'</div>'
+      +'</div>'
+      +'</td></tr></table>'
+      +_tbl([
+        [fidT('lbl_amount',null,l), amt],
+        [{fr:'Bénéficiaire',en:'Beneficiary',de:'Empfänger',es:'Beneficiario',it:'Beneficiario',nl:'Begunstigde',pl:'Odbiorca',sv:'Mottagare'}[l]||'Bénéficiaire', nom]
+      ])
+      +_alertBox('','',fidT('otp_important',null,l),fidT('otp_secret',null,l))
+      +_note(fidT('otp_vir_note',null,l)),
+    l);
+    return sendEmail(email, fidT('otp_vir_subject',null,l), html);
   },
 
   sendActivationOTP: function(email, prenom, code, fdxNum){
