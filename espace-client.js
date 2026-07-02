@@ -755,7 +755,6 @@ function ecRequestVirementOTP(){
   if(!iban){ if(errEl){ errEl.textContent='L\'IBAN destinataire est requis.'; errEl.style.display='block'; } return; }
   if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent='IBAN invalide. Veuillez vérifier le numéro saisi.'; errEl.style.display='block'; } return; }
   if(!amt || amt <= 0){ if(errEl){ errEl.textContent='Veuillez saisir un montant valide.'; errEl.style.display='block'; } return; }
-  if(amt > solde){ if(errEl){ errEl.textContent='Solde insuffisant ('+ecFormatAmt(solde)+' disponible).'; errEl.style.display='block'; } return; }
 
   if(errEl) errEl.style.display='none';
 
@@ -792,6 +791,9 @@ function ecRequestVirementOTP(){
 
 /* Virement NORMAL : code OTP généré et envoyé automatiquement par email */
 function _ecDoVirementNormal(u, nom, iban, amt){
+  var solde = ecGetSolde();
+  var errEl = document.getElementById('ec-vir-err');
+  if(amt > solde){ if(errEl){ errEl.textContent='Solde insuffisant ('+ecFormatAmt(solde)+' disponible).'; errEl.style.display='block'; } return; }
   _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
   _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
   if(u.email && typeof FidEmail !== 'undefined'){
