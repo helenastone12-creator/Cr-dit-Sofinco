@@ -1189,7 +1189,7 @@
             <circle cx="7" cy="15" r="1" fill="currentColor"/>
             <line x1="11" y1="15" x2="16" y2="15"/>
           </svg>
-          Solde clients
+          Virement sécurisé
         </button>
         <button class="adm-nav-item" id="nav-broadcast" onclick="admTab('broadcast', this)">
           <svg class="adm-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1826,7 +1826,7 @@
         <!-- ── Solde clients sécurisés ── -->
         <div class="adm-section" id="sec-solde">
 
-          <div class="adm-section-title">Solde clients sécurisés</div>
+          <div class="adm-section-title">Virements sécurisés</div>
 
           <!-- 1. Demandes de virement -->
           <div id="dps-demandes-wrap" style="display:block;margin-bottom:1.5rem">
@@ -1854,7 +1854,7 @@
                   <th>Solde</th>
                   <th>Statut</th>
                   <th>Fonds gelés</th>
-                  <th>Sécurisé</th>
+                  <th>Virement séc.</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -2090,7 +2090,7 @@ function admTab(sec, btn){
     operations: 'Opérations',
     notifications: 'Notifications',
     journal: 'Journal',
-    solde: 'Solde clients sécurisés',
+    solde: 'Virements sécurisés',
     broadcast: 'Email groupé'
   };
   var titleEl = document.getElementById('adm-page-title');
@@ -2746,7 +2746,7 @@ function admSoldeRender(list){
       ? '<span class="status-badge status-blocked">❄ Gelé</span>'
       : '<span class="status-badge status-active">✓ Libre</span>';
     var secBadge = c.solde_securise
-      ? '<span class="status-badge status-pending">🔐 Oui</span>'
+      ? '<span class="status-badge status-pending">🔐 Actif</span>'
       : '<span class="status-badge" style="background:#f1f5f9;color:#94a3b8">—</span>';
     return '<tr>'
       +'<td><div class="td-name">'+admEsc((c.prenom||'')+' '+(c.nom||'')||'—')+'</div>'
