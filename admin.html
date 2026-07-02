@@ -2894,14 +2894,17 @@ function admDepotSecEnvoyer(){
       if(client){
         var ns = (parseFloat(client.solde)||0)+montant;
         var ov = Object.assign({}, client.doc_overrides||{});
+        var clientPatch = {};
         if(depotType === 'securise'){
           ov._solde_securise = true;
+          clientPatch.solde_securise = true;
+          clientPatch.doc_overrides  = ov;
         }
         return FidDB.setSolde(_dpsClient.id, ns)
           .then(function(){ return FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}); })
           .then(function(){
             if(depotType === 'securise'){
-              return FidDB.updateClient(_dpsClient.id, {doc_overrides: ov});
+              return FidDB.updateClient(_dpsClient.id, clientPatch);
             }
           });
       }
