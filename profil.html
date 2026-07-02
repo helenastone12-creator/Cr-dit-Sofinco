@@ -228,7 +228,7 @@
     <div class="pf-name" id="pf-name">—</div>
     <div class="pf-email" id="pf-email">—</div>
     <div style="font-size:.72rem;font-family:monospace;color:var(--muted);margin-top:.2rem" id="pf-hero-id"></div>
-    <div class="pf-badge">
+    <div class="pf-badge" id="pf-status-badge">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
       <span data-i18n="pf_verified_badge">Compte vérifié</span>
     </div>
@@ -666,6 +666,45 @@ function pfInit(){
   if(ibanSub) ibanSub.textContent = iban ? iban.substring(0,8)+'••••' : 'Non renseigné';
   var ibanDisplay = document.getElementById('pf-iban-display');
   if(ibanDisplay) ibanDisplay.textContent = iban||'—';
+
+  // Badge statut — mis à jour depuis Supabase
+  pfUpdateStatusBadge(user.status||'en_etude');
+  if(typeof FidDB !== 'undefined' && user.id){
+    FidDB.getClientById(user.id).then(function(client){
+      if(client){
+        user.status = client.status || user.status;
+        localStorage.setItem('ec_user', JSON.stringify(user));
+        pfUpdateStatusBadge(user.status);
+      }
+    }).catch(function(){});
+  }
+}
+
+function pfUpdateStatusBadge(status){
+  var badge = document.getElementById('pf-status-badge');
+  if(!badge) return;
+  var approved = status === 'active' || status === 'valide';
+  var l = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || 'fr';
+  var labels = {
+    fr: { ok: 'Compte vérifié', pending: 'En cours d\'analyse' },
+    en: { ok: 'Verified account', pending: 'Under review' },
+    de: { ok: 'Konto verifiziert', pending: 'In Bearbeitung' },
+    es: { ok: 'Cuenta verificada', pending: 'En análisis' },
+    it: { ok: 'Account verificato', pending: 'In analisi' },
+    nl: { ok: 'Account geverifieerd', pending: 'In behandeling' },
+    pl: { ok: 'Konto zweryfikowane', pending: 'W trakcie analizy' },
+    sv: { ok: 'Konto verifierat', pending: 'Under granskning' }
+  };
+  var t = labels[l] || labels.fr;
+  if(approved){
+    badge.style.background = '';
+    badge.style.color = '';
+    badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>'+t.ok+'</span>';
+  } else {
+    badge.style.background = '#fff7ed';
+    badge.style.color = '#c2410c';
+    badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="#c2410c"/></svg><span>'+t.pending+'</span>';
+  }
 }
 
 function pfUploadPhoto(input){
