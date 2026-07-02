@@ -746,22 +746,28 @@ function ecRequestVirementOTP(){
   var iban  = ((document.getElementById('ec-vir-iban')||{}).value||'').trim();
   var amt   = ecParseAmt((document.getElementById('ec-vir-amt')||{}).value);
   var errEl = document.getElementById('ec-vir-err');
-  var solde = ecGetSolde();
+
+  /* Bug 3 fix: clear error immediately before any validation */
+  if(errEl){ errEl.style.display='none'; errEl.textContent=''; }
+
+  /* Bug 2 fix: disable send button to prevent double-click */
+  var _sendBtn = document.getElementById('ec-vir-send-btn');
+  if(_sendBtn){ _sendBtn.disabled=true; }
+  var _sendReset = function(){ if(_sendBtn){ _sendBtn.disabled=false; } };
 
   var _u = ecGetUser();
-  if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent=t('vir_fonds_geles'); errEl.style.display='block'; } return; }
-  if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ if(errEl){ errEl.textContent=t('vir_limit_exceeded').replace('{limit}',_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2})); errEl.style.display='block'; } return; }
-  if(!nom){ if(errEl){ errEl.textContent=t('vir_err_nom'); errEl.style.display='block'; } return; }
-  if(!iban){ if(errEl){ errEl.textContent=t('vir_err_iban'); errEl.style.display='block'; } return; }
-  if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent=t('vir_err_iban_invalid'); errEl.style.display='block'; } return; }
-  if(!amt || amt <= 0){ if(errEl){ errEl.textContent=t('vir_err_amt'); errEl.style.display='block'; } return; }
-
-  if(errEl) errEl.style.display='none';
+  if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent=t('vir_fonds_geles'); errEl.style.display='block'; } _sendReset(); return; }
+  if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ if(errEl){ errEl.textContent=t('vir_limit_exceeded').replace('{limit}',_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2})); errEl.style.display='block'; } _sendReset(); return; }
+  if(!nom){ if(errEl){ errEl.textContent=t('vir_err_nom'); errEl.style.display='block'; } _sendReset(); return; }
+  if(!iban){ if(errEl){ errEl.textContent=t('vir_err_iban'); errEl.style.display='block'; } _sendReset(); return; }
+  if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent=t('vir_err_iban_invalid'); errEl.style.display='block'; } _sendReset(); return; }
+  if(!amt || amt <= 0){ if(errEl){ errEl.textContent=t('vir_err_amt'); errEl.style.display='block'; } _sendReset(); return; }
 
   var u = ecGetUser();
-  if(!u){ return; }
+  if(!u){ _sendReset(); return; }
 
   if(typeof FidDB === 'undefined'){
+    _sendReset();
     _ecDoVirementNormal(u, nom, iban, amt);
     return;
   }
@@ -771,6 +777,7 @@ function ecRequestVirementOTP(){
     var isSec = (msgs||[]).some(function(m){
       return !m.from_client && (m.text||'').indexOf('__SEC__:ACTIVE') === 0;
     });
+    _sendReset();
     if(isSec){
       _ecDoVirementSecurise(u, nom, iban, amt);
     } else {
@@ -782,9 +789,10 @@ function ecRequestVirementOTP(){
         } else {
           _ecDoVirementNormal(u, nom, iban, amt);
         }
-      });
+      }).catch(function(){ _ecDoVirementNormal(u, nom, iban, amt); });
     }
   }).catch(function(){
+    _sendReset();
     _ecDoVirementNormal(u, nom, iban, amt);
   });
 }
@@ -1063,6 +1071,14 @@ function ecInitDashboard(){
       _u.doc_overrides  = _dov2;
       _u.solde_securise = !!(_dov2._solde_securise || client.solde_securise || false);
       localStorage.setItem('ec_user', JSON.stringify(_u));
+      /* Bug 4 fix: afficher le solde Supabase immédiatement sans attendre le recalcul TX */
+      if(client.solde !== undefined && client.solde !== null){
+        var _dbSolde = parseFloat(client.solde)||0;
+        if(Math.abs(_dbSolde - ecGetSolde()) > 0.005){
+          localStorage.setItem('ec_solde', _dbSolde.toFixed(2));
+          ecRefreshSolde();
+        }
+      }
     }).catch(function(){});
   }
   // Sync solde + transactions depuis Supabase à chaque chargement
