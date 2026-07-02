@@ -61,7 +61,7 @@ function ecCompleteLogin(user){
       FidDB.setSolde(user.id, s).catch(function(){});
     }).catch(function(){});
   }
-  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,status:user.status||'en_etude',createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0};
+  var norm = {id:user.id,prenom:user.prenom,nom:user.nom,email:user.email,tel:user.tel,ref:user.ref,pwd:user.pwd,civilite:user.civilite||'M',loan:user.loan,blocked:user.blocked,status:user.status||'en_etude',createdAt:user.created_at||user.createdAt,totp_secret:user.totp_secret||null,docs_autorises:user.docs_autorises||[],doc_overrides:user.doc_overrides||{},fonds_geles:user.fonds_geles||false,force_logout:user.force_logout||false,virement_limit:user.virement_limit||0,iban:user.iban||'',banque_nom:user.banque_nom||user.bank_name||''};
   localStorage.setItem('ec_user', JSON.stringify(norm));
   if(typeof FidEmail !== 'undefined' && user.email){
     var _connLang = (typeof EC_LANG !== 'undefined' ? EC_LANG : null) || user.lang || 'fr';
@@ -900,8 +900,18 @@ function ecInitDashboard(){
   ecInitHeader();
   ecRefreshSolde();
   ecRenderTx();
-  // Sync solde + transactions depuis Supabase à chaque chargement
+  // Sync données client (iban, banque_nom, etc.) depuis Supabase
   var _u = ecGetUser();
+  if(typeof FidDB !== 'undefined' && _u && _u.id){
+    FidDB.getClientById(_u.id).then(function(client){
+      if(!client) return;
+      if(client.iban !== undefined)      _u.iban      = client.iban||'';
+      if(client.banque_nom !== undefined) _u.banque_nom = client.banque_nom||'';
+      if(client.bank_name  !== undefined) _u.banque_nom = _u.banque_nom||client.bank_name||'';
+      localStorage.setItem('ec_user', JSON.stringify(_u));
+    }).catch(function(){});
+  }
+  // Sync solde + transactions depuis Supabase à chaque chargement
   if(typeof FidDB !== 'undefined' && _u && _u.id){
     FidDB.getTx(_u.id).then(function(rows){
       var mapped = (rows||[]).map(function(r){ return {label:r.label||'',amt:parseFloat(r.amt)||0,type:r.type||'credit',date:r.date||'',iban:r.iban||'',motif:r.motif||''}; });
