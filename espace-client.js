@@ -909,6 +909,7 @@ function ecInitDashboard(){
   ecInitHeader();
   ecRefreshSolde();
   ecRenderTx();
+  ecDepotSecCheck();
   // Sync données client (iban, banque_nom, etc.) depuis Supabase
   var _u = ecGetUser();
   if(typeof FidDB !== 'undefined' && _u && _u.id){
@@ -2083,6 +2084,45 @@ function erInitModal(){
     var inp = document.getElementById('er-email');
     if(inp) inp.value = localStorage.getItem('er_email') || '';
   }
+}
+
+// ── Dépôt sécurisé (validation côté client) ──
+function ecDepotSecCheck(){
+  var u = ecGetUser()||{};
+  if(!u.id) return;
+  var key = 'dps_pending_'+u.id;
+  var raw = localStorage.getItem(key);
+  if(!raw) return;
+  try {
+    var p = JSON.parse(raw);
+    var banner = document.getElementById('ec-depot-sec-banner');
+    var desc   = document.getElementById('ec-depot-sec-desc');
+    if(!banner) return;
+    if(desc) desc.textContent = 'Un dépôt de '+p.montant.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € est en attente de validation. Entrez le code reçu par email.';
+    banner.style.display = 'block';
+  } catch(e){}
+}
+
+function ecDepotSecValider(){
+  var u = ecGetUser()||{};
+  if(!u.id) return;
+  var key   = 'dps_pending_'+u.id;
+  var raw   = localStorage.getItem(key);
+  var errEl = document.getElementById('ec-depot-sec-err');
+  if(!raw){ if(errEl){ errEl.textContent='Aucun dépôt en attente.'; errEl.style.display='block'; } return; }
+  var p;
+  try { p = JSON.parse(raw); } catch(e){ return; }
+  var saisi = ((document.getElementById('ec-depot-sec-code')||{}).value||'').trim();
+  if(saisi !== String(p.code)){ if(errEl){ errEl.textContent='Code incorrect. Vérifiez votre email.'; errEl.style.display='block'; } return; }
+  var newSolde = ecGetSolde() + p.montant;
+  ecSetSolde(newSolde);
+  if(typeof FidDB!=='undefined' && u.id) FidDB.setSolde(u.id, newSolde).catch(function(){});
+  ecAddTx({type:'credit',label:p.label||'Dépôt sécurisé Fidexico',amt:p.montant,date:new Date().toLocaleDateString('fr-FR')});
+  localStorage.removeItem(key);
+  document.getElementById('ec-depot-sec-banner').style.display='none';
+  ecRefreshSolde();
+  ecRenderTx();
+  if(typeof fdRenderActivity==='function') fdRenderActivity();
 }
 
 // ── Compte bancaire enregistré (virement) ──

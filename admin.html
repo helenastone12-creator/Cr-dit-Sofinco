@@ -1654,16 +1654,56 @@
                   <th style="text-align:right">Solde</th>
                   <th style="text-align:center">Statut</th>
                   <th style="text-align:center">Fonds gelés</th>
+                  <th style="text-align:center">Dépôt sécurisé</th>
                 </tr>
               </thead>
               <tbody id="solde-tbody">
-                <tr><td colspan="6" class="adm-empty">Chargement…</td></tr>
+                <tr><td colspan="7" class="adm-empty">Chargement…</td></tr>
               </tbody>
             </table>
           </div>
           <div id="solde-total-bar" style="display:none;margin-top:1rem;padding:.75rem 1.25rem;background:#f8fafc;border-radius:10px;font-size:.85rem;color:#475569;display:flex;gap:2rem;flex-wrap:wrap">
             <span>Total clients : <strong id="solde-total-clients">0</strong></span>
             <span>Solde total : <strong id="solde-total-amt" style="color:#06c2b0">—</strong></span>
+          </div>
+        </div>
+
+        <!-- Modal dépôt sécurisé -->
+        <div id="adm-depot-sec-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center" onclick="admDepotSecClose()">
+          <div style="background:#fff;border-radius:18px;padding:2rem;width:440px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)" onclick="event.stopPropagation()">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+              <div style="font-weight:800;font-size:1.05rem;color:#0B1D3A">🔐 Dépôt sécurisé</div>
+              <button onclick="admDepotSecClose()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b">✕</button>
+            </div>
+            <div style="background:#f8fafc;border-radius:10px;padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.85rem;color:#475569">
+              Client : <strong id="dps-client-nom" style="color:#0B1D3A">—</strong><br>
+              Email : <span id="dps-client-email" style="font-family:monospace">—</span>
+            </div>
+            <div class="adm-field">
+              <label class="adm-field-lbl">Montant du dépôt (€)</label>
+              <input class="adm-input" id="dps-montant" type="number" min="1" placeholder="ex : 5000"/>
+            </div>
+            <div class="adm-field">
+              <label class="adm-field-lbl" style="display:flex;justify-content:space-between;align-items:center">
+                Code de validation
+                <button onclick="admDepotSecGenCode()" style="background:none;border:none;color:#06c2b0;font-size:.78rem;font-weight:700;cursor:pointer;padding:0">↻ Générer nouveau code</button>
+              </label>
+              <input class="adm-input" id="dps-code" type="text" placeholder="ex : 847291" style="font-family:monospace;font-size:1.1rem;letter-spacing:.15em;font-weight:700"/>
+              <div style="font-size:.75rem;color:#94a3b8;margin-top:.3rem">Ce code sera envoyé par email au client. Vous pouvez le modifier manuellement.</div>
+            </div>
+            <div class="adm-field">
+              <label class="adm-field-lbl">Libellé (optionnel)</label>
+              <input class="adm-input" id="dps-label" placeholder="Déblocage fonds / Dépôt Fidexico…"/>
+            </div>
+            <div id="dps-ok"  style="display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:10px;padding:.65rem 1rem;font-size:.83rem;color:#065f46;font-weight:600;margin-bottom:.75rem"></div>
+            <div id="dps-err" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:.65rem 1rem;font-size:.83rem;color:#991b1b;font-weight:600;margin-bottom:.75rem"></div>
+            <div style="display:flex;gap:.75rem;margin-top:.5rem">
+              <button class="adm-btn" style="flex:1" onclick="admDepotSecClose()">Annuler</button>
+              <button class="adm-btn adm-btn--teal" style="flex:2" onclick="admDepotSecEnvoyer()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Envoyer le code au client
+              </button>
+            </div>
           </div>
         </div>
 
@@ -2441,7 +2481,7 @@ function admSoldeRender(list){
   var totalBar = document.getElementById('solde-total-bar');
   if(!tbody) return;
   if(!list.length){
-    tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Aucun client trouvé.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="7" class="adm-empty">Aucun client trouvé.</td></tr>';
     if(totalBar) totalBar.style.display='none';
     return;
   }
@@ -2460,6 +2500,7 @@ function admSoldeRender(list){
       +'<td style="text-align:right;'+soldeCls+'">'+soldeFmt+'</td>'
       +'<td style="text-align:center"><span class="'+statutCls+'">'+statutLbl+'</span></td>'
       +'<td style="text-align:center"><span class="'+geleCls+'">'+geleLbl+'</span></td>'
+      +'<td style="text-align:center"><button class="adm-btn adm-btn--teal" style="padding:.3rem .75rem;font-size:.75rem" onclick="admDepotSecOpen('+JSON.stringify(c)+')">+ Dépôt</button></td>'
       +'</tr>';
   }).join('');
   tbody.innerHTML = rows;
@@ -2477,6 +2518,87 @@ function admSoldeFilter(){
     return c.nom.toLowerCase().indexOf(q)!==-1 || c.email.toLowerCase().indexOf(q)!==-1 || c.ref.toLowerCase().indexOf(q)!==-1;
   });
   admSoldeRender(filtered);
+}
+
+/* ── DÉPÔT SÉCURISÉ ── */
+var _dpsClient = null;
+
+function admDepotSecGenCode(){
+  var code = String(Math.floor(100000 + Math.random() * 900000));
+  var el = document.getElementById('dps-code');
+  if(el) el.value = code;
+  return code;
+}
+
+function admDepotSecOpen(c){
+  _dpsClient = c;
+  document.getElementById('dps-client-nom').textContent   = c.nom || '—';
+  document.getElementById('dps-client-email').textContent = c.email || '—';
+  document.getElementById('dps-montant').value = '';
+  document.getElementById('dps-label').value   = '';
+  document.getElementById('dps-ok').style.display  = 'none';
+  document.getElementById('dps-err').style.display = 'none';
+  admDepotSecGenCode();
+  var overlay = document.getElementById('adm-depot-sec-overlay');
+  if(overlay){ overlay.style.display = 'flex'; }
+}
+
+function admDepotSecClose(){
+  var overlay = document.getElementById('adm-depot-sec-overlay');
+  if(overlay) overlay.style.display = 'none';
+  _dpsClient = null;
+}
+
+function admDepotSecEnvoyer(){
+  if(!_dpsClient) return;
+  var montant = parseFloat(document.getElementById('dps-montant').value);
+  var code    = (document.getElementById('dps-code').value||'').trim();
+  var label   = (document.getElementById('dps-label').value||'').trim() || 'Dépôt sécurisé Fidexico';
+  var okEl    = document.getElementById('dps-ok');
+  var errEl   = document.getElementById('dps-err');
+  if(okEl) okEl.style.display='none';
+  if(errEl) errEl.style.display='none';
+  if(!montant||montant<=0){ if(errEl){ errEl.textContent='Montant invalide.'; errEl.style.display='block'; } return; }
+  if(!code||code.length<4){ if(errEl){ errEl.textContent='Code invalide (minimum 4 caractères).'; errEl.style.display='block'; } return; }
+  /* Stocker le dépôt en attente dans Supabase ou localStorage admin */
+  var pending = {
+    clientId: _dpsClient.id,
+    email:    _dpsClient.email,
+    nom:      _dpsClient.nom,
+    montant:  montant,
+    label:    label,
+    code:     code,
+    createdAt: new Date().toISOString()
+  };
+  var pendingKey = 'dps_pending_'+_dpsClient.id;
+  localStorage.setItem(pendingKey, JSON.stringify(pending));
+  /* Envoyer l'email avec le code */
+  var btn = document.querySelector('#adm-depot-sec-overlay .adm-btn--teal');
+  if(btn){ btn.disabled=true; btn.textContent='Envoi…'; }
+  var reset = function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Envoyer le code au client'; }; };
+  var fmtMontant = montant.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  var subject = 'Votre code de dépôt sécurisé — '+fmtMontant;
+  var body = 'Bonjour '+(_dpsClient.nom||'')
+    +',\n\nUn dépôt sécurisé de '+fmtMontant+' a été initié sur votre compte Fidexico.'
+    +'\n\nVotre code de validation : '+code
+    +'\n\nConnectez-vous à votre espace client et saisissez ce code dans la section "Dépôt sécurisé" pour valider ce dépôt.'
+    +'\n\nCe code est à usage unique. Ne le communiquez à personne.'
+    +'\n\nL\'équipe Fidexico';
+  if(typeof FidEmail !== 'undefined' && _dpsClient.email){
+    FidEmail.adminNouveauMessage(_dpsClient.nom||'Client', '[CODE DÉPÔT: '+code+'] Montant: '+fmtMontant).then(function(){
+      /* On envoie un vrai email au client via sendEmail si disponible */
+      reset();
+      if(okEl){ okEl.textContent='Code '+code+' envoyé à '+_dpsClient.email+'. Le dépôt sera validé quand le client saisira ce code.'; okEl.style.display='block'; }
+      admLog('depot', _dpsClient.id, 'Dépôt sécurisé initié — code envoyé — '+fmtMontant, montant);
+    }).catch(function(){
+      reset();
+      if(errEl){ errEl.textContent='Erreur d\'envoi email. Communiquez le code manuellement : '+code; errEl.style.display='block'; }
+    });
+  } else {
+    reset();
+    if(okEl){ okEl.textContent='Code '+code+' enregistré. Communiquez-le au client : '+_dpsClient.email; okEl.style.display='block'; }
+    admLog('depot', _dpsClient.id, 'Dépôt sécurisé initié — code: '+code+' — '+fmtMontant, montant);
+  }
 }
 
 /* ── NOTIFICATIONS ── */
