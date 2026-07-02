@@ -886,6 +886,170 @@
     @media (max-width: 440px) {
       .adm-stats { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ══════════════════════════════════════
+       SOLDE CLIENTS SÉCURISÉS
+    ══════════════════════════════════════ */
+    .sc-bloc {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .sc-bloc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      background: #f8fafc;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .sc-bloc-title {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .sc-bloc-actions {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .sc-count-badge {
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .72rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .sc-count-badge.has-items {
+      background: #fde68a;
+      color: #78350f;
+      box-shadow: 0 0 0 3px rgba(251,191,36,.3);
+    }
+    .sc-demandes-list {
+      padding: 1.25rem 1.5rem;
+    }
+    .sc-empty {
+      text-align: center;
+      padding: 1.5rem;
+      color: #94a3b8;
+      font-size: .88rem;
+    }
+    .sc-total-bar {
+      padding: .75rem 1.5rem;
+      border-top: 1px solid #f1f5f9;
+      font-size: .85rem;
+      color: #475569;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    /* Carte demande de virement */
+    .sc-card {
+      border: 2px solid #06c2b0;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    .sc-card:last-child { margin-bottom: 0; }
+    .sc-card-head {
+      background: linear-gradient(135deg, #06c2b0 0%, #0B1D3A 100%);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .sc-card-head-name { font-weight: 800; font-size: 1rem; color: #fff; }
+    .sc-card-head-email { font-size: .78rem; color: rgba(255,255,255,.7); margin-top: .1rem; }
+    .sc-card-head-amt {
+      background: rgba(255,255,255,.15);
+      border-radius: 8px;
+      padding: .35rem .9rem;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .sc-card-body {
+      padding: 1.25rem 1.5rem;
+      background: #fff;
+    }
+    .sc-card-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .sc-card-info-full { grid-column: 1 / -1; }
+    .sc-info-lbl {
+      font-size: .65rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: .2rem;
+    }
+    .sc-info-val { font-size: .9rem; font-weight: 600; color: #0f172a; }
+    .sc-info-val--mono { font-family: monospace; font-size: .82rem; word-break: break-all; }
+    .sc-info-val--green { color: #059669; }
+    .sc-card-divider { border: none; border-top: 1px solid #e2e8f0; margin: 0 0 1rem; }
+    .sc-card-bottom {
+      display: flex;
+      align-items: stretch;
+      gap: 1.5rem;
+    }
+    .sc-code-box {
+      background: #f0fdf9;
+      border: 2px solid #06c2b0;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 180px;
+    }
+    .sc-code-lbl {
+      font-size: .62rem;
+      font-weight: 800;
+      color: #06c2b0;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: .3rem;
+    }
+    .sc-code-val {
+      font-size: 2.2rem;
+      font-weight: 900;
+      font-family: monospace;
+      letter-spacing: .2em;
+      color: #0B1D3A;
+      line-height: 1;
+    }
+    .sc-code-timer {
+      font-size: .67rem;
+      color: #94a3b8;
+      margin-top: .35rem;
+    }
+    .sc-card-btns {
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+      flex: 1;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
@@ -1638,55 +1802,67 @@
         <div class="adm-section" id="sec-solde">
           <div class="adm-section-title">Solde clients sécurisés</div>
 
-          <!-- Demandes de virement sécurisé en attente -->
-          <div id="dps-demandes-wrap" style="margin-bottom:2rem">
-            <div style="font-weight:700;font-size:.95rem;color:#0B1D3A;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem">
-              <span style="background:#fef3c7;color:#92400e;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800" id="dps-demandes-badge">0</span>
-              Demandes de virement sécurisé en attente
+          <!-- ── BLOC 1 : Demandes en attente ── -->
+          <div class="sc-bloc">
+            <div class="sc-bloc-header">
+              <div class="sc-bloc-title">
+                <span class="sc-count-badge" id="dps-demandes-badge">0</span>
+                Demandes de virement en attente
+              </div>
             </div>
-            <div id="dps-demandes-list" style="width:100%;display:block"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:2rem;text-align:center;color:#94a3b8;font-size:.88rem">Aucune demande en attente</div></div>
+            <div id="dps-demandes-list" class="sc-demandes-list">
+              <div class="sc-empty">Aucune demande en attente</div>
+            </div>
           </div>
 
-          <!-- Historique des dépôts sécurisés -->
-          <div id="dps-depot-history-wrap" style="display:none;margin-bottom:2rem">
-            <div style="font-weight:700;font-size:.95rem;color:#0B1D3A;margin-bottom:.75rem">📋 Historique des dépôts sécurisés</div>
-            <div class="adm-table-wrap" style="max-height:260px;overflow-y:auto;overflow-x:auto">
-              <table class="adm-table">
-                <thead><tr><th>Client</th><th>Email</th><th style="text-align:right">Montant</th><th>Libellé</th><th>Date</th></tr></thead>
+          <!-- ── BLOC 2 : Historique dépôts ── -->
+          <div class="sc-bloc" id="dps-depot-history-wrap" style="display:none">
+            <div class="sc-bloc-header">
+              <div class="sc-bloc-title">Historique des dépôts sécurisés</div>
+            </div>
+            <div class="adm-table-wrap" style="max-height:280px;overflow-y:auto">
+              <table>
+                <thead><tr><th>Client</th><th>Email</th><th>Montant</th><th>Libellé</th><th>Date</th></tr></thead>
                 <tbody id="dps-depot-history-tbody"><tr><td colspan="5" class="adm-empty">Aucun dépôt sécurisé enregistré.</td></tr></tbody>
               </table>
             </div>
           </div>
 
-          <div class="adm-toolbar" style="margin-bottom:1.25rem;gap:.75rem;flex-wrap:wrap">
-            <input type="text" id="solde-search" class="adm-inp" placeholder="Rechercher un client…" oninput="admSoldeFilter()" style="width:240px;max-width:100%"/>
-            <button class="adm-btn adm-btn--teal" style="margin-left:auto" onclick="admSoldeLoad()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.01-7.02"/></svg>
-              Actualiser
-            </button>
-          </div>
-          <div class="adm-table-wrap">
-            <table id="solde-table">
-              <thead>
-                <tr>
-                  <th>Client</th>
-                  <th>N° dossier</th>
-                  <th>Email</th>
-                  <th>Solde</th>
-                  <th>Statut</th>
-                  <th>Fonds gelés</th>
-                  <th>Sécurisé</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="solde-tbody">
-                <tr><td colspan="8" class="adm-empty">Chargement…</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div id="solde-total-bar" style="display:none;margin-top:1rem;padding:.75rem 1.25rem;background:#f8fafc;border-radius:10px;font-size:.85rem;color:#475569;display:flex;gap:2rem;flex-wrap:wrap">
-            <span>Total clients : <strong id="solde-total-clients">0</strong></span>
-            <span>Solde total : <strong id="solde-total-amt" style="color:#06c2b0">—</strong></span>
+          <!-- ── BLOC 3 : Tableau clients ── -->
+          <div class="sc-bloc">
+            <div class="sc-bloc-header">
+              <div class="sc-bloc-title">Tous les clients</div>
+              <div class="sc-bloc-actions">
+                <input type="text" id="solde-search" class="adm-search" placeholder="Rechercher…" oninput="admSoldeFilter()"/>
+                <button class="adm-btn adm-btn--teal" onclick="admSoldeLoad()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:.35rem"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.01-7.02"/></svg>
+                  Actualiser
+                </button>
+              </div>
+            </div>
+            <div class="adm-table-wrap">
+              <table id="solde-table">
+                <thead>
+                  <tr>
+                    <th>Client</th>
+                    <th>N° dossier</th>
+                    <th>Email</th>
+                    <th>Solde</th>
+                    <th>Statut</th>
+                    <th>Fonds gelés</th>
+                    <th>Sécurisé</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="solde-tbody">
+                  <tr><td colspan="8" class="adm-empty">Chargement…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="solde-total-bar" class="sc-total-bar" style="display:none">
+              <span>Total clients : <strong id="solde-total-clients">0</strong></span>
+              <span>Solde total : <strong id="solde-total-amt" style="color:#06c2b0">—</strong></span>
+            </div>
           </div>
         </div>
 
@@ -2697,60 +2873,54 @@ function admSoldeLoadDemandes(){
   });
   if(_admVirSecTimer){ clearInterval(_admVirSecTimer); _admVirSecTimer=null; }
   var badge = document.getElementById('dps-demandes-badge');
-  if(badge) badge.textContent = demandes.length;
+  if(badge){
+    badge.textContent = demandes.length;
+    badge.className = 'sc-count-badge' + (demandes.length ? ' has-items' : '');
+  }
   if(!demandes.length){
-    list.innerHTML = '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:2rem;text-align:center;color:#94a3b8;font-size:.88rem">Aucune demande en attente</div>';
+    list.innerHTML = '<div class="sc-empty">Aucune demande en attente</div>';
     return;
   }
 
-  /* Pré-générer les codes */
   demandes.forEach(function(d){ admVirGetCode(d.clientId); });
 
   function renderCards(){
-    list.innerHTML = '<div style="display:flex;flex-direction:column;gap:1rem;width:100%">'
-      + demandes.map(function(d){
+    list.innerHTML = demandes.map(function(d){
       var codeRec = admVirGetCode(d.clientId);
       var amt = (d.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
       var dt  = d.date ? new Date(d.date).toLocaleString('fr-FR') : '—';
       var countdown = admVirSecCountdown(codeRec.expiry);
-      return '<div style="background:#fff;border:2px solid #06c2b0;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(6,194,176,.1);width:100%;box-sizing:border-box">'
-        /* En-tête */
-        +'<div style="background:linear-gradient(135deg,#06c2b0,#0B1D3A);padding:.85rem 1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">'
-          +'<div>'
-            +'<div style="font-weight:800;font-size:.95rem;color:#fff">'+admEsc(d.nom_client||'—')+'</div>'
-            +'<div style="font-size:.75rem;color:rgba(255,255,255,.7)">'+admEsc(d.email||'')+'</div>'
-          +'</div>'
-          +'<div style="background:rgba(255,255,255,.15);border-radius:8px;padding:.3rem .75rem;font-weight:900;font-size:1.1rem;color:#fff">'+amt+'</div>'
-        +'</div>'
-        /* Corps */
-        +'<div style="padding:1.25rem">'
-          /* Infos virement — grille 3 colonnes */
-          +'<div style="display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin-bottom:1rem">'
-            +'<div><div style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">Bénéficiaire</div>'
-              +'<div style="font-size:.9rem;font-weight:600;color:#0B1D3A">'+admEsc(d.beneficiaire||'—')+'</div></div>'
-            +'<div><div style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">Montant</div>'
-              +'<div style="font-size:.9rem;font-weight:700;color:#059669">'+amt+'</div></div>'
-            +'<div><div style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">Date</div>'
-              +'<div style="font-size:.85rem;color:#475569">'+dt+'</div></div>'
-            +'<div style="flex-basis:100%"><div style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">IBAN</div>'
-              +'<div style="font-size:.82rem;font-family:monospace;color:#475569;word-break:break-all">'+admEsc(d.iban||'—')+'</div></div>'
-          +'</div>'
-          +'<div style="border-top:1px solid #e2e8f0;margin-bottom:1rem"></div>'
-          /* Code + Boutons sur la même ligne */
-          +'<div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap">'
-            +'<div style="background:#f0fdf9;border:2px solid #06c2b0;border-radius:12px;padding:.75rem 1.25rem;text-align:center;min-width:160px">'
-              +'<div style="font-size:.62rem;font-weight:800;color:#06c2b0;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.2rem">Code à envoyer</div>'
-              +'<div style="font-size:2rem;font-weight:900;font-family:monospace;letter-spacing:.2em;color:#0B1D3A;line-height:1.1">'+codeRec.code+'</div>'
-              +'<div style="font-size:.67rem;color:#94a3b8;margin-top:.25rem" id="vs-cd-'+admEsc(d.clientId)+'">⏱ Expire dans '+countdown+'</div>'
+      return ''
+        +'<div class="sc-card">'
+          +'<div class="sc-card-head">'
+            +'<div>'
+              +'<div class="sc-card-head-name">'+admEsc(d.nom_client||'—')+'</div>'
+              +'<div class="sc-card-head-email">'+admEsc(d.email||'')+'</div>'
             +'</div>'
-            +'<div style="display:flex;flex-direction:column;gap:.6rem;flex:1;min-width:220px">'
-              +'<button class="adm-btn adm-btn--teal" style="padding:.7rem 1.25rem;font-size:.88rem;font-weight:700" onclick="admVirSecSendDirect(\''+admEsc(d.clientId)+'\')">📨 Envoyer le code au client</button>'
-              +'<button class="adm-btn" style="padding:.6rem 1.25rem;font-size:.82rem" onclick="admVirSecOpen(\''+admEsc(d.clientId)+'\')">✏ Modifier le code avant envoi</button>'
+            +'<div class="sc-card-head-amt">'+amt+'</div>'
+          +'</div>'
+          +'<div class="sc-card-body">'
+            +'<div class="sc-card-info">'
+              +'<div><div class="sc-info-lbl">Bénéficiaire</div><div class="sc-info-val">'+admEsc(d.beneficiaire||'—')+'</div></div>'
+              +'<div><div class="sc-info-lbl">Montant</div><div class="sc-info-val sc-info-val--green">'+amt+'</div></div>'
+              +'<div><div class="sc-info-lbl">Date</div><div class="sc-info-val" style="font-weight:400;color:#475569">'+dt+'</div></div>'
+              +'<div class="sc-card-info-full"><div class="sc-info-lbl">IBAN</div><div class="sc-info-val sc-info-val--mono">'+admEsc(d.iban||'—')+'</div></div>'
+            +'</div>'
+            +'<hr class="sc-card-divider"/>'
+            +'<div class="sc-card-bottom">'
+              +'<div class="sc-code-box">'
+                +'<div class="sc-code-lbl">Code à envoyer</div>'
+                +'<div class="sc-code-val">'+codeRec.code+'</div>'
+                +'<div class="sc-code-timer" id="vs-cd-'+admEsc(d.clientId)+'">⏱ Expire dans '+countdown+'</div>'
+              +'</div>'
+              +'<div class="sc-card-btns">'
+                +'<button class="adm-btn adm-btn--teal" style="font-size:.9rem;padding:.8rem 1.5rem;font-weight:700" onclick="admVirSecSendDirect(\''+admEsc(d.clientId)+'\')">📨 Envoyer le code au client</button>'
+                +'<button class="adm-btn" style="font-size:.85rem;padding:.7rem 1.5rem" onclick="admVirSecOpen(\''+admEsc(d.clientId)+'\')">✏ Modifier le code avant envoi</button>'
+              +'</div>'
             +'</div>'
           +'</div>'
-        +'</div>'
         +'</div>';
-    }).join('') + '</div>';
+    }).join('');
   }
 
   renderCards();
