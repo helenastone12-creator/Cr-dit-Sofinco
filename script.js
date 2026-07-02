@@ -38,7 +38,18 @@ var T = {
     sign_funds: 'Signature & déblocage des fonds',
     sign_sub: 'Dès validation de votre contrat',
     years: 'ans',
-    search: 'Rechercher'
+    search: 'Rechercher',
+    confirm_thanks: 'Merci,',
+    confirm_title: 'Votre dossier a été soumis',
+    confirm_ref_lbl: 'Numéro de dossier',
+    confirm_deposited: 'Déposé le',
+    confirm_received: 'Dossier reçu',
+    confirm_received_sub: 'Votre demande est enregistrée',
+    confirm_analysis: 'Analyse du dossier',
+    confirm_analysis_sub: 'Sous 24 h ouvrées',
+    confirm_email_note: 'Un email de confirmation a été envoyé à l\'adresse renseignée.',
+    confirm_cta: 'Accéder à mon espace client →',
+    confirm_close: 'Fermer'
   },
   en: {
     next: 'Next',
@@ -75,7 +86,18 @@ var T = {
     sign_funds: 'Signature & fund release',
     sign_sub: 'Upon validation of your contract',
     years: 'yrs',
-    search: 'Search'
+    search: 'Search',
+    confirm_thanks: 'Thank you,',
+    confirm_title: 'Your application has been submitted',
+    confirm_ref_lbl: 'Application number',
+    confirm_deposited: 'Submitted on',
+    confirm_received: 'Application received',
+    confirm_received_sub: 'Your request has been registered',
+    confirm_analysis: 'Application review',
+    confirm_analysis_sub: 'Within 24 business hours',
+    confirm_email_note: 'A confirmation email has been sent to the address provided.',
+    confirm_cta: 'Access my client area →',
+    confirm_close: 'Close'
   },
   de: {
     next: 'Weiter',
@@ -112,7 +134,18 @@ var T = {
     sign_funds: 'Unterschrift & Auszahlung',
     sign_sub: 'Nach Genehmigung Ihres Vertrags',
     years: 'J.',
-    search: 'Suchen'
+    search: 'Suchen',
+    confirm_thanks: 'Danke,',
+    confirm_title: 'Ihr Antrag wurde eingereicht',
+    confirm_ref_lbl: 'Aktennummer',
+    confirm_deposited: 'Eingereicht am',
+    confirm_received: 'Antrag erhalten',
+    confirm_received_sub: 'Ihre Anfrage wurde registriert',
+    confirm_analysis: 'Antragsanalyse',
+    confirm_analysis_sub: 'Innerhalb von 24 Werksunden',
+    confirm_email_note: 'Eine Bestätigungs-E-Mail wurde an die angegebene Adresse gesendet.',
+    confirm_cta: 'Auf meinen Kundenbereich zugreifen →',
+    confirm_close: 'Schließen'
   },
   es: {
     next: 'Siguiente',
@@ -149,7 +182,18 @@ var T = {
     sign_funds: 'Firma y desembolso de fondos',
     sign_sub: 'Tras la validación de su contrato',
     years: 'años',
-    search: 'Buscar'
+    search: 'Buscar',
+    confirm_thanks: 'Gracias,',
+    confirm_title: 'Su solicitud ha sido enviada',
+    confirm_ref_lbl: 'Número de expediente',
+    confirm_deposited: 'Enviado el',
+    confirm_received: 'Solicitud recibida',
+    confirm_received_sub: 'Su solicitud ha sido registrada',
+    confirm_analysis: 'Análisis de la solicitud',
+    confirm_analysis_sub: 'En 24 horas hábiles',
+    confirm_email_note: 'Se ha enviado un email de confirmación a la dirección indicada.',
+    confirm_cta: 'Acceder a mi área de cliente →',
+    confirm_close: 'Cerrar'
   },
   it: {
     next: 'Avanti',
@@ -186,7 +230,18 @@ var T = {
     sign_funds: 'Firma e sblocco dei fondi',
     sign_sub: 'Dopo la convalida del contratto',
     years: 'anni',
-    search: 'Cerca'
+    search: 'Cerca',
+    confirm_thanks: 'Grazie,',
+    confirm_title: 'La tua richiesta è stata inviata',
+    confirm_ref_lbl: 'Numero pratica',
+    confirm_deposited: 'Inviato il',
+    confirm_received: 'Richiesta ricevuta',
+    confirm_received_sub: 'La tua richiesta è stata registrata',
+    confirm_analysis: 'Analisi della richiesta',
+    confirm_analysis_sub: 'Entro 24 ore lavorative',
+    confirm_email_note: 'Una email di conferma è stata inviata all\'indirizzo fornito.',
+    confirm_cta: 'Accedi alla mia area clienti →',
+    confirm_close: 'Chiudi'
   },
   nl: {
     next: 'Volgende',
@@ -223,7 +278,18 @@ var T = {
     sign_funds: 'Ondertekening & uitbetaling',
     sign_sub: 'Na goedkeuring van uw contract',
     years: 'jr',
-    search: 'Zoeken'
+    search: 'Zoeken',
+    confirm_thanks: 'Bedankt,',
+    confirm_title: 'Uw aanvraag is ingediend',
+    confirm_ref_lbl: 'Dossiernummer',
+    confirm_deposited: 'Ingediend op',
+    confirm_received: 'Aanvraag ontvangen',
+    confirm_received_sub: 'Uw aanvraag is geregistreerd',
+    confirm_analysis: 'Aanvraaganalyse',
+    confirm_analysis_sub: 'Binnen 24 werkuren',
+    confirm_email_note: 'Een bevestigingsmail is verzonden naar het opgegeven adres.',
+    confirm_cta: 'Toegang tot mijn klantgebied →',
+    confirm_close: 'Sluiten'
   },
   pl: {
     next: 'Dalej',
@@ -260,7 +326,18 @@ var T = {
     sign_funds: 'Podpisanie i uruchomienie środków',
     sign_sub: 'Po zatwierdzeniu umowy',
     years: 'lat',
-    search: 'Szukaj'
+    search: 'Szukaj',
+    confirm_thanks: 'Dziękujemy,',
+    confirm_title: 'Twój wniosek został złożony',
+    confirm_ref_lbl: 'Numer wniosku',
+    confirm_deposited: 'Złożono',
+    confirm_received: 'Wniosek otrzymany',
+    confirm_received_sub: 'Twoje zgłoszenie zostało zarejestrowane',
+    confirm_analysis: 'Analiza wniosku',
+    confirm_analysis_sub: 'W ciągu 24 godzin roboczych',
+    confirm_email_note: 'Email potwierdzający został wysłany na podany adres.',
+    confirm_cta: 'Przejdź do mojego obszaru klienta →',
+    confirm_close: 'Zamknij'
   },
   sv: {
     next: 'Nästa',
@@ -297,7 +374,18 @@ var T = {
     sign_funds: 'Underskrift & utbetalning',
     sign_sub: 'Efter godkännande av ditt avtal',
     years: 'år',
-    search: 'Sök'
+    search: 'Sök',
+    confirm_thanks: 'Tack,',
+    confirm_title: 'Din ansökan har skickats in',
+    confirm_ref_lbl: 'Ärendenummer',
+    confirm_deposited: 'Inskickad den',
+    confirm_received: 'Ansökan mottagen',
+    confirm_received_sub: 'Din begäran har registrerats',
+    confirm_analysis: 'Analys av ansökan',
+    confirm_analysis_sub: 'Inom 24 arbetstimmar',
+    confirm_email_note: 'Ett bekräftelsemail har skickats till den angivna adressen.',
+    confirm_cta: 'Gå till mitt kundområde →',
+    confirm_close: 'Stäng'
   }
 };
 var t = T[LANG] || T.fr;
@@ -1437,21 +1525,21 @@ function sp5Submit(){
         '<path d="M14 26.5l8 8 16-16" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>'+
       '</svg>'+
     '</div>'+
-    '<p class="sp5-confirm-hey">Merci, '+nomAffiche+' !</p>'+
-    '<h2 class="sp5-confirm-title">Votre dossier a été soumis</h2>'+
+    '<p class="sp5-confirm-hey">'+t.confirm_thanks+' '+nomAffiche+' !</p>'+
+    '<h2 class="sp5-confirm-title">'+t.confirm_title+'</h2>'+
     '<div class="sp5-confirm-ref-box">'+
-      '<span class="sp5-confirm-ref-lbl">Numéro de dossier</span>'+
+      '<span class="sp5-confirm-ref-lbl">'+t.confirm_ref_lbl+'</span>'+
       '<span class="sp5-confirm-ref-num">'+ref+'</span>'+
-      '<span class="sp5-confirm-ref-date">Déposé le '+dateStr+' à '+timeStr+'</span>'+
+      '<span class="sp5-confirm-ref-date">'+t.confirm_deposited+' '+dateStr+' à '+timeStr+'</span>'+
     '</div>'+
     '<div class="sp5-confirm-steps">'+
       '<div class="sp5-confirm-step done">'+
         '<div class="sp5-cs-dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+
-        '<div class="sp5-cs-body"><strong>Dossier reçu</strong><span>Votre demande est enregistrée</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+t.confirm_received+'</strong><span>'+t.confirm_received_sub+'</span></div>'+
       '</div>'+
       '<div class="sp5-confirm-step">'+
         '<div class="sp5-cs-dot sp5-cs-pending">2</div>'+
-        '<div class="sp5-cs-body"><strong>Analyse du dossier</strong><span>Sous 24 h ouvrées</span></div>'+
+        '<div class="sp5-cs-body"><strong>'+t.confirm_analysis+'</strong><span>'+t.confirm_analysis_sub+'</span></div>'+
       '</div>'+
       '<div class="sp5-confirm-step">'+
         '<div class="sp5-cs-dot sp5-cs-pending">3</div>'+
@@ -1462,9 +1550,9 @@ function sp5Submit(){
         '<div class="sp5-cs-body"><strong>'+t.sign_funds+'</strong><span>'+t.sign_sub+'</span></div>'+
       '</div>'+
     '</div>'+
-    '<p class="sp5-confirm-email-note">Un email de confirmation a été envoyé à l\'adresse renseignée.</p>'+
-    '<a class="sp5-confirm-close sp5-confirm-cta" href="connexion.html">Accéder à mon espace client →</a>'+
-    '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="history.back()">Fermer</button>';
+    '<p class="sp5-confirm-email-note">'+t.confirm_email_note+'</p>'+
+    '<a class="sp5-confirm-close sp5-confirm-cta" href="/connexion.html">'+t.confirm_cta+'</a>'+
+    '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="history.back()">'+t.confirm_close+'</button>';
 
   body.appendChild(wrap);
   var sb = document.querySelector('.sim-body');
