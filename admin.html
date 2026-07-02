@@ -3227,14 +3227,12 @@ function admVirSecEnvoyer(){
   var reset=function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Valider et envoyer le code'; } };
 
   var expiry = Date.now() + 10 * 60 * 1000;
-  /* Stocker OTP dans Supabase (doc_overrides) */
+  /* Stocker OTP dans messages (fiable) */
   if(typeof FidDB !== 'undefined'){
-    FidDB.getClientById(_vsDemande.clientId).then(function(client){
-      var ov = Object.assign({}, (client&&client.doc_overrides)||{});
-      ov._vir_otp = code;
-      ov._vir_otp_expiry = expiry;
-      return FidDB.updateClient(_vsDemande.clientId, {doc_overrides: ov});
-    }).catch(function(){});
+    sbQ('messages?client_id=eq.'+encodeURIComponent(_vsDemande.clientId)+'&text=like.__OTP__%25&from_client=eq.false','DELETE')
+      .catch(function(){})
+      .then(function(){ return FidDB.addMessage(_vsDemande.clientId, '__OTP__:'+code+':'+expiry, false); })
+      .catch(function(){});
   }
 
   var amt = (_vsDemande.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
