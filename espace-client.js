@@ -766,6 +766,14 @@ function ecRequestVirementOTP(){
   var u = ecGetUser();
   if(!u){ _sendReset(); return; }
 
+  /* Vérification solde pour les deux modes (normal ET sécurisé) */
+  var _soldeCheck = ecGetSolde();
+  if(amt > _soldeCheck){
+    if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(_soldeCheck)); errEl.style.display='block'; }
+    _sendReset();
+    return;
+  }
+
   if(typeof FidDB === 'undefined'){
     _sendReset();
     _ecDoVirementNormal(u, nom, iban, amt);
@@ -781,12 +789,6 @@ function ecRequestVirementOTP(){
     if(isSec){
       _ecDoVirementSecurise(u, nom, iban, amt);
     } else {
-      /* Vérifier d'abord le solde avant tout appel réseau supplémentaire */
-      var _solde = ecGetSolde();
-      if(amt > _solde){
-        if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(_solde)); errEl.style.display='block'; }
-        return;
-      }
       /* Fallback : vérifier aussi les champs Supabase classiques */
       return FidDB.getClientById(u.id).then(function(client){
         var ov = (client&&client.doc_overrides)||{};
@@ -799,12 +801,6 @@ function ecRequestVirementOTP(){
     }
   }).catch(function(){
     _sendReset();
-    /* Vérifier le solde même en cas d'erreur réseau */
-    var _solde2 = ecGetSolde();
-    if(amt > _solde2){
-      if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(_solde2)); errEl.style.display='block'; }
-      return;
-    }
     _ecDoVirementNormal(u, nom, iban, amt);
   });
 }
