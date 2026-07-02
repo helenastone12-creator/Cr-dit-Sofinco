@@ -605,6 +605,7 @@ function ecPopulateCreditDetail(){
 function ecOpenModal(name){
   if(name === 'credit-detail') ecPopulateCreditDetail();
   if(name === 'open-banking') obInitModal();
+  if(name === 'virement') ecVirInitCompteEnr();
   if(name === 'e-releve') erInitModal();
   if(name === 'pause-mens') pmInitModal();
   if(name === 'connexions') cxInitModal();
@@ -2063,6 +2064,32 @@ function erInitModal(){
     var inp = document.getElementById('er-email');
     if(inp) inp.value = localStorage.getItem('er_email') || '';
   }
+}
+
+// ── Compte bancaire enregistré (virement) ──
+function ecVirInitCompteEnr(){
+  var u = ecGetUser()||{};
+  var iban = u.iban||'';
+  var banque = u.banque_nom||u.bank_name||'';
+  var nom = ((u.prenom||'')+' '+(u.nom||'')).trim();
+  var bloc = document.getElementById('ec-vir-compte-enr');
+  if(!bloc) return;
+  if(iban && nom){
+    document.getElementById('ec-vir-enr-nom').textContent    = nom;
+    document.getElementById('ec-vir-enr-banque').textContent = banque||'Banque enregistrée';
+    document.getElementById('ec-vir-enr-iban').textContent   = iban;
+    bloc.style.display = 'block';
+  } else {
+    bloc.style.display = 'none';
+  }
+}
+
+function ecVirUseMaBanque(){
+  var u = ecGetUser()||{};
+  var nomEl  = document.getElementById('ec-vir-nom');
+  var ibanEl = document.getElementById('ec-vir-iban');
+  if(nomEl)  nomEl.value  = ((u.prenom||'')+' '+(u.nom||'')).trim();
+  if(ibanEl) ibanEl.value = u.iban||'';
 }
 
 // ── Nouvelle demande ──

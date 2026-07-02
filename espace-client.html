@@ -305,6 +305,18 @@
     <div class="ec-modal-body">
       <!-- Étape 1 : formulaire -->
       <div id="ec-vir-step1">
+        <!-- Compte enregistré -->
+        <div id="ec-vir-compte-enr" style="display:none;background:#f0fdf9;border:1.5px solid #06c2b0;border-radius:12px;padding:.75rem 1rem;margin-bottom:1rem;cursor:pointer" onclick="ecVirUseMaBanque()">
+          <div style="font-size:.7rem;font-weight:700;color:#06c2b0;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem">Compte enregistré</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-weight:700;color:#0B1D3A;font-size:.9rem" id="ec-vir-enr-nom">—</div>
+              <div style="font-size:.78rem;color:#64748b" id="ec-vir-enr-banque">—</div>
+              <div style="font-size:.75rem;color:#64748b;font-family:monospace;margin-top:.15rem" id="ec-vir-enr-iban">—</div>
+            </div>
+            <div style="background:#06c2b0;color:#fff;border-radius:8px;padding:.35rem .75rem;font-size:.78rem;font-weight:700;white-space:nowrap;margin-left:.5rem">Utiliser →</div>
+          </div>
+        </div>
         <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_beneficiaire">Bénéficiaire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-nom" type="text" placeholder="Nom du bénéficiaire"/></div>
         <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_iban_dest">IBAN destinataire</span> <span class="ec-req">*</span></label><input class="ec-inp" id="ec-vir-iban" type="text" placeholder="FR76 XXXX XXXX XXXX XXXX"/></div>
         <div class="ec-form-group"><label class="ec-lbl"><span data-i18n="vir_montant">Montant</span> <span class="ec-req">*</span></label><div class="ec-amount-wrap"><input class="ec-inp" id="ec-vir-amt" type="number" min="1" placeholder="0,00"/><span class="ec-amount-euro">€</span></div></div>
