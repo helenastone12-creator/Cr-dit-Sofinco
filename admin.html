@@ -1701,7 +1701,7 @@
               <button class="adm-btn" style="flex:1" onclick="admDepotSecClose()">Annuler</button>
               <button class="adm-btn adm-btn--teal" style="flex:2" onclick="admDepotSecEnvoyer()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Envoyer le code au client
+                Créditer et envoyer le code
               </button>
             </div>
           </div>
@@ -2560,44 +2560,51 @@ function admDepotSecEnvoyer(){
   if(errEl) errEl.style.display='none';
   if(!montant||montant<=0){ if(errEl){ errEl.textContent='Montant invalide.'; errEl.style.display='block'; } return; }
   if(!code||code.length<4){ if(errEl){ errEl.textContent='Code invalide (minimum 4 caractères).'; errEl.style.display='block'; } return; }
-  /* Stocker le dépôt en attente dans Supabase ou localStorage admin */
-  var pending = {
-    clientId: _dpsClient.id,
-    email:    _dpsClient.email,
-    nom:      _dpsClient.nom,
-    montant:  montant,
-    label:    label,
-    code:     code,
-    createdAt: new Date().toISOString()
-  };
-  var pendingKey = 'dps_pending_'+_dpsClient.id;
-  localStorage.setItem(pendingKey, JSON.stringify(pending));
-  /* Envoyer l'email avec le code */
-  var btn = document.querySelector('#adm-depot-sec-overlay .adm-btn--teal');
-  if(btn){ btn.disabled=true; btn.textContent='Envoi…'; }
-  var reset = function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Envoyer le code au client'; }; };
+
   var fmtMontant = montant.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
-  var subject = 'Votre code de dépôt sécurisé — '+fmtMontant;
-  var body = 'Bonjour '+(_dpsClient.nom||'')
-    +',\n\nUn dépôt sécurisé de '+fmtMontant+' a été initié sur votre compte Fidexico.'
-    +'\n\nVotre code de validation : '+code
-    +'\n\nConnectez-vous à votre espace client et saisissez ce code dans la section "Dépôt sécurisé" pour valider ce dépôt.'
-    +'\n\nCe code est à usage unique. Ne le communiquez à personne.'
-    +'\n\nL\'équipe Fidexico';
-  if(typeof FidEmail !== 'undefined' && _dpsClient.email){
-    FidEmail.adminNouveauMessage(_dpsClient.nom||'Client', '[CODE DÉPÔT: '+code+'] Montant: '+fmtMontant).then(function(){
-      /* On envoie un vrai email au client via sendEmail si disponible */
-      reset();
-      if(okEl){ okEl.textContent='Code '+code+' envoyé à '+_dpsClient.email+'. Le dépôt sera validé quand le client saisira ce code.'; okEl.style.display='block'; }
-      admLog('depot', _dpsClient.id, 'Dépôt sécurisé initié — code envoyé — '+fmtMontant, montant);
-    }).catch(function(){
-      reset();
-      if(errEl){ errEl.textContent='Erreur d\'envoi email. Communiquez le code manuellement : '+code; errEl.style.display='block'; }
-    });
-  } else {
+  var btn = document.querySelector('#adm-depot-sec-overlay .adm-btn--teal');
+  if(btn){ btn.disabled=true; btn.textContent='Traitement…'; }
+  var reset = function(){ if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:.35rem"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Créditer et envoyer le code'; }; };
+
+  /* 1. Créditer le solde immédiatement via FidDB */
+  var c = findClientByUID(_dpsClient.id);
+  if(c){
+    var newSolde = (c.solde||0) + montant;
+    saveSolde(c, newSolde);
+    var tx = tryParse(localStorage.getItem(getTxKey(c)));
+    tx.unshift({label:label, amt:montant, type:'credit', date:new Date().toLocaleDateString('fr-FR')});
+    saveTx(c, tx);
+  } else if(typeof FidDB !== 'undefined'){
+    FidDB.getClientById(_dpsClient.id).then(function(client){
+      if(client){
+        var ns = (parseFloat(client.solde)||0)+montant;
+        FidDB.setSolde(_dpsClient.id, ns).catch(function(){});
+        FidDB.addTx(_dpsClient.id, {label:label,amt:montant,type:'credit',date:new Date().toLocaleDateString('fr-FR')}).catch(function(){});
+      }
+    }).catch(function(){});
+  }
+
+  /* 2. Stocker le code OTP virement (10 min) côté client via localStorage */
+  var expiry = Date.now() + 10 * 60 * 1000;
+  var otpRecord = { code: code, expiry: expiry, montant: montant, label: label };
+  localStorage.setItem('dps_vir_otp_'+_dpsClient.id, JSON.stringify(otpRecord));
+
+  /* 3. Envoyer le code par email au client */
+  var done = function(emailOk){
     reset();
-    if(okEl){ okEl.textContent='Code '+code+' enregistré. Communiquez-le au client : '+_dpsClient.email; okEl.style.display='block'; }
-    admLog('depot', _dpsClient.id, 'Dépôt sécurisé initié — code: '+code+' — '+fmtMontant, montant);
+    admLoad();
+    admLog('depot', _dpsClient.id, 'Dépôt sécurisé '+fmtMontant+' — code OTP virement envoyé', montant);
+    if(okEl){
+      okEl.textContent = 'Dépôt de '+fmtMontant+' crédité sur le compte de '+_dpsClient.nom+'.'
+        +(emailOk ? ' Code OTP envoyé à '+_dpsClient.email+' (valide 10 min).' : ' Code : '+code+' (à communiquer manuellement).');
+      okEl.style.display='block';
+    }
+  };
+  if(typeof FidEmail !== 'undefined' && _dpsClient.email){
+    FidEmail.sendVirementOTP(_dpsClient.email, (_dpsClient.nom||'').split(' ')[0]||'Client', code, fmtMontant, 'votre compte', 'fr')
+      .then(function(){ done(true); }).catch(function(){ done(false); });
+  } else {
+    done(false);
   }
 }
 
