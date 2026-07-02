@@ -750,7 +750,7 @@ function ecRequestVirementOTP(){
 
   var _u = ecGetUser();
   if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent='Vos fonds sont temporairement gelés suite à un litige en cours. Veuillez contacter Fidexico pour plus d\'informations.'; errEl.style.display='block'; } return; }
-  if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ if(errEl){ errEl.textContent='Ce virement dépasse votre limite autorisée de '+_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2})+' €. Veuillez contacter Fidexico.'; errEl.style.display='block'; } return; }
+  if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ if(errEl){ errEl.textContent=t('vir_limit_exceeded').replace('{limit}',_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2})); errEl.style.display='block'; } return; }
   if(!nom){ if(errEl){ errEl.textContent='Le nom du bénéficiaire est requis.'; errEl.style.display='block'; } return; }
   if(!iban){ if(errEl){ errEl.textContent='L\'IBAN destinataire est requis.'; errEl.style.display='block'; } return; }
   if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent='IBAN invalide. Veuillez vérifier le numéro saisi.'; errEl.style.display='block'; } return; }
@@ -793,7 +793,7 @@ function ecRequestVirementOTP(){
 function _ecDoVirementNormal(u, nom, iban, amt){
   var solde = ecGetSolde();
   var errEl = document.getElementById('ec-vir-err');
-  if(amt > solde){ if(errEl){ errEl.textContent='Solde insuffisant ('+ecFormatAmt(solde)+' disponible).'; errEl.style.display='block'; } return; }
+  if(amt > solde){ if(errEl){ errEl.textContent=t('vir_solde_insuffisant').replace('{solde}',ecFormatAmt(solde)); errEl.style.display='block'; } return; }
   _EC_VIR_OTP = String(Math.floor(100000 + Math.random() * 900000));
   _EC_VIR_OTP_EXPIRY = Date.now() + 10 * 60 * 1000;
   if(u.email && typeof FidEmail !== 'undefined'){
@@ -805,7 +805,7 @@ function _ecDoVirementNormal(u, nom, iban, amt){
   var hint = document.getElementById('ec-vir-otp-hint');
   if(s1) s1.style.display = 'none';
   if(s2) s2.style.display = 'block';
-  if(hint) hint.textContent = 'Un code de validation a été envoyé à ' + u.email + '.';
+  if(hint) hint.textContent = t('vir_otp_sent').replace('{email}', u.email);
   var otpInp = document.getElementById('ec-vir-otp');
   if(otpInp){ otpInp.value = ''; otpInp.focus(); }
   var otpErr = document.getElementById('ec-vir-otp-err');
@@ -836,7 +836,7 @@ function _ecDoVirementSecurise(u, nom, iban, amt){
   var hint = document.getElementById('ec-vir-otp-hint');
   if(s1) s1.style.display = 'none';
   if(s2) s2.style.display = 'block';
-  if(hint) hint.textContent = 'Votre demande a été transmise à Fidexico. Un conseiller va valider votre virement et vous envoyer un code de sécurité par email.';
+  if(hint) hint.textContent = t('vir_sec_waiting');
   var otpInp = document.getElementById('ec-vir-otp');
   if(otpInp){ otpInp.value = ''; }
   var otpErr = document.getElementById('ec-vir-otp-err');
@@ -862,14 +862,14 @@ function ecConfirmVirement(){
   if(!_u2){ return; }
   if(typeof FidDB === 'undefined'){
     /* Fallback normal */
-    if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){ if(otpErr){ otpErr.textContent='Le code a expiré.'; otpErr.style.display='block'; } ecVirementBack(); return; }
-    if(entered !== _EC_VIR_OTP){ if(otpErr){ otpErr.textContent='Code incorrect.'; otpErr.style.display='block'; } return; }
+    if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){ if(otpErr){ otpErr.textContent=t('vir_code_expired_normal'); otpErr.style.display='block'; } ecVirementBack(); return; }
+    if(entered !== _EC_VIR_OTP){ if(otpErr){ otpErr.textContent=t('vir_code_wrong'); otpErr.style.display='block'; } return; }
     _EC_VIR_OTP = null; _EC_VIR_OTP_EXPIRY = 0; ecConfirmVirementComplete(); return;
   }
 
   var _cfBtn = document.getElementById('ec-vir-confirm-btn');
   if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent='Vérification…'; }
-  var _cfReset = function(){ if(_cfBtn){ _cfBtn.disabled=false; _cfBtn.textContent='Confirmer le virement'; } };
+  var _cfReset = function(){ if(_cfBtn){ _cfBtn.disabled=false; _cfBtn.textContent=t('vir_confirm_btn'); } };
 
   FidDB.getMessages(_u2.id).then(function(msgs){
     var isSec = (msgs||[]).some(function(m){ return !m.from_client && (m.text||'').indexOf('__SEC__:ACTIVE') === 0; });
@@ -883,8 +883,8 @@ function ecConfirmVirement(){
         } else {
           _cfReset();
           /* Virement normal */
-          if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){ if(otpErr){ otpErr.textContent='Le code a expiré. Veuillez recommencer.'; otpErr.style.display='block'; } ecVirementBack(); return; }
-          if(entered !== _EC_VIR_OTP){ if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; } return; }
+          if(!_EC_VIR_OTP || Date.now() > _EC_VIR_OTP_EXPIRY){ if(otpErr){ otpErr.textContent=t('vir_code_expired_normal'); otpErr.style.display='block'; } ecVirementBack(); return; }
+          if(entered !== _EC_VIR_OTP){ if(otpErr){ otpErr.textContent=t('vir_code_wrong'); otpErr.style.display='block'; } return; }
           _EC_VIR_OTP = null; _EC_VIR_OTP_EXPIRY = 0; ecConfirmVirementComplete();
         }
       });
@@ -893,7 +893,7 @@ function ecConfirmVirement(){
     }
   }).catch(function(){
     _cfReset();
-    if(otpErr){ otpErr.textContent='Erreur de connexion.'; otpErr.style.display='block'; }
+    if(otpErr){ otpErr.textContent=t('vir_err_connexion'); otpErr.style.display='block'; }
   });
   return;
 
@@ -902,7 +902,7 @@ function ecConfirmVirement(){
 function _ecVerifySecOtp(u, entered, msgs, otpErr, cfReset){
   if(!entered){
     cfReset();
-    if(otpErr){ otpErr.textContent='Entrez le code reçu par email.'; otpErr.style.display='block'; }
+    if(otpErr){ otpErr.textContent=t('vir_code_empty'); otpErr.style.display='block'; }
     return;
   }
   /* Chercher l'OTP dans les messages admin */
@@ -923,12 +923,12 @@ function _ecVerifySecOtp(u, entered, msgs, otpErr, cfReset){
     }
     if(!otp || !exp || Date.now() > exp){
       cfReset();
-      if(otpErr){ otpErr.textContent='Code invalide ou expiré. Attendez l\'envoi du code par Fidexico.'; otpErr.style.display='block'; }
+      if(otpErr){ otpErr.textContent=t('vir_code_expired'); otpErr.style.display='block'; }
       return;
     }
     if(entered !== String(otp)){
       cfReset();
-      if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; }
+      if(otpErr){ otpErr.textContent=t('vir_code_wrong'); otpErr.style.display='block'; }
       return;
     }
     /* Code correct — effacer OTP et demande, mais garder __SEC__:ACTIVE (mode sécurisé permanent jusqu'à dépôt normal) */
@@ -936,7 +936,7 @@ function _ecVerifySecOtp(u, entered, msgs, otpErr, cfReset){
     sbQ('messages?client_id=eq.'+encodeURIComponent(u.id)+'&text=like.__DEMANDE__%25&from_client=eq.true','DELETE').catch(function(){});
     cfReset();
     ecConfirmVirementComplete();
-  }).catch(function(){ cfReset(); if(otpErr){ otpErr.textContent='Erreur de vérification.'; otpErr.style.display='block'; } });
+  }).catch(function(){ cfReset(); if(otpErr){ otpErr.textContent=t('vir_err_verif'); otpErr.style.display='block'; } });
 }
 
 function ecConfirmVirementComplete(){
@@ -975,8 +975,8 @@ function ecConfirmVirementComplete(){
     }
   })();
   ['ec-vir-nom','ec-vir-iban','ec-vir-amt','ec-vir-motif'].forEach(function(id){ var e=document.getElementById(id); if(e)e.value=''; });
-  document.getElementById('ec-success-title').textContent='Virement envoyé';
-  document.getElementById('ec-success-msg').textContent=ecFormatAmt(amt)+' virés à '+nom+'. Nouveau solde : '+ecFormatAmt(nouveau);
+  document.getElementById('ec-success-title').textContent=t('vir_success_title');
+  document.getElementById('ec-success-msg').textContent=t('vir_success_msg').replace('{amt}',ecFormatAmt(amt)).replace('{nom}',nom).replace('{solde}',ecFormatAmt(nouveau));
   ecOpenModal('success');
 }
 
