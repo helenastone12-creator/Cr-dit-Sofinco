@@ -955,7 +955,7 @@ function emailBase(content, lang, opts){
   +'<tr><td style="padding:0 0 16px">'
   +'<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fffbe6;border:1px solid #f0d080;border-radius:10px">'
   +'<tr><td style="padding:14px 18px;font-family:Arial,sans-serif;font-size:12px;color:#555;line-height:1.6">'
-  +'<strong style="color:#333">⚠ '+t.sec_title+'</strong> : '+t.sec_body
+  +'<strong style="color:#333">'+t.sec_title+'</strong> : '+t.sec_body
   +'</td></tr></table>'
   +'</td></tr>'
 
