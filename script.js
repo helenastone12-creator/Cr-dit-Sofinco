@@ -1551,7 +1551,7 @@ function sp5Submit(){
       '</div>'+
     '</div>'+
     '<p class="sp5-confirm-email-note">'+t.confirm_email_note+'</p>'+
-    '<a class="sp5-confirm-close sp5-confirm-cta" href="/connexion.html">'+t.confirm_cta+'</a>'+
+    '<a class="sp5-confirm-close sp5-confirm-cta" href="'+(LANG==='fr'?'/':'/'+LANG+'/')+'connexion.html">'+t.confirm_cta+'</a>'+
     '<button class="sp5-confirm-close sp5-confirm-secondary" onclick="history.back()">'+t.confirm_close+'</button>';
 
   body.appendChild(wrap);
