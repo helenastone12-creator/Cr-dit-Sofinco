@@ -675,7 +675,7 @@ function ecConfirmDepot(){
   var amt  = ecParseAmt((document.getElementById('ec-depot-amt')||{}).value);
   var errEl = document.getElementById('ec-depot-err');
   if(!amt || amt <= 0){
-    if(errEl){ errEl.textContent='Veuillez saisir un montant valide.'; errEl.style.display='block'; }
+    if(errEl){ errEl.textContent=t('depot_err_amt'); errEl.style.display='block'; }
     return;
   }
   if(errEl) errEl.style.display='none';
@@ -686,8 +686,8 @@ function ecConfirmDepot(){
   ecRenderTx();
   ecCloseModal('depot');
   document.getElementById('ec-depot-amt').value='';
-  document.getElementById('ec-success-title').textContent='Dépôt effectué';
-  document.getElementById('ec-success-msg').textContent='+'+ecFormatAmt(amt)+' crédités. Nouveau solde : '+ecFormatAmt(nouveau);
+  document.getElementById('ec-success-title').textContent=t('depot_success_title');
+  document.getElementById('ec-success-msg').textContent=t('depot_success_msg').replace('{amt}',ecFormatAmt(amt)).replace('{solde}',ecFormatAmt(nouveau));
   ecOpenModal('success');
 }
 
@@ -749,12 +749,12 @@ function ecRequestVirementOTP(){
   var solde = ecGetSolde();
 
   var _u = ecGetUser();
-  if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent='Vos fonds sont temporairement gelés suite à un litige en cours. Veuillez contacter Fidexico pour plus d\'informations.'; errEl.style.display='block'; } return; }
+  if(_u && _u.fonds_geles){ if(errEl){ errEl.textContent=t('vir_fonds_geles'); errEl.style.display='block'; } return; }
   if(_u && _u.virement_limit && _u.virement_limit > 0 && amt > _u.virement_limit){ if(errEl){ errEl.textContent=t('vir_limit_exceeded').replace('{limit}',_u.virement_limit.toLocaleString('fr-FR',{minimumFractionDigits:2})); errEl.style.display='block'; } return; }
-  if(!nom){ if(errEl){ errEl.textContent='Le nom du bénéficiaire est requis.'; errEl.style.display='block'; } return; }
-  if(!iban){ if(errEl){ errEl.textContent='L\'IBAN destinataire est requis.'; errEl.style.display='block'; } return; }
-  if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent='IBAN invalide. Veuillez vérifier le numéro saisi.'; errEl.style.display='block'; } return; }
-  if(!amt || amt <= 0){ if(errEl){ errEl.textContent='Veuillez saisir un montant valide.'; errEl.style.display='block'; } return; }
+  if(!nom){ if(errEl){ errEl.textContent=t('vir_err_nom'); errEl.style.display='block'; } return; }
+  if(!iban){ if(errEl){ errEl.textContent=t('vir_err_iban'); errEl.style.display='block'; } return; }
+  if(!ecValidateIban(iban)){ if(errEl){ errEl.textContent=t('vir_err_iban_invalid'); errEl.style.display='block'; } return; }
+  if(!amt || amt <= 0){ if(errEl){ errEl.textContent=t('vir_err_amt'); errEl.style.display='block'; } return; }
 
   if(errEl) errEl.style.display='none';
 
@@ -868,7 +868,7 @@ function ecConfirmVirement(){
   }
 
   var _cfBtn = document.getElementById('ec-vir-confirm-btn');
-  if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent='Vérification…'; }
+  if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent=t('vir_checking'); }
   var _cfReset = function(){ if(_cfBtn){ _cfBtn.disabled=false; _cfBtn.textContent=t('vir_confirm_btn'); } };
 
   FidDB.getMessages(_u2.id).then(function(msgs){
@@ -1088,7 +1088,7 @@ function ecInitDashboard(){
   var user=ecGetUser();
 
   var welcomeEl=document.getElementById('ec-welcome-name');
-  if(welcomeEl) welcomeEl.textContent='Bonjour, '+(user.prenom||'')+' !';
+  if(welcomeEl) welcomeEl.textContent=t('welcome_hello').replace('{prenom}',user.prenom||'');
 
   var dateEl=document.getElementById('ec-welcome-date');
   if(dateEl){
@@ -1251,7 +1251,7 @@ function fdRenderActivity(){
   var list = [];
   try { list = JSON.parse(localStorage.getItem('ec_tx') || '[]'); } catch(e){}
   if(!list.length){
-    el.innerHTML = '<tr><td colspan="6" class="gd-tx-empty">Aucune opération pour le moment.</td></tr>';
+    el.innerHTML = '<tr><td colspan="6" class="gd-tx-empty">'+t('tx_op_empty')+'</td></tr>';
     return;
   }
   var recent = list.slice(0, 5);
@@ -1435,7 +1435,7 @@ function ecInitLoanSections(user, loan, capital, mens, duree, dateDebut, moisPas
   };
   var statusInfo = statusMap[status] || statusMap['active'];
   if(badge){ badge.textContent = statusInfo.label; badge.className = 'ec-ds-badge ' + statusInfo.cls; }
-  if(refEl2) refEl2.textContent = 'Réf. ' + (user.ref || user.id || '—');
+  if(refEl2) refEl2.textContent = t('ref_lbl').replace('{ref}', user.ref || user.id || '—');
 
   // ── Crédit en cours
   if(capital > 0){
@@ -1459,7 +1459,7 @@ function ecInitLoanSections(user, loan, capital, mens, duree, dateDebut, moisPas
   set('ec-next-amt', mens > 0 ? fmt(mens) : '—');
   var daysLeft = Math.ceil((next - new Date()) / (1000*60*60*24));
   var countEl = document.getElementById('ec-ds-countdown');
-  if(countEl && mens > 0) countEl.textContent = 'Dans ' + daysLeft + ' jour' + (daysLeft > 1 ? 's' : '');
+  if(countEl && mens > 0) countEl.textContent = t('echeance_dans').replace('{n}',daysLeft).replace('{s}',daysLeft>1?'s':'');
 
   // ── Score de remboursement
   set('ec-score-pct', pct + '%');
@@ -1539,20 +1539,20 @@ function ecInitDocuments(){
   var setDoc = function(sel, txt){ var el = document.querySelector(sel); if(el) el.textContent = txt; };
   // Contrat + tableau
   document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[0] &&
-    (document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[0].textContent = 'Signé le '+signDate+' · 124 Ko');
+    (document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[0].textContent = t('doc_signe').replace('{date}',signDate));
   document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[1] &&
-    (document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[1].textContent = 'Généré le '+signDate+' · 48 Ko');
+    (document.querySelectorAll('.ec-doc-item[data-cat="contrat"] .ec-doc-meta')[1].textContent = t('doc_genere').replace('{date}',signDate));
   // Relevés
   var releveMetas = document.querySelectorAll('.ec-doc-item[data-cat="releve"] .ec-doc-meta');
-  if(releveMetas[0]) releveMetas[0].textContent = 'Disponible le '+fmtDate(releve1Dispo)+' · 32 Ko';
-  if(releveMetas[1]) releveMetas[1].textContent = 'Disponible le '+fmtDate(releve2Dispo)+' · 30 Ko';
+  if(releveMetas[0]) releveMetas[0].textContent = t('doc_dispo').replace('{date}',fmtDate(releve1Dispo)).replace('{size}','32');
+  if(releveMetas[1]) releveMetas[1].textContent = t('doc_dispo').replace('{date}',fmtDate(releve2Dispo)).replace('{size}','30');
   // Noms relevés
   var releveNoms = document.querySelectorAll('.ec-doc-item[data-cat="releve"] .ec-doc-name');
-  if(releveNoms[0]) releveNoms[0].textContent = 'Relevé de compte — '+releve1Lbl.charAt(0).toUpperCase()+releve1Lbl.slice(1);
-  if(releveNoms[1]) releveNoms[1].textContent = 'Relevé de compte — '+releve2Lbl.charAt(0).toUpperCase()+releve2Lbl.slice(1);
+  if(releveNoms[0]) releveNoms[0].textContent = t('doc_releve_name').replace('{mois}',releve1Lbl.charAt(0).toUpperCase()+releve1Lbl.slice(1));
+  if(releveNoms[1]) releveNoms[1].textContent = t('doc_releve_name').replace('{mois}',releve2Lbl.charAt(0).toUpperCase()+releve2Lbl.slice(1));
   // Attestation
   var attMeta = document.querySelector('.ec-doc-item[data-cat="attestation"] .ec-doc-meta');
-  if(attMeta) attMeta.textContent = 'Valide jusqu\'au '+fmtDate(assuranceExp)+' · 56 Ko';
+  if(attMeta) attMeta.textContent = t('doc_att_valid').replace('{date}',fmtDate(assuranceExp));
 }
 
 function ecDocFilter(cat, btn){
@@ -1567,7 +1567,7 @@ function ecFakeDownload(btn){
   btn.innerHTML='✓'; btn.style.background='var(--teal)'; btn.style.color='#fff';
   setTimeout(function(){btn.innerHTML=orig; btn.style.background=''; btn.style.color='';},2200);
 }
-function ecRequestDoc(btn){ btn.textContent='Envoyé !'; btn.disabled=true; }
+function ecRequestDoc(btn){ btn.textContent=t('doc_sent'); btn.disabled=true; }
 
 // ── Suivi dossier ──
 function ecInitSuivi(){
@@ -1610,16 +1610,16 @@ function ecSuiviApplyStatus(client){
 
   if(blocked){
     markDone('ec-tl-1');
-    if(badgeEl){ badgeEl.textContent='Dossier suspendu'; badgeEl.style.background='#fee2e2'; badgeEl.style.color='#b91c1c'; }
+    if(badgeEl){ badgeEl.textContent=t('dossier_suspendu'); badgeEl.style.background='#fee2e2'; badgeEl.style.color='#b91c1c'; }
   } else if(status==='valide' || (loan && loan.montant>0)){
     markDone('ec-tl-1'); markDone('ec-tl-2'); markDone('ec-tl-3'); markDone('ec-tl-4'); markDone('ec-tl-5');
-    if(badgeEl){ badgeEl.textContent='Dossier validé'; badgeEl.style.background='#dcfce7'; badgeEl.style.color='#15803d'; }
+    if(badgeEl){ badgeEl.textContent=t('dossier_valide_badge'); badgeEl.style.background='#dcfce7'; badgeEl.style.color='#15803d'; }
   } else if(status==='en_etude'){
     markDone('ec-tl-1'); markActive('ec-tl-2');
-    if(badgeEl){ badgeEl.textContent="En cours d'analyse"; badgeEl.style.background=''; badgeEl.style.color=''; }
+    if(badgeEl){ badgeEl.textContent=t('dossier_analyse'); badgeEl.style.background=''; badgeEl.style.color=''; }
   } else {
     markDone('ec-tl-1'); markActive('ec-tl-2');
-    if(badgeEl){ badgeEl.textContent="En cours d'analyse"; badgeEl.style.background=''; badgeEl.style.color=''; }
+    if(badgeEl){ badgeEl.textContent=t('dossier_analyse'); badgeEl.style.background=''; badgeEl.style.color=''; }
   }
 }
 
@@ -1728,7 +1728,7 @@ function ecInitHealthScore(){
   var detail=document.getElementById('ec-health-detail');
   if(scoreEl){scoreEl.textContent=score;scoreEl.className='ec-health-score '+cls;}
   if(fill) setTimeout(function(){fill.style.width=pct+'%';fill.style.background=cls==='excellent'?'var(--teal)':cls==='bon'?'#2563EB':cls==='correct'?'#F59E0B':'var(--coral)';},300);
-  if(detail) detail.textContent='Ratio mensualité/solde : '+Math.round(ratio*100)+'%';
+  if(detail) detail.textContent=t('ratio_lbl').replace('{pct}',Math.round(ratio*100));
 }
 
 // ── Graphique dépenses (donut SVG) ──
@@ -1803,7 +1803,7 @@ function ecFilterTx(type, btn){
   var list=document.getElementById('ec-tx-list');
   if(!list) return;
   if(!filtered.length){
-    list.innerHTML='<div class="ec-tx-empty">Aucune transaction dans cette catégorie.</div>';
+    list.innerHTML='<div class="ec-tx-empty">'+t('tx_cat_empty')+'</div>';
     return;
   }
   list.innerHTML='';
@@ -1947,7 +1947,7 @@ function ecRenderMessages(){
     var dateStr=d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
     var item=document.createElement('div');
     item.className='ec-msg-item'+(m.fromClient?' ec-msg-item--client':' ec-msg-item--bank');
-    item.innerHTML='<div class="ec-msg-bubble"><div class="ec-msg-meta"><span class="ec-msg-sender">'+(m.fromClient?'Vous':'Sofinco')+'</span><span class="ec-msg-time">'+dateStr+'</span></div><div class="ec-msg-body">'+m.text+'</div></div>';
+    item.innerHTML='<div class="ec-msg-bubble"><div class="ec-msg-meta"><span class="ec-msg-sender">'+(m.fromClient?t('msg_sender_you'):t('msg_sender_bank'))+'</span><span class="ec-msg-time">'+dateStr+'</span></div><div class="ec-msg-body">'+m.text+'</div></div>';
     list.appendChild(item);
   });
 }
@@ -1984,7 +1984,7 @@ function cxInitModal(){
   var history = JSON.parse(localStorage.getItem('cx_history')||'[]');
   var list = document.getElementById('cx-list');
   if(!list) return;
-  if(!history.length){ list.innerHTML = '<div class="cx-empty">Aucun historique disponible.</div>'; return; }
+  if(!history.length){ list.innerHTML = '<div class="cx-empty">'+t('hist_empty')+'</div>'; return; }
   list.innerHTML = history.map(function(h, i){
     var d = new Date(h.date);
     var dateStr = d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) + ' à ' + d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
@@ -2011,7 +2011,7 @@ function gdRenderCountdown(){
     var banner = document.getElementById('ec-alert-banner');
     var bannerTxt = document.getElementById('ec-alert-banner-text');
     if(banner && bannerTxt && banner.style.display === 'none'){
-      bannerTxt.textContent = 'Rappel : votre prochaine échéance est dans ' + diff + ' jour' + (diff > 1 ? 's' : '') + '.';
+      bannerTxt.textContent = t('banner_echeance').replace('{n}',diff).replace('{s}',diff>1?'s':'');
       banner.style.display = 'flex';
     }
   }
@@ -2179,10 +2179,10 @@ function obSaveAlert(){
   var th = (document.getElementById('ob-alert-threshold')||{}).value || '200';
   localStorage.setItem('ob_alert_threshold', th);
   ecCloseModal('open-banking');
-  var t = document.getElementById('ec-success-title');
-  var m = document.getElementById('ec-success-msg');
-  if(t) t.textContent = 'Alerte configurée';
-  if(m) m.textContent = 'Vous serez notifié si votre solde passe sous ' + th + ' €.';
+  var titleEl = document.getElementById('ec-success-title');
+  var msgEl   = document.getElementById('ec-success-msg');
+  if(titleEl) titleEl.textContent = t('alerte_cfg_title');
+  if(msgEl)   msgEl.textContent   = t('alerte_cfg_msg').replace('{th}',th);
   ecOpenModal('success');
 }
 function obDisconnect(){
@@ -2212,10 +2212,10 @@ function erSave(){
   localStorage.setItem('er_subscribed', '1');
   localStorage.setItem('er_email', email);
   ecCloseModal('e-releve');
-  var t = document.getElementById('ec-success-title');
-  var m = document.getElementById('ec-success-msg');
-  if(t) t.textContent = 'E-relevé activé';
-  if(m) m.textContent = 'Vos relevés mensuels seront envoyés à ' + email + '.';
+  var titleEl2 = document.getElementById('ec-success-title');
+  var msgEl2   = document.getElementById('ec-success-msg');
+  if(titleEl2) titleEl2.textContent = t('releve_act_title');
+  if(msgEl2)   msgEl2.textContent   = t('releve_act_msg').replace('{email}',email);
   ecOpenModal('success');
 }
 function erInitModal(){
@@ -2242,7 +2242,7 @@ function ecDepotSecCheck(){
     var banner = document.getElementById('ec-depot-sec-banner');
     var desc   = document.getElementById('ec-depot-sec-desc');
     if(!banner) return;
-    if(desc) desc.textContent = 'Un dépôt de '+p.montant.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € est en attente de validation. Entrez le code reçu par email.';
+    if(desc) desc.textContent = t('depot_pending_desc').replace('{amt}',p.montant.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}));
     banner.style.display = 'block';
   } catch(e){}
 }
@@ -2253,11 +2253,11 @@ function ecDepotSecValider(){
   var key   = 'dps_pending_'+u.id;
   var raw   = localStorage.getItem(key);
   var errEl = document.getElementById('ec-depot-sec-err');
-  if(!raw){ if(errEl){ errEl.textContent='Aucun dépôt en attente.'; errEl.style.display='block'; } return; }
+  if(!raw){ if(errEl){ errEl.textContent=t('depot_none'); errEl.style.display='block'; } return; }
   var p;
   try { p = JSON.parse(raw); } catch(e){ return; }
   var saisi = ((document.getElementById('ec-depot-sec-code')||{}).value||'').trim();
-  if(saisi !== String(p.code)){ if(errEl){ errEl.textContent='Code incorrect. Vérifiez votre email.'; errEl.style.display='block'; } return; }
+  if(saisi !== String(p.code)){ if(errEl){ errEl.textContent=t('depot_code_wrong'); errEl.style.display='block'; } return; }
   var newSolde = ecGetSolde() + p.montant;
   ecSetSolde(newSolde);
   if(typeof FidDB!=='undefined' && u.id) FidDB.setSolde(u.id, newSolde).catch(function(){});
@@ -2305,7 +2305,7 @@ function ecSoumettreDemande(){
   if(err) err.style.display='none';
   if(suc) suc.style.display='none';
   if(!projet||!montant||!duree){
-    if(err){ err.textContent='Veuillez remplir tous les champs.'; err.style.display='block'; }
+    if(err){ err.textContent=t('contact_required'); err.style.display='block'; }
     return;
   }
   var u = ecGetUser()||{};
@@ -2317,16 +2317,16 @@ function ecSoumettreDemande(){
     +'Montant souhaité : '+Number(montant).toLocaleString('fr-FR')+' €\n'
     +'Durée souhaitée : '+duree+' mois';
   var btn = document.querySelector('#ec-modal-nouvelle-demande .ec-btn-primary');
-  if(btn){ btn.disabled=true; btn.textContent='Envoi…'; }
+  if(btn){ btn.disabled=true; btn.textContent=t('contact_sending'); }
   var done = function(ok){
-    if(btn){ btn.disabled=false; btn.textContent='Envoyer ma demande'; }
+    if(btn){ btn.disabled=false; btn.textContent=t('contact_submit'); }
     if(ok){
       if(suc){ suc.style.display='block'; }
       document.getElementById('nd-projet').value='';
       document.getElementById('nd-montant').value='';
       document.getElementById('nd-duree').value='';
     } else {
-      if(err){ err.textContent='Erreur lors de l\'envoi. Veuillez réessayer.'; err.style.display='block'; }
+      if(err){ err.textContent=t('contact_err'); err.style.display='block'; }
     }
   };
   if(typeof FidEmail!=='undefined'){
