@@ -2479,14 +2479,16 @@ function admEsc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt
 
 /* ── SOLDE CLIENTS ── */
 var _admSoldeAll = [];
+var _admSoldeMap = {};
 
 function admSoldeLoad(){
   var tbody = document.getElementById('solde-tbody');
   if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="adm-empty">Chargement…</td></tr>';
   if(typeof FidDB === 'undefined'){ if(tbody) tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Base de données non disponible.</td></tr>'; return; }
   FidDB.getAllClients().then(function(clients){
+    _admSoldeMap = {};
     _admSoldeAll = (clients||[]).map(function(c){
-      return {
+      var obj = {
         id:      c.id||'',
         nom:     ((c.prenom||'')+' '+(c.nom||'')).trim(),
         email:   c.email||'',
@@ -2495,6 +2497,8 @@ function admSoldeLoad(){
         statut:  c.status||'en_etude',
         gele:    !!c.fonds_geles
       };
+      _admSoldeMap[obj.id] = obj;
+      return obj;
     });
     admSoldeRender(_admSoldeAll);
     admSoldeLoadDemandes();
@@ -2527,7 +2531,7 @@ function admSoldeRender(list){
       +'<td style="text-align:right;'+soldeCls+'">'+soldeFmt+'</td>'
       +'<td style="text-align:center"><span class="'+statutCls+'">'+statutLbl+'</span></td>'
       +'<td style="text-align:center"><span class="'+geleCls+'">'+geleLbl+'</span></td>'
-      +'<td style="text-align:center"><button class="adm-btn adm-btn--teal" style="padding:.3rem .75rem;font-size:.75rem" onclick="admDepotSecOpen('+admEsc(JSON.stringify(c))+')">+ Dépôt</button></td>'
+      +'<td style="text-align:center"><button class="adm-btn adm-btn--teal" style="padding:.3rem .75rem;font-size:.75rem" onclick="admDepotSecOpen(\''+admEsc(c.id)+'\')">+ Dépôt</button></td>'
       +'</tr>';
   }).join('');
   tbody.innerHTML = rows;
@@ -2550,7 +2554,9 @@ function admSoldeFilter(){
 /* ── DÉPÔT SÉCURISÉ ── */
 var _dpsClient = null;
 
-function admDepotSecOpen(c){
+function admDepotSecOpen(id){
+  var c = (typeof id === 'string') ? (_admSoldeMap[id]||null) : id;
+  if(!c){ alert('Client introuvable'); return; }
   _dpsClient = c;
   document.getElementById('dps-client-nom').textContent   = c.nom || '—';
   document.getElementById('dps-client-email').textContent = c.email || '—';
@@ -2611,15 +2617,17 @@ function admDepotSecEnvoyer(){
 /* ── VIREMENT SÉCURISÉ — envoi du code OTP par l'admin ── */
 var _vsClient = null;
 var _vsDemande = null;
+var _admDemandesMap = {};
 
 function admSoldeLoadDemandes(){
   var wrap = document.getElementById('dps-demandes-wrap');
   var list = document.getElementById('dps-demandes-list');
   if(!wrap||!list) return;
+  _admDemandesMap = {};
   var demandes = [];
   for(var k in localStorage){
     if(k.indexOf('dps_vir_demande_')===0){
-      try{ var d=JSON.parse(localStorage.getItem(k)); if(d&&d.statut==='en_attente') demandes.push(d); }catch(e){}
+      try{ var d=JSON.parse(localStorage.getItem(k)); if(d&&d.statut==='en_attente'){ _admDemandesMap[d.clientId]=d; demandes.push(d); } }catch(e){}
     }
   }
   if(!demandes.length){ wrap.style.display='none'; return; }
@@ -2637,13 +2645,15 @@ function admSoldeLoadDemandes(){
       +'</div>'
       +'<div style="text-align:right">'
         +'<div style="font-weight:800;font-size:1rem;color:#0B1D3A;margin-bottom:.5rem">'+amt+'</div>'
-        +'<button class="adm-btn adm-btn--teal" style="padding:.3rem .85rem;font-size:.78rem" onclick="admVirSecOpen('+admEsc(JSON.stringify(d))+')">Envoyer le code</button>'
+        +'<button class="adm-btn adm-btn--teal" style="padding:.3rem .85rem;font-size:.78rem" onclick="admVirSecOpen(\''+admEsc(d.clientId)+'\')">Envoyer le code</button>'
       +'</div>'
       +'</div>';
   }).join('');
 }
 
-function admVirSecOpen(demande){
+function admVirSecOpen(id){
+  var demande = (typeof id === 'string') ? (_admDemandesMap[id]||null) : id;
+  if(!demande){ alert('Demande introuvable'); return; }
   _vsDemande = demande;
   var amt = (demande.montant||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
   var info = document.getElementById('vs-info');
