@@ -2927,7 +2927,7 @@ function admDepotSecEnvoyer(){
               localStorage.removeItem('adm_sec_'+_dpsClient.id);
               ov._solde_securise = false;
               FidDB.updateClient(_dpsClient.id, {doc_overrides: ov, solde_securise: false}).catch(function(){});
-              sbQ('messages?client_id=eq.'+encodeURIComponent(_dpsClient.id)+'&text=like.__SEC__%&from_client=eq.false','DELETE').catch(function(){});
+              sbQ('messages?client_id=eq.'+encodeURIComponent(_dpsClient.id)+'&text=like.__SEC__%25&from_client=eq.false','DELETE').catch(function(){});
             }
           });
       }
@@ -3112,7 +3112,7 @@ function admVirSecSendDirect(clientId){
   /* Stocker OTP dans messages (fiable) + essayer doc_overrides en bonus */
   if(typeof FidDB !== 'undefined'){
     /* Effacer ancien OTP puis stocker le nouveau */
-    sbQ('messages?client_id=eq.'+encodeURIComponent(clientId)+'&text=like.__OTP__%&from_client=eq.false','DELETE')
+    sbQ('messages?client_id=eq.'+encodeURIComponent(clientId)+'&text=like.__OTP__%25&from_client=eq.false','DELETE')
       .catch(function(){})
       .then(function(){ return FidDB.addMessage(clientId, '__OTP__:'+code+':'+expiry, false); })
       .catch(function(){});
@@ -3146,7 +3146,7 @@ function admDepotHistoryLoad(){
     /* Récupère les transactions de crédit marquées comme dépôt sécurisé */
     return sbQ('transactions?type=eq.credit&order=created_at.desc&select=*').then(function(rows){
       /* Chercher les clients marqués sécurisés (via messages __SEC__:ACTIVE) */
-      return sbQ('messages?text=like.__SEC__%&from_client=eq.false&select=client_id').then(function(secRows){
+      return sbQ('messages?text=like.__SEC__%25&from_client=eq.false&select=client_id').then(function(secRows){
         var secClientIds = {};
         (secRows||[]).forEach(function(r){ secClientIds[r.client_id]=true; });
         /* Aussi inclure les anciens via localStorage */
