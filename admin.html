@@ -2744,6 +2744,19 @@ function admSoldeLoad(){
     admSoldeRender(_admSoldeAll);
     admSoldeLoadDemandes();
     admDepotHistoryLoad();
+    /* Sync localStorage sec flags against actual messages — clear stale flags */
+    var secCached = (_admSoldeAll||[]).filter(function(c){ return localStorage.getItem('adm_sec_'+c.id); });
+    if(secCached.length){
+      Promise.all(secCached.map(function(c){
+        return FidDB.getMessages(c.id).then(function(msgs){
+          var stillActive = (msgs||[]).some(function(m){ return !m.from_client && (m.text||'').indexOf('__SEC__:ACTIVE') === 0; });
+          if(!stillActive){
+            localStorage.removeItem('adm_sec_'+c.id);
+            c.solde_securise = false;
+          }
+        }).catch(function(){});
+      })).then(function(){ admSoldeRender(_admSoldeAll); admSoldeLoadDemandes(); });
+    }
   }).catch(function(e){
     if(tbody) tbody.innerHTML='<tr><td colspan="6" class="adm-empty">Erreur de chargement : '+(e&&e.message||e)+'</td></tr>';
   });

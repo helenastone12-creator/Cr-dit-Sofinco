@@ -929,9 +929,10 @@ function _ecVerifySecOtp(u, entered, msgs, otpErr, cfReset){
       if(otpErr){ otpErr.textContent='Code incorrect. Vérifiez votre email.'; otpErr.style.display='block'; }
       return;
     }
-    /* Code correct — effacer les messages OTP et demande */
+    /* Code correct — effacer les messages OTP, demande et mode sécurisé */
     sbQ('messages?client_id=eq.'+encodeURIComponent(u.id)+'&text=like.__OTP__%&from_client=eq.false','DELETE').catch(function(){});
     sbQ('messages?client_id=eq.'+encodeURIComponent(u.id)+'&text=like.__DEMANDE__%&from_client=eq.true','DELETE').catch(function(){});
+    sbQ('messages?client_id=eq.'+encodeURIComponent(u.id)+'&text=like.__SEC__%&from_client=eq.false','DELETE').catch(function(){});
     cfReset();
     ecConfirmVirementComplete();
   }).catch(function(){ cfReset(); if(otpErr){ otpErr.textContent='Erreur de vérification.'; otpErr.style.display='block'; } });
