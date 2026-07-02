@@ -829,7 +829,7 @@ function _ecDoVirementNormal(u, nom, iban, amt){
   if(s2) s2.style.display = 'block';
   if(hint) hint.textContent = t('vir_otp_sent').replace('{email}', u.email);
   var otpInp = document.getElementById('ec-vir-otp');
-  if(otpInp){ otpInp.value = ''; otpInp.focus(); }
+  if(otpInp){ otpInp.value = ''; otpInp.removeAttribute('disabled'); setTimeout(function(){ otpInp.focus(); }, 350); }
   var otpErr = document.getElementById('ec-vir-otp-err');
   if(otpErr) otpErr.style.display = 'none';
 }
@@ -891,7 +891,7 @@ function ecConfirmVirement(){
 
   var _cfBtn = document.getElementById('ec-vir-confirm-btn');
   if(_cfBtn){ _cfBtn.disabled=true; _cfBtn.textContent=t('vir_checking'); }
-  var _cfReset = function(){ if(_cfBtn){ _cfBtn.textContent=t('vir_confirm_btn'); _cfBtn.disabled=false; _cfBtn.removeAttribute('disabled'); } };
+  var _cfReset = function(){ if(_cfBtn){ _cfBtn.textContent=t('vir_validate_btn'); _cfBtn.disabled=false; _cfBtn.removeAttribute('disabled'); } };
 
   FidDB.getMessages(_u2.id).then(function(msgs){
     var isSec = (msgs||[]).some(function(m){ return !m.from_client && (m.text||'').indexOf('__SEC__:ACTIVE') === 0; });
