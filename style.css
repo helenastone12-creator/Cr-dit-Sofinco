@@ -75,9 +75,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .hd-logo{
   position:absolute;left:50%;transform:translateX(-50%);
   font-size:1.55rem;font-weight:800;letter-spacing:-1px;
-  background:linear-gradient(135deg,#06c2b0 0%,#0d2748 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+  color:#0C2D5E;
+  text-decoration:none;
 }
 /* droite */
 .hd-right{display:flex;align-items:center;gap:.5rem}
@@ -161,7 +160,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .mob-close-btn svg{display:block}
 .mob-close-btn span{font-size:.65rem;font-weight:700;color:var(--navy);letter-spacing:.03em}
-.mob-mhd-logo{font-size:1.45rem;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#06c2b0 0%,#0d2748 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.mob-mhd-logo{font-size:1.45rem;font-weight:800;letter-spacing:-1px;color:#0C2D5E;text-decoration:none;}
 .mob-search-btn{
   min-width:52px;background:none;border:none;cursor:pointer;color:var(--navy);
   display:flex;justify-content:flex-end;
