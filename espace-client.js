@@ -266,47 +266,39 @@ function ecTxCategoryIcon(tx){
   return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>';
 }
 
-function ecFmtTxDateFull(dateStr){
-  var s = String(dateStr||'').trim();
-  var today = new Date();
-  var d = null;
+var _EC_LOCALE_MAP = {fr:'fr-FR',en:'en-GB',de:'de-DE',es:'es-ES',it:'it-IT',nl:'nl-NL',pl:'pl-PL',sv:'sv-SE'};
+function ecDateLocale(){ return _EC_LOCALE_MAP[(typeof EC_LANG!=='undefined'?EC_LANG:'fr')] || 'fr-FR'; }
+
+function ecParseDate(s){
+  s = String(s||'').trim();
   var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if(iso) d = new Date(parseInt(iso[1]), parseInt(iso[2])-1, parseInt(iso[3]));
-  var dmy = !d && s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
-  if(dmy) d = new Date(parseInt(dmy[3]), parseInt(dmy[2])-1, parseInt(dmy[1]));
-  if(!d){
-    var months={'janvier':0,'février':1,'mars':2,'avril':3,'mai':4,'juin':5,'juillet':6,'août':7,'septembre':8,'octobre':9,'novembre':10,'décembre':11};
-    var parts = s.split(/\s+/);
-    if(parts.length===3 && months[parts[1].toLowerCase()]!==undefined)
-      d = new Date(parseInt(parts[2]), months[parts[1].toLowerCase()], parseInt(parts[0]));
-  }
-  if(!d || isNaN(d.getTime())) d = today;
-  return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  if(iso) return new Date(parseInt(iso[1]), parseInt(iso[2])-1, parseInt(iso[3]));
+  var dmy = s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
+  if(dmy) return new Date(parseInt(dmy[3]), parseInt(dmy[2])-1, parseInt(dmy[1]));
+  var months={'janvier':0,'février':1,'mars':2,'avril':3,'mai':4,'juin':5,'juillet':6,'août':7,'septembre':8,'octobre':9,'novembre':10,'décembre':11};
+  var parts = s.split(/\s+/);
+  if(parts.length===3 && months[parts[1].toLowerCase()]!==undefined)
+    return new Date(parseInt(parts[2]), months[parts[1].toLowerCase()], parseInt(parts[0]));
+  return null;
+}
+
+function ecFmtTxDateFull(dateStr){
+  var d = ecParseDate(dateStr) || new Date();
+  if(isNaN(d.getTime())) d = new Date();
+  return d.toLocaleDateString(ecDateLocale(),{day:'numeric',month:'long',year:'numeric'});
 }
 
 function ecTxDateLabel(dateStr){
-  var s = String(dateStr||'').trim();
+  var d = ecParseDate(dateStr);
   var today = new Date(); today.setHours(0,0,0,0);
   var yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
-  var d = null;
-  var iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if(iso) d = new Date(parseInt(iso[1]), parseInt(iso[2])-1, parseInt(iso[3]));
-  var dmy = !d && s.match(/^(\d{1,2})\/(\d{2})\/(\d{4})/);
-  if(dmy) d = new Date(parseInt(dmy[3]), parseInt(dmy[2])-1, parseInt(dmy[1]));
-  // Format français "29 juin 2026"
-  if(!d){
-    var months={'janvier':0,'février':1,'mars':2,'avril':3,'mai':4,'juin':5,'juillet':6,'août':7,'septembre':8,'octobre':9,'novembre':10,'décembre':11};
-    var parts = s.split(/\s+/);
-    if(parts.length===3 && months[parts[1].toLowerCase()]!==undefined)
-      d = new Date(parseInt(parts[2]), months[parts[1].toLowerCase()], parseInt(parts[0]));
-  }
   if(d && !isNaN(d.getTime())){
     d.setHours(0,0,0,0);
-    if(d.getTime()===today.getTime()) return "Aujourd'hui";
-    if(d.getTime()===yesterday.getTime()) return 'Hier';
-    return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});
+    if(d.getTime()===today.getTime()) return t('tx_today')||"Aujourd'hui";
+    if(d.getTime()===yesterday.getTime()) return t('tx_yesterday')||'Hier';
+    return d.toLocaleDateString(ecDateLocale(),{day:'numeric',month:'long'});
   }
-  return "Aujourd'hui";
+  return t('tx_today')||"Aujourd'hui";
 }
 
 function ecNormDateKey(dateStr){
