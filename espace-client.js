@@ -241,7 +241,7 @@ function ecTxDisplayName(tx){
   return label.trim()||'—';
 }
 
-var EC_FIDEXICO_AVATAR = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="36" height="36" style="border-radius:7px;display:block"><rect width="32" height="32" rx="7" fill="#0C2D5E"/><text x="16" y="23" font-family="\'Arial Black\',Arial,sans-serif" font-size="20" font-weight="900" text-anchor="middle" fill="#FFFFFF" letter-spacing="-0.5">F</text></svg>';
+var EC_FIDEXICO_AVATAR = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" style="border-radius:50%;display:block"><circle cx="16" cy="16" r="16" fill="#0C2D5E"/><text x="16" y="22" font-family="\'Arial Black\',Arial,sans-serif" font-size="18" font-weight="900" text-anchor="middle" fill="#FFFFFF">F</text></svg>';
 
 function ecTranslateStoredLabel(label){
   if(!label) return label;
