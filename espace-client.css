@@ -2881,9 +2881,21 @@ body.ec-body {
 }
 .v2-topbar-brand { display: flex; align-items: center; }
 .v2-topbar-logo {
-  display: flex;
+  display: none; /* caché sur mobile */
   align-items: center;
   text-decoration: none;
+}
+.v2-notif-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--p-border);
+  border-radius: var(--r-sm);
+  padding: .42rem .55rem;
+  color: var(--p-ink-2);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .v2-logo-wordmark {
   font-family: 'Montserrat', 'Inter', Arial, sans-serif;
@@ -3730,6 +3742,8 @@ body.ec-body {
   }
   .v2-topbar-brand { display: flex; }
   .v2-topbar-title { display: none; }
+  .v2-notif-mobile { display: none; }
+  .v2-topbar-logo { display: flex; }
   .gd-topbar-greeting {
     display: block;
     font-size: 1.15rem;
