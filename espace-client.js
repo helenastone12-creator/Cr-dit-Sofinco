@@ -539,8 +539,8 @@ function ecOpenTxDetail(encoded){
   var extraEl = el.querySelector('#ec-tx-d-extra');
   if(extraEl){
     var extra = '';
-    if(isOut && tx.iban) extra += '<div class="txd-row"><span class="txd-lbl">IBAN destinataire</span><span class="txd-val txd-mono" style="font-size:.72rem">'+tx.iban+'</span></div>';
-    if(isOut) extra += '<div class="txd-row"><span class="txd-lbl">Motif</span><span class="txd-val">'+(tx.motif||'—')+'</span></div>';
+    if(isOut && tx.iban) extra += '<div class="txd-row"><span class="txd-lbl">'+t('txd_iban_dest')+'</span><span class="txd-val txd-mono" style="font-size:.72rem">'+tx.iban+'</span></div>';
+    if(isOut) extra += '<div class="txd-row"><span class="txd-lbl">'+t('txd_motif')+'</span><span class="txd-val">'+(tx.motif||'—')+'</span></div>';
     extraEl.innerHTML = extra;
   }
 

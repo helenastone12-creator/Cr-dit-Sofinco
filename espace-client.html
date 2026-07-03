@@ -585,39 +585,39 @@
       </div>
       <!-- Details section -->
       <div class="txd-section">
-        <div class="txd-section-title">Détails de la transaction</div>
+        <div class="txd-section-title" data-i18n="txd_details_title">Détails de la transaction</div>
         <div class="txd-rows" id="ec-tx-d-rows">
-          <div class="txd-row"><span class="txd-lbl">Statut</span><span class="txd-val"><span class="txd-status-badge"><span class="txd-status-dot"></span> Complété</span></span></div>
+          <div class="txd-row"><span class="txd-lbl" data-i18n="txd_status_lbl">Statut</span><span class="txd-val"><span class="txd-status-badge"><span class="txd-status-dot"></span> <span data-i18n="txd_completed">Complété</span></span></span></div>
           <div class="txd-row"><span class="txd-lbl" id="ec-tx-d-recv-lbl">Montant reçu</span><span class="txd-val txd-val--bold" id="ec-tx-d-recv-amt">—</span></div>
-          <div class="txd-row"><span class="txd-lbl">Nom du compte</span><span class="txd-val txd-val--bold" id="ec-tx-d-label">—</span></div>
-          <div class="txd-row" id="ec-tx-d-ref-row"><span class="txd-lbl">Référence</span><span class="txd-val txd-mono" id="ec-tx-d-ref">—</span></div>
+          <div class="txd-row"><span class="txd-lbl" data-i18n="txd_account_name">Nom du compte</span><span class="txd-val txd-val--bold" id="ec-tx-d-label">—</span></div>
+          <div class="txd-row" id="ec-tx-d-ref-row"><span class="txd-lbl" data-i18n="tx_detail_ref">Référence</span><span class="txd-val txd-mono" id="ec-tx-d-ref">—</span></div>
           <div id="ec-tx-d-extra"></div>
         </div>
       </div>
       <!-- Timeline section -->
       <div class="txd-section">
-        <div class="txd-section-title">Délai</div>
+        <div class="txd-section-title" data-i18n="txd_delay">Délai</div>
         <div class="txd-timeline">
           <div class="txd-tl-item">
             <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="txd-tl-line"></div>
-            <div class="txd-tl-body"><div class="txd-tl-title">Transaction initiée</div><div class="txd-tl-sub">Vous avez effectué une transaction</div><div class="txd-tl-date" id="ec-tx-tl-date1">—</div></div>
+            <div class="txd-tl-body"><div class="txd-tl-title" data-i18n="txd_tl1_title">Transaction initiée</div><div class="txd-tl-sub" data-i18n="txd_tl1_sub">Vous avez effectué une transaction</div><div class="txd-tl-date" id="ec-tx-tl-date1">—</div></div>
           </div>
           <div class="txd-tl-item">
             <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="txd-tl-line"></div>
-            <div class="txd-tl-body"><div class="txd-tl-title">Traitement en cours</div><div class="txd-tl-sub">Les fonds ont été envoyés au destinataire</div><div class="txd-tl-date" id="ec-tx-tl-date2">—</div></div>
+            <div class="txd-tl-body"><div class="txd-tl-title" data-i18n="txd_tl2_title">Traitement en cours</div><div class="txd-tl-sub" data-i18n="txd_tl2_sub">Les fonds ont été envoyés au destinataire</div><div class="txd-tl-date" id="ec-tx-tl-date2">—</div></div>
           </div>
           <div class="txd-tl-item txd-tl-item--last">
             <div class="txd-tl-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div class="txd-tl-body"><div class="txd-tl-title">Paiement complété</div><div class="txd-tl-sub">Le compte a été crédité</div><div class="txd-tl-date" id="ec-tx-tl-date3">—</div></div>
+            <div class="txd-tl-body"><div class="txd-tl-title" data-i18n="txd_tl3_title">Paiement complété</div><div class="txd-tl-sub" data-i18n="txd_tl3_sub">Le compte a été crédité</div><div class="txd-tl-date" id="ec-tx-tl-date3">—</div></div>
           </div>
         </div>
       </div>
       <!-- Actions -->
       <div class="txd-actions">
-        <button class="txd-btn-primary" id="ec-tx-pdf-btn">Partager le reçu</button>
-        <button class="txd-btn-secondary" onclick="ecCloseModal('tx')">Fermer</button>
+        <button class="txd-btn-primary" id="ec-tx-pdf-btn" data-i18n="txd_share_btn">Partager le reçu</button>
+        <button class="txd-btn-secondary" onclick="ecCloseModal('tx')" data-i18n="btn_close">Fermer</button>
       </div>
     </div>
   </div>
