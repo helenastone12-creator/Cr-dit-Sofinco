@@ -2886,12 +2886,15 @@ body.ec-body {
   text-decoration: none;
 }
 .v2-logo-wordmark {
-  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Montserrat', 'Inter', Arial, sans-serif;
   font-size: 1.45rem;
   font-weight: 800;
   color: #0C2D5E;
-  letter-spacing: -.04em;
+  letter-spacing: -.5px;
   line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 .v2-topbar-title {
   display: none;

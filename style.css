@@ -164,7 +164,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 .mob-close-btn svg{display:block}
 .mob-close-btn span{font-size:.65rem;font-weight:700;color:var(--navy);letter-spacing:.03em}
-.mob-mhd-logo{font-family:'Montserrat',Arial,sans-serif;font-size:1.45rem;font-weight:800;letter-spacing:-.5px;color:#0C2D5E;text-decoration:none;font-variant:small-caps;}
+.mob-mhd-logo{font-family:'Montserrat',Arial,sans-serif;font-size:1.45rem;font-weight:800;letter-spacing:-.5px;color:#0C2D5E;text-decoration:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;}
 .mob-search-btn{
   min-width:52px;background:none;border:none;cursor:pointer;color:var(--navy);
   display:flex;justify-content:flex-end;
@@ -849,7 +849,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 /* Header fixe en haut */
 .sim-ph{position:relative;flex-shrink:0;background:#fff;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;padding:.9rem 1rem;min-height:52px}
-.sim-ph-logo{font-family:'Montserrat',Arial,sans-serif;font-size:1.25rem;font-weight:800;letter-spacing:-.5px;border:none;cursor:pointer;padding:0;background:none;color:#0C2D5E;font-variant:small-caps;}
+.sim-ph-logo{font-family:'Montserrat',Arial,sans-serif;font-size:1.25rem;font-weight:800;letter-spacing:-.5px;border:none;cursor:pointer;padding:0;background:none;color:#0C2D5E;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;}
 .sim-ph-quit{position:absolute;right:1rem;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline;padding:.3rem}
 .sim-ph-quit:hover{color:var(--orange)}
 /* Body — zone scrollable iOS-safe */
