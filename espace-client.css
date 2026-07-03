@@ -2883,14 +2883,16 @@ body.ec-body {
 .v2-topbar-logo {
   display: flex;
   align-items: center;
-  gap: .5rem;
-  font-size: .9rem;
-  font-weight: 800;
-  color: var(--p-ink);
   text-decoration: none;
-  letter-spacing: -.02em;
 }
-.v2-topbar-logo img { border-radius: 7px; }
+.v2-logo-wordmark {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0C2D5E;
+  letter-spacing: -.04em;
+  line-height: 1;
+}
 .v2-topbar-title {
   display: none;
   flex: 1;
