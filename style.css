@@ -78,8 +78,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   font-size:1.55rem;font-weight:800;letter-spacing:-.5px;
   color:#0C2D5E;
   text-decoration:none;
-  font-variant:small-caps;
-}
+  }
 /* droite */
 .hd-right{display:flex;align-items:center;gap:.5rem}
 /* mobile : cacher les éléments desktop */
