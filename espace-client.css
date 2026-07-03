@@ -2918,6 +2918,12 @@ body.ec-body {
   color: var(--p-ink-2);
   transition: background .15s, border-color .15s;
 }
+.v2-topbar-notif {
+  display: inline-flex;
+  padding: .42rem .55rem;
+  position: relative;
+}
+.v2-topbar-notif .v2-notif-label { display: none; }
 .v2-topbar-ghost:hover { background: var(--p-bg); border-color: var(--p-border-2); }
 .v2-topbar-primary {
   display: none;
@@ -3730,6 +3736,8 @@ body.ec-body {
   .v2-topbar-ghost,
   .v2-topbar-primary { display: inline-flex; }
   .v2-topbar-avatar { display: none; }
+  .v2-topbar-notif { padding: .42rem .8rem; }
+  .v2-topbar-notif .v2-notif-label { display: inline; }
 
   /* ── Greeting above hero ── */
   .v2-hero-greeting-above {
